@@ -6,10 +6,10 @@
 %bcond_with	cvs		# use cvs checkouts instead of tarballs
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040601
+%define		_snap		040603
 %define		_packager	adgor
 
-%define		_minlibsevr	9:3.2.90.030601
+%define		_minlibsevr	9:3.2.90.030603
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -1514,6 +1514,8 @@ fi
 #%attr(0755,root,root) %{_libdir}/kde3/kcm_fileshare.so
 %{_libdir}/kde3/kcm_input.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_input.so
+%{_libdir}/kde3/kcm_joystick.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_joystick.so
 %{_libdir}/kde3/kcm_keyboard.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_keyboard.so
 %{_libdir}/kde3/kcm_keys.la
@@ -1653,6 +1655,7 @@ fi
 %{_desktopdir}/kde/desktoppath.desktop
 %{_desktopdir}/kde/display.desktop
 #%{_desktopdir}/kde/fileshare.desktop
+%{_desktopdir}/kde/joystick.desktop
 %{_desktopdir}/kde/kcmaccess.desktop
 %{_desktopdir}/kde/kcmlaunch.desktop
 %{_desktopdir}/kde/kcmsmserver.desktop
