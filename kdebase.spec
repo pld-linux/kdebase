@@ -393,7 +393,7 @@ Summary:	TODO
 Summary(pl):	TODO
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs = 9:%{version}
+Requires:	kdelibs >= 9:%{version}
 Obsoletes:	%{name}-desktop < 9:3.1.92.031006
 
 %description desktop-libs
