@@ -4,10 +4,9 @@
 %bcond_without	ldap		# build or not ldap ioslave
 %bcond_with	kwin_shadow	# experimental support for kwin shadows
 
-%define		_state		unstable
-%define		_ver		3.3.92
-%define         _snap           050217
-%define		_minlibsevr	9:3.3.92.050217
+%define		_state		stable
+%define		_ver		3.4.0
+%define		_minlibsevr	9:3.4.0
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -19,15 +18,13 @@ Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
-Version:	%{_ver}.%{_snap}
-#Version:	%{_ver}
-Release:	1
+Version:	%{_ver}
+Release:	0.1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-Source0:	http://ftp.pld-linux.org/software/kde/%{name}-%{_snap}.tar.bz2
-#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{_ver}.tar.bz2
-#%% Source0-md5:	079120d41e7d4f4453b3fb2398f4d4c9
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{_ver}.tar.bz2
+# Source0-md5:	c88659e558ca98dc45377bf8ddfc26c9
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -997,8 +994,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 - listê przestrzeni nazw (namespace)
 
 %prep
-%setup -q -n %{name}-%{_snap}
-#%setup -q
+%setup -q
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -1180,8 +1176,8 @@ mv $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop 
 #EOF
 
 # Some order with desktop files
-mv $RPM_BUILD_ROOT%{_datadir}/applnk/System/kinfocenter.desktop \
-	$RPM_BUILD_ROOT%{_desktopdir}/kde
+#mv $RPM_BUILD_ROOT%{_datadir}/applnk/System/kinfocenter.desktop \
+#	$RPM_BUILD_ROOT%{_desktopdir}/kde
 
 # TODO
 mv $RPM_BUILD_ROOT%{_desktopdir}/kde/print{ers,mgr}.desktop
