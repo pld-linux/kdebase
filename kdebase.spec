@@ -27,7 +27,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	2
+Release:	3
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -107,8 +107,9 @@ Requires(post,postun):	/sbin/ldconfig
 Requires:	applnk >= 1.5.16
 Requires:	kde-splash
 Requires:       kde-sdscreen
-Requires:	konqueror = %{version}-%{release}
 Requires:	%{name}-kcheckpass = %{version}-%{release}
+Requires:	%{name}-kdesktop_lock = %{version}-%{release}
+Requires:	konqueror = %{version}-%{release}
 #
 Obsoletes:	%{name}-fonts
 Obsoletes:	%{name}-khelpcenter
@@ -295,8 +296,8 @@ Zaawansowany edytor tekstu dla KDE.
 Summary:	KDE User Autentication 
 Summary(pl):	Uwierzytelnianie u¿ytkowników dla KDE
 Group:		X11/Applications
-Obsoletes:	%{name} < 3.0.9-2.4
 Requires:	pam
+Obsoletes:	%{name} =< 3.1.1a-1
 
 %description kcheckpass
 KDE User Autentication.
@@ -316,6 +317,21 @@ KDE Control Center.
 
 %description kcontrol -l pl
 Narzêdzie do konfigurowania aplikacji KDE.
+
+%package kdesktop_lock
+Summary:	Allows to lock Your desktop
+Summary(pl):	Pozwala na zablokowanie biurka
+Group:		X11/Applications
+Requires:	kdelibs >= %{version}
+Obsoletes:	%{name} =< 3.1.1a-2
+
+%description kdesktop_lock
+A small application that allows You to lock Your desktop.
+It's required by kdebase and by kdebase-screensavers.
+
+%description kdesktop_lock -l pl
+Ma³a aplikacja umozliwiajaca zablokowanie biurka.
+Jest wymagana przez kdebase jak i kdebase-screensavers.
 
 %package kdeprintfax
 Summary:	KDE Fax Tool
@@ -412,6 +428,7 @@ Group:		X11/Applications
 Requires:	OpenGL
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-kcheckpass = %{version}-%{release}
+Requires:	%{name}-kdesktop_lock = %{version}-%{release}
 Requires:	%{name}-kcontrol = %{version}-%{release}
 
 %description screensavers
@@ -1001,7 +1018,12 @@ fi
 %lang(en) %{_htmldir}/en/kcontrol/index.*
 %lang(en) %{_htmldir}/en/kcontrol/screenshot.png
 
+%files kdesktop_lock
+%defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/kdesktop_lock
+
 %files kdeprintfax
+%defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kdeprintfax
 %dir %{_datadir}/apps/kdeprintfax
 %attr(0755,root,root) %{_datadir}/apps/kdeprintfax/anytops
