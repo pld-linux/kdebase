@@ -4,7 +4,7 @@ Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Summary(pt_BR):	K Desktop Environment - arquivos básicos
 Name:		kdebase
 Version:	2.2.2
-Release:	4
+Release:	5
 Epoch:		6
 License:	GPL
 Group:		X11/Applications
@@ -57,6 +57,7 @@ BuildRequires:	db3-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
 Prereq:		/sbin/ldconfig
+Prereq:		/usr/X11R6/bin/mkfontdir
 Requires:	applnk
 Requires:	konqueror
 Obsoletes:	%{name}-kcontrol
