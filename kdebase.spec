@@ -205,10 +205,9 @@ EOF
 rm -rf $RPM_BUILD_ROOT%{_applnkdir}/{Editors,Toys}
 
 # make compatibile with GNOME
-find $RPM_BUILD_ROOT%{_applnkdir} -name '.directory' -exec echo "Type=Directory" >> {}  \;
 for a in `find $RPM_BUILD_ROOT%{_applnkdir} -name '.directory'`; do
         cat $a |sed -n '/^Icon=/!p' > $a.
-        echo >> $a.
+        echo "Type=Directory" >> $a.
         cat $a |awk '/^Icon/ {print $1".png" }' >> $a.
         mv -f $a. $a
 done
