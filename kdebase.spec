@@ -20,7 +20,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -281,7 +281,7 @@ Summary:	KDE IMAP4 protocol service
 Summary(pl):	Obs³uga protoko³u IMAP4
 Group:		X11/Libraries
 Requires:	kdelibs >= %{_minlibsevr}
-Conflicts:	kdebase-mailnews
+Obsoletes:	kdebase-mailnews
 
 %description -n kde-kio-imap4
 KDE IMAP4 protocol service.
@@ -307,7 +307,7 @@ Summary:	KDE NNTP protocol service
 Summary(pl):	Obs³uga protoko³u NNTP
 Group:		X11/Libraries
 Requires:	kdelibs >= %{_minlibsevr}
-Conflicts:	kdebase-mailnews
+Obsoletes:	kdebase-mailnews
 
 %description -n kde-kio-nntp
 KDE NNTP protocol service.
@@ -320,7 +320,7 @@ Summary:	KDE POP3 protocol service
 Summary(pl):	Obs³uga protoko³u POP3
 Group:		X11/Libraries
 Requires:	kdelibs >= %{_minlibsevr}
-Conflicts:	kdebase-mailnews
+Obsoletes:	kdebase-mailnews
 
 %description -n kde-kio-pop3
 KDE POP3 protocol service.
@@ -333,7 +333,7 @@ Summary:	KDE SMTP protocol service
 Summary(pl):	Obs³uga protoko³u SMTP
 Group:		X11/Libraries
 Requires:	kdelibs >= %{_minlibsevr}
-Conflicts:	kdebase-mailnews
+Obsoletes:	kdebase-mailnews
 
 %description -n kde-kio-smtp
 KDE SMTP protocol service.
