@@ -615,7 +615,7 @@ fi
 %{_pixmapsdir}/*/*/filesystems/*
 
 # Few docs:
-/usr/share/doc/kde/HTML/*/*/*
+#/usr/share/doc/kde/HTML/*/*/*
 
 # TODO:	file /usr/share/fonts/misc/9x15.pcf.gz from install of kdebase-3.0.3
 # 	conflicts with file from package XFree86-fonts-4.2.0.
