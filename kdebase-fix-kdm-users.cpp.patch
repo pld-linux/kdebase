@@ -1,5 +1,16 @@
 --- kdebase-3.1/kcontrol/kdm/kdm-users.cpp.orig	Mon Nov 18 14:14:28 2002
-+++ kdebase-3.1/kcontrol/kdm/kdm-users.cpp	Sat Nov 23 08:34:11 2002
++++ kdebase-3.1/kcontrol/kdm/kdm-users.cpp	Thu Nov 28 16:44:42 2002
+@@ -354,8 +354,8 @@
+ 
+     config->writeEntry( "FaceSource",
+ 	rbadmonly->isChecked() ? "AdminOnly" :
+-	rbprefadm->isChecked() ? "PrefAdmin" :
+-	rbprefusr->isChecked() ? "PrefUser" : "UserOnly" );
++	rbprefadm->isChecked() ? "PreferAdmin" :
++	rbprefusr->isChecked() ? "PreferUser" : "UserOnly" );
+ }
+ 
+ 
 @@ -442,11 +442,11 @@
  	rballusr->setChecked(true);
  
@@ -8,10 +19,10 @@
 +    if (ps == QString::fromLatin1("UserOnly"))
  	rbusronly->setChecked(true);
 -    else if (su == QString::fromLatin1("PrefUser"))
-+    else if (ps == QString::fromLatin1("PrefUser"))
++    else if (ps == QString::fromLatin1("PreferUser"))
  	rbprefusr->setChecked(true);
 -    else if (su == QString::fromLatin1("PrefAdmin"))
-+    else if (ps == QString::fromLatin1("PrefAdmin"))
++    else if (ps == QString::fromLatin1("PreferAdmin"))
  	rbprefadm->setChecked(true);
      else
  	rbadmonly->setChecked(true);
