@@ -22,7 +22,7 @@ BuildPrereq:	pam-devel
 BuildPrereq:	Mesa-devel
 Requires:    	qt >= 1.44
 Requires:	kdelibs = %{version}
-BuildRoot:	/tmp/%{name}-%{version}-root
+BuildRoot:   	/tmp/%{name}-%{version}-root
 
 %define _prefix	/usr/X11R6
 
@@ -161,7 +161,7 @@ Edytor menu systemowego KDE.
 Summary:     	KDE Panel	
 Summary(pl): 	Panel KDE
 Group:       	X11/KDE/Base
-Requires:    	kfm = %{version}
+Requires:    	kdebase-kfm = %{version}
 Requires:	qt >= 1.44
 Requires:	kdelibs = %{version} 
 
@@ -248,7 +248,7 @@ Przyk³adowe tapety s± tak¿e do³±czone
 export KDEDIR=%{_prefix}
 CXXFLAGS="$RPM_OPT_FLAGS -fno-rtti -fno-exceptions" \
 CFLAGS="$RPM_OPT_FLAGS -Wall" \
-./configure %{_target_platform} \
+./configure %{_target} \
 	--prefix=$KDEDIR \
  	--with-pam="yes"
 make KDEDIR=$KDEDIR
@@ -266,22 +266,22 @@ install -d ${RPM_BUILD_ROOT}/etc/X11/kde
 install ${RPM_SOURCE_DIR}/kdeenv $RPM_BUILD_ROOT%{_bindir}/kdeenv
 
 #### kdebase - main package find_lang
-%find_lang krootwm %{_builddir}/krootwm.lang
-%find_lang kcmsample %{_builddir}/kcmsample.lang
-%find_lang kcmdisplay %{_builddir}/kcmdisplay.lang
-%find_lang kstart %{_builddir}/kstart.lang
-%find_lang konsole %{_builddir}/konsole.lang
+%find_lang krootwm krootwm.lang
+%find_lang kcmsample kcmsample.lang
+%find_lang kcmdisplay kcmdisplay.lang
+%find_lang kstart kstart.lang
+%find_lang konsole konsole.lang
 %find_lang kwm 
 %find_lang kcmkwm 
 %find_lang kpager 
 %find_lang kcmsyssound 
-cat kwm.lang kcmkwm.lang kpager.lang kcmsyssound.lang >  %{_builddir}/_kwm.lang
-%find_lang kbgndwm %{_builddir}/kbgndwm.lang
-%find_lang kdehelp %{_builddir}/kdehelp.lang
+cat kwm.lang kcmkwm.lang kpager.lang kcmsyssound.lang >  _kwm.lang
+%find_lang kbgndwm kbgndwm.lang
+%find_lang kdehelp kdehelp.lang
 %find_lang kfm
 %find_lang kcmkfm
-cat kfm.lang kcmkfm.lang > %{_builddir}/_kfm.lang
-%find_lang kfind %{_builddir}/kfind.lang
+cat kfm.lang kcmkfm.lang > _kfm.lang
+%find_lang kfind kfind.lang
 %find_lang kcontrol 
 %find_lang kcmbell
 %find_lang kcminfo
@@ -289,16 +289,16 @@ cat kfm.lang kcmkfm.lang > %{_builddir}/_kfm.lang
 %find_lang kcminput
 %find_lang kcmlocale
 %find_lang kcmsamba
-cat kcontrol.lang kcmbell.lang kcminfo.lang kcmkeys.lang kcminput.lang kcmlocale.lang kcmsamba.lang > %{_builddir}/_kcontrol.lang
-%find_lang klock %{_builddir}/klock.lang
-%find_lang kvt %{_builddir}/kvt.lang
-%find_lang kmenuedit %{_builddir}/kmenuedit.lang
-%find_lang kpanel %{_builddir}/kpanel.lang
-%find_lang kcmkpanel %{_builddir}/kcmkpanel.lang
-%find_lang kdm %{_builddir}/kdm.lang
-%find_lang kdmconfig %{_builddir}/kdmconfig.lang
-%find_lang kfontmanager %{_builddir}/kfontmanager.lang
-%find_lang kikbd %{_builddir}/kikbd.lang
+cat kcontrol.lang kcmbell.lang kcminfo.lang kcmkeys.lang kcminput.lang kcmlocale.lang kcmsamba.lang > _kcontrol.lang
+%find_lang klock klock.lang
+%find_lang kvt kvt.lang
+%find_lang kmenuedit kmenuedit.lang
+%find_lang kpanel kpanel.lang
+%find_lang kcmkpanel kcmkpanel.lang
+%find_lang kdm kdm.lang
+%find_lang kdmconfig kdmconfig.lang
+%find_lang kfontmanager kfontmanager.lang
+%find_lang kikbd kikbd.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -413,9 +413,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kde/icons/style.xpm
 %{_datadir}/kde/icons/tablet.xpm
 %{_datadir}/kde/icons/titlebar.xpm
-
-#config files
-%config /etc/X11/kde/kdisplayrc
 
 # KDE menu
 %config(missingok) /etc/X11/kde/applnk/System/.directory
@@ -910,12 +907,16 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kikbd
 
 %changelog
-* Mon May 24 1999 Wojciech "Sas" Cieciwa <cieciwa@alpha.zarz.agh.edu.pl>
+* Fri Jun 25 1999 Wojciech "Sas" Ciêciwa <cieciwa@alpha.zarz.agh.edu.pl>
+  [1.1.1-2]
+- fixes problem with kpanel and kfm.
+
+* Mon May 24 1999 Wojciech "Sas" Ciêciwa <cieciwa@alpha.zarz.agh.edu.pl>
   [1.1.1-2]
 - fixes problem with locale files uses macro '%find_lang',
 - fixes file locations.
 
-* Tue May 18 1999 Wojciech "Sas" Cieciwa <cieciwa@alpha.zarz.agh.edu.pl>
+* Tue May 18 1999 Wojciech "Sas" Ciêciwa <cieciwa@alpha.zarz.agh.edu.pl>
   [1.1.1-1]
 - fixes locale files,
 - fixes install part.
