@@ -9,17 +9,6 @@
          termLine->setText(str);
  
          str = co->readEntry("KeyTab","");
---- kdebase-030317/konsole/konsole.desktop~	Mon Mar  3 00:44:51 2003
-+++ kdebase-030317/konsole/konsole.desktop	Tue Mar 18 10:17:30 2003
-@@ -1,7 +1,7 @@
- [Desktop Entry]
- Encoding=UTF-8
- Type=Application
--Exec=konsole
-+Exec=konsole --ls
- Icon=konsole
- DocPath=konsole/index.html
- Terminal=0
 --- kdebase-030518/konsole/konsole/konsole.cpp~	2003-05-06 00:34:51.000000000 +0200
 +++ kdebase-030518/konsole/konsole/konsole.cpp	2003-05-21 20:22:44.000000000 +0200
 @@ -832,7 +832,7 @@
@@ -80,14 +69,3 @@
     { "xwin",            I18N_NOOP("ignored"), 0 },
     { "noclose",         I18N_NOOP("Do not close Konsole when command exits"), 0 },
     { "nohist",          I18N_NOOP("Do not save lines in history"), 0 },
---- kdebase-040210/konsole/konsole/default.keytab.h.orig	2003-03-26 16:22:26.000000000 +0100
-+++ kdebase-040210/konsole/konsole/default.keytab.h	2004-02-11 00:01:10.000000000 +0100
-@@ -43,7 +43,7 @@
-   "\n"
-   "# Backspace and Delete codes are preserving CTRL-H.\n"
-   "\n"
--  "key Backspace      : \"\\x7f\"\n"
-+  "key Backspace      : \"\\x08\"\n"
-   "\n"
-   "# Arrow keys in VT52 mode\n"
-   "\n"
