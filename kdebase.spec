@@ -3,7 +3,7 @@
 
 %define		_ver		3.0.3
 #define		_sub_ver
-%define		_rel		1.5
+%define		_rel		1.6
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -610,10 +610,13 @@ fi
 %{_pixmapsdir}/*/*/devices/*
 %{_pixmapsdir}/*/*/filesystems/*
 
-# TODO:	file /usr/share/fonts/misc/9x15.pcf.gz from install of kdebase-2.0.1-3
-# 	conflicts with file from package XFree86-fonts-4.0.1-2.
-# TODO:	there is a name conflict between cursor_large and cursor from XFree86.
+# Few docs:
+/usr/share/doc/kde/HTML/*/*/*
+
+# TODO:	file /usr/share/fonts/misc/9x15.pcf.gz from install of kdebase-3.0.3
+# 	conflicts with file from package XFree86-fonts-4.2.0-7 (was earlier)
 %{_fontdir}/misc/console8*.gz
+%{_fontdir}/misc/cursor_large*.gz
 #%{_fontdir}/misc/*.gz
 
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kscreensaver
