@@ -11,7 +11,7 @@
 %define		_state		stable
 %define		_ver		3.1.4
 
-%define		_kdelibsminrel	0.1
+%define		_kdelibsminrel	1
 
 %ifarch	sparc sparcv9 sparc64
 %define		_without_alsa	1
@@ -28,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -116,6 +116,7 @@ Requires(post,postun):	/sbin/ldconfig
 Requires:	applnk >= 1.5.16
 Requires:	kde-splash
 Requires:	kde-sdscreen
+Requires:	%{name}-kwin_plugin
 Requires:	konqueror = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name}-fonts
 Obsoletes:	%{name}-kcheckpass
@@ -174,6 +175,21 @@ ftp-ËÌ¦ÅÎÔ, ...), konsole (ÚÁÍ¦ÎÁ xterm), kicker (ÚÁÐÕÓËÁÌËÁ ÐÒÏÇÒÁÍ
 (ÓÉÓÔÅÍÁ ÄÌÑ ËÅÒÕ×ÁÎÎÑ ÁÌØÔÅÒÎÁÔÉ×ÎÉÍÉ ÐÁËÅÔÁÍÉ ÔÅÍ) ÔÁ ¦ÎÛ¦
 ËÏÍÐÏÎÅÎÔÉ KDE (kcheckpass, kikbd, kscreensaver, kcontrol, kfind,
 kfontmanager, kmenuedit, kappfinder).
+
+%package kwin_plugin
+Summary:	Files for kwin decoration packages
+Summary(pl):	Pliki dla pakietów dekoracyjnych dla kwin
+Group:		X11/Development/Libraries
+Requires:	kdelibs >= 8:%{version}
+Obsoletes:	kdebase-static
+
+%description kwin_plugin
+This package contains kwin.so and kwin.la files necessary for kwin
+decoration packages.
+
+%description kwin_plugin -l pl
+Pakiet zawiera pliki kwin.so i kwin.la niezbêdne dla pakietów
+dekoracyjnych dla kwin.
 
 %package devel
 Summary:	Include files to develop KDE applications
@@ -620,6 +636,7 @@ Summary:	Desktop Theme Manager
 Summary(pl):	Zarz±dca motywów biurka
 Group:		X11/Applications
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+#Requires:	%{name}-kwin_plugin
 
 %description kwmtheme
 KDE Desktop Theme Manager. This package contains also a few desktop
@@ -687,7 +704,8 @@ Summary:	Konqueror library files
 Summary(pl):	Biblioteki wykorzystywane przez konquerora
 Group:		X11/Libraries
 Requires:	kdelibs >= 8:%{version}-%{_kdelibsminrel}
-Obsoletes:	konqueror < 3.1.2
+Conflicts:	konqueror < 8:3.1.4-2
+#Obsoletes:	konqueror < 3.1.2
 
 %description libkonq
 Libraries containing functions used by konqueror.
@@ -1119,8 +1137,6 @@ fi
 %{_libdir}/khotkeys.la
 %attr(755,root,root) %{_libdir}/ksmserver.so
 %{_libdir}/ksmserver.la
-%attr(755,root,root) %{_libdir}/kwin.so
-%{_libdir}/kwin.la
 %attr(755,root,root) %{_libdir}/kxkb.so
 %{_libdir}/kxkb.la
 # plugins
@@ -1323,6 +1339,11 @@ fi
 %{_pixmapsdir}/spellcheck.png
 %{_pixmapsdir}/style.png
 %{_pixmapsdir}/usb.png
+
+%files kwin_plugin
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kwin.so
+%{_libdir}/kwin.la
 
 %files devel
 %defattr(644,root,root,755)
@@ -1861,8 +1882,9 @@ fi
 
 %files libkonq -f libkonq.lang
 %defattr(644,root,root,755)
-# shared library (.la in -devel)
+# shared libraries (.la in -devel)
 %attr(755,root,root) %{_libdir}/libkonq.so.*.*.*
+%attr(755,root,root) %{_libdir}/libkonqsidebarplugin.so.*.*.*
 # plugin
 %attr(755,root,root) %{_libdir}/kde3/konq_sound.so
 %{_libdir}/kde3/konq_sound.la
@@ -1934,8 +1956,6 @@ fi
 %attr(755,root,root) %{_bindir}/konqueror
 %attr(755,root,root) %{_bindir}/nspluginscan
 %attr(755,root,root) %{_bindir}/nspluginviewer
-# shared library (.la in -devel)
-%attr(755,root,root) %{_libdir}/libkonqsidebarplugin.so.*.*.*
 # shared, possibly (lt_)dlopened library
 %attr(755,root,root) %{_libdir}/libnsplugin.so.*.*.*
 %{_libdir}/libnsplugin.la
