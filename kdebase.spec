@@ -621,7 +621,7 @@ fi
 # TODO:	file /usr/share/fonts/misc/9x15.pcf.gz from install of kdebase-3.0.3
 # 	conflicts with file from package XFree86-fonts-4.2.0.
 %{_fontdir}/misc/console8*.gz
-%{_fontdir}/misc/cursor_large*.gz
+#%{_fontdir}/misc/cursor_large*.gz
 #%{_fontdir}/misc/*.gz
 
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kscreensaver
