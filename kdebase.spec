@@ -91,7 +91,7 @@ BuildRequires:	db3-devel
 BuildRequires:	ed
 BuildRequires:	findutils
 BuildRequires:	gettext-devel
-BuildRequires:	kdelibs-devel >= 8:%{version}
+BuildRequires:	kdelibs-devel >= 8:%{version}-4
 BuildRequires:	lame-libs-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
