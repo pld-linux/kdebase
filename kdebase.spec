@@ -15,7 +15,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.8
-Release:	2.1
+Release:	2.3	
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -38,7 +38,7 @@ Patch5:		%{name}-kdm.daemon_output.patch
 Patch6:		%{name}-kicker.patch
 # All console patches updated & merged in one
 Patch7:		%{name}-konsole_all.patch
-# updated
+# updated & corrected plugins available @ konqueror-plugin-*.rpm
 Patch8:		%{name}-nsplugins_dirs.patch
 %ifnarch sparc sparc64
 BuildRequires:	alsa-lib-devel
@@ -403,6 +403,9 @@ done
 #cat kwin.lang >> %{name}.lang
 #cat kio.lang >> %{name}.lang
 
+install -d $RPM_BUILD_ROOT%{_libdir}/kde3/konqueror
+install -d $RPM_BUILD_ROOT%{_libdir}/kde3/konqueror/plugins
+
 %post
 /sbin/ldconfig
 cd %{_fontdir}/misc
@@ -747,6 +750,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_libdir}/libkonq*.so*
 %attr(0755,root,root) %{_libdir}/libnsplugin.la
 %attr(0755,root,root) %{_libdir}/libnsplugin.so*
+
+%attr(0755,root,root) %{_libdir}/kde3/konqueror
 
 %attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.la
 %attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.so*
