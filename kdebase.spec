@@ -7,7 +7,7 @@
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040506
+%define		_snap		040508
 %define		_packager	adgor
 
 Summary:	K Desktop Environment - core files
@@ -26,9 +26,9 @@ Epoch:		9
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
-#Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
-Source0:	%{name}-%{_snap}.tar.bz2
-# Source0-md5:	f2daddee7c19b9ae8a267d6a385ce1a1
+Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
+#Source0:	%{name}-%{_snap}.tar.bz2
+##%% Source0-md5:	f2daddee7c19b9ae8a267d6a385ce1a1
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
