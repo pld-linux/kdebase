@@ -60,12 +60,14 @@ Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
 Patch20:	%{name}-kwin_shadow.patch
 BuildRequires:	OpenGL-devel
+BuildRequires:	OpenEXR-devel
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	awk
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
+BuildRequires:	dbus-qt-devel
 BuildRequires:	db-devel
 %{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	ed
@@ -73,16 +75,19 @@ BuildRequires:	findutils
 BuildRequires:	gettext-devel
 %{?with_apidocs:BuildRequires:	graphviz}
 BuildRequires:	grep
+BuildRequires:	hal-devel
 BuildRequires:	jasper-devel
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	lame-libs-devel
 BuildRequires:	libjpeg-devel
+BuildRequires:	lm_sensors-devel
 BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	libraw1394-devel
 BuildRequires:	libsmbclient-devel >= 3.0.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool
+BuildRequires:	libusb-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
@@ -1708,6 +1713,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_bell.so
 %{_libdir}/kde3/kcm_componentchooser.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_componentchooser.so
+%{_libdir}/kde3/kcm_kdnssd.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_kdnssd.so
 %{_libdir}/kde3/kcm_display.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_display.so
 %{_libdir}/kde3/kcm_energy.la
@@ -2078,6 +2085,8 @@ fi
 %{_datadir}/applnk/.hidden/kicker_config.desktop
 %{_datadir}/applnk/.hidden/kicker_config_appearance.desktop
 %{_datadir}/config.kcfg/taskbar.kcfg
+%{_desktopdir}/kde/kcm_kdnssd.desktop
+%{_desktopdir}/kde/kcmkicker.desktop
 %{_desktopdir}/kde/kcmtaskbar.desktop
 %{_desktopdir}/kde/panel.desktop
 %{_desktopdir}/kde/panel_appearance.desktop
@@ -2372,6 +2381,7 @@ fi
 %{_datadir}/apps/kscreensaver
 %{_desktopdir}/kde/screensaver.desktop
 %{_iconsdir}/*/*/apps/kscreensaver.png
+/etc/xdg/menus/kde-screensavers.menu
 
 %files useraccount
 %defattr(644,root,root,755)
