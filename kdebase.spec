@@ -316,7 +316,8 @@ fi
 #%attr(0755,root,root) %{_bindir}/l*
 %attr(0755,root,root) %{_bindir}/keditfiletype
 %attr(0755,root,root) %{_bindir}/kd[ce]*
-%attr(0755,root,root) %{_bindir}/konsole*
+%attr(0755,root,root) %{_bindir}/konsole
+%attr(4755,root,root) %{_bindir}/konsole_grantpty
 %attr(0755,root,root) %{_bindir}/khelpcenter
 %attr(0755,root,root) %{_bindir}/khotkeys
 %attr(0755,root,root) %{_bindir}/khtmlindex
@@ -385,8 +386,10 @@ fi
 %{_applnkdir}/KControl.desktop
 %{_applnkdir}/.hidden/konqfilemgr.desktop
 %{_applnkdir}/Amusements/*.desktop
+%dir %{_applnkdir}/Settings
 %{_applnkdir}/Settings/KDE/Help
 %{_applnkdir}/Settings/KDE/Information
+%dir %{_applnkdir}/Settings/KDE/LookNFeel
 %{_applnkdir}/Settings/KDE/LookNFeel/s[!c]*
 %{_applnkdir}/Settings/KDE/LookNFeel/[!s]*
 %{_applnkdir}/Settings/KDE/Network
@@ -394,6 +397,7 @@ fi
 %{_applnkdir}/Settings/KDE/Personalization
 %{_applnkdir}/Settings/KDE/PowerControl
 %{_applnkdir}/Settings/KDE/Sound
+%dir %{_applnkdir}/Settings/KDE/System
 %{_applnkdir}/Settings/KDE/System/k[!d]*
 %{_applnkdir}/Settings/KDE/System/[!k]*
 %{_applnkdir}/System/k[!o]*.desktop
@@ -438,8 +442,8 @@ fi
 # TODO:	file /usr/share/fonts/misc/9x15.pcf.gz from install of kdebase-2.0.1-3
 # 	conflicts with file from package XFree86-fonts-4.0.1-2.
 # TODO:	there is a name conflict between cursor_large and cursor from XFree86.
-#%{_fontdir}/misc/console8*.gz
-%{_fontdir}/misc/*.gz
+%{_fontdir}/misc/console8*.gz
+#%{_fontdir}/misc/*.gz
 
 %files devel
 %defattr(644,root,root,755)
