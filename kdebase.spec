@@ -142,9 +142,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 KDE specific files. Used by core KDE applications. Package includes:
 - KDE menu hierarchy,
-- kappfinder - script installing some non-KDE apps in KDE menu,
-- krootwm - module used by KWM and KFM,
-- kaudio - audio server for KDE.
+- kappfinder - script installing some non-KDE apps in KDE menu.
 
 %description -l ja
 KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ÍÑ¤Î´ğËÜ¥¢¥×¥ê¥±¡¼¥·¥ç¥ó¡£
@@ -155,9 +153,7 @@ Pliki specyficzne dla ¶rodowiska KDE i wykorzystywane przez g³ówne
 aplikacje KDE. Pakiet zawiera:
 - Hierarchiê menu KDE,
 - kappfinder - skrypt u³awiaj±cy uruchamianie niektórych programów
-  spoza KDE
-- krootwm - modu³ wykorzystywany przez kwm i kfm
-- kaudio - serwer d¼wiêku dla KDE.
+  spoza KDE.
 
 %description -l ru
 âÁÚÏ×ÙÅ ĞÒÏÇÒÁÍÍÙ ÄÌÑ K Desktop Environment. ÷ËÌÀŞÅÎÙ: kdm (ÚÁÍÅÎÁ
