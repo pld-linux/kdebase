@@ -68,6 +68,7 @@ BuildRequires:	qt-devel >= 3.0.3
 BuildRequires:	zlib-devel
 BuildRequires:	db3-devel
 BuildRequires:	libsmbclient-devel
+BuildRequires:	libxml2-progs
 # TODO: sensors
 #BuildRequires:	sensors-devel
 Prereq:		/sbin/ldconfig
