@@ -558,7 +558,7 @@ for f in `find $ALD -name '.directory' -o -name '*.dekstop'` ; do
 	mv -f $f{.tmp,}
 done
 
-bzip2 -dc %{SOURCE8} | tar xf - -C $RPM_BUILD_ROOT
+# bzip2 -dc %{SOURCE8} | tar xf - -C $RPM_BUILD_ROOT
 
 :> %{name}.lang
 
@@ -584,8 +584,8 @@ programs=" \
 	spellchecking taskbarextension windowmanagement"
 
 for i in $programs; do
-	%find_lang $i --with-kde
-	cat $i.lang >> %{name}.lang
+	# %%find_lang $i --with-kde
+	# cat $i.lang >> %{name}.lang
 done
 
 %find_lang konqueror	--with-kde
@@ -597,8 +597,8 @@ programs=" \
 	useragent"
 
 for i in $programs; do
-	%find_lang $i --with-kde
-	cat $i.lang >> konqueror.lang
+	# %%find_lang $i --with-kde
+	# cat $i.lang >> konqueror.lang
 done
 
 %find_lang	kcmkonsole	--with-kde
@@ -606,7 +606,7 @@ done
 cat kcmkonsole.lang >> konsole.lang
 
 %find_lang	screensaver	--with-kde
-%find_lang	kscreensaver	--with-kde
+#%%find_lang	kscreensaver	--with-kde
 cat kscreensaver.lang >> screensaver.lang
 
 %find_lang	kate		--with-kde
