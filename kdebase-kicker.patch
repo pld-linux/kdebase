@@ -1,25 +1,22 @@
---- kdebase-3.0.3.orig/kicker/core/default-apps	Fri Mar  8 02:16:47 2002
-+++ kdebase-3.0.3/kicker/core/default-apps	Tue Sep 10 22:51:59 2002
-@@ -1,11 +1,11 @@
--System/konsole.desktop
-+Terminals/konsole.desktop
- KControl.desktop
--Help.desktop
-+Help/Help.desktop
- Home.desktop
--Internet/konqbrowser.desktop
--Internet/KMail.desktop
-+Network/WWW/konqbrowser.desktop
-+Network/Mail/KMail.desktop
- Office/kword.desktop
- Office/kspread.desktop
- Office/kpresenter.desktop
- Office/kontour.desktop
--Editors/kate.desktop
-+Office/Editors/kate.desktop
---- kdebase-3.0.3.orig/kicker/core/containerarea.cpp	Mon Jun 24 13:56:45 2002
-+++ kdebase-3.0.3/kicker/core/containerarea.cpp	Tue Sep 10 22:58:10 2002
-@@ -137,17 +137,17 @@
+diff -ur kdebase-3.0.4.orig/kicker/applets/launcher/quicklauncher.cpp kdebase-3.0.4/kicker/applets/launcher/quicklauncher.cpp
+--- kdebase-3.0.4.orig/kicker/applets/launcher/quicklauncher.cpp	Thu Jan  3 21:29:36 2002
++++ kdebase-3.0.4/kicker/applets/launcher/quicklauncher.cpp	Tue Oct 29 23:54:52 2002
+@@ -66,9 +66,9 @@
+    }
+    else {
+       buttonList.append(new QuickButton(locate("apps", "Home.desktop"), this));
+-      buttonList.append(new QuickButton(locate("apps", "System/konsole.desktop"), this));
++      buttonList.append(new QuickButton(locate("apps", "Terminals/konsole.desktop"), this));
+       buttonList.append(new QuickButton(locate("apps", "KControl.desktop"), this));
+-      buttonList.append(new QuickButton(locate("apps", "Help.desktop"), this));
++      buttonList.append(new QuickButton(locate("apps", "Help/Help.desktop"), this));
+       buttonList.append(new QuickButton(locate("apps", "Editors/kwrite.desktop"), this));
+       saveConfig();
+    }
+diff -ur kdebase-3.0.4.orig/kicker/core/containerarea.cpp kdebase-3.0.4/kicker/core/containerarea.cpp
+--- kdebase-3.0.4.orig/kicker/core/containerarea.cpp	Mon Jun 24 13:56:45 2002
++++ kdebase-3.0.4/kicker/core/containerarea.cpp	Tue Oct 29 23:59:44 2002
+@@ -137,16 +137,16 @@
  
          f.close();
      } else {
@@ -31,30 +28,39 @@
          buttons << "Home.desktop";
 -        buttons << "Internet/konqbrowser.desktop";
 -        buttons << "Internet/KMail.desktop";
+-        buttons << "Office/kword.desktop";
+-        buttons << "Office/kspread.desktop";
+-        buttons << "Office/kpresenter.desktop";
+-        buttons << "Office/kontour.desktop";
 +        buttons << "Network/WWW/konqbrowser.desktop";
 +        buttons << "Network/Mail/KMail.desktop";
-         buttons << "Office/kword.desktop";
-         buttons << "Office/kspread.desktop";
-         buttons << "Office/kpresenter.desktop";
-         buttons << "Office/kontour.desktop";
--        buttons << "Editors/kate.desktop";
-+        buttons << "Office/Editors/kate.desktop";
++        buttons << "Office/Wordprocessors/kword.desktop";
++        buttons << "Office/Spreadsheets/kspread.desktop";
++        buttons << "Office/Presentation/kpresenter.desktop";
++        buttons << "Graphics/kontour.desktop";
+         buttons << "Editors/kate.desktop";
      }
  
-     int size = dsize;
---- kdebase-3.0.3.orig/kicker/applets/launcher/quicklauncher.cpp	Thu Jan  3 21:29:36 2002
-+++ kdebase-3.0.3/kicker/applets/launcher/quicklauncher.cpp	Tue Sep 10 23:01:30 2002
-@@ -66,10 +66,10 @@
-    }
-    else {
-       buttonList.append(new QuickButton(locate("apps", "Home.desktop"), this));
--      buttonList.append(new QuickButton(locate("apps", "System/konsole.desktop"), this));
-+      buttonList.append(new QuickButton(locate("apps", "Terminals/konsole.desktop"), this));
-       buttonList.append(new QuickButton(locate("apps", "KControl.desktop"), this));
--      buttonList.append(new QuickButton(locate("apps", "Help.desktop"), this));
--      buttonList.append(new QuickButton(locate("apps", "Editors/kwrite.desktop"), this));
-+      buttonList.append(new QuickButton(locate("apps", "Help/Help.desktop"), this));
-+      buttonList.append(new QuickButton(locate("apps", "Office/Editors/kwrite.desktop"), this));
-       saveConfig();
-    }
- 
+diff -ur kdebase-3.0.4.orig/kicker/core/default-apps kdebase-3.0.4/kicker/core/default-apps
+--- kdebase-3.0.4.orig/kicker/core/default-apps	Fri Mar  8 02:16:47 2002
++++ kdebase-3.0.4/kicker/core/default-apps	Wed Oct 30 00:03:16 2002
+@@ -1,11 +1,11 @@
+-System/konsole.desktop
++Terminals/konsole.desktop
+ KControl.desktop
+-Help.desktop
++Help/Help.desktop
+ Home.desktop
+-Internet/konqbrowser.desktop
+-Internet/KMail.desktop
+-Office/kword.desktop
+-Office/kspread.desktop
+-Office/kpresenter.desktop
+-Office/kontour.desktop
++Network/WWW/konqbrowser.desktop
++Network/Mail/KMail.desktop
++Office/Wordprocessors/kword.desktop
++Office/Spreadsheets/kspread.desktop
++Office/Presentation/kpresenter.desktop
++Graphics/kontour.desktop
+ Editors/kate.desktop
