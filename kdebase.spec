@@ -92,7 +92,6 @@ Requires:	kde-splash
 Requires:       kde-sdscreen
 Requires:	konqueror = %{version}-%{release}
 Requires:	%{name}-pam = %{version}-%{release}
-Requires:	%{name}-wallpapers = %{version}-%{release}
 #
 Obsoletes:	%{name}-fonts
 Obsoletes:	%{name}-khelpcenter
