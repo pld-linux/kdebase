@@ -9,7 +9,7 @@ Summary(ru):	K Desktop Environment - базовые файлы
 Summary(uk):	K Desktop Environment - базов╕ файли
 Name:		kdebase
 Version:	3.0.3
-Release:	2
+Release:	3
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -179,6 +179,7 @@ Group:		X11/Applications
 Requires:	qt >= 3.0.5
 Requires:	kdelibs >= %{version}
 Requires:	sessreg
+Requires:	xinitrc
 Prereq:		/sbin/chkconfig
 Obsoletes:	gdm
 Obsoletes:	xdm
