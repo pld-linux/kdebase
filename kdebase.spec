@@ -46,6 +46,7 @@ BuildRequires:	alsa-lib-devel
 %endif
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
+BuildRequires:	arts-devel >= 1.1
 BuildRequires:	arts-kde-devel
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
