@@ -1,4 +1,10 @@
 #
+# Look at kdm and possibilities of using it with:
+#   * sun's secure rpc (--with-rpcauth)
+#   * kerberos{4,5} (--with-krb{4,5}auth) 
+#   * builting console (--with-kdm-xconsole)
+#   * afs support (--with afs)
+# I dont use kdm, so if anyone this those are worth enabling, just do it -- djurban
 # Conditional build:
 %bcond_without	apidocs		# Do not prepare API documentation
 %bcond_without	ldap		# build or not ldap ioslave
@@ -32,13 +38,14 @@ Source4:	%{name}-kdm.Xsession
 Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-searchproviders.tar.bz2
-# Source8-md5:	fd3a2ec85aad6364796f5742ab8af1d9
+# Source8-md5:	5f5c25cd843a3956354eef7dcfa0c883
 Source9:	%{name}-colorschemes.tar.bz2
 # Source9-md5:	6a9cb98ac7ffcc6084c05a6885c75a25
 Source10:	%{name}-servicemenus.tar.bz2
 # Source10-md5:	5b113fe35bd3a46de31e451e285e86d3
 Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
+Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-fontdir.patch
 Patch2:		%{name}-kcm_background.patch
@@ -61,11 +68,12 @@ Patch19:	%{name}-konsole-default-keytab.patch
 Patch20:	%{name}-gcc4-konq_mainwindow.patch
 Patch21:	%{name}-seesar.patch
 BuildRequires:	OpenGL-devel
-BuildRequires:	OpenEXR-devel
+BuildRequires:	OpenEXR-devel >= 1.2.2
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	awk
+BuildRequires:	cyrus-sasl-devel
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
 BuildRequires:	dbus-qt-devel
@@ -94,6 +102,8 @@ BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	motif-devel
 BuildRequires:	openssl-devel >= 0.9.7c
+# kde requires libXext and more stuff that is X11-only juz grep X11 `find -name configure.in.in`
+BuildRequires:	X11-devel >= 1:6.8.1
 %{?with_ldap:BuildRequires:	openldap-devel}
 BuildRequires:	pam-devel
 %{?with_apidocs:BuildRequires:	qt-doc}
@@ -392,7 +402,10 @@ Standardowy obrazek okna "Wyloguj" z logiem KDE.
 Summary:	Default clasic KDE splashscreen
 Summary(pl):	Domy¶lny klasyczny ekran startowy KDE
 Group:		X11/Amusements
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
+# DONT PUT STRICT R: HERE
+Requires:	%{name}-desktop >= %{epoch}:%{version}-%{release}
+# Because of incorrectly added strict deps there
+Obsoletes:	kde-splash-Default-KDE
 
 %description -n kde-splash-Default
 Default splashscreen that came with this version of KDE.
@@ -404,7 +417,8 @@ Domy¶lny ekran powitalny dostarczony w tej wersji KDE.
 Summary:	KDE blue-bend splashscreen
 Summary(pl):	Ekran powitalny KDE blue-bend
 Group:		X11/Amusements
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
+# DONT PUT STRICT R: HERE
+Requires:	%{name}-desktop >= %{epoch}:%{version}-%{release}
 
 %description -n kde-splash-blue-bend
 KDE blue-bend splashcreen.
@@ -1001,6 +1015,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 %prep
 %setup -q
+%patch100 -p1
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -1020,6 +1035,14 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch18 -p1
 %patch19 -p1
 %patch21 -p1
+
+cd kcontrol/ebrowsing/plugins/ikws/searchproviders
+for i in  google*.desktop
+do 
+	url=`grep 'Query=' $i|sed -e 's,google.com,google.pl,g'|cut -c 7-`
+	echo "Query[pl]=${url}" >> $i  
+done
+cd -
 
 %{__sed} -i -e 's/Categories=.*/Categories=Audio;Mixer;/' \
 	kappfinder/apps/Multimedia/alsamixergui.desktop
@@ -1105,7 +1128,8 @@ cp /usr/share/automake/config.sub admin
 	--with-kdm-pam=kdm \
 	--with-pam=kdesktop \
 	--with-qt-libraries=%{_libdir} \
-	%{!?with_ldap:--without-ldap}
+	%{!?with_ldap:--without-ldap} \
+	--with-distribution="PLD Linux Distribution"
 
 #cd kwin/kcmkwin/kwinrules
 #%%{__make} ruleswidgetbase.h
