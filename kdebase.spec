@@ -107,6 +107,7 @@ BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	motif-devel
 BuildRequires:	openssl-devel >= 0.9.7
+BuildRequires:	openldap-devel 
 BuildRequires:	pam-devel
 BuildRequires:	sed >= 4.0
 BuildRequires:	qt-devel >= 3.1
