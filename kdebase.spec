@@ -252,13 +252,13 @@ CFLAGS="$RPM_OPT_FLAGS -Wall" \
 	--prefix=$KDEDIR \
  	--with-pam=yes
 
-make KDEDIR=$KDEDIR
+%{__make} KDEDIR=$KDEDIR
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/etc/X11/kde
 
-make \
+%{__make} \
 	RUN_KAPPFINDER=no \
 	DESTDIR=$RPM_BUILD_ROOT \
 	localedir="$RPM_BUILD_ROOT/usr/X11R6/share/locale" \
