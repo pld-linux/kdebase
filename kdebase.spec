@@ -23,7 +23,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}.%{_snap}
-Release:	1
+Release:	2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -62,7 +62,7 @@ Patch18:	%{name}-kdesukonsole.patch
 Patch21:	%{name}-vcategories.patch
 Patch22:	%{name}-screensavers.patch
 Patch23:	%{name}-prefmenu.patch
-Patch24:	%{name}-fix-mouse_cpp_for_enable_final.patch
+#Patch24:	%{name}-fix-mouse_cpp_for_enable_final.patch
 Patch25:	%{name}-session.patch
 Patch26:	%{name}-bgdefaults.patch
 Patch27:	%{name}-vmenus.patch
@@ -954,12 +954,18 @@ SizePercentage=50
 UseBackgroundTheme=false
 EOF
 
+# Some order with desktop files
+mv $RPM_BUILD_ROOT%{_datadir}/applnk/System/kinfocenter.desktop \
+	$RPM_BUILD_ROOT%{_desktopdir}/kde
+
 mv $RPM_BUILD_ROOT%{_desktopdir}/kde/print{ers,mgr}.desktop
 
-
-# Some order with desktop files
-ALD=$RPM_BUILD_ROOT%{_datadir}/applnk
-mv $ALD/System/kinfocenter.desktop      $RPM_BUILD_ROOT%{_desktopdir}/kde
+# Workaround for gnome menu which maps all these to "Others" dir
+cd $RPM_BUILD_ROOT%{_desktopdir}/kde
+for f in `grep -El 'X-KDE-settings|X-KDE-information' *`; do
+	echo "OnlyShowIn=KDE" >> $f
+done
+cd -
 
 # <find_lang>
 > core.lang
