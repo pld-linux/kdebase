@@ -1,0 +1,254 @@
+--- kdebase-3.1.1/kdm/kfrontend/kgreeter.cpp~	Fri Jan  3 05:42:15 2003
++++ kdebase-3.1.1/kdm/kfrontend/kgreeter.cpp	Thu Mar 20 16:25:43 2003
+@@ -1,7 +1,7 @@
+     /*
+ 
+     Greeter module for xdm
+-    $Id$
++    $Id$
+ 
+     Copyright (C) 1997, 1998, 2000 Steffen Hansen <hansen@kde.org>
+     Copyright (C) 2000-2002 Oswald Buddenhagen <ossi@kde.org>
+@@ -36,6 +36,7 @@
+ #include <qaccel.h>
+ #include <qcursor.h>
+ #include <qheader.h>
++#include <qstyle.h>
+ 
+ #include <klocale.h>
+ #include <kglobal.h>
+@@ -69,13 +70,6 @@
+ #include <strings.h>
+ 
+ 
+-class GreeterListViewItem : public KListViewItem {
+-public:
+-    GreeterListViewItem( KListView* parent, const QString& text )
+-	: KListViewItem( parent, text ) {};
+-    QString login;
+-};
+-
+ void
+ KLoginLineEdit::focusOutEvent( QFocusEvent *e )
+ {
+@@ -84,6 +78,41 @@
+ }
+ 
+ 
++class UserListView : public KListView {
++public:
++    UserListView( QWidget* parent = 0, const char *name = 0 )
++	: KListView( parent, name )
++	, cachedSizeHint( -1, 0 )
++    {
++	setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Ignored );
++	header()->hide();
++	addColumn( QString::null );
++	setColumnAlignment( 0, AlignVCenter );
++	setResizeMode( QListView::LastColumn );
++    }
++
++    mutable QSize cachedSizeHint;
++
++protected:
++    virtual QSize sizeHint() const
++    {
++	if (!cachedSizeHint.isValid()) {
++	    constPolish();
++	    uint maxw = 0;
++	    for (QListViewItem *itm = firstChild(); itm; itm = itm->nextSibling()) {
++		uint thisw = itm->width( fontMetrics(), this, 0 );
++		if (thisw > maxw)
++		    maxw = thisw;
++	    }
++	    cachedSizeHint.setWidth(
++		style().pixelMetric( QStyle::PM_ScrollBarExtent ) +
++		frameWidth() * 2 + maxw );
++	}
++	return cachedSizeHint;
++    }
++};
++
++
+ KGreeter::KGreeter()
+   : inherited( 0, 0, true )
+   , user_view( 0 )
+@@ -105,11 +134,7 @@
+ 	main_grid->addWidget( welcomeLabel, 0, 1 );
+     }
+     if (kdmcfg->_showUsers != SHOW_NONE) {
+-	user_view = new KListView( winFrame );
+-	user_view->setSizePolicy( QSizePolicy( QSizePolicy::Preferred, QSizePolicy::Ignored ) );
+-	user_view->addColumn(QString::null);
+-	user_view->setResizeMode(QListView::LastColumn);
+-	user_view->header()->hide();
++	user_view = new UserListView( winFrame );
+ 	insertUsers( user_view );
+ 	main_grid->addMultiCellWidget(user_view, 0, 3, 0, 0);
+ 	connect( user_view, SIGNAL(clicked( QListViewItem * )),
+@@ -252,7 +277,7 @@
+ 
+     UpdateLock();
+ 
+-    stsfile = new KSimpleConfig( QString::fromLatin1(KDE_CONFDIR "/kdm/kdmsts") ); // XXX get from kdm_config
++    stsfile = new KSimpleConfig( QString::fromLatin1("/etc/X11/kdm/kdmsts") ); // XXX get from kdm_config
+     stsfile->setGroup( "PrevUser" );
+     enam = QString::fromLocal8Bit( dname );
+     if (kdmcfg->_preselUser != PRESEL_PREV)
+@@ -275,14 +300,30 @@
+     delete stsfile;
+ }
+ 
++class UserListViewItem : public KListViewItem {
++public:
++    UserListViewItem( UserListView *parent, const QString &text,
++			 const QPixmap &pixmap, const QString &username )
++	: KListViewItem( parent )
++	, login( username )
++    {
++	setPixmap( 0, pixmap );
++	setMultiLinesEnabled( true );
++	setText( 0, text );
++	parent->cachedSizeHint.setWidth( -1 );
++    }
++
++    QString login;
++};
++
+ void
+-KGreeter::insertUser( KListView *listview, const QImage &default_pix,
++KGreeter::insertUser( UserListView *listview, const QImage &default_pix,
+ 		      const QString &username, struct passwd *ps )
+ {
+     QImage p;
+     if (kdmcfg->_faceSource != FACE_USER_ONLY &&
+ 	kdmcfg->_faceSource != FACE_PREFER_USER)
+-	p = QPixmap( locate( "user_pic", username + ".png" ) );
++	p = QPixmap( "/etc/X11/kdm/pics/users/" + username + ".png" );
+     if (p.isNull() && kdmcfg->_faceSource != FACE_ADMIN_ONLY) {
+ 	// XXX remove seteuid-voodoo when we run as nobody
+ 	seteuid( ps->pw_uid );
+@@ -290,26 +331,25 @@
+ 	seteuid( 0 );
+     }
+     if (p.isNull() && kdmcfg->_faceSource != FACE_USER_ONLY)
+-	p = QPixmap( locate( "user_pic", username + ".png" ) );
++	p = QPixmap( "/etc/X11/kdm/pics/users/" + username + ".png" );
+     if (p.isNull())
+ 	p = default_pix;
+     else
+ 	p = p.smoothScale( 48, 48, QImage::ScaleMin );
+     QString realname = QFile::decodeName( ps->pw_gecos );
+-    realname = realname.left(realname.find(","));
+-    QString userlabel = realname.isEmpty() ?
+-				username :
+-				realname + "\n" + username;
+-    GreeterListViewItem *item = new GreeterListViewItem( listview, userlabel );
+-    item->setPixmap( 0, QPixmap( p ) );
+-    item->login = username;
++    realname.truncate( realname.find( ',' ) );
++    if (realname.isEmpty())
++	new UserListViewItem( listview, username, QPixmap( p ), username );
++    else {
++	realname.append( "\n" ).append( username );
++	new UserListViewItem( listview, realname, QPixmap( p ), username );
++    }
+ }
+ 
+ void
+-KGreeter::insertUsers( KListView *listview )
++KGreeter::insertUsers( UserListView *listview )
+ {
+-    QImage default_pix(
+-	locate( "user_pic", QString::fromLatin1("default.png") ) );
++    QImage default_pix( "/etc/X11/kdm/pics/users/default.png" );
+     if (default_pix.isNull())
+ 	LogError("Can't open default pixmap \"default.png\"\n");
+     default_pix = default_pix.smoothScale( 48, 48, QImage::ScaleMin );
+@@ -372,7 +412,7 @@
+ 	QString login = loginEdit->text();
+ 	QListViewItem *item;
+ 	for (item = user_view->firstChild(); item; item = item->nextSibling())
+-	    if (((GreeterListViewItem *)item)->login == login) {
++	    if (((UserListViewItem *)item)->login == login) {
+ 		user_view->setCurrentItem( item );
+ 		user_view->ensureItemVisible( item );
+ 		break;
+@@ -385,7 +425,7 @@
+ KGreeter::slot_user_name( QListViewItem *item )
+ {
+     if (item) {
+-	loginEdit->setText( ((GreeterListViewItem *)item)->login );
++	loginEdit->setText( ((UserListViewItem *)item)->login );
+ 	passwdEdit->erase();
+ 	passwdEdit->setFocus();
+ 	load_wm();
+@@ -786,11 +826,6 @@
+ 
+     app.setFont( kdmcfg->_normalFont );
+ 
+-    KGlobal::dirs()->addResourceType( "user_pic",
+-				      KStandardDirs::kde_default("data") +
+-				      QString::fromLatin1("kdm/pics/users/") );
+-
+-
+ #ifdef HAVE_XKBSETPERCLIENTCONTROLS
+     //
+     //  Activate the correct mapping for modifiers in XKB extension as
+@@ -816,6 +851,7 @@
+ 	GSendInt( G_SetupDpy );
+ 	GRecvInt();
+     }
++
+     QDesktopWidget *dsk = kapp->desktop();
+     QRect scr = dsk->screenGeometry(
+ 	kdmcfg->_greeterScreen == -1 ?
+@@ -838,7 +874,7 @@
+     if (dsk->screenNumber( QCursor::pos() ) !=
+ 	dsk->screenNumber( grt.center() ))
+ 	QCursor::setPos( grt.center() );
+-    XUndefineCursor( dpy, RootWindow( dpy, DefaultScreen( dpy ) ) );
++    dsk->setCursor( Qt::ArrowCursor );
+     Debug ("entering event loop\n");
+     kgreeter->exec();
+     delete kgreeter;
+--- kdebase-3.1.1/kdm/kfrontend/kgreeter.h~	Thu Dec  5 21:40:21 2002
++++ kdebase-3.1.1/kdm/kfrontend/kgreeter.h	Thu Mar 20 15:55:09 2003
+@@ -1,7 +1,7 @@
+     /*
+ 
+     Greeter module for xdm
+-    $Id$
++    $Id$
+ 
+     Copyright (C) 1997, 1998 Steffen Hansen <hansen@kde.org>
+     Copyright (C) 2000-2002 Oswald Buddenhagen <ossi@kde.org>
+@@ -81,6 +81,8 @@
+ };
+ 
+ 
++class UserListView;
++
+ class KGreeter : public FDialog {
+     Q_OBJECT
+     typedef FDialog inherited;
+@@ -111,8 +113,8 @@
+ 
+ private:
+     void set_wm( const char * );
+-    void insertUsers( KListView * );
+-    void insertUser( KListView *, const QImage &, const QString &, struct passwd * );
++    void insertUsers( UserListView * );
++    void insertUser( UserListView *, const QImage &, const QString &, struct passwd * );
+     void MsgBox( QMessageBox::Icon typ, QString msg ) { KFMsgBox::box( this, typ, msg ); }
+     void Inserten( QPopupMenu *mnu, const QString& txt, const char *member );
+     bool verifyUser( bool );
+@@ -122,7 +124,7 @@
+     WmStat		wmstat;
+     QString		enam;
+     KSimpleConfig	*stsfile;
+-    KListView		*user_view;
++    UserListView	*user_view;
+     KdmClock		*clock;
+     QLabel		*pixLabel;
+     QLabel		*loginLabel, *passwdLabel, *sessargLabel;
