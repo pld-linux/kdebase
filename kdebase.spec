@@ -20,7 +20,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	4
+Release:	5
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -859,7 +859,6 @@ Wygaszacze ekranu desktopu KDE.
 Summary:	User Account
 Summary(pl):	Konto u¿ytkownika
 Group:		X11/Applications
-Requires:	kdm >= %{_minlibsevr}
 Obsoletes:	kdeutils-kdepasswd
 Obsoletes:	kdeutils-userinfo
 
