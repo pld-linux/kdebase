@@ -15,8 +15,8 @@
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040414
-
+%define		_snap		040424
+%define		_packager	adgor
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -33,11 +33,9 @@ Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-#Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}.tar.bz2
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
-#Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{_snap}.tar.bz2
-Source0:	%{name}-%{_snap}.tar.bz2
-# Source0-md5:	d62187fcdb3c6e84b605c9b1fdc7869d
+Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
+##%% Source0-md5:	d62187fcdb3c6e84b605c9b1fdc7869d
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -80,8 +78,7 @@ Patch18:	%{name}-sasl-includes.patch
 Patch19:	%{name}-kio_settings.patch
 Patch20:	kde-common-QTDOCDIR.patch
 Patch21:	%{name}-konsole-default-keytab.patch
-Patch22:	%{name}-konsole-default_shell.patch
-Patch23:	%{name}-kwin_shadow.patch
+Patch22:	%{name}-kwin_shadow.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	arts-devel >= 1.2.0
@@ -1360,7 +1357,7 @@ Pliki umiêdzynarodawiaj±ce dla mailnews.
 ### </i18n stuff>
 
 %prep
-%setup -q -n %{name}
+%setup -q -n %{name}-%{_snap}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -1383,11 +1380,10 @@ Pliki umiêdzynarodawiaj±ce dla mailnews.
 %patch19 -p1
 %patch20 -p1
 %patch21 -p1
-%patch22 -p1
 
 %if %{with kwin_shadow}
 cd kwin
-%patch23 -p0 -b .shadows
+%patch22 -p0 -b .shadows
 cd -
 %endif 
 
@@ -2603,6 +2599,9 @@ fi
 %{_datadir}/apps/kcontroledit
 # new
 %{_iconsdir}/crystalsvg/*/actions/newfont.png
+%{_iconsdir}/crystalsvg/*/apps/assistant.png
+%{_iconsdir}/crystalsvg/*/apps/firefox.png
+%{_iconsdir}/crystalsvg/*/apps/linguist.png
 %{_iconsdir}/crystalsvg/scalable/apps
 
 %files desktop-libs
@@ -2802,7 +2801,8 @@ fi
 %{_desktopdir}/kde/panel.desktop
 %{_desktopdir}/kde/panel_appearance.desktop
 %{_desktopdir}/kde/clock.desktop
-%{_desktopdir}/kde/kcmkicker.desktop
+# Do not include this!
+#%{_desktopdir}/kde/kcmkicker.desktop
 %{_iconsdir}/*/*/apps/clock.png
 %{_iconsdir}/*/*/apps/date.png
 %{_iconsdir}/*/*/apps/go.png
@@ -2869,6 +2869,7 @@ fi
 %{_datadir}/applnk/.hidden/kcmkonsole.desktop
 %{_desktopdir}/kde/konsole*.desktop
 %{_iconsdir}/*/*/apps/konsole.png
+# TODO
 
 %files kpager -f kpager_en.lang
 %defattr(644,root,root,755)
@@ -2928,13 +2929,14 @@ fi
 
 %files kwrited
 %defattr(644,root,root,755)
-%attr(0755,root,root) %{_bindir}/kwrited
-%{_libdir}/libkdeinit_kwrited.la
-%attr(0755,root,root) %{_libdir}/libkdeinit_kwrited.so
-%{_libdir}/kde3/kwrited.la
-%attr(0755,root,root) %{_libdir}/kde3/kwrited.so
-%{_datadir}/autostart/kwrited.desktop
-%{_datadir}/config/kwritedrc
+#%attr(0755,root,root) %{_bindir}/kwrited
+#%{_libdir}/libkdeinit_kwrited.la
+#%attr(0755,root,root) %{_libdir}/libkdeinit_kwrited.so
+%{_libdir}/kde3/kded_kwrited.la
+%attr(0755,root,root) %{_libdir}/kde3/kded_kwrited.so
+#%{_datadir}/autostart/kwrited.desktop
+#%{_datadir}/config/kwritedrc
+%{_datadir}/services/kded/kwrited.desktop
 %{_datadir}/services/kwrited.desktop
 
 %files libkate
@@ -2980,6 +2982,7 @@ fi
 %attr(755,root,root) %{_bindir}/kdepasswd
 %{_libdir}/kde3/kcm_useraccount.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_useraccount.so
+%{_datadir}/applnk/.hidden/userinfo.desktop
 %{_datadir}/apps/kdm/pics/users/*
 %{_datadir}/config.kcfg/kcm_useraccount.kcfg
 %{_datadir}/config.kcfg/kcm_useraccount_pass.kcfg
