@@ -1,12 +1,12 @@
 --- kdebase-3.1.1/kcontrol/screensaver/scrnsave.cpp~	Fri Jan  3 05:41:58 2003
-+++ kdebase-3.1.1/kcontrol/screensaver/scrnsave.cpp	Tue Apr  1 00:48:24 2003
++++ kdebase-3.1.1/kcontrol/screensaver/scrnsave.cpp	Tue Apr  1 10:46:49 2003
 @@ -147,23 +147,9 @@
      mMonitor = 0;
      mTesting = false;
  
 -    // Add non-KDE path
      KGlobal::dirs()->addResourceType("scrsav",
-                                      KGlobal::dirs()->kde_default("apps") +
+-                                     KGlobal::dirs()->kde_default("apps") +
 -                                     "apps/ScreenSavers/");
 -
 -    // Add KDE specific screensaver path
@@ -21,7 +21,8 @@
 -    KGlobal::dirs()->addResourceType("scrsav",
 -                                     KGlobal::dirs()->kde_default("apps") +
 -                                     relPath);
-+                                     "screensavers/");
++                                     KGlobal::dirs()->kde_default("data") +
++                                     "kscreensaver/");
  
      readSettings();
  
@@ -32,7 +33,7 @@
  
  desktop_DATA = KRandom.desktop KBlankscreen.desktop
 -desktopdir = $(kde_appsdir)/System/ScreenSavers
-+desktopdir = $(kde_datadir)/screensavers
++desktopdir = $(kde_datadir)/kscreensaver
  
  EXTRA_DIST = $(desktop_DATA)
 --- kdebase-3.1.1/kscreensaver/Makefile.in~	Tue Mar 11 06:48:15 2003
@@ -42,7 +43,7 @@
  ########## Meta objects ##########
  desktop_DATA = KRandom.desktop KBlankscreen.desktop
 -desktopdir = $(kde_appsdir)/System/ScreenSavers
-+desktopdir = $(kde_datadir)/screensavers
++desktopdir = $(kde_datadir)/kscreensaver
  
  EXTRA_DIST = $(desktop_DATA)
  subdir = kscreensaver
