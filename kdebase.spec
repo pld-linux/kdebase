@@ -13,7 +13,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define         _snap		030512
+%define         _snap		030516
 %define		_kdelibsminrel	0.%{_snap}.1
 
 %ifarch	sparc sparcv9 sparc64
@@ -698,7 +698,6 @@ for plik in `find ./ -name *.desktop` ; do
 done
 
 %configure \
-	--enable-final \
 	--with-kdm-pam=kdm \
 	--with-pam=kdesktop
 
