@@ -6,8 +6,10 @@
 
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040515
+%define		_snap		040519
 %define		_packager	adgor
+
+%define		_minlibsevr	9:3.2.90.030519
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -20,7 +22,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}.%{_snap}
-Release:	1
+Release:	3
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -85,7 +87,7 @@ BuildRequires:	gettext-devel
 %{?with_apidocs:BuildRequires:	graphviz}
 BuildRequires:	grep
 BuildRequires:	jasper-devel
-BuildRequires:	kdelibs-devel >= 9:%{version}
+BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	lame-libs-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
@@ -159,7 +161,7 @@ Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kfontinst = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libksgrd = %{epoch}:%{version}-%{release}
-Requires:	kdelibs-devel >= 9:%{version}
+Requires:	kdelibs-devel >= %{_minlibsevr}
 
 %package apidocs
 Summary:	API documentation
@@ -260,7 +262,7 @@ Dekoracja okna dla KDE - Web.
 Summary:	TODO
 Summary(pl):	TODO
 Group:		X11/Libraries
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 Provides:	kde-kgreet
 Conflicts:	kdm =< 3.2.90.040503-1
 
@@ -274,7 +276,7 @@ TODO.
 Summary:	KDE IMAP4 protocol service
 Summary(pl):	Obs³uga protoko³u IMAP4
 Group:		X11/Libraries
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 Conflicts:	kdebase-mailnews
 
 %description -n kde-kio-imap4
@@ -287,7 +289,7 @@ Obs³uga protoko³u IMAP4.
 Summary:	KDE LDAP protocol service
 Summary(pl):	Obs³uga protoko³u LDAP
 Group:		X11/Libraries
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 Conflicts:	konqueror < 9:3.2.90.040210
 
 %description -n kde-kio-ldap
@@ -300,7 +302,7 @@ Obs³uga protoko³u LDAP.
 Summary:	KDE NNTP protocol service
 Summary(pl):	Obs³uga protoko³u NNTP
 Group:		X11/Libraries
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 Conflicts:	kdebase-mailnews
 
 %description -n kde-kio-nntp
@@ -313,7 +315,7 @@ Obs³uga protoko³u NNTP.
 Summary:	KDE POP3 protocol service
 Summary(pl):	Obs³uga protoko³u POP3
 Group:		X11/Libraries
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 Conflicts:	kdebase-mailnews
 
 %description -n kde-kio-pop3
@@ -326,7 +328,7 @@ Obs³uga protoko³u POP3.
 Summary:	KDE SMTP protocol service
 Summary(pl):	Obs³uga protoko³u SMTP
 Group:		X11/Libraries
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 Conflicts:	kdebase-mailnews
 
 %description -n kde-kio-smtp
@@ -431,7 +433,7 @@ Summary:	Common files for konsole and konsolepart
 Summary(pl):	Pliki wspólne dla konsole i konsolepart
 Group:		X11/Applications
 Requires(post,postun):	fontpostinst
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	%{name}-fonts
 
@@ -446,7 +448,7 @@ Summary:	KDE Core Apps
 Summary(pl):	Podstawowe aplikacje KDE
 Group:		X11/Applications
 Requires:	applnk >= 1.9.0
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	%{name} < 8:3.2-0.030428.1
 Obsoletes:	%{name}-kcontrol
 Obsoletes:	%{name}-khelpcenter
@@ -513,7 +515,7 @@ Summary:	KDesktop libraries
 Summary(pl):	Biblioteki KDesktop
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdebase-desktop < 9:3.1.92.031006
 Obsoletes:	kdebase-kicker-libs
 
@@ -539,7 +541,7 @@ Centrum informacji o systemie dla KDE.
 Summary:	Menu Updating Tool
 Summary(pl):	Narzêdzie do aktualizacji menu
 Group:		X11/Applications
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	%{name} =< 8:3.2-0.030418.2
 
 %description kappfinder
@@ -593,7 +595,7 @@ Graficzna przegl±darka/klient DCOP.
 Summary:	A KDE version of dialog
 Summary(pl):	Wersja KDE dialogu
 Group:		X11/Applications
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	%{name} < 8:3.2-0.030423.2
 
 %description kdialog
@@ -672,7 +674,7 @@ Emulator terminala dla KDE.
 Summary:	Desktop Pager
 Summary(pl):	Prze³±cznik biurek
 Group:		X11/Applications
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	%{name} =< 8:3.2-0.030418.2
 
 %description kpager
@@ -742,7 +744,7 @@ Summary:	A libraries for KDE text editors
 Summary(pl):	Biblioteki dla edytorów tekstu KDE
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdebase-kate < 8:3.2-0.030423.1
 Obsoletes:	kdebase-libkmultitabbar
 
@@ -757,7 +759,7 @@ Summary:	ksgrd library
 Summary(pl):	Biblioteka ksgrd
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	ksysguard < 9:3.1.92.031012
 
 %description libksgrd
@@ -787,7 +789,7 @@ Wygaszacze ekranu desktopu KDE.
 Summary:	User Account
 Summary(pl):	Konto u¿ytkownika
 Group:		X11/Applications
-Requires:	kdm >= 9:%{version}
+Requires:	kdm >= %{_minlibsevr}
 Obsoletes:	kdeutils-kdepasswd
 Obsoletes:	kdeutils-userinfo
 
@@ -844,7 +846,7 @@ Summary:	konqueror shared libraries
 Summary(pl):	Biblioteki wspó³dzielone konquerora
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdebase-libkickermain
 Obsoletes:	kdebase-libkonq
 Obsoletes:	kdebase-libkonqsidebarplugin
@@ -1653,7 +1655,6 @@ fi
 %{_datadir}/wallpapers/fulmine.jpg
 %{_datadir}/wallpapers/kde_box.png
 %{_datadir}/wallpapers/kde_passion.jpg
-#%{_datadir}/wallpapers/kdm_bg.jpg
 %{_datadir}/wallpapers/only_k.jpg
 %{_datadir}/wallpapers/seaofconero.jpg
 %{_datadir}/wallpapers/triplegears.jpg
@@ -1716,7 +1717,6 @@ fi
 %{_iconsdir}/*/*/apps/error.png
 %{_iconsdir}/*/*/apps/galeon.png
 %{_iconsdir}/*/*/apps/gimp.png
-#%{_iconsdir}/*/*/apps/gnome_app.png
 %{_iconsdir}/*/*/apps/gnome_apps.png
 %{_iconsdir}/*/*/apps/gvim.png
 %{_iconsdir}/*/*/apps/gv.png
@@ -1782,6 +1782,28 @@ fi
 %{_iconsdir}/*/*/apps/xpaint.png
 %{_iconsdir}/*/*/apps/x.png
 %{_iconsdir}/*/*/apps/xv.png
+# new
+%{_iconsdir}/crystalsvg/*/actions/newfont.png
+%{_iconsdir}/crystalsvg/*/apps/abiword.png
+%{_iconsdir}/crystalsvg/*/apps/assistant.png
+%{_iconsdir}/crystalsvg/*/apps/bluefish.png
+%{_iconsdir}/crystalsvg/*/apps/dia.png
+%{_iconsdir}/crystalsvg/*/apps/eclipse.png
+%{_iconsdir}/crystalsvg/*/apps/evolution.png
+%{_iconsdir}/crystalsvg/*/apps/firefox.png
+%{_iconsdir}/crystalsvg/*/apps/gabber.png
+%{_iconsdir}/crystalsvg/*/apps/gaim.png
+%{_iconsdir}/crystalsvg/*/apps/gnomemeeting.png
+%{_iconsdir}/crystalsvg/*/apps/gnucash.png
+%{_iconsdir}/crystalsvg/*/apps/gnumeric.png
+%{_iconsdir}/crystalsvg/*/apps/linguist.png
+%{_iconsdir}/crystalsvg/*/apps/pan.png
+%{_iconsdir}/crystalsvg/*/apps/planner.png
+%{_iconsdir}/crystalsvg/*/apps/scribus.png
+%{_iconsdir}/crystalsvg/*/apps/sodipodi.png
+%{_iconsdir}/crystalsvg/*/apps/thunderbird.png
+%{_iconsdir}/crystalsvg/*/apps/wine.png
+%{_iconsdir}/crystalsvg/scalable/apps
 # kcontroledit
 %attr(0755,root,root) %{_bindir}/kcontroledit
 %{_libdir}/libkdeinit_kcontroledit.la
@@ -1789,17 +1811,6 @@ fi
 %{_libdir}/kde3/kcontroledit.la
 %attr(0755,root,root) %{_libdir}/kde3/kcontroledit.so
 %{_datadir}/apps/kcontroledit
-# new
-%{_iconsdir}/crystalsvg/*/actions/newfont.png
-%{_iconsdir}/crystalsvg/*/apps/assistant.png
-%{_iconsdir}/crystalsvg/*/apps/firefox.png
-%{_iconsdir}/crystalsvg/*/apps/linguist.png
-%{_iconsdir}/crystalsvg/scalable/apps
-%{_iconsdir}/crystalsvg/*/apps/eclipse.png
-%{_iconsdir}/crystalsvg/*/apps/pan.png
-%{_iconsdir}/crystalsvg/*/apps/scribus.png
-%{_iconsdir}/crystalsvg/*/apps/sodipodi.png
-%{_iconsdir}/crystalsvg/*/apps/thunderbird.png
 # Merged kicker
 %attr(0755,root,root) %{_bindir}/kicker
 %attr(0755,root,root) %{_bindir}/ksystraycmd
