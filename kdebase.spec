@@ -4,7 +4,7 @@ Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Summary(pt_BR):	K Desktop Environment - arquivos básicos
 Name:		kdebase
 Version:	2.2.2
-Release:	10
+Release:	11
 Epoch:		6
 License:	GPL
 Group:		X11/Applications
@@ -73,7 +73,6 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 %define		_prefix 	/usr/X11R6
-%define		_fontdir 	/usr/share/fonts
 %define		_htmldir	/usr/share/doc/kde/HTML
 %define		_sysconfdir	/etc/X11
 
@@ -225,7 +224,7 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,S
 
 %{__make} install \
  	DESTDIR="$RPM_BUILD_ROOT" \
- 	fontdir="%{_fontdir}/misc"
+ 	fontdir="%{_fontsdir}/misc"
 
 # Patch kdmrc. It is generated so it can not be patched in %%prep.
 cd $RPM_BUILD_ROOT%{_datadir}/config/kdm
@@ -242,7 +241,7 @@ install %{SOURCE2}			$RPM_BUILD_ROOT/etc/pam.d/kdm
 install %{SOURCE6}			$RPM_BUILD_ROOT/etc/pam.d/kscreensaver
 install %{SOURCE3}			$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 
-mv \
+mv -f \
 	$RPM_BUILD_ROOT%{_datadir}/config/kdm/{Xaccess,Xreset,Xservers,Xsession,Xsetup,Xstartup,Xwilling} \
 	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/
 
@@ -251,7 +250,7 @@ install %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
 # This file is referenced in several dozens places in code and
 # documentation. Maintaining patch wich changes all these places would
 # be a real PITA.
-ln -s ../../../%{_datadir}/config/kdm/kdmrc $RPM_BUILD_ROOT%{_sysconfdir}/kdm/kdmrc
+ln -sf ../../../%{_datadir}/config/kdm/kdmrc $RPM_BUILD_ROOT%{_sysconfdir}/kdm/kdmrc
 
 install %{SOURCE4}			$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
 
@@ -288,14 +287,14 @@ rm -rf $RPM_BUILD_ROOT
 %post
 /sbin/ldconfig
 
-cd %{_fontdir}/misc
+cd %{_fontsdir}/misc
 umask 022
 %{_bindir}/mkfontdir
 
 %postun
 /sbin/ldconfig
 
-cd %{_fontdir}/misc
+cd %{_fontsdir}/misc
 umask 022
 %{_bindir}/mkfontdir
 
@@ -439,14 +438,15 @@ fi
 %{_applnkdir}/ksysguard
 
 %{_datadir}/apps/[cdn]*
-%{_datadir}/apps/k[abcfhijmtw]*
+%{_datadir}/apps/k[abfhijmtw]*
+%{_datadir}/apps/kcm*
+%{_datadir}/apps/kcontrol
 %{_datadir}/apps/kd[cei]*
 %{_datadir}/apps/konsole
 %{_datadir}/apps/kpersonalizer
 %{_datadir}/apps/ks[py]*
 
 %{_datadir}/autostart
-%dir %{_datadir}/config
 %{_datadir}/config/[!k]*
 %{_datadir}/config/k[!d]*
 %{_datadir}/config/kdesktop*
@@ -454,7 +454,6 @@ fi
 %{_datadir}/mimelnk/application/*
 %{_datadir}/services/[abfgimnpst]*
 %{_datadir}/services/k[afhsuwx]*
-%{_datadir}/services/kded
 %{_datadir}/services/kons*
 %{_datadir}/sounds
 %{_datadir}/templates
@@ -475,8 +474,8 @@ fi
 # TODO:	file /usr/share/fonts/misc/9x15.pcf.gz from install of kdebase-2.0.1-3
 # 	conflicts with file from package XFree86-fonts-4.0.1-2.
 # TODO:	there is a name conflict between cursor_large and cursor from XFree86.
-%{_fontdir}/misc/console8*.gz
-#%{_fontdir}/misc/*.gz
+%{_fontsdir}/misc/console8*.gz
+#%{_fontsdir}/misc/*.gz
 
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kscreensaver
 # Must be here. kcheckpass needs it.
