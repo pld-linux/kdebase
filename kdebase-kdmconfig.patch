@@ -164,8 +164,8 @@
  install-data-local: genkdmconf
 -	@$(mkinstalldirs) $(DESTDIR)$(kde_confdir)/kdm
 -	@./genkdmconf --in $(DESTDIR)$(kde_confdir)/kdm
-+       @$(mkinstalldirs) $(DESTDIR)/etc/X11/kdm
-+       @./genkdmconf --no-old --in $(DESTDIR)/etc/X11/kdm
++	@$(mkinstalldirs) $(DESTDIR)/etc/X11/kdm
++	@./genkdmconf --no-old --in $(DESTDIR)/etc/X11/kdm
  
  messages:
  	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
