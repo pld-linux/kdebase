@@ -31,7 +31,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}.%{_snap}
-Release:	1
+Release:	2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -247,6 +247,20 @@ KDE Window Decoration - Web.
 
 %description -n kde-decoration-web -l pl
 Dekoracja okna dla KDE - Web.
+
+
+%package -n kde-kside-default
+Summary:        Default kicker sidebar
+Summary(pl):    Domy¶lny boczny pasek do menu KDE 
+Group:          Themes
+Provides:	kde-kside
+Requires:       kdebase-kicker = %{epoch}:%{version}-%{release}
+
+%description -n kde-kside-%{_theme}
+Default kicker sidebar.
+
+%description -n kde-kside-%{_theme} -l pl
+Domy¶lny boczny pasek do menu KDE.
 
 %package -n kde-logoutpic-default
 Summary:        KDE "Logout" picture
@@ -1049,6 +1063,10 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kwin_web.so
 %{_datadir}/apps/kwin/web.desktop
 
+%files -n kde-kside-default
+%defattr(644,root,root,755)
+%{_datadir}/apps/kicker/pics/kside*.png
+
 %files -n kde-logoutpic-default
 %defattr(644,root,root,755)
 %{_datadir}/apps/ksmserver/pics/shutdownkonq.png
@@ -1679,6 +1697,7 @@ fi
 %{_libdir}/kde3/taskbar_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.so
 %{_datadir}/apps/kicker
+%exclude %{_datadir}/apps/kicker/pics/kside*.png
 %{_datadir}/apps/naughtyapplet
 %{_datadir}/autostart/panel.desktop
 %{_applnkdir}/.hidden/kicker_config.desktop
