@@ -397,6 +397,7 @@ Obsoletes:	%{name}-screensaver
 Obsoletes:	%{name}-static
 Obsoletes:	%{name}-wallpapers
 Obsoletes:	kde-theme-keramik
+Obsoletes:	kdebase-kwin_plugin
 
 %description desktop
 KDesktop is the program that handles the desktop icons, the popup
