@@ -24,7 +24,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.%{_snap}.0.5
+Release:	0.%{_snap}.0.6
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -38,7 +38,8 @@ Source9:	%{name}-kdm_pldlogo.png
 Source10:	%{name}-kdm_pldwallpaper.png
 Source11:	ircpld.desktop
 Source12:	specs.desktop
-Source13:	%{name}-vdirectories.tar.bz2
+Source13:	kabc.desktop
+Source14:	kde-settings-kde.directory
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 # obsoleted
 #Patch1:	%{name}-fix-mouse.cpp.patch
@@ -104,7 +105,7 @@ BuildRequires:	zlib-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
 Requires(post,postun):	/sbin/ldconfig
-Requires:	applnk >= 1.5.16
+Requires:	applnk >= 1.5.17
 Requires:	kde-splash
 Requires:       kde-sdscreen
 Requires:       kdelibs >= 3.2-0.030317.0.3
@@ -547,7 +548,8 @@ mv -f $ALD/Help.desktop $RPM_BUILD_ROOT%{_desktopdir}
 mv -f $ALD/Settingsmenu/[!K]*.desktop $RPM_BUILD_ROOT%{_desktopdir}
 mv -f $ALD/{System/ScreenSavers,.hidden}
 
-bzip2 -dc %{SOURCE13} | tar xf - -C $RPM_BUILD_ROOT
+install %{SOURCE13} $ALD/Settings/KDE/Components
+install %{SOURCE14} $RPM_BUILD_ROOT%{_vfinfodir}
 
 #for f in `find $ALD -name '.directory' -o -name '*.dekstop'` ; do
 #	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
@@ -793,9 +795,6 @@ fi
 %{_datadir}/config/klipperrc
 %{_datadir}/config/kwritedrc
 %{_datadir}/config/kxkb_groups
-# should be base part for new PLD applnk?
-%{_vfinfodir}/*
-#
 %{_datadir}/locale/*
 %{_datadir}/services/kaccess.desktop
 %{_datadir}/services/kdeprint_part.desktop
@@ -820,14 +819,16 @@ fi
 %{_applnkdir}/Settings/KDE/LookNFeel/s[!c]*
 %{_applnkdir}/Settings/KDE/Network/email.desktop
 %{_applnkdir}/Settings/KDE/Peripherals
-#%{_applnkdir}/Settings/KDE/Personalization
 %{_applnkdir}/Settings/KDE/PowerControl
 %{_applnkdir}/Settings/KDE/Security/passwords.desktop
 %{_applnkdir}/Settings/KDE/Sound
 %{_applnkdir}/Settings/KDE/System/[!k]*
 %{_applnkdir}/Settings/KDE/System/kcmfontinst.desktop
-#%{_applnkdir}/Settings/KDE/System/kcmhelpcenter.desktop
 %{_applnkdir}/Settings/KDE/WebBrowsing
+%{_vfinfodir}/kde-settings-[ailpw]*.directory
+# must be created
+#%{_vfinfodir}/kde-settings-desktop.directory
+%{_vfinfodir}/kde-settings-sound.directory
 %{_desktopdir}/kjobviewer.desktop
 %{_desktopdir}/klipper.desktop
 %{_desktopdir}/kpager.desktop
@@ -928,6 +929,7 @@ fi
 %{_datadir}/servicetypes/thumbcreator.desktop
 %dir %{_applnkdir}/Settings/KDE/Network
 %{_applnkdir}/Settings/KDE/Network/fileshare.desktop
+%{_vfinfodir}/kde-settings-network.directory
 
 %files common-konsole
 %defattr(644,root,root,755)
@@ -949,7 +951,6 @@ fi
 %{_datadir}/services/info.protocol
 %{_datadir}/services/khelpcenter.desktop
 %{_datadir}/services/man.protocol
-##%{_applnkdir}/Help/Help.desktop
 %{_desktopdir}/Help.desktop
 %{_pixmapsdir}/*/*/apps/khelpcenter.png
 
@@ -990,12 +991,12 @@ fi
 %{_applnkdir}/KControl.desktop
 # no idea to do with
 #%{_applnkdir}/Settingsmenu/KControl.desktop
-# at this time owned by kdelibs
-#%dir %{_applnkdir}/Settings/KDE
-# should be owned by kdelibs
-# at this time owned by kdelibs
-#%dir %{_applnkdir}/Settings/KDE/Components
+%dir %{_applnkdir}/Settings/KDE
+%dir %{_applnkdir}/Settings/KDE/Components
 %dir %{_applnkdir}/Settings/KDE/System
+%{_vfinfodir}/kde-settings-components.directory
+%{_vfinfodir}/kde-settings-kde.directory
+%{_vfinfodir}/kde-settings-system.directory
 %{_pixmapsdir}/*/*/apps/kcontrol.png
 %{_pixmapsdir}/*/*/apps/kcmsystem.png
 %lang(en) %dir %{_htmldir}/en/kcontrol
@@ -1292,6 +1293,8 @@ fi
 %dir %{_applnkdir}/Settings/KDE/Security
 %{_applnkdir}/Settings/KDE/Security/crypto.desktop
 %{_applnkdir}/System/konq*.desktop
+# must be created
+#%{_vfinfodir}/kde-settings-security.directory
 %{_desktopdir}/kfmclient*.desktop
 %{_desktopdir}/konq*.desktop
 %{_pixmapsdir}/*/*/apps/agent.png
