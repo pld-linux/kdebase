@@ -1,8 +1,10 @@
 Summary:	K Desktop Environment - core files
+Summary(es):	K Desktop Environment - archivos básicos
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
+Summary(pt_BR):	K Desktop Environment - arquivos básicos
 Name:		kdebase
 Version:	2.2.1
-Release:	3
+Release:	4
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -20,31 +22,33 @@ Patch2:		%{name}-glibc-2.2.2.patch
 Patch3:		%{name}-utmp.patch
 Patch4:		%{name}-nsplugins_dirs.patch
 Patch5:		%{name}-hardcoded_paths.patch
-BuildRequires:	grep
-BuildRequires:	awk
-BuildRequires:	findutils
-BuildRequires:	libtool
+%ifnarch sparc sparc64 ppc
+BuildRequires:	alsa-lib-devel
+%endif
+BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
-BuildRequires:	qt-devel >= 2.3.0
+BuildRequires:	awk
+BuildRequires:	cdparanoia-III-devel
+BuildRequires:	cups-devel
+BuildRequires:	findutils
+BuildRequires:	gettext-devel
+BuildRequires:	glut-devel
+BuildRequires:	grep
 BuildRequires:	kdelibs-devel >= %{version}
+BuildRequires:	lame-libs-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
-BuildRequires:	XFree86-devel
-BuildRequires:	zlib-devel
-BuildRequires:	pam-devel
+BuildRequires:	libtool
+BuildRequires:	libvorbis-devel
+BuildRequires:	motif-devel
 BuildRequires:	OpenGL-devel
 BuildRequires:	openssl-devel
-BuildRequires:	motif-devel
-BuildRequires:	libvorbis-devel
-BuildRequires:	cdparanoia-III-devel
-BuildRequires:	lame-libs-devel
-BuildRequires:	glut-devel
-BuildRequires:	cups-devel
-BuildRequires:	gettext-devel
-BuildRequires:	alsa-lib-devel
-BuildRequires:	audiofile-devel
+BuildRequires:	pam-devel
+BuildRequires:	qt-devel >= 2.3.0
+BuildRequires:	XFree86-devel
+BuildRequires:	zlib-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
 Prereq:		/sbin/ldconfig
@@ -71,46 +75,78 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 KDE specific files. Used by core KDE applications. Package includes:
-KDE menu hierarchy kappfinder - script installing some non-KDE apps in
-KDE menu krootwm - module used by KWM and KFM kaudio - audio server
-for KDE.
+- KDE menu hierarchy,
+- kappfinder - script installing some non-KDE apps in KDE menu,
+- krootwm - module used by KWM and KFM,
+- kaudio - audio server for KDE.
 
 %description -l pl
 Pliki specyficzne dla ¶rodowiska KDE i wykorzystywane przez g³ówne
-aplikacje KDE. Pakiet zawiera: Hierarchiê menu KDE kappfinder - skrypt
-u³awiaj±cy uruchamianie niektórych programów spoza KDE krootwm - modu³
-wykorzystywany przez kwm i kfm kaudio - serwer d¼wiêku dla KDE.
+aplikacje KDE. Pakiet zawiera:
+- Hierarchiê menu KDE,
+- kappfinder - skrypt u³awiaj±cy uruchamianie niektórych programów
+  spoza KDE
+- krootwm - modu³ wykorzystywany przez kwm i kfm
+- kaudio - serwer d¼wiêku dla KDE.
 
 %package devel
 Summary:	Include files to develop KDE applications
+Summary(es):	Header files for compiling applications that use kdebase libraries
 Summary(pl):	Pliki nag³ówkowe potrzebne do programowania
+Summary(pt_BR):	Arquivos de inclusão para compilar aplicativos que usem bibliotecas do kdebase
 Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
+Group(es):	X11/Desarrollo/Bibliotecas
+Group(fr):	X11/Development/Librairies
 Group(pl):	X11/Programowanie/Biblioteki
+Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
+Group(ru):	X11/òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(uk):	X11/òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	qt-devel >= 2.3.0
 Requires:	kdelibs-devel >= %{version}
 
 %description devel
 This package contains header files needed to develop KDE applications.
 
+%description -l es devel
+This package includes the header files you will need to compile
+applications that use kdebase libraries.
+
 %description devel -l pl
 Pakiet zawiera pliki nag³ówkowe niezbêdne do programowania aplikacji
 KDE.
 
+%description -l pt_BR devel
+Este pacote contém os arquivos de inclusão que são necessários para
+compilar aplicativos que usem bibliotecas do kdebase.
+
 %package static
 Summary:	Include static libraries to develop KDE applications
+Summary(es):	kdebase static library files
 Summary(pl):	Statyczne biblioteki KDE
+Summary(pt_BR):	Bibliotecas estáticas do kdebase
 Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
+Group(es):	X11/Desarrollo/Bibliotecas
+Group(fr):	X11/Development/Librairies
 Group(pl):	X11/Programowanie/Biblioteki
+Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
+Group(ru):	X11/òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(uk):	X11/òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	qt-devel >= 2.3.0
 Requires:	kdelibs-devel >= %{version}
 
 %description static
 This package contains KDE static libraries.
 
+%description -l es static
+kdebase static library files.
+
 %description static -l pl
 Pakiet zawiera statyczne biblioteki KDE.
+
+%description -l pt_BR static
+Bibliotecas estáticas do kdebase.
 
 %package -n kdm
 Summary:	KDE Display Manager	
