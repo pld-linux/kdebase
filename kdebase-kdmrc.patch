@@ -52,11 +52,11 @@
  # The program which is run as the user which logs in. It is supposed to
  # interpret the session argument (see SessionTypes) and start an appropriate
  # session according to it.
- # Default is /usr/X11R6/bin/xterm -ls -T
+ # Default is /opt/X11R6/bin/xterm -ls -T
 -Session=/usr/X11R6/share/config/kdm/Xsession
 +Session=/etc/X11/kdm/Xsession
  # The program to run if Session fails.
- # Default is /usr/X11R6/bin/xterm
+ # Default is /opt/X11R6/bin/xterm
  #FailsafeClient=
 @@ -223,7 +223,7 @@
  AllowShutdown=Root
