@@ -275,7 +275,7 @@ Summary:	Menu Updating Tool
 Summary(pl):	Narzedzie do aktualizacji menu.
 Group:		X11/Applications
 Requires:	kdelibs >= %{version}
-Obsoletes:	%{name} =< 3.2-0.030418.2
+Obsoletes:	%{name} =< 3.1.1a-3
 
 %description kappfinder
 Menu Updating Tool.
@@ -398,7 +398,7 @@ Summary:	Desktop Pager
 Summary(pl):	Prze³±cznik biurek
 Group:		X11/Applications
 Requires:	kdelibs >= %{version}
-Obsoletes:	%{name} =< 3.2-0.030418.2
+Obsoletes:	%{name} =< 3.1.1a-3
 
 %description kpager
 KDE Desktop Pager.
