@@ -1,18 +1,18 @@
-diff -ur kdebase-2.2.orig/konsole/src/konsole.C kdebase-2.2/konsole/src/konsole.C
---- kdebase-2.2.orig/konsole/src/konsole.C	Sun Aug  5 02:41:24 2001
-+++ kdebase-2.2/konsole/src/konsole.C	Wed Aug 15 16:07:41 2001
-@@ -1325,7 +1325,7 @@
+diff -urN kdebase-2.2.1.orig/konsole/src/konsole.C kdebase-2.2.1/konsole/src/konsole.C
+--- kdebase-2.2.1.orig/konsole/src/konsole.C	Wed Sep  5 01:16:57 2001
++++ kdebase-2.2.1/konsole/src/konsole.C	Wed Sep 19 17:21:11 2001
+@@ -1352,7 +1352,7 @@
  
- TESession *Konsole::newSession(KSimpleConfig *co, QString program, const QStrList &args)
+ TESession *Konsole::newSession(KSimpleConfig *co, QString program, const QStrList &args, const QString &_term)
  {
--  QCString emu = "xterm";
-+  QCString emu = "xterm-color";
+-  QString emu = "xterm";
++  QString emu = "xterm-color";
+   QString key; 
    QString sch = s_kconfigSchema;
    QString txt = s_title;
-   unsigned int     fno = n_defaultFont;
-diff -ur kdebase-2.2.orig/konsole/src/konsole_part.C kdebase-2.2/konsole/src/konsole_part.C
---- kdebase-2.2.orig/konsole/src/konsole_part.C	Sun Jul 29 06:56:43 2001
-+++ kdebase-2.2/konsole/src/konsole_part.C	Wed Aug 15 16:08:05 2001
+diff -urN kdebase-2.2.1.orig/konsole/src/konsole_part.C kdebase-2.2.1/konsole/src/konsole_part.C
+--- kdebase-2.2.1.orig/konsole/src/konsole_part.C	Wed Sep  5 01:16:57 2001
++++ kdebase-2.2.1/konsole/src/konsole_part.C	Wed Sep 19 17:22:03 2001
 @@ -118,7 +118,7 @@
    setWidget(te);
    // faking a KMainwindow - TESession assumes that (wrong design!)
