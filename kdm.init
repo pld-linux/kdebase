@@ -28,7 +28,7 @@ case "$1" in
 		daemon /usr/X11R6/bin/kdm
 		touch /var/lock/subsys/kdm
 	else
-		msg_Already_Running "KDE Display Manager"
+		msg_already_running "KDE Display Manager"
 	fi
 	;;
   stop)
