@@ -9,7 +9,7 @@ Summary(ru):	K Desktop Environment - базовые файлы
 Summary(uk):	K Desktop Environment - базов╕ файли
 Name:		kdebase
 Version:	3.0.3
-Release:	10.1
+Release:	10.2
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -58,6 +58,7 @@ Patch39:	%{name}-fix-mem-leak-kicker.patch
 Patch40:	%{name}-fix-mem-leak-konq-behaviour.patch
 Patch41:	%{name}-fix-mem-leak-konq-main.patch
 Patch42:	%{name}-fix-mem-leak-smbro.patch
+Patch43:	%{name}-kicker.patch
 %ifnarch sparc sparc64
 BuildRequires:	alsa-lib-devel
 %endif
@@ -320,6 +321,7 @@ Standardowy obrazek okna "Wyloguj" KDE.
 %patch40 -p1
 %patch41 -p1
 %patch42 -p1
+%patch43 -p1
 
 %build
 
@@ -340,7 +342,7 @@ export CPPFLAGS
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,Settings/KDE} \
+install -d $RPM_BUILD_ROOT%{_applnkdir}/{Amusements,Help,Network/WWW,Office/Editors,Settings/KDE,System/Administration,Terminals} \
 	$RPM_BUILD_ROOT/etc/{pam.d,security,rc.d/init.d,X11/kdm}
 
 %{__make} install \
@@ -358,6 +360,11 @@ ALD=$RPM_BUILD_ROOT%{_applnkdir}
 mv -f $ALD/{Internet/konqbrowser.desktop,Network/WWW}
 mv -f $ALD/{Internet/keditbookmarks.desktop,Network/WWW}
 mv -f $ALD/{Toys/ktip.desktop,Amusements}
+mv -f $ALD/{Editors/{kate,kwrite}.desktop,Office/Editors}
+mv -f $ALD/{System/konsole.desktop,Terminals}
+mv -f $ALD/{System/{konquerorsu,konsolesu}.desktop,System/Administration}
+mv -f $ALD/{System/{kappfinder,kmenuedit,kpersonalizer}.desktop,Utilities}
+mv -f $ALD/{Help.desktop,Help}
 
 install %{SOURCE2}			$RPM_BUILD_ROOT/etc/pam.d/kdm
 install %{SOURCE6}			$RPM_BUILD_ROOT/etc/pam.d/kscreensaver
@@ -608,7 +615,7 @@ fi
 # NOTE:	There are many directories created by kappfinder. They should be
 #	ignored as such functionality is provided by applnk package and
 #	*.dekstop files from apropriate packages.
-%{_applnkdir}/Help.desktop
+%{_applnkdir}/Help/Help.desktop
 %{_applnkdir}/Home.desktop
 %{_applnkdir}/KControl.desktop
 %{_applnkdir}/Kfind.desktop
@@ -630,9 +637,10 @@ fi
 %{_applnkdir}/Settings/KDE/System/[!k]*
 %{_applnkdir}/Settings/KDE/System/.directory
 %{_applnkdir}/System/k[!o]*.desktop
-%{_applnkdir}/System/kon[!q]*.desktop
-%{_applnkdir}/Utilities/*.desktop
-%{_applnkdir}/Editors/*.desktop
+%{_applnkdir}/System/Administration/konsolesu.desktop
+%{_applnkdir}/Terminals/*.desktop
+%{_applnkdir}/Utilities/[!o]*.desktop
+%{_applnkdir}/Office/Editors/*.desktop
 # No idea what it is for...
 #%{_applnkdir}/ksysguard
 
@@ -779,7 +787,7 @@ fi
 
 %{_applnkdir}/Network/WWW/konq*.desktop
 %{_applnkdir}/Network/WWW/keditbookmarks.desktop
-%{_applnkdir}/System/konq*.desktop
+%{_applnkdir}/System/Administration/konq*.desktop
 %dir %{_applnkdir}/Settings/KDE
 %{_applnkdir}/Settings/KDE/.directory
 %{_applnkdir}/Settings/KDE/FileBrowsing
