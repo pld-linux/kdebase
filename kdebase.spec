@@ -12,7 +12,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.4
-Release:	3
+Release:	4
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -105,6 +105,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_fontdir 	/usr/share/fonts
 %define		_htmldir	/usr/share/doc/kde/HTML
 %define		_sysconfdir	/etc/X11
+
+%define		no_install_post_chrpath		0
 
 %description
 KDE specific files. Used by core KDE applications. Package includes:
