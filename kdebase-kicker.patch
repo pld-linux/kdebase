@@ -1,50 +1,14 @@
---- kdebase-3.1rc6//kicker/applets/launcher/quicklauncher.cpp.orig	Thu Jan  3 21:29:36 2002
-+++ kdebase-3.1rc6/kicker/applets/launcher/quicklauncher.cpp	Sun Jan  5 23:41:20 2003
-@@ -66,9 +66,9 @@
-    }
-    else {
-       buttonList.append(new QuickButton(locate("apps", "Home.desktop"), this));
--      buttonList.append(new QuickButton(locate("apps", "System/konsole.desktop"), this));
--      buttonList.append(new QuickButton(locate("apps", "KControl.desktop"), this));
--      buttonList.append(new QuickButton(locate("apps", "Help.desktop"), this));
-+      buttonList.append(new QuickButton(locate("apps", "Terminals/konsole.desktop"), this));
-+      buttonList.append(new QuickButton(locate("apps", "Settings/KControl.desktop"), this));
-+      buttonList.append(new QuickButton(locate("apps", "Help/Help.desktop"), this));
-       buttonList.append(new QuickButton(locate("apps", "Editors/kwrite.desktop"), this));
-       saveConfig();
-    }
---- kdebase-3.1rc6/kicker/core/containerarea.cpp.orig	Fri Jan  3 05:42:30 2003
-+++ kdebase-3.1rc6/kicker/core/containerarea.cpp	Sun Jan  5 23:31:45 2003
-@@ -136,13 +136,13 @@
-         f.close();
-     } else {
-         buttons << "menuext/prefmenu.desktop";
--        buttons << "System/konsole.desktop";
-+        buttons << "Terminals/konsole.desktop";
-         buttons << "Home.desktop";
--        buttons << "Internet/konqbrowser.desktop";
--        buttons << "Internet/KMail.desktop";
-+        buttons << "Network/WWW/konqbrowser.desktop";
-+        buttons << "Network/Mail/KMail.desktop";
-         buttons << "Editors/kwrite.desktop";
-         buttons << "Office/kword.desktop";
--        buttons << "Help.desktop";
-+        buttons << "Help/Help.desktop";
-     }
- 
-     int size = dsize;
---- kdebase-3.1rc6/kicker/core/default-apps.orig	Fri Jan  3 05:42:30 2003
-+++ kdebase-3.1rc6/kicker/core/default-apps	Sun Jan  5 23:29:49 2003
-@@ -1,8 +1,8 @@
+--- kdebase-030901/kicker/core/default-apps~	2003-08-31 15:37:34.000000000 +0200
++++ kdebase-030901/kicker/core/default-apps	2003-09-02 10:00:06.000000000 +0200
+@@ -1,7 +1,6 @@
  menuext/prefmenu.desktop
 -System/konsole.desktop
 +Terminals/konsole.desktop
  Home.desktop
 -Internet/konqbrowser.desktop
 -Internet/KMail.desktop
+-Office/kword.desktop
+-Help.desktop
 +Network/WWW/konqbrowser.desktop
 +Network/Mail/KMail.desktop
- Editors/kwrite.desktop
- Office/kword.desktop
--Help.desktop
 +Help/Help.desktop
