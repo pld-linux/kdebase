@@ -2,7 +2,7 @@
   "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
 
 <Menu>
-	<Name>KDE</Name>
+	<Name>KDE-Settings</Name>
 	<Directory>kde-settings.directory</Directory>
 	<Menu>
 		<Name>Information</Name>
