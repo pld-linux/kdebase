@@ -24,7 +24,7 @@
  
    guicombo = new KBackedComboBox(hlp);
    loadGuiStyles(guicombo);
-+  guicombo->insertItem("KDE");
++  //guicombo->insertItem("KDE");
    label = new QLabel(guicombo, i18n("GUI s&tyle:"), hlp);
    connect(guicombo, SIGNAL(activated(int)), SLOT(changed()));
    hglay->addWidget(label, 0, 0);
@@ -151,8 +151,8 @@
  install-data-local: genkdmconf
 -	@$(mkinstalldirs) $(DESTDIR)$(kde_confdir)/kdm
 -	@./genkdmconf --in $(DESTDIR)$(kde_confdir)/kdm
-+       @$(mkinstalldirs) $(DESTDIR)/etc/X11/kdm
-+       @./genkdmconf --no-old --in $(DESTDIR)/etc/X11/kdm
++	@$(mkinstalldirs) $(DESTDIR)/etc/X11/kdm
++	@./genkdmconf --no-old --in $(DESTDIR)/etc/X11/kdm
  
  messages:
  	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
