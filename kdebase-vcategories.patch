@@ -55,6 +55,14 @@
  X-KDE-AuthorizeAction=shell_access
 -Categories=Qt;KDE;System;TerminalEmulator;X-KDE-More
 +Categories=Qt;KDE;System;TerminalEmulator;Administration
+--- kdebase-030317/konqueror/konqbrowser.desktop~	Wed Jan 22 00:36:26 2003
++++ kdebase-030317/konqueror/konqbrowser.desktop	Mon Mar 24 00:02:06 2003
+@@ -60,4 +60,4 @@
+ Name[zh_CN]=Konqueror Web 浏览器
+ Name[zh_TW]=Konqueror 網頁瀏覽器
+ Name[zu]=Umcingi we-web we-Konqueror
+-Categories=Qt;KDE;Network
++Categories=Qt;KDE;Network;WWW
 --- kdebase-030317/kpersonalizer/kpersonalizer.desktop~	Wed Jan 22 00:36:30 2003
 +++ kdebase-030317/kpersonalizer/kpersonalizer.desktop	Wed Mar 19 19:15:10 2003
 @@ -58,4 +58,4 @@
