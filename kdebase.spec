@@ -87,23 +87,6 @@ Obsoletes:	%{name}-kwin
 Obsoletes:	%{name}-kxmlrpc
 Obsoletes:	%{name}-kdesktop
 Obsoletes:	%{name}-kwrite
-Obsoletes:      kde-i18n-Affrikaans kde-i18n-Arabic kde-i18n-Azerbaijani
-Obsoletes:      kde-i18n-Bulgarian kde-i18n-Bosnian kde-i18n-Catalan
-Obsoletes:      kde-i18n-Czech kde-i18n-Danish kde-i18n-German kde-i18n-Greek
-Obsoletes:      kde-i18n-English_UK kde-i18n-Esperanto kde-i18n-Spanish
-Obsoletes:      kde-i18n-Estonian kde-i18n-Finnish kde-i18n-French
-Obsoletes:      kde-i18n-Hebrew kde-i18n-Croatian kde-i18n-Hungarian
-Obsoletes:      kde-i18n-Indonesian kde-i18n-Icelandic kde-i18n-Italian
-Obsoletes:      kde-i18n-Japanese kde-i18n-Korean kde-i18n-Lithuanian
-Obsoletes:      kde-i18n-Latvian kde-i18n-Maltese kde-i18n-Dutch
-Obsoletes:      kde-i18n-Norwegian kde-i18n-Norwegian_Bokmaal
-Obsoletes:      kde-i18n-Norwegian_Nynorsk kde-i18n-Polish kde-i18n-Portugnese
-Obsoletes:      kde-i18n-Brazil_Portugnese kde-i18n-Romanian kde-i18n-Russian
-Obsoletes:      kde-i18n-Slovak kde-i18n-Slovenian kde-i18n-Serbian
-Obsoletes:      kde-i18n-Swedish kde-i18n-Tamil kde-i18n-Thai kde-i18n-Turkish
-Obsoletes:      kde-i18n-Ukrainian kde-i18n-Venda kde-i18n-Vietnamese
-Obsoletes:      kde-i18n-Xhosa kde-i18n-Simplified_Chinese kde-i18n-Chinese
-Obsoletes:      kde-i18n-Zulu
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
