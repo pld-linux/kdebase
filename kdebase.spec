@@ -385,17 +385,19 @@ KDE Fax Tool.
 Narzêdzie do faksowania dla KDE.
 
 %package kdialog
-Summary:	KDE Fax Tool
-Summary(pl):	Narzêdzie do faksowania dla KDE
+Summary:	A KDE version of dialog
+Summary(pl):	Wersja KDE dialogu
 Group:		X11/Applications
 Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
 Obsoletes:	%{name} < 3.2-0.030423.2
 
 %description kdialog
-TODO
+Allows to display menu boxes from shell scripts.
 
 %description kdialog -l pl
-TODO
+Umo¿liwia wy¶wietlanie komunikatów z poziomu skryptów
+pow³oki.
+
 
 %package kfind
 Summary:	KDE Find Tool
@@ -499,8 +501,8 @@ KDE System Guard.
 Stra¿nik systemu dla KDE.
 
 %package ksystraycmd
-Summary:	TODO
-Summary(pl):	TODO
+Summary:	A tool that allows running applications in taskbar.
+Summary(pl):	Narzêdzie do odpalania aplikacji w pasku zadañ.
 Group:		X11/Applications
 Requires:	%{name}-kicker = %{version}-%{release}
 
@@ -566,30 +568,30 @@ A libraries for KDE text editors.
 Biblioteki dla edytorów teksu KDE.
 
 %package libkmultitabbar
-Summary:	TODO
-Summary(pl):	TODO
+Summary:	Library containing multiple tab support.
+Summary(pl):	Biblioteka zawieraj±ca obs³ugê kilku kart.
 Group:		X11/Libraries
 Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
 Obsoletes:	%{name}-common-filemanagement < 3.2-0.030428.1
 
 %description libkmultitabbar
-TODO
+Library containing multiple tab support.
 
 %description libkmultitabbar -l pl
-TODO
+Biblioteka zawieraj±ca obs³ugê kilku kart.
 
 %package libkonq
-Summary:	TODO
-Summary(pl):	TODO
+Summary:	Konqueror library files
+Summary(pl):	Biblioteki wykorzystywane przez konquerora
 Group:		X11/Libraries
 Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
 Obsoletes:	konqueror < 3.2-0.030423.2
 
 %description libkonq
-TODO
+Libraries containing functions used by konqueror.
 
 %description libkonq -l pl
-TODO
+Biblioteki zawieraj±ce funkcje wykorzystywane przez konquerora.
 
 %package mailnews
 Summary:	KDE Mail and News Services
