@@ -23,7 +23,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.6
+Release:	1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -535,7 +535,6 @@ ALD=$RPM_BUILD_ROOT%{_applnkdir}
 
 install -d $ALD/{Help,Network/WWW,Settings/KDE,System/Administration,Terminals}
 
-mv -f $ALD/{Help.desktop,Help}
 mv -f $ALD/{Internet/konqbrowser.desktop,Network/WWW}
 mv -f $ALD/{Internet/keditbookmarks.desktop,Utilities}
 mv -f $ALD/{System/konsole.desktop,Terminals}
@@ -552,9 +551,8 @@ Icon=kcontrol
 X-KDE-BaseGroup=settings
 EOF
 
-cat $ALD/Help/Help.desktop |sed 's/Help/KDE Help/' |sed 's/Pomoc/Pomoc KDE/' \
-	> Help.desktop.tmp
-mv Help.desktop.tmp $ALD/Help/Help.desktop
+cat $ALD/Help.desktop |sed 's/Help/KDE Help/' |sed 's/Pomoc/Pomoc KDE/' \
+	> $ALD/Help/Help.desktop
 
 for f in `find $ALD -name '.directory' -o -name '*.dekstop'` ; do
 	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
