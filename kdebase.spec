@@ -541,7 +541,6 @@ mv -f $ALD/{Internet/konqbrowser.desktop,Network/WWW}
 mv -f $ALD/{Internet/keditbookmarks.desktop,Utilities}
 mv -f $ALD/{System/konsole.desktop,Terminals}
 mv -f $ALD/{System/More/{konquerorsu,konsolesu}.desktop,System/Administration}
-#mv -f $ALD/{System/ScreenSavers,.hidden}
 mv -f $ALD/{Utilities/More/*.desktop,Utilities}
 mv -f $ALD/{Settings/[!K]*,Settings/KDE}
 mv -f $ALD/{Settingsmenu/*.desktop,Settings}
@@ -1115,8 +1114,8 @@ fi
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kscreensaver
 %{_libdir}/kde3/kcm_screensaver.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_screensaver.so
-%{_applnkdir}/Settings/KDE/LookNFeel/screensaver.desktop
 %{_datadir}/apps/kscreensaver
+%{_applnkdir}/Settings/KDE/LookNFeel/screensaver.desktop
 %{_pixmapsdir}/*/*/apps/kscreensaver.png
 
 
