@@ -562,22 +562,24 @@ bzip2 -dc %{SOURCE8} | tar xf - -C $RPM_BUILD_ROOT
 :> %{name}.lang
 
 programs=" \
-	arts background bell \
-	clock colors desktop \
-	energy fonts helpindex.html \
-	icons kcmaccess kcmfontinst \
-	kcmlaunch kcmnotify kcmsmserver \
-	kcmstyle kcmtaskbar kdebugdialog \
-	kdeprint kdesu 	keyboard \
+	appletproxy arts background bell \
+	childpanelextension clock clockapplet colors desktop desktop_kdebase \
+	energy fonts fontinst helpindex.html htmlsearch \
+	icons kaccess kasbarextension kcmaccess kcmbackground \
+	kcmbell kcmcgi kcmarts kcmcolors kcmcomponentchooser kcmcrypto kcmemail kcmenergy \
+	kcmfileshare kcmfontinst kcmfonts kcmhtmlsearch kcmicons kcminfo kcminput kcmioslaveinfo kcmkclock kcmkded \
+	kcmkeys kcmkicker kcmkio kcmkurifilt kcmkwindecoration kcmkwintheme kcmkwm kcmlayout kcmlaunch kcmlocale \
+	kcmnotify kcmsmserver kcmstyle kcmtaskbar kdebugdialog \
+	kdeprint kdesktop kdesu kdesud kdialog keyboard \
 	keys khotkeys kicker kinfocenter \
-	kioslave klipper kmenuedit \
+	kioslave klipper kmenuedit kminipagerapplet \
 	kpersonalizer kpm kprinter \
 	krdb kreadconfig krunapplet \
-	ksysguard kthememgr \
+	ksmserver ksplash kstart ksysguard ksystemtrayapplet ksystraycmd ktaskbarapplet kthememgr ktip \
 	kwin kwin_b2_config kwin_default_config \
 	kwin_icewm_config kwin_keramik_config kwin_modernsys_config \
 	kwin_quartz_config kwindecoration language \
-	libkickermenu_konsole libkickermenu_prefmenu libkickermenu_recentdocs \
+	libkicker libkickermenu_kdeprint libkickermenu_konsole libkickermenu_prefmenu libkickermenu_recentdocs \
 	libtaskbar libtaskmanager mouse \
 	panel passwords smb \
 	spellchecking taskbarextension windowmanagement"
@@ -589,9 +591,9 @@ done
 
 %find_lang konqueror	--with-kde
 programs=" \
-	cache cookies crypto \
-	ebrowsing email filemanager \
-	filetypes kcmcss khtml \
+	cache cookies crypto drkonqi kcmkonq kcmkonqhtml \
+	ebrowsing email extensionproxy filemanager \
+	filetypes kcmcss khtml kio_devices \
 	libkonq netpref proxy \
 	useragent"
 
@@ -604,16 +606,38 @@ done
 %find_lang	konsole		--with-kde
 cat kcmkonsole.lang >> konsole.lang
 
-%find_lang	screensaver	--with-kde
-%find_lang	kscreensaver	--with-kde
-cat kscreensaver.lang >> screensaver.lang
 
-%find_lang	kate		--with-kde
+%find_lang	screensaver	--with-kde
+programs="kscreensaver kcmscreensaver"
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> screensaver.lang
+done
+
 %find_lang	kdm		--with-kde
-%find_lang	kfind		--with-kde
+programs="kdmchooser kdmconfig kdmgreet"
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >>  kdm.lang
+done
+
+> mailnews.lang
+programs="kio_imap4 kio_nntp kio_pop3 kio_smtp"
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >>  mailnews.lang
+done
+
 %find_lang	khelpcenter	--with-kde
+%find_lang	kio_man		--with-kde
+cat kio_man >> khelpcenter.lang
+
+%find_lang	kappfinder	--with-kde
+%find_lang	kate		--with-kde
+%find_lang	kfind		--with-kde
 %find_lang	kpager		--with-kde
 %find_lang	kwrite		--with-kde
+%find_lang	kcontrol	--with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -1032,7 +1056,7 @@ fi
 %{_applnkdir}/Editors/kate.desktop
 %{_pixmapsdir}/*/*/apps/kate.png
 
-%files kcontrol
+%files kcontrol -f kcontrol.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kcminit
 %attr(0755,root,root) %{_bindir}/kcmshell
@@ -1109,7 +1133,7 @@ fi
 %{_applnkdir}/Editors/kwrite.desktop
 %{_pixmapsdir}/*/*/apps/kwrite.png
 
-%files mailnews
+%files mailnews -f mailnews.lang
 %defattr(644,root,root,755)
 %{_libdir}/kde3/kio_imap4.la
 %attr(0755,root,root) %{_libdir}/kde3/kio_imap4.so
