@@ -14,7 +14,7 @@
 -        paths.append("/usr/lib/netscape/plugins-libc6");
 -        paths.append("/usr/lib/mozilla/plugins");
 -        paths.append("$MOZILLA_HOME/plugins");
-+        paths.append("/usr/X11R6/lib/kde3/plugins/konqueror");
++        paths.append("/usr/lib/kde3/plugins/konqueror");
          config->writeEntry( "scanPaths", paths );
      }
  
@@ -34,7 +34,7 @@
 -        paths.append("/usr/lib/netscape/plugins-libc6");
 -        paths.append("/usr/lib/mozilla/plugins");
 -        paths.append("$MOZILLA_HOME/plugins");
-+        paths.append("/usr/X11R6/lib/kde3/plugins/konqueror");
++        paths.append("/usr/lib/kde3/plugins/konqueror");
      }
  
      // fill list
