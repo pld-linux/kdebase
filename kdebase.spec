@@ -13,7 +13,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define         _snap		030511
+%define         _snap		030512
 %define		_kdelibsminrel	0.%{_snap}.1
 
 %ifarch	sparc sparcv9 sparc64
