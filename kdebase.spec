@@ -5,11 +5,11 @@
 %bcond_with	kwin_shadow	# experimental support for kwin shadows
 %bcond_with	cvs		# use cvs checkouts instead of tarballs
 %define		_state		snapshots
-%define		_ver		3.2.90
-%define		_snap		040613
+%define		_ver		3.2.91
+%define		_snap		040629
 %define		_packager	adgor
 
-%define		_minlibsevr	9:3.2.90.030613
+%define		_minlibsevr	9:3.2.91.030629
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -157,7 +157,6 @@ Summary:	Include files to develop KDE applications
 Summary(pl):	Pliki nag³ówkowe potrzebne do programowania
 Summary(pt_BR):	Arquivos de inclusão para compilar aplicativos que usem bibliotecas do kdebase
 Group:		X11/Development/Libraries
-Requires:	konqueror-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kfontinst = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
@@ -516,7 +515,7 @@ Summary:	KDesktop libraries
 Summary(pl):	Biblioteki KDesktop
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= %{_minlibsevr}
+Requires:	konqueror-libs = %{epoch}:%{version}-%{release}
 Obsoletes:	kdebase-desktop < 9:3.1.92.031006
 Obsoletes:	kdebase-kicker-libs
 
@@ -892,8 +891,6 @@ cd -
 %endif 
 
 %{__tar} xfj %{SOURCE11} -C konqueror/sidebar/
-
-echo "KDE_OPTIONS = nofinal" >> kicker/applets/clock/Makefile.am
 
 %build
 cp /usr/share/automake/config.sub admin
@@ -1479,6 +1476,7 @@ fi
 %attr(0755,root,root) %{_bindir}/kxkb
 %attr(0755,root,root) %{_bindir}/startkde
 %attr(0755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
+%attr(0755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
 %{_libdir}/libkdeinit_kaccess.la
 %attr(0755,root,root) %{_libdir}/libkdeinit_kaccess.so
 %{_libdir}/libkdeinit_kdesktop.la
@@ -1531,6 +1529,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_kwindecoration.so
 %{_libdir}/kde3/kcm_kwinoptions.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_kwinoptions.so
+%{_libdir}/kde3/kcm_kwinrules.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_kwinrules.so
 %{_libdir}/kde3/kcm_launch.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_launch.so
 %{_libdir}/kde3/kcm_nsplugins.la
@@ -1670,6 +1670,7 @@ fi
 %{_desktopdir}/kde/ktip.desktop
 %{_desktopdir}/kde/kwindecoration.desktop
 %{_desktopdir}/kde/kwinoptions.desktop
+%{_desktopdir}/kde/kwinrules.desktop
 %{_desktopdir}/kde/mouse.desktop
 %{_desktopdir}/kde/passwords.desktop
 %{_desktopdir}/kde/privacy.desktop
