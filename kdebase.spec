@@ -25,7 +25,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -249,6 +249,21 @@ KDE Window Decoration - Web.
 %description -n kde-decoration-web -l pl
 Dekoracja okna dla KDE - Web.
 
+%package -n kde-kgreet-classic
+Summary:	KDE greeter libraries
+Summary(pl):	Biblioteki s³u¿±ce do zapytañ o has³o
+Group:		X11/Libraries
+Requires:	kdelibs >= 9:%{version}
+Provides:	kde-kgreet
+Conflicts:	kdm =< 3.2.90.040503-1
+
+%description -n kde-kgreet-classic
+KDE greeter libraries.
+
+%description -n kde-kgreet-classic -l pl
+Biblioteki s³u¿±ce do zapytañ o has³o.
+
+
 %package -n kde-kside-default
 Summary:	Default kicker sidebar
 Summary(pl):	Domy¶lny boczny pasek do menu KDE
@@ -388,6 +403,7 @@ Requires:	kde-logoutpic
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
 Requires:	konqueror = %{epoch}:%{version}-%{release}
 Requires:	kde-kside
+Requires:	kde-kgreet
 Requires:	%{name}-kfind = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kjobviewer = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kpager = %{epoch}:%{version}-%{release}
@@ -729,6 +745,7 @@ Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	pam
 Requires:	sessreg
 Requires:	xinitrc
+Requires:	kde-kgreet
 Obsoletes:	gdm
 Obsoletes:	xdm
 Obsoletes:	%{name}-kdm
@@ -1007,7 +1024,9 @@ done
 %find_lang	kpager		--with-kde
 %find_lang	kwrite		--with-kde
 %find_lang	screensaver	--with-kde
+%find_lang	kcontrol	--with-kde
 
+cat kcontrol.lang	>> core.lang
 cat kcmkonsole.lang	>> konsole.lang
 cat kioslave.lang	>> kinfocenter.lang
 
@@ -1277,6 +1296,8 @@ fi
 %attr(755,root,root) %{_bindir}/khc_indexbuilder
 %attr(755,root,root) %{_bindir}/khelpcenter
 %attr(755,root,root) %{_bindir}/kprinter
+%attr(755,root,root) %{_bindir}/iconvert
+%attr(755,root,root) %{_bindir}/multiple-attachments-servicemenu
 %{_libdir}/libkdeinit_kcminit.la
 %attr(755,root,root) %{_libdir}/libkdeinit_kcminit.so
 %{_libdir}/libkdeinit_kcmshell.la
@@ -1401,12 +1422,15 @@ fi
 %attr(755,root,root) %{_bindir}/ktip
 %attr(755,root,root) %{_bindir}/kwebdesktop
 %attr(755,root,root) %{_bindir}/kwin
+%attr(755,root,root) %{_bindir}/krandrinithack
 #%attr(755,root,root) %{_bindir}/kwin_dialog_helper
 %attr(755,root,root) %{_bindir}/kxkb
 %attr(755,root,root) %{_bindir}/startkde
 %attr(755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
-#%{_libdir}/krandrinithack.la
-#%attr(755,root,root) %{_libdir}/krandrinithack.so
+%{_libdir}/libkdeinit_krandrinithack.la
+%attr(0755,root,root) %{_libdir}/libkdeinit_krandrinithack.so
+%{_libdir}/kde3/krandrinithack.la
+%attr(755,root,root) %{_libdir}/kde3/krandrinithack.so
 %{_libdir}/libkdeinit_kaccess.la
 %attr(755,root,root) %{_libdir}/libkdeinit_kaccess.so
 %{_libdir}/libkdeinit_kdesktop.la
@@ -1674,6 +1698,7 @@ fi
 %{_iconsdir}/*/*/apps/xpaint.png
 %{_iconsdir}/*/*/apps/x.png
 %{_iconsdir}/*/*/apps/xv.png
+%{_iconsdir}/crystalsvg/*/actions/newfont.png
 %doc ksystraycmd/README
 %attr(755,root,root) %{_bindir}/ksystraycmd
 %attr(755,root,root) %{_bindir}/kicker
@@ -2053,6 +2078,11 @@ fi
 %{_desktopdir}/kde/screensaver.desktop
 %{_iconsdir}/*/*/apps/kscreensaver.png
 
+%files -n kde-kgreet-classic
+%defattr(644,root,root,755)
+%{_libdir}/kde3/kgreet_classic.la
+%attr(0755,root,root) %{_libdir}/kde3/kgreet_classic.so
+
 %files -n kdm -f kdm.lang
 %defattr(644,root,root,755)
 %doc README.pam kdm/{ChangeLog,README,TODO}
@@ -2079,8 +2109,6 @@ fi
 %attr(755,root,root) %{_bindir}/krootimage
 %{_libdir}/kde3/kcm_kdm.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_kdm.so
-%{_libdir}/kde3/kgreet_classic.la
-%attr(755,root,root) %{_libdir}/kde3/kgreet_classic.so
 %{_datadir}/apps/kdm
 %{_datadir}/wallpapers/kdm_pld.png
 %{_desktopdir}/kde/kdm.desktop
