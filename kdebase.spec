@@ -21,10 +21,10 @@ Patch3:		%{name}-glibc-2.2.2.patch
 Patch4:		%{name}-kxmlrpcd-tcpsocket.patch
 Patch5:		%{name}-arrange.patch
 Patch6:		%{name}-utmp.patch
-Patch7:		%{name}-2.1-allow-to-change-user-agent.patch.bz2
-Patch8:		%{name}-2.1-disable_fonts_for_nonkde_apps.patch.bz2
-Patch9:		%{name}-2.1-kcontrol.patch.bz2
-Patch10:	konq_history_security_patch.diff.bz2
+Patch7:		%{name}-allow-to-change-user-agent.patch
+Patch8:		%{name}-disable_fonts_for_nonkde_apps.patch
+Patch9:		%{name}-kcontrol.patch
+Patch10:	%{name}-konq_history_security_patch.diff
 BuildRequires:	grep
 BuildRequires:	qt-devel >= 2.3.0
 BuildRequires:	kdelibs-devel >= %{version}
