@@ -1,3 +1,9 @@
+#
+# FIXME: missing /etc/pam.d/kdm
+# FIXME: infinite loop in symlinks to kdmrc
+# FIXME: brain-dead findwm script
+# FIXME: kdebase must be installed from X-Window system on local machine running with root privilages.
+#
 
 %define		_state		unstable
 %define		_kdever		kde-3.1-rc2
