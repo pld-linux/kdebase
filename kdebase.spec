@@ -16,7 +16,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.5a
-Release:	0.2
+Release:	0.3
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -225,6 +225,7 @@ Requires:	qt >= 3.0.5
 Requires:	kdelibs >= %{version}
 Requires:	sessreg
 Requires:	xinitrc
+Requires:	%{name}
 Prereq:		/sbin/chkconfig
 Obsoletes:	gdm
 Obsoletes:	xdm
