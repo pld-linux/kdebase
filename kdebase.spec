@@ -815,9 +815,9 @@ fi
 %{_datadir}/templates
 %{_datadir}/wallpapers
 %{_applnkdir}/Home.desktop
+%{_applnkdir}/.hidden/[bcmpsv]*.desktop
 %{_applnkdir}/.hidden/k[!co]*.desktop
 %{_applnkdir}/.hidden/kcmkxmlrpcd.desktop
-%{_applnkdir}/.hidden/[bcmpsv]*.desktop
 %{_applnkdir}/System/k[!o]*.desktop
 %{_applnkdir}/Utilities/k[!de]*.desktop
 %{_applnkdir}/Settings/[!K]*.desktop
@@ -1229,9 +1229,9 @@ fi
 %{_datadir}/servicetypes/[!kt]*
 %{_datadir}/servicetypes/k[!a]*
 %{_applnkdir}/konqueror.desktop
-%{_applnkdir}/.hidden/f*.desktop
+%{_applnkdir}/.hidden/file*.desktop
 %{_applnkdir}/.hidden/kcmkonq.desktop
-%{_applnkdir}/.hidden/ko*.desktop
+%{_applnkdir}/.hidden/konq*.desktop
 %{_applnkdir}/Network/WWW/konq*.desktop
 %{_applnkdir}/Utilities/keditbookmarks.desktop
 %{_applnkdir}/Settings/KDE/Components/filetypes.desktop
