@@ -24,7 +24,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	2
+Release:	3
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -107,7 +107,8 @@ Obsoletes:	%{name}-kwin
 Obsoletes:	%{name}-kxmlrpc
 Obsoletes:	%{name}-kdesktop
 Obsoletes:	%{name}-wallpapers
-Obsoletes:	kdeartwork
+Obsoletes:	kde-splash-keramik
+Obsoletes:	kde-theme-keramik
 #
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
