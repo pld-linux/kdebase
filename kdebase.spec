@@ -13,6 +13,8 @@ Group(da):	X11/Programmer
 Group(de):	X11/Applikationen
 Group(es):	X11/Aplicaciones
 Group(fr):	X11/Applications
+Group(id):	X11/Aplikasi
+Group(is):	X11/Forrit
 Group(it):	X11/Applicazioni
 Group(ja):	X11/¥¢¥×¥ê¥±¡¼¥·¥ç¥ó
 Group(no):	X11/Applikasjoner
@@ -20,7 +22,9 @@ Group(pl):	X11/Aplikacje
 Group(pt_BR):	X11/Aplicações
 Group(pt):	X11/Aplicações
 Group(ru):	X11/ðÒÉÌÏÖÅÎÉÑ
+Group(sl):	X11/Programi
 Group(sv):	X11/Tillämpningar
+Group(uk):	X11/ðÒÉËÌÁÄÎ¦ ðÒÏÇÒÁÍÉ
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
 Source1:	%{name}-startkde.sh
 Source2:	kdm.pamd
@@ -117,6 +121,7 @@ Group(da):	X11/Udvikling/Biblioteker
 Group(de):	X11/Entwicklung/Bibliotheken
 Group(es):	X11/Desarrollo/Bibliotecas
 Group(fr):	X11/Development/Librairies
+Group(is):	X11/Þróunartól/Aðgerðasöfn
 Group(it):	X11/Sviluppo/Librerie
 Group(ja):	X11/³«È¯/¥é¥¤¥Ö¥é¥ê
 Group(no):	X11/Applikasjoner/Biblioteker
@@ -124,6 +129,7 @@ Group(pl):	X11/Programowanie/Biblioteki
 Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
 Group(pt):	X11/Desenvolvimento/Bibliotecas
 Group(ru):	X11/òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(sl):	X11/Razvoj/Knji¾nice
 Group(sv):	X11/Utveckling/Bibliotek
 Group(uk):	X11/òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	%{name} = %{version}
@@ -156,6 +162,7 @@ Group(da):	X11/Udvikling/Biblioteker
 Group(de):	X11/Entwicklung/Bibliotheken
 Group(es):	X11/Desarrollo/Bibliotecas
 Group(fr):	X11/Development/Librairies
+Group(is):	X11/Þróunartól/Aðgerðasöfn
 Group(it):	X11/Sviluppo/Librerie
 Group(ja):	X11/³«È¯/¥é¥¤¥Ö¥é¥ê
 Group(no):	X11/Applikasjoner/Biblioteker
@@ -163,6 +170,7 @@ Group(pl):	X11/Programowanie/Biblioteki
 Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
 Group(pt):	X11/Desenvolvimento/Bibliotecas
 Group(ru):	X11/òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(sl):	X11/Razvoj/Knji¾nice
 Group(sv):	X11/Utveckling/Bibliotek
 Group(uk):	X11/òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	qt-devel >= 2.3.0
@@ -171,13 +179,13 @@ Requires:	kdelibs-devel >= %{version}
 %description static
 This package contains KDE static libraries.
 
-%description -l es static
+%description static -l es
 kdebase static library files.
 
 %description static -l pl
 Pakiet zawiera statyczne biblioteki KDE.
 
-%description -l pt_BR static
+%description static -l pt_BR
 Bibliotecas estáticas do kdebase.
 
 %package -n kdm
@@ -189,6 +197,8 @@ Group(da):	X11/Programmer
 Group(de):	X11/Applikationen
 Group(es):	X11/Aplicaciones
 Group(fr):	X11/Applications
+Group(id):	X11/Aplikasi
+Group(is):	X11/Forrit
 Group(it):	X11/Applicazioni
 Group(ja):	X11/¥¢¥×¥ê¥±¡¼¥·¥ç¥ó
 Group(no):	X11/Applikasjoner
@@ -196,7 +206,9 @@ Group(pl):	X11/Aplikacje
 Group(pt_BR):	X11/Aplicações
 Group(pt):	X11/Aplicações
 Group(ru):	X11/ðÒÉÌÏÖÅÎÉÑ
+Group(sl):	X11/Programi
 Group(sv):	X11/Tillämpningar
+Group(uk):	X11/ðÒÉËÌÁÄÎ¦ ðÒÏÇÒÁÍÉ
 Requires:	qt >= 2.3.0
 Requires:	kdelibs >= %{version}
 Prereq:		/sbin/chkconfig
@@ -220,6 +232,8 @@ Group(da):	X11/Programmer
 Group(de):	X11/Applikationen
 Group(es):	X11/Aplicaciones
 Group(fr):	X11/Applications
+Group(id):	X11/Aplikasi
+Group(is):	X11/Forrit
 Group(it):	X11/Applicazioni
 Group(ja):	X11/¥¢¥×¥ê¥±¡¼¥·¥ç¥ó
 Group(no):	X11/Applikasjoner
@@ -227,7 +241,9 @@ Group(pl):	X11/Aplikacje
 Group(pt_BR):	X11/Aplicações
 Group(pt):	X11/Aplicações
 Group(ru):	X11/ðÒÉÌÏÖÅÎÉÑ
+Group(sl):	X11/Programi
 Group(sv):	X11/Tillämpningar
+Group(uk):	X11/ðÒÉËÌÁÄÎ¦ ðÒÏÇÒÁÍÉ
 Requires:	qt >= 2.3.0
 Requires:	kdelibs >= %{version}
 Obsoletes:	kdebase-konqueror
@@ -249,6 +265,8 @@ Group(da):	X11/Programmer
 Group(de):	X11/Applikationen
 Group(es):	X11/Aplicaciones
 Group(fr):	X11/Applications
+Group(id):	X11/Aplikasi
+Group(is):	X11/Forrit
 Group(it):	X11/Applicazioni
 Group(ja):	X11/¥¢¥×¥ê¥±¡¼¥·¥ç¥ó
 Group(no):	X11/Applikasjoner
@@ -256,7 +274,9 @@ Group(pl):	X11/Aplikacje
 Group(pt_BR):	X11/Aplicações
 Group(pt):	X11/Aplicações
 Group(ru):	X11/ðÒÉÌÏÖÅÎÉÑ
+Group(sl):	X11/Programi
 Group(sv):	X11/Tillämpningar
+Group(uk):	X11/ðÒÉËÌÁÄÎ¦ ðÒÏÇÒÁÍÉ
 Requires:	qt >= 2.3.0
 Requires:	kdelibs >= %{version}
 Requires:	OpenGL
