@@ -6,10 +6,10 @@
 %bcond_with	cvs		# use cvs checkouts instead of tarballs
 
 %define		_state		snapshots
-%define		_ver		3.2.91
-%define		_snap		040629
+%define		_ver		3.2.92
+%define		_snap		040724
 
-%define		_minlibsevr	9:3.2.91.030629
+%define		_minlibsevr	9:3.2.92.040724
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -1533,8 +1533,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_launch.so
 %{_libdir}/kde3/kcm_nsplugins.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_nsplugins.so
-%{_libdir}/kde3/kcm_passwords.la
-%attr(0755,root,root) %{_libdir}/kde3/kcm_passwords.so
+#%{_libdir}/kde3/kcm_passwords.la
+#%attr(0755,root,root) %{_libdir}/kde3/kcm_passwords.so
 %{_libdir}/kde3/kcm_privacy.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_privacy.so
 %{_libdir}/kde3/kcm_randr.la
@@ -1640,6 +1640,7 @@ fi
 %{_datadir}/applnk/.hidden/kwinadvanced.desktop
 %{_datadir}/applnk/.hidden/kwinfocus.desktop
 %{_datadir}/applnk/.hidden/kwinmoving.desktop
+%{_datadir}/applnk/.hidden/passwords.desktop
 %{_datadir}/applnk/.hidden/power.desktop
 %{_datadir}/applnk/.hidden/randr.desktop
 %{_datadir}/applnk/.hidden/socks.desktop
@@ -1670,7 +1671,6 @@ fi
 %{_desktopdir}/kde/kwinoptions.desktop
 %{_desktopdir}/kde/kwinrules.desktop
 %{_desktopdir}/kde/mouse.desktop
-%{_desktopdir}/kde/passwords.desktop
 %{_desktopdir}/kde/privacy.desktop
 %{_desktopdir}/kde/spellchecking.desktop
 %{_iconsdir}/*/*/apps/access.png
@@ -1715,7 +1715,7 @@ fi
 %{_iconsdir}/*/*/apps/nedit.png
 %{_iconsdir}/*/*/apps/netscape.png
 %{_iconsdir}/*/*/apps/opera.png
-%{_iconsdir}/*/*/apps/password.png
+#%{_iconsdir}/*/*/apps/password.png
 %{_iconsdir}/*/*/apps/penguin.png
 %{_iconsdir}/*/*/apps/phppg.png
 %{_iconsdir}/*/*/apps/plan.png
@@ -1879,6 +1879,7 @@ fi
 %{_libdir}/kde3/kcm_kthememanager.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_kthememanager.so
 %{_datadir}/mimelnk/application/x-ktheme.desktop
+%{_desktopdir}/kde/installktheme.desktop
 %{_desktopdir}/kde/kthememanager.desktop
 
 %files desktop-libs
