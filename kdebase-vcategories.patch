@@ -1,19 +1,18 @@
---- kdebase-030418/kcontrol/kcontrol/KControl.desktop~	2003-04-18 03:49:26.000000000 +0200
-+++ kdebase-030418/kcontrol/kcontrol/KControl.desktop	2003-04-18 16:48:48.000000000 +0200
-@@ -66,3 +66,5 @@
- Name[zu]=Indawo Yokulawula
+--- kdebase-030905/kcontrol/konq/desktoppath.desktop~	2003-09-05 20:16:55.000000000 +0200
++++ kdebase-030905/kcontrol/konq/desktoppath.desktop	2003-09-06 11:01:58.000000000 +0200
+@@ -145,4 +145,4 @@
+ Keywords[zh_TW]=konqueror,filemanager,paths,desktop,trash,directories,autostart,征服家,檔案管理程式,路徑,桌面,垃圾桶,目錄,自動啟動
+ Keywords[zu]=konqueror,imenenja yamafayela,izindlela,desktop,izibi,uhlu lwamafayela,ukuqala ngokuzenzekela
  
- X-DCOP-ServiceType=Unique
-+
-+Categories=Qt;KDE;Settings
---- kdebase-030613/kfind/Kfind.desktop~	2003-06-13 11:25:50.000000000 +0200
-+++ kdebase-030613/kfind/Kfind.desktop	2003-06-17 15:12:29.000000000 +0200
-@@ -63,3 +63,5 @@
+-Categories=Qt;KDE;X-KDE-settings-system
++Categories=Qt;KDE;X-KDE-settings-desktop
+--- kdebase-030911/kfind/Kfind.desktop~	2003-08-31 15:36:31.000000000 +0200
++++ kdebase-030911/kfind/Kfind.desktop	2003-09-11 10:33:29.000000000 +0200
+@@ -65,3 +65,4 @@
  Name[zh_TW]=尋找檔案
  Name[zu]=Thola Amafayela
  X-KDE-StartupNotify=true
-+Categories=Qt;KDE;Core;
-+OnlyShowIn=KDE;
++Categories=Qt;KDE;Utility
 --- kdebase-030317/khelpcenter/Help.desktop~	Wed Jan 22 00:36:14 2003
 +++ kdebase-030317/khelpcenter/Help.desktop	Fri Mar 21 04:11:31 2003
 @@ -6,7 +6,7 @@
@@ -39,6 +38,14 @@
  Name[zu]=Usizo
  
 +Categories=Qt;KDE;X-Help
+--- kdebase-030911/khotkeys/kcontrol/khotkeys.desktop~	2003-09-11 10:09:20.000000000 +0200
++++ kdebase-030911/khotkeys/kcontrol/khotkeys.desktop	2003-09-11 10:27:04.000000000 +0200
+@@ -18,4 +18,4 @@
+ Keywords[sr]=Keys,Global key bindings,Key scheme,Key bindings,shortcuts,application shortcuts,тастери,глобални тасте,пречица,шема тастера,пречице,програмске пречице
+ Keywords[sv]=Tangenter,Globala kortkommandon,bindningar,Tangentbindningar
+ Keywords[tr]=Tuşlar,Genel tuş bağıntıları,Tuş şeması,Tuş bağıntıları
+-Categories=Qt;KDE;X-KDE-settings-system
++Categories=Qt;KDE;X-KDE-settings-accessibility
 --- kdebase-030618/konqueror/Home.desktop~	2003-06-01 00:34:16.000000000 +0200
 +++ kdebase-030618/konqueror/Home.desktop	2003-06-18 12:08:39.000000000 +0200
 @@ -120,4 +120,6 @@
@@ -55,7 +62,7 @@
  
  
 -Categories=Qt;KDE;System;X-KDE-More
-+Categories=Qt;KDE;System;X-Administration
++Categories=Qt;KDE;SystemSetup
 --- kdebase-030317/konsole/konsolesu.desktop~	Tue Mar 18 18:35:21 2003
 +++ kdebase-030317/konsole/konsolesu.desktop	Wed Mar 19 19:11:09 2003
 @@ -106,4 +106,4 @@
@@ -63,7 +70,7 @@
  GenericName[zu]=Uhlelo lwemisebenzi lwangaohandle
  X-KDE-AuthorizeAction=shell_access
 -Categories=Qt;KDE;System;TerminalEmulator;X-KDE-More
-+Categories=Qt;KDE;System;TerminalEmulator;X-Administration
++Categories=Qt;KDE;SystemSetup;TerminalEmulator
 --- kdebase-030317/konqueror/konqbrowser.desktop~	Wed Jan 22 00:36:26 2003
 +++ kdebase-030317/konqueror/konqbrowser.desktop	Mon Mar 24 00:02:06 2003
 @@ -60,4 +60,4 @@
