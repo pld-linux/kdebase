@@ -16,7 +16,6 @@
 %define		_without_alsa	1
 %endif
 
-%define		_vfolder_version 0.1
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -29,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.1
+Release:	1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -42,8 +41,7 @@ Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-ircpld.desktop
 Source9:	%{name}-specs.desktop
-Source10:	vfolder-%{_vfolder_version}.tar.bz2
-Source11:       %{name}-kdesktop.pam
+Source10:       %{name}-kdesktop.pam
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 Patch1:		%{name}-fix-mouse.cpp.patch
 Patch2:		%{name}-fontdir.patch
@@ -58,18 +56,15 @@ Patch10:	%{name}-startkde.patch
 Patch11:        %{name}-kcm_fonts.patch
 Patch12:	%{name}-gtkrc.patch
 Patch13:	%{name}-krdb.patch
-Patch14:	%{name}-pldcredits.patch
+#Patch14:	%{name}-pldcredits.patch
 # rh stuff
-Patch16:	%{name}-kicker_nodesktop.patch
-Patch17:        %{name}-xfsreload.patch
-Patch18:	%{name}-konsole_sudo.patch
-Patch19:	%{name}-vroot.patch
+Patch15:	%{name}-kicker_nodesktop.patch
+Patch16:        %{name}-xfsreload.patch
 #
-Patch21:	%{name}-kdm_kgreeter.patch
-Patch22:	%{name}-screensavers.patch
-Patch23:	%{name}-prefmenu.patch
-Patch24:	%{name}-vfolders.patch
-Patch25:        %{name}-kdesktop_lock.patch
+Patch17:	%{name}-kdm_kgreeter.patch
+Patch18:	%{name}-screensavers.patch
+Patch19:	%{name}-prefmenu.patch
+Patch20:        %{name}-kdesktop_lock.patch
 
 %{?_without_alsa:BuildConflicts:	alsa-driver-devel}
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
@@ -781,16 +776,11 @@ Internet Explorer.
 %patch11 -p1
 %patch12 -p1 
 %patch13 -p1
-%patch14 -p1
+#%%patch14 -p1
 %patch16 -p1
 %patch17 -p1
 %patch18 -p1
 %patch19 -p1
-%patch21 -p1
-%patch22 -p1
-%patch23 -p1
-%patch24 -p1
-%patch25 -p1
 
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
@@ -812,20 +802,11 @@ done
 
 %{__make}
 
-cd vfolder-%{_vfolder_version}
-%configure 
-%{__make} -C kioslave
-cd ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} -i install DESTDIR=$RPM_BUILD_ROOT
-
-cd vfolder-%{_vfolder_version}
-cd kioslave 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
-cd ../..
 
 install -d \
 	$RPM_BUILD_ROOT/etc/{pam.d,rc.d/init.d,security} \
@@ -835,7 +816,7 @@ mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers{,.orig}
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession{,.orig}
 
 install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
-install %{SOURCE11}     $RPM_BUILD_ROOT/etc/pam.d/kdesktop
+install %{SOURCE10}     $RPM_BUILD_ROOT/etc/pam.d/kdesktop
 install %{SOURCE3}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
 install %{SOURCE5}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
@@ -1103,9 +1084,6 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kwin_keramik.so
 %{_libdir}/kde3/kwin_keramik_config.la
 %attr(0755,root,root) %{_libdir}/kde3/kwin_keramik_config.so
-%{_libdir}/kde3/kio_vfolder.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_vfolder.so
-%{_datadir}/services/vfolder.protocol
 %{_datadir}/apps/clockapplet
 %{_datadir}/apps/kcm_componentchooser/*
 %{_datadir}/apps/kcmfontinst
