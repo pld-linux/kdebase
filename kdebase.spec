@@ -3,7 +3,7 @@
 
 %define		_ver		3.0.3
 #define		_sub_ver
-%define		_rel		1.2
+%define		_rel		1.3
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -319,7 +319,7 @@ done
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
 > %{name}.lang
-programs="appletproxy childpanelextension clockapplet cupsdconf desktop drkonqi extensionproxy filetypes fontinst htmlsearch kaccess kaddressbook kappfinder kasbarextension kate kcontrol kdcop kdebugdialog kdeprintfax kdesktop kdesu kdesud kfind kfindpart kfmclient kfmexec khelpcenter khotkeys kicker kjobviewer klegacyimport kless klipper klock kmcop kmenuedit kminipagerapplet knotify konsole kpager kpartapp kpersonalizer kpm kprinter kreadconfig krunapplet ksmserver kstart ksysguard ksystemtrayapplet ksystraycmd ktaskbarapplet ktip kxkb libkicker libkickermenu_kdeprint libtaskbar libtaskmanager lockout naughtyapplet nsplugin passwords ppdtranslations taskbarextension"
+programs="appletproxy childpanelextension clockapplet cupsdconf desktop drkonqi extensionproxy filetypes fontinst htmlsearch kaccess kaddressbook kappfinder kasbarextension kate kcontrol kdcop kdebugdialog kdeprintfax kdesktop kdesu kdesud kfind kfindpart kfmclient kfmexec khelpcenter khotkeys kicker kjobviewer klegacyimport kless klipper klock kmcop kmenuedit kminipagerapplet knotify konsole kpager kpartapp kpersonalizer kpm kprinter kreadconfig krunapplet ksmserver ksplash kstart ksysguard ksystemtrayapplet ksystraycmd ktaskbarapplet ktip kxkb libkicker libkickermenu_kdeprint libtaskbar libtaskmanager lockout naughtyapplet nsplugin passwords ppdtranslations taskbarextension"
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> %{name}.lang
@@ -332,8 +332,8 @@ for i in $programs; do
 	cat $i.lang >> kcm.lang
 done
 
-> kwin.lang
-programs="kwin kwin_b2_config kwin_default_config kwin_icewm_config kwin_modernsys_config kwin_quartz_config"
+%find_lang kwin --with-kde
+programs="kwin_b2_config kwin_default_config kwin_icewm_config kwin_modernsys_config kwin_quartz_config"
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> kwin.lang
@@ -346,22 +346,25 @@ for i in $programs; do
 	cat $i.lang >> kio.lang
 done
 
-> kdm.lang
-programs="kdm kdmchooser kdmconfig kdmgreet"
-	%find_lang $i --with-kde
-	cat $i.lang >> kdm.lang
-done
+## KDM:
+%find_lang kdm		--with-kde
+%find_lang kdmchooser	--with-kde
+%find_lang kdmconfig	--with-kde
+%find_lang kdmgreet	--with-kde
+cat kdmchooser.lang kdmconfig.lang kdmgreet.lang >> kdm.lang
 
-# Maybe these things should be separated, but now it comes to kdebase:
-cat kcm.lang >> %{name}.lang
-cat kwin.lang >> %{name}.lang
-cat kio.lang >> %{name}.lang
-
+## KONQUEROR:
 %find_lang konqueror	--with-kde
 %find_lang libkonq	--with-kde
 cat libkonq.lang >> konqueror.lang
+
+## SCREENSAVER:
 %find_lang libkscreensaver --with-kde
-%find_lang ksplash	--with-kde
+
+# Maybe these things should be separated, but now it goes to kdebase:
+cat kcm.lang >> %{name}.lang
+cat kwin.lang >> %{name}.lang
+cat kio.lang >> %{name}.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -450,7 +453,6 @@ fi
 %attr(0755,root,root) %{_libdir}/k[dhijlmswx]*.la
 %attr(0755,root,root) %{_libdir}/k[dhijlmswx]*.so*
 %attr(0755,root,root) %{_libdir}/kaccess.??
-%attr(0755,root,root) %{_libdir}/kate.??
 %attr(0755,root,root) %{_libdir}/kcminit.??
 %attr(0755,root,root) %{_libdir}/kcmshell.??
 %attr(0755,root,root) %{_libdir}/kcontrol.??
@@ -706,6 +708,6 @@ fi
 
 %{_pixmapsdir}/*/*/apps/kscreensaver.png
 
-%files -n kde-splash-default -f ksplash.lang
+%files -n kde-splash-default
 %defattr(644,root,root,755)
 %{_datadir}/apps/ksplash/*
