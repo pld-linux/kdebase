@@ -1,5 +1,6 @@
 # TODO:
 # - make separate subpackages
+# - -avoid-version for kde3/* applets/extensions?
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
 Summary(ja):	KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ - ´ðËÜ¥Õ¥¡¥¤¥ë
@@ -11,7 +12,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.3
-Release:	12
+Release:	13
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -717,7 +718,7 @@ fi
 %dir %{_includedir}/kwin
 %{_includedir}/*.h
 %{_includedir}/kwin/*.h
-%{_includedir}/kate
+%{_includedir}/kate/*.h
 %{_includedir}/ksgrd
 %attr(0755,root,root) %{_libdir}/libkickermain.so
 %attr(0755,root,root) %{_libdir}/libsensordisplays.so
