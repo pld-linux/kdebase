@@ -844,7 +844,8 @@ done
 
 %configure \
 	--with-kdm-pam=kdm \
-	--with-pam=kdesktop
+	--with-pam=kdesktop \
+	--enable-final
 
 %{__make}
 
