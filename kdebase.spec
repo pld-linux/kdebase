@@ -71,7 +71,6 @@ BuildRequires:	db-devel
 %endif
 BuildRequires:	findutils
 BuildRequires:	gettext-devel
-BuildRequires:	glut-devel
 BuildRequires:	grep
 BuildRequires:	kdelibs-devel >= %{version}
 BuildRequires:	lame-libs-devel
