@@ -1,0 +1,21 @@
+--- kdebase/kcontrol/icons/iconthemes.cpp~	19 May 2004 13:00:00 -0000
++++ kdebase/kcontrol/icons/iconthemes.cpp	2 Jun 2004 16:51:22 -0000
+@@ -342,15 +342,15 @@
+ 
+   updateRemoveButton();
+ 
+-  KIcon icon=icontheme.iconPath("exec.png",
++  KIcon icon=icontheme.iconPath("exec",
+ 	icontheme.defaultSize(KIcon::Desktop),KIcon::MatchBest);
+   kdDebug() << icon.path<< "\n";
+   m_previewExec->setPixmap(QPixmap(icon.path));
+-  icon=icontheme.iconPath("folder.png",
++  icon=icontheme.iconPath("folder",
+ 	icontheme.defaultSize(KIcon::Desktop),KIcon::MatchBest);
+   kdDebug() << icon.path<< "\n";
+   m_previewFolder->setPixmap(QPixmap(icon.path));
+-  icon=icontheme.iconPath("txt.png",
++  icon=icontheme.iconPath("txt",
+ 	icontheme.defaultSize(KIcon::Desktop),KIcon::MatchBest);
+   kdDebug() << icon.path<< "\n";
+   m_previewDocument->setPixmap(QPixmap(icon.path));
