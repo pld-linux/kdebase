@@ -1,6 +1,6 @@
 %define		_ver		3.0
 #define		_sub_ver
-%define		_rel		2
+%define		_rel		3
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
@@ -492,8 +492,16 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.so.*
 %attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.so.*
-%attr(0755,root,root) %{_libdir}/kde3/i*.la
-%attr(0755,root,root) %{_libdir}/kde3/i*.so
+%attr(0755,root,root) %{_libdir}/kde3/i*.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_[!k]*.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_k[ehinuw]*.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_konsole.??
+%attr(0755,root,root) %{_libdir}/kde3/kded_*.??
+%attr(0755,root,root) %{_libdir}/kde3/khelpcenter.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_*.??
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_kdeprint.??
+%attr(0755,root,root) %{_libdir}/kde3/klipper_panelapplet.??
+%attr(0755,root,root) %{_libdir}/kde3/kwin*.??
 %attr(0755,root,root) %{_libdir}/kde3/libkcm_[abcefilmptu]*.la
 %attr(0755,root,root) %{_libdir}/kde3/libkcm_[abcefilmptu]*.so*
 %attr(0755,root,root) %{_libdir}/kde3/libk[fsuw]*.la*
@@ -505,6 +513,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/libkhelp*.so*
 %attr(0755,root,root) %{_libdir}/kde3/gsthumbnail.la
 %attr(0755,root,root) %{_libdir}/kde3/gsthumbnail.so*
+%attr(0755,root,root) %{_libdir}/kde3/textthumbnail.??
 
 # NOTE:	There are many directories created by kappfinder. They should be
 #	ignored as such functionality is provided by applnk package and
@@ -599,12 +608,15 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so
 %attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so
 %attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.so
 
 %files static
 %defattr(644,root,root,755)
@@ -614,7 +626,7 @@ fi
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/chooser
 %attr(0755,root,root) %{_bindir}/kdm*
-
+%attr(0755,root,root) %{_libdir}/kde3/kcm_kdm.??
 %dir %{_sysconfdir}/kdm
 %{_sysconfdir}/kdm/kdmrc
 %{_sysconfdir}/kdm/Xaccess
@@ -625,9 +637,7 @@ fi
 %attr(0755,root,root) %{_sysconfdir}/kdm/Xstartup
 %attr(0755,root,root) %{_sysconfdir}/kdm/Xwilling
 %attr(0754,root,root) /etc/rc.d/init.d/kdm
-
 %{_applnkdir}/Settings/KDE/System/kdm.desktop
-
 %{_datadir}/apps/kdm
 %dir %{_datadir}/config/kdm
 %config(noreplace) %{_datadir}/config/kdm/kdmrc
@@ -647,6 +657,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kfm*.??
 %attr(0755,root,root) %{_libdir}/konqueror.la
 %attr(0755,root,root) %{_libdir}/konqueror.so*
+%attr(0755,root,root) %{_libdir}/kde3/kcm_konq*.??
+%attr(0755,root,root) %{_libdir}/kde3/konq*.??
 %attr(0755,root,root) %{_libdir}/kde3/libkcm_nsplugin.la
 %attr(0755,root,root) %{_libdir}/kde3/libkcm_nsplugin.so*
 %attr(0755,root,root) %{_libdir}/libkonq*.la
