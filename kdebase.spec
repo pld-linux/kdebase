@@ -1623,7 +1623,6 @@ fi
 %{_iconsdir}/*/*/apps/khelpcenter.png
 %{_iconsdir}/*/*/apps/kcmsystem.png
 %{_iconsdir}/*/*/apps/kcontrol.png
-%{_iconsdir}/*/*/apps/konqueror.png
 %{_iconsdir}/*/*/apps/locale.png
 %{_iconsdir}/*/*/apps/looknfeel.png
 %{_iconsdir}/*/*/apps/multimedia.png
@@ -2637,6 +2636,7 @@ fi
 %{_iconsdir}/*/*/apps/keditbookmarks.png
 %{_iconsdir}/*/*/apps/kfm_home.png
 %{_iconsdir}/*/*/apps/kfm.png
+%{_iconsdir}/*/*/apps/konqueror.png
 %{_iconsdir}/*/*/apps/mac.png
 %{_iconsdir}/*/*/apps/proxy.png
 %{_iconsdir}/*/*/apps/stylesheet.png
