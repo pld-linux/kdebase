@@ -1064,7 +1064,11 @@ cd -
 	konqueror/kfmclient_dir.desktop \
 	konqueror/kfmclient_html.desktop \
 	konqueror/kfmclient_war.desktop
-
+for f in `find . -name \*.desktop`; do
+	if grep -q '^Categories=.*[^;]$' $f; then
+		sed -i -e 's/\(^Categories=.*$\)/\1;/' $f
+	fi
+done
 
 %build
 cp /usr/share/automake/config.sub admin
