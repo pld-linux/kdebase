@@ -535,15 +535,9 @@ done
 
 %post
 /sbin/ldconfig
-if [ -x %{_bindir}/findwm ]; then
-    %{_bindir}/findwm
-fi
 
 %postun
 /sbin/ldconfig
-if [ -x %{_bindir}/findwm ]; then
-    %{_bindir}/findwm
-fi
 
 %post common-konsole
 cd %{_fontdir}
@@ -578,7 +572,6 @@ if [ -f /var/lock/subsys/kdm ]; then
 	else
 	echo "Run \"/etc/rc.d/init.d/kdm start\" to start kdm." >&2
 fi
-%{_bindir}/findwm
 
 %preun -n kdm
 if [ "$1" = "0" ]; then
