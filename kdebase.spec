@@ -1732,8 +1732,6 @@ for i in $files; do
 	mv ${i}.lang.1 ${i}.lang
 done
 
-# </find_lang>
-
 durne=`ls -1 *.lang|grep -v _en`
 
 for i in $durne; 
@@ -1744,6 +1742,7 @@ do
 		mv ${i}.1 ${i}
 	fi
 done
+# </find_lang>
 
 
 %clean
