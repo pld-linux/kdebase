@@ -86,6 +86,7 @@ BuildRequires:	kdelibs-devel >= 9:%{version}
 BuildRequires:	lame-libs-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
+BuildRequires:	arts-qt-devel
 BuildRequires:	libraw1394-devel
 BuildRequires:	libsmbclient-devel >= 3.0.0
 BuildRequires:	libstdc++-devel
