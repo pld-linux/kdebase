@@ -28,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	3
+Release:	4
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -270,6 +270,19 @@ KDE Help Center.
 %description helpcenter -l pl
 Przegl±darka plików pomocy dla KDE.
 
+%package kappfinder
+Summary:	Menu Updating Tool
+Summary(pl):	Narzedzie do aktualizacji menu.
+Group:		X11/Applications
+Requires:	kdelibs >= %{version}
+Obsoletes:	%{name} =< 3.2-0.030418.2
+
+%description kappfinder
+Menu Updating Tool.
+
+%description kappfinder -l pl
+Narzêdzie do aktualizacji menu.
+
 %package kate
 Summary:	KDE Advanced Text Editor
 Summary(pl):	Zaawansowany edytor tekstu dla KDE
@@ -379,6 +392,19 @@ Group:		X11/Applications/Editors
 Requires:	%{name}-helpcenter = %{version}-%{release}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	kwrite
+
+%package kpager
+Summary:	Desktop Pager
+Summary(pl):	Prze³±cznik biurek
+Group:		X11/Applications
+Requires:	kdelibs >= %{version}
+Obsoletes:	%{name} =< 3.2-0.030418.2
+
+%description kpager
+KDE Desktop Pager.
+
+%description kpager -l pl
+Prze³±cznik biurek dla KDE.
 
 %description kwrite
 KDE text editor with syntax highlighting.
@@ -553,17 +579,52 @@ done
 
 > %{name}.lang
 
-programs="kdebugdialog kdeprint kdesu kicker kinfocenter \
-kioslave klipper kmenuedit kpager ksysguard"
+programs=" \
+	kdebugdialog \
+	kdeprint \
+	kdesu \
+	kicker \
+	kinfocenter \
+	kioslave \
+	klipper \
+	kmenuedit \
+	ksysguard"
+
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> %{name}.lang
 done
 
-programs="arts background bell clock colors desktop energy fonts \
-helpindex.html icons kcmaccess kcmfontinst kcmlaunch kcmnotify kcmsmserver \
-kcmstyle kcmtaskbar keyboard keys kthememgr kwindecoration language mouse \
-panel passwords smb spellchecking windowmanagement"
+programs=" \
+	arts \
+	background \
+	bell \
+	clock \
+	colors \
+	desktop \
+	energy \
+	fonts \
+	helpindex.html \
+	icons \
+	kcmaccess \
+	kcmfontinst \
+	kcmlaunch \
+	kcmnotify \
+	kcmsmserver \
+	kcmstyle \
+	kcmtaskbar \
+	keyboard \
+	keys \
+	kthememgr \
+	kwindecoration \
+	language \
+	mouse \
+	panel \
+	passwords \
+	smb \
+	spellchecking \
+	windowmanagement"
+
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> %{name}.lang
@@ -578,13 +639,26 @@ done
 cat kcmkonsole.lang >> konsole.lang
 
 %find_lang konqueror	--with-kde
-programs="cache cookies crypto ebrowsing email filemanager filetypes \
-kcmcss khtml netpref proxy useragent"
+programs=" \
+	cache \
+	cookies \
+	crypto \
+	ebrowsing \
+	email \
+	filemanager \
+	filetypes \
+	kcmcss \
+	khtml \
+	netpref \
+	proxy \
+	useragent"
+
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> konqueror.lang
 done
 
+%find_lang	kpager		--with-kde
 %find_lang	kwrite		--with-kde
 %find_lang	screensaver	--with-kde
 
@@ -667,7 +741,7 @@ fi
 %config %{_sysconfdir}/ksysguarddrc
 %attr(0755,root,root) %{_bindir}/[ades]*
 %attr(0755,root,root) %{_bindir}/k[jtx]*
-%attr(0755,root,root) %{_bindir}/ka[!t]*
+%attr(0755,root,root) %{_bindir}/ka[!pt]*
 %attr(0755,root,root) %{_bindir}/kdc*
 %attr(0755,root,root) %{_bindir}/kde[!ps]*
 %attr(0755,root,root) %{_bindir}/kdes[!ku]*
@@ -679,7 +753,6 @@ fi
 %attr(0755,root,root) %{_bindir}/kinfocenter
 %attr(0755,root,root) %{_bindir}/klipper
 %attr(0755,root,root) %{_bindir}/kmenuedit
-%attr(0755,root,root) %{_bindir}/kpager
 %attr(0755,root,root) %{_bindir}/kpersonalizer
 %attr(0755,root,root) %{_bindir}/kpm
 %attr(0755,root,root) %{_bindir}/kprinter
@@ -820,7 +893,6 @@ fi
 %dir %{_datadir}/apps/ksmserver
 %dir %{_datadir}/apps/ksplash
 %{_datadir}/apps/?[!acdefhosw]*
-%{_datadir}/apps/kappfinder
 %{_datadir}/apps/kcm[!_c]*
 %{_datadir}/apps/kcm_componentchooser/*
 %{_datadir}/apps/kconf_update/*
@@ -850,8 +922,9 @@ fi
 %{_applnkdir}/.hidden/k[!co]*.desktop
 %{_applnkdir}/.hidden/kcmkxmlrpcd.desktop
 %{_applnkdir}/System/k[!o]*.desktop
-%{_applnkdir}/Utilities/k[!de]*.desktop
-%{_applnkdir}/Settings/[!K]*.desktop
+%{_applnkdir}/Utilities/k[!dep]*.desktop
+%{_applnkdir}/Settings/kmenuedit.desktop
+%{_applnkdir}/Settings/kpersonalizer.desktop
 %{_applnkdir}/Settings/KDE/email.desktop
 %{_applnkdir}/Settings/KDE/Accessibility
 %{_applnkdir}/Settings/KDE/Components/[!f]*
@@ -879,11 +952,11 @@ fi
 %{_pixmapsdir}/*/*/apps/co[!o]*
 %{_pixmapsdir}/*/*/apps/e[!n]*
 %{_pixmapsdir}/*/*/apps/en[!h]*
-%{_pixmapsdir}/*/*/apps/k[ijlmnptvmx]*
-%{_pixmapsdir}/*/*/apps/kappfinder.png
+%{_pixmapsdir}/*/*/apps/k[ijlmntvmx]*
 %{_pixmapsdir}/[!l]*/*/apps/kc[!o][!s]*
 %{_pixmapsdir}/*/*/apps/kcms[!y]*
 %{_pixmapsdir}/*/*/apps/key[!_]*
+%{_pixmapsdir}/*/*/apps/kpersonalizer.png
 %{_pixmapsdir}/*/*/apps/ksysguard.png
 %{_pixmapsdir}/*/*/apps/kdisk*
 %{_pixmapsdir}/*/*/apps/kwin.png
@@ -986,6 +1059,13 @@ fi
 %{_applnkdir}/Help/Help.desktop
 %{_pixmapsdir}/*/*/apps/khelpcenter.png
 
+%files kappfinder
+%defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/kappfinder
+%{_datadir}/apps/kappfinder
+%{_applnkdir}/Settings/kappfinder.desktop
+%{_pixmapsdir}/*/*/apps/kappfinder.png
+
 %files kate -f kate.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kate
@@ -1070,6 +1150,12 @@ fi
 %{_applnkdir}/System/Administration/konsolesu.desktop
 %{_applnkdir}/Terminals/*.desktop
 %{_pixmapsdir}/*/*/apps/konsole.png
+
+%files kpager -f kpager.lang
+%defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/kpager
+%{_applnkdir}/Utilities/kpager.desktop
+%{_pixmapsdir}/*/*/apps/kpager.png
 
 %files kwrite -f kwrite.lang
 %defattr(644,root,root,755)
