@@ -36,17 +36,6 @@
 +desktopdir = $(kde_datadir)/kscreensaver
  
  EXTRA_DIST = $(desktop_DATA)
---- kdebase-3.1.1/kscreensaver/Makefile.in~	Tue Mar 11 06:48:15 2003
-+++ kdebase-3.1.1/kscreensaver/Makefile.in	Tue Apr  1 00:30:03 2003
-@@ -307,7 +307,7 @@
- 
- ########## Meta objects ##########
- desktop_DATA = KRandom.desktop KBlankscreen.desktop
--desktopdir = $(kde_appsdir)/System/ScreenSavers
-+desktopdir = $(kde_datadir)/kscreensaver
- 
- EXTRA_DIST = $(desktop_DATA)
- subdir = kscreensaver
 --- kdebase-030502/kdesktop/lock/lockprocess.cc~	2003-05-02 00:36:02.000000000 +0200
 +++ kdebase-030502/kdesktop/lock/lockprocess.cc	2003-05-02 15:41:23.000000000 +0200
 @@ -91,22 +91,9 @@
