@@ -109,9 +109,9 @@
  
  messages:
  	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
---- kdebase/kdm/kfrontend/genkdmconf.c.orig	2004-03-12 16:28:21.000000000 +0100
-+++ kdebase/kdm/kfrontend/genkdmconf.c	2004-03-12 16:46:48.066111776 +0100
-@@ -64,7 +64,7 @@
+--- kdebase/kdm/kfrontend/genkdmconf.c.orig	2004-03-23 14:55:38.000000000 +0100
++++ kdebase/kdm/kfrontend/genkdmconf.c	2004-03-25 21:55:08.236691776 +0100
+@@ -63,7 +63,7 @@
  #define __stringify(x) #x
  #define stringify(x) __stringify(x)
  
@@ -120,7 +120,7 @@
  #define KDMDATA KDE_DATADIR "/kdm"
  
  #define RCVERMAJOR 2
-@@ -532,7 +532,7 @@
+@@ -531,7 +531,7 @@
  #endif
  
  #ifdef __linux__
@@ -129,7 +129,7 @@
  /* ###
  # define DEF_SERVER_LINES DEF_SERVER_LINE "\n" \
  			 ":1 local@tty2 reserve " XBINDIR "/X -nolisten tcp :1 vt8\n" \
-@@ -541,10 +541,8 @@
+@@ -540,10 +540,8 @@
  			 "#:4 local@tty5 reserve " XBINDIR "/X -nolisten tcp :4 vt11\n"
  */
  # define DEF_SERVER_LINES DEF_SERVER_LINE "\n" \
@@ -142,7 +142,7 @@
  #elif defined(__sun__)
  # define DEF_SERVER_LINE ":0 local@console " XBINDIR "/X -nolisten tcp"
  #elif defined(_AIX)
-@@ -794,14 +792,15 @@
+@@ -793,14 +791,15 @@
  "esac\n"
  "exec xmessage -center -buttons OK:0 -default OK \"Sorry, cannot execute $1. Check $DESKTOP_SESSION.desktop.\"\n";
  
@@ -161,7 +161,7 @@
  "CurrentWallpaper=0\n"
  "LastChange=0\n"
  "MinOptimizationDepth=1\n"
-@@ -810,7 +809,7 @@
+@@ -809,7 +808,7 @@
  "Program=\n"
  "ReverseBlending=false\n"
  "UseSHM=false\n"
@@ -170,7 +170,7 @@
  "WallpaperList=\n"
  "WallpaperMode=Scaled\n";
  
-@@ -2020,18 +2019,20 @@
+@@ -2019,18 +2018,20 @@
  "# this opens a security hole: a secured display lock can be circumvented\n"
  "# (unless you use KDE's built-in screen lock). Default is false\n" },
  { "AllowRootLogin",	0, 0, 
@@ -196,7 +196,7 @@
  { "DefaultSdMode",	0, 0, 
  "# The default choice for the shutdown condition/timing.\n"
  "# \"Schedule\" - shutdown after all sessions exit (possibly at once) (Default)\n"
-@@ -2066,7 +2067,7 @@
+@@ -2065,11 +2066,11 @@
  "# it, you should \"chmod 600 kdmrc\" for obvious reasons. Default is \"\"\n" },
  { "SessionsDirs",	0, 0, 
  "# The directories containing session type definitions in .desktop format.\n"
@@ -205,7 +205,12 @@
  { "ClientLogFile",	0, 0,
  "# The file (relative to $HOME) to redirect the session output to. This is\n"
  "# a printf format string; one %s will be replaced with the display name.\n"
-@@ -2086,7 +2087,7 @@
+-"# Default is \".xsession-errors\"\n" },
++"# Default is \"\"\n" },
+ };
+ 
+ static Ent entsGreeter[] = {
+@@ -2085,7 +2086,7 @@
  "# \"Clock\" - a neat analog clock\n"
  "# \"None\" - nothing\n" },
  { "LogoPixmap",		0, 0, 
@@ -214,7 +219,7 @@
  { "GreeterPosFixed",	0, 0, 
  "# Normally, the greeter is centered on the screen. Use this, if you want\n"
  "# it to appear elsewhere on the screen. Default is false\n" },
-@@ -2107,13 +2108,13 @@
+@@ -2106,13 +2107,13 @@
  "# - %r -> the operating system's version\n"
  "# - %m -> the machine (hardware) type\n"
  "# - %% -> a single %\n"
@@ -231,7 +236,7 @@
  { "AntiAliasing",	0, 0,
  "# Whether the fonts shown in the greeter should be antialiased. Default is false\n" },
  { "NumLock",		0, 0,
-@@ -2152,7 +2153,7 @@
+@@ -2151,7 +2152,7 @@
  "# \"PreferUser\" - ... and the other way round\n" },
  { "FaceDir",		0, upd_facedir, 
  "# The directory containing the user images if FaceSource is not UserOnly.\n"
@@ -240,7 +245,7 @@
  { "PreselectUser",	0, 0, 
  "# Specify, if/which user should be preselected for log in.\n"
  "# Note, that enabling this feature can be considered a security hole,\n"
-@@ -2346,10 +2347,10 @@
+@@ -2345,14 +2346,14 @@
  { "SystemShell",	"/bin/bash", 0 },
  { "UserAuthDir",	"", 0 },
  { "AutoReLogin",	"true", 0 },
@@ -255,7 +260,12 @@
  { "DefaultSdMode",	"ForceNow", 0}, 
  { "InteractiveSd",	"false", 0}, 
  { "SessionsDirs",	"/etc/X11/sessions,/usr/share/xsessions", 0 },
-@@ -2401,8 +2402,8 @@
+-{ "ClientLogFile",	".xsession-errors-%s", 1 },
++{ "ClientLogFile",	".xsession-errors-%s", 0 },
+ };
+ 
+ static DEnt dEntsAnyGreeter[] = {
+@@ -2399,8 +2400,8 @@
  { "ServerAttempts",	"", 0 },
  { "ServerTimeout",	"", 0 },
  { "AllowShutdown",	"All", 1 },
@@ -266,8 +276,17 @@
  { "NoPassEnable",	"true", 0 },
  { "NoPassUsers",	"fred,ethel", 0 },
  };
---- kdebase/kdm/kfrontend/kdm_config.c.orig	2004-03-12 16:28:21.000000000 +0100
-+++ kdebase/kdm/kfrontend/kdm_config.c	2004-03-12 16:52:36.579129744 +0100
+@@ -2417,7 +2418,7 @@
+ { "AutoLoginEnable",	"true", 0 },
+ { "AutoLoginUser",	"fred", 0 },
+ { "AutoLoginPass",	"secret!", 0 },
+-{ "ClientLogFile",	".xsession-errors", 1 },
++{ "ClientLogFile",	".xsession-errors", 0 },
+ };
+ 
+ static DEnt dEnts0Greeter[] = {
+--- kdebase/kdm/kfrontend/kdm_config.c.orig	2004-03-23 14:55:38.000000000 +0100
++++ kdebase/kdm/kfrontend/kdm_config.c	2004-03-25 21:51:15.423084824 +0100
 @@ -34,7 +34,7 @@
  #include <netdb.h>
  #include <grp.h>
@@ -277,7 +296,7 @@
  #define KDMDATA KDE_DATADIR "/kdm"
  
  
-@@ -515,13 +515,13 @@
+@@ -515,14 +515,14 @@
  { "AutoLoginUser",	C_autoUser,	(void *)PautoLoginX,	"" },
  { "AutoLoginPass",	C_autoPass,	(void *)PautoLoginX,	"" },
  { "AutoReLogin",	C_autoReLogin | C_BOOL,	0,	"false" },
@@ -292,10 +311,12 @@
  { "DefaultSdMode",	C_defSdMode | C_ENUM, sd_mode,	"Schedule" },
  { "InteractiveSd",	C_interactiveSd | C_BOOL, 0,	"true" },
 -{ "SessionsDirs",	C_sessionsDirs,		0,	KDMDATA "/sessions" },
+-{ "ClientLogFile",	C_clientLogFile,	0,	".xsession-errors" },
 +{ "SessionsDirs",	C_sessionsDirs,		0,	"/usr/share/xsessions" },
- { "ClientLogFile",	C_clientLogFile,	0,	".xsession-errors" },
++{ "ClientLogFile",	C_clientLogFile,	0,	"" },
  };
  
+ Ent entsGreeter[] = {
 @@ -534,9 +534,9 @@
  { "GreeterPosX",	C_GreeterPosX,		0,	"0" },
  { "GreeterPosY",	C_GreeterPosY,		0,	"0" },
