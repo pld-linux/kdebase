@@ -80,3 +80,14 @@
     { "xwin",            I18N_NOOP("ignored"), 0 },
     { "noclose",         I18N_NOOP("Do not close Konsole when command exits"), 0 },
     { "nohist",          I18N_NOOP("Do not save lines in history"), 0 },
+--- kdebase-040210/konsole/konsole/default.keytab.h.orig	2003-03-26 16:22:26.000000000 +0100
++++ kdebase-040210/konsole/konsole/default.keytab.h	2004-02-11 00:01:10.000000000 +0100
+@@ -43,7 +43,7 @@
+   "\n"
+   "# Backspace and Delete codes are preserving CTRL-H.\n"
+   "\n"
+-  "key Backspace      : \"\\x7f\"\n"
++  "key Backspace      : \"\\x08\"\n"
+   "\n"
+   "# Arrow keys in VT52 mode\n"
+   "\n"
