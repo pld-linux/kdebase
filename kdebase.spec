@@ -37,7 +37,7 @@ Source7:	%{name}-kdm_pldwallpaper.png
 Source8:        %{name}-searchproviders.tar.bz2
 # Source8-md5:	ddf8cdd13fb42b5c07bbb8bf3577c23d
 Source9:        %{name}-colorschemes.tar.bz2
-# Source9-md5:	3d90d52c3727109ff670099d4015290f
+# Source9-md5:	6a9cb98ac7ffcc6084c05a6885c75a25
 Source10:       %{name}-servicemenus.tar.bz2
 # Source10-md5:	5b113fe35bd3a46de31e451e285e86d3
 Source12:	http://ep09.pld-linux.org/~adgor/kde/%{name}-splash-Default-PLD-0.2.tar.bz2
