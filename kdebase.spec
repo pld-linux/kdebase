@@ -10,16 +10,16 @@ Vendor:      	The KDE Team
 Source:      	ftp://ftp.kde.org/pub/kde/stable/%{version}/distribution/tar/generic/source/bz2/%{name}-%{version}.tar.bz2
 Source2:     	kdeenv
 Patch:		kdebase-DESTDIR.patch
-BuildPrereq:	qt-devel >= 1.44
-BuildPrereq:	kdelibs-devel = %{version}
-BuildPrereq:	libjpeg-devel
-BuildPrereq:	libpng-devel
-BuildPrereq:	libstdc++-devel
-BuildPrereq:	libtiff-devel
-BuildPrereq:	XFree86-devel
-BuildPrereq:	zlib-devel
-BuildPrereq:	pam-devel
-BuildPrereq:	Mesa-devel
+BuildRequires:	qt-devel >= 1.44
+BuildRequires:	kdelibs-devel = %{version}
+BuildRequires:	libjpeg-devel
+BuildRequires:	libpng-devel
+BuildRequires:	libstdc++-devel
+BuildRequires:	libtiff-devel
+BuildRequires:	XFree86-devel
+BuildRequires:	zlib-devel
+BuildRequires:	pam-devel
+BuildRequires:	Mesa-devel
 Requires:    	qt >= 1.44
 Requires:	kdelibs = %{version}
 BuildRoot:   	/tmp/%{name}-%{version}-root
