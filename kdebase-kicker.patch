@@ -10,7 +10,7 @@
  Home.desktop
 -Internet/konqbrowser.desktop
 -Internet/KMail.desktop
-+Network/WWW//konqbrowser.desktop
++Network/WWW/konqbrowser.desktop
 +Network/WWW/KMail.desktop
  Office/kword.desktop
 --- kdebase-3.0.8/kicker/core/containerarea.cpp.orig	Sun Sep 15 23:08:48 2002
