@@ -868,12 +868,20 @@ mv $RPM_BUILD_ROOT%{_prefix}/X11R6/share/locale/* $RPM_BUILD_ROOT%{_datadir}/loc
 > core.lang
 programs=" \
 	colors \
+	drkonqi \
 	fonts \
+	helpcenter \
 	kcmstyle \
+	kcontrol \
 	kdeprint \
 	kdebugdialog \
+	kprinter \
+	kdeprint_part \
 	kdesu \
+	kdesud \
 	khelpcenter \
+	kio_man \
+	kstart \
 	language"
 
 for i in $programs; do
@@ -886,16 +894,41 @@ programs=" \
 	arts \
 	background \
 	bell \
+	clockapplet \
 	desktop \
 	energy \
+	fontinst \
+	kaccess \
+	kappfinder \
 	kcmaccess \
 	kcmfontinst \
+	kcminput \
+	kcmkded \
+	kcmkeys \
 	kcmlaunch \
+	kcmlayout \
+	kcmlocale \
+	kcmmidi \
 	kcmnotify \
 	kcmsmserver \
+	kcmkwm \
+	kcmusb \
+	kdcop \
+	kdesktop \
+	kdesktop_lock \
 	keyboard \
 	keys \
+	khotkeys \
+	kjobviewer \
+	kpersonalizer \
+	krdb \
+	kreadconfig \
+	ksmserver \
+	ksplash \
+	ktip \
+	kwin \
 	kwindecoration \
+	kxkb \
 	mouse \
 	passwords \
 	spellchecking \
@@ -908,9 +941,20 @@ done
 
 %find_lang kicker	--with-kde
 programs=" \
+	childpanelextension \
 	clock \
+	dockbarextension \
+	kasbarextension \
+	kcmkicker \
 	kcmtaskbar \
-	panel"
+	libkicker \
+	libtaskbar \
+	libtaskmanager \
+	lockout \
+	naughtyapplet \
+	panel \
+	quicklauncher \
+	taskbarextension"
 
 for i in $programs; do
 	%find_lang $i --with-kde
@@ -919,17 +963,36 @@ done
 
 %find_lang konqueror	--with-kde
 programs="\
+	appletproxy \
 	cache \
 	cookies \
 	crypto \
 	ebrowsing \
 	email \
+	extensionproxy \
 	filemanager \
 	filetypes \
 	icons \
+	kcmcgi \
 	kcmcss \
+	kcmkonq \
+	kfile_font \
+	kfindpart \
+	kfmclient \
+	kfmexec \
 	khtml \
+	kio_devices \
+	kio_finger \
+	kio_fish \
+	kio_floppy \
+	kio_mac \
+	kio_nfs \
+	kio_print \
+	kio_sftp \
+	kio_smb \
+	kio_smbro \
 	netpref \
+	nsplugin \
 	proxy \
 	smb \
 	useragent"
@@ -941,7 +1004,9 @@ done
 
 %find_lang	kate		--with-kde
 %find_lang	kcmkonsole	--with-kde
+%find_lang	kdeprintfax	--with-kde
 %find_lang	kdm		--with-kde
+%find_lang	kdmconfig	--with-kde
 %find_lang	kfind		--with-kde
 %find_lang	kinfocenter	--with-kde
 %find_lang	kioslave	--with-kde
@@ -953,9 +1018,18 @@ done
 %find_lang	kthememgr	--with-kde
 %find_lang	kwrite		--with-kde
 %find_lang	screensaver	--with-kde
+%find_lang	kio_imap4	--with-kde
+%find_lang	kio_nntp	--with-kde
+%find_lang	kio_pop3	--with-kde
+%find_lang	kio_smtp	--with-kde
 
 cat kcmkonsole.lang	>> konsole.lang
 cat kioslave.lang	>> kinfocenter.lang
+cat kdmconfig.lang	>> kdm.lang
+cat kio_imap4.lang	>> mailnews.lang
+cat kio_nntp.lang	>> mailnews.lang
+cat kio_pop3.lang	>> mailnews.lang
+cat kio_smtp.lang	>> mailnews.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -1486,7 +1560,7 @@ fi
 %{_applnkdir}/Editors/kate.desktop
 %{_pixmapsdir}/*/*/apps/kate.png
 
-%files kdeprintfax
+%files kdeprintfax -f kdeprintfax.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kdeprintfax
 %dir %{_datadir}/apps/kdeprintfax
@@ -1729,7 +1803,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/konq_sound.so
 %{_libdir}/kde3/konq_sound.la
 
-%files mailnews
+%files mailnews -f mailnews.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde3/kio_imap4.so
 %{_libdir}/kde3/kio_imap4.la
