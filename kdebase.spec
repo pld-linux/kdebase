@@ -14,7 +14,7 @@
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040327
+%define		_snap		040401
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -2117,8 +2117,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kio_thumbnail.so
 %{_libdir}/kde3/fontthumbnail.la
 %attr(0755,root,root) %{_libdir}/kde3/fontthumbnail.so
-%{_libdir}/kde3/gsthumbnail.la
-%attr(0755,root,root) %{_libdir}/kde3/gsthumbnail.so
+#%{_libdir}/kde3/gsthumbnail.la
+#%attr(0755,root,root) %{_libdir}/kde3/gsthumbnail.so
 %{_libdir}/kde3/htmlthumbnail.la
 %attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.so
 %{_libdir}/kde3/imagethumbnail.la
@@ -2131,7 +2131,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/textthumbnail.so
 %{_datadir}/services/djvuthumbnail.desktop
 %{_datadir}/services/fontthumbnail.desktop
-%{_datadir}/services/gsthumbnail.desktop
+#%{_datadir}/services/gsthumbnail.desktop
 %{_datadir}/services/htmlthumbnail.desktop
 %{_datadir}/services/imagethumbnail.desktop
 %{_datadir}/services/konsolepart.desktop
@@ -2287,6 +2287,7 @@ fi
 %attr(0755,root,root) %{_bindir}/khotkeys
 %attr(0755,root,root) %{_bindir}/krdb
 %attr(0755,root,root) %{_bindir}/kreadconfig
+%attr(0755,root,root) %{_bindir}/krandrinithack
 %attr(0755,root,root) %{_bindir}/krandrtray
 %attr(0755,root,root) %{_bindir}/ksmserver
 %attr(0755,root,root) %{_bindir}/ksplash
@@ -2298,14 +2299,14 @@ fi
 %attr(0755,root,root) %{_bindir}/kxkb
 %attr(0755,root,root) %{_bindir}/startkde
 %attr(0755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
-%{_libdir}/krandrinithack.la
-%attr(0755,root,root) %{_libdir}/krandrinithack.so
 %{_libdir}/libkdeinit_kaccess.la
 %attr(0755,root,root) %{_libdir}/libkdeinit_kaccess.so
 %{_libdir}/libkdeinit_kdesktop.la
 %attr(0755,root,root) %{_libdir}/libkdeinit_kdesktop.so
 %{_libdir}/libkdeinit_khotkeys.la
 %attr(0755,root,root) %{_libdir}/libkdeinit_khotkeys.so
+%{_libdir}/libkdeinit_krandrinithack.la
+%attr(0755,root,root) %{_libdir}/libkdeinit_krandrinithack.so
 %{_libdir}/libkdeinit_ksmserver.la
 %attr(0755,root,root) %{_libdir}/libkdeinit_ksmserver.so
 %{_libdir}/libkdeinit_kwin.la
@@ -2368,6 +2369,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kdesktop.so
 %{_libdir}/kde3/khotkeys.la
 %attr(0755,root,root) %{_libdir}/kde3/khotkeys.so
+%{_libdir}/kde3/krandrinithack.la
+%attr(0755,root,root) %{_libdir}/kde3/krandrinithack.so
 %{_libdir}/kde3/ksmserver.la
 %attr(0755,root,root) %{_libdir}/kde3/ksmserver.so
 %{_libdir}/kde3/ksplashdefault.la
