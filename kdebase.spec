@@ -73,6 +73,7 @@ Patch20:        %{name}-kdesktop_lock.patch
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
+BuildRequires:  XFree86-xrender-devel
 BuildRequires:	arts-devel >= 1.1
 BuildRequires:	arts-kde-devel
 BuildRequires:	audiofile-devel
