@@ -5,9 +5,9 @@
 %bcond_with	kwin_shadow	# experimental support for kwin shadows
 
 %define		_state		stable
-%define		_ver		3.3.0
+%define		_ver		3.3.1
 
-%define		_minlibsevr	9:3.3.0
+%define		_minlibsevr	9:3.3.1
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -20,13 +20,13 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	4
+Release:	0.1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-Source0:	http://download.kde.org/%{_state}/3.3/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	e8fc098ffb09fcc0a8fdc4446149a8e3
-#Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{version}-%{_snap}.tar.bz2
+#Source0:	http://download.kde.org/%{_state}/3.3/src/%{name}-%{_ver}.tar.bz2
+Source0:	http://ftp.pld-linux.org/software/kde/%{name}-%{version}.tar.bz2
+# Source0-md5:	c8d2cf86adaaa253a90f3934c1954df3
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -982,7 +982,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 %prep
 %setup -q
-%patch100 -p1
+#%patch100 -p1
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
