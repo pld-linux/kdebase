@@ -2,7 +2,7 @@ Summary:     	K Desktop Environment - core files
 Summary(pl): 	K Desktop Environment - pliki ¶rodowiska
 Name:        	kdebase
 Version:     	1.1.1
-Release:     	2
+Release:     	3
 Copyright:   	GPL
 Group:       	X11/KDE/Base
 Group(pl):      X11/KDE
@@ -246,7 +246,7 @@ Przyk³adowe tapety s± tak¿e do³±czone
 
 %build
 export KDEDIR=%{_prefix}
-CXXFLAGS="$RPM_OPT_FLAGS -fno-rtti -fno-exceptions" \
+CXXFLAGS="$RPM_OPT_FLAGS" \
 CFLAGS="$RPM_OPT_FLAGS -Wall" \
 ./configure %{_target} \
 	--prefix=$KDEDIR \
