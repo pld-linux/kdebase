@@ -15,7 +15,7 @@
 . /etc/rc.d/init.d/functions
 
 # Get service config
-if [ -f /etc/sysconfig/kdm ] ; then
+if [ -f /etc/sysconfig/kdm ]; then
 	. /etc/sysconfig/kdm
 fi
 
