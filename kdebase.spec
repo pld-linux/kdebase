@@ -28,6 +28,7 @@ BuildRequires:	OpenGL-devel
 BuildRequires:	glut-devel
 BuildRequires:	alsa-lib-devel
 BuildRequires:	openssl-devel
+BuildRequires:	lesstif-devel
 Requires:	kdelibs = %{version}
 Requires:	qt >= 2.2.2
 Requires:	applnk
