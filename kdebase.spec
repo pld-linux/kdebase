@@ -3,15 +3,17 @@
 # * KDM: ColorSheme=Default works properly with GUIStyle=KDE only 
 # * KDM: Replacing findwm with a better solution (it's in the way)
 # * Fixing 48x48 pld applnk-pixmaps scaling (konqsidebar, kicker)
-# * Sources renaming & renumerating 
 # * Separating kicker, kwin, wtf
 #
 # Conditional build:
 # _without_alsa 	- disable alsa
 #
+# _with_vfolders	- dont use it for now (I AM SERIOUS)
+#
 
 %define         _state          stable
 %define         _ver		3.1.1
+
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -24,7 +26,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.4
+Release:	1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -37,20 +39,44 @@ Source4:	kdm.Xsession
 Source6:	%{name}-kscreensaver.pam
 Source7:	%{name}-kdm.Xservers
 Source9:	%{name}-kdm_pldlogo.png
-Source10:	%{name}-kdm_pldwallpaper.png
+Source10:	ircpld.desktop
+Source11:	specs.desktop
+#taken from rh
+%if 	%{?_with_vfolders:1}0
+Source12:	vfolder-0.1.tar.bz2
+Source13:	desktopconv.tar.bz2
+Source14:	desktop-create-kmenu.c
+%endif
+Source15:	%{name}-kdm_pldwallpaper.png
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 Patch1:		%{name}-fix-mouse.cpp.patch
 Patch2:		%{name}-fontdir.patch
 Patch3:		%{name}-kcm_background.patch
-Patch4:		%{name}-kcm_fonts.patch
-Patch5:		%{name}-kdm.daemon_output.patch
-Patch6:		%{name}-kdm_utmpx.patch
-Patch7:		%{name}-kdmconfig.patch
-Patch8:		%{name}-kicker.patch
-Patch9:		%{name}-konsole_all.patch
-Patch10:	%{name}-nsplugins_dirs.patch
-Patch11:	%{name}-startkde.patch
-Patch12:	%{name}-gtkrc.patch
+Patch4:		%{name}-kdm.daemon_output.patch
+Patch5:		%{name}-kdm_utmpx.patch
+Patch6:		%{name}-kdmconfig.patch
+Patch7:		%{name}-kicker.patch
+Patch8:		%{name}-konsole_all.patch
+Patch9:		%{name}-nsplugins_dirs.patch
+Patch10:	%{name}-startkde.patch
+Patch11:	%{name}-pldcredits.patch
+Patch12:	%{name}-krdb.patch
+Patch13:	%{name}-searchprov.patch
+# stolen from rh
+%if     %{?_with_vfolders:1}0
+Patch14:	%{name}-vfolder.patch
+%endif
+Patch15:	%{name}-kicker_nodesktop.patch
+Patch16:        %{name}-xfsreload.patch
+Patch17:	%{name}-kdesukonsole.patch
+Patch18:	%{name}-vroot.patch
+Patch19:	%{name}-konsolepropfontwidth3.patch
+#taken from kde-look
+Patch20:        %{name}-kcm_fonts.patch
+#
+
+Patch21:	%{name}-gtkrc.patch
+
 %ifnarch sparc sparc64
 %{!?_without_alsa:BuildRequires: alsa-lib-devel}
 %endif
@@ -177,7 +203,7 @@ Summary:	Include static libraries to develop KDE applications
 Summary(pl):	Statyczne biblioteki KDE
 Summary(pt_BR):	Bibliotecas estáticas do kdebase
 Group:		X11/Development/Libraries
-Requires:	kdelibs-devel = %{version}
+Requires:	kdelibs-devel >= %{version}
 
 %description static
 This package contains KDE static libraries.
@@ -443,7 +469,19 @@ Internet Explorer.
 %patch9 -p1
 %patch10 -p1
 %patch11 -p1
-%patch12 -p1
+%patch12 -p1 
+%patch13 -p1
+%if     %{?_with_vfolders:1}0
+%patch14 -p1
+%endif
+%patch15 -p1
+%patch16 -p1
+%patch17 -p1
+%patch18 -p1
+##%patch19 -p1
+%patch20 -p1
+%patch21 -p1
+
 
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
@@ -452,6 +490,8 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 CPPFLAGS="-I%{_includedir}"
 export CPPFLAGS
+cp %{SOURCE10} kcontrol/ebrowsing/plugins/ikws/searchproviders/
+cp %{SOURCE11} kcontrol/ebrowsing/plugins/ikws/searchproviders/
 %configure \
 	--with-pam=kdm \
 	--without-ldap \
@@ -463,10 +503,34 @@ export CPPFLAGS
 
 %{__make}
 
+%if %{?_with_vfolders:1}0
+tar xfj %{SOURCE12}
+cd vfolder-0.1
+%{__make} -f Makefile.cvs
+%configure
+%{__make} -C kioslave
+cd ..
+
+tar xfj %{SOURCE13}
+cd desktopconv
+export CXXFLAGS="%{rpmcflags}"
+export CXX="%{__cxx}"
+%{__make} 
+cd ..
+
+%{__cc} %{rpmcflags} -o desktop-create-kmenu %{SOURCE14}
+%endif
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR="$RPM_BUILD_ROOT"
+
+%if %{?_with_vfolders:1}0
+cd vfolder-0.1
+%{__make} install -C kioslave DESTDIR="$RPM_BUILD_ROOT"
+cd ..
+%endif
 
 install -d $RPM_BUILD_ROOT/etc/{pam.d,rc.d/init.d,security} \
     $RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
@@ -480,7 +544,14 @@ install %{SOURCE3}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
 install %{SOURCE9}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldlogo.png
-install %{SOURCE10}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldwallpaper.png
+
+%if %{?_with_vfolders:1}0
+install desktopconv/desktopconv      $RPM_BUILD_ROOT%{_bindir}
+install desktop-create-kmenu      $RPM_BUILD_ROOT%{_bindir}
+%endif
+
+install %{SOURCE15}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldwallpaper.png
+
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
@@ -522,12 +593,14 @@ done
 
 > %{name}.lang
 
-programs="kdebugdialog kdeprint kdesu kicker kinfocenter \
+programs="kdebugdialog kdeprint kdesu kinfocenter \
 kioslave klipper kmenuedit kpager ksysguard" 
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> %{name}.lang
 done
+
+kicker 
 
 programs="arts background bell clock colors desktop energy fonts \
 helpindex.html icons kcmaccess kcmfontinst kcmlaunch kcmnotify kcmsmserver \
@@ -627,10 +700,13 @@ fi
 %attr(0755,root,root) %{_bindir}/kdc*
 %attr(0755,root,root) %{_bindir}/kde[!ps]*
 %attr(0755,root,root) %{_bindir}/kdes[!u]*
+%if     %{?_with_vfolders:1}0
+%attr(0755,root,root) %{_bindir}/desktop-create-kmenu
+%attr(0755,root,root) %{_bindir}/desktopconv
+%endif
 %attr(2755,root,nobody) %{_bindir}/kdesud
 %attr(2755,root,nobody) %{_bindir}/kdialog
 %attr(0755,root,root) %{_bindir}/khotkeys
-%attr(0755,root,root) %{_bindir}/kicker
 %attr(0755,root,root) %{_bindir}/kinfocenter
 %attr(0755,root,root) %{_bindir}/klipper
 %attr(0755,root,root) %{_bindir}/kmenuedit
@@ -648,6 +724,8 @@ fi
 %attr(0755,root,root) %{_libdir}/[ae]*.so
 %{_libdir}/k[dhijlmsx]*.la
 %attr(0755,root,root) %{_libdir}/k[dhijlmsx]*.so
+%exclude %{_libdir}/*kicker*
+
 %{_libdir}/kaccess.la
 %attr(0755,root,root) %{_libdir}/kaccess.so
 %{_libdir}/kprinter.la
@@ -656,22 +734,13 @@ fi
 %attr(0755,root,root) %{_libdir}/kw[!r]*.so
 %{_libdir}/kwrited.la
 %attr(0755,root,root) %{_libdir}/kwrited.so
-%{_libdir}/libkickermain.la
-%attr(0755,root,root) %{_libdir}/libkickermain.so.*
 %{_libdir}/libksgrd.la
 %attr(0755,root,root) %{_libdir}/libksgrd.so.*
 %{_libdir}/libsensordisplays.la
 %attr(0755,root,root) %{_libdir}/libsensordisplays.so.*
 %{_libdir}/libtask*.la
 %attr(0755,root,root) %{_libdir}/libtask*.so.*
-%{_libdir}/kde3/childpanel_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so
-%{_libdir}/kde3/clock_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.so
-%{_libdir}/kde3/dockbar_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so
-%{_libdir}/kde3/kasbar_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so                                   
+                                  
 %{_libdir}/kde3/kcm_access.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_access.so
 %{_libdir}/kde3/kcm_arts.la
@@ -708,8 +777,6 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_keys.so
 %{_libdir}/kde3/kcm_khotkeys.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_khotkeys.so
-%{_libdir}/kde3/kcm_kicker.la
-%attr(0755,root,root) %{_libdir}/kde3/kcm_kicker.so
 %{_libdir}/kde3/kcm_knotify.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_knotify.so
 %{_libdir}/kde3/kcm_kwindecoration.la
@@ -740,41 +807,26 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_themes.so
 %{_libdir}/kde3/kcm_usb.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_usb.so
-%{_libdir}/kde3/kickermenu_kdeprint.la
-%attr(0755,root,root) %{_libdir}/kde3/kickermenu_kdeprint.so                                                  
-%{_libdir}/kde3/kickermenu_konsole.la
-%attr(0755,root,root) %{_libdir}/kde3/kickermenu_konsole.so                                                   
-%{_libdir}/kde3/kickermenu_prefmenu.la
-%attr(0755,root,root) %{_libdir}/kde3/kickermenu_prefmenu.so                                                  
-%{_libdir}/kde3/kickermenu_recentdocs.la
-%attr(0755,root,root) %{_libdir}/kde3/kickermenu_recentdocs.so                                                
+
 %{_libdir}/kde3/klipper_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/klipper_panelapplet.so
+
 %{_libdir}/kde3/kwin*.la
 %attr(0755,root,root) %{_libdir}/kde3/kwin*.so
-%{_libdir}/kde3/launcher_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so
 %{_libdir}/kde3/libkdeprint_part.la
 %attr(0755,root,root) %{_libdir}/kde3/libkdeprint_part.so
-%{_libdir}/kde3/lockout_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so
-%{_libdir}/kde3/minipager_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so
-%{_libdir}/kde3/naughty_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.so
-%{_libdir}/kde3/run_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.so
+
+%if     %{?_with_vfolders:1}0
+%attr(0755,root,root) %{_libdir}/kde3/kio_vfolder.so
+%{_libdir}/kde3/kio_vfolder.la
+%endif
 %{_libdir}/kde3/sysguard_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
-%{_libdir}/kde3/systemtray_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so
-%{_libdir}/kde3/taskbar_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.so
-%{_libdir}/kde3/taskbar_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.so
 %dir %{_datadir}/apps/ksmserver
 %dir %{_datadir}/apps/ksplash
 %{_datadir}/apps/?[!acdefhosw]*
+%exclude %{_datadir}/apps/kicker
+
 %{_datadir}/apps/kappfinder
 %{_datadir}/apps/kcm[!_c]*
 %{_datadir}/apps/kcm_componentchooser/*
@@ -797,6 +849,9 @@ fi
 %{_datadir}/services/kdeprint_part.desktop
 %{_datadir}/services/kwrited.desktop
 %{_datadir}/services/kxkb.desktop
+%if     %{?_with_vfolders:1}0
+%{_datadir}/services/vfolder.protocol
+%endif
 %{_datadir}/sounds
 %{_datadir}/templates
 %{_datadir}/wallpapers
@@ -833,6 +888,7 @@ fi
 %{_pixmapsdir}/*/*/apps/e[!n]*
 %{_pixmapsdir}/*/*/apps/en[!h]*
 %{_pixmapsdir}/*/*/apps/k[ijlmnptvmx]*
+%exclude %{_pixmapsdir}/*/*/apps/*kicker*
 %{_pixmapsdir}/*/*/apps/kappfinder.png
 %{_pixmapsdir}/[!l]*/*/apps/kc[!o][!s]*
 %{_pixmapsdir}/*/*/apps/kcms[!y]*
@@ -849,6 +905,50 @@ fi
 %{_pixmapsdir}/*/*/apps/style.png
 %{_pixmapsdir}/*/*/devices/print_[!c]*
 %{_pixmapsdir}/*/*/filesystems/*
+
+%files kicker
+%defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/kicker
+%{_libdir}/kde3/kickermenu_kdeprint.la
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_kdeprint.so                         
+%{_libdir}/kde3/kickermenu_konsole.la
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_konsole.so                         
+%{_libdir}/kde3/kickermenu_prefmenu.la
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_prefmenu.so                         
+%{_libdir}/kde3/kickermenu_recentdocs.la
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_recentdocs.so                       
+%{_libdir}/kde3/kcm_kicker.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_kicker.so
+%{_libdir}/libkicker*.la
+%attr(0755,root,root) %{_libdir}/libkicker*.so*
+
+%{_libdir}/kde3/systemtray_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so
+%{_libdir}/kde3/taskbar_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.so
+%{_libdir}/kde3/taskbar_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.so
+%{_libdir}/kde3/launcher_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so
+%{_libdir}/kde3/lockout_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so
+%{_libdir}/kde3/minipager_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so
+%{_libdir}/kde3/naughty_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.so
+%{_libdir}/kde3/run_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.so
+%{_libdir}/kde3/childpanel_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so
+%{_libdir}/kde3/clock_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.so
+%{_libdir}/kde3/dockbar_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so
+%{_libdir}/kde3/kasbar_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so 
+%{_datadir}/apps/kicker
+%{_pixmapsdir}/*/*/apps/*kicker*
+
 
 %files devel
 %defattr(644,root,root,755)
