@@ -569,18 +569,19 @@ programs=" \
 	kcmbell kcmcgi kcmarts kcmcolors kcmcomponentchooser kcmcrypto kcmemail kcmenergy \
 	kcmfileshare kcmfontinst kcmfonts kcmhtmlsearch kcmicons kcminfo kcminput kcmioslaveinfo kcmkclock kcmkded \
 	kcmkeys kcmkicker kcmkio kcmkurifilt kcmkwindecoration kcmkwintheme kcmkwm kcmlayout kcmlaunch kcmlocale \
-	kcmnotify kcmsmserver kcmstyle kcmtaskbar kdebugdialog \
+	kcmmidi kcmnic kcmnotify kcmprintmgr kcmsamba kcmsmartcard kcmspellchecking kcmsocks kcmsmserver kcmstyle \
+	kcmtaskbar kcmthemes kcmusb kdcop kdeprint_part kdebugdialog \
 	kdeprint kdesktop kdesu kdesud kdialog keyboard \
 	keys khotkeys kicker kinfocenter \
-	kioslave klipper kmenuedit kminipagerapplet \
+	kioslave klipper kfontviewpart kmenuedit kminipagerapplet \
 	kpersonalizer kpm kprinter \
 	krdb kreadconfig krunapplet \
 	ksmserver ksplash kstart ksysguard ksystemtrayapplet ksystraycmd ktaskbarapplet kthememgr ktip \
 	kwin kwin_b2_config kwin_default_config \
 	kwin_icewm_config kwin_keramik_config kwin_modernsys_config \
-	kwin_quartz_config kwindecoration language \
+	kwin_quartz_config kwindecoration kxkb language \
 	libkicker libkickermenu_kdeprint libkickermenu_konsole libkickermenu_prefmenu libkickermenu_recentdocs \
-	libtaskbar libtaskmanager mouse \
+	libtaskbar libtaskmanager lockout mouse naughtyapplet \
 	panel passwords smb \
 	spellchecking taskbarextension windowmanagement"
 
@@ -593,9 +594,9 @@ done
 programs=" \
 	cache cookies crypto drkonqi kcmkonq kcmkonqhtml \
 	ebrowsing email extensionproxy filemanager \
-	filetypes kcmcss khtml kio_devices \
-	libkonq netpref proxy \
-	useragent"
+	filetypes kcmcss kfile_font kfindpart kfmclient kfmexec khtml \
+	kio_devices kio_finger kio_floppy kio_mac kio_nfs kio_print kio_sftp kio_smb kio_smbro \
+	libkonq netpref nsplugin proxy useragent"
 
 for i in $programs; do
 	%find_lang $i --with-kde
@@ -633,6 +634,7 @@ cat kio_man.lang >> khelpcenter.lang
 
 %find_lang	kappfinder	--with-kde
 %find_lang	kate		--with-kde
+%find_lang	kdeprintfax	--with-kde
 %find_lang	kfind		--with-kde
 %find_lang	kpager		--with-kde
 %find_lang	kwrite		--with-kde
@@ -1036,7 +1038,7 @@ fi
 %{_applnkdir}/Help/Help.desktop
 %{_pixmapsdir}/*/*/apps/khelpcenter.png
 
-%files kappfinder
+%files kappfinder -f kappfinder.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kappfinder
 %{_datadir}/apps/kappfinder
@@ -1086,7 +1088,7 @@ fi
 #%lang(en) %{_htmldir}/en/kcontrol/index.*
 #%lang(en) %{_htmldir}/en/kcontrol/screenshot.png
 
-%files kdeprintfax
+%files kdeprintfax -f kdeprintfax.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kdeprintfax
 %dir %{_datadir}/apps/kdeprintfax
