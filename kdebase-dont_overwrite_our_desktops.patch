@@ -1,0 +1,260 @@
+diff -uNr kdebase-3.0.4.orig/kappfinder/apps/Development/Makefile.am kdebase-3.0.4/kappfinder/apps/Development/Makefile.am
+--- kdebase-3.0.4.orig/kappfinder/apps/Development/Makefile.am	Thu Jan  3 21:29:19 2002
++++ kdebase-3.0.4/kappfinder/apps/Development/Makefile.am	Sun Nov 10 22:53:26 2002
+@@ -1,4 +1,4 @@
+-data_DATA = assistant.desktop dlgedit.desktop ddd.desktop designer.desktop linguist.desktop gideon.desktop \
++data_DATA = assistant.desktop dlgedit.desktop designer.desktop linguist.desktop gideon.desktop \
+ 	    Forte.desktop converter.desktop j2mewtk.desktop pose.desktop
+ 
+ datadir = $(kde_datadir)/kappfinder/apps/Development
+diff -uNr kdebase-3.0.4.orig/kappfinder/apps/Development/Makefile.in kdebase-3.0.4/kappfinder/apps/Development/Makefile.in
+--- kdebase-3.0.4.orig/kappfinder/apps/Development/Makefile.in	Wed Oct  2 21:20:47 2002
++++ kdebase-3.0.4/kappfinder/apps/Development/Makefile.in	Sun Nov 10 22:53:25 2002
+@@ -288,7 +288,7 @@
+ 
+ datadir = $(kde_datadir)/kappfinder/apps/Development
+ 
+-data_DATA = assistant.desktop dlgedit.desktop ddd.desktop designer.desktop linguist.desktop gideon.desktop \
++data_DATA = assistant.desktop dlgedit.desktop designer.desktop linguist.desktop gideon.desktop \
+ 	Forte.desktop converter.desktop j2mewtk.desktop pose.desktop
+ 
+ 
+diff -uNr kdebase-3.0.4.orig/kappfinder/apps/Editors/Makefile.am kdebase-3.0.4/kappfinder/apps/Editors/Makefile.am
+--- kdebase-3.0.4.orig/kappfinder/apps/Editors/Makefile.am	Sat Dec  1 07:12:49 2001
++++ kdebase-3.0.4/kappfinder/apps/Editors/Makefile.am	Sun Nov 10 22:43:19 2002
+@@ -1,6 +1,4 @@
+-data_DATA = emacs.desktop gvim.desktop lemacs.desktop \
+-		xedit.desktop xemacs.desktop nedit.desktop \
+-		gedit.desktop pico.desktop
++data_DATA = gvim.desktop lemacs.desktop
+ 
+ datadir = $(kde_datadir)/kappfinder/apps/Editors
+ 
+diff -uNr kdebase-3.0.4.orig/kappfinder/apps/Editors/Makefile.in kdebase-3.0.4/kappfinder/apps/Editors/Makefile.in
+--- kdebase-3.0.4.orig/kappfinder/apps/Editors/Makefile.in	Wed Oct  2 21:20:47 2002
++++ kdebase-3.0.4/kappfinder/apps/Editors/Makefile.in	Sun Nov 10 22:46:30 2002
+@@ -351,7 +351,7 @@
+ 
+ #>- DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
+ #>+ 4
+-KDE_DIST=lemacs.desktop gedit.desktop emacs.desktop xemacs.desktop nedit.desktop xedit.desktop pico.desktop gvim.desktop 
++KDE_DIST=lemacs.desktop gvim.desktop 
+ 
+ DISTFILES= $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST) $(KDE_DIST)
+ 
+diff -uNr kdebase-3.0.4.orig/kappfinder/apps/Games/Arcade/Makefile.am kdebase-3.0.4/kappfinder/apps/Games/Arcade/Makefile.am
+--- kdebase-3.0.4.orig/kappfinder/apps/Games/Arcade/Makefile.am	Sat Dec  1 07:12:49 2001
++++ kdebase-3.0.4/kappfinder/apps/Games/Arcade/Makefile.am	Mon Nov 11 00:25:38 2002
+@@ -1,6 +1,5 @@
+-data_DATA = TuxRacer.desktop ClanBomber.desktop  Gnibbles.desktop \
+-	    rocksndiamonds.desktop  GnobotsII.desktop SuperMethaneBrothers.desktop \
+-	    XKobo.desktop cxhextris.desktop Mures.desktop  Trophy.desktop \
++data_DATA = SuperMethaneBrothers.desktop \
++	    XKobo.desktop Mures.desktop Trophy.desktop \
+ 	    XSoldier.desktop
+ 
+ datadir = $(kde_datadir)/kappfinder/apps/Games/Arcade
+diff -uNr kdebase-3.0.4.orig/kappfinder/apps/Games/Arcade/Makefile.in kdebase-3.0.4/kappfinder/apps/Games/Arcade/Makefile.in
+--- kdebase-3.0.4.orig/kappfinder/apps/Games/Arcade/Makefile.in	Wed Oct  2 21:20:47 2002
++++ kdebase-3.0.4/kappfinder/apps/Games/Arcade/Makefile.in	Mon Nov 11 00:25:30 2002
+@@ -288,9 +288,8 @@
+ 
+ datadir = $(kde_datadir)/kappfinder/apps/Games/Arcade
+ 
+-data_DATA = TuxRacer.desktop ClanBomber.desktop  Gnibbles.desktop \
+-	rocksndiamonds.desktop  GnobotsII.desktop SuperMethaneBrothers.desktop \
+-	XKobo.desktop cxhextris.desktop Mures.desktop  Trophy.desktop \
++data_DATA = SuperMethaneBrothers.desktop \
++	XKobo.desktop Mures.desktop Trophy.desktop \
+ 	XSoldier.desktop
+ 
+ 
+diff -uNr kdebase-3.0.4.orig/kappfinder/apps/Games/Board/Makefile.am kdebase-3.0.4/kappfinder/apps/Games/Board/Makefile.am
+--- kdebase-3.0.4.orig/kappfinder/apps/Games/Board/Makefile.am	Sat Dec  1 07:12:49 2001
++++ kdebase-3.0.4/kappfinder/apps/Games/Board/Makefile.am	Mon Nov 11 00:29:01 2002
+@@ -1,6 +1,4 @@
+-data_DATA = xboard.desktop Glines.desktop Gnotravex.desktop Iagno.desktop \
+-	    Xgammon.desktop SameGnome.desktop Gataxx.desktop Gmahjongg.desktop Gnotski.desktop \
+-	    Gchess.desktop Gmines.desktop Gstones.desktop
++data_DATA = Xgammon.desktop
+ 
+ datadir = $(kde_datadir)/kappfinder/apps/Games/Board
+ 
+diff -uNr kdebase-3.0.4.orig/kappfinder/apps/Games/Board/Makefile.in kdebase-3.0.4/kappfinder/apps/Games/Board/Makefile.in
+--- kdebase-3.0.4.orig/kappfinder/apps/Games/Board/Makefile.in	Wed Oct  2 21:20:47 2002
++++ kdebase-3.0.4/kappfinder/apps/Games/Board/Makefile.in	Mon Nov 11 00:29:03 2002
+@@ -288,9 +288,7 @@
+ 
+ datadir = $(kde_datadir)/kappfinder/apps/Games/Board
+ 
+-data_DATA = xboard.desktop Glines.desktop Gnotravex.desktop Iagno.desktop \
+-	Xgammon.desktop SameGnome.desktop Gataxx.desktop Gmahjongg.desktop Gnotski.desktop \
+-	Gchess.desktop Gmines.desktop Gstones.desktop
++data_DATA = Xgammon.desktop
+ 
+ 
+ EXTRA_DIST = $(data_DATA)
+diff -uNr kdebase-3.0.4.orig/kappfinder/apps/Games/Card/Makefile.am kdebase-3.0.4/kappfinder/apps/Games/Card/Makefile.am
+--- kdebase-3.0.4.orig/kappfinder/apps/Games/Card/Makefile.am	Sat Dec  1 07:12:50 2001
++++ kdebase-3.0.4/kappfinder/apps/Games/Card/Makefile.am	Mon Nov 11 01:11:51 2002
+@@ -1,4 +1,4 @@
+-data_DATA = PySol.desktop AisleRiot.desktop FreeCell.desktop XPat2.desktop
++data_DATA = AisleRiot.desktop
+ 
+ datadir = $(kde_datadir)/kappfinder/apps/Games/Card
+ 
+diff -uNr kdebase-3.0.4.orig/kappfinder/apps/Games/Card/Makefile.in kdebase-3.0.4/kappfinder/apps/Games/Card/Makefile.in
+--- kdebase-3.0.4.orig/kappfinder/apps/Games/Card/Makefile.in	Wed Oct  2 21:20:47 2002
++++ kdebase-3.0.4/kappfinder/apps/Games/Card/Makefile.in	Mon Nov 11 01:11:43 2002
+@@ -288,7 +288,7 @@
+ 
+ datadir = $(kde_datadir)/kappfinder/apps/Games/Card
+ 
+-data_DATA = PySol.desktop AisleRiot.desktop FreeCell.desktop XPat2.desktop
++data_DATA = AisleRiot.desktop
+ 
+ EXTRA_DIST = $(data_DATA)
+ subdir = kappfinder/apps/Games/Card
+diff -uNr kdebase-3.0.4.orig/kappfinder/apps/Games/Makefile.am kdebase-3.0.4/kappfinder/apps/Games/Makefile.am
+--- kdebase-3.0.4.orig/kappfinder/apps/Games/Makefile.am	Thu Jan  3 21:29:19 2002
++++ kdebase-3.0.4/kappfinder/apps/Games/Makefile.am	Sun Nov 10 23:23:37 2002
+@@ -1,7 +1,7 @@
+ SUBDIRS = Arcade Board Card Emulators TacticStrategy Roguelikes
+ 
+-data_DATA = penguin-command.desktop xshipwars.desktop \
+-	Clanbomber.desktop defendguin.desktop GTali.desktop
++data_DATA = xshipwars.desktop \
++	defendguin.desktop GTali.desktop
+ 
+ datadir = $(kde_datadir)/kappfinder/apps/Games
+ 
+diff -uNr kdebase-3.0.4.orig/kappfinder/apps/Games/Makefile.in kdebase-3.0.4/kappfinder/apps/Games/Makefile.in
+--- kdebase-3.0.4.orig/kappfinder/apps/Games/Makefile.in	Wed Oct  2 21:20:47 2002
++++ kdebase-3.0.4/kappfinder/apps/Games/Makefile.in	Sun Nov 10 23:23:36 2002
+@@ -290,8 +290,8 @@
+ 
+ SUBDIRS = Arcade Board Card Emulators TacticStrategy Roguelikes
+ 
+-data_DATA = penguin-command.desktop xshipwars.desktop \
+-	Clanbomber.desktop defendguin.desktop GTali.desktop
++data_DATA = xshipwars.desktop \
++	defendguin.desktop GTali.desktop
+ 
+ 
+ EXTRA_DIST = $(data_DATA)
+diff -uNr kdebase-3.0.4.orig/kappfinder/apps/Games/Roguelikes/Makefile.am kdebase-3.0.4/kappfinder/apps/Games/Roguelikes/Makefile.am
+--- kdebase-3.0.4.orig/kappfinder/apps/Games/Roguelikes/Makefile.am	Sat Dec 15 20:37:35 2001
++++ kdebase-3.0.4/kappfinder/apps/Games/Roguelikes/Makefile.am	Mon Nov 11 01:16:07 2002
+@@ -1,5 +1,4 @@
+-data_DATA = angband.desktop moria.desktop nethack.desktop pernband.desktop \
+-	rogue.desktop zangband.desktop
++data_DATA = angband.desktop moria.desktop pernband.desktop zangband.desktop
+ 
+ datadir = $(kde_datadir)/kappfinder/apps/Games/Roguelikes
+ 
+diff -uNr kdebase-3.0.4.orig/kappfinder/apps/Games/Roguelikes/Makefile.in kdebase-3.0.4/kappfinder/apps/Games/Roguelikes/Makefile.in
+--- kdebase-3.0.4.orig/kappfinder/apps/Games/Roguelikes/Makefile.in	Wed Oct  2 21:20:47 2002
++++ kdebase-3.0.4/kappfinder/apps/Games/Roguelikes/Makefile.in	Mon Nov 11 01:16:06 2002
+@@ -288,8 +288,7 @@
+ 
+ datadir = $(kde_datadir)/kappfinder/apps/Games/Roguelikes
+ 
+-data_DATA = angband.desktop moria.desktop nethack.desktop pernband.desktop \
+-	rogue.desktop zangband.desktop
++data_DATA = angband.desktop moria.desktop pernband.desktop zangband.desktop
+ 
+ 
+ EXTRA_DIST = $(data_DATA)
+diff -uNr kdebase-3.0.4.orig/kappfinder/apps/Games/TacticStrategy/Makefile.am kdebase-3.0.4/kappfinder/apps/Games/TacticStrategy/Makefile.am
+--- kdebase-3.0.4.orig/kappfinder/apps/Games/TacticStrategy/Makefile.am	Tue May 15 13:41:35 2001
++++ kdebase-3.0.4/kappfinder/apps/Games/TacticStrategy/Makefile.am	Mon Nov 11 01:33:44 2002
+@@ -1,4 +1,4 @@
+-data_DATA = freeciv.desktop
++data_DATA = 
+ 
+ datadir = $(kde_datadir)/kappfinder/apps/Games/TacticStrategy
+ 
+diff -uNr kdebase-3.0.4.orig/kappfinder/apps/Games/TacticStrategy/Makefile.in kdebase-3.0.4/kappfinder/apps/Games/TacticStrategy/Makefile.in
+--- kdebase-3.0.4.orig/kappfinder/apps/Games/TacticStrategy/Makefile.in	Wed Oct  2 21:20:47 2002
++++ kdebase-3.0.4/kappfinder/apps/Games/TacticStrategy/Makefile.in	Mon Nov 11 01:33:59 2002
+@@ -288,7 +288,7 @@
+ 
+ datadir = $(kde_datadir)/kappfinder/apps/Games/TacticStrategy
+ 
+-data_DATA = freeciv.desktop
++data_DATA = 
+ 
+ EXTRA_DIST = $(data_DATA)
+ subdir = kappfinder/apps/Games/TacticStrategy
+diff -uNr kdebase-3.0.4.orig/kappfinder/apps/Graphics/Makefile.am kdebase-3.0.4/kappfinder/apps/Graphics/Makefile.am
+--- kdebase-3.0.4.orig/kappfinder/apps/Graphics/Makefile.am	Fri Mar  8 02:16:35 2002
++++ kdebase-3.0.4/kappfinder/apps/Graphics/Makefile.am	Mon Nov 11 02:48:28 2002
+@@ -1,8 +1,4 @@
+-data_DATA = gimp.desktop xfig.desktop xpaint.desktop xv.desktop \
+-	     GnomeIconEditor.desktop Xpcd.desktop Xwpick.desktop \
+-	     xfig.desktop Sketch.desktop Gqview.desktop GPhoto.desktop \
+-	     GnomeColorSelector.desktop  ElectricEyes.desktop bitmap.desktop \
+-	     tgif.desktop
++data_DATA = bitmap.desktop tgif.desktop
+ 
+ datadir = $(kde_datadir)/kappfinder/apps/Graphics
+ 
+diff -uNr kdebase-3.0.4.orig/kappfinder/apps/Graphics/Makefile.in kdebase-3.0.4/kappfinder/apps/Graphics/Makefile.in
+--- kdebase-3.0.4.orig/kappfinder/apps/Graphics/Makefile.in	Wed Oct  2 21:20:47 2002
++++ kdebase-3.0.4/kappfinder/apps/Graphics/Makefile.in	Mon Nov 11 02:48:20 2002
+@@ -288,11 +288,7 @@
+ 
+ datadir = $(kde_datadir)/kappfinder/apps/Graphics
+ 
+-data_DATA = gimp.desktop xfig.desktop xpaint.desktop xv.desktop \
+-	GnomeIconEditor.desktop Xpcd.desktop Xwpick.desktop \
+-	xfig.desktop Sketch.desktop Gqview.desktop GPhoto.desktop \
+-	GnomeColorSelector.desktop  ElectricEyes.desktop bitmap.desktop \
+-	tgif.desktop
++data_DATA = bitmap.desktop tgif.desktop
+ 
+ 
+ EXTRA_DIST = $(data_DATA)
+diff -uNr kdebase-3.0.4.orig/kappfinder/apps/Internet/Makefile.am kdebase-3.0.4/kappfinder/apps/Internet/Makefile.am
+--- kdebase-3.0.4.orig/kappfinder/apps/Internet/Makefile.am	Sat Jan 26 16:53:20 2002
++++ kdebase-3.0.4/kappfinder/apps/Internet/Makefile.am	Mon Nov 11 03:20:31 2002
+@@ -1,13 +1,9 @@
+ SUBDIRS = Terminal
+ 
+-data_DATA = arena.desktop netscape.desktop xftp.desktop \
+-            coolmail.desktop xfmail.desktop xbiff.desktop \
+-            xchat.desktop ethereal.desktop licq.desktop mozilla.desktop \
+-	    BlueFish.desktop Dpsftp.desktop DrakSync.desktop Evolution.desktop \
+-	    Faces.desktop Fetchmailconf.desktop Gabber.desktop  \
+-	    Galeon.desktop gFTP.desktop GnomeICU.desktop gnometalk.desktop gtelnet.desktop \
+-	    Netscapemessenger.desktop Nmapfe.desktop  Pan.desktop \
+-	    Sylpheed.desktop knews.desktop netscape6.desktop opera.desktop 
++data_DATA = arena.desktop xftp.desktop coolmail.desktop xfmail.desktop \
++	    xbiff.desktop Dpsftp.desktop DrakSync.desktop Faces.desktop \
++	    Netscapemessenger.desktop Nmapfe.desktop \
++	    knews.desktop netscape6.desktop
+ 
+ 
+ datadir = $(kde_datadir)/kappfinder/apps/Internet
+diff -uNr kdebase-3.0.4.orig/kappfinder/apps/Internet/Makefile.in kdebase-3.0.4/kappfinder/apps/Internet/Makefile.in
+--- kdebase-3.0.4.orig/kappfinder/apps/Internet/Makefile.in	Wed Oct  2 21:20:47 2002
++++ kdebase-3.0.4/kappfinder/apps/Internet/Makefile.in	Mon Nov 11 03:20:57 2002
+@@ -290,14 +290,10 @@
+ 
+ SUBDIRS = Terminal
+ 
+-data_DATA = arena.desktop netscape.desktop xftp.desktop \
+-	coolmail.desktop xfmail.desktop xbiff.desktop \
+-	xchat.desktop ethereal.desktop licq.desktop mozilla.desktop \
+-	BlueFish.desktop Dpsftp.desktop DrakSync.desktop Evolution.desktop \
+-	Faces.desktop Fetchmailconf.desktop Gabber.desktop  \
+-	Galeon.desktop gFTP.desktop GnomeICU.desktop gnometalk.desktop gtelnet.desktop \
+-	Netscapemessenger.desktop Nmapfe.desktop  Pan.desktop \
+-	Sylpheed.desktop knews.desktop netscape6.desktop opera.desktop 
++data_DATA = arena.desktop xftp.desktop coolmail.desktop xfmail.desktop \
++	xbiff.desktop Dpsftp.desktop DrakSync.desktop Faces.desktop \
++	Netscapemessenger.desktop Nmapfe.desktop \
++	knews.desktop netscape6.desktop
+ 
+ 
+ EXTRA_DIST = $(data_DATA)
