@@ -54,7 +54,6 @@ Patch7:		%{name}-nsplugins_dirs.patch
 Patch8:		%{name}-startkde.patch
 Patch9:		%{name}-kcm_fonts.patch
 Patch10:	%{name}-kdesukonsole.patch
-Patch11:	%{name}-vcategories.patch
 Patch12:	%{name}-screensavers.patch
 Patch13:	%{name}-prefmenu.patch
 Patch14:	%{name}-session.patch
@@ -992,7 +991,6 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
-%patch11 -p1
 %patch12 -p1
 %patch13 -p1
 %patch14 -p1
@@ -1006,6 +1004,26 @@ cd kwin
 cd -
 %endif 
 
+%{__sed} -i -e 's/Categories=.*/Categories=Audio;Mixer;/ \
+	kappfinder/apps/Multimedia/alsamixergui.desktop
+
+%{__sed} -i -e 's/Categories=.*/Categories=Audio;Recorder;/ \
+	kappfinder/apps/Multimedia/rezound.desktop \
+	kappfinder/apps/Multimedia/sweep.desktop \
+	kappfinder/apps/Multimedia/audacity.desktop
+
+%{__sed} -i -e 's/Categories=.*/Categories=Office;PDA;/ \
+	kappfinder/apps/Utilities/xgnokii.desktop
+
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;TerminalEmulator;/ \
+./konsole/konsole-script.desktop \
+./konsole/konsole.desktop
+
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Amusement;/ \
+	ksplashml/ksplash.desktop
+
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;System;Monitor;/' \
+	ksysguard/gui/ksysguard.desktop
 
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Settings;/' \
 	kcontrol/kcontrol/KControl.desktop
@@ -1025,10 +1043,10 @@ cd -
 	-e 's/OnlyShowIn=KDE;//g' \
 	kfind/Kfind.desktop
 
-%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;System;X-SuperUser;/' \
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;SystemSetup;/' \
 	konqueror/konquerorsu.desktop
 
-%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;System;X-SuperUser;/' \
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;SystemSetup;/' \
 	konsole/konsolesu.desktop
 
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Network;WebBrowser;/' \
