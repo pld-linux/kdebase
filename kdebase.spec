@@ -1,9 +1,9 @@
-%define		sver alpha2
+%define		sver beta1
 Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
 Version:	2.2
-Release:	0.%{sver}
+Release:	0.%{sver}.1
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -14,14 +14,14 @@ Source2:	kdm.pamd
 Source3:	kdm.init
 Source4:	kdm.Xsession
 Source5:	kdmrc
-#Patch0:		%{name}-waitkdm.patch
-#Patch1:		%{name}-konsole-TERM.patch
-#Patch2:		%{name}-time.patch
-#Patch3:		%{name}-glibc-2.2.2.patch
-#Patch4:		%{name}-kxmlrpcd-tcpsocket.patch
-#Patch5:		%{name}-arrange.patch
-#Patch6:		%{name}-utmp.patch
+Patch0:		%{name}-waitkdm.patch
+Patch1:		%{name}-konsole-TERM.patch
+Patch2:		%{name}-glibc-2.2.2.patch
+Patch3:		%{name}-arrange.patch
+Patch4:		%{name}-utmp.patch
 BuildRequires:	grep
+BuildRequires:	awk
+BuildRequires:	findutils
 BuildRequires:	libtool
 BuildRequires:	autoconf
 BuildRequires:	qt-devel >= 2.3.0
@@ -36,6 +36,12 @@ BuildRequires:	pam-devel
 BuildRequires:	OpenGL-devel
 BuildRequires:	openssl-devel
 BuildRequires:	motif-devel
+BuildRequires:	libvorbis-devel
+BuildRequires:	cdparanoia-III-devel
+BuildRequires:	lame-libs-devel
+BuildRequires:	glut-devel
+# TODO: sensors
+#BuildRequires:	sensors-devel
 Prereq:		/sbin/ldconfig
 Requires:	applnk
 Requires:	konqueror
@@ -155,13 +161,11 @@ Wygaszacze ekranu desktopu KDE.
 
 %prep
 %setup  -q -n %{name}-%{version}%{sver}
-#%patch0 -p1
-#%patch1 -p1
-#%patch2 -p1
-#%patch3 -p1
-#%patch4 -p1
-#%patch5 -p1
-#%patch6 -p1
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
 
 %build
 #libtoolize --copy --force
@@ -180,7 +184,7 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 CPPFLAGS="-I%{_includedir}"
 export CPPFLAGS
-%configure \
+%configure2_13 \
 	--with-pam=kdm \
 	--without-shadow \
 	--disable-shadow \
@@ -219,23 +223,29 @@ X-KDE-BaseGroup=settings
 EOF
 
 # removing unneeded directories
-rm -rf $RPM_BUILD_ROOT%{_applnkdir}/{Editors,Toys}
+# XXX rm -rf $RPM_BUILD_ROOT%{_applnkdir}/{Editors,Toys}
 
 # make compatibile with GNOME
-for a in `find $RPM_BUILD_ROOT%{_applnkdir} -name '.directory'`; do
-        cat $a |sed -n '/^Icon=/!p' > $a.
-        echo "Type=Directory" >> $a.
-        cat $a |awk '/^Icon/ {print $1".png" }' >> $a.
-        mv -f $a. $a
-done
-for a in `find $RPM_BUILD_ROOT%{_applnkdir} -name '*.desktop'`; do
-        cat $a |sed -n '/^Icon=/!p' > $a.
-        echo >> $a.
-        cat $a |awk '/^Icon/ {print $1".png" }' >> $a.
-        mv -f $a. $a
+#for a in `find $RPM_BUILD_ROOT%{_applnkdir} -name '.directory'`; do
+#        cat $a |sed -n '/^Icon=/!p' > $a.
+#        echo "Type=Directory" >> $a.
+#        cat $a |awk '/^Icon/ {print $1".png" }' >> $a.
+#        mv -f $a. $a
+#done
+#for a in `find $RPM_BUILD_ROOT%{_applnkdir} -name '*.desktop'`; do
+#        cat $a |sed -n '/^Icon=/!p' > $a.
+#        echo >> $a.
+#        cat $a |awk '/^Icon/ {print $1".png" }' >> $a.
+#        mv -f $a. $a
+#done
+for f in `find $RPM_BUILD_ROOT%{_applnkdir} -name '.directory' -o -name '*.dekstop'` ; do
+	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > tmp.$f
+	mv -f {tmp.,}$f
 done
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/security/blacklist.kdm
+
+gzip AUTHORS README*
 
 %find_lang tmp.%{name} --with-kde --all-name
 grep -vE konqueror\|kdm tmp.%{name}.lang > %{name}.lang
@@ -293,6 +303,7 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
+%doc *gz
 %attr(0755,root,root) %{_bindir}/[ades]*
 %attr(0755,root,root) %{_bindir}/conttest
 %attr(0755,root,root) %{_bindir}/k[acitwx]*
