@@ -878,7 +878,7 @@ programs=" \
 	kdesu \
 	khelpcenter \
 	krdb"
-programs-nk=" \
+programs_nk=" \
 	colors \
 	fonts \
 	kcmstyle \
@@ -888,7 +888,7 @@ for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> core.lang
 done
-for i in $programs-nk; do
+for i in $programs_nk; do
 	%find_lang $i
 	cat $i.lang >> core.lang
 done
