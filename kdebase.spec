@@ -1,22 +1,24 @@
 %define		_ver		3.0
 #define		_sub_ver
-%define		_rel		5
+%define		_rel		6
+
+%{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
+%{!?_sub_ver:	%define	_version	%{_ver}}
+%{?_sub_ver:	%define	_release	0.%{_sub_ver}.%{_rel}}
+%{!?_sub_ver:	%define	_release	%{_rel}}
+%{!?_sub_ver:	%define	_ftpdir	stable}
+%{?_sub_ver:	%define	_ftpdir	unstable/kde-%{version}%{_sub_ver}}
+
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Summary(pt_BR):	K Desktop Environment - arquivos básicos
 Name:		kdebase
-%{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
-%{!?_sub_ver:	%define	_version	%{_ver}}
 Version:	%{_version}
-%{?_sub_ver:	%define	_release	0.%{_sub_ver}.%{_rel}}
-%{!?_sub_ver:	%define	_release	%{_rel}}
 Release:	%{_release}
 Epoch:		6
 License:	GPL
 Group:		X11/Applications
-%{!?_sub_ver:	%define	_ftpdir	stable}
-%{?_sub_ver:	%define	_ftpdir	unstable/kde-%{version}%{_sub_ver}}
 Source0:	ftp://ftp.kde.org/pub/kde/%{_ftpdir}/%{version}/src/%{name}-%{version}.tar.bz2
 Source2:	kdm.pamd
 Source3:	kdm.init
@@ -31,6 +33,7 @@ Patch4:		%{name}-nsplugins_dirs.patch
 Patch5:		%{name}-hardcoded_paths.patch
 Patch6:		%{name}-kdm.daemon_output.patch
 Patch7:		%{name}-startkde.patch
+Patch8:		%{name}-dont_merge_old_kdmrc.patch
 %ifnarch sparc sparc64 ppc
 BuildRequires:	alsa-lib-devel
 %endif
@@ -62,6 +65,7 @@ BuildRequires:	pam-devel
 BuildRequires:	qt-devel >= 3.0.3
 BuildRequires:	zlib-devel
 BuildRequires:	db3-devel
+BuildRequires:	libsmbclient-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
 Prereq:		/sbin/ldconfig
@@ -274,6 +278,7 @@ Wygaszacze ekranu desktopu KDE.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 %build
 
