@@ -33,7 +33,7 @@ LogoArea=KdmLogo
 EchoMode=OneStar
 Restart=/sbin/reboot
 Shutdown=/sbin/poweroff
-ConsoleMode=/sbin/init 3
+#ConsoleMode=/sbin/init 3
 
 [Locale]
 Country=C
