@@ -86,9 +86,9 @@ BuildRequires:	awk
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
 BuildRequires:	db3-devel
+BuildRequires:	ed
 BuildRequires:	findutils
 BuildRequires:	gettext-devel
-BuildRequires:	grep
 BuildRequires:	kdelibs-devel >= 8:%{version}
 BuildRequires:	lame-libs-devel
 BuildRequires:	libjpeg-devel
@@ -104,7 +104,6 @@ BuildRequires:	motif-devel
 BuildRequires:	openldap-devel
 BuildRequires:	openssl-devel >= 0.9.6k
 BuildRequires:	pam-devel
-BuildRequires:	sed
 BuildRequires:	qt-devel >= 3.1
 BuildRequires:	zlib-devel
 BuildRequires:	fam-devel
@@ -790,9 +789,9 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 CPPFLAGS="-I%{_includedir}"
 export CPPFLAGS
 
-for plik in `find ./ -name *.desktop` ; do
+for plik in `find ./ -name *.desktop | grep -l '\[nb\]'` ; do
 	echo $plik
-	perl -pi -e "s/\[nb\]/\[no\]/g" $plik
+	echo -e ',s/\[nb\]/[no]/\n,w' | ed $plik
 done
 
 # bleh, this cannot be done (new libtool translates kicker.la to -lkicker, which fails)
@@ -834,7 +833,7 @@ touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
 #cp $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/smb-network.desktop \
 cp kioslave/smb/smb-network.desktop \
-    $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/remote
+	$RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/remote
 
 ALD=$RPM_BUILD_ROOT%{_applnkdir}
 
@@ -1013,7 +1012,7 @@ if [ "$1" = "0" ]; then
 	/usr/sbin/groupdel xdm
 fi
 
-%post   -n konqueror -p /sbin/ldconfig
+%post	-n konqueror -p /sbin/ldconfig
 %postun	-n konqueror -p /sbin/ldconfig
 
 %files -f %{name}.lang
