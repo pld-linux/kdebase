@@ -103,6 +103,8 @@ BuildRequires:	pam-devel
 BuildRequires:	sed >= 4.0
 BuildRequires:	qt-devel >= 3.1
 BuildRequires:	zlib-devel
+BuildRequires:	fam-devel
+BuildRequires:	libart_lgpl-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
 Requires(post,postun):	/sbin/ldconfig
