@@ -9,7 +9,7 @@ Summary(ru):	K Desktop Environment - базовые файлы
 Summary(uk):	K Desktop Environment - базов╕ файли
 Name:		kdebase
 Version:	3.0.3
-Release:	11
+Release:	12
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -633,6 +633,7 @@ fi
 %{_applnkdir}/Settings/KDE/Sound
 %dir %{_applnkdir}/Settings/KDE/System
 %{_applnkdir}/Settings/KDE/System/[!k]*
+%{_applnkdir}/Settings/KDE/System/kcm*
 %{_applnkdir}/Settings/KDE/System/.directory
 %{_applnkdir}/System/k[!o]*.desktop
 %{_applnkdir}/System/Administration/konsolesu.desktop
