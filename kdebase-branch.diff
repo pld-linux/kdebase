@@ -1,417 +1,2182 @@
-diff -urN -x CVS kdebase.orig/kdesktop/kdiconview.cc kdebase/kdesktop/kdiconview.cc
---- kdebase.orig/kdesktop/kdiconview.cc	Mon Jul 12 23:33:10 2004
-+++ kdebase/kdesktop/kdiconview.cc	Tue Aug 17 18:00:53 2004
-@@ -392,7 +392,7 @@
-         KAction *pasteTo = KStdAction::paste( this, SLOT( slotPopupPasteTo() ), &m_actionCollection, "pasteto" );
-         pasteTo->setEnabled( false ); // only enabled during popupMenu()
+diff -urN -x CVS kdebase.orig/applnk/compat/userinfo.desktop kdebase/applnk/compat/userinfo.desktop
+--- kdebase.orig/applnk/compat/userinfo.desktop	Thu Sep 30 16:01:39 2004
++++ kdebase/applnk/compat/userinfo.desktop	Mon Oct  4 15:23:05 2004
+@@ -50,7 +50,7 @@
+ Name[sk]=Používateľský účet
+ Name[sl]=Uporabniški račun
+ Name[sr]=Кориснички налог
+-Name[sr@Latn]=Кориснички налог
++Name[sr@Latn]=Korisnički nalog
+ Name[sv]=Användarkonto
+ Name[ta]=பயனர் கணக்கு
+ Name[th]=บัญชีผู้ใช้
+@@ -98,7 +98,7 @@
+ Comment[sk]=Nastavenie informácií o vašom účte
+ Comment[sl]=Spremenite podatke o vašem računu
+ Comment[sr]=Измена података о вашем налогу
+-Comment[sr@Latn]=Измена података о вашем налогу
++Comment[sr@Latn]=Izmena podataka o vašem nalogu
+ Comment[sv]=Ändra din kontoinformation
+ Comment[ta]=உங்கள் கணக்கு தகவலை மாற்று
+ Comment[th]=เปลี่ยนข้อมูลบัญชีผู้ใช้ของคุณ
+@@ -141,7 +141,7 @@
+ Keywords[sk]=heslá,heslo,zmena hesla,ikona,obrázok,foto,kdm,používateľ,meno,účet
+ Keywords[sl]=gesla,geslo,spremeni geslo,ikona,obraz,kdm,uporabniško ime, ime,račun
+ Keywords[sr]=Passwords,Password,Change Password,Icon,face,kdm,User Name,Name,Account,Лозинке,Лозинка,Икона,лице,Име,Налог,Кориснички налог
+-Keywords[sr@Latn]=Passwords,Password,Change Password,Icon,face,kdm,User Name,Name,Account,Лозинке,Лозинка,Икона,лице,Име,Налог,Кориснички налог
++Keywords[sr@Latn]=Passwords,Password,Change Password,Icon,face,kdm,User Name,Name,Account,Lozinke,Lozinka,Ikona,lice,Ime,Nalog,Korisnički nalog
+ Keywords[sv]=lösenord,ändra lösenord,ikon,bild,KDM,användarnamn,namn,konto
+ Keywords[ta]=கடவுச்சொற்கள்,கடவுச்சொல்,கடவுச்சொலை மாற்று,சின்னம்,முகம்,kdm,பயனர் பெயர்,பெயர்,கணக்கு
+ Keywords[tr]=Parolalar,Parola,Parola Değişimi,Simge,yüz,kdm,Kullanıcı Adı,İsim,Ad,Hesap
+diff -urN -x CVS kdebase.orig/applnk/kde-more.directory kdebase/applnk/kde-more.directory
+--- kdebase.orig/applnk/kde-more.directory	Thu Sep 30 16:01:38 2004
++++ kdebase/applnk/kde-more.directory	Mon Oct  4 15:23:05 2004
+@@ -31,7 +31,7 @@
+ Name[sk]=Ďalšie aplikácie
+ Name[sl]=Več programov
+ Name[sr]=Још програма
+-Name[sr@Latn]=Још програма
++Name[sr@Latn]=Još programa
+ Name[sv]=Fler program
+ Name[ta]=அதிக பயன்பாடுகள்
+ Name[tr]=Daha Fazla Uygulama
+diff -urN -x CVS kdebase.orig/applnk/kde-science.directory kdebase/applnk/kde-science.directory
+--- kdebase.orig/applnk/kde-science.directory	Thu Sep 30 16:01:38 2004
++++ kdebase/applnk/kde-science.directory	Mon Oct  4 15:23:05 2004
+@@ -42,7 +42,7 @@
+ Name[sk]=Veda
+ Name[sl]=Znanost in matematika
+ Name[sr]=Наука и математика
+-Name[sr@Latn]=Наука и математика
++Name[sr@Latn]=Nauka i matematika
+ Name[sv]=Vetenskap och matematik
+ Name[ta]=அறிவியல் & கணிதம்
+ Name[th]=วิทยาศาสตร์และคณิตศาสตร์
+diff -urN -x CVS kdebase.orig/drkonqi/presets/enduserrc kdebase/drkonqi/presets/enduserrc
+--- kdebase.orig/drkonqi/presets/enduserrc	Thu Sep 30 16:01:41 2004
++++ kdebase/drkonqi/presets/enduserrc	Mon Oct  4 15:23:07 2004
+@@ -251,7 +251,7 @@
+ Name[sk]=Možno budete chcieť poslať správu o chybe tejto aplikácie. Overte, či už nie je na http://bugs.kde.org, inak pošlite email autorovi. Prosím, pridajte čo najviac informácií, prípadne aj dokumenty, ktoré problém spôsobili. Ak viete, ako chybu zopakovať, nezabudnite tejto postup tiež poslať.
+ Name[sl]=Morda boste avtorju želeli poslati poročilo o hrošču. Preverite, če je naveden na http://bugs.kde.org, sicer obvestite avtorja. Prosim, vključite čimveč podatkov, morda tudi izvirne dokumente. Če lahko kako ponovite napako, vključite tudi to.
+ Name[sr]=Можда бисте желели да пошаљете извештај о грешци за овај програм. Проверите да ли се налази на http://bugs.kde.org, иначе пошаљите е-пошту аутору. Молим вас укључите што је више података могуће, можда оригиналне документе. Ако имате начин да поновите ову грешку укључите и то такође.
+-Name[sr@Latn]=Можда бисте желели да пошаљете извештај о грешци за овај програм. Проверите да ли се налази на http://bugs.kde.org, иначе пошаљите е-пошту аутору. Молим вас укључите што је више података могуће, можда оригиналне документе. Ако имате начин да поновите ову грешку укључите и то такође.
++Name[sr@Latn]=Možda biste želeli da pošaljete izveštaj o grešci za ovaj program. Proverite da li se nalazi na http://bugs.kde.org, inače pošaljite e-poštu autoru. Molim vas uključite što je više podataka moguće, možda originalne dokumente. Ako imate način da ponovite ovu grešku uključite i to takođe.
+ Name[sv]=Du kanske vill skicka en felrapport för det här programmet. Kontrollera om det finns listat på http://bugs.kde.org, skicka annars e-post till upphovsmannen. Bifoga så mycket information som möjligt, kanske originaldokumenten. Om du kan återupprepa felet, så beskriv även hur du gör det.
+ Name[ta]=இந்த பயன்பாட்டுக்கான நீங்கள் பிழை அறிக்கையொன்றை அனுப்பலாம்.  http://bugs.kde.org,ல் அது உள்ளதா என்பதை சரிபார்க்கவும் அல்லது ஆசிரியருக்கு மின்னஞ்சல் அனுப்பலாம். தயவுசெய்து முடிந்த அளவிற்கு தகவல்களை உள்ளடக்கவும். அவை மூல ஆவணங்களாகவும் இருக்கலாம். இந்த தவறை திரும்ப உருவாக்க ஏதேனும் வழியிருப்பின் அதனையும் குறிப்பிடவும்.
+ Name[tr]=Bu uygulama için yazara bir hata raporu göndermek isterseniz, öncelikle hatanın http://bugs.kde.org adresinde yer alıp almadığını kontrol edin. Lütfen mümkün olduğunca fazla bilgi verin ve varsa orjinal belgeleri ekleyin. Eğer bu hatayı tekrar ortaya çıkarabilmenin bir yolu varsa, bunu da belirtin.
+@@ -651,7 +651,7 @@
+ Comment[sk]=Ľutujem, nepoznám tento signál.
+ Comment[sl]=Žal je ta signal neznan.
+ Comment[sr]=Извините, овај сигнал ми није познат.
+-Comment[sr@Latn]=Извините, овај сигнал ми није познат.
++Comment[sr@Latn]=Izvinite, ovaj signal mi nije poznat.
+ Comment[sv]=Känner tyvärr inte till den här signalen.
+ Comment[ta]=மன்னிக்கவும், இந்த சின்னம் எணக்கு தெரியாது.
+ Comment[tr]=Üzgünüm, bu sinyali tanımıyorum.
+diff -urN -x CVS kdebase.orig/kappfinder/apps/Graphics/Xpcd.desktop kdebase/kappfinder/apps/Graphics/Xpcd.desktop
+--- kdebase.orig/kappfinder/apps/Graphics/Xpcd.desktop	Thu Sep 30 16:01:44 2004
++++ kdebase/kappfinder/apps/Graphics/Xpcd.desktop	Mon Oct  4 15:23:09 2004
+@@ -45,7 +45,7 @@
+ GenericName[sk]=Nástroje PhotoCD
+ GenericName[sl]=Orodja za PhotoCD
+ GenericName[sr]=Фото CD алати
+-GenericName[sr@Latn]=Фото CD алати
++GenericName[sr@Latn]=Foto CD alati
+ GenericName[sv]=Foto-cd-verktyg
+ GenericName[ta]=புகைப்பட குறுந்தகடு கருவிகள்
+ GenericName[tr]=PhotoCD Araçları
+diff -urN -x CVS kdebase.orig/kappfinder/apps/Multimedia/MP3info.desktop kdebase/kappfinder/apps/Multimedia/MP3info.desktop
+--- kdebase.orig/kappfinder/apps/Multimedia/MP3info.desktop	Thu Sep 30 16:01:45 2004
++++ kdebase/kappfinder/apps/Multimedia/MP3info.desktop	Mon Oct  4 15:23:09 2004
+@@ -29,7 +29,7 @@
+ Name[ro]=Informaţii MP3
+ Name[sk]=MP3 info
+ Name[sr]=MP3 инфо
+-Name[sr@Latn]=MP3 инфо
++Name[sr@Latn]=MP3 info
+ Name[sv]=MP3 info
+ Name[tr]=MP3 Bilgisi
+ Name[uk]=Інформація про MP3
+diff -urN -x CVS kdebase.orig/kappfinder/apps/Multimedia/alsamixergui.desktop kdebase/kappfinder/apps/Multimedia/alsamixergui.desktop
+--- kdebase.orig/kappfinder/apps/Multimedia/alsamixergui.desktop	Thu Sep 30 16:01:45 2004
++++ kdebase/kappfinder/apps/Multimedia/alsamixergui.desktop	Mon Oct  4 15:23:09 2004
+@@ -52,7 +52,7 @@
+ GenericName[sk]=Rozhranie pre zvukový mixér Alsa
+ GenericName[sl]=Vmesnik mešalnika Alsa
+ GenericName[sr]=Сучеље за Alsa миксер
+-GenericName[sr@Latn]=Сучеље за Alsa миксер
++GenericName[sr@Latn]=Sučelje za Alsa mikser
+ GenericName[sv]=Gränssnitt till Alsa-mixer
+ GenericName[ta]=Alsa கலவை முண்முணை
+ GenericName[tr]=Alsa Ses Karıştırıcı Önyüzü
+diff -urN -x CVS kdebase.orig/kappfinder/apps/Multimedia/audacity.desktop kdebase/kappfinder/apps/Multimedia/audacity.desktop
+--- kdebase.orig/kappfinder/apps/Multimedia/audacity.desktop	Thu Sep 30 16:01:45 2004
++++ kdebase/kappfinder/apps/Multimedia/audacity.desktop	Mon Oct  4 15:23:10 2004
+@@ -46,7 +46,7 @@
+ GenericName[sk]=Zvukový editor
+ GenericName[sl]=Urejevalnik zvoka
+ GenericName[sr]=Аудио уређивач
+-GenericName[sr@Latn]=Аудио уређивач
++GenericName[sr@Latn]=Audio uređivač
+ GenericName[sv]=Ljudeditor
+ GenericName[ta]=ஒலி திருத்தி
+ GenericName[tr]=Ses Düzenleyicisi
+diff -urN -x CVS kdebase.orig/kappfinder/apps/Multimedia/rezound.desktop kdebase/kappfinder/apps/Multimedia/rezound.desktop
+--- kdebase.orig/kappfinder/apps/Multimedia/rezound.desktop	Thu Sep 30 16:01:45 2004
++++ kdebase/kappfinder/apps/Multimedia/rezound.desktop	Mon Oct  4 15:23:10 2004
+@@ -44,7 +44,7 @@
+ GenericName[sk]=Zvukový editor
+ GenericName[sl]=Urejevalnik zvoka
+ GenericName[sr]=Аудио уређивач
+-GenericName[sr@Latn]=Аудио уређивач
++GenericName[sr@Latn]=Audio uređivač
+ GenericName[sv]=Ljudeditor
+ GenericName[ta]=ஒலி திருத்தி
+ GenericName[tr]=Ses Düzenleyicisi
+diff -urN -x CVS kdebase.orig/kappfinder/apps/Multimedia/sweep.desktop kdebase/kappfinder/apps/Multimedia/sweep.desktop
+--- kdebase.orig/kappfinder/apps/Multimedia/sweep.desktop	Thu Sep 30 16:01:45 2004
++++ kdebase/kappfinder/apps/Multimedia/sweep.desktop	Mon Oct  4 15:23:10 2004
+@@ -48,7 +48,7 @@
+ GenericName[sk]=Zvukový editor
+ GenericName[sl]=Urejevalnik zvoka
+ GenericName[sr]=Аудио уређивач
+-GenericName[sr@Latn]=Аудио уређивач
++GenericName[sr@Latn]=Audio uređivač
+ GenericName[sv]=Ljudeditor
+ GenericName[ta]=ஒலி திருத்தி
+ GenericName[tr]=Ses Düzenleyicisi
+diff -urN -x CVS kdebase.orig/kappfinder/apps/Utilities/SystemInfo.desktop kdebase/kappfinder/apps/Utilities/SystemInfo.desktop
+--- kdebase.orig/kappfinder/apps/Utilities/SystemInfo.desktop	Thu Sep 30 16:01:45 2004
++++ kdebase/kappfinder/apps/Utilities/SystemInfo.desktop	Mon Oct  4 15:23:10 2004
+@@ -33,7 +33,7 @@
+ Name[sk]=Systémové informácie
+ Name[sl]=Sistemske informacije
+ Name[sr]=Информације о систему
+-Name[sr@Latn]=Информације о систему
++Name[sr@Latn]=Informacije o sistemu
+ Name[sv]=Systeminformation
+ Name[ta]=அமைப்பு தகவல்
+ Name[tr]=Sistem Bilgisi
+diff -urN -x CVS kdebase.orig/kate/data/kateinitplugin.desktop kdebase/kate/data/kateinitplugin.desktop
+--- kdebase.orig/kate/data/kateinitplugin.desktop	Fri Sep 17 15:46:45 2004
++++ kdebase/kate/data/kateinitplugin.desktop	Mon Oct  4 15:23:12 2004
+@@ -46,7 +46,7 @@
+ Comment[sk]=Inicializačný modul Kate
+ Comment[sl]=Vstavek za inicializacijo Kate
+ Comment[sr]=Kate Init прикључак
+-Comment[sr@Latn]=Kate Init dodatak
++Comment[sr@Latn]=Kate Init priključak
+ Comment[sv]=Kate-initieringsinsticksprogram
+ Comment[ta]=Kate Init செருகு சாதனம்
+ Comment[tg]=Мутассалкунандаи Kate Init
+diff -urN -x CVS kdebase.orig/kate/data/kateplugin.desktop kdebase/kate/data/kateplugin.desktop
+--- kdebase.orig/kate/data/kateplugin.desktop	Fri Sep 17 15:46:45 2004
++++ kdebase/kate/data/kateplugin.desktop	Mon Oct  4 15:23:12 2004
+@@ -53,7 +53,7 @@
+ Comment[sk]=Modul Kate
+ Comment[sl]=Vstavek za Kate
+ Comment[sr]=Kate-ов прикључак
+-Comment[sr@Latn]=Kate-ov dodatak
++Comment[sr@Latn]=Kate-ov priključak
+ Comment[ss]=I-plugin ye Kate 
+ Comment[sv]=Kate-insticksprogram
+ Comment[ta]=Kபதிப்பான் செருகல்
+diff -urN -x CVS kdebase.orig/kate/data/kateprojectplugin.desktop kdebase/kate/data/kateprojectplugin.desktop
+--- kdebase.orig/kate/data/kateprojectplugin.desktop	Fri Sep 17 15:46:46 2004
++++ kdebase/kate/data/kateprojectplugin.desktop	Mon Oct  4 15:23:12 2004
+@@ -47,7 +47,7 @@
+ Comment[sk]=Modul projektov Kate
+ Comment[sl]=Vstavek za projekt Kate
+ Comment[sr]=Kate-ов прикључак за пројекте
+-Comment[sr@Latn]=Kate-ov dodatak za projekte
++Comment[sr@Latn]=Kate-ov priključak za projekte
+ Comment[sv]=Kate-projektinsticksprogram
+ Comment[ta]=Kate திட்ட அறிக்கை செருகு சாதனம்
+ Comment[tg]=Мутассалкунандаи нақшаи Kate 
+diff -urN -x CVS kdebase.orig/kate/data/x-kate-project.desktop kdebase/kate/data/x-kate-project.desktop
+--- kdebase.orig/kate/data/x-kate-project.desktop	Thu Sep 30 16:01:48 2004
++++ kdebase/kate/data/x-kate-project.desktop	Mon Oct  4 15:23:12 2004
+@@ -42,7 +42,7 @@
+ Comment[sk]=Súbor projektu Kate
+ Comment[sl]=Projektna datoteka Kate
+ Comment[sr]=Kate-ов пројектни фајл
+-Comment[sr@Latn]=Kate-ов пројектни фајл
++Comment[sr@Latn]=Kate-ov projektni fajl
+ Comment[sv]=Kate-projektfil
+ Comment[ta]=Kate திட்டப்பணி கோப்பு
+ Comment[tr]=Kate Proje Dosyası
+diff -urN -x CVS kdebase.orig/kate/plugins/defaultproject/katedefaultproject.desktop kdebase/kate/plugins/defaultproject/katedefaultproject.desktop
+--- kdebase.orig/kate/plugins/defaultproject/katedefaultproject.desktop	Fri Sep 17 15:46:46 2004
++++ kdebase/kate/plugins/defaultproject/katedefaultproject.desktop	Mon Oct  4 15:23:12 2004
+@@ -46,7 +46,7 @@
+ Name[sk]=Plugin štandardného projektu Kate
+ Name[sl]=Vstavek za privzeti projekt Kate
+ Name[sr]=Kate-ов предефинисани прикључак за пројекте
+-Name[sr@Latn]=Kate-ov predefinisani dodatak za projekte
++Name[sr@Latn]=Kate-ov predefinisani priključak za projekte
+ Name[sv]=Kate förvalt projektinsticksprogram
+ Name[ta]=Kate முன்னிருக்கும் திட்ட அறிக்கை செருகு சாதனம்
+ Name[tg]=Мутассалкунандаи пешфарзи нақши Kate
+@@ -98,7 +98,7 @@
+ Comment[sk]=Štandardné plugin pre projekty
+ Comment[sl]=Privzeti vstavek za projekte
+ Comment[sr]=Предефинисани прикључак за пројекте
+-Comment[sr@Latn]=Predefinisani dodatak za projekte
++Comment[sr@Latn]=Predefinisani priključak za projekte
+ Comment[sv]=Förvalt insticksprogram för projekt
+ Comment[ta]=திட்டத்திற்கான நிலையான செருகு சாதனம்
+ Comment[tg]=Мутассалкунандаи пешфарз барои нақшаҳо
+diff -urN -x CVS kdebase.orig/kcontrol/access/kaccess.desktop kdebase/kcontrol/access/kaccess.desktop
+--- kdebase.orig/kcontrol/access/kaccess.desktop	Thu Sep 30 16:01:52 2004
++++ kdebase/kcontrol/access/kaccess.desktop	Mon Oct  4 15:23:16 2004
+@@ -33,7 +33,7 @@
+ Name[sk]=KDE sprístupnenie
+ Name[sl]=Orodje za dostopnost KDE
+ Name[sr]=KDE алатка за приступачност
+-Name[sr@Latn]=KDE алатка за приступачност
++Name[sr@Latn]=KDE alatka za pristupačnost
+ Name[sv]=Handikappverktyg för KDE
+ Name[ta]=KDE அணுகும் கருவி
+ Name[tr]=KDE Erişilebilirlik Aracı
+diff -urN -x CVS kdebase.orig/kcontrol/componentchooser/componentservices/kcm_browser.desktop kdebase/kcontrol/componentchooser/componentservices/kcm_browser.desktop
+--- kdebase.orig/kcontrol/componentchooser/componentservices/kcm_browser.desktop	Thu Sep 30 16:01:53 2004
++++ kdebase/kcontrol/componentchooser/componentservices/kcm_browser.desktop	Mon Oct  4 15:23:16 2004
+@@ -97,7 +97,7 @@
+ Comment[sk]=Tu môžete nastaviť štandardný prehliadač. Všetky aplikácie KDE, v ktorým môžete aktivovať URL, by mali používať toto nastavenie.
+ Comment[sl]=Tu lahko nastavite vaš privzeti spletni brskalnik. Vsi programi za KDE, ki ga uporabljajo, bi morali upoštevati te nastavitve.
+ Comment[sr]=Овде можете да подесите ваш подразумевани веб претраживач. Сви KDE програми у којима можете да одаберете везе би требало да поштују ово подешавање.
+-Comment[sr@Latn]=Овде можете да подесите ваш подразумевани веб претраживач. Сви KDE програми у којима можете да одаберете везе би требало да поштују ово подешавање.
++Comment[sr@Latn]=Ovde možete da podesite vaš podrazumevani veb pretraživač. Svi KDE programi u kojima možete da odaberete veze bi trebalo da poštuju ovo podešavanje.
+ Comment[sv]=Här kan du anpassa förvald webbläsare. Alla KDE-program där du kan välja hyperlänkar bör följa inställningen.
+ Comment[ta]=இந்த சேவை உங்களுடைய முன்னிருந்த மின் அஞ்சல்உறுப்பினர  வடிவமைத்துக்கொள்ள அனுமதிக்கிறது. மின்அஞ்சல் உறுப்பினர் பயன்பாடுதேவைப்படுகிற எல்லா கேடிஇபயன்பாடுகளும் இந்த அமைப்பைநிறுவவேண்டும்.
+ Comment[tr]=Burada öntanımlı web tarayıcınızı yapılandırabilrsiniz. Tüm KDE uygulamalarında bulunan bağlantılar bu seçenek kullanılarak açılacaktır.
+diff -urN -x CVS kdebase.orig/kcontrol/crypto/crypto.cpp kdebase/kcontrol/crypto/crypto.cpp
+--- kdebase.orig/kcontrol/crypto/crypto.cpp	Mon Jul 19 01:05:39 2004
++++ kdebase/kcontrol/crypto/crypto.cpp	Thu Oct  7 11:51:39 2004
+@@ -216,6 +216,16 @@
  
--        (void) new KAction( i18n( "&Rename" ), /*"editrename",*/ Key_F2, this, SLOT( renameCurrentItem() ), &m_actionCollection, "rename" );
-+        (void) new KAction( i18n( "&Rename" ), /*"editrename",*/ Key_F2, this, SLOT( renameSelectedItem() ), &m_actionCollection, "rename" );
-         (void) new KAction( i18n( "&Move to Trash" ), "edittrash", Key_Delete, this, SLOT( slotTrash() ), &m_actionCollection, "trash" );
  
-         KConfig config("konquerorrc", true, false);
-diff -urN -x CVS kdebase.orig/kdesktop/krootwm.cc kdebase/kdesktop/krootwm.cc
---- kdebase.orig/kdesktop/krootwm.cc	Fri Jun 25 22:49:09 2004
-+++ kdebase/kdesktop/krootwm.cc	Fri Aug 13 21:43:16 2004
-@@ -739,13 +739,13 @@
- }
  
- void KRootWm::slotNewSession() {
--   KDialogBase *dialog= new KDialogBase(
--                       i18n("Warning - New Session"),
-+   KDialogBase *dialog= new KDialogBase("",
-                        KDialogBase::Yes | KDialogBase::No,
-                        KDialogBase::Yes, KDialogBase::No,
-                        m_pDesktop,
-                        "warningYesNo", true, true,
-                        KGuiItem(i18n("&Start New Session"), "fork"), KStdGuiItem::cancel() );
-+    dialog->setPlainCaption(i18n("Warning - New Session"));
- 
-     bool checkboxResult = kapp->authorize("lock_screen");
-     const QString text = i18n("<p>You have chosen to open another desktop session.<br>"
-diff -urN -x CVS kdebase.orig/kdesktop/kwebdesktop/kwebdesktop.cpp kdebase/kdesktop/kwebdesktop/kwebdesktop.cpp
---- kdebase.orig/kdesktop/kwebdesktop/kwebdesktop.cpp	Sun Jun 27 18:18:51 2004
-+++ kdebase/kdesktop/kwebdesktop/kwebdesktop.cpp	Tue Aug 17 12:59:40 2004
-@@ -119,7 +119,7 @@
-     KWebDesktop *webDesktop = new KWebDesktop( part, imageFile );
-     QObject::connect( part, SIGNAL( canceled(const QString &) ),
-                       webDesktop, SLOT( slotCompleted() ) );
--    QObject::connect( part, SIGNAL( completed() ),
-+    QObject::connect( part->widget(), SIGNAL( finishedLayout() ),
-                       webDesktop, SLOT( slotCompleted() ) );
- 
-     KConfig config( "kwebdesktoprc" );
-diff -urN -x CVS kdebase.orig/kdesktop/lock/lockprocess.cc kdebase/kdesktop/lock/lockprocess.cc
---- kdebase.orig/kdesktop/lock/lockprocess.cc	Fri May  7 06:12:39 2004
-+++ kdebase/kdesktop/lock/lockprocess.cc	Mon Aug 16 15:56:08 2004
-@@ -787,7 +787,11 @@
- void LockProcess::suspend()
- {
-     if(!mSuspended)
-+    {
-         mHackProc.kill(SIGSTOP);
-+        QApplication::syncX();
-+        mSavedScreen = QPixmap::grabWindow( winId());
-+    }
-     mSuspended = true;
- }
- 
-@@ -798,7 +802,11 @@
-     if(!mVisibility)
-         return; // no need to resume, not visible
-     if(mSuspended)
-+    {
-+        bitBlt( this, 0, 0, &mSavedScreen );
-+        QApplication::syncX();
-         mHackProc.kill(SIGCONT);
-+    }
-     mSuspended = false;
- }
- 
-diff -urN -x CVS kdebase.orig/kdesktop/lock/lockprocess.h kdebase/kdesktop/lock/lockprocess.h
---- kdebase.orig/kdesktop/lock/lockprocess.h	Sun Feb  8 15:16:22 2004
-+++ kdebase/kdesktop/lock/lockprocess.h	Mon Aug 16 15:56:08 2004
-@@ -17,6 +17,7 @@
- #include <qtimer.h>
- #include <qvaluestack.h>
- #include <qmessagebox.h>
-+#include <qpixmap.h>
- 
- #include <X11/Xlib.h>
- 
-@@ -119,6 +120,7 @@
-     QStringList mPlugins, mPluginOptions;
-     QString     mMethod;
-     GreeterPluginHandle greetPlugin;
-+    QPixmap     mSavedScreen;
- };
- 
- #endif
-diff -urN -x CVS kdebase.orig/kdesktop/minicli.cpp kdebase/kdesktop/minicli.cpp
---- kdebase.orig/kdesktop/minicli.cpp	Mon Jul 19 12:19:57 2004
-+++ kdebase/kdesktop/minicli.cpp	Fri Aug 13 21:43:16 2004
-@@ -73,7 +73,7 @@
-         :KDialog( parent, name ),
-          m_autoCheckedRunInTerm(false)
- {
--  setCaption( i18n("Run Command") );
-+  setPlainCaption( i18n("Run Command") );
-   KWin::setIcons( winId(), DesktopIcon("run"), SmallIcon("run") );
- 
-   QVBoxLayout* mainLayout = new QVBoxLayout( this, 0, KDialog::spacingHint() );
-@@ -81,7 +81,7 @@
-   mainLayout->addWidget(m_dlg);
- 
-   m_dlg->lbRunIcon->setPixmap(DesktopIcon("kmenu"));
--  m_dlg->lbComment->setAlignment( Qt::WordBreak );  
-+  m_dlg->lbComment->setAlignment( Qt::WordBreak );
- 
-   m_dlg->cbCommand->setDuplicatesEnabled( false );
-   m_dlg->cbCommand->setTrapReturnKey( true );
-@@ -234,15 +234,15 @@
-   config->writePathEntry( "History", m_dlg->cbCommand->historyItems() );
-   config->writePathEntry( "TerminalApps", m_terminalAppList );
-   config->writePathEntry( "CompletionItems", m_dlg->cbCommand->completionObject()->items() );
--  
--  // Ensure that the current default completion mode will be used the next 
-+
-+  // Ensure that the current default completion mode will be used the next
-   // time we read from the config file. That means do not store the default
-   // completion mode...
-   if( m_dlg->cbCommand->completionMode() == KGlobalSettings::completionMode() )
-     config->deleteEntry("CompletionMode");
-   else
-     config->writeEntry( "CompletionMode", m_dlg->cbCommand->completionMode() );
--    
-+
-   config->sync();
- }
- 
-@@ -552,7 +552,7 @@
-             KRun::run(*service, KURL::List());
-             return 0;
-           }
--          
-+
-           service = KService::serviceByName(cmd);
-           if (service)
-           {
-diff -urN -x CVS kdebase.orig/kicker/buttons/servicebutton.cpp kdebase/kicker/buttons/servicebutton.cpp
---- kdebase.orig/kicker/buttons/servicebutton.cpp	Sat Aug  7 12:59:45 2004
-+++ kdebase/kicker/buttons/servicebutton.cpp	Wed Aug 18 11:50:53 2004
-@@ -121,6 +121,7 @@
-         _valid = false;
-         return;
-     }
-+    QToolTip::remove( this );
-     if ( !_service->genericName().isEmpty() ) {
-         QToolTip::add(  this, _service->genericName() );
-     }
-diff -urN -x CVS kdebase.orig/kicker/buttons/urlbutton.cpp kdebase/kicker/buttons/urlbutton.cpp
---- kdebase.orig/kicker/buttons/urlbutton.cpp	Wed May 19 16:06:34 2004
-+++ kdebase/kicker/buttons/urlbutton.cpp	Wed Aug 18 11:51:56 2004
-@@ -102,6 +102,7 @@
- 
- void URLButton::setToolTip()
- {
-+	QToolTip::remove(this);
-     if (fileItem->isLocalFile() 
-      && KDesktopFile::isDesktopFile(fileItem->url().path()))
-     {
-diff -urN -x CVS kdebase.orig/kicker/ui/k_mnu.cpp kdebase/kicker/ui/k_mnu.cpp
---- kdebase.orig/kicker/ui/k_mnu.cpp	Sat Jul 17 06:37:09 2004
-+++ kdebase/kicker/ui/k_mnu.cpp	Fri Aug 13 21:43:17 2004
-@@ -360,13 +360,13 @@
- 
- void PanelKMenu::slotNewSession()
- {
--    KDialogBase *dialog= new KDialogBase(
--                       i18n("Warning - New Session"),
-+    KDialogBase *dialog= new KDialogBase("",
-                        KDialogBase::Yes | KDialogBase::No,
-                        KDialogBase::Yes, KDialogBase::No,
-                        kapp->desktop()->screen(kapp->desktop()->screenNumber(this)),
-                        "warningYesNo", true, true,
-                        KGuiItem(i18n("&Start New Session"), "fork"), KStdGuiItem::cancel() );
-+    dialog->setPlainCaption(i18n("Warning - New Session"));
- 
-     bool checkboxResult = kapp->authorize("lock_screen");
-     const QString text = i18n("<p>You have chosen to open another desktop session.<br>"
-diff -urN -x CVS kdebase.orig/konqueror/iconview/konq_iconview.cc kdebase/konqueror/iconview/konq_iconview.cc
---- kdebase.orig/konqueror/iconview/konq_iconview.cc	Sun Jul 18 15:15:25 2004
-+++ kdebase/konqueror/iconview/konq_iconview.cc	Sat Aug 21 03:44:33 2004
-@@ -883,10 +883,14 @@
-     // Root item ? Store root item in konqiconviewwidget (whether 0L or not)
-     m_pIconView->setRootItem( m_dirLister->rootItem() );
- 
--    if ( m_bNeedSetCurrentItem ) // only after initial listing, not after updates
-+    // only after initial listing, not after updates
-         // If we don't set a current item, the iconview has none (one more keypress needed)
-         // but it appears on focusin... qiconview bug, Reggie acknowledged it LONG ago (07-2000).
-+    if ( m_bNeedSetCurrentItem )
-+    {
-         m_pIconView->setCurrentItem( m_pIconView->firstItem() );
-+        m_bNeedSetCurrentItem = false;
-+    }
- 
-     if ( m_bUpdateContentsPosAfterListing ) {
-          m_pIconView->setContentsPos( extension()->urlArgs().xOffset,
-diff -urN -x CVS kdebase.orig/konqueror/iconview/konq_iconview.h kdebase/konqueror/iconview/konq_iconview.h
---- kdebase.orig/konqueror/iconview/konq_iconview.h	Sun Jul 18 15:15:25 2004
-+++ kdebase/konqueror/iconview/konq_iconview.h	Tue Aug 17 18:00:56 2004
-@@ -245,7 +245,7 @@
- 
-   void refreshMimeTypes() { m_iconView->iconViewWidget()->refreshMimeTypes(); }
- 
--  void rename() { m_iconView->iconViewWidget()->renameCurrentItem(); }
-+  void rename() { m_iconView->iconViewWidget()->renameSelectedItem(); }
-   void cut() { m_iconView->iconViewWidget()->cutSelection(); }
-   void copy() { m_iconView->iconViewWidget()->copySelection(); }
-   void paste() { m_iconView->iconViewWidget()->pasteSelection(); }
-diff -urN -x CVS kdebase.orig/konqueror/listview/konq_treeviewwidget.cc kdebase/konqueror/listview/konq_treeviewwidget.cc
---- kdebase.orig/konqueror/listview/konq_treeviewwidget.cc	Tue May 18 15:40:33 2004
-+++ kdebase/konqueror/listview/konq_treeviewwidget.cc	Mon Aug 16 16:32:04 2004
-@@ -139,6 +139,11 @@
-             m_urlsToReload.remove( it.currentKey() );
-          }
-       }
-+      
-+      // Delete all child items, their file-items are no longer valid
-+      QListViewItem* child;
-+      while((child = item->firstChild()))
-+         delete child;
-    }
- }
- 
-diff -urN -x CVS kdebase.orig/kwin/activation.cpp kdebase/kwin/activation.cpp
---- kdebase.orig/kwin/activation.cpp	Mon Jun 21 14:40:43 2004
-+++ kdebase/kwin/activation.cpp	Mon Aug 16 15:50:49 2004
-@@ -696,7 +696,7 @@
-       // use the _KDE_NET_WM_USER_CREATION_TIME trick.
-       // Otherwise, refuse activation of a window
-       // from already running application if this application
--      // is not the active one.
-+      // is not the active one (unless focus stealing prevention is turned off).
-         Client* act = workspace()->mostRecentlyActivatedClient();
-         if( act != NULL && !belongToSameApplication( act, this, true ))
-             {
-@@ -717,7 +717,8 @@
-                 if( workspace()->findClient( SameApplicationActiveHackPredicate( this )))
-                     first_window = false;
-                 }
--            if( !first_window )
-+            // don't refuse if focus stealing prevention is turned off
-+            if( !first_window && rules()->checkFSP( options->focusStealingPreventionLevel ) > 0 )
-                 {
-                 kdDebug( 1212 ) << "User timestamp, already exists:" << 0 << endl;
-                 return 0; // refuse activation
-diff -urN -x CVS kdebase.orig/kwin/geometry.cpp kdebase/kwin/geometry.cpp
---- kdebase.orig/kwin/geometry.cpp	Tue Aug  3 11:21:18 2004
-+++ kdebase/kwin/geometry.cpp	Mon Aug 16 16:00:13 2004
-@@ -1035,6 +1035,8 @@
-     w = QMAX( min_size.width(), w );
-     h = QMAX( min_size.height(), h );
- 
-+    int w1 = w;
-+    int h1 = h;
-     int width_inc = xSizeHint.width_inc;
-     int height_inc = xSizeHint.height_inc;
-     int basew_inc = xSizeHint.min_width; // see getWmNormalHints()
-@@ -1154,6 +1156,11 @@
-         w += xSizeHint.base_width;
-         h += xSizeHint.base_height;
-         }
-+    // disobey increments and aspect when maximized
-+    if( maximizeMode() & MaximizeHorizontal )
-+        w = w1;
-+    if( maximizeMode() & MaximizeVertical )
-+        h = h1;
- 
-     w += border_left + border_right;
-     h += border_top + border_bottom;
-@@ -1223,7 +1230,7 @@
-     if( isManaged())
-         { // update to match restrictions
-         QSize new_size = adjustedSize( size());
--        if( new_size != size() && !isShade()) // SHADE
-+        if( new_size != size() && !isShade() && !isFullScreen()) // SHADE
-             resizeWithChecks( new_size );
-         }
-     updateAllowedActions(); // affects isResizeable()
-@@ -1904,7 +1911,7 @@
-         if( maximizeMode() != MaximizeRestore )
-             changeMaximize( false, false, true ); // adjust size
-         else if( !geom_fs_restore.isNull())
--            setGeometry( geom_fs_restore );
-+            setGeometry( QRect( geom_fs_restore.topLeft(), adjustedSize( geom_fs_restore.size())));
-         // TODO isShaded() ?
-         else
-             { // does this ever happen?
-diff -urN -x CVS kdebase.orig/kwin/workspace.cpp kdebase/kwin/workspace.cpp
---- kdebase.orig/kwin/workspace.cpp	Wed Aug  4 11:05:53 2004
-+++ kdebase/kwin/workspace.cpp	Mon Aug 16 15:52:56 2004
-@@ -99,6 +99,11 @@
-     layoutY(2),
-     workarea(NULL),
-     screenarea(NULL),
-+    topmenu_selection( NULL ),
-+    topmenu_watcher( NULL ),
-+    topmenu_height( 0 ),
-+    managing_topmenus( false ),
-+    topmenu_space( NULL ),
-     set_active_client_recursion( 0 ),
-     block_stacking_updates( 0 ),
-     forced_global_mouse_grab( false )
-@@ -309,9 +314,6 @@
-     Atom topmenu_atom = XInternAtom( qt_xdisplay(), nm, False );
-     topmenu_selection = new KSelectionOwner( topmenu_atom );
-     topmenu_watcher = new KSelectionWatcher( topmenu_atom );
--    topmenu_height = 0;
--    managing_topmenus = false;
--    topmenu_space = NULL;
- // TODO grabXServer(); - where exactly put this? topmenu selection claiming down belong must be before
- 
-         { // begin updates blocker block
-@@ -1111,6 +1113,8 @@
-             requestFocus( findDesktop( true, currentDesktop()));
-         }
- 
-+    updateCurrentTopMenu();
-+
-     // Update focus chain:
-     //  If input: chain = { 1, 2, 3, 4 } and current_desktop = 3,
-     //   Output: chain = { 3, 1, 2, 4 }.
-diff -urN -x CVS kdebase.orig/libkonq/knewmenu.cc kdebase/libkonq/knewmenu.cc
---- kdebase.orig/libkonq/knewmenu.cc	Wed May 19 14:25:43 2004
-+++ kdebase/libkonq/knewmenu.cc	Sun Aug 15 11:32:21 2004
-@@ -347,6 +347,48 @@
-     KonqOperations::newDir(d->m_parentWidget, popupFiles.first());
- }
- 
-+// copied from kdelibs/kio/kio/renamedlg.cpp
-+static QString suggestName(const KURL& baseURL, const QString& oldName)
-+{
-+  QString dotSuffix, suggestedName;
-+  QString basename = oldName;
-+
-+  int index = basename.find( '.' );
-+  if ( index != -1 ) {
-+    dotSuffix = basename.mid( index );
-+    basename.truncate( index );
-+  }
-+
-+  int pos = basename.findRev( '_' );
-+  if(pos != -1 ){
-+    QString tmp = basename.mid( pos+1 );
-+    bool ok;
-+    int number = tmp.toInt( &ok );
-+    if ( !ok ) {// ok there is no number
-+      suggestedName = basename + "1" + dotSuffix;
-+    }
-+    else {
-+     // yes there's already a number behind the _ so increment it by one
-+      basename.replace( pos+1, tmp.length(), QString::number(number+1) );
-+      suggestedName = basename + dotSuffix;
-+    }
-+  }
-+  else // no underscore yet
-+    suggestedName = basename + "_1" + dotSuffix ;
-+
-+  // Check if suggested name already exists
-+  bool exists = false;
-+  // TODO: network transparency. However, using NetAccess from a modal dialog
-+  // could be a problem, no? (given that it uses a modal widget itself....)
-+  if ( baseURL.isLocalFile() )
-+     exists = QFileInfo( baseURL.path(+1) + suggestedName ).exists();
-+
-+  if ( !exists )
-+    return suggestedName;
-+  else // already exists -> recurse
-+    return suggestName( baseURL, suggestedName );
++static KAboutData* aboutData() {
++     KAboutData *about =
++     new KAboutData(I18N_NOOP("kcmcrypto"), I18N_NOOP("KDE Crypto Control Module"),
++                    0, 0, KAboutData::License_GPL,
++                    I18N_NOOP("(c) 2000 - 2001 George Staikos"));
++     about->addAuthor("George Staikos", 0, "staikos@kde.org");
++     about->addAuthor("Carsten Pfeiffer", 0, "pfeiffer@kde.org");
++     return about;
 +}
 +
- void KNewMenu::slotNewFile()
+ KCryptoConfig::KCryptoConfig(QWidget *parent, const char *name, const QStringList &)
+   : KCModule(KryptoFactory::instance(), parent, name)
  {
-     int id = QString( sender()->name() + 7 ).toInt(); // skip "newmenu"
-@@ -401,7 +443,13 @@
-                 //kdDebug(1203) << "third arg=" << entry.text << endl;
-                 QString text = entry.text;
-                 text.replace( "...", QString::null ); // the ... is fine for the menu item but not for the default filename
--                KURL templateURL;
-+                
-+		KURL defaultFile( *it );
-+		defaultFile.addPath( KIO::encodeFileName( text ) );
-+		if ( defaultFile.isLocalFile() && QFile::exists( defaultFile.path() ) )
-+		    text = suggestName( *it, text);
-+
-+		KURL templateURL;
-                 templateURL.setPath( entry.templatePath );
-                 (void) new KPropertiesDialog( templateURL, *it, text, d->m_parentWidget );
-     	    }
-@@ -415,7 +463,13 @@
-         bool ok;
-         QString text = entry.text;
-         text.replace( "...", QString::null ); // the ... is fine for the menu item but not for the default filename
--        name = KInputDialog::getText( QString::null, entry.comment,
-+        
-+	KURL defaultFile( *(popupFiles.begin()) );
-+	defaultFile.addPath( KIO::encodeFileName( text ) );
-+	if ( defaultFile.isLocalFile() && QFile::exists( defaultFile.path() ) )
-+	    text = suggestName( *(popupFiles.begin()), text);
-+
-+	name = KInputDialog::getText( QString::null, entry.comment,
-     	text, &ok, d->m_parentWidget );
-         if ( !ok )
- 	    return;
-diff -urN -x CVS kdebase.orig/libkonq/konq_iconviewwidget.cc kdebase/libkonq/konq_iconviewwidget.cc
---- kdebase.orig/libkonq/konq_iconviewwidget.cc	Sat Jul 17 17:17:27 2004
-+++ kdebase/libkonq/konq_iconviewwidget.cc	Tue Aug 17 18:00:55 2004
-@@ -1337,7 +1337,7 @@
-     emit enableAction( "del", canDel > 0 );
-     emit enableAction( "properties", iCount > 0 && KPropertiesDialog::canDisplay( selectedFileItems() ) );
-     emit enableAction( "editMimeType", ( iCount == 1 ) );
--    emit enableAction( "rename", currentItem() && !bInTrash );
-+    emit enableAction( "rename", ( iCount == 1 ) && !bInTrash );
+@@ -231,13 +241,9 @@
+ 
+   _signers = new KSSLSigners;
+ 
+-     KAboutData *about =
+-     new KAboutData(I18N_NOOP("kcmcrypto"), I18N_NOOP("KDE Crypto Control Module"),
+-                    0, 0, KAboutData::License_GPL,
+-                    I18N_NOOP("(c) 2000 - 2001 George Staikos"));
+-     about->addAuthor("George Staikos", 0, "staikos@kde.org");
+-     about->addAuthor("Carsten Pfeiffer", 0, "pfeiffer@kde.org");
+-     setAboutData( about );
++#if KDE_IS_VERSION( 3, 2, 90 )
++  setAboutData( ::aboutData() );
++#endif
+ 
+   ///////////////////////////////////////////////////////////////////////////
+   // Create the GUI here - there are currently a total of 6 tabs.
+@@ -1261,6 +1267,12 @@
+      " certificates and the known certificate authorities.");
  }
  
- void KonqIconViewWidget::renameCurrentItem()
++#if !KDE_IS_VERSION( 3, 2, 90 )
++const KAboutData* KCryptoConfig::aboutData() const {
++  return ::aboutData();
++}
++#endif
++
+ 
+ void KCryptoConfig::genCAList() {
+ 
+diff -urN -x CVS kdebase.orig/kcontrol/crypto/crypto.h kdebase/kcontrol/crypto/crypto.h
+--- kdebase.orig/kcontrol/crypto/crypto.h	Mon Jul 19 01:05:39 2004
++++ kdebase/kcontrol/crypto/crypto.h	Thu Oct  7 11:51:39 2004
+@@ -28,6 +28,7 @@
+ #include <kcmodule.h>
+ 
+ #include <ksimpleconfig.h>
++#include <kdeversion.h>
+ 
+ #include <qtabwidget.h>
+ #include <qcheckbox.h>
+@@ -228,6 +229,9 @@
+ 
+   int buttons();
+   QString quickHelp() const;
++#if !KDE_IS_VERSION( 3, 2, 90 )
++  const KAboutData* aboutData() const;
++#endif
+ 
+ #ifdef HAVE_SSL
+   bool loadCiphers();
+diff -urN -x CVS kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/amg.desktop kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/amg.desktop
+--- kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/amg.desktop	Thu Sep 30 16:01:53 2004
++++ kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/amg.desktop	Mon Oct  4 15:23:17 2004
+@@ -22,7 +22,7 @@
+ Name[ro]=Ghid muzical complet
+ Name[sl]=Vodnik All Music
+ Name[sr]=Свемузички водич
+-Name[sr@Latn]=Свемузички водич
++Name[sr@Latn]=Svemuzički vodič
+ Name[sv]=Guiden All Musik
+ Name[ta]=அனைத்து இசை துணை
+ Name[tr]=Müzik Kılavuzu
+diff -urN -x CVS kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/backports.desktop kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/backports.desktop
+--- kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/backports.desktop	Thu Sep 30 16:01:53 2004
++++ kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/backports.desktop	Mon Oct  4 15:23:17 2004
+@@ -25,7 +25,7 @@
+ Name[sk]=Hľadanie v Debian Backports
+ Name[sl]=Iskanje po prenosih v Debian
+ Name[sr]=Debian-ова Backports претрага
+-Name[sr@Latn]=Debian-ова Backports претрага
++Name[sr@Latn]=Debian-ova Backports pretraga
+ Name[sv]=Sökning i Debians uppdateringar
+ Name[ta]=டெபியன் பின்முனையங்கள் தேடல்
+ Name[tr]=Debian Arkakapı Arama
+diff -urN -x CVS kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/call.desktop kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/call.desktop
+--- kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/call.desktop	Thu Sep 30 16:01:53 2004
++++ kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/call.desktop	Mon Oct  4 15:23:17 2004
+@@ -33,7 +33,7 @@
+ Name[sk]=Databáza skratiek QRZ.com
+ Name[sl]=Zbirka okrajšav QRZ.com
+ Name[sr]=QRZ.com callsign база података
+-Name[sr@Latn]=QRZ.com callsign база података
++Name[sr@Latn]=QRZ.com callsign baza podataka
+ Name[sv]=Databas för QRZ.com-anropssignaler
+ Name[ta]=QRZ.com அழைப்புநுழை தகவல்தளம்
+ Name[tr]=QRZ.com Aramaişaret Veritabanı
+diff -urN -x CVS kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/dbug.desktop kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/dbug.desktop
+--- kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/dbug.desktop	Thu Sep 30 16:01:53 2004
++++ kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/dbug.desktop	Mon Oct  4 15:23:17 2004
+@@ -31,7 +31,7 @@
+ Name[sk]=Hľadanie chýb na Debian BTS
+ Name[sl]=Iskanje po hroščih Debian BTS
+ Name[sr]=Debian-ова BTS претрага грешака
+-Name[sr@Latn]=Debian-ова BTS претрага грешака
++Name[sr@Latn]=Debian-ova BTS pretraga grešaka
+ Name[sv]=Sökning i Debians felspårningssystem
+ Name[ta]=டெபியன் BTS பிழை தேடல்
+ Name[tr]=Debian BTS Hata Arama
+diff -urN -x CVS kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/de2en.desktop kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/de2en.desktop
+--- kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/de2en.desktop	Thu Sep 30 16:01:53 2004
++++ kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/de2en.desktop	Mon Oct  4 15:23:17 2004
+@@ -34,7 +34,7 @@
+ Name[sk]=WordReference.com preklad z nemčiny do angličtiny
+ Name[sl]=Prevod WordReference.com: nemščina v angleščino
+ Name[sr]=WordReference.com Превод са немачког на енглески
+-Name[sr@Latn]=WordReference.com Превод са немачког на енглески
++Name[sr@Latn]=WordReference.com Prevod sa nemačkog na engleski
+ Name[sv]=Wordreference.com översättning: tyska till engelska
+ Name[ta]=WordReference.com மொழிப்பெயர்ப்பு: ஜெர்மன் மொழியில் இருந்து ஆங்கிலத்துக்கு
+ Name[tr]=WordReference.com Çevirisi: Almancadan İngilizceye
+diff -urN -x CVS kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/deb.desktop kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/deb.desktop
+--- kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/deb.desktop	Thu Sep 30 16:01:53 2004
++++ kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/deb.desktop	Mon Oct  4 15:23:17 2004
+@@ -29,7 +29,7 @@
+ Name[sk]=Hľadanie balíkov Debian
+ Name[sl]=Iskanje po paketih Debian
+ Name[sr]=Debian-ова претрага пакета
+-Name[sr@Latn]=Debian-ова претрага пакета
++Name[sr@Latn]=Debian-ova pretraga paketa
+ Name[sv]=Sökning i Debians paket
+ Name[ta]=டெபியன் BTS பிழை தேடல்
+ Name[tr]=Debian Paket Arama
+diff -urN -x CVS kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/en2de.desktop kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/en2de.desktop
+--- kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/en2de.desktop	Thu Sep 30 16:01:53 2004
++++ kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/en2de.desktop	Mon Oct  4 15:23:17 2004
+@@ -34,7 +34,7 @@
+ Name[sk]=WordReference.com preklad z angličtiny do nemčiny
+ Name[sl]=Prevod WordReference.com: angleščina v nemščino
+ Name[sr]=WordReference.com превод са енглеског на немачки
+-Name[sr@Latn]=WordReference.com превод са енглеског на немачки
++Name[sr@Latn]=WordReference.com prevod sa engleskog na nemački
+ Name[sv]=Wordreference.com översättning: engelska till tyska
+ Name[ta]=WordReference.com  மொழிபெயர்ப்பு: ஆங்கிலத்தில் இருந்து ஜெர்மன் மொழிக்கு
+ Name[tr]=WordReference.com Çevirisi: İngilizceden Almancaya
+diff -urN -x CVS kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/en2es.desktop kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/en2es.desktop
+--- kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/en2es.desktop	Thu Sep 30 16:01:53 2004
++++ kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/en2es.desktop	Mon Oct  4 15:23:17 2004
+@@ -34,7 +34,7 @@
+ Name[sk]=WordReference.com preklad z angličtiny do španieštiny
+ Name[sl]=Prevod WordReference.com: angleščina v španščino
+ Name[sr]=WordReference.com превод са енглеског на шпански
+-Name[sr@Latn]=WordReference.com превод са енглеског на шпански
++Name[sr@Latn]=WordReference.com prevod sa engleskog na španski
+ Name[sv]=Wordreference.com översättning: engelska till spanska
+ Name[ta]=WordReference.com மொழிபெயர்ப்பு: ஆங்கிலத்தில் இருந்து ஸ்பானிஷ் மொழிக்கு
+ Name[tr]=WordReference.com Çevirisi: İngilizceden İspanyolcaya
+diff -urN -x CVS kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/en2fr.desktop kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/en2fr.desktop
+--- kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/en2fr.desktop	Thu Sep 30 16:01:53 2004
++++ kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/en2fr.desktop	Mon Oct  4 15:23:17 2004
+@@ -34,7 +34,7 @@
+ Name[sk]=WordReference.com preklad z angličtiny do francúzštiny
+ Name[sl]=Prevod WordReference.com: angleščina v francoščino
+ Name[sr]=WordReference.com превод са енглеског на француски
+-Name[sr@Latn]=WordReference.com превод са енглеског на француски
++Name[sr@Latn]=WordReference.com prevod sa engleskog na francuski
+ Name[sv]=Wordreference.com översättning: engelska till franska
+ Name[ta]=WordReference.com மொழிபெயர்ப்பு: ஆங்கிலத்தில் இருந்து ப்ரென்சு மொழிக்கு
+ Name[tr]=WordReference.com Çevirisi: İngilizceden Fransızcaya
+diff -urN -x CVS kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/en2it.desktop kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/en2it.desktop
+--- kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/en2it.desktop	Thu Sep 30 16:01:53 2004
++++ kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/en2it.desktop	Mon Oct  4 15:23:17 2004
+@@ -34,7 +34,7 @@
+ Name[sk]=WordReference.com preklad z angličtiny do talianštiny
+ Name[sl]=Prevod WordReference.com: angleščina v italijanščino
+ Name[sr]=WordReference.com превод са енглеског на италијански
+-Name[sr@Latn]=WordReference.com превод са енглеског на италијански
++Name[sr@Latn]=WordReference.com prevod sa engleskog na italijanski
+ Name[sv]=Wordreference.com översättning: engelska till italienska
+ Name[ta]=WordReference.com மொழிபெயர்ப்பு: ஆங்கிலத்தில் இருந்து இத்தாலிய மொழிக்கு
+ Name[tr]=WordReference.com Çevirisi: İngilizceden İtalyancaya
+diff -urN -x CVS kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/es2en.desktop kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/es2en.desktop
+--- kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/es2en.desktop	Thu Sep 30 16:01:53 2004
++++ kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/es2en.desktop	Mon Oct  4 15:23:17 2004
+@@ -34,7 +34,7 @@
+ Name[sk]=WordReference.com preklad zo španieštiny do angličtiny
+ Name[sl]=Prevod WordReference.com: španščina v angleščino
+ Name[sr]=WordReference.com превод са шпанског на енглески
+-Name[sr@Latn]=WordReference.com превод са шпанског на енглески
++Name[sr@Latn]=WordReference.com prevod sa španskog na engleski
+ Name[sv]=Wordreference.com översättning: spanska till engelska
+ Name[ta]=WordReference.com மொழிபெயர்ப்பு: ஸ்பானிஷ் மொழியில் இருந்து ஆங்கிலத்துக்கு
+ Name[tr]=WordReference.com Çevirisi: İspanyolcadan İngilizceye
+diff -urN -x CVS kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/foldoc.desktop kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/foldoc.desktop
+--- kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/foldoc.desktop	Thu Sep 30 16:01:53 2004
++++ kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/foldoc.desktop	Mon Oct  4 15:23:17 2004
+@@ -31,7 +31,7 @@
+ Name[sk]=Free On-Line Dictionary Of Computing
+ Name[sl]=Free On-Line Dictionary Of Computing
+ Name[sr]=Бесплатни On-Line речник за рачунаре
+-Name[sr@Latn]=Бесплатни On-Line речник за рачунаре
++Name[sr@Latn]=Besplatni On-Line rečnik za računare
+ Name[sv]=Free On-Line Dictionary Of Computing (en datortermsordlista)
+ Name[ta]=கணிப்பொறி அகராதி வலைதளத்தில் இலவசமாக
+ Name[tr]=Ücretsiz Çevrimiçi Bilişim Sözlüğü
+diff -urN -x CVS kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/fr2en.desktop kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/fr2en.desktop
+--- kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/fr2en.desktop	Thu Sep 30 16:01:53 2004
++++ kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/fr2en.desktop	Mon Oct  4 15:23:17 2004
+@@ -34,7 +34,7 @@
+ Name[sk]=WordReference.com preklad z francúzštiny do angličtiny
+ Name[sl]=Prevod WordReference.com: francoščina v angleščino
+ Name[sr]=WordReference.com превод са француског на енглески
+-Name[sr@Latn]=WordReference.com превод са француског на енглески
++Name[sr@Latn]=WordReference.com prevod sa francuskog na engleski
+ Name[sv]=Wordreference.com översättning: franska till engelska
+ Name[ta]=WordReference.com மொழிபெயர்ப்பு: பிரென்சு மொழியில் இருந்து ஆங்கிலத்துக்கு
+ Name[tr]=WordReference.com Çevirisi: Fransızcadan İngilizceye
+diff -urN -x CVS kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/it2en.desktop kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/it2en.desktop
+--- kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/it2en.desktop	Thu Sep 30 16:01:53 2004
++++ kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/it2en.desktop	Mon Oct  4 15:23:17 2004
+@@ -34,7 +34,7 @@
+ Name[sk]=WordReference.com preklad z talianštiny do angličtiny
+ Name[sl]=Prevod WordReference.com: italijanščina v angleščino
+ Name[sr]=WordReference.com превод са италијанског на енглески
+-Name[sr@Latn]=WordReference.com превод са италијанског на енглески
++Name[sr@Latn]=WordReference.com prevod sa italijanskog na engleski
+ Name[sv]=Wordreference.com översättning: italienska till engelska
+ Name[ta]=WordReference.com மொழிபெயர்ப்பு: இத்தாலிய மொழியில் இருந்து ஆங்கிலத்துக்கு
+ Name[tr]=WordReference.com Çevirisi: İtalyancadan İngilizceye
+diff -urN -x CVS kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/nl-telephone.desktop kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/nl-telephone.desktop
+--- kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/nl-telephone.desktop	Thu Sep 30 16:01:53 2004
++++ kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/nl-telephone.desktop	Mon Oct  4 15:23:17 2004
+@@ -30,7 +30,7 @@
+ Name[sk]=Hľadanie v telefónnom zozname
+ Name[sl]=Ponudnik iskanja po telefonskem imeniku
+ Name[sr]=Провајдер за претрагу телефонског именика
+-Name[sr@Latn]=Провајдер за претрагу телефонског именика
++Name[sr@Latn]=Provajder za pretragu telefonskog imenika
+ Name[sv]=Söktjänst för telefonkatalog
+ Name[ta]=தொலைபேசிபுத்தக தேடுதலை அளிப்பான்
+ Name[tr]=Telefon Defteri Arama Sağlayıcı
+diff -urN -x CVS kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/nl-teletekst.desktop kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/nl-teletekst.desktop
+--- kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/nl-teletekst.desktop	Thu Sep 30 16:01:53 2004
++++ kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/nl-teletekst.desktop	Mon Oct  4 15:23:17 2004
+@@ -31,7 +31,7 @@
+ Name[sk]=Poskytovateľ hľadania Teletekst
+ Name[sl]=Ponudnik iskanja po teletekstu
+ Name[sr]=Провајдер за телетекст претрагу
+-Name[sr@Latn]=Провајдер за телетекст претрагу
++Name[sr@Latn]=Provajder za teletekst pretragu
+ Name[sv]=Teletekst söktjänst
+ Name[ta]=Teletekst தேடுதல் அளிப்பான்
+ Name[tr]=Teletekst Arama Sağlayıcı
+diff -urN -x CVS kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/whatis.desktop kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/whatis.desktop
+--- kdebase.orig/kcontrol/ebrowsing/plugins/ikws/searchproviders/whatis.desktop	Thu Sep 30 16:01:53 2004
++++ kdebase/kcontrol/ebrowsing/plugins/ikws/searchproviders/whatis.desktop	Mon Oct  4 15:23:17 2004
+@@ -31,7 +31,7 @@
+ Name[sk]=Otázka "Čo to je?"
+ Name[sl]=Poizvedba Whatis
+ Name[sr]=Whatis упит
+-Name[sr@Latn]=Whatis упит
++Name[sr@Latn]=Whatis upit
+ Name[sv]=Vad är det här-fråga
+ Name[ta]=கேள்வி என்றால் என்ன
+ Name[tr]=Nedir Sorgusu
+diff -urN -x CVS kdebase.orig/kcontrol/ebrowsing/plugins/shorturi/kshorturifilter.cpp kdebase/kcontrol/ebrowsing/plugins/shorturi/kshorturifilter.cpp
+--- kdebase.orig/kcontrol/ebrowsing/plugins/shorturi/kshorturifilter.cpp	Thu Sep 23 18:14:45 2004
++++ kdebase/kcontrol/ebrowsing/plugins/shorturi/kshorturifilter.cpp	Sun Oct 10 19:20:34 2004
+@@ -36,7 +36,7 @@
+ 
+ #include "kshorturifilter.h"
+ 
+-#define FQDN_PATTERN    "(?:[a-zA-Z0-9][a-zA-Z0-9-+]*\\.[a-zA-Z]+)"
++#define FQDN_PATTERN    "(?:[a-zA-Z0-9][a-zA-Z0-9+-]*\\.[a-zA-Z]+)"
+ #define IPv4_PATTERN    "[0-9]{1,3}\\.[0-9]{1,3}(?:\\.[0-9]{0,3})?(?:\\.[0-9]{0,3})?"
+ #define IPv6_PATTERN    "^\\[.*\\]"
+ #define ENV_VAR_PATTERN "\\$[a-zA-Z_][a-zA-Z0-9_]*"
+diff -urN -x CVS kdebase.orig/kcontrol/ebrowsing/plugins/shorturi/kshorturifilterrc kdebase/kcontrol/ebrowsing/plugins/shorturi/kshorturifilterrc
+--- kdebase.orig/kcontrol/ebrowsing/plugins/shorturi/kshorturifilterrc	Wed Sep 15 05:32:46 2004
++++ kdebase/kcontrol/ebrowsing/plugins/shorturi/kshorturifilterrc	Sun Oct 10 19:23:31 2004
+@@ -1,7 +1,7 @@
+ [Pattern]
+-kdemailto=^(\w+)@(\w+)\.(\w+)$
++kdemailto=^(\w+)(?:[.]\w+)?@(\w+)(?:[.]\w+)+$
+ kdeftp=^ftp(?:\.\w+)?\.\D{2,}(?:[0-9]{1,5})?
+ 
+ [Protocol]
+ kdemailto=mailto:
+-kdeftp=ftp://
+\ No newline at end of file
++kdeftp=ftp://
+diff -urN -x CVS kdebase.orig/kcontrol/icons/iconthemes.cpp kdebase/kcontrol/icons/iconthemes.cpp
+--- kdebase.orig/kcontrol/icons/iconthemes.cpp	Sun Oct  3 09:37:31 2004
++++ kdebase/kcontrol/icons/iconthemes.cpp	Sun Oct  3 14:28:18 2004
+@@ -335,7 +335,8 @@
+     QFileInfo fi(icontheme.dir());
+     enabled = fi.isWritable();
+     // Don't let users remove the current theme.
+-    if(m_themeNames[selected->text(0)] == KIconTheme::current())
++    if(m_themeNames[selected->text(0)] == KIconTheme::current() ||
++       m_themeNames[selected->text(0)] == KIconTheme::defaultThemeName())
+       enabled = false;
+   }
+   m_removeButton->setEnabled(enabled);
+@@ -405,16 +406,17 @@
+      return;
+ 
+   KSimpleConfig *config = new KSimpleConfig("kdeglobals", false);
+-
+   config->setGroup("Icons");
+ 
+   config->writeEntry("Theme", m_themeNames[selected->text(0)]);
++  KIconTheme::reconfigure();
+   emit changed(false);
+ 
+   delete config;
+ 
+   for (int i=0; i<KIcon::LastGroup; i++)
+   {
++    // TODO BUG  KAPP::KIPC::IconChanged is _NEVER_ getting called WHY?
+     KIPC::sendMessageAll(KIPC::IconChanged, i);
+   }
+ 
+diff -urN -x CVS kdebase.orig/kcontrol/info/sound.desktop kdebase/kcontrol/info/sound.desktop
+--- kdebase.orig/kcontrol/info/sound.desktop	Fri Oct  1 15:53:44 2004
++++ kdebase/kcontrol/info/sound.desktop	Mon Oct  4 15:23:17 2004
+@@ -181,7 +181,7 @@
+ Keywords[sk]=Zvuk,Zvuky,Zvuková karta,MIDI,OSS,Systémové Informácie
+ Keywords[sl]=zvok,glasba,zvočna kartica,avdio,midi,OSS,informacije o sistemu
+ Keywords[sr]=Sound,Аудио,Soundcard,Midi,OSS,System Information,Звук,Аудио,звучна карта,звучна картица,миди,системске информације
+-Keywords[sr@Latn]=Sound,Аудио,Soundcard,Midi,OSS,System Information,Звук,Аудио,звучна карта,звучна картица,миди,системске информације
++Keywords[sr@Latn]=Sound,Audio,Soundcard,Midi,OSS,System Information,Zvuk,Audio,zvučna karta,zvučna kartica,midi,sistemske informacije
+ Keywords[sv]=Ljud,Ljudkort,Midi,OSS,Systeminformation
+ Keywords[ta]=ஒலி,ஒலி அமைப்பு,ஒலி அட்டை,மிடி,OSS,சாதன தகவல்
+ Keywords[tr]=Ses,Seskartı,Midi,OSS,Sistem Bilgisi,MIDI
+diff -urN -x CVS kdebase.orig/kcontrol/joystick/joystick.desktop kdebase/kcontrol/joystick/joystick.desktop
+--- kdebase.orig/kcontrol/joystick/joystick.desktop	Thu Sep 30 16:01:54 2004
++++ kdebase/kcontrol/joystick/joystick.desktop	Mon Oct  4 15:23:18 2004
+@@ -34,7 +34,7 @@
+ Comment[sk]=Ovládací modul pre test joysticku
+ Comment[sl]=joystick - modul Nadzornega središča za preizkus igralnih palic
+ Comment[sr]=џојстик - модул контролног центра за тестирање џојстика
+-Comment[sr@Latn]=џојстик - модул контролног центра за тестирање џојстика
++Comment[sr@Latn]=džojstik - modul kontrolnog centra za testiranje džojstika
+ Comment[sv]=Styrspak: en inställningsmodul för att testa styrspakar
+ Comment[ta]=இயக்கும் கருவி - கேகண்ட்ரோல் கூறு இயக்கும் கருவியை பரிசோதிக்கிறது
+ Comment[tr]=oyun kumandası - oyun kumandalarını denemek için bir kcontrol modülü
+@@ -61,7 +61,7 @@
+ Keywords[pt_BR]=joystick,gamepad, jogos
+ Keywords[sl]=joystick,gamepad,igralna palica,igralni plošček
+ Keywords[sr]=joystick,gamepad,џојстик
+-Keywords[sr@Latn]=joystick,gamepad,џојстик
++Keywords[sr@Latn]=joystick,gamepad,džojstik
+ Keywords[sv]=styrspak,spelkonsol
+ Keywords[ta]=இயக்கும் கருவி, விளையாட்டு பலகை
+ Keywords[tr]=oyun çubuğu
+@@ -91,7 +91,7 @@
+ Name[ru]=Джойстик
+ Name[sl]=Igralna palica
+ Name[sr]=Џојстик
+-Name[sr@Latn]=Џојстик
++Name[sr@Latn]=Džojstik
+ Name[sv]=Styrspak
+ Name[ta]=இயக்கு கருவி
+ Name[tr]=Oyun Çubuğu
+diff -urN -x CVS kdebase.orig/kcontrol/kfontinst/installfont.desktop kdebase/kcontrol/kfontinst/installfont.desktop
+--- kdebase.orig/kcontrol/kfontinst/installfont.desktop	Thu Sep 30 16:01:54 2004
++++ kdebase/kcontrol/kfontinst/installfont.desktop	Mon Oct  4 15:23:18 2004
+@@ -41,7 +41,7 @@
+ Name[sk]=Inštalácia
+ Name[sl]=Namesti
+ Name[sr]=Инсталирај
+-Name[sr@Latn]=Инсталирај
++Name[sr@Latn]=Instaliraj
+ Name[sv]=Installera
+ Name[ta]=நிறுவி
+ Name[tr]=Kur
+diff -urN -x CVS kdebase.orig/kcontrol/kfontinst/kcmfontinst/kcmfontinst.desktop kdebase/kcontrol/kfontinst/kcmfontinst/kcmfontinst.desktop
+--- kdebase.orig/kcontrol/kfontinst/kcmfontinst/kcmfontinst.desktop	Wed Sep 29 16:05:16 2004
++++ kdebase/kcontrol/kfontinst/kcmfontinst/kcmfontinst.desktop	Mon Oct  4 15:23:18 2004
+@@ -175,7 +175,7 @@
+ Keywords[sk]=písmo,písma,inštalátor,truetype,type1,speedo,bitmap
+ Keywords[sl]=pisava,pisave,namestilnik,truetype,type1,speedo,bitmap
+ Keywords[sr]=font,fonts,installer,truetype,type1,speedo,bitmap,фонт,фонтови,инсталер,битмапа
+-Keywords[sr@Latn]=font,fonts,installer,truetype,type1,speedo,bitmap,фонт,фонтови,инсталер,битмапа
++Keywords[sr@Latn]=font,fonts,installer,truetype,type1,speedo,bitmap,font,fontovi,instaler,bitmapa
+ Keywords[sv]=teckensnitt,installation,truetype,type1,speedo,bitmap
+ Keywords[ta]=எழுத்துரு,எழுத்துருக்கள்,அமர்வர்,மெய்வகை,வகை1,speedo,பிட்படம்
+ Keywords[tr]=yazıtipi,yazıtipleri,kurucu,truetype,type1,speedo,bitmap
+diff -urN -x CVS kdebase.orig/kcontrol/kfontinst/kio/folder.desktop kdebase/kcontrol/kfontinst/kio/folder.desktop
+--- kdebase.orig/kcontrol/kfontinst/kio/folder.desktop	Thu Sep 30 16:01:55 2004
++++ kdebase/kcontrol/kfontinst/kio/folder.desktop	Mon Oct  4 15:23:19 2004
+@@ -32,7 +32,7 @@
+ Comment[sk]=Priečinok písiem
+ Comment[sl]=Mapa za pisave
+ Comment[sr]=Директоријум за фонтове
+-Comment[sr@Latn]=Директоријум за фонтове
++Comment[sr@Latn]=Direktorijum za fontove
+ Comment[sv]=Teckensnittskatalog
+ Comment[ta]=எழுத்துருக்கள் அடைவு
+ Comment[tr]=Yazıtipi Klasörü
+diff -urN -x CVS kdebase.orig/kcontrol/kfontinst/kio/system-folder.desktop kdebase/kcontrol/kfontinst/kio/system-folder.desktop
+--- kdebase.orig/kcontrol/kfontinst/kio/system-folder.desktop	Thu Sep 30 16:01:55 2004
++++ kdebase/kcontrol/kfontinst/kio/system-folder.desktop	Mon Oct  4 15:23:19 2004
+@@ -32,7 +32,7 @@
+ Comment[sk]=Priečinok systémových písiem
+ Comment[sl]=Mapa za sistemske pisave
+ Comment[sr]=Системски директоријум за фонтове
+-Comment[sr@Latn]=Системски директоријум за фонтове
++Comment[sr@Latn]=Sistemski direktorijum za fontove
+ Comment[sv]=Systemteckensnittskatalog
+ Comment[ta]=அமைப்பு எழுத்துருக்கள் அடைவு
+ Comment[tr]=Sistem Yazı Tipi Klasörü
+diff -urN -x CVS kdebase.orig/kcontrol/kfontinst/viewpart/kfontview.desktop kdebase/kcontrol/kfontinst/viewpart/kfontview.desktop
+--- kdebase.orig/kcontrol/kfontinst/viewpart/kfontview.desktop	Thu Sep 30 16:01:55 2004
++++ kdebase/kcontrol/kfontinst/viewpart/kfontview.desktop	Mon Oct  4 15:23:19 2004
+@@ -52,7 +52,7 @@
+ GenericName[sk]=Prehliadač písiem
+ GenericName[sl]=Pregledovalnik pisav
+ GenericName[sr]=Приказивач фонтова
+-GenericName[sr@Latn]=Приказивач фонтова
++GenericName[sr@Latn]=Prikazivač fontova
+ GenericName[sv]=Teckensnittsvisning
+ GenericName[tr]=Yazıtipi Görüntüleyici
+ GenericName[uk]=Переглядач шрифтів
+diff -urN -x CVS kdebase.orig/kcontrol/kicker/kicker_config.desktop kdebase/kcontrol/kicker/kicker_config.desktop
+--- kdebase.orig/kcontrol/kicker/kicker_config.desktop	Wed Sep 29 16:05:16 2004
++++ kdebase/kcontrol/kicker/kicker_config.desktop	Mon Oct  4 15:23:19 2004
+@@ -160,7 +160,7 @@
+ Keywords[sk]=kicker,panel,kpanel,taskbar,startbar,launchbar,miesto,umiestnenie,veľkosť,terminálová aplikácia,skrývanie,automatické skrývanie,tlačidlá,animácia,pozadie,témy,cache,cache ponuky,skryté,K-Menu,záložky,posledné dokumenty,rýchly prehliadač,ponuka prehliadača,menu,ikony,applety,štart,zvýraznenie,handles,zväčšovanie ikon,overené applety,úroveň zabezpečenia
+ Keywords[sl]=kicker,pult,kpanel,opravilna vrstica,zagonska vrstica,mesto,lokacija,velikost,terminalski program,skrij,samodejno skrivanje,skrivanje,gumbi,animacija,ozadje,teme,menijski predpomnilnik,predpomnilnik,skrit,K-Menu,zaznamki,nedavni dokumenti,hitro brskanje,brskalni meni,meni,tlakovci,ikone,vstavki,zagon,osvetlitev,ročice,ikone za povečavo
+ Keywords[sr]=kicker,панел,kpanel,таскбар,startbar,launchbar,локација,величина,Терминалски програм,аутоматско сакривање,сакривање,дугмићи,анимација,позадина,теме,мени кеш,кеш,скривен,K-Menu,маркери,скори документи,брзи претраживач,мени претраживача,мени,иконе,блокови,апплети,startup,истицање,хватаљке,увеличавање икона,аплети којима се верује,ниво сигурности
+-Keywords[sr@Latn]=kicker,панел,kpanel,таскбар,startbar,launchbar,локација,величина,Терминалски програм,аутоматско сакривање,сакривање,дугмићи,анимација,позадина,теме,мени кеш,кеш,скривен,K-Menu,маркери,скори документи,брзи претраживач,мени претраживача,мени,иконе,блокови,апплети,startup,истицање,хватаљке,увеличавање икона,аплети којима се верује,ниво сигурности
++Keywords[sr@Latn]=kicker,panel,kpanel,taskbar,startbar,launchbar,lokacija,veličina,Terminalski program,automatsko sakrivanje,sakrivanje,dugmići,animacija,pozadina,teme,meni keš,keš,skriven,K-Menu,markeri,skori dokumenti,brzi pretraživač,meni pretraživača,meni,ikone,blokovi,appleti,startup,isticanje,hvataljke,uveličavanje ikona,apleti kojima se veruje,nivo sigurnosti
+ Keywords[sv]=kicker,panel,k-panel,aktivitetsfält,startfält,körningsfält,plats,storlek,dölj automatiskt,dölj,göm,knappar,animering,bakgrund,teman,menycache,cache,gömd,dold,K-meny,bokmärken,senaste dokument,snabbläddrare,bläddringsmeny,meny,ikoner,miniprogram,start,framhäv,grepp,zoomikoner
+ Keywords[ta]=கிக்கர், பானல், கேபானல்,துவக்கப்பட்டி, துவங்கும்பட்டி,இடம்,அளவு, சத்தம் மறை, மறை,பட்டன், உயிர்சித்திரம்,பின்னனி,கருப்பொருள், தற்காலிக மெனு, மறைந்த,கே-மெனு,புத்தககுறிகள், தற்போதைய ஆவணம். வேக உலாவி, உலாவி மெனு, மெனு, சின்னம், சிறுநிரல், துவக்கம், கையாள், பெரிதாக்கும் சின்னங்கள்
+ Keywords[tr]=kicker,panel,kpanel,görev çubuğu,başlangıç çubuğu,başlat çubuğu,konum,boyut,Uç birim uygulaması,otomatik gizle,gizle,tuşlar,animasyon,artalan,temalar,menü ön belleği,ön bellek,gizli,K-Menu,yer imleri,en son kullanılan belgeler,hızlı gözatıcı,göz atıcı menüsü,menü,simgeler,karo,programcıklar,Başlangıç,belirt,tutamaçlar,büyüyen simgeler,güvenilen programcıklar,güvenlik düzeyi
+diff -urN -x CVS kdebase.orig/kcontrol/kicker/kicker_config_appearance.desktop kdebase/kcontrol/kicker/kicker_config_appearance.desktop
+--- kdebase.orig/kcontrol/kicker/kicker_config_appearance.desktop	Wed Sep 29 16:05:16 2004
++++ kdebase/kcontrol/kicker/kicker_config_appearance.desktop	Mon Oct  4 15:23:19 2004
+@@ -175,7 +175,7 @@
+ Keywords[sk]=kicker,panel,kpanel,taskbar,startbar,launchbar,miesto,umiestnenie,veľkosť,terminálová aplikácia,skrývanie,automatické skrývanie,tlačidlá,animácia,pozadie,témy,cache,cache ponuky,skryté,K-Menu,záložky,posledné dokumenty,rýchly prehliadač,ponuka prehliadača,menu,ikony,applety,štart,zvýraznenie,handles,zväčšovanie ikon,overené applety,úroveň zabezpečenia
+ Keywords[sl]=kicker,pult,kpanel,opravilna vrstica,zagonska vrstica,mesto,lokacija,velikost,terminalski program,skrij,samodejno skrivanje,skrivanje,gumbi,animacija,ozadje,teme,menijski predpomnilnik,predpomnilnik,skrit,K-Menu,zaznamki,nedavni dokumenti,hitro brskanje,brskalni meni,meni,tlakovci,ikone,vstavki,zagon,osvetlitev,ročice,ikone za povečavo
+ Keywords[sr]=kicker,панел,kpanel,таскбар,startbar,launchbar,локација,величина,Терминалски програм,аутоматско сакривање,сакривање,дугмићи,анимација,позадина,теме,мени кеш,кеш,скривен,K-Menu,маркери,скори документи,брзи претраживач,мени претраживача,мени,иконе,блокови,апплети,startup,истицање,хватаљке,увеличавање икона,аплети којима се верује,ниво сигурности
+-Keywords[sr@Latn]=kicker,панел,kpanel,таскбар,startbar,launchbar,локација,величина,Терминалски програм,аутоматско сакривање,сакривање,дугмићи,анимација,позадина,теме,мени кеш,кеш,скривен,K-Menu,маркери,скори документи,брзи претраживач,мени претраживача,мени,иконе,блокови,апплети,startup,истицање,хватаљке,увеличавање икона,аплети којима се верује,ниво сигурности
++Keywords[sr@Latn]=kicker,panel,kpanel,taskbar,startbar,launchbar,lokacija,veličina,Terminalski program,automatsko sakrivanje,sakrivanje,dugmići,animacija,pozadina,teme,meni keš,keš,skriven,K-Menu,markeri,skori dokumenti,brzi pretraživač,meni pretraživača,meni,ikone,blokovi,appleti,startup,isticanje,hvataljke,uveličavanje ikona,apleti kojima se veruje,nivo sigurnosti
+ Keywords[sv]=kicker,panel,k-panel,aktivitetsfält,startfält,körningsfält,plats,storlek,dölj automatiskt,dölj,göm,knappar,animering,bakgrund,teman,menycache,cache,gömd,dold,K-meny,bokmärken,senaste dokument,snabbläddrare,bläddringsmeny,meny,ikoner,miniprogram,start,framhäv,grepp,zoomikoner
+ Keywords[ta]=கிக்கர், பானல், கேபானல்,துவக்கப்பட்டி, துவங்கும்பட்டி,இடம்,அளவு, சத்தம் மறை, மறை,பட்டன், உயிர்சித்திரம்,பின்னனி,கருப்பொருள், தற்காலிக மெனு, மறைந்த,கே-மெனு,புத்தககுறிகள், தற்போதைய ஆவணம். வேக உலாவி, உலாவி மெனு, மெனு, சின்னம், சிறுநிரல், துவக்கம், கையாள், பெரிதாக்கும் சின்னங்கள்
+ Keywords[tr]=kicker,panel,kpanel,görev çubuğu,başlangıç çubuğu,başlat çubuğu,konum,boyut,Uç birim uygulaması,otomatik gizle,gizle,tuşlar,animasyon,artalan,temalar,menü ön belleği,ön bellek,gizli,K-Menu,yer imleri,en son kullanılan belgeler,hızlı gözatıcı,göz atıcı menüsü,menü,simgeler,karo,programcıklar,Başlangıç,belirt,tutamaçlar,büyüyen simgeler,güvenilen programcıklar,güvenlik düzeyi
+diff -urN -x CVS kdebase.orig/kcontrol/kicker/panel.desktop kdebase/kcontrol/kicker/panel.desktop
+--- kdebase.orig/kcontrol/kicker/panel.desktop	Wed Sep 29 16:05:16 2004
++++ kdebase/kcontrol/kicker/panel.desktop	Mon Oct  4 15:23:19 2004
+@@ -161,7 +161,7 @@
+ Keywords[sk]=kicker,panel,kpanel,taskbar,startbar,launchbar,miesto,umiestnenie,veľkosť,terminálová aplikácia,skrývanie,automatické skrývanie,tlačidlá,animácia,pozadie,témy,cache,cache ponuky,skryté,K-Menu,záložky,posledné dokumenty,rýchly prehliadač,ponuka prehliadača,menu,ikony,applety,štart,zvýraznenie,handles,zväčšovanie ikon,overené applety,úroveň zabezpečenia
+ Keywords[sl]=kicker,pult,kpanel,opravilna vrstica,zagonska vrstica,mesto,lokacija,velikost,terminalski program,skrij,samodejno skrivanje,skrivanje,gumbi,animacija,ozadje,teme,menijski predpomnilnik,predpomnilnik,skrit,K-Menu,zaznamki,nedavni dokumenti,hitro brskanje,brskalni meni,meni,tlakovci,ikone,vstavki,zagon,osvetlitev,ročice,ikone za povečavo
+ Keywords[sr]=kicker,панел,kpanel,таскбар,startbar,launchbar,локација,величина,Терминалски програм,аутоматско сакривање,сакривање,дугмићи,анимација,позадина,теме,мени кеш,кеш,скривен,K-Menu,маркери,скори документи,брзи претраживач,мени претраживача,мени,иконе,блокови,апплети,startup,истицање,хватаљке,увеличавање икона,аплети којима се верује,ниво сигурности
+-Keywords[sr@Latn]=kicker,панел,kpanel,таскбар,startbar,launchbar,локација,величина,Терминалски програм,аутоматско сакривање,сакривање,дугмићи,анимација,позадина,теме,мени кеш,кеш,скривен,K-Menu,маркери,скори документи,брзи претраживач,мени претраживача,мени,иконе,блокови,апплети,startup,истицање,хватаљке,увеличавање икона,аплети којима се верује,ниво сигурности
++Keywords[sr@Latn]=kicker,panel,kpanel,taskbar,startbar,launchbar,lokacija,veličina,Terminalski program,automatsko sakrivanje,sakrivanje,dugmići,animacija,pozadina,teme,meni keš,keš,skriven,K-Menu,markeri,skori dokumenti,brzi pretraživač,meni pretraživača,meni,ikone,blokovi,appleti,startup,isticanje,hvataljke,uveličavanje ikona,apleti kojima se veruje,nivo sigurnosti
+ Keywords[sv]=kicker,panel,k-panel,aktivitetsfält,startfält,körningsfält,plats,storlek,dölj automatiskt,dölj,göm,knappar,animering,bakgrund,teman,menycache,cache,gömd,dold,K-meny,bokmärken,senaste dokument,snabbläddrare,bläddringsmeny,meny,ikoner,miniprogram,start,framhäv,grepp,zoomikoner
+ Keywords[ta]=கிக்கர், பானல், கேபானல்,துவக்கப்பட்டி, துவங்கும்பட்டி,இடம்,அளவு, சத்தம் மறை, மறை,பட்டன், உயிர்சித்திரம்,பின்னனி,கருப்பொருள், தற்காலிக மெனு, மறைந்த,கே-மெனு,புத்தககுறிகள், தற்போதைய ஆவணம். வேக உலாவி, உலாவி மெனு, மெனு, சின்னம், சிறுநிரல், துவக்கம், கையாள், பெரிதாக்கும் சின்னங்கள்
+ Keywords[tr]=kicker,panel,kpanel,görev çubuğu,başlangıç çubuğu,başlat çubuğu,konum,boyut,Uç birim uygulaması,otomatik gizle,gizle,tuşlar,animasyon,artalan,temalar,menü ön belleği,ön bellek,gizli,K-Menu,yer imleri,en son kullanılan belgeler,hızlı gözatıcı,göz atıcı menüsü,menü,simgeler,karo,programcıklar,Başlangıç,belirt,tutamaçlar,büyüyen simgeler,güvenilen programcıklar,güvenlik düzeyi
+diff -urN -x CVS kdebase.orig/kcontrol/kthememanager/installktheme.desktop kdebase/kcontrol/kthememanager/installktheme.desktop
+--- kdebase.orig/kcontrol/kthememanager/installktheme.desktop	Thu Sep 30 16:01:56 2004
++++ kdebase/kcontrol/kthememanager/installktheme.desktop	Tue Oct  5 15:19:40 2004
+@@ -21,6 +21,7 @@
+ Name[hu]=KDE-téma telepítése
+ Name[is]=Setja inn KDE þemu
+ Name[it]=Installa tema di KDE
++Name[ja]=KDEテーマのインストール
+ Name[mt]=Installa Tema KDE
+ Name[nb]=Legg inn KDE-tema
+ Name[nds]=KDE-Muster installeern
+@@ -35,7 +36,7 @@
+ Name[sk]=Inštalovať tému KDE
+ Name[sl]=Namesti temo KDE
+ Name[sr]=Инсталирај KDE тему
+-Name[sr@Latn]=Инсталирај KDE тему
++Name[sr@Latn]=Instaliraj KDE temu
+ Name[sv]=Installera KDE-tema
+ Name[ta]=KDE பொருளை நிறுவு
+ Name[tr]=KDE Teması Yükle
+diff -urN -x CVS kdebase.orig/kcontrol/kthememanager/kthememanager.cpp kdebase/kcontrol/kthememanager/kthememanager.cpp
+--- kdebase.orig/kcontrol/kthememanager/kthememanager.cpp	Mon Jul 19 01:05:45 2004
++++ kdebase/kcontrol/kthememanager/kthememanager.cpp	Mon Oct  4 05:24:38 2004
+@@ -45,7 +45,7 @@
+     : KCModule( parent, name ), m_theme( 0 ), m_origTheme( 0 )
+ {
+ 
+-    KAboutData *about = new KAboutData("kthemenanager", I18N_NOOP("KDE Theme Manager"),
++    KAboutData *about = new KAboutData("kthememanager", I18N_NOOP("KDE Theme Manager"),
+                                        "0.4", I18N_NOOP("This control module handles installing, removing and "
+                                                         "creating visual KDE themes."),
+                                        KAboutData::License_GPL, "(c) 2003, 2004 Lukáš Tinkl", 0,
+diff -urN -x CVS kdebase.orig/kcontrol/kthememanager/kthememanager.desktop kdebase/kcontrol/kthememanager/kthememanager.desktop
+--- kdebase.orig/kcontrol/kthememanager/kthememanager.desktop	Thu Sep 30 16:01:56 2004
++++ kdebase/kcontrol/kthememanager/kthememanager.desktop	Mon Oct  4 15:23:20 2004
+@@ -35,7 +35,7 @@
+ Comment[sk]=Globálny správca tém
+ Comment[sl]=Upravitelj vizualnih tem za KDE
+ Comment[sr]=Управљање KDE-овим глобалним визуелним темама
+-Comment[sr@Latn]=Управљање KDE-овим глобалним визуелним темама
++Comment[sr@Latn]=Upravljanje KDE-ovim globalnim vizuelnim temama
+ Comment[sv]=Hantera KDE:s allmänna visuella teman
+ Comment[ta]=பொது KDE காட்சி பொருளை மேல்பார்வையிடு
+ Comment[tr]=Evrensel KDE ekran temalarını yönet
+@@ -74,7 +74,7 @@
+ Keywords[sk]=témy,vzhľad
+ Keywords[sl]=teme,videz in občutek
+ Keywords[sr]=themes,look and feel,теме,изглед и осећај,изглед
+-Keywords[sr@Latn]=themes,look and feel,теме,изглед и осећај,изглед
++Keywords[sr@Latn]=themes,look and feel,teme,izgled i osećaj,izgled
+ Keywords[sv]=teman,utseende och känsla
+ Keywords[ta]=உரைபொருள்,பார் மற்றும் உணர்ணர்
+ Keywords[tr]=temalar,görünüm ve hisset
+@@ -127,7 +127,7 @@
+ Name[sk]=Správca tém
+ Name[sl]=Upravljalnik tem
+ Name[sr]=Менаџер тема
+-Name[sr@Latn]=Менаџер тема
++Name[sr@Latn]=Menadžer tema
+ Name[ss]=Siphatsi sendzikimba
+ Name[sv]=Temahanterare
+ Name[ta]=பொருள் மேலாளர்
+diff -urN -x CVS kdebase.orig/kcontrol/kthememanager/x-ktheme.desktop kdebase/kcontrol/kthememanager/x-ktheme.desktop
+--- kdebase.orig/kcontrol/kthememanager/x-ktheme.desktop	Thu Sep 30 16:01:56 2004
++++ kdebase/kcontrol/kthememanager/x-ktheme.desktop	Tue Oct  5 15:19:40 2004
+@@ -7,6 +7,7 @@
+ Comment[be]=Тэма KDE
+ Comment[bg]=Тема за КДЕ
+ Comment[bn]=কে.ডি.ই. থীম
++Comment[br]=Giz KDE
+ Comment[bs]=KDE tema
+ Comment[ca]=Tema KDE
+ Comment[cs]=KDE motiv
+@@ -44,7 +45,7 @@
+ Comment[sk]=Téma KDE
+ Comment[sl]=Tema KDE
+ Comment[sr]=KDE тема
+-Comment[sr@Latn]=KDE тема
++Comment[sr@Latn]=KDE tema
+ Comment[sv]=KDE-tema
+ Comment[ta]=KDE பொருள்
+ Comment[tr]=KDE Teması
+diff -urN -x CVS kdebase.orig/kcontrol/locale/default/entry.desktop kdebase/kcontrol/locale/default/entry.desktop
+--- kdebase.orig/kcontrol/locale/default/entry.desktop	Wed Sep 29 16:05:18 2004
++++ kdebase/kcontrol/locale/default/entry.desktop	Mon Oct  4 15:23:21 2004
+@@ -37,7 +37,7 @@
+ Name[sk]=Anglický US
+ Name[sl]=Angleško ZDA
+ Name[sr]=Амерички енглески
+-Name[sr@Latn]=Амерички енглески
++Name[sr@Latn]=Američki engleski
+ Name[sv]=Amerikansk engelska
+ Name[ta]=US ஆங்கிலம்
+ Name[tr]=Amerikan İngilizcesi
+diff -urN -x CVS kdebase.orig/kdepasswd/kcm/kcm_useraccount.desktop kdebase/kdepasswd/kcm/kcm_useraccount.desktop
+--- kdebase.orig/kdepasswd/kcm/kcm_useraccount.desktop	Thu Sep 30 16:01:59 2004
++++ kdebase/kdepasswd/kcm/kcm_useraccount.desktop	Mon Oct  4 15:23:23 2004
+@@ -42,7 +42,7 @@
+ Name[sk]=Heslo a účet
+ Name[sl]=Geslo in uporabniški račun
+ Name[sr]=Лозинка и кориснички налог
+-Name[sr@Latn]=Лозинка и кориснички налог
++Name[sr@Latn]=Lozinka i korisnički nalog
+ Name[sv]=Lösenord och användarkonto
+ Name[ta]=கடவுச்சொல் & பயனர் கணக்கு
+ Name[tr]=Parola & Kullanıcı Hesabı
+@@ -81,7 +81,7 @@
+ Keywords[sk]=heslo,e-mail,meno,organizácia,celé meno,obrázok pre prihlásenie,režim echo
+ Keywords[sl]=geslo;e-pošta;ime;organizacija;pravo ime;slika prijave;obraz; način odmeva;
+ Keywords[sr]=password;email;name;organization;realname;login image;face; echo mode,лозинка,е-пошта,име,организација
+-Keywords[sr@Latn]=password;email;name;organization;realname;login image;face; echo mode,лозинка,е-пошта,име,организација
++Keywords[sr@Latn]=password;email;name;organization;realname;login image;face; echo mode,lozinka,e-pošta,ime,organizacija
+ Keywords[sv]=lösenord;e-post;namn;organisation;verkligt namn;inloggningsbild;bild;ekoläge;
+ Keywords[ta]=கடவுச்சொல்;மின்னஞ்சல்;பெயர்;நிறுவனம்;மெய்பெயர்;புகுபதிகை படிமம்;முகம்; எதிரொலி பாங்கு;
+ Keywords[tr]=parola,e-posta,isim,gerçek isim,giriş resmi,yüz
+@@ -123,7 +123,7 @@
+ Comment[sk]=Informácie o používateľovi, ako heslo, meno a e-mail
+ Comment[sl]=Uporabniške informacije, kot so geslo, ime in e-pošta
+ Comment[sr]=Информације о кориснику као што је лозинка, име и е-пошта
+-Comment[sr@Latn]=Информације о кориснику као што је лозинка, име и е-пошта
++Comment[sr@Latn]=Informacije o korisniku kao što je lozinka, ime i e-pošta
+ Comment[sv]=Användarinformation som lösenord, namn och e-post
+ Comment[ta]=பயனர் தகவல் கடவுச்சொல்லைப் போல, பெயர் மற்றும் மிண்ணஞ்சல்
+ Comment[tr]=Parola, isim ve e-posta gibi kullanıcı bilgisi
+diff -urN -x CVS kdebase.orig/kdepasswd/kdepasswd.desktop kdebase/kdepasswd/kdepasswd.desktop
+--- kdebase.orig/kdepasswd/kdepasswd.desktop	Thu Sep 30 16:01:58 2004
++++ kdebase/kdepasswd/kdepasswd.desktop	Mon Oct  4 15:23:23 2004
+@@ -46,7 +46,7 @@
+ Name[sk]=Zmena heslahesla
+ Name[sl]=Spremeni geslo
+ Name[sr]=Промени лозинку
+-Name[sr@Latn]=Промени лозинку
++Name[sr@Latn]=Promeni lozinku
+ Name[sv]=Ändra lösenord
+ Name[ta]=கடவுச்சொல்லை மாற்று
+ Name[th]=เปลี่ยนรหัสผ่าน
+diff -urN -x CVS kdebase.orig/kdeprint/slave/mimetypes/class.desktop kdebase/kdeprint/slave/mimetypes/class.desktop
+--- kdebase.orig/kdeprint/slave/mimetypes/class.desktop	Thu Sep 30 16:02:01 2004
++++ kdebase/kdeprint/slave/mimetypes/class.desktop	Mon Oct  4 15:23:25 2004
+@@ -32,7 +32,7 @@
+ Comment[sk]=Trieda tlačiarní
+ Comment[sl]=Razred tiskalnikov
+ Comment[sr]=Класе штампача
+-Comment[sr@Latn]=Класе штампача
++Comment[sr@Latn]=Klase štampača
+ Comment[sv]=Klass av skrivare
+ Comment[ta]=அச்சியந்திரங்களின் வகை
+ Comment[tr]=Yazıcı Sınıfı
+diff -urN -x CVS kdebase.orig/kdeprint/slave/mimetypes/driver.desktop kdebase/kdeprint/slave/mimetypes/driver.desktop
+--- kdebase.orig/kdeprint/slave/mimetypes/driver.desktop	Thu Sep 30 16:02:01 2004
++++ kdebase/kdeprint/slave/mimetypes/driver.desktop	Mon Oct  4 15:23:25 2004
+@@ -32,7 +32,7 @@
+ Comment[sk]=Ovládač tlačiarne
+ Comment[sl]=Tiskalniški gonilnik
+ Comment[sr]=Управљачки програм за штампач
+-Comment[sr@Latn]=Управљачки програм за штампач
++Comment[sr@Latn]=Upravljački program za štampač
+ Comment[sv]=Skrivardrivrutin
+ Comment[ta]=அச்சியந்திர இயக்கி
+ Comment[tr]=Yazıcı Sürücüsü
+diff -urN -x CVS kdebase.orig/kdeprint/slave/mimetypes/printermodel.desktop kdebase/kdeprint/slave/mimetypes/printermodel.desktop
+--- kdebase.orig/kdeprint/slave/mimetypes/printermodel.desktop	Thu Sep 30 16:02:01 2004
++++ kdebase/kdeprint/slave/mimetypes/printermodel.desktop	Mon Oct  4 15:23:25 2004
+@@ -32,7 +32,7 @@
+ Comment[sk]=Model tlačiarne
+ Comment[sl]=Model tiskalnika
+ Comment[sr]=Модел штампача
+-Comment[sr@Latn]=Модел штампача
++Comment[sr@Latn]=Model štampača
+ Comment[sv]=Skrivarmodell
+ Comment[ta]=அச்சியந்திர மாதிரி
+ Comment[tr]=Yazıcı Modeli
+diff -urN -x CVS kdebase.orig/kdesktop/init/Templates/HTMLFile.desktop kdebase/kdesktop/init/Templates/HTMLFile.desktop
+--- kdebase.orig/kdesktop/init/Templates/HTMLFile.desktop	Thu Sep 30 16:02:03 2004
++++ kdebase/kdesktop/init/Templates/HTMLFile.desktop	Mon Oct  4 15:23:27 2004
+@@ -91,7 +91,7 @@
+ Comment[sk]=Zadajte meno súboru HTML:
+ Comment[sl]=Vnesite ime datoteke HTML:
+ Comment[sr]=Унесите име HTML фајла:
+-Comment[sr@Latn]=Унесите име HTML фајла:
++Comment[sr@Latn]=Unesite ime HTML fajla:
+ Comment[sv]=Ange HTML-filnamn:
+ Comment[ta]=HTML கோப்பு பெயரை உள்ளிடு:
+ Comment[tr]=HTML dosyasını girin:
+diff -urN -x CVS kdebase.orig/kdesktop/init/Templates/TextFile.desktop kdebase/kdesktop/init/Templates/TextFile.desktop
+--- kdebase.orig/kdesktop/init/Templates/TextFile.desktop	Thu Sep 30 16:02:03 2004
++++ kdebase/kdesktop/init/Templates/TextFile.desktop	Mon Oct  4 15:23:27 2004
+@@ -91,7 +91,7 @@
+ Comment[sk]=Zadajte meno textového súboru:
+ Comment[sl]=Vnesite ime besedilne datoteke:
+ Comment[sr]=Унесите име текстуалног фајла:
+-Comment[sr@Latn]=Унесите име текстуалног фајла:
++Comment[sr@Latn]=Unesite ime tekstualnog fajla:
+ Comment[sv]=Ange textfilnamn:
+ Comment[ta]=உரை கோப்பு பெயரை உள்ளிடு:
+ Comment[tr]=Metin dosya adını girin:
+diff -urN -x CVS kdebase.orig/kdesktop/kdesktopSetAsBackground.desktop kdebase/kdesktop/kdesktopSetAsBackground.desktop
+--- kdebase.orig/kdesktop/kdesktopSetAsBackground.desktop	Fri Oct  1 15:53:46 2004
++++ kdebase/kdesktop/kdesktopSetAsBackground.desktop	Mon Oct  4 15:23:27 2004
+@@ -40,7 +40,7 @@
+ Name[sk]=V strede
+ Name[sl]=Usrediščeno
+ Name[sr]=Центрирано
+-Name[sr@Latn]=Центрирано
++Name[sr@Latn]=Centrirano
+ Name[sv]=Centrerad
+ Name[ta]=மைய
+ Name[tr]=Ortalanmış
+@@ -86,7 +86,7 @@
+ Name[sk]=Dlaždice
+ Name[sl]=Razdeljeno
+ Name[sr]=Поређано
+-Name[sr@Latn]=Поређано
++Name[sr@Latn]=Poređano
+ Name[sv]=Sida vid sida
+ Name[ta]=பிண்ணனி
+ Name[tr]=Uzatılmış
+diff -urN -x CVS kdebase.orig/kdm/kfrontend/genkdmconf.c kdebase/kdm/kfrontend/genkdmconf.c
+--- kdebase.orig/kdm/kfrontend/genkdmconf.c	Tue Sep 14 10:07:28 2004
++++ kdebase/kdm/kfrontend/genkdmconf.c	Thu Oct 14 15:40:11 2004
+@@ -667,9 +667,7 @@
+ "  */csh|*/tcsh)\n"
+ "    # [t]cshrc is always sourced automatically.\n"
+ "    # Note that sourcing csh.login after .cshrc is non-standard.\n"
+-"    set -a\n"
+-"    eval `$SHELL -c 'if (-f /etc/csh.login) source /etc/csh.login > /dev/null; if (-f ~/.login) source ~/.login > /dev/null; /bin/sh -c set | egrep -v \"^(BASH_VERSINFO|EUID|PPID|UID|GROUPS|SHELLOPTS|_)=\"'`\n"
+-"    set +a\n"
++"    eval `$SHELL -c 'if (-f /etc/csh.login) source /etc/csh.login > /dev/null; if (-f ~/.login) source ~/.login > /dev/null; /bin/sh -c export'`\n"
+ "    ;;\n"
+ "  *) # Plain sh, ksh, and anything we don't know.\n"
+ "    [ -f /etc/profile ] && . /etc/profile\n"
+diff -urN -x CVS kdebase.orig/kdm/kfrontend/sessions/xfce4.desktop kdebase/kdm/kfrontend/sessions/xfce4.desktop
+--- kdebase.orig/kdm/kfrontend/sessions/xfce4.desktop	Thu Sep 30 16:02:05 2004
++++ kdebase/kdm/kfrontend/sessions/xfce4.desktop	Mon Oct  4 15:23:29 2004
+@@ -41,7 +41,7 @@
+ Comment[sk]=The Cholesterol Free Desktop Environment verzia 4. Pracovné prostredie pripomínajúce CDE
+ Comment[sl]=Cholesterol Free Desktop Environment, različica 4. Namizno okolje, podobno okolju CDE
+ Comment[sr]=„The Cholesterol Free Desktop Environment“ 4. издање. Радно окружење које подсећа на CDE
+-Comment[sr@Latn]=„The Cholesterol Free Desktop Environment“ 4. издање. Радно окружење које подсећа на CDE
++Comment[sr@Latn]=„The Cholesterol Free Desktop Environment“ 4. izdanje. Radno okruženje koje podseća na CDE
+ Comment[sv]=Den kolesterolfria skrivbordsmiljön, version 4. En skrivbordsmiljö som påminner om CDE
+ Comment[ta]=கொலஸ்ட்ரால் இல்லாத மேல்மேசை சூழல். பதிப்பு 4. CDE பொருள்பொதிந்த மேல்மேசை சூழல்
+ Comment[tr]=Cholesterol Ücretsiz Masaüstü Ortamı, sürüm 4. CDE'nin benzeri olan masaüstü ortamı
+diff -urN -x CVS kdebase.orig/khelpcenter/plugins/Manpages/man1.desktop kdebase/khelpcenter/plugins/Manpages/man1.desktop
+--- kdebase.orig/khelpcenter/plugins/Manpages/man1.desktop	Wed Sep 29 16:05:28 2004
++++ kdebase/khelpcenter/plugins/Manpages/man1.desktop	Mon Oct  4 15:23:31 2004
+@@ -32,7 +32,7 @@
+ Name[sk]=(1) Používateľské príkazy
+ Name[sl]=(1) Uporabniški ukazi
+ Name[sr]=(1) Корисничке наредбе
+-Name[sr@Latn]=(1) Корисничке наредбе
++Name[sr@Latn]=(1) Korisničke naredbe
+ Name[sv]=(1) Användarkommandon
+ Name[ta]=(1) பயன்படுத்துபவர் கட்டளைகள்
+ Name[tr]=(1) Kullanıcı Komutları
+diff -urN -x CVS kdebase.orig/khelpcenter/plugins/Manpages/man2.desktop kdebase/khelpcenter/plugins/Manpages/man2.desktop
+--- kdebase.orig/khelpcenter/plugins/Manpages/man2.desktop	Thu Sep 30 16:02:08 2004
++++ kdebase/khelpcenter/plugins/Manpages/man2.desktop	Mon Oct  4 15:23:31 2004
+@@ -32,7 +32,7 @@
+ Name[sk]=(2) Systémové volania
+ Name[sl]=(2) Sistemski klici
+ Name[sr]=(2) Системски позиви
+-Name[sr@Latn]=(2) Системски позиви
++Name[sr@Latn]=(2) Sistemski pozivi
+ Name[sv]=(2) Systemanrop
+ Name[ta]=(2) கணினி அழைப்புகள்
+ Name[tr]=(2) Sistem Çağrıları
+diff -urN -x CVS kdebase.orig/khelpcenter/plugins/info.desktop kdebase/khelpcenter/plugins/info.desktop
+--- kdebase.orig/khelpcenter/plugins/info.desktop	Thu Sep 30 16:02:07 2004
++++ kdebase/khelpcenter/plugins/info.desktop	Mon Oct  4 15:23:31 2004
+@@ -33,7 +33,7 @@
+ Name[sk]=Prehliadanie info stránok
+ Name[sl]=Brskanje po straneh info
+ Name[sr]=Претраживање инфо страница
+-Name[sr@Latn]=Претраживање инфо страница
++Name[sr@Latn]=Pretraživanje info stranica
+ Name[sv]=Bläddra i info-sidor
+ Name[ta]=தகவல் பக்கங்களில் உலாவவும்
+ Name[tr]=Bilgi Sayfarlarını Tara
+diff -urN -x CVS kdebase.orig/khelpcenter/plugins/konqplugins.desktop kdebase/khelpcenter/plugins/konqplugins.desktop
+--- kdebase.orig/khelpcenter/plugins/konqplugins.desktop	Fri Sep 17 15:47:34 2004
++++ kdebase/khelpcenter/plugins/konqplugins.desktop	Mon Oct  4 15:23:31 2004
+@@ -47,7 +47,7 @@
+ Name[sk]=Moduly pre Konqueror
+ Name[sl]=Vstavki za Konqueror
+ Name[sr]=Konqueror-ови прикључци
+-Name[sr@Latn]=Konqueror-ovi dodaci
++Name[sr@Latn]=Konqueror-ovi priključci
+ Name[sv]=Konqueror-insticksprogram
+ Name[ta]=கான்கொரர் செருகு சாதனங்கள்
+ Name[tg]=Мутассалкунандаҳои Konqueror
+diff -urN -x CVS kdebase.orig/khelpcenter/plugins/links.desktop kdebase/khelpcenter/plugins/links.desktop
+--- kdebase.orig/khelpcenter/plugins/links.desktop	Thu Sep 30 16:02:07 2004
++++ kdebase/khelpcenter/plugins/links.desktop	Mon Oct  4 15:23:31 2004
+@@ -36,7 +36,7 @@
+ Name[sk]=KDE na WWW
+ Name[sl]=KDE na spletu
+ Name[sr]=KDE на вебу
+-Name[sr@Latn]=KDE на вебу
++Name[sr@Latn]=KDE na vebu
+ Name[sv]=KDE på Internet
+ Name[ta]=வலையத்தில் கேடியி
+ Name[tr]=Web'de KDE
+diff -urN -x CVS kdebase.orig/khelpcenter/plugins/userguide.desktop kdebase/khelpcenter/plugins/userguide.desktop
+--- kdebase.orig/khelpcenter/plugins/userguide.desktop	Thu Sep 30 16:02:07 2004
++++ kdebase/khelpcenter/plugins/userguide.desktop	Mon Oct  4 15:23:31 2004
+@@ -34,7 +34,7 @@
+ Name[sk]=Používateľský manuál KDE
+ Name[sl]=Uporabniški priročnik KDE
+ Name[sr]=KDE-ово упутство за кориснике
+-Name[sr@Latn]=KDE-ово упутство за кориснике
++Name[sr@Latn]=KDE-ovo uputstvo za korisnike
+ Name[sv]=KDE:s användarhandbok
+ Name[ta]=KDE பயனர்களின் கையேடு
+ Name[tr]=KDE Kullanıcı Klavuzu
+diff -urN -x CVS kdebase.orig/khotkeys/kcontrol/khotkeys.desktop kdebase/khotkeys/kcontrol/khotkeys.desktop
+--- kdebase.orig/khotkeys/kcontrol/khotkeys.desktop	Thu Sep 30 16:02:10 2004
++++ kdebase/khotkeys/kcontrol/khotkeys.desktop	Mon Oct  4 15:23:33 2004
+@@ -64,7 +64,7 @@
+ Comment[sk]=Nastavenia klávesových skratiek
+ Comment[sl]=Nastavitve vročih tipk
+ Comment[sr]=Подешавање поставки пречица
+-Comment[sr@Latn]=Подешавање поставки пречица
++Comment[sr@Latn]=Podešavanje postavki prečica
+ Comment[sv]=Anpassa Hotkey-inställningar
+ Comment[ta]=ÍÕìÌÅ¢¨º «¨ÁôÒ¸¨Ç ¯ûÇ¨Á
+ Comment[tr]=Kısayol ayarlarını yapılandır
+@@ -104,7 +104,7 @@
+ Keywords[sk]=Klávesy,Globálne klávesové skratky,schéma kláves,klávesové skratky,gestá,gestá myšou
+ Keywords[sl]=tipke,globalne vezi tipk,vezi tipk,tipkovne vezi,gibi,miškini gibi
+ Keywords[sr]=Keys,Global key bindings,Key scheme,Key bindings,shortcuts,application shortcuts,тастери,глобални тастери,пречица,шема тастера,пречице,програмске пречице
+-Keywords[sr@Latn]=Keys,Global key bindings,Key scheme,Key bindings,shortcuts,application shortcuts,тастери,глобални тастери,пречица,шема тастера,пречице,програмске пречице
++Keywords[sr@Latn]=Keys,Global key bindings,Key scheme,Key bindings,shortcuts,application shortcuts,tasteri,globalni tasteri,prečica,šema tastera,prečice,programske prečice
+ Keywords[sv]=tangenter,globala tangentbindningar,tangentbindningar,gester,musgester
+ Keywords[ta]=விசைகள்,உலகலாவிய விசை பிணைப்புகள்,விசை திட்டம்,விசை பிணைப்புகள்,குறுக்குவழிகள்,பயன்பாட்டுக் குறுக்குவழிகள்
+ Keywords[tr]=Tuşlar,Küresel tuş bağlantıları,Tuş bağlantıları,Kısayollar,Uygulama kısayolları,Fare hareketleri
+diff -urN -x CVS kdebase.orig/khotkeys/shared/input.cpp kdebase/khotkeys/shared/input.cpp
+--- kdebase.orig/khotkeys/shared/input.cpp	Thu Dec  4 13:17:23 2003
++++ kdebase/khotkeys/shared/input.cpp	Tue Oct 12 11:54:16 2004
+@@ -226,6 +226,9 @@
+     ev.same_screen = True;
+     ret = ret && XSendEvent( qt_xdisplay(), window_P, True, KeyReleaseMask, ( XEvent* )&ev );
+ #endif
++    // Qt's autorepeat compression is broken and can create "aab" from "aba"
++    // XSync() should create delay longer than Qt's max autorepeat interval
++    XSync( qt_xdisplay(), False );
+     return ret;
+     }
+ 
+diff -urN -x CVS kdebase.orig/kicker/core/container_applet.h kdebase/kicker/core/container_applet.h
+--- kdebase.orig/kicker/core/container_applet.h	Wed Jul 14 14:48:42 2004
++++ kdebase/kicker/core/container_applet.h	Tue Oct  5 17:47:24 2004
+@@ -26,6 +26,7 @@
+ 
+ #include <kpanelapplet.h>
+ #include <dcopobject.h>
++#include <kwin.h>
+ 
+ #include "appletinfo.h"
+ #include "container_base.h"
+@@ -68,7 +69,7 @@
+     void removeApplet();
+     void showAppletMenu();
+     void slotReconfigure();
+-    void activateWindow() { setActiveWindow(); }
++    void activateWindow() { KWin::forceActiveWindow( topLevelWidget()->winId()); }
+ 
+ protected:
+     virtual void doLoadConfiguration( KConfigGroup& );
+diff -urN -x CVS kdebase.orig/kicker/menuext/konq-profiles/konquerormenu.desktop kdebase/kicker/menuext/konq-profiles/konquerormenu.desktop
+--- kdebase.orig/kicker/menuext/konq-profiles/konquerormenu.desktop	Thu Sep 30 16:02:13 2004
++++ kdebase/kicker/menuext/konq-profiles/konquerormenu.desktop	Mon Oct  4 15:23:35 2004
+@@ -36,7 +36,7 @@
+ Name[sk]=Profily pre Konqueror
+ Name[sl]=Profili Konquerorja
+ Name[sr]=Konqueror-ови профили
+-Name[sr@Latn]=Konqueror-ови профили
++Name[sr@Latn]=Konqueror-ovi profili
+ Name[sv]=Konqueror-profiler
+ Name[ta]=Konqueror விவரக்குறிப்புகள்
+ Name[tr]=Konqueror Profilleri
+@@ -81,7 +81,7 @@
+ Comment[sk]=Jednoduchý prístup k profilom pre Konqueror
+ Comment[sl]=Preprost dostop do profilov Konquerorja
+ Comment[sr]=Лак приступ Konqueror-овим профилима
+-Comment[sr@Latn]=Лак приступ Konqueror-овим профилима
++Comment[sr@Latn]=Lak pristup Konqueror-ovim profilima
+ Comment[sv]=Enkel åtkomst till Konquerors profiler
+ Comment[ta]=Konqueror விவரக்குறிப்புகளை இயக்க எளிதானது
+ Comment[tr]=Konqueror profillerine kolay erişim
+diff -urN -x CVS kdebase.orig/kicker/panel.desktop kdebase/kicker/panel.desktop
+--- kdebase.orig/kicker/panel.desktop	Fri Sep 17 15:47:39 2004
++++ kdebase/kicker/panel.desktop	Tue Oct  5 15:19:43 2004
+@@ -8,6 +8,7 @@
+ Name[be]=Панэль KDE
+ Name[bg]=Системен панел
+ Name[bn]=কে.ডি.ই. প্যানেল
++Name[br]=Panell KDE
+ Name[bs]=KDE panel
+ Name[ca]=Plafó KDE
+ Name[cs]=Panel KDE
+diff -urN -x CVS kdebase.orig/kioslave/devices/Makefile.am kdebase/kioslave/devices/Makefile.am
+--- kdebase.orig/kioslave/devices/Makefile.am	Fri Aug 29 16:40:56 2003
++++ kdebase/kioslave/devices/Makefile.am	Sun Oct 10 21:03:31 2004
+@@ -17,6 +17,9 @@
+ dataEntry_DATA = devices.desktop
+ dataEntrydir = $(kde_datadir)/konqsidebartng/entries
+ 
++globalkickerentriesdir   = $(kde_datadir)/konqsidebartng/kicker_entries
++globalkickerentries_DATA = devices.desktop
++
+ defaultInclude_DATA=mountwatcher.desktop
+ defaultIncludedir=$(kde_confdir)
+ 
+diff -urN -x CVS kdebase.orig/kioslave/smb/x-smb-server.desktop kdebase/kioslave/smb/x-smb-server.desktop
+--- kdebase.orig/kioslave/smb/x-smb-server.desktop	Thu Sep 30 16:02:18 2004
++++ kdebase/kioslave/smb/x-smb-server.desktop	Mon Oct  4 15:23:37 2004
+@@ -36,7 +36,7 @@
+ Comment[sk]=Server Windows
+ Comment[sl]=Strežnik za Windows
+ Comment[sr]=Windows сервер
+-Comment[sr@Latn]=Windows сервер
++Comment[sr@Latn]=Windows server
+ Comment[sv]=Windows server
+ Comment[ta]=சாளர சேவகன்
+ Comment[tr]=Windows Sunucusu
+diff -urN -x CVS kdebase.orig/klipper/klipperrc.desktop kdebase/klipper/klipperrc.desktop
+--- kdebase.orig/klipper/klipperrc.desktop	Thu Sep 30 16:02:20 2004
++++ kdebase/klipper/klipperrc.desktop	Tue Oct  5 15:19:45 2004
+@@ -5,6 +5,7 @@
+ Description[be]=Выява JPEG
+ Description[bg]=Изображение Jpeg
+ Description[bn]=জেপেগ চিত্র
++Description[br]=Skeudenn Jpeg
+ Description[bs]=Jpeg-slika
+ Description[ca]=Imatge jpeg
+ Description[cs]=Obrázek JPEG
+@@ -74,6 +75,7 @@
+ Description[be]=Запусьціць K&View
+ Description[bg]=&Стартиране на KView
+ Description[bn]=কে-ভি&উ চালাও
++Description[br]=Lañsañ K&View
+ Description[bs]=Pokreni K&View
+ Description[ca]=Engega el K&View
+ Description[cs]=Spustit K&View
+@@ -195,6 +197,7 @@
+ Description[be]=Адчыніць у &Konqueror
+ Description[bg]=&Отваряне с Konqueror
+ Description[bn]=কনকরার দিয়ে খোলো (&ক)
++Description[br]=Digeriñ gant &Konqueror
+ Description[bs]=Otvori u &Konqueroru
+ Description[ca]=Obre amb el &Konqueror
+ Description[cs]=Otevřít pomocí &Konqueroru
+@@ -266,6 +269,7 @@
+ Description[be]=Адчыніць у &Mozilla
+ Description[bg]=От&варяне с Mozilla
+ Description[bn]=মোজিলা দিয়ে খোলো (&ম)
++Description[br]=Digeriñ gant &Mozilla
+ Description[bs]=Otvori u &Mozilla
+ Description[ca]=Obre amb el &Mozilla
+ Description[cs]=Otevřít pomocí &Mozilla
+@@ -336,6 +340,7 @@
+ Description[be]=Даслаць &URL
+ Description[bg]=&Изпращане на адрес
+ Description[bn]=ই&উ-আর-এল পাঠাও
++Description[br]=Kas an &URL
+ Description[bs]=Pošalji &URL
+ Description[ca]=Envia la &URL
+ Description[cs]=Poslat &URL
+@@ -401,6 +406,7 @@
+ Description[be]=Даслаць &старонку
+ Description[bg]=И&зпращане на страница
+ Description[bn]=পৃষ্ঠা পাঠা&ও
++Description[br]=Kas ar &pajenn
+ Description[bs]=Pošalji &Stranicu
+ Description[ca]=Envia la &pàgina
+ Description[cs]=&Poslat stránku
+@@ -466,6 +472,7 @@
+ Description[az]=Məktub-URL
+ Description[bg]=Изпращане на писмо с адрес
+ Description[bn]=মেইল ইউ-আর-এল
++Description[br]=URL postel
+ Description[ca]=URL de correu
+ Description[cs]=Poštovní URL
+ Description[cy]=URL Ebost
+@@ -528,6 +535,7 @@
+ Description[be]=Запусьціць &KMail
+ Description[bg]=Ст&артиране на Kmail
+ Description[bn]=কে-মেই&ল চালাও
++Description[br]=Lañsañ &Kmail
+ Description[bs]=Pokreni &Kmail
+ Description[ca]=Engega el &Kmail
+ Description[cs]=Spustit &Kmail
+@@ -596,6 +604,7 @@
+ Description[be]=Запусьціць &mutt
+ Description[bg]=Ста&ртиране на mutt
+ Description[bn]=&mutt চালাও
++Description[br]=Lañsañ &mutt
+ Description[bs]=Pokreni &mutt
+ Description[ca]=Engega el &mutt
+ Description[cs]=Spustit &mutt
+@@ -735,6 +744,7 @@
+ Description[be]=Запусьціць K&Edit
+ Description[bg]=&Стартиране на KEdit
+ Description[bn]=কে-&এডিট চালাও
++Description[br]=Lañsañ K&Edit
+ Description[bs]=Pokreni K&Edit
+ Description[ca]=Engega el K&Edit
+ Description[cs]=Spustit K&Edit
+@@ -802,6 +812,7 @@
+ Description[be]=Запусьціць K&Write
+ Description[bg]=С&тартиране на KWrite
+ Description[bn]=কে-রাই&ট চালাও
++Description[br]=Lañsañ K&Write
+ Description[bs]=Pokreni K&Write
+ Description[ca]=Engega el K&Write
+ Description[cs]=Spustit K&Write
+@@ -938,6 +949,7 @@
+ Description[be]=Даслаць &URL
+ Description[bg]=&Изпращане на адрес
+ Description[bn]=ই&উ-আর-এল পাঠাও
++Description[br]=Kas an &URL
+ Description[bs]=Pošalji &URL
+ Description[ca]=Envia la &URL
+ Description[cs]=Poslat &URL
+@@ -1003,6 +1015,7 @@
+ Description[be]=Даслаць &файл
+ Description[bg]=Изпращане на &файл
+ Description[bn]=ফাই&ল পাঠাও
++Description[br]=Kas ar &restr
+ Description[bs]=Pošalji &Datoteku
+ Description[ca]=Envia &fitxer
+ Description[cs]=Posl&at soubor
+@@ -1068,6 +1081,7 @@
+ Description[ar]=عنوان Gopher
+ Description[az]=Qofher URL
+ Description[bg]=Адрес Gopher
++Description[br]=URL Gopher
+ Description[ca]=URL de Gopher
+ Description[cy]=URL Gopher
+ Description[da]=Gopher-URL
+@@ -1118,6 +1132,7 @@
+ Description[be]=Даслаць &URL
+ Description[bg]=&Изпращане на адрес
+ Description[bn]=ই&উ-আর-এল পাঠাও
++Description[br]=Kas an &URL
+ Description[bs]=Pošalji &URL
+ Description[ca]=Envia la &URL
+ Description[cs]=Poslat &URL
+@@ -1183,6 +1198,7 @@
+ Description[be]=Даслаць &файл
+ Description[bg]=Изпращане на &файл
+ Description[bn]=ফাই&ল পাঠাও
++Description[br]=Kas ar &restr
+ Description[bs]=Pošalji &Datoteku
+ Description[ca]=Envia &fitxer
+ Description[cs]=Posl&at soubor
+@@ -1301,6 +1317,7 @@
+ Description[be]=Адчыніць у &Konqueror
+ Description[bg]=&Отваряне с Konqueror
+ Description[bn]=কনকরার দিয়ে খোলো (&ক)
++Description[br]=Digeriñ gant &Konqueror
+ Description[bs]=Otvori u &Konqueroru
+ Description[ca]=Obre amb el &Konqueror
+ Description[cs]=Otevřít pomocí &Konqueroru
+@@ -1441,6 +1458,7 @@
+ Description[be]=Адчыніць у &Mozilla
+ Description[bg]=От&варяне с Mozilla
+ Description[bn]=মোজিলা দিয়ে খোলো (&ম)
++Description[br]=Digeriñ gant &Mozilla
+ Description[bs]=Otvori u &Mozilla
+ Description[ca]=Obre amb el &Mozilla
+ Description[cs]=Otevřít pomocí &Mozilla
+@@ -1511,6 +1529,7 @@
+ Description[be]=Даслаць &URL
+ Description[bg]=&Изпращане на адрес
+ Description[bn]=ই&উ-আর-এল পাঠাও
++Description[br]=Kas an &URL
+ Description[bs]=Pošalji &URL
+ Description[ca]=Envia la &URL
+ Description[cs]=Poslat &URL
+@@ -1576,6 +1595,7 @@
+ Description[be]=Даслаць &файл
+ Description[bg]=Изпращане на &файл
+ Description[bn]=ফাই&ল পাঠাও
++Description[br]=Kas ar &restr
+ Description[bs]=Pošalji &Datoteku
+ Description[ca]=Envia &fitxer
+ Description[cs]=Posl&at soubor
+diff -urN -x CVS kdebase.orig/konqueror/keditbookmarks/testlink.cpp kdebase/konqueror/keditbookmarks/testlink.cpp
+--- kdebase.orig/konqueror/keditbookmarks/testlink.cpp	Wed Jul 14 17:20:39 2004
++++ kdebase/konqueror/keditbookmarks/testlink.cpp	Mon Oct 11 23:55:30 2004
+@@ -118,6 +118,7 @@
+ 
+ void TestLinkItr::slotJobResult(KIO::Job *job) {
+     m_job = 0;
++    if ( !curItem() ) return;
+ 
+     KIO::TransferJob *transfer = (KIO::TransferJob *)job;
+     QString modDate = transfer->queryMetaData("modified");
+diff -urN -x CVS kdebase.orig/konqueror/konq_profiledlg.cc kdebase/konqueror/konq_profiledlg.cc
+--- kdebase.orig/konqueror/konq_profiledlg.cc	Fri Jun 25 20:43:55 2004
++++ kdebase/konqueror/konq_profiledlg.cc	Thu Oct 14 17:34:35 2004
+@@ -161,6 +161,7 @@
+ 
+ void KonqProfileDlg::loadAllProfiles(const QString & preselectProfile)
+ {
++    bool profileFound = false;
+     m_mapEntries.clear();
+     m_pListView->clear();
+     m_mapEntries = readAllProfiles();
+@@ -173,11 +174,13 @@
+         kdDebug(1202) << filename << endl;
+         if ( filename == preselectProfile )
+         {
++            profileFound = true;
+             m_pProfileNameLineEdit->setText( eIt.key() );
+             m_pListView->setSelected( item, true );
+         }
+     }
+-    m_pProfileNameLineEdit->setText( preselectProfile);
++    if (!profileFound)
++        m_pProfileNameLineEdit->setText( preselectProfile);
+ }
+ 
+ void KonqProfileDlg::slotSave()
+diff -urN -x CVS kdebase.orig/konsole/konsole/x-konsole.desktop kdebase/konsole/konsole/x-konsole.desktop
+--- kdebase.orig/konsole/konsole/x-konsole.desktop	Thu Sep 30 16:02:29 2004
++++ kdebase/konsole/konsole/x-konsole.desktop	Mon Oct  4 15:23:42 2004
+@@ -35,7 +35,7 @@
+ Comment[sk]=Súbor na otvorenie shellu
+ Comment[sl]=Datoteka za odprtje lupine
+ Comment[sr]=Фајл за отварање шкољке
+-Comment[sr@Latn]=Фајл за отварање шкољке
++Comment[sr@Latn]=Fajl za otvaranje školjke
+ Comment[sv]=Fil som ska öppnas i ett skal
+ Comment[ta]=ஷெல்லை திறப்பதற்கு கோப்பு
+ Comment[tr]=Kabuk'a Açılacak Dosya
+diff -urN -x CVS kdebase.orig/konsole/kwrited.desktop kdebase/konsole/kwrited.desktop
+--- kdebase.orig/konsole/kwrited.desktop	Wed Sep 29 16:05:40 2004
++++ kdebase/konsole/kwrited.desktop	Mon Oct  4 15:23:42 2004
+@@ -88,7 +88,7 @@
+ Comment[sk]=Sledovanie správ od lokálnych používateľov poslaných pomocou príkazu write (1) alebo wall (1)
+ Comment[sl]=Opazuj sporočila od krajevnih uporabnikov, poslanih z write(1) ali wall(1)
+ Comment[sr]=Чека поруке од локалних корисника послатих помоћу write(1) или wall(1)
+-Comment[sr@Latn]=Чека поруке од локалних корисника послатих помоћу write(1) или wall(1)
++Comment[sr@Latn]=Čeka poruke od lokalnih korisnika poslatih pomoću write(1) ili wall(1)
+ Comment[sv]=Titta efter meddelanden från lokala användare som skickas med write(1) eller wall(1)
+ Comment[ta]=உள் பயனர் அணுப்பியதுடன் write(1) or wall(1) அதிலிருந்து பார்க்கவேண்டிய தகவல்கள்
+ Comment[tr]=Yerel kullanıcılarda write(1) veya wall(1) ile gönderilmiş mesajları izle
+diff -urN -x CVS kdebase.orig/kscreensaver/KBlankscreen.desktop kdebase/kscreensaver/KBlankscreen.desktop
+--- kdebase.orig/kscreensaver/KBlankscreen.desktop	Thu Sep 30 16:02:33 2004
++++ kdebase/kscreensaver/KBlankscreen.desktop	Mon Oct  4 15:23:44 2004
+@@ -179,7 +179,7 @@
+ Name[sk]=Zobraziť v zadanom okne
+ Name[sl]=Prikaz v določenemu oknu
+ Name[sr]=Прикажи у задатом прозору
+-Name[sr@Latn]=Прикажи у задатом прозору
++Name[sr@Latn]=Prikaži u zadatom prozoru
+ Name[sv]=Visa i angivet fönster
+ Name[ta]=குறிப்பிடப்பட்ட சாளரத்தில் காட்டு
+ Name[tr]=Belirtilen Pencerede Göster
+@@ -223,7 +223,7 @@
+ Name[sk]=Zobraziť v koreňovom okne
+ Name[sl]=Prikaz v korenskem oknu
+ Name[sr]=Прикажи у кореном прозору
+-Name[sr@Latn]=Прикажи у кореном прозору
++Name[sr@Latn]=Prikaži u korenom prozoru
+ Name[sv]=Visa i rotfönstret
+ Name[ta]=மூல சாளரத்தில் காட்டு
+ Name[tr]=Kök Pencerede Göster
+diff -urN -x CVS kdebase.orig/kscreensaver/KRandom.desktop kdebase/kscreensaver/KRandom.desktop
+--- kdebase.orig/kscreensaver/KRandom.desktop	Thu Sep 30 16:02:33 2004
++++ kdebase/kscreensaver/KRandom.desktop	Mon Oct  4 15:23:44 2004
+@@ -179,7 +179,7 @@
+ Name[sk]=Zobraziť v zadanom okne
+ Name[sl]=Prikaz v določenemu oknu
+ Name[sr]=Прикажи у задатом прозору
+-Name[sr@Latn]=Прикажи у задатом прозору
++Name[sr@Latn]=Prikaži u zadatom prozoru
+ Name[sv]=Visa i angivet fönster
+ Name[ta]=குறிப்பிடப்பட்ட சாளரத்தில் காட்டு
+ Name[tr]=Belirtilen Pencerede Göster
+@@ -223,7 +223,7 @@
+ Name[sk]=Zobraziť v koreňovom okne
+ Name[sl]=Prikaz v korenskem oknu
+ Name[sr]=Прикажи у кореном прозору
+-Name[sr@Latn]=Прикажи у кореном прозору
++Name[sr@Latn]=Prikaži u korenom prozoru
+ Name[sv]=Visa i rotfönstret
+ Name[ta]=மூல சாளரத்தில் காட்டு
+ Name[tr]=Kök Pencerede Göster
+diff -urN -x CVS kdebase.orig/ksplashml/themeengine/default/ksplashdefault.desktop kdebase/ksplashml/themeengine/default/ksplashdefault.desktop
+--- kdebase.orig/ksplashml/themeengine/default/ksplashdefault.desktop	Fri Sep 17 15:48:14 2004
++++ kdebase/ksplashml/themeengine/default/ksplashdefault.desktop	Mon Oct  4 15:23:47 2004
+@@ -41,7 +41,7 @@
+ Comment[sk]=Module pre KSplash
+ Comment[sl]=Vstavek KSplash
+ Comment[sr]=KSplash прикључак
+-Comment[sr@Latn]=KSplash dodatak
++Comment[sr@Latn]=KSplash priključak
+ Comment[sv]=Insticksprogram för startskärm
+ Comment[ta]=Kஸ்ப்ளாஷ் செருகு பொருள்
+ Comment[tg]=Мутассалкунандаи KSplash
+diff -urN -x CVS kdebase.orig/ksplashml/themeengine/redmond/ksplashredmond.desktop kdebase/ksplashml/themeengine/redmond/ksplashredmond.desktop
+--- kdebase.orig/ksplashml/themeengine/redmond/ksplashredmond.desktop	Fri Sep 17 15:48:14 2004
++++ kdebase/ksplashml/themeengine/redmond/ksplashredmond.desktop	Mon Oct  4 15:23:47 2004
+@@ -41,7 +41,7 @@
+ Comment[sk]=Module pre KSplash
+ Comment[sl]=Vstavek KSplash
+ Comment[sr]=KSplash прикључак
+-Comment[sr@Latn]=KSplash dodatak
++Comment[sr@Latn]=KSplash priključak
+ Comment[sv]=Insticksprogram för startskärm
+ Comment[ta]=Kஸ்ப்ளாஷ் செருகு பொருள்
+ Comment[tg]=Мутассалкунандаи KSplash
+diff -urN -x CVS kdebase.orig/ksplashml/themeengine/standard/ksplashstandard.desktop kdebase/ksplashml/themeengine/standard/ksplashstandard.desktop
+--- kdebase.orig/ksplashml/themeengine/standard/ksplashstandard.desktop	Fri Sep 17 15:48:15 2004
++++ kdebase/ksplashml/themeengine/standard/ksplashstandard.desktop	Mon Oct  4 15:23:48 2004
+@@ -41,7 +41,7 @@
+ Comment[sk]=Module pre KSplash
+ Comment[sl]=Vstavek KSplash
+ Comment[sr]=KSplash прикључак
+-Comment[sr@Latn]=KSplash dodatak
++Comment[sr@Latn]=KSplash priključak
+ Comment[sv]=Insticksprogram för startskärm
+ Comment[ta]=Kஸ்ப்ளாஷ் செருகு பொருள்
+ Comment[tg]=Мутассалкунандаи KSplash
+diff -urN -x CVS kdebase.orig/kstart/kstart.cpp kdebase/kstart/kstart.cpp
+--- kdebase.orig/kstart/kstart.cpp	Fri Oct  1 14:59:04 2004
++++ kdebase/kstart/kstart.cpp	Wed Oct  6 12:11:08 2004
+@@ -105,7 +105,8 @@
+             + ( windowclass.contains( ' ' ) ? "true" : "false" ) + "\n";
+     if( windowtitle || windowclass ) {
+         // always ignore these window types
+-        message += "types=" + QCString().setNum( -1U & ~( NET::TopMenuMask | NET::ToolbarMask | NET::DesktopMask )) + "\n";
++        message += "types=" + QCString().setNum( -1U &
++            ~( NET::TopMenuMask | NET::ToolbarMask | NET::DesktopMask | NET::SplashMask | NET::MenuMask )) + "\n";
+     } else {
+         // accept only "normal" windows
+         message += "types=" + QCString().setNum( NET::NormalMask | NET::DialogMask ) + "\n";
+diff -urN -x CVS kdebase.orig/ksysguard/example/eventsrc kdebase/ksysguard/example/eventsrc
+--- kdebase.orig/ksysguard/example/eventsrc	Thu Sep 30 16:02:36 2004
++++ kdebase/ksysguard/example/eventsrc	Mon Oct  4 15:23:50 2004
+@@ -134,7 +134,7 @@
+ Comment[sk]=Nájdené podľa vzorky
+ Comment[sl]=Iskalni vzorec se ujema
+ Comment[sr]=Подударан узорак је пронађен
+-Comment[sr@Latn]=Подударан узорак је пронађен
++Comment[sr@Latn]=Podudaran uzorak je pronađen
+ Comment[sv]=Sökmönster igenkänt
+ Comment[ta]=மாதிரி பொருத்தத்தை தேடு
+ Comment[tr]=Eşleşen örüntüyü ara
+diff -urN -x CVS kdebase.orig/ktip/ktip.desktop kdebase/ktip/ktip.desktop
+--- kdebase.orig/ktip/ktip.desktop	Thu Sep 30 16:02:39 2004
++++ kdebase/ktip/ktip.desktop	Mon Oct  4 15:23:52 2004
+@@ -37,7 +37,7 @@
+ Name[sk]=Šikovné tipy
+ Name[sl]=Uporabni namigi
+ Name[sr]=Корисни савети
+-Name[sr@Latn]=Корисни савети
++Name[sr@Latn]=Korisni saveti
+ Name[sv]=Nyttiga tips
+ Name[ta]=பயனுள்ள குறிப்பு
+ Name[tr]=Kullanıabilir İpuçları
+diff -urN -x CVS kdebase.orig/kwin/activation.cpp kdebase/kwin/activation.cpp
+--- kdebase.orig/kwin/activation.cpp	Mon Aug 16 15:50:49 2004
++++ kdebase/kwin/activation.cpp	Wed Oct  6 16:05:45 2004
+@@ -451,6 +451,7 @@
+ void Workspace::setShouldGetFocus( Client* c )
+     {
+     should_get_focus.append( c );
++    updateStackingOrder(); // e.g. fullscreens have different layer when active/not-active
+     }
+ 
+ // focus_in -> the window got FocusIn event
+diff -urN -x CVS kdebase.orig/kwin/client.cpp kdebase/kwin/client.cpp
+--- kdebase.orig/kwin/client.cpp	Wed Aug 25 13:50:14 2004
++++ kdebase/kwin/client.cpp	Wed Oct  6 16:05:45 2004
+@@ -173,6 +173,7 @@
+  */
+ void Client::releaseWindow( bool on_shutdown )
+     {
++    StackingUpdatesBlocker blocker( workspace());
+     if (moveResizeMode)
+        leaveMoveResize();
+     finishWindowRules();
+@@ -221,6 +222,7 @@
+ // (e.g. the application closed it)
+ void Client::destroyClient()
+     {
++    StackingUpdatesBlocker blocker( workspace());
+     if (moveResizeMode)
+        leaveMoveResize();
+     finishWindowRules();
+diff -urN -x CVS kdebase.orig/kwin/events.cpp kdebase/kwin/events.cpp
+--- kdebase.orig/kwin/events.cpp	Tue Aug  3 11:21:18 2004
++++ kdebase/kwin/events.cpp	Tue Oct  5 17:47:24 2004
+@@ -114,7 +114,7 @@
+         if( src != NET::FromApplication && src != FromTool )
+             src = NET::FromTool;
+         if( src == NET::FromTool )
+-            workspace->activateClient( c );
++            workspace->activateClient( c, true ); // force
+         else // NET::FromApplication
+             {
+             Client* c2;
+diff -urN -x CVS kdebase.orig/kwin/eventsrc kdebase/kwin/eventsrc
+--- kdebase.orig/kwin/eventsrc	Fri Oct  1 15:54:01 2004
++++ kdebase/kwin/eventsrc	Mon Oct  4 15:23:54 2004
+@@ -170,7 +170,7 @@
+ Comment[sk]=Je zvolená virtuálna plocha 1
+ Comment[sl]=Izbrano je prvo navidezno namizje
+ Comment[sr]=Изабрана је прва виртуелна радна површина
+-Comment[sr@Latn]=Изабрана је прва виртуелна радна површина
++Comment[sr@Latn]=Izabrana je prva virtuelna radna površina
+ Comment[sv]=Virtuellt skrivbord ett är valt
+ Comment[ta]=மெய்நிகர் மேல்மேசை ஒன்று தேர்ந்தெடுக்கப்பட்டது
+ Comment[tr]=Sanal masaüstü bir seçili
+@@ -282,7 +282,7 @@
+ Comment[sk]=Je zvolená virtuálna plocha 2
+ Comment[sl]=Izbrano je drugo navidezno namizje
+ Comment[sr]=Изабрана је друга виртуелна радна површина
+-Comment[sr@Latn]=Изабрана је друга виртуелна радна површина
++Comment[sr@Latn]=Izabrana je druga virtuelna radna površina
+ Comment[sv]=Virtuellt skrivbord två är valt
+ Comment[ta]=மெய்நிகர் மேல்மேசை இரண்டு தேர்ந்தெடுக்கப்பட்டது
+ Comment[tr]=Sanal masaüstü iki seçili
+@@ -394,7 +394,7 @@
+ Comment[sk]=Je zvolená virtuálna plocha 3
+ Comment[sl]=Izbrano je tretje navidezno namizje
+ Comment[sr]=Изабрана је трећа виртуелна радна површина
+-Comment[sr@Latn]=Изабрана је трећа виртуелна радна површина
++Comment[sr@Latn]=Izabrana je treća virtuelna radna površina
+ Comment[sv]=Virtuellt skrivbord tre är valt
+ Comment[ta]=மெய்நிகர் மேல்மேசை மூன்று தேர்ந்தெடுக்கப்பட்டது
+ Comment[tr]=Sanal masaüstü üç seçili
+@@ -506,7 +506,7 @@
+ Comment[sk]=Je zvolená virtuálna plocha 4
+ Comment[sl]=Izbrano je četrto navidezno namizje
+ Comment[sr]=Изабрана је четврта виртуелна радна површина
+-Comment[sr@Latn]=Изабрана је четврта виртуелна радна површина
++Comment[sr@Latn]=Izabrana je četvrta virtuelna radna površina
+ Comment[sv]=Virtuellt skrivbord fyra är valt
+ Comment[ta]=மெய்நிகர் மேல்மேசை நான்கு தேர்ந்தெடுக்கப்பட்டது
+ Comment[tr]=Sanal masaüstü dört seçili
+@@ -618,7 +618,7 @@
+ Comment[sk]=Je zvolená virtuálna plocha 5
+ Comment[sl]=Izbrano je peto navidezno namizje
+ Comment[sr]=Изабрана је пета виртуелна радна површина
+-Comment[sr@Latn]=Изабрана је пета виртуелна радна површина
++Comment[sr@Latn]=Izabrana je peta virtuelna radna površina
+ Comment[sv]=Virtuellt skrivbord fem är valt
+ Comment[ta]=மெய்நிகர் மேல்மேசை ஐந்து தேர்ந்தெடுக்கப்பட்டது
+ Comment[tr]=Sanal masaüstü beş seçili
+@@ -730,7 +730,7 @@
+ Comment[sk]=Je zvolená virtuálna plocha 6
+ Comment[sl]=Izbrano je šesto navidezno namizje
+ Comment[sr]=Изабрана је шеста виртуелна радна површина
+-Comment[sr@Latn]=Изабрана је шеста виртуелна радна површина
++Comment[sr@Latn]=Izabrana je šesta virtuelna radna površina
+ Comment[sv]=Virtuellt skrivbord sex är valt
+ Comment[ta]=மெய்நிகர் மேல்மேசை ஆறு தேர்ந்தெடுக்கப்பட்டது
+ Comment[tr]=Sanal masaüstü altı seçili
+@@ -842,7 +842,7 @@
+ Comment[sk]=Je zvolená virtuálna plocha 7
+ Comment[sl]=Izbrano je sedmo navidezno namizje
+ Comment[sr]=Изабрана је седма виртуелна радна површина
+-Comment[sr@Latn]=Изабрана је седма виртуелна радна површина
++Comment[sr@Latn]=Izabrana je sedma virtuelna radna površina
+ Comment[sv]=Virtuellt skrivbord sju är valt
+ Comment[ta]=மெய்நிகர் மேல்மேசை ஏழு தேர்ந்தெடுக்கப்பட்டது
+ Comment[tr]=Sanal masaüstü yedi seçili
+@@ -954,7 +954,7 @@
+ Comment[sk]=Je zvolená virtuálna plocha 8
+ Comment[sl]=Izbrano je osmo navidezno namizje
+ Comment[sr]=Изабрана је осма виртуелна радна површина
+-Comment[sr@Latn]=Изабрана је осма виртуелна радна површина
++Comment[sr@Latn]=Izabrana je osma virtuelna radna površina
+ Comment[sv]=Virtuellt skrivbord åtta är valt
+ Comment[ta]=மெய்நிகர் மேல்மேசை எட்டு தேர்ந்தெடுக்கப்பட்டது
+ Comment[tr]=Sanal masaüstü sekiz seçili
+@@ -1065,7 +1065,7 @@
+ Comment[sk]=Iné okno je už aktívne
+ Comment[sl]=Aktivno je drugo okno
+ Comment[sr]=Активиран је други прозор
+-Comment[sr@Latn]=Активиран је други прозор
++Comment[sr@Latn]=Aktiviran je drugi prozor
+ Comment[sv]=Ett annat fönster är aktiverat
+ Comment[ta]=மற்றொரு சாளரம் செயலாக்கப்படது
+ Comment[tr]=Başka bir pencere etkinleştirildi
+@@ -1177,7 +1177,7 @@
+ Comment[sk]=Nové okno
+ Comment[sl]=Novo okno
+ Comment[sr]=Нови прозор
+-Comment[sr@Latn]=Нови прозор
++Comment[sr@Latn]=Novi prozor
+ Comment[sv]=Nytt fönster
+ Comment[ta]=புது சாளரம்
+ Comment[tr]=Yeni pencere
+@@ -1290,7 +1290,7 @@
+ Comment[sk]=Odstrániť okno
+ Comment[sl]=Zbriši okno
+ Comment[sr]=Прозор се брише
+-Comment[sr@Latn]=Прозор се брише
++Comment[sr@Latn]=Prozor se briše
+ Comment[sv]=Ta bort fönster
+ Comment[ta]=சாளரத்தை நீக்கு
+ Comment[tr]=Pencereyi sil
+@@ -1401,7 +1401,7 @@
+ Comment[sk]=Okno sa uzavrie
+ Comment[sl]=Zapre se okno
+ Comment[sr]=Прозор се затвара
+-Comment[sr@Latn]=Прозор се затвара
++Comment[sr@Latn]=Prozor se zatvara
+ Comment[sv]=Ett fönster stängs
+ Comment[ta]=சாளரம் மூடுகிறது
+ Comment[tr]=Bir pencere kapatıldı
+@@ -1510,7 +1510,7 @@
+ Comment[sk]=Okno je zabalené
+ Comment[sl]=Okno je zvito
+ Comment[sr]=Прозор је намотан
+-Comment[sr@Latn]=Прозор је намотан
++Comment[sr@Latn]=Prozor je namotan
+ Comment[sv]=Ett fönster rullas upp
+ Comment[ta]=சாளரம் நிழலிடப்பட்டுள்ளது.
+ Comment[tr]=Pencere yukarı gizlendi
+@@ -1618,7 +1618,7 @@
+ Comment[sk]=Okno je rozbalené
+ Comment[sl]=Okno je razvito
+ Comment[sr]=Прозор је одмотан
+-Comment[sr@Latn]=Прозор је одмотан
++Comment[sr@Latn]=Prozor je odmotan
+ Comment[sv]=Ett fönster rullas ner
+ Comment[ta]=சாளரமொன்று நிழலிடப்பட்டது
+ Comment[tr]=Pencere aşağı gizlendi
+@@ -1717,7 +1717,7 @@
+ Comment[sk]=Okno je minimalizované
+ Comment[sl]=Okno je pomanjšano
+ Comment[sr]=Прозор је минимизован
+-Comment[sr@Latn]=Прозор је минимизован
++Comment[sr@Latn]=Prozor je minimizovan
+ Comment[sv]=Ett fönster minimeras
+ Comment[ta]=சாளரம் சிறிதாக்கப்பட்டுள்ளது
+ Comment[tr]=Bir pencere simge haline getirildi
+@@ -1812,7 +1812,7 @@
+ Comment[sk]=Okno je obnovené
+ Comment[sl]=Okno je povrnjeno
+ Comment[sr]=Прозор је обновљен
+-Comment[sr@Latn]=Прозор је обновљен
++Comment[sr@Latn]=Prozor je obnovljen
+ Comment[sv]=Ett fönster återställs
+ Comment[ta]=சாளரமொன்று மீளமைக்கப்பட்டது
+ Comment[tr]=Bir pencere eski boyutuna getirildi
+@@ -1926,7 +1926,7 @@
+ Comment[sk]=Okno je maximalizované
+ Comment[sl]=Okno je razpeto
+ Comment[sr]=Прозор је максимизован
+-Comment[sr@Latn]=Прозор је максимизован
++Comment[sr@Latn]=Prozor je maksimizovan
+ Comment[sv]=Ett fönster maximeras
+ Comment[ta]=சாளரம் பெரிதாக்கப்பட்டுள்ளது
+ Comment[tr]=Bir pencere büyütüldü
+@@ -2037,7 +2037,7 @@
+ Comment[sk]=Okno nie je maximalizované
+ Comment[sl]=Okno ni več razpeto
+ Comment[sr]=Прозор више није максимизован
+-Comment[sr@Latn]=Прозор више није максимизован
++Comment[sr@Latn]=Prozor više nije maksimizovan
+ Comment[sv]=Ett fönster förlorar maximering
+ Comment[ta]=சாளரம் பெரிதாவதை இழந்தது
+ Comment[tr]=Bir pencere büyümesini kaybetti
+@@ -2132,7 +2132,7 @@
+ Comment[sk]=Okno bude viditeľné na všetkých plochách
+ Comment[sl]=Okno je vidno na vseh namizjih
+ Comment[sr]=Прозор је учињен видљивим на свим радним површинама
+-Comment[sr@Latn]=Прозор је учињен видљивим на свим радним површинама
++Comment[sr@Latn]=Prozor je učinjen vidljivim na svim radnim površinama
+ Comment[sv]=Ett fönster görs synligt på alla skrivbord
+ Comment[ta]=சாளரத்தை அனைத்து மேல்மேசையிலும் பார்க்க முடியும்
+ Comment[tr]=Bir pencere tüm masaüstlerinde görünür hale getirildi
+@@ -2226,7 +2226,7 @@
+ Comment[sk]=Okno už nebude viditeľné na všetkých plochách
+ Comment[sl]=Okno ni več vidno na vseh namizjih
+ Comment[sr]=Прозор више није видљив на свим радним површинама
+-Comment[sr@Latn]=Прозор више није видљив на свим радним површинама
++Comment[sr@Latn]=Prozor više nije vidljiv na svim radnim površinama
+ Comment[sv]=Ett fönster blir inte längre synligt på alla skrivbord
+ Comment[ta]=அனைத்து மேல்மேசையிலும் சாளரம் தெரியாது
+ Comment[tr]=Bir pencere tüm masaüstlerinde gizli hale getirildi
+@@ -2336,7 +2336,7 @@
+ Comment[sk]=Objavilo sa dočasné dialógové okno
+ Comment[sl]=Odprlo se je prehodno (pogovorno) okno
+ Comment[sr]=Пролазни прозор (дијалог) се појављује
+-Comment[sr@Latn]=Пролазни прозор (дијалог) се појављује
++Comment[sr@Latn]=Prolazni prozor (dijalog) se pojavljuje
+ Comment[sv]=Ett tillfälligt fönster (en dialogruta) dyker upp
+ Comment[ta]=தற்காலிக சாளரம் (ஒரு உரையாடல்) தோன்றுகிறது
+ Comment[tr]=Bir iletişim kutusu belirdi
+@@ -2446,7 +2446,7 @@
+ Comment[sk]=Dočasné dialógové okno je odstránené
+ Comment[sl]=Zaprlo se je prehodno (pogovorno) okno
+ Comment[sr]=Пролазни прозор (дијалог) је уклоњен
+-Comment[sr@Latn]=Пролазни прозор (дијалог) је уклоњен
++Comment[sr@Latn]=Prolazni prozor (dijalog) je uklonjen
+ Comment[sv]=Ett tillfälligt fönster (en dialogruta) försvinner
+ Comment[ta]=தற்காலிக சாளரம்(உரையாடல் பெட்டி) நீக்கப்பட்டது
+ Comment[tr]=Bir iletişim kutusu kaldırıldı
+@@ -2555,7 +2555,7 @@
+ Comment[sk]=Začal sa presun okna
+ Comment[sl]=Okno se je pričelo premikati
+ Comment[sr]=Прозор је почео са премештањем
+-Comment[sr@Latn]=Прозор је почео са премештањем
++Comment[sr@Latn]=Prozor je počeo sa premeštanjem
+ Comment[sv]=Ett fönster har börjat flyttas
+ Comment[ta]=சாளரம் நகர ஆரம்பித்தது
+ Comment[tr]=Bir pencere hareket etmeye başladı
+@@ -2663,7 +2663,7 @@
+ Comment[sk]=Presun okna je ukončený
+ Comment[sl]=Okno se je prenehalo premikati
+ Comment[sr]=Прозор је завршио премештање
+-Comment[sr@Latn]=Прозор је завршио премештање
++Comment[sr@Latn]=Prozor je završio premeštanje
+ Comment[sv]=Ett fönster har flyttats klart
+ Comment[ta]=நகர்த்துவதன் மூலம் சாளரம் முழுமையடைந்தது.
+ Comment[tr]=Bir pencere hareketini tamamladı
+@@ -2771,7 +2771,7 @@
+ Comment[sk]=Začala zmena veľkosti okna
+ Comment[sl]=Spreminjanje velikosti okna se je začelo
+ Comment[sr]=Прозор је почео мењање величине
+-Comment[sr@Latn]=Прозор је почео мењање величине
++Comment[sr@Latn]=Prozor je počeo menjanje veličine
+ Comment[sv]=Storleksändring av ett fönster har påbörjats
+ Comment[ta]=சாளரத்தின் அளவு மாறத்துவங்குகிறது
+ Comment[tr]=Bir pencere yeniden boyutlandırılmaya başladı
+@@ -2879,7 +2879,7 @@
+ Comment[sk]=Zmena veľkosti okna je ukončená
+ Comment[sl]=Spreminjanje velikosti okna je končano
+ Comment[sr]=Прозор је завршио промену величине
+-Comment[sr@Latn]=Прозор је завршио промену величине
++Comment[sr@Latn]=Prozor je završio promenu veličine
+ Comment[sv]=Storleksändring av ett fönster har avslutats
+ Comment[ta]=சாளரத்தின் அளவு மாற்றுதல் முடிந்தது
+ Comment[tr]=Bir pencerenin yeniden boyutlandırma işlemi bitti
+diff -urN -x CVS kdebase.orig/kwin/geometry.cpp kdebase/kwin/geometry.cpp
+--- kdebase.orig/kwin/geometry.cpp	Thu Aug 26 12:34:59 2004
++++ kdebase/kwin/geometry.cpp	Tue Oct 12 17:00:12 2004
+@@ -1978,7 +1978,20 @@
+     QPainter p ( workspace()->desktopWidget() );
+     p.setPen( QPen( Qt::white, 5 ) );
+     p.setRasterOp( Qt::XorROP );
+-    p.drawRect( geom );
++    // the line is 5 pixel thick, so compensate for the extra two pixels
++    // on outside (#88657)
++    QRect g = geom;
++    if( g.width() > 5 )
++        {
++        g.setLeft( g.left() + 2 );
++        g.setRight( g.right() - 2 );
++        }
++    if( g.height() > 5 )
++        {
++        g.setTop( g.top() + 2 );
++        g.setBottom( g.bottom() - 2 );
++        }
++    p.drawRect( g );
+     }
+ 
+ void Client::positionGeometryTip()
+diff -urN -x CVS kdebase.orig/kwin/kcmkwin/kwinoptions/kwinmoving.desktop kdebase/kwin/kcmkwin/kwinoptions/kwinmoving.desktop
+--- kdebase.orig/kwin/kcmkwin/kwinoptions/kwinmoving.desktop	Fri Sep 17 15:48:23 2004
++++ kdebase/kwin/kcmkwin/kwinoptions/kwinmoving.desktop	Tue Oct  5 15:19:49 2004
+@@ -14,6 +14,7 @@
+ Name[ar]=تحريك
+ Name[bg]=Преместване
+ Name[bn]=সরানো হচ্ছে
++Name[br]=O tilech'iañ
+ Name[bs]=Pomjeranje
+ Name[ca]=Movent
+ Name[cs]=Přesouvání
+diff -urN -x CVS kdebase.orig/kwin/kcmkwin/kwinoptions/kwinoptions.desktop kdebase/kwin/kcmkwin/kwinoptions/kwinoptions.desktop
+--- kdebase.orig/kwin/kcmkwin/kwinoptions/kwinoptions.desktop	Fri Oct  1 15:54:02 2004
++++ kdebase/kwin/kcmkwin/kwinoptions/kwinoptions.desktop	Mon Oct  4 15:23:55 2004
+@@ -114,7 +114,7 @@
+ Comment[sk]=Nastavenie chovania okna
+ Comment[sl]=Nastavite obnašanje brskalnika
+ Comment[sr]=Подешавање понашања прозора
+-Comment[sr@Latn]=Подешавање понашања прозора
++Comment[sr@Latn]=Podešavanje ponašanja prozora
+ Comment[sv]=Anpassa fönsterbeteende
+ Comment[ta]=º¡ÇÃò¾¢ý Àñ¨À ¯ûÇ¨Á
+ Comment[tr]=Pencere davranışlarını yapılandır
+@@ -155,7 +155,7 @@
+ Keywords[sk]=fokus,umiestnenie,chovanie okien,animácia,zdvihnutie,automatické zdvihnutie,titulok,dvojité kliknutie,rámec,okná
+ Keywords[sl]=fokus,postavitev,obnašanje okna,animacija,dvigni,okna,okvir,naslovna vrstica,dvojni klik
+ Keywords[sr]=focus,placement,window behaviour,animation,raise,ауто raise,windows,frame,titlebar,doubleclick,фокус,понашање прозора,анимација,прозори,оквир,насловна линија,двоклик
+-Keywords[sr@Latn]=focus,placement,window behaviour,animation,raise,ауто raise,windows,frame,titlebar,doubleclick,фокус,понашање прозора,анимација,прозори,оквир,насловна линија,двоклик
++Keywords[sr@Latn]=focus,placement,window behaviour,animation,raise,auto raise,windows,frame,titlebar,doubleclick,fokus,ponašanje prozora,animacija,prozori,okvir,naslovna linija,dvoklik
+ Keywords[sv]=fokus,placering,fönsterbeteende,animering,höj, autohöj,fönster,kant,namnlist,dubbelklick
+ Keywords[ta]=பார்வை,இடம்,சாளரபண்பு,உயிர்சித்திரம்,மேலெழுப்பு, தானாக மேலெழுப்பு,சாளரங்கள்,சட்டம்,தலைப்புப்பட்டி,இரண்டு சொடுக்கு
+ Keywords[tr]=odak,odak davranış biçimi,pencere yerleşimi,pencere davranışı,Yerleşim davranış biçimi,animasyon,kaldır,otomatik kaldır,çerçeve,çift tıkla
+diff -urN -x CVS kdebase.orig/kwin/kcmkwin/kwinrules/kwinrules.desktop kdebase/kwin/kcmkwin/kwinrules/kwinrules.desktop
+--- kdebase.orig/kwin/kcmkwin/kwinrules/kwinrules.desktop	Fri Oct  1 15:54:02 2004
++++ kdebase/kwin/kcmkwin/kwinrules/kwinrules.desktop	Mon Oct  4 15:23:55 2004
+@@ -41,7 +41,7 @@
+ Name[sk]=Jednotlivé okná
+ Name[sl]=Nastavitve glede na okno
+ Name[sr]=Посебне поставке за прозор
+-Name[sr@Latn]=Посебне поставке за прозор
++Name[sr@Latn]=Posebne postavke za prozor
+ Name[sv]=Fönsterspecifika inställningar
+ Name[ta]=அச்சியந்திர அமைப்புகள்
+ Name[tr]=Pencere Özel Seçenekleri
+@@ -81,7 +81,7 @@
+ Comment[sk]=Nastavenie pre jednotlivé okná
+ Comment[sl]=Nastavite možnosti glede na posamezno okno
+ Comment[sr]=Подешавање поставки посебно за прозор
+-Comment[sr@Latn]=Подешавање поставки посебно за прозор
++Comment[sr@Latn]=Podešavanje postavki posebno za prozor
+ Comment[sv]=Anpassa inställningar specifikt för ett fönster
+ Comment[ta]=KDE செயல்திறனை அதிகப்படுத்தும் அமைப்புகளை அமை
+ Comment[tr]=Bir pencere için özel olan seçenekleri yapılandır
+@@ -119,7 +119,7 @@
+ Keywords[sk]=veľkosť,pozícia,stav,chovanie okna,okná,špecifické,jedno okno,opravy,pravidlá
+ Keywords[sl]=velikost,položaj,stanje,obnašanje okna,okna,posebno,obvoz,zapomni,pravila
+ Keywords[sr]=величина,позиција,стање,понашање прозора,прозори,запамти,правила
+-Keywords[sr@Latn]=величина,позиција,стање,понашање прозора,прозори,запамти,правила
++Keywords[sr@Latn]=veličina,pozicija,stanje,ponašanje prozora,prozori,zapamti,pravila
+ Keywords[sv]=storlek,position,tillstånd,fönsterbeteende,fönster,specifik,komma runt,komma ihåg,regler
+ Keywords[ta]=அளவு,நிலை,மாநிலம்,சாளர நடத்தை,சாளரங்கள்,குறிப்பிட்ட,பணிவட்டாரங்கள்,விதிகள்
+ Keywords[tr]=boyut,yer,pozisyon,durum,pencere davranışı,pencereler,özel,çalışma alanı,hatırla,kurallar
+diff -urN -x CVS kdebase.orig/kwin/layers.cpp kdebase/kwin/layers.cpp
+--- kdebase.orig/kwin/layers.cpp	Tue Jul 27 10:48:38 2004
++++ kdebase/kwin/layers.cpp	Wed Oct  6 16:05:45 2004
+@@ -712,14 +712,14 @@
+         return DockLayer;
+     if( isTopMenu())
+         return DockLayer;
+-    // only raise fullscreen above docks if it's the topmost window in unconstrained stacking order,
+-    // i.e. the window set to be topmost by the user
+-    bool raise_special_active_windows = ( workspace()->topClientOnDesktop( desktop(), true ) == this );
+     if( keepAbove())
+         return AboveLayer;
+-    if( isFullScreen() && workspace()->activeClient() != NULL
+-        && ( workspace()->activeClient() == this || this->hasTransient( workspace()->activeClient(), true ))
+-        && raise_special_active_windows )
++    // only raise fullscreen above docks if it's the topmost window in unconstrained stacking order,
++    // i.e. the window set to be topmost by the user (also includes transients of the fullscreen window)
++    const Client* ac = workspace()->mostRecentlyActivatedClient(); // instead of activeClient() - avoids flicker
++    if( isFullScreen() && ac != NULL
++        && workspace()->topClientOnDesktop( desktop(), true ) == ac
++        && ( ac == this || this->hasTransient( ac, true )))
+         return ActiveLayer;
+     return NormalLayer;
+     }
+diff -urN -x CVS kdebase.orig/kwin/lib/kdecoration.h kdebase/kwin/lib/kdecoration.h
+--- kdebase.orig/kwin/lib/kdecoration.h	Wed Jul 28 18:55:42 2004
++++ kdebase/kwin/lib/kdecoration.h	Tue Oct 12 17:00:13 2004
+@@ -596,6 +596,9 @@
+ 	 * This function may be reimplemented to provide custom bound drawing
+ 	 * for transparent moving or resizing of the window.
+ 	 * @a False should be returned if the default implementation should be used.
++         * Note that if you e.g. paint the outline using a 5 pixels wide line,
++         * you should compensate for the 2 pixels that would make the window
++         * look larger.
+ 	 *
+ 	 * @param geom  The geometry at this the bound should be drawn
+ 	 * @param clear @a true if the bound should be cleared
+diff -urN -x CVS kdebase.orig/kwin/tabbox.cpp kdebase/kwin/tabbox.cpp
+--- kdebase.orig/kwin/tabbox.cpp	Thu Aug 26 12:27:43 2004
++++ kdebase/kwin/tabbox.cpp	Thu Oct 14 11:17:20 2004
+@@ -95,7 +95,7 @@
+     while ( c )
+         {
+         if ( ((desktop == -1) || c->isOnDesktop(desktop))
+-             && (!c->isMinimized() || !c->isTransient() || c->isUtility()) && c->wantsTabFocus() )
++             && c->wantsTabFocus() )
+             {
+             if ( start == c )
+                 {
+diff -urN -x CVS kdebase.orig/kwin/workspace.cpp kdebase/kwin/workspace.cpp
+--- kdebase.orig/kwin/workspace.cpp	Thu Aug 26 21:53:35 2004
++++ kdebase/kwin/workspace.cpp	Tue Oct 12 16:56:31 2004
+@@ -1205,7 +1205,7 @@
+     {
+     bool was_on_desktop = c->isOnDesktop( desk ) || c->isOnAllDesktops();
+     c->setDesktop( desk );
+-    if ( c->desktop() == desk ) // no change or desktop forced
++    if ( c->desktop() != desk ) // no change or desktop forced
+         return;
+     desk = c->desktop(); // Client did range checking
+ 
+diff -urN -x CVS kdebase.orig/kxkb/kxkb.cpp kdebase/kxkb/kxkb.cpp
+--- kdebase.orig/kxkb/kxkb.cpp	Mon Jul 12 00:31:57 2004
++++ kdebase/kxkb/kxkb.cpp	Mon Oct 11 01:35:39 2004
+@@ -300,19 +300,26 @@
+ // Activates the keyboard layout specified by 'layout'
+ bool KXKBApp::setLayout(const QString& layout)
+ {
+-    bool res;
++    bool res = false;
+     const char* baseGr = m_includes[layout]; 
+     m_group = m_rules->getGroup(layout, baseGr);
+ 
+-    if (m_compiledLayoutFileNames.contains(layout) && !m_forceSetXKBMap)
++    if ( m_compiledLayoutFileNames.contains(layout) && !m_forceSetXKBMap )
+     {
+         res = m_extension->setCompiledLayout(m_compiledLayoutFileNames[layout]);
+-        m_extension->setGroup(m_group);
++//	kdDebug() << "setting compiled for " << layout << ": " << res << endl;
++        if( res )
++	    m_extension->setGroup(m_group);
+     }
+-    else
++
++    if ( !res ) // try not compiled layout, store compiled if success
+     {
+         res = m_extension->setLayout(m_model, layout, m_variants[layout], m_group, baseGr);
++//	kdDebug() << "setting non-compiled for " << layout << ": " << res << endl;
++        if( res )
++            m_extension->getCompiledLayout(m_compiledLayoutFileNames[layout]);
+     }
++
+     if( res )
+         m_layout = layout;
+     
+@@ -340,16 +347,16 @@
+     for (QStringList::ConstIterator it = m_list.begin(); it != end; ++it)
+     {
+ 	QString layout(*it);
+-	const char* baseGr = m_includes[layout]; 
+-	int group = m_rules->getGroup(layout, baseGr);
+-        if( m_extension->setLayout(m_model, layout, m_variants[layout], group, baseGr) ) {
+-        QString compiledLayoutFileName = tempDir + layout + ".xkm";
+-        if( m_extension->getCompiledLayout(compiledLayoutFileName) )
+-    	    m_compiledLayoutFileNames[layout] = compiledLayoutFileName;
+-	}
+-	else {
+-    	    kdDebug() << "Error precompiling layout " << layout << endl;
+-	}
++//	const char* baseGr = m_includes[layout]; 
++//	int group = m_rules->getGroup(layout, baseGr);
++//    	if( m_extension->setLayout(m_model, layout, m_variants[layout], group, baseGr) ) {
++    	    QString compiledLayoutFileName = tempDir + layout + ".xkm";
++//    	    if( m_extension->getCompiledLayout(compiledLayoutFileName) )
++    		m_compiledLayoutFileNames[layout] = compiledLayoutFileName;
++//	}
++//	else {
++//    	    kdDebug() << "Error precompiling layout " << layout << endl;
++//	}
+     }
+ }
+ 
+diff -urN -x CVS kdebase.orig/kxkb/rules.cpp kdebase/kxkb/rules.cpp
+--- kdebase.orig/kxkb/rules.cpp	Mon Jun 28 16:19:03 2004
++++ kdebase/kxkb/rules.cpp	Mon Oct 11 00:59:59 2004
+@@ -1,3 +1,4 @@
++#include <qwindowdefs.h>
+ #include <qfile.h>
+ #include <qtextstream.h>
+ #include <qregexp.h>
+@@ -42,11 +43,19 @@
+   }
+ 
+   QString rulesFile;
+-  for(int ii=0; ii<2; ii++)
++  Display *dpy = qt_xdisplay();
++  XkbRF_VarDefsRec vd;
++  char *tmp= NULL;
++  if (XkbRF_GetNamesProp(dpy,&tmp,&vd) && tmp) 
++    rulesFile = X11_DIR + QString("xkb/rules/%1").arg(tmp);
++  else {
++    // old way
++    for(int ii=0; ii<2; ii++)
+     if( QFile(X11_DIR + QString(rulesFileList[ii])).exists() ) {
+ 	rulesFile = X11_DIR + rulesFileList[ii];
+ 	break;
+     }
++  }
+ 
+   if( rulesFile.isEmpty() ) {
+     kdDebug() << "Cannot find rules file in " << X11_DIR << endl;
+diff -urN -x CVS kdebase.orig/l10n/cd/entry.desktop kdebase/l10n/cd/entry.desktop
+--- kdebase.orig/l10n/cd/entry.desktop	Thu Sep 30 16:02:54 2004
++++ kdebase/l10n/cd/entry.desktop	Mon Oct  4 15:24:01 2004
+@@ -33,7 +33,7 @@
+ Name[sk]=Demokratická Republika Kongo
+ Name[sl]=Kongo, demokratična republika
+ Name[sr]=Конго, Демократска Република
+-Name[sr@Latn]=Конго, Демократска Република
++Name[sr@Latn]=Kongo, Demokratska Republika
+ Name[sv]=Demokratiska republiken Kongo
+ Name[ta]=கான்கோ, குடியரசு
+ Name[tr]=Demokratik Kongo Cumhuriyeti
+diff -urN -x CVS kdebase.orig/l10n/centralafrica.desktop kdebase/l10n/centralafrica.desktop
+--- kdebase.orig/l10n/centralafrica.desktop	Thu Sep 30 16:02:53 2004
++++ kdebase/l10n/centralafrica.desktop	Mon Oct  4 15:24:01 2004
+@@ -32,7 +32,7 @@
+ Name[sk]=Stredná Afrika
+ Name[sl]=Afrika, Srednja
+ Name[sr]=Африка, централна
+-Name[sr@Latn]=Африка, централна
++Name[sr@Latn]=Afrika, centralna
+ Name[sv]=Afrika, central
+ Name[ta]=ஆப்பிரிக்கா, மையப்படுத்தப்பட்ட
+ Name[tr]=Orta Afrika
+diff -urN -x CVS kdebase.orig/l10n/centralasia.desktop kdebase/l10n/centralasia.desktop
+--- kdebase.orig/l10n/centralasia.desktop	Thu Sep 30 16:02:53 2004
++++ kdebase/l10n/centralasia.desktop	Mon Oct  4 15:24:01 2004
+@@ -31,7 +31,7 @@
+ Name[sk]=Stredná Ázia
+ Name[sl]=Azija, Srednja
+ Name[sr]=Азија, централна
+-Name[sr@Latn]=Азија, централна
++Name[sr@Latn]=Azija, centralna
+ Name[sv]=Asien, central
+ Name[ta]=ஆசியா, மையப்படுத்தப்பட்ட
+ Name[tr]=Orta Asya
+diff -urN -x CVS kdebase.orig/l10n/eastasia.desktop kdebase/l10n/eastasia.desktop
+--- kdebase.orig/l10n/eastasia.desktop	Thu Sep 30 16:02:53 2004
++++ kdebase/l10n/eastasia.desktop	Mon Oct  4 15:24:01 2004
+@@ -33,7 +33,7 @@
+ Name[sk]=Východná Ázia
+ Name[sl]=Azija, Vzhodna
+ Name[sr]=Азија, источна
+-Name[sr@Latn]=Азија, источна
++Name[sr@Latn]=Azija, istočna
+ Name[sv]=Asien, öst
+ Name[ta]=ஆசியா, கிழக்கு
+ Name[tr]=Doğu Asya
+diff -urN -x CVS kdebase.orig/l10n/fm/entry.desktop kdebase/l10n/fm/entry.desktop
+--- kdebase.orig/l10n/fm/entry.desktop	Thu Sep 30 16:02:54 2004
++++ kdebase/l10n/fm/entry.desktop	Mon Oct  4 15:24:02 2004
+@@ -32,7 +32,7 @@
+ Name[sk]=Spojené štáty Mikronézie
+ Name[sl]=Mikronezija, Združene države
+ Name[sr]=Микронезија, Федерација држава
+-Name[sr@Latn]=Микронезија, Федерација држава
++Name[sr@Latn]=Mikronezija, Federacija država
+ Name[sv]=Mikronesiska federationen
+ Name[ta]=மைக்ரோனிசா, ஒருங்கிணைந்த மாநிலம்
+ Name[tr]=Mikronezya Federasyonu
+diff -urN -x CVS kdebase.orig/l10n/middleeast.desktop kdebase/l10n/middleeast.desktop
+--- kdebase.orig/l10n/middleeast.desktop	Wed Sep 29 16:05:55 2004
++++ kdebase/l10n/middleeast.desktop	Mon Oct  4 15:24:01 2004
+@@ -33,7 +33,7 @@
+ Name[sk]=Stredný východ
+ Name[sl]=Srednji vzhod
+ Name[sr]=Средњи исток
+-Name[sr@Latn]=Средњи исток
++Name[sr@Latn]=Srednji istok
+ Name[sv]=Mellersta östern
+ Name[ta]=மைய-கிழக்கு
+ Name[tr]=Orta Doğu
+diff -urN -x CVS kdebase.orig/l10n/northafrica.desktop kdebase/l10n/northafrica.desktop
+--- kdebase.orig/l10n/northafrica.desktop	Thu Sep 30 16:02:53 2004
++++ kdebase/l10n/northafrica.desktop	Mon Oct  4 15:24:01 2004
+@@ -33,7 +33,7 @@
+ Name[sk]=Severná Afrika
+ Name[sl]=Afrika, Severna
+ Name[sr]=Африка, северна
+-Name[sr@Latn]=Африка, северна
++Name[sr@Latn]=Afrika, severna
+ Name[sv]=Afrika, nord
+ Name[ta]=ஆப்பிரிக்கா, வடக்கு
+ Name[tr]=Kuzey Afrika
+diff -urN -x CVS kdebase.orig/l10n/southafrica.desktop kdebase/l10n/southafrica.desktop
+--- kdebase.orig/l10n/southafrica.desktop	Thu Sep 30 16:02:53 2004
++++ kdebase/l10n/southafrica.desktop	Mon Oct  4 15:24:01 2004
+@@ -34,7 +34,7 @@
+ Name[sk]=Južná Afrika
+ Name[sl]=Afrika, Južna
+ Name[sr]=Африка, јужна
+-Name[sr@Latn]=Африка, јужна
++Name[sr@Latn]=Afrika, južna
+ Name[sv]=Afrika, syd
+ Name[ta]=ஆப்பிரிக்கா, தென்னிந்திய
+ Name[tr]=Güney Afrika
+diff -urN -x CVS kdebase.orig/l10n/southasia.desktop kdebase/l10n/southasia.desktop
+--- kdebase.orig/l10n/southasia.desktop	Thu Sep 30 16:02:53 2004
++++ kdebase/l10n/southasia.desktop	Mon Oct  4 15:24:01 2004
+@@ -34,7 +34,7 @@
+ Name[sk]=Južná Ázia
+ Name[sl]=Azija, Južna
+ Name[sr]=Азија, јужна
+-Name[sr@Latn]=Азија, јужна
++Name[sr@Latn]=Azija, južna
+ Name[sv]=Asien, syd
+ Name[ta]=ஆசியா, தெற்கு
+ Name[tr]=Güney Asya
+diff -urN -x CVS kdebase.orig/l10n/southeastasia.desktop kdebase/l10n/southeastasia.desktop
+--- kdebase.orig/l10n/southeastasia.desktop	Thu Sep 30 16:02:53 2004
++++ kdebase/l10n/southeastasia.desktop	Mon Oct  4 15:24:01 2004
+@@ -34,7 +34,7 @@
+ Name[sk]=Juhovýchodná Ázia
+ Name[sl]=Azija, Jugovzhodna
+ Name[sr]=Азија, југоисточна
+-Name[sr@Latn]=Азија, југоисточна
++Name[sr@Latn]=Azija, jugoistočna
+ Name[sv]=Asien, sydöst
+ Name[ta]=ஆசியா, தென்-கிழக்கு
+ Name[tr]=Güney Doğu Asya
+diff -urN -x CVS kdebase.orig/l10n/westafrica.desktop kdebase/l10n/westafrica.desktop
+--- kdebase.orig/l10n/westafrica.desktop	Thu Sep 30 16:02:53 2004
++++ kdebase/l10n/westafrica.desktop	Mon Oct  4 15:24:01 2004
+@@ -34,7 +34,7 @@
+ Name[sk]=Západná Afrika
+ Name[sl]=Afrika, Zahodna
+ Name[sr]=Африка, западна
+-Name[sr@Latn]=Африка, западна
++Name[sr@Latn]=Afrika, zapadna
+ Name[sv]=Afrika, västra
+ Name[ta]=ஆப்பிரிக்கா, மேற்கு
+ Name[tr]=Batı Afrika
+diff -urN -x CVS kdebase.orig/libkonq/favicons/favicons.desktop kdebase/libkonq/favicons/favicons.desktop
+--- kdebase.orig/libkonq/favicons/favicons.desktop	Thu Sep 30 16:02:56 2004
++++ kdebase/libkonq/favicons/favicons.desktop	Mon Oct  4 15:24:04 2004
+@@ -93,7 +93,7 @@
+ Comment[sk]=Podpora ikon skratiek
+ Comment[sl]=Podpora ikonam za bližnjice
+ Comment[sr]=Подршка за икону пречице
+-Comment[sr@Latn]=Подршка за икону пречице
++Comment[sr@Latn]=Podrška za ikonu prečice
+ Comment[sv]=Stöd för genvägsikon
+ Comment[ta]=குறுக்கு வழி சின்ன ஆதரவு
+ Comment[tr]=Kısayol simge desteği
+diff -urN -x CVS kdebase.orig/libkonq/konqpopupmenuplugin.desktop kdebase/libkonq/konqpopupmenuplugin.desktop
+--- kdebase.orig/libkonq/konqpopupmenuplugin.desktop	Fri Sep 17 15:48:41 2004
++++ kdebase/libkonq/konqpopupmenuplugin.desktop	Mon Oct  4 15:24:04 2004
+@@ -51,7 +51,7 @@
+ Comment[sk]=Modul pre kontextové menu Konquerora
+ Comment[sl]=Vstavek za Konquerorjev pojavni menu
+ Comment[sr]=Прикључак за Konqueror-ов искачући мени
+-Comment[sr@Latn]=Dodatak za Konqueror-ov iskačući meni
++Comment[sr@Latn]=Priključak za Konqueror-ov iskačući meni
+ Comment[sv]=Insticksprogram för Konquerors popupmeny
+ Comment[ta]=கான்கொரர் தோன்றும் பட்டிக்கான செருகல்கள்
+ Comment[tg]=Мутассалкунандаи меню ҷиҳандаи Konqueror
+diff -urN -x CVS kdebase.orig/nsplugins/khtml_plugins.desktop kdebase/nsplugins/khtml_plugins.desktop
+--- kdebase.orig/nsplugins/khtml_plugins.desktop	Fri Oct  1 15:54:07 2004
++++ kdebase/nsplugins/khtml_plugins.desktop	Mon Oct  4 15:24:06 2004
+@@ -56,7 +56,7 @@
+ Name[sk]=Moduly
+ Name[sl]=Vstavki
+ Name[sr]=Прикључци
+-Name[sr@Latn]=Dodaci
++Name[sr@Latn]=Priključci
+ Name[ss]=Ema- Plugin
+ Name[sv]=Insticksprogram
+ Name[ta]=செருகல்கள்
+@@ -118,7 +118,7 @@
+ Comment[sk]=Nastavenie modulov prehliadača
+ Comment[sl]=Tu lahko nastavite predpomnilnik
+ Comment[sr]=Подешавање претраживачевих прикључака
+-Comment[sr@Latn]=Podešavanje pretraživačevih dodataka
++Comment[sr@Latn]=Podešavanje pretraživačevih priključaka
+ Comment[sv]=Anpassa insticksprogram för webbläsare
+ Comment[ta]= மேலோடியின் செருகல்களை வடிவமைக்கலாம்
+ Comment[tg]=Танзими мутассалкунандаҳои тафсир
