@@ -1,6 +1,6 @@
 %define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		7
+%define		_rel		8
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -661,4 +661,4 @@ fi
 
 %files -n kde-splash-default
 %defattr(644,root,root,755)
-%dir %{_datadir}/apps/ksplash
+%{_datadir}/apps/ksplash/*
