@@ -9,8 +9,8 @@
 #
 
 %define		_state		snapshots
-%define		_ver		3.1.93
-%define		_snap		031126
+%define		_ver		3.1.94
+%define		_snap		031204
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -29,7 +29,7 @@ License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	4efbe651c59b4930abc3480663289031
+# Source0-md5:	753bfde5de073c93440f3d46a16184c3
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -54,9 +54,6 @@ Patch8:		%{name}-konsole_all.patch
 Patch9:		%{name}-nsplugins_dirs.patch
 Patch10:	%{name}-startkde.patch
 Patch11:	%{name}-kcm_fonts.patch
-# TODO
-Patch12:	%{name}-gtkrc.patch
-#
 #Patch14:	%{name}-pldcredits.patch
 #Patch16:	%{name}-kicker_nodesktop.patch
 #Patch17:	%{name}-xfsreload.patch
@@ -341,7 +338,7 @@ Pliki wspólne dla konsole i konsolepart.
 Summary:	KDE Core Apps
 Summary(pl):	Podstawowe aplikacje KDE
 Group:		X11/Applications
-Requires:	applnk >= 1.6.3
+Requires:	applnk >= 1.9.0
 Requires:	kdelibs >= 9:%{version}
 Obsoletes:	%{name} < 8:3.2-0.030428.1
 Obsoletes:	%{name}-kcontrol
@@ -855,9 +852,6 @@ Internet Explorer.
 %patch9 -p1
 %patch10 -p1
 %patch11 -p1
-# TODO
-#%patch12 -p1
-#
 #%patch14 -p1
 #%patch16 -p1
 #%patch17 -p1
@@ -893,7 +887,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	kde_appsdir=%{_applnkdir} \
 	kde_htmldir=%{_kdedocdir}
 
 install -d \
@@ -960,7 +953,7 @@ UseBackgroundTheme=false
 EOF
 
 # Some order with desktop files
-ALD=$RPM_BUILD_ROOT%{_applnkdir}
+ALD=$RPM_BUILD_ROOT%{_datadir}/applnk
 mv $ALD/Help.desktop			$RPM_BUILD_ROOT%{_desktopdir}/kde
 mv $ALD/Home.desktop			$RPM_BUILD_ROOT%{_desktopdir}/kde
 mv $ALD/Kfind.desktop			$RPM_BUILD_ROOT%{_desktopdir}/kde
@@ -1395,7 +1388,6 @@ fi
 %{_datadir}/services/settings.protocol
 %{_datadir}/services/system.protocol
 %{_xdgdatadir}/kde-settings*.directory
-%dir %{_applnkdir}/.hidden
 %{_desktopdir}/kde/language.desktop
 %{_desktopdir}/kde/kcmkded.desktop
 %{_desktopdir}/kde/colors.desktop
@@ -1593,19 +1585,19 @@ fi
 %{_datadir}/wallpapers/seaofconero.jpg
 %{_datadir}/wallpapers/triplegears.jpg
 %{_datadir}/xsessions/kde.desktop
-%{_applnkdir}/.hidden/battery.desktop
-%{_applnkdir}/.hidden/bwarning.desktop
-%{_applnkdir}/.hidden/cwarning.desktop
-%{_applnkdir}/.hidden/kcmkxmlrpcd.desktop
-%{_applnkdir}/.hidden/kwinactions.desktop
-%{_applnkdir}/.hidden/kwinadvanced.desktop
-%{_applnkdir}/.hidden/kwinfocus.desktop
-%{_applnkdir}/.hidden/kwinmoving.desktop
-%{_applnkdir}/.hidden/power.desktop
-%{_applnkdir}/.hidden/randr.desktop
-%{_applnkdir}/.hidden/socks.desktop
-%{_applnkdir}/.hidden/virtualdesktops.desktop
-%{_applnkdir}/.hidden/xinerama.desktop
+%{_datadir}/applnk/.hidden/battery.desktop
+%{_datadir}/applnk/.hidden/bwarning.desktop
+%{_datadir}/applnk/.hidden/cwarning.desktop
+%{_datadir}/applnk/.hidden/kcmkxmlrpcd.desktop
+%{_datadir}/applnk/.hidden/kwinactions.desktop
+%{_datadir}/applnk/.hidden/kwinadvanced.desktop
+%{_datadir}/applnk/.hidden/kwinfocus.desktop
+%{_datadir}/applnk/.hidden/kwinmoving.desktop
+%{_datadir}/applnk/.hidden/power.desktop
+%{_datadir}/applnk/.hidden/randr.desktop
+%{_datadir}/applnk/.hidden/socks.desktop
+%{_datadir}/applnk/.hidden/virtualdesktops.desktop
+%{_datadir}/applnk/.hidden/xinerama.desktop
 %{_desktopdir}/kde/arts.desktop
 %{_desktopdir}/kde/background.desktop
 %{_desktopdir}/kde/bell.desktop
@@ -1903,8 +1895,8 @@ fi
 %{_datadir}/apps/naughtyapplet
 %{_datadir}/autostart/panel.desktop
 %{_datadir}/config/kickerrc
-%{_applnkdir}/.hidden/kicker_config.desktop
-%{_applnkdir}/.hidden/kicker_config_appearance.desktop
+%{_datadir}/applnk/.hidden/kicker_config.desktop
+%{_datadir}/applnk/.hidden/kicker_config_appearance.desktop
 %{_desktopdir}/kde/kcmtaskbar.desktop
 %{_desktopdir}/kde/panel.desktop
 %{_desktopdir}/kde/panel_appearance.desktop
@@ -1982,7 +1974,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/konsole.so
 #%{_datadir}/config/konsolerc
 %{_datadir}/services/konsole-script.desktop
-%{_applnkdir}/.hidden/kcmkonsole.desktop
+%{_datadir}/applnk/.hidden/kcmkonsole.desktop
 %{_desktopdir}/kde/konsole*.desktop
 %{_iconsdir}/*/*/apps/konsole.png
 
@@ -2345,16 +2337,16 @@ fi
 %{_datadir}/servicetypes/konqpopupmenuplugin.desktop
 %{_datadir}/servicetypes/searchprovider.desktop
 %{_datadir}/servicetypes/uasprovider.desktop
-%{_applnkdir}/.hidden/fileappearance.desktop
-%{_applnkdir}/.hidden/filebehavior.desktop
-%{_applnkdir}/.hidden/filepreviews.desktop
-%{_applnkdir}/.hidden/kcmkonq.desktop
-%{_applnkdir}/.hidden/kcmkonqyperformance.desktop
-%{_applnkdir}/.hidden/konqfilemgr.desktop
-%{_applnkdir}/.hidden/konqhtml.desktop
-%{_applnkdir}/.hidden/smb.desktop
+%{_datadir}/applnk/.hidden/fileappearance.desktop
+%{_datadir}/applnk/.hidden/filebehavior.desktop
+%{_datadir}/applnk/.hidden/filepreviews.desktop
+%{_datadir}/applnk/.hidden/kcmkonq.desktop
+%{_datadir}/applnk/.hidden/kcmkonqyperformance.desktop
+%{_datadir}/applnk/.hidden/konqfilemgr.desktop
+%{_datadir}/applnk/.hidden/konqhtml.desktop
+%{_datadir}/applnk/.hidden/smb.desktop
 # Must be here!
-%{_applnkdir}/konqueror.desktop
+%{_datadir}/applnk/konqueror.desktop
 #
 %{_desktopdir}/kde/filebrowser.desktop
 %{_desktopdir}/kde/filetypes.desktop
