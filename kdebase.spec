@@ -1,3 +1,5 @@
+# TODO:
+# - make separate subpackages
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
 Summary(ja):	KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ - ´ðËÜ¥Õ¥¡¥¤¥ë
@@ -6,13 +8,14 @@ Summary(pt_BR):	K Desktop Environment - arquivos básicos
 Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Name:		kdebase
-Version:	2.2.2
-Release:	14
+Version:	3.0.3
+Release:	2
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
-Source1:	%{name}-startkde.sh
+# generated from kde-i18n
+Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 Source2:	kdm.pamd
 Source3:	kdm.init
 Source4:	kdm.Xsession
@@ -25,11 +28,19 @@ Patch3:		%{name}-utmp.patch
 Patch4:		%{name}-nsplugins_dirs.patch
 Patch5:		%{name}-hardcoded_paths.patch
 Patch6:		%{name}-kdm.daemon_output.patch
+Patch7:		%{name}-startkde.patch
+Patch8:		%{name}-dont_merge_old_kdmrc.patch
+Patch9:         %{name}-konsole-defaultfonts.patch
+Patch10:        %{name}-konsoleF1.patch
+Patch11:        %{name}-konsole.patch
+Patch12:        %{name}-linebreaks.patch
+Patch13:        %{name}-ptsname.patch
 %ifnarch sparc sparc64
 BuildRequires:	alsa-lib-devel
 %endif
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
+BuildRequires:	arts-kde-devel
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -45,22 +56,26 @@ BuildRequires:	kdelibs-devel >= %{version}
 BuildRequires:	lame-libs-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
+BuildRequires:	libsmbclient-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool
-BuildRequires:	libvorbis-devel >= 1:1.0
+BuildRequires:	libvorbis-devel
 BuildRequires:	libxml2-devel
+BuildRequires:	libxml2-progs
 BuildRequires:	motif-devel
 BuildRequires:	openssl-devel
 BuildRequires:	pam-devel
-BuildRequires:	qt-devel >= 2.3.0
+BuildRequires:	qt-devel >= 3.0.5
 BuildRequires:	zlib-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
 Prereq:		/sbin/ldconfig
 Prereq:		/usr/X11R6/bin/mkfontdir
 Requires:	applnk
-Requires:	konqueror
+Requires:	kdelibs >= %{version}
+Requires:	kde-splash
+Requires:	konqueror >= %{version}
 Obsoletes:	%{name}-kcontrol
 Obsoletes:	%{name}-khelpcenter
 Obsoletes:	%{name}-konsole
@@ -72,10 +87,28 @@ Obsoletes:	%{name}-kwin
 Obsoletes:	%{name}-kxmlrpc
 Obsoletes:	%{name}-kdesktop
 Obsoletes:	%{name}-kwrite
+Obsoletes:      kde-i18n-Affrikaans kde-i18n-Arabic kde-i18n-Azerbaijani
+Obsoletes:      kde-i18n-Bulgarian kde-i18n-Bosnian kde-i18n-Catalan
+Obsoletes:      kde-i18n-Czech kde-i18n-Danish kde-i18n-German kde-i18n-Greek
+Obsoletes:      kde-i18n-English_UK kde-i18n-Esperanto kde-i18n-Spanish
+Obsoletes:      kde-i18n-Estonian kde-i18n-Finnish kde-i18n-French
+Obsoletes:      kde-i18n-Hebrew kde-i18n-Croatian kde-i18n-Hungarian
+Obsoletes:      kde-i18n-Indonesian kde-i18n-Icelandic kde-i18n-Italian
+Obsoletes:      kde-i18n-Japanese kde-i18n-Korean kde-i18n-Lithuanian
+Obsoletes:      kde-i18n-Latvian kde-i18n-Maltese kde-i18n-Dutch
+Obsoletes:      kde-i18n-Norwegian kde-i18n-Norwegian_Bokmaal
+Obsoletes:      kde-i18n-Norwegian_Nynorsk kde-i18n-Polish kde-i18n-Portugnese
+Obsoletes:      kde-i18n-Brazil_Portugnese kde-i18n-Romanian kde-i18n-Russian
+Obsoletes:      kde-i18n-Slovak kde-i18n-Slovenian kde-i18n-Serbian
+Obsoletes:      kde-i18n-Swedish kde-i18n-Tamil kde-i18n-Thai kde-i18n-Turkish
+Obsoletes:      kde-i18n-Ukrainian kde-i18n-Venda kde-i18n-Vietnamese
+Obsoletes:      kde-i18n-Xhosa kde-i18n-Simplified_Chinese kde-i18n-Chinese
+Obsoletes:      kde-i18n-Zulu
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 %define		_prefix 	/usr/X11R6
+%define		_fontdir 	/usr/share/fonts
 %define		_htmldir	/usr/share/doc/kde/HTML
 %define		_sysconfdir	/etc/X11
 
@@ -93,7 +126,7 @@ KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ÍÑ¤Î´ðËÜ¥¢¥×¥ê¥±¡¼¥·¥ç¥ó¡£
 %description -l pl
 Pliki specyficzne dla ¶rodowiska KDE i wykorzystywane przez g³ówne
 aplikacje KDE. Pakiet zawiera:
-- hierarchiê menu KDE,
+- Hierarchiê menu KDE,
 - kappfinder - skrypt u³awiaj±cy uruchamianie niektórych programów
   spoza KDE
 - krootwm - modu³ wykorzystywany przez kwm i kfm
@@ -121,20 +154,15 @@ kfontmanager, kmenuedit, kappfinder).
 
 %package devel
 Summary:	Include files to develop KDE applications
-Summary(es):	Header files for compiling applications that use kdebase libraries
 Summary(pl):	Pliki nag³ówkowe potrzebne do programowania
 Summary(pt_BR):	Arquivos de inclusão para compilar aplicativos que usem bibliotecas do kdebase
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}
-Requires:	qt-devel >= 2.3.0
+Requires:	qt-devel >= 3.0.5
 Requires:	kdelibs-devel >= %{version}
 
 %description devel
 This package contains header files needed to develop KDE applications.
-
-%description devel -l es
-This package includes the header files you will need to compile
-applications that use kdebase libraries.
 
 %description devel -l pl
 Pakiet zawiera pliki nag³ówkowe niezbêdne do programowania aplikacji
@@ -146,18 +174,14 @@ compilar aplicativos que usem bibliotecas do kdebase.
 
 %package static
 Summary:	Include static libraries to develop KDE applications
-Summary(es):	kdebase static library files
 Summary(pl):	Statyczne biblioteki KDE
 Summary(pt_BR):	Bibliotecas estáticas do kdebase
 Group:		X11/Development/Libraries
-Requires:	qt-devel >= 2.3.0
+Requires:	qt-devel >= 3.0.5
 Requires:	kdelibs-devel >= %{version}
 
 %description static
 This package contains KDE static libraries.
-
-%description static -l es
-kdebase static library files.
 
 %description static -l pl
 Pakiet zawiera statyczne biblioteki KDE.
@@ -166,11 +190,12 @@ Pakiet zawiera statyczne biblioteki KDE.
 Bibliotecas estáticas do kdebase.
 
 %package -n kdm
-Summary:	KDE Display Manager
+Summary:	KDE Display Manager	
 Summary(pl):	KDE Display Manager
 Group:		X11/Applications
-Requires:	qt >= 2.3.0
+Requires:	qt >= 3.0.5
 Requires:	kdelibs >= %{version}
+Requires:	sessreg
 Prereq:		/sbin/chkconfig
 Obsoletes:	gdm
 Obsoletes:	xdm
@@ -187,7 +212,7 @@ Zamiennik XDM rodem z KDE.
 Summary:	Konqueror - web browser and file manager
 Summary(pl):	Konqueror - przegl±darka WWW i mened¿er plików
 Group:		X11/Applications
-Requires:	qt >= 2.3.0
+Requires:	qt >= 3.0.5
 Requires:	kdelibs >= %{version}
 Obsoletes:	kdebase-konqueror
 
@@ -205,7 +230,7 @@ Summary(pl):	Wygaszacze ekranu desktopu KDE
 Summary(ru):	ÈÒÁÎÉÔÅÌÉ ÜËÒÁÎÁ ÄÌÑ KDE
 Summary(uk):	ÚÂÅÒ¦ÇÁÞ¦ ÅËÒÁÎÕ ÄÌÑ KDE
 Group:		X11/Applications
-Requires:	qt >= 2.3.0
+Requires:	qt >= 3.0.5
 Requires:	kdelibs >= %{version}
 Requires:	OpenGL
 
@@ -218,11 +243,21 @@ Wygaszacze ekranu desktopu KDE.
 %description screensavers -l ru
 îÅËÏÔÏÒÙÅ 3D ÈÒÁÎÉÔÅÌÉ ÜËÒÁÎÁ ÄÌÑ K Desktop Environment.
 
-%description screensavers -l uk
-äÅÑË¦ 3D ÚÂÅÒ¦ÇÁÞ¦ ÜËÒÁÎÕ ÄÌÑ K Desktop Environment.
+%package -n kde-splash-default
+Summary:	KDE splash screen
+Summary(pl):	Obrazek startowy KDE
+Group:		X11/Amusements
+Obsoletes:	kde-splash
+Provides:	kde-splash
+
+%description -n kde-splash-default
+Default splash screen for KDE.
+
+%description -n kde-splash-default -l pl
+Standardowy obrazek startowy KDE.
 
 %prep
-%setup  -q
+%setup -q
 # patch0 is applied in %%install
 %patch1 -p1
 %patch2 -p1
@@ -230,21 +265,24 @@ Wygaszacze ekranu desktopu KDE.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
+%patch8 -p1
+%patch9 -p1
+%patch10 -p1
+%patch11 -p0
+%patch12 -p1
+%patch13 -p1
 
 %build
-
-# workaround -- don't allow to regenerate Makefile.xx
-find -name Makefile.am -exec touch {} \;
-find -name Makefile.in -exec touch {} \;
 
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
-#%{__make} -f Makefile.cvs
 CPPFLAGS="-I%{_includedir}"
 export CPPFLAGS
-%configure2_13 \
+%configure \
 	--with-pam=kdm \
+	--without-ldap \
 	--without-shadow \
 	--disable-shadow \
 	--with-xdmdir="%{_sysconfdir}/kdm" \
@@ -259,7 +297,9 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,S
 
 %{__make} install \
  	DESTDIR="$RPM_BUILD_ROOT" \
- 	fontdir="%{_fontsdir}/misc"
+ 	fontdir="%{_fontdir}/misc"
+
+bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
 # Patch kdmrc. It is generated so it can not be patched in %%prep.
 cd $RPM_BUILD_ROOT%{_datadir}/config/kdm
@@ -271,12 +311,11 @@ mv -f $ALD/{Internet/konqbrowser.desktop,Network/WWW}
 mv -f $ALD/{Internet/keditbookmarks.desktop,Network/WWW}
 mv -f $ALD/{Toys/ktip.desktop,Amusements}
 
-install %{SOURCE1}			$RPM_BUILD_ROOT%{_bindir}/startkde
 install %{SOURCE2}			$RPM_BUILD_ROOT/etc/pam.d/kdm
 install %{SOURCE6}			$RPM_BUILD_ROOT/etc/pam.d/kscreensaver
 install %{SOURCE3}			$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 
-mv -f \
+mv \
 	$RPM_BUILD_ROOT%{_datadir}/config/kdm/{Xaccess,Xreset,Xservers,Xsession,Xsetup,Xstartup,Xwilling} \
 	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/
 
@@ -285,7 +324,7 @@ install %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
 # This file is referenced in several dozens places in code and
 # documentation. Maintaining patch wich changes all these places would
 # be a real PITA.
-ln -sf ../../../%{_datadir}/config/kdm/kdmrc $RPM_BUILD_ROOT%{_sysconfdir}/kdm/kdmrc
+ln -s ../../../%{_datadir}/config/kdm/kdmrc $RPM_BUILD_ROOT%{_sysconfdir}/kdm/kdmrc
 
 install %{SOURCE4}			$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
 
@@ -309,30 +348,70 @@ done
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
-%find_lang tmp.%{name} --with-kde --all-name
-grep -vE konqueror\|kdm tmp.%{name}.lang > %{name}.lang
-%find_lang konqueror --with-kde
-%find_lang kdm --with-kde
+> %{name}.lang
+programs="appletproxy childpanelextension clockapplet cupsdconf desktop drkonqi extensionproxy filetypes fontinst htmlsearch kaccess kaddressbook kappfinder kasbarextension kate kcontrol kdcop kdebugdialog kdeprintfax kdesktop kdesktop_lock kdesu kdesud kfind kfindpart kfmclient kfmexec khelpcenter khotkeys kicker kjobviewer klegacyimport kless klipper klock kmcop kmenuedit kminipagerapplet knotify konsole kpager kpartapp kpersonalizer kpm kprinter kreadconfig krunapplet ksmserver ksplash kstart ksysguard ksystemtrayapplet ksystraycmd ktaskbarapplet ktip kxkb libkicker libkickermenu_kdeprint libtaskbar libtaskmanager lockout naughtyapplet nsplugin passwords ppdtranslations quicklauncher taskbarextension"
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> %{name}.lang
+done
+
+> kcm.lang
+programs="kcmaccess kcmarts kcmaudiocd kcmbackground kcmbell kcmcolors kcmcrypto kcmcss kcmemail kcmenergy kcmfonts kcmhtmlsearch kcmicons kcminfo kcminput kcmioslaveinfo kcmkclock kcmkdb kcmkeys kcmkicker kcmkio kcmkonq kcmkonqhtml kcmkonsole kcmkurifilt kcmkwindecoration kcmkwintheme kcmkwm kcmlaunch kcmlayout kcmlocale kcmmidi kcmnic kcmnotify kcmsamba kcmscreensaver kcmsmartcard kcmsmserver kcmsocks kcmspellchecking kcmstyle kcmtaskbar kcmthemes kcmusb kcmwidgetsettings"
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> kcm.lang
+done
+
+%find_lang kwin --with-kde
+programs="kwin_b2_config kwin_default_config kwin_icewm_config kwin_modernsys_config kwin_quartz_config libkwinb2_config libkwindefault_config libkwinmodernsys_config libkwinquartz_config "
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> kwin.lang
+done
+
+> kio.lang
+programs="kio_audiocd kio_finger kio_floppy kio_help kio_imap4 kio_man kio_nfs kio_nntp kio_pop3 kio_print kio_sftp kio_smb kio_smbro kio_smtp"
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> kio.lang
+done
+
+## KDM:
+%find_lang kdm		--with-kde
+%find_lang kdmchooser	--with-kde
+%find_lang kdmconfig	--with-kde
+%find_lang kdmgreet	--with-kde
+cat kdmchooser.lang kdmconfig.lang kdmgreet.lang >> kdm.lang
+
+## KONQUEROR:
+%find_lang konqueror	--with-kde
+%find_lang libkonq	--with-kde
+cat libkonq.lang >> konqueror.lang
+
+## SCREENSAVER:
+%find_lang libkscreensaver --with-kde
+
+# Maybe these things should be separated, but now it goes to kdebase:
+cat kcm.lang >> %{name}.lang
+cat kwin.lang >> %{name}.lang
+cat kio.lang >> %{name}.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
-/sbin/ldconfig
-
-cd %{_fontsdir}/misc
+%post -p /sbin/ldconfig
+cd %{_fontdir}/misc
 umask 022
 %{_bindir}/mkfontdir
 
-%postun
-/sbin/ldconfig
+%postun -p /sbin/ldconfig
 
-cd %{_fontsdir}/misc
+cd %{_fontdir}/misc
 umask 022
 %{_bindir}/mkfontdir
 
-%post	-n konqueror -p /sbin/ldconfig
-%postun	-n konqueror -p /sbin/ldconfig
+%post	-n konqueror -p /sbin/ldconfig 
+%postun	-n konqueror -p /sbin/ldconfig 
 
 %pre -n kdm
 /usr/sbin/groupadd -g 55 -r -f xdm
@@ -343,7 +422,11 @@ fi
 %post -n kdm
 /sbin/chkconfig --add kdm
 if [ -f /var/lock/subsys/kdm ]; then
-        /etc/rc.d/init.d/kdm restart >&2
+        echo "To make sure that new version of KDM is running you should restart"
+	echo "KDM with:"
+	echo "/etc/rc.d/init.d/kdm restart"
+	echo
+	echo "WARNING: restarting KDM will terminate any X session started by it!"
 else
         echo "Run \"/etc/rc.d/init.d/kdm start\" to start kdm." >&2
 fi
@@ -366,7 +449,7 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS README*
+%doc AUTHORS README* konsole/README*
 %config %{_sysconfdir}/ksysguarddrc
 %attr(0755,root,root) %{_bindir}/[ades]*
 %attr(0755,root,root) %{_bindir}/conttest
@@ -378,12 +461,13 @@ fi
 %attr(0755,root,root) %{_bindir}/kde[!s]*
 %attr(0755,root,root) %{_bindir}/kdes[!u]*
 %attr(0755,root,root) %{_bindir}/kdesu
-%attr(6755,root,root) %{_bindir}/kdesud
+%attr(2755,root,nobody) %{_bindir}/kdesud
+%attr(0755,root,root) %{_bindir}/kfind
+%attr(0755,root,root) %{_bindir}/kpm
 %attr(0755,root,root) %{_bindir}/konsole
 %attr(6755,root,root) %{_bindir}/konsole_grantpty
 %attr(0755,root,root) %{_bindir}/khelpcenter
 %attr(0755,root,root) %{_bindir}/khotkeys
-%attr(0755,root,root) %{_bindir}/klegacyimport
 %attr(0755,root,root) %{_bindir}/klipper
 %attr(0755,root,root) %{_bindir}/ks[mty]*
 %attr(0755,root,root) %{_bindir}/ksplash
@@ -396,47 +480,78 @@ fi
 
 %attr(0755,root,root) %{_libdir}/[ae]*.la
 %attr(0755,root,root) %{_libdir}/[ae]*.so*
-%attr(0755,root,root) %{_libdir}/k[dhijlmwx]*.la
-%attr(0755,root,root) %{_libdir}/k[dhijlmwx]*.so*
-%attr(0755,root,root) %{_libdir}/kate.??
+%attr(0755,root,root) %{_libdir}/k[dhijlmswx]*.la
+%attr(0755,root,root) %{_libdir}/k[dhijlmswx]*.so*
+%attr(0755,root,root) %{_libdir}/kaccess.??
+%attr(0755,root,root) %{_libdir}/kate.la
+%attr(0755,root,root) %{_libdir}/kate.so
+%attr(0755,root,root) %{_libdir}/kcminit.??
+%attr(0755,root,root) %{_libdir}/kcmshell.??
+%attr(0755,root,root) %{_libdir}/kcontrol.??
 %attr(0755,root,root) %{_libdir}/konsole.la
 %attr(0755,root,root) %{_libdir}/konsole.so*
 %attr(0755,root,root) %{_libdir}/lib[cdqt]*.la
 %attr(0755,root,root) %{_libdir}/lib[cdqt]*.so*
 %attr(0755,root,root) %{_libdir}/libk[ahmrstw]*.la
 %attr(0755,root,root) %{_libdir}/libk[ahmrstw]*.so*
-%attr(0755,root,root) %{_libdir}/libkcm_[ilx]*.la*
-%attr(0755,root,root) %{_libdir}/libkcm_[ilx]*.so*
+%attr(0755,root,root) %{_libdir}/libkickermain.la
+%attr(0755,root,root) %{_libdir}/libkickermain.so.*.*.*
+%attr(0755,root,root) %{_libdir}/libkfindpart.??
+%attr(0755,root,root) %{_libdir}/libsensordisplays.la
+%attr(0755,root,root) %{_libdir}/libsensordisplays.so.*.*.*
 %attr(0755,root,root) %{_libdir}/libkonsolepart.la
 %attr(0755,root,root) %{_libdir}/libkonsolepart.so*
-%attr(0755,root,root) %{_libdir}/libnaughtyapplet.la
-%attr(0755,root,root) %{_libdir}/libnaughtyapplet.so*
-%attr(0755,root,root) %{_libdir}/libkcm_[ku]*.la
-%attr(0755,root,root) %{_libdir}/libkcm_[ku]*.so
 
-%attr(0755,root,root) %{_libdir}/kde2/[ikt]*.la
-%attr(0755,root,root) %{_libdir}/kde2/[ikt]*.so*
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_[abcefilmptu]*.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_[abcefilmptu]*.so*
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_k[ehinuw]*.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_k[ehinuw]*.so*
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_s[amt]*.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_s[amt]*.so*
-%attr(0755,root,root) %{_libdir}/kde2/libk[fsuw]*.la*
-%attr(0755,root,root) %{_libdir}/kde2/libk[fsuw]*.so*
+# We have to include *.so.1 sym-links, as ldconfig doesn't touch
+# %{_libdir}/kde3
+%attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so.*
+%attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.so.*
+%attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so.*
+%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so.*
+%attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so.*
+%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so.*
+%attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so.*
+%attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.so.*
+%attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.so.*
+%attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so.*
+%attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so.*
+%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.so.*
+%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.so.*
+%attr(0755,root,root) %{_libdir}/kde3/i*.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_[!k]*.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_k[ehinuw]*.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_konsole.??
+%attr(0755,root,root) %{_libdir}/kde3/kded_*.??
+%attr(0755,root,root) %{_libdir}/kde3/khelpcenter.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_*.??
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_kdeprint.??
+%attr(0755,root,root) %{_libdir}/kde3/klipper_panelapplet.??
+%attr(0755,root,root) %{_libdir}/kde3/kwin*.??
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_[abcefilmptu]*.la
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_[abcefilmptu]*.so*
+%attr(0755,root,root) %{_libdir}/kde3/libk[fsuw]*.la*
+%attr(0755,root,root) %{_libdir}/kde3/libk[fsuw]*.so*
 
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_socks.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_socks.so
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_konsole.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_konsole.so
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_spellchecking.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_spellchecking.so
-%attr(0755,root,root) %{_libdir}/kde2/libkded*.la
-%attr(0755,root,root) %{_libdir}/kde2/libkded*.so*
-%attr(0755,root,root) %{_libdir}/kde2/libkhelp*.la
-%attr(0755,root,root) %{_libdir}/kde2/libkhelp*.so*
-%attr(0755,root,root) %{_libdir}/kde2/gsthumbnail.la
-%attr(0755,root,root) %{_libdir}/kde2/gsthumbnail.so*
+%attr(0755,root,root) %{_libdir}/kde3/lib*kdeprint*.la
+%attr(0755,root,root) %{_libdir}/kde3/lib*kdeprint*.so*
+%attr(0755,root,root) %{_libdir}/kde3/libkhelp*.la
+%attr(0755,root,root) %{_libdir}/kde3/libkhelp*.so*
+%attr(0755,root,root) %{_libdir}/kde3/gsthumbnail.la
+%attr(0755,root,root) %{_libdir}/kde3/gsthumbnail.so*
+%attr(0755,root,root) %{_libdir}/kde3/textthumbnail.??
 
 # NOTE:	There are many directories created by kappfinder. They should be
 #	ignored as such functionality is provided by applnk package and
@@ -444,9 +559,10 @@ fi
 %{_applnkdir}/Help.desktop
 %{_applnkdir}/Home.desktop
 %{_applnkdir}/KControl.desktop
+%{_applnkdir}/Kfind.desktop
 %{_applnkdir}/.hidden/konqfilemgr.desktop
 %{_applnkdir}/Amusements/*.desktop
-%dir %{_applnkdir}/Settings/KDE
+%dir %{_applnkdir}/Settings
 %{_applnkdir}/Settings/KDE/Help
 %{_applnkdir}/Settings/KDE/Databases
 %{_applnkdir}/Settings/KDE/Information
@@ -460,7 +576,6 @@ fi
 %{_applnkdir}/Settings/KDE/PowerControl
 %{_applnkdir}/Settings/KDE/Sound
 %dir %{_applnkdir}/Settings/KDE/System
-%{_applnkdir}/Settings/KDE/System/k[!d]*
 %{_applnkdir}/Settings/KDE/System/[!k]*
 %{_applnkdir}/Settings/KDE/System/.directory
 %{_applnkdir}/System/k[!o]*.desktop
@@ -468,32 +583,38 @@ fi
 %{_applnkdir}/Utilities/*.desktop
 %{_applnkdir}/Editors/*.desktop
 # No idea what it is for...
-%{_applnkdir}/ksysguard
+#%{_applnkdir}/ksysguard
 
 %{_datadir}/apps/[cdn]*
-%{_datadir}/apps/k[abfhijmtw]*
-%{_datadir}/apps/kcm*
-%{_datadir}/apps/kcontrol
+%{_datadir}/apps/k[abcfhijmtw]*
 %{_datadir}/apps/kd[cei]*
 %{_datadir}/apps/konsole
 %{_datadir}/apps/kpersonalizer
-%{_datadir}/apps/ks[py]*
+%dir %{_datadir}/apps/ksplash
+%{_datadir}/apps/ksysguard
+%{_datadir}/apps/klipper
+%{_datadir}/apps/ksmserver
 
 %{_datadir}/autostart
-%{_datadir}/config/[!k]*
+%dir %{_datadir}/config
 %{_datadir}/config/k[!d]*
 %{_datadir}/config/kdesktop*
-%{_datadir}/locale/*
-%{_datadir}/mimelnk/application/*
+#%{_datadir}/locale/en_US
+%{_datadir}/locale/l10n/*/entry.desktop
+%{_datadir}/locale/l10n/*/flag.png
+%{_datadir}/locale/*/*.desktop
+%{_datadir}/locale/*/*.png
+%{_datadir}/locale/*/charset
+%{_datadir}/mimelnk
 %{_datadir}/services/[abfgimnpst]*
 %{_datadir}/services/k[afhsuwx]*
+%{_datadir}/services/kded
+%{_datadir}/services/kdeprint_part.desktop
 %{_datadir}/services/kons*
-%{_datadir}/sounds/*
-%{_datadir}/templates/*.desktop
-%{_datadir}/templates/.source/*
+%{_datadir}/sounds
+%{_datadir}/templates
 %{_datadir}/wallpapers
 %{_datadir}/servicetypes/[fstu]*.desktop
-%{_datadir}/servicetypes/k[!o]*.desktop
 
 %{_pixmapsdir}/*/*/apps/[abcdefghilmnprstuwx]*
 %{_pixmapsdir}/*/*/apps/k[acefhijlmnptwm]*
@@ -501,15 +622,17 @@ fi
 %{_pixmapsdir}/*/*/apps/ksysguard.png
 %{_pixmapsdir}/*/*/apps/kdisk*
 %{_pixmapsdir}/*/*/apps/kdeprint*
+%{_pixmapsdir}/*/*/apps/opera*
 
 %{_pixmapsdir}/*/*/actions/*
+%{_pixmapsdir}/*/*/devices/*
 %{_pixmapsdir}/*/*/filesystems/*
 
 # TODO:	file /usr/share/fonts/misc/9x15.pcf.gz from install of kdebase-2.0.1-3
 # 	conflicts with file from package XFree86-fonts-4.0.1-2.
 # TODO:	there is a name conflict between cursor_large and cursor from XFree86.
-%{_fontsdir}/misc/console8*.gz
-#%{_fontsdir}/misc/*.gz
+%{_fontdir}/misc/console8*.gz
+#%{_fontdir}/misc/*.gz
 
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kscreensaver
 # Must be here. kcheckpass needs it.
@@ -519,10 +642,25 @@ fi
 %files devel
 %defattr(644,root,root,755)
 %dir %{_includedir}/kwin
-%dir %{_includedir}/kate
 %{_includedir}/*.h
 %{_includedir}/kwin/*.h
-%{_includedir}/kate/*.h
+%{_includedir}/kate
+%{_includedir}/ksgrd
+%attr(0755,root,root) %{_libdir}/libkickermain.so
+%attr(0755,root,root) %{_libdir}/libsensordisplays.so
+%attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so
+%attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so
+%attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so
+%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.so
 
 %files static
 %defattr(644,root,root,755)
@@ -532,9 +670,7 @@ fi
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/chooser
 %attr(0755,root,root) %{_bindir}/kdm*
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_kdm.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_kdm.so*
-
+%attr(0755,root,root) %{_libdir}/kde3/kcm_kdm.??
 %dir %{_sysconfdir}/kdm
 %{_sysconfdir}/kdm/kdmrc
 %{_sysconfdir}/kdm/Xaccess
@@ -545,13 +681,10 @@ fi
 %attr(0755,root,root) %{_sysconfdir}/kdm/Xstartup
 %attr(0755,root,root) %{_sysconfdir}/kdm/Xwilling
 %attr(0754,root,root) /etc/rc.d/init.d/kdm
-
 %{_applnkdir}/Settings/KDE/System/kdm.desktop
-
 %{_datadir}/apps/kdm
 %dir %{_datadir}/config/kdm
 %config(noreplace) %{_datadir}/config/kdm/kdmrc
-#%{_datadir}/config/kdm/README
 
 %{_pixmapsdir}/*/*/apps/kdmconfig.png
 
@@ -568,24 +701,22 @@ fi
 %attr(0755,root,root) %{_libdir}/kfm*.??
 %attr(0755,root,root) %{_libdir}/konqueror.la
 %attr(0755,root,root) %{_libdir}/konqueror.so*
-%attr(0755,root,root) %{_libdir}/libkcm_nsplugin.la
-%attr(0755,root,root) %{_libdir}/libkcm_nsplugin.so*
+%attr(0755,root,root) %{_libdir}/kde3/kcm_konq*.??
+%attr(0755,root,root) %{_libdir}/kde3/konq*.??
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_nsplugin.la
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_nsplugin.so*
 %attr(0755,root,root) %{_libdir}/libkonq*.la
 %attr(0755,root,root) %{_libdir}/libkonq*.so*
 %attr(0755,root,root) %{_libdir}/libnsplugin.la
 %attr(0755,root,root) %{_libdir}/libnsplugin.so*
 
-%attr(0755,root,root) %{_libdir}/kde2/htmlthumbnail.la
-%attr(0755,root,root) %{_libdir}/kde2/htmlthumbnail.so*
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_konq*.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_konq*.so*
-%attr(0755,root,root) %{_libdir}/kde2/libkonq*la
-%attr(0755,root,root) %{_libdir}/kde2/libkonq*so.*
-%attr(0755,root,root) %{_libdir}/kde2/libkonq*.so
+%attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.la
+%attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.so*
 
 %{_applnkdir}/Network/WWW/konq*.desktop
 %{_applnkdir}/Network/WWW/keditbookmarks.desktop
 %{_applnkdir}/System/konq*.desktop
+%dir %{_applnkdir}/Settings/KDE
 %{_applnkdir}/Settings/KDE/.directory
 %{_applnkdir}/Settings/KDE/FileBrowsing
 %{_applnkdir}/Settings/KDE/WebBrowsing
@@ -596,20 +727,19 @@ fi
 %{_datadir}/services/konq*.desktop
 %{_datadir}/services/useragentstrings
 %{_datadir}/servicetypes/konqaboutpage.desktop
+%{_datadir}/servicetypes/konqpopupmenuplugin.desktop
 
 %{_pixmapsdir}/*/*/apps/konqueror.png
 
-
-%files screensavers
+%files screensavers -f libkscreensaver.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/*.kss
-
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_screensaver.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_screensaver.so*
 
 %{_applnkdir}/Settings/KDE/LookNFeel/screensaver.desktop
 %{_applnkdir}/System/ScreenSavers/*
 
-%{_datadir}/apps/kscreensaver
-
 %{_pixmapsdir}/*/*/apps/kscreensaver.png
+
+%files -n kde-splash-default
+%defattr(644,root,root,755)
+%{_datadir}/apps/ksplash/*
