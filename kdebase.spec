@@ -1973,7 +1973,7 @@ fi
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%lang(en) %{_kdedocdir}/en/%{name}-apidocs
+%{_kdedocdir}/en/%{name}-apidocs
 %endif
 
 %files -n kde-decoration-b2
