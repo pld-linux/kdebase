@@ -1,0 +1,10 @@
+--- kdenetwork-030918/admin/acinclude.m4.in~	2003-09-17 23:36:46.000000000 +0200
++++ kdenetwork-030918/admin/acinclude.m4.in	2003-09-22 18:10:27.000000000 +0200
+@@ -4224,6 +4224,7 @@
+ 
+     for ac_file in    \
+                       \
++	/var/run/utmpx \
+ 	/var/run/utmp \
+ 	/var/adm/utmp \
+ 	/etc/utmp     \
