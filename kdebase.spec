@@ -276,10 +276,28 @@ Wygaszacze ekranu desktopu KDE.
 %patch7 -p1
 
 %build
+
+# workaround -- don't allow to regenerate Makefile.xx
+find -name Makefile.am -exec touch {} \;
+find -name Makefile.in -exec touch {} \;
+
+kde_htmldir="%{_htmldir}"; export kde_htmldir
+kde_icondir="%{_pixmapsdir}"; export kde_icondir
+
+%{__make} -f Makefile.cvs
+CPPFLAGS="-I%{_includedir}"
+export CPPFLAGS
+%configure \
+	--with-pam=kdm \
+	--without-ldap \
+	--without-shadow \
+	--disable-shadow \
+	--with-xdmdir="%{_sysconfdir}/kdm" \
+	--enable-final
+
 %{__make}
 
 %install
-cd %{name}-%{version}
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,Settings/KDE} \
 	$RPM_BUILD_ROOT/etc/{pam.d,security,rc.d/init.d,X11/kdm}
