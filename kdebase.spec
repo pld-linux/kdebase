@@ -13,7 +13,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define         _snap		030516
+%define         _snap		030518
 %define		_kdelibsminrel	0.%{_snap}.1
 
 %ifarch	sparc sparcv9 sparc64
@@ -67,6 +67,7 @@ Patch19:	%{name}-vroot.patch
 Patch21:	%{name}-vcategories.patch
 Patch22:	%{name}-screensavers.patch
 Patch23:	%{name}-prefmenu.patch
+Patch24:	%{name}-fix-mouse_cpp_for_enable_final.patch
 %{?_without_alsa:BuildConflicts:	alsa-driver-devel}
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	OpenGL-devel
@@ -686,6 +687,7 @@ Internet Explorer.
 %patch21 -p1
 %patch22 -p1
 %patch23 -p1
+%patch24 -p1
 
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
@@ -698,6 +700,7 @@ for plik in `find ./ -name *.desktop` ; do
 done
 
 %configure \
+	--enable-final \
 	--with-kdm-pam=kdm \
 	--with-pam=kdesktop
 
