@@ -1,0 +1,10 @@
+--- kdebase-030517/kcontrol/input/mouse.cpp~	2003-05-13 00:37:20.000000000 +0200
++++ kdebase-030517/kcontrol/input/mouse.cpp	2003-05-18 13:46:27.000000000 +0200
+@@ -52,6 +52,7 @@
+ #include <qfileinfo.h>
+ #include <qlayout.h>
+ #include <qcheckbox.h>
++#undef Unsorted
+ #include <qdir.h>
+ #undef Below
+ #undef Above
