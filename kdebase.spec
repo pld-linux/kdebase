@@ -204,6 +204,21 @@ EOF
 # removing unneeded directories
 rm -rf $RPM_BUILD_ROOT%{_applnkdir}/{Editors,Toys}
 
+# make compatibile with GNOME
+find $RPM_BUILD_ROOT%{_applnkdir} -name '.directory' -exec echo "Type=Directory" >> {}  \;
+for a in `find $RPM_BUILD_ROOT%{_applnkdir} -name '.directory'`; do
+        cat $a |sed -n '/^Icon=/!p' > $a.
+        echo >> $a.
+        cat $a |awk '/^Icon/ {print $1".png" }' >> $a.
+        mv -f $a. $a
+done
+for a in `find $RPM_BUILD_ROOT%{_applnkdir} -name '*.desktop'`; do
+        cat $a |sed -n '/^Icon=/!p' > $a.
+        echo >> $a.
+        cat $a |awk '/^Icon/ {print $1".png" }' >> $a.
+        mv -f $a. $a
+done
+
 touch $RPM_BUILD_ROOT%{_sysconfdir}/security/blacklist.kdm
 
 %find_lang tmp.%{name} --with-kde --all-name
