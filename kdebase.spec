@@ -1048,6 +1048,13 @@ done
 cat kcmkonsole.lang	>> konsole.lang
 cat kioslave.lang	>> kinfocenter.lang
 
+for f in *.lang; do
+	if grep -q %{name}-%{_snap}-apidocs $f; then
+		grep -v %{name}-%{_snap}-apidocs $f > $f.tmp
+		mv $f.tmp $f
+	fi	
+done	
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
