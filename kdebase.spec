@@ -1,6 +1,3 @@
-%define		_prefix 		/usr/X11R6
-%define		_fontdir 		/usr/share/fonts
-
 Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
@@ -10,16 +7,16 @@ License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
-Source0:	ftp://ftp.kde.org/pub/kde/stable/2.0.1/distribution/generic/tar/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/distribution/tar/generic/src/%{name}-%{version}.tar.bz2
 Source1:	%{name}-startkde.sh
 Source2:	kdm.pamd
 Source3:	kdm.init
 Patch0:		%{name}-key.patch
 Patch1:		%{name}-waitkdm.patch
-BuildRequires:	qt >= 2.2.2
+BuildRequires:	qt-devel >= 2.2.2
 BuildRequires:	kdelibs-devel >= %{version}
 BuildRequires:	libjpeg-devel
-BuildRequires:	libpng >= 1.0.8
+BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	XFree86-devel
@@ -41,6 +38,12 @@ Obsoletes:	%{name}-kxmlrpc
 Obsoletes:	%{name}-kdesktop
 Obsoletes:	%{name}-kwrite
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_prefix 	/usr/X11R6
+%define		_fontdir 	/usr/share/fonts
+%define		_sharedir	%{_prefix}/share
+%define		_htmldir	%{_sharedir}/doc/kde/HTML
+%define		_pixmapsdir	%{_sharedir}/pixmaps
 
 %description
 KDE specific files. Used by core KDE applications. Package includes:
@@ -111,10 +114,6 @@ Explorer.
 %patch1 -p1
 
 %build
-%define		_sharedir	%{_prefix}/share
-%define		_htmldir	%{_sharedir}/doc/kde/HTML
-%define		_pixmapsdir	%{_sharedir}/pixmaps
-
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
@@ -129,14 +128,12 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements} \
+	$RPM_BUILD_ROOT%{_sysconfdir}/{pam.d,security,rc.d/init.d}
 
-%{__make} \
+%{__make} install \
  	DESTDIR="$RPM_BUILD_ROOT" \
- 	fontdir="%{_fontdir}/misc" \
- 	install
-
-install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements}
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/{pam.d,security,rc.d/init.d}
+ 	fontdir="%{_fontdir}/misc"
 
 install kwrite/kwrite.desktop		$RPM_BUILD_ROOT%{_applnkdir}/Office/Editors
 install konqueror/konqbrowser.desktop	$RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
@@ -144,6 +141,7 @@ install ktip/ktip.desktop		$RPM_BUILD_ROOT%{_applnkdir}/Amusements
 install %{SOURCE1}			$RPM_BUILD_ROOT%{_bindir}/startkde
 install %{SOURCE2}			$RPM_BUILD_ROOT%{_sysconfdir}/pam.d/kdm
 install %{SOURCE3}			$RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/kdm
+
 touch $RPM_BUILD_ROOT%{_sysconfdir}/security/blacklist.kdm
 
 %find_lang kcontrol --with-kde
