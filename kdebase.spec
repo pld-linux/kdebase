@@ -29,7 +29,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.%{_snap}.2
+Release:	0.%{_snap}.3
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -37,19 +37,16 @@ Group:		X11/Applications
 Source0:        http://team.pld.org.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
 Source1:	%{name}-kcheckpass.pam
 Source2:	%{name}-kdm.pam
-Source3:	kdm.init
-Source4:	kdm.Xsession
+Source3:	%{name}-kdm.init
+Source4:	%{name}-kdm.Xsession
 Source5:	%{name}-kdm.Xservers
 Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
-Source8:	ircpld.desktop
-Source9:	specs.desktop
-Source10:	kabc.desktop
-Source11:	kde-settings.menu
-#
-Patch0:		%{name}-fix-mem-leak-in-kfind.patch
-# obsoleted
-#Patch1:	%{name}-fix-mouse.cpp.patch
+Source8:	%{name}-ircpld.desktop
+Source9:	%{name}-specs.desktop
+Source10:	%{name}-kabc.desktop
+Source11:	%{name}-kde-settings.menu
+Patch0:	%{name}-fix-mem-leak-in-kfind.patch
 Patch2:		%{name}-fontdir.patch
 Patch3:		%{name}-kcm_background.patch
 Patch4:		%{name}-kdm.daemon_output.patch
@@ -61,19 +58,11 @@ Patch9:		%{name}-nsplugins_dirs.patch
 Patch10:	%{name}-startkde.patch
 Patch11:        %{name}-kcm_fonts.patch
 Patch12:	%{name}-gtkrc.patch
-# fix it if You like it
-#Patch13:	%{name}-krdb.patch
 Patch14:	%{name}-pldcredits.patch
-# doesn't work (Makefile.in should be patched too)
-#Patch15:	%{name}-searchprov.patch
-# rh stuff
 Patch16:	%{name}-kicker_nodesktop.patch
 Patch17:        %{name}-xfsreload.patch
 Patch18:	%{name}-kdesukonsole.patch
 Patch19:	%{name}-vroot.patch
-# not tested yet
-#Patch20:	%{name}-konsolepropfontwidth3.patch
-#
 Patch21:	%{name}-vcategories.patch
 Patch22:	%{name}-screensavers.patch
 Patch23:	%{name}-prefmenu.patch
@@ -110,20 +99,17 @@ BuildRequires:	openssl-devel >= 0.9.7
 BuildRequires:	openldap-devel 
 BuildRequires:	pam-devel
 BuildRequires:	sed >= 4.0
-BuildRequires:	qt-devel >= 3.1
-BuildRequires:	zlib-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
+BuildRequires:	qt-devel >= 3.1
+BuildRequires:	zlib-devel
 Requires(post,postun):	/sbin/ldconfig
 Requires:	applnk >= 1.6.1
-# Old ksplash is obsoleted
-#Requires:	kde-splash
-#
 Requires:       kde-sdscreen
 Requires:       kdelibs >= %{version}-%{_kdelibsminrel}
 Requires:	%{name}-kcheckpass = %{version}-%{release}
+Requires:	%{name}-kdesktop_lock = %{version}-%{release}
 Requires:	konqueror = %{version}-%{release}
-#
 Obsoletes:	%{name}-fonts
 Obsoletes:	%{name}-khelpcenter
 Obsoletes:	%{name}-screensaver
@@ -136,7 +122,6 @@ Obsoletes:	%{name}-static
 Obsoletes:	%{name}-wallpapers
 Obsoletes:	kde-splash
 Obsoletes:	kde-theme-keramik
-#
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_fontdir	/usr/share/fonts/misc
@@ -264,6 +249,19 @@ KDE Help Center.
 %description helpcenter -l pl
 Przegl±darka plików pomocy dla KDE.
 
+%package kappfinder
+Summary:	Menu Updating Tool
+Summary(pl):	Narzedzie do aktualizacji menu.
+Group:		X11/Applications
+Requires:	kdelibs >= %{version}
+Obsoletes:	%{name} =< 3.2-0.030418.2
+
+%description kappfinder
+Menu Updating Tool.
+
+%description kappfinder -l pl
+Narzêdzie do aktualizacji menu.
+
 %package kate
 Summary:	KDE Advanced Text Editor
 Summary(pl):	Zaawansowany edytor tekstu dla KDE
@@ -278,12 +276,14 @@ KDE advanced text editor.
 %description kate -l pl
 Zaawansowany edytor tekstu dla KDE.
 
+
 %package kcheckpass
 Summary:	KDE User Autentication  
 Summary(pl):	Uwierzytelnianie u¿ytkowników dla KDE
 Group:		X11/Applications
 Obsoletes:	%{name} < 3.0.9-2.4
 Requires:	pam
+Obsoletes:	%{name} =< 3.2-0.030418.1
 
 %description kcheckpass
 KDE User Autentication.
@@ -303,6 +303,21 @@ KDE Control Center.
 
 %description kcontrol -l pl
 Narzêdzie do konfigurowania aplikacji KDE.
+
+%package kdesktop_lock
+Summary:	Allows to lock Your desktop
+Summary(pl):	Pozwala na zablokowanie biurka
+Group:		X11/Applications
+Requires:	kdelibs >= %{version}
+Obsoletes:	%{name} =< 3.2-0.030418.2
+
+%description kdesktop_lock
+A small application that allows You to lock Your desktop.
+It's required by kdebase and by kdebase-screensavers.
+
+%description kdesktop_lock -l pl
+Ma³a aplikacja umozliwiajaca zablokowanie biurka.
+Jest wymagana przez kdebase jak i kdebase-screensavers.
 
 %package kdeprintfax
 Summary:	KDE Fax Tool
@@ -361,6 +376,19 @@ KDE Terminal Emulator.
 %description konsole -l pl
 Emulator terminala dla KDE.
 
+%package kpager
+Summary:	Desktop Pager
+Summary(pl):	Prze³±cznik biurek
+Group:		X11/Applications
+Requires:	kdelibs >= %{version}
+Obsoletes:	%{name} =< 3.2-0.030418.2
+
+%description kpager
+KDE Desktop Pager.
+
+%description kpager -l pl
+Prze³±cznik biurek dla KDE.
+
 %package kwrite
 Summary:	KDE Text Editor
 Summary(pl):	Edytor tekstu dla KDE
@@ -397,6 +425,7 @@ Summary(uk):	ÚÂÅÒ¦ÇÁÞ¦ ÅËÒÁÎÕ ÄÌÑ KDE
 Group:		X11/Applications
 Requires:	OpenGL
 Requires:	%{name}-kcheckpass = %{version}-%{release}
+Requires:	%{name}-kdesktop_lock = %{version}-%{release}
 Requires:	%{name}-kcontrol = %{version}-%{release}
 
 %description screensavers
@@ -450,8 +479,6 @@ Internet Explorer.
 %prep
 %setup -q -n %{name}-%{_snap}
 %patch0 -p1
-# obsoleted
-#%patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
@@ -463,17 +490,11 @@ Internet Explorer.
 %patch10 -p1
 %patch11 -p1
 %patch12 -p1
-# fix it if You like it 
-#%patch13 -p1
 %patch14 -p1
-# doesn't work (patches Makefile.am only!)
-#%patch15 -p1
 %patch16 -p1
 %patch17 -p1
 %patch18 -p1
 %patch19 -p1
-# not tested yet
-#%patch20 -p1
 %patch21 -p1
 %patch22 -p1
 %patch23 -p1
@@ -523,9 +544,8 @@ install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
 install %{SOURCE5}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
 install %{SOURCE6}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldlogo.png
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldwallpaper.png
-
-install {%{SOURCE8},%{SOURCE9}} \
-    $RPM_BUILD_ROOT%{_datadir}/services/searchproviders
+install %{SOURCE8}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/ircpld.desktop
+install %{SOURCE9}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/specs.desktop
 
 cp $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop \
     $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/remote
@@ -536,22 +556,56 @@ mv $ALD/Help.desktop			$RPM_BUILD_ROOT%{_desktopdir}
 mv $ALD/Settingsmenu/*.desktop		$RPM_BUILD_ROOT%{_desktopdir}
 mv $ALD/System/kinfocenter.desktop	$RPM_BUILD_ROOT%{_desktopdir}
 
-install %{SOURCE10} $ALD/KDE-Settings/Components
-install %{SOURCE11} $RPM_BUILD_ROOT/etc/X11/desktop/menus
+install %{SOURCE10}	$ALD/KDE-Settings/Components
+install %{SOURCE11}	$RPM_BUILD_ROOT/etc/X11/desktop/menus/kde-settings.menu
 
 > %{name}.lang
 
-programs="kdebugdialog kdeprint kdesu kinfocenter \
-kioslave klipper kmenuedit kpager ksysguard" 
+programs=" \
+	kdebugdialog \
+	kdeprint \
+	kdesu \
+	kinfocenter \
+	kioslave \
+	klipper \
+	kmenuedit \
+	ksysguard" 
+
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> %{name}.lang
 done
 
-programs="arts background bell clock colors desktop energy fonts \
-helpindex.html icons kcmaccess kcmfontinst kcmlaunch kcmnotify kcmsmserver \
-kcmstyle kcmtaskbar keyboard keys kthememgr kwindecoration language mouse \
-panel passwords smb spellchecking windowmanagement"
+programs=" \
+	arts \
+	background \
+	bell \
+	clock \
+	colors \
+	desktop \
+	energy \
+	fonts \
+	helpindex.html \
+	icons \
+	kcmaccess \
+	kcmfontinst \
+	kcmlaunch \
+	kcmnotify \
+	kcmsmserver \
+	kcmstyle \
+	kcmtaskbar \
+	keyboard \
+	keys \
+	kthememgr \
+	kwindecoration \
+	language \
+	mouse \
+	panel \
+	passwords \
+	smb \
+	spellchecking \
+	windowmanagement"
+
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> %{name}.lang
@@ -567,13 +621,26 @@ done
 cat kcmkonsole.lang >> konsole.lang
 
 %find_lang konqueror	--with-kde
-programs="cache cookies crypto ebrowsing email filemanager filetypes \
-kcmcss khtml netpref proxy useragent"
+programs="\
+	cache \
+	cookies \
+	crypto \
+	ebrowsing \
+	email \
+	filemanager \
+	filetypes \
+	kcmcss \
+	khtml \
+	netpref \
+	proxy \
+	useragent"
+	
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> konqueror.lang
 done
 
+%find_lang	kpager		--with-kde
 %find_lang	kwrite		--with-kde
 %find_lang	screensaver	--with-kde
 
@@ -584,17 +651,11 @@ rm -rf $RPM_BUILD_ROOT
 cd %{_fontdir}
 umask 022
 /usr/X11R6/bin/mkfontdir
-if [ -x /usr/X11R6/bin/xftcache ]; then
-    /usr/X11R6/bin/xftcache .
-fi
 
 %postun common-konsole
 cd %{_fontdir}
 umask 022
 /usr/X11R6/bin/mkfontdir
-if [ -x /usr/X11R6/bin/xftcache ]; then
-    /usr/X11R6/bin/xftcache .
-fi
 
 %pre -n kdm
 /usr/sbin/groupadd -g 55 -r -f xdm
@@ -636,10 +697,11 @@ fi
 %config %{_sysconfdir}/ksysguarddrc
 %attr(0755,root,root) %{_bindir}/[ades]*
 %attr(0755,root,root) %{_bindir}/k[jtx]*
-%attr(0755,root,root) %{_bindir}/ka[!t]*
+%attr(0755,root,root) %{_bindir}/ka[!pt]*
 %attr(0755,root,root) %{_bindir}/kdc*
 %attr(0755,root,root) %{_bindir}/kde[!ps]*
-%attr(0755,root,root) %{_bindir}/kdes[!u]*
+%attr(0755,root,root) %{_bindir}/kdes[!ku]*
+%attr(2755,root,nobody) %{_bindir}/kdesktop
 %attr(2755,root,nobody) %{_bindir}/kdesud
 %attr(2755,root,nobody) %{_bindir}/kdialog
 %attr(2755,root,nobody) %{_bindir}/khc_indexbuilder
@@ -647,7 +709,6 @@ fi
 %attr(0755,root,root) %{_bindir}/kinfocenter
 %attr(0755,root,root) %{_bindir}/klipper
 %attr(0755,root,root) %{_bindir}/kmenuedit
-%attr(0755,root,root) %{_bindir}/kpager
 %attr(0755,root,root) %{_bindir}/kpersonalizer
 %attr(0755,root,root) %{_bindir}/kpm
 %attr(0755,root,root) %{_bindir}/kprinter
@@ -697,8 +758,6 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_energy.so
 %{_libdir}/kde3/kcm_fontinst.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_fontinst.so
-#%{_libdir}/kde3/kcm_helpcenter.la
-#%attr(0755,root,root) %{_libdir}/kde3/kcm_helpcenter.so
 %{_libdir}/kde3/kcm_icons.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_icons.so
 %{_libdir}/kde3/kcm_info.la
@@ -762,7 +821,6 @@ fi
 %dir %{_datadir}/apps/ksplash/Themes
 %{_datadir}/apps/ksplash/Themes/Default
 %{_datadir}/apps/?[!acdefhiosw]*
-%{_datadir}/apps/kappfinder
 %{_datadir}/apps/kcm[!_c]*
 %{_datadir}/apps/kcm_componentchooser/*
 %{_datadir}/apps/kconf_update/*
@@ -816,16 +874,12 @@ fi
 %{_applnkdir}/System/k[!io]*.desktop
 %{_desktopdir}/kjobviewer.desktop
 %{_desktopdir}/klipper.desktop
-%{_desktopdir}/kpager.desktop
 %{_desktopdir}/ksysguard.desktop
 %{_desktopdir}/ktip.desktop
-# moved here
-%{_desktopdir}/kappfinder.desktop
 %{_desktopdir}/kinfocenter.desktop
 %{_desktopdir}/kmenuedit.desktop
 %{_desktopdir}/kpersonalizer.desktop
 #%{_desktopdir}/printmgr.desktop
-#
 %{_vfinfodir}/kde-information.directory
 %{_vfinfodir}/kde-settings-[ailpw]*.directory
 %{_vfinfodir}/kde-settings-desktop.directory
@@ -837,11 +891,11 @@ fi
 %{_pixmapsdir}/*/*/apps/co[!o]*
 %{_pixmapsdir}/*/*/apps/e[!n]*
 %{_pixmapsdir}/*/*/apps/en[!h]*
-%{_pixmapsdir}/*/*/apps/k[jlmnptvmx]*
-%{_pixmapsdir}/*/*/apps/kappfinder.png
+%{_pixmapsdir}/*/*/apps/k[jlmntvmx]*
 %{_pixmapsdir}/[!l]*/*/apps/kc[!o][!s]*
 %{_pixmapsdir}/*/*/apps/kcms[!y]*
 %{_pixmapsdir}/*/*/apps/key[!_]*
+%{_pixmapsdir}/*/*/apps/kpersonalizer.png
 %{_pixmapsdir}/*/*/apps/ksysguard.png
 %{_pixmapsdir}/*/*/apps/kdisk*
 %{_pixmapsdir}/*/*/apps/kwin.png
@@ -940,6 +994,13 @@ fi
 %{_desktopdir}/Help.desktop
 %{_pixmapsdir}/*/*/apps/khelpcenter.png
 
+%files kappfinder
+%defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/kappfinder
+%{_datadir}/apps/kappfinder
+%{_desktopdir}/kapfinder.desktop
+%{_pixmapsdir}/*/*/apps/kappfinder.png
+
 %files kate -f kate.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kate
@@ -995,7 +1056,12 @@ fi
 %lang(en) %{_htmldir}/en/kcontrol/index.*
 %lang(en) %{_htmldir}/en/kcontrol/screenshot.png
 
+%files kdesktop_lock
+%defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/kdesktop_lock
+
 %files kdeprintfax
+%defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kdeprintfax
 %dir %{_datadir}/apps/kdeprintfax
 %attr(0755,root,root) %{_datadir}/apps/kdeprintfax/anytops
@@ -1051,15 +1117,14 @@ fi
 %{_libdir}/kde3/kasbar_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so 
 %{_datadir}/apps/kicker
-%{_pixmapsdir}/*/*/apps/*kicker*
 %{_applnkdir}/.hidden/kicker*.desktop
 #%{_desktopdir}/kcmkicker.desktop
+%{_pixmapsdir}/*/*/apps/*kicker*
 
 %files konsole -f konsole.lang
 %defattr(644,root,root,755)
 %doc konsole/README*
 %attr(0755,root,root) %{_bindir}/konsole
-#%attr(6755,root,root) %{_bindir}/konsole_grantpty
 %{_libdir}/konsole.la
 %attr(0755,root,root) %{_libdir}/konsole.so
 %{_libdir}/kde3/kcm_konsole.la
@@ -1070,6 +1135,12 @@ fi
 %{_applnkdir}/.hidden/kcmkonsole.desktop
 %{_desktopdir}/konsole*.desktop
 %{_pixmapsdir}/*/*/apps/konsole.png
+
+%files kpager -f kpager.lang
+%defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/kpager
+%{_desktopdir}/kpager.desktop
+%{_pixmapsdir}/*/*/apps/kpager.png
 
 %files kwrite -f kwrite.lang
 %defattr(644,root,root,755)
@@ -1125,7 +1196,6 @@ fi
 %{_sysconfdir}/kdm/Xaccess
 %{_sysconfdir}/kdm/Xservers
 %{_sysconfdir}/kdm/pics
-#%attr(0755,root,root) %{_bindir}/chooser
 %attr(0755,root,root) %{_bindir}/kdm*
 %attr(0755,root,root) %{_bindir}/krootimage
 %{_libdir}/kde3/kcm_kdm.la
@@ -1234,7 +1304,6 @@ fi
 %{_datadir}/apps/konq*
 %{_datadir}/config/konqsidebartng.rc
 %{_datadir}/config/kshorturifilterrc
-#%{_datadir}/config/kuriikwsfilterrc
 %{_datadir}/mimelnk/application/*
 %{_datadir}/mimelnk/print
 %{_datadir}/mimelnk/kdedevice
