@@ -583,6 +583,14 @@ fi
 if [ -z "`id -u xdm 2>/dev/null`" ]; then
 	/usr/sbin/useradd -u 55 -r -d /dev/null -s /bin/false -c 'X Display Manager' -g xdm xdm 1>&2
 fi
+if [ -L /etc/X11/kdm/kdmrc ]; then
+    rm /etc/X11/kdm/kdmrc
+fi    
+if [ -f %{_datadir}/config/kdm/kdmrc ] && \
+    [ ! -L %{_datadir}/config/kdm/kdmrc ] && \
+    [ ! -f /etc/X11/kdm/kdmrc ]; then
+    cp %{_datadir}/config/kdm/kdmrc /etc/X11/kdm
+fi
 
 %post -n kdm
 /sbin/chkconfig --add kdm
@@ -594,6 +602,12 @@ if [ -f /var/lock/subsys/kdm ]; then
 	echo "WARNING: restarting KDM will terminate any X session started by it!"
 	else
 	echo "Run \"/etc/rc.d/init.d/kdm start\" to start kdm." >&2
+fi
+if [ ! -f /etc/X11/kdm/kdmrc ]; then
+    mv /etc/X11/kdm/kdmrc{.rpmnew,}
+    echo "NOTE:"
+    echo "Your old kdmrc is missing!"
+    echo "File kdmrc.rpmnew has been renamed as kdmrc."
 fi
 
 %preun -n kdm
