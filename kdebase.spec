@@ -878,20 +878,12 @@ programs=" \
 	kdesu \
 	khelpcenter \
 	krdb"
-programs_nk=" \
-	colors \
-	fonts \
-	kcmstyle \
-	language"
 
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> core.lang
 done
-for i in $programs_nk; do
-	%find_lang $i
-	cat $i.lang >> core.lang
-done
+%find_lang kcmstyle; cat kcmstyle.lang >> core.lang
 
 > %{name}.lang
 programs=" \
@@ -1444,12 +1436,7 @@ fi
 
 %files core -f core.lang
 %defattr(644,root,root,755)
-%lang(en) %dir %{_htmldir}/en/kcontrol
 /etc/xdg/menus/kde-settings.menu
-%lang(en) %{_htmldir}/en/kcontrol/common
-%lang(en) %{_htmldir}/en/kcontrol/helpindex.html
-%lang(en) %{_htmldir}/en/kcontrol/index.*
-%lang(en) %{_htmldir}/en/kcontrol/screenshot.png
 %attr(755,root,root) %{_bindir}/drkonqi
 %attr(755,root,root) %{_bindir}/kcminit
 %attr(755,root,root) %{_bindir}/kcmshell
