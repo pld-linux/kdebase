@@ -836,7 +836,7 @@ Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	pam
 Requires:	sessreg
-Requires:	xinitrc
+Requires:	xinitrc-ng
 Requires:	kde-kgreet
 Obsoletes:	gdm
 Obsoletes:	kdebase-kdm
