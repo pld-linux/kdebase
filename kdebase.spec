@@ -24,7 +24,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.%{_snap}.0.4
+Release:	0.%{_snap}.0.5
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -47,9 +47,7 @@ Patch3:		%{name}-kcm_background.patch
 Patch4:		%{name}-kdm.daemon_output.patch
 Patch5:		%{name}-kdm_utmpx.patch
 Patch6:		%{name}-kdmconfig.patch
-# temporary disabled but still included
 Patch7:		%{name}-kicker.patch
-#
 Patch8:		%{name}-konsole_all.patch
 Patch9:		%{name}-nsplugins_dirs.patch
 Patch10:	%{name}-startkde.patch
@@ -471,8 +469,7 @@ Internet Explorer.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
-# temporary disabled
-#%patch7 -p1
+%patch7 -p1
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
@@ -545,17 +542,11 @@ cp $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop 
 
 ALD=$RPM_BUILD_ROOT%{_applnkdir}
 install -d $ALD/{Help,Settings/KDE}
-mv -f $ALD/{Help.desktop,Help}
 mv -f $ALD/{Settings/[!K]*,Settings/KDE}
+mv -f $ALD/Help.desktop $RPM_BUILD_ROOT%{_desktopdir}
 mv -f $ALD/Settingsmenu/[!K]*.desktop $RPM_BUILD_ROOT%{_desktopdir}
 mv -f $ALD/{System/ScreenSavers,.hidden}
 
-cat $ALD/Help/Help.desktop |sed 's/Help/KDE Help/' |sed 's/Pomoc/Pomoc KDE/' \
-	> Help.desktop.tmp
-mv Help.desktop.tmp $ALD/Help/Help.desktop
-
-mv $RPM_BUILD_ROOT%{_vfinfodir}/kde-development.directory{,.bak}
-mv $RPM_BUILD_ROOT%{_vfinfodir}/kde-settings.directory{,.bak}
 bzip2 -dc %{SOURCE13} | tar xf - -C $RPM_BUILD_ROOT
 
 #for f in `find $ALD -name '.directory' -o -name '*.dekstop'` ; do
@@ -803,7 +794,7 @@ fi
 %{_datadir}/config/kwritedrc
 %{_datadir}/config/kxkb_groups
 # should be base part for new PLD applnk?
-%{_vfinfodir}
+%{_vfinfodir}/*
 #
 %{_datadir}/locale/*
 %{_datadir}/services/kaccess.desktop
