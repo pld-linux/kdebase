@@ -31,7 +31,7 @@ Group:		X11/Applications
 # Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{version}.tar.bz2
 #Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
 Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
-# Source0-md5:	6aeaea11d325c1a942385ba3803c577b
+# Source0-md5:	fd05a338d155610856b06988d8dff117
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -39,11 +39,11 @@ Source4:	%{name}-kdm.Xsession
 Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-searchproviders.tar.bz2
-# Source8-md5:	be8f637d72ae08610cc483f3e6260987
+# Source8-md5:	fc8652f962e3e09563226ed511422e5f
 Source9:	%{name}-colorschemes.tar.bz2
-# Source9-md5:	f5bd3ef0a351e6d5833290105628a398
+# Source9-md5:	af89fbee2e58eac2cdb2e4ab77d168a5
 Source10:	%{name}-servicemenus.tar.bz2
-# Source10-md5:	5b113fe35bd3a46de31e451e285e86d3
+# Source10-md5:	c75c9cc23283ca7de61f2a1a6f1258a0
 Source11:	%{name}-konqsidebarext.tar.bz2
 # Source11-md5:	23ea11aaa85d78c0e39bdf5dd4f4ebda
 Source12:	http://ep09.pld-linux.org/~adgor/kde/%{name}-splash-Default-PLD-0.2.tar.bz2
