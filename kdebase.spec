@@ -2,7 +2,7 @@ Summary:     K Desktop Environment - core files
 Summary(pl): K Desktop Environment - pliki ¶rodowiska
 Name:        kdebase
 Version:     1.0
-Release:     5
+Release:     7
 Copyright:   GPL
 Group:       X11/KDE/Base
 Vendor:      The KDE Team
@@ -1183,6 +1183,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755, root, root) /usr/X11R6/bin/kfontmanager
 
 %changelog
+* Wed Dec  8 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
+  [1.0-7]
+- recompiled against libstdc++.so.2.9.
+
 * Sun Oct 4 1998 Jacek Konieczny <jajcus@zeus.polsl.gliwice.pl>
   [1.0-5]
 - startkde.PLD changed and made "kdeenv".
