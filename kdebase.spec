@@ -5,7 +5,6 @@
 # * i18n files
 # * files list check
 
-
 # Conditional build:
 %bcond_without	ldap	# build without LDAP support
 %bcond_without	apidocs	# build without apidocs
@@ -766,11 +765,10 @@ Zamiennik XDM rodem z KDE. Zarz±dza lokalnymi i zdalnymi ekranami X11.
 Summary:	Konqueror - web browser and file manager
 Summary(pl):	Konqueror - przegl±darka WWW i zarz±dca plików
 Group:		X11/Applications
+Requires:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
 Requires:	konqueror-libs = %{epoch}:%{version}-%{release}
 Obsoletes:	kdebase-konqueror
 Obsoletes:	kdebase-libkmultitabbar
-%{?with_ldap:Requires:	openldap-libs}
-
 
 %description -n konqueror
 Konqueror is a web browser and file manager similar to MS Internet
@@ -802,7 +800,7 @@ Biblioteki wspó³dzielone konquerora.
 Summary:	API documentation
 Summary(pl):	Dokumentacja API
 Group:		Development/Docs
-Requires:	kdelibs = %{epoch}:%{version}-%{release}
+Requires:	kdelibs >= 9:3.2.2
 
 %description apidocs
 API documentation.
@@ -852,10 +850,7 @@ cp %{_datadir}/automake/config.sub admin
 
 %{__make}
 
-%if %{with apidocs}
-%{__make} apidox
-%endif
-
+%{?with_apidocs:%{__make} apidox}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -1035,30 +1030,10 @@ done
 cat kcmkonsole.lang	>> konsole.lang
 cat kioslave.lang	>> kinfocenter.lang
 
-files="core \
-kdebase \
-konqueror \
-konsole \
-kinfocenter \
-kate \
-kdm \
-kfind \
-kioslave \
-klipper \
-kmenuedit \
-ksysguard \
-kpager \
-kwrite \
-screensaver \
-kcmfontinst"
-
-for i in $files; do
-	grep -v apidocs $i.lang > ${i}.lang.1
-	mv ${i}.lang.1 ${i}.lang
-done
+# Omit apidocs entries
+sed -i 's/.*apidocs.*//' *.lang
 
 # </find_lang>
-
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -1147,7 +1122,7 @@ fi
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%lang(en) %{_kdedocdir}/en/%{name}-apidocs
+%{_kdedocdir}/en/%{name}-apidocs
 %endif
 
 %files devel
@@ -1798,7 +1773,6 @@ fi
 %attr(755,root,root) %{_libdir}/libtaskbar.so.*.*.*
 %{_libdir}/libtaskmanager.la
 %attr(755,root,root) %{_libdir}/libtaskmanager.so.*.*.*
-
 
 %files infocenter -f kinfocenter.lang
 %defattr(644,root,root,755)
