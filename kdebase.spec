@@ -1,10 +1,3 @@
-#
-# TODO:
-# * KDM: ColorSheme=Default works properly with GUIStyle=KDE only
-# * Adding %%doc to subpkgs
-# * i18n files
-# * files list check
-
 # Conditional build:
 %bcond_without	ldap	# build without LDAP support
 %bcond_without	apidocs	# build without apidocs
@@ -24,14 +17,14 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.2
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-# Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{version}.tar.bz2
-#Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	fd05a338d155610856b06988d8dff117
+#Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
+#Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
