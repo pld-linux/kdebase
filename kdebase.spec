@@ -101,6 +101,7 @@ BuildRequires:	libxml2-progs
 BuildRequires:	motif-devel
 BuildRequires:	openssl-devel >= 0.9.7
 BuildRequires:	pam-devel
+BuildRequires:	sed >= 4.0
 BuildRequires:	qt-devel >= 3.1
 BuildRequires:	zlib-devel
 # TODO: sensors
@@ -495,7 +496,7 @@ export CPPFLAGS
 for plik in `find ./ -name *.desktop` ; do
 	if [ -d $plik ]; then
 	echo $plik
-	sed -ie "s/[nb]/[no]/g" $plik
+	sed -ie 's/\[nb\]/\[no\]/g' $plik
 	fi
 done
 
