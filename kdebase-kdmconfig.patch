@@ -23,17 +23,9 @@
  {
      m_pCBEnable->setChecked( true );
      slotEnableChanged();
---- kdebase-030317/kcontrol/kdm/kdm-appear.cpp~	Tue Mar 18 11:15:18 2003
-+++ kdebase-030317/kcontrol/kdm/kdm-appear.cpp	Tue Mar 18 11:15:43 2003
-@@ -194,6 +194,7 @@
-   QStringList list = QStyleFactory::keys();
-   list = KDMAppearanceWidget::sortStringList(list);
-   guicombo->insertStringList(list);
-+  guicombo->insertItem("KDE");
- 
-   label = new QLabel(guicombo, i18n("GUI s&tyle:"), hlp);
-   connect(guicombo, SIGNAL(activated(int)), SLOT(changed()));
-@@ -322,7 +323,7 @@
+--- kdebase-030512/kcontrol/kdm/kdm-appear.cpp~	2003-05-12 00:34:51.000000000 +0200
++++ kdebase-030512/kcontrol/kdm/kdm-appear.cpp	2003-05-12 10:47:10.000000000 +0200
+@@ -379,7 +379,7 @@
  bool KDMAppearanceWidget::setLogo(QString logo)
  {
      QString flogo = logo.isEmpty() ?
@@ -42,7 +34,7 @@
                      logo;
      QPixmap p(flogo);
      if (p.isNull())
-@@ -339,7 +340,7 @@
+@@ -396,7 +396,7 @@
  {
      KImageIO::registerFormats();
      QString fileName = KFileDialog::getOpenFileName(
@@ -51,7 +43,7 @@
  	KImageIO::pattern());
      if (!fileName.isEmpty())
  	if (setLogo(fileName))
-@@ -396,9 +397,7 @@
+@@ -453,9 +453,7 @@
  
  	// we gotta check if it is a non-local file and make a tmp copy at the hd.
  	if(!url->isLocalFile()) {
@@ -62,7 +54,7 @@
  	    KIO::NetAccess::copy(*url, pixurl);
  	    istmp = true;
  	} else {
-@@ -453,10 +452,10 @@
+@@ -510,10 +508,10 @@
    config->setGroup("X-*-Greeter");
  
    // Read the greeting string
@@ -75,33 +67,18 @@
    if (logoArea == "Clock") {
      clockRadio->setChecked(true);
      slotAreaRadioClicked(KdmClock);
-@@ -472,7 +471,7 @@
-   setLogo( config->readEntry("LogoPixmap", ""));
- 
-   // Check the GUI type
--  guicombo->setCurrentItem (config->readEntry("GUIStyle", "Default"), true, 0);
-+  guicombo->setCurrentItem (config->readEntry("GUIStyle", "KDE"), true, 0);
- 
-   // Check the Color Scheme
-   colcombo->setCurrentItem (config->readEntry("ColorScheme", "Default"), true, 0);
-@@ -503,13 +502,13 @@
+@@ -560,9 +558,9 @@
  
  void KDMAppearanceWidget::defaults()
  {
 -  greetstr_lined->setText( i18n("Welcome to %s at %n") );
--  logoRadio->setChecked( true );
--  slotAreaRadioClicked( KdmLogo );
 +  greetstr_lined->setText( i18n("Welcome to PLD Linux at %n") );
-+  noneRadio->setChecked( true );
+   logoRadio->setChecked( true );
+-  slotAreaRadioClicked( KdmLogo );
 +  slotAreaRadioClicked( KdmNone );
    posCenterRadio->setChecked( true );
    slotPosRadioClicked( 0 );
    setLogo( "" );
--  guicombo->setCurrentItem (QString::fromLatin1("Default"), true, 0);
-+  guicombo->setCurrentItem (QString::fromLatin1("KDE"), true, 0);
- 
-   colcombo->setCurrentItem( QString::fromLatin1("Default"), true, 0 );
-   echocombo->setCurrentItem( 1 );
 --- kdebase-3.1.1/kcontrol/kdm/kdm-font.cpp~	Sun Sep 15 23:08:39 2002
 +++ kdebase-3.1.1/kcontrol/kdm/kdm-font.cpp	Tue Mar  4 18:51:26 2003
 @@ -112,8 +112,8 @@
