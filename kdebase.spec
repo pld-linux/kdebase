@@ -4,8 +4,8 @@
 # * Adding %%doc to subpkgs
 #
 # Conditional build:
-%bcond_without 	i18n	# don't build i18n packages per module 
-%bcond_without	ldap	# build without openldap support.
+%bcond_without	i18n	# don't build i18n packages per module 
+%bcond_without	ldap	# build without LDAP support
 #
 %define		_state		stable
 %define		_ver		3.2.0
@@ -90,7 +90,7 @@ BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	motif-devel
 BuildRequires:	openssl-devel >= 0.9.7c
-%{?with_ldap:	BuildRequires:	openldap-devel}
+%{?with_ldap:BuildRequires:	openldap-devel}
 BuildRequires:	pam-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	xcursor-devel
@@ -3041,7 +3041,7 @@ fi
 %{_datadir}/services/kshorturifilter.desktop
 %{_datadir}/services/kuriikwsfilter.desktop
 %{_datadir}/services/kurisearchfilter.desktop
-%{?with_ldap:	%{_datadir}/services/ldap.protocol}
+%{?with_ldap:%{_datadir}/services/ldap.protocol}
 %{_datadir}/services/localdomainurifilter.desktop
 %{_datadir}/services/mac.protocol
 %{_datadir}/services/nfs.protocol
