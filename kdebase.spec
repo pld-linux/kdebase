@@ -11,8 +11,8 @@ Summary(ru):	K Desktop Environment - базовые файлы
 Summary(uk):	K Desktop Environment - базов╕ файли
 Summary(zh_CN): KDE╨кпд
 Name:		kdebase
-Version:	3.0.3
-Release:	13
+Version:	3.0.4
+Release:	2
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -37,30 +37,13 @@ Patch9:		%{name}-konsole-defaultfonts.patch
 Patch10:	%{name}-konsoleF1.patch
 Patch11:	%{name}-linebreaks.patch
 Patch12:	%{name}-ptsname.patch
-Patch20:	%{name}-fix-big-mem-leak-into-bgsetting.patch
-Patch21:	%{name}-fix-kcmaudiocd-mem-leak.patch
-Patch22:	%{name}-fix-kcmlocale-mem-leak.patch
-Patch23:	%{name}-fix-klipper-bug-41137.patch
-Patch24:	%{name}-fix-konqueror-up-crash.patch
-Patch25:	%{name}-fix-konsole-bug-37890.patch
-Patch26:	%{name}-fix-konsole-mem-leak.patch
-Patch27:	%{name}-fix-mem-leak-in-kate.patch
-Patch28:	%{name}-fix-mem-leak-in-kate2.patch
-Patch29:	%{name}-fix-mem-leak-in-kcm-konsole.patch
-Patch30:	%{name}-fix-mem-leak-in-kcm-konsole2.patch
-Patch31:	%{name}-fix-mem-leak-in-kcm-konsole3.patch
-Patch32:	%{name}-fix-mem-leak-in-kdesktop.patch
-Patch33:	%{name}-fix-mem-leak-in-kfind.patch
-Patch34:	%{name}-fix-mem-leak-in-kio-smb.patch
-Patch35:	%{name}-fix-mem-leak-in-kpersonalizer.patch
-Patch36:	%{name}-fix-mem-leak-in-kpersonalizer2.patch
-Patch37:	%{name}-fix-mem-leak-in-kpersonalizer3.patch
-Patch38:	%{name}-fix-mem-leak-in-kxkb.patch
-Patch39:	%{name}-fix-mem-leak-kicker.patch
-Patch40:	%{name}-fix-mem-leak-konq-behaviour.patch
-Patch41:	%{name}-fix-mem-leak-konq-main.patch
-Patch42:	%{name}-fix-mem-leak-smbro.patch
-Patch43:	%{name}-kicker.patch
+Patch20:	%{name}-fix-klipper-bug-41137.patch
+Patch21:	%{name}-fix-konsole-bug-37890.patch
+Patch22:	%{name}-fix-mem-leak-in-kdesktop.patch
+Patch23:	%{name}-fix-mem-leak-in-kfind.patch
+Patch24:	%{name}-fix-mem-leak-in-kxkb.patch
+Patch25:	%{name}-kicker.patch
+Patch26:	%{name}-dtfix.patch
 %ifnarch sparc sparc64
 BuildRequires:	alsa-lib-devel
 %endif
@@ -331,26 +314,8 @@ Standardowy obrazek okna "Wyloguj" KDE.
 %patch24 -p1
 %patch25 -p1
 %patch26 -p1
-%patch27 -p1
-%patch28 -p1
-%patch29 -p1
-%patch30 -p1
-%patch31 -p1
-%patch32 -p1
-%patch33 -p1
-%patch34 -p1
-%patch35 -p1
-%patch36 -p1
-%patch37 -p1
-%patch38 -p1
-%patch39 -p1
-%patch40 -p1
-%patch41 -p1
-%patch42 -p1
-%patch43 -p1
 
 %build
-
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
