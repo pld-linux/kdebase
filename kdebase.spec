@@ -1,6 +1,7 @@
+%define		_ver		3.0.2
 %define		_ver		3.0.1
 #define		_sub_ver
-%define		_rel		2
+%define		_rel		0.1
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -208,14 +209,10 @@ Wygaszacze ekranu desktopu KDE.
 
 %build
 
-# workaround -- don't allow to regenerate Makefile.xx
-#find -name Makefile.am -exec touch {} \;
-#find -name Makefile.in -exec touch {} \;
-
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
-#%{__make} -f Makefile.cvs
+%{__make} -f Makefile.cvs
 if [ -f %{_pkgconfigdir}/libpng12.pc ] ; then
         CPPFLAGS="`pkg-config libpng12 --cflags`"
 fi
