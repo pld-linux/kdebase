@@ -9,7 +9,7 @@ Summary(ru):	K Desktop Environment - базовые файлы
 Summary(uk):	K Desktop Environment - базов╕ файли
 Name:		kdebase
 Version:	3.0.3
-Release:	7
+Release:	8
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -255,8 +255,10 @@ Wygaszacze ekranu desktopu KDE.
 Summary:	KDE splash screen
 Summary(pl):	Obrazek startowy KDE
 Group:		X11/Amusements
-Obsoletes:	kde-splash
 Provides:	kde-splash
+Obsoletes:	kde-splash
+Obsoletes:	kde-splash-KDEGirl
+Obsoletes:	kde-splash-keramik
 
 %description -n kde-splash-default
 Default splash screen for KDE.
@@ -264,17 +266,18 @@ Default splash screen for KDE.
 %description -n kde-splash-default -l pl
 Standardowy obrazek startowy KDE.
 
-%package -n kde-sdscreen-default                                                
-Summary:        KDE "Logout" picture                                            
-Summary(pl):    Obrazek okna "Wyloguj" KDE                                      
-Group:          X11/Amusements                                                  
-Obsoletes:      kde-sdscreen                                                    
-Provides:       kde-sdscreen                                                    
-                                                                                
-%description -n kde-sdscreen-default                                            
-Default KDE "Logout" picture.                                                   
-                                                                                
-%description -n kde-sdscreen-default -l pl                                      
+%package -n kde-sdscreen-default
+Summary:        KDE "Logout" picture
+Summary(pl):    Obrazek okna "Wyloguj" KDE
+Group:          X11/Amusements
+Provides:       kde-sdscreen
+Obsoletes:      kde-sdscreen
+Obsoletes:	kde-sdscreen-KDEGirl
+
+%description -n kde-sdscreen-default
+Default KDE "Logout" picture.
+
+%description -n kde-sdscreen-default -l pl
 Standardowy obrazek okna "Wyloguj" KDE. 
 
 %prep
