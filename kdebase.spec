@@ -10,7 +10,7 @@ Group(pl):	X11/KDE
 Vendor:		The KDE Team
 Source0:	ftp://ftp.kde.org/pub/kde/stable/2.0/distribution/generic/tar/src/%{name}-%{version}.tar.bz2
 Source1:	kdeenv
-Patch0:		%{name}-DESTDIR.patch
+Patch0:		%{name}-include-paths.patch
 BuildRequires:	qt >= 2.2.1
 BuildRequires:	kdelibs-devel >= %{version}
 BuildRequires:	libjpeg-devel
@@ -375,12 +375,14 @@ Przyk³adowe tapety s± tak¿e do³±czone
 %patch0 -p1
 %build
 automake
+autoconf
 %configure \
  	--with-pam=yes \
 	--without-shadow \
 	--disable-shadow \
 	--with-extra-includes=%{_includedir}
 
+export KDEDIR=/usr/X11R6/share/kde
 %{__make} KDEDIR=$KDEDIR
 
 %install
