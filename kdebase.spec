@@ -10,7 +10,7 @@
 %bcond_without	apidocs	# build without apidocs
 #
 %define		_state		stable
-%define		_ver		3.2.2
+%define		_ver		3.2.3
 #%%define		_snap		040110
 
 Summary:	K Desktop Environment - core files
@@ -24,14 +24,14 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	2
+Release:	0.1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 # Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{version}.tar.bz2
-Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	81a348e01625f77beeb53755cb28ba85
-#Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
+#Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
+Source0:       http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
+# Source0-md5:	6aeaea11d325c1a942385ba3803c577b
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -39,11 +39,11 @@ Source4:	%{name}-kdm.Xsession
 Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-searchproviders.tar.bz2 
-# Source8-md5:	fc8652f962e3e09563226ed511422e5f
+# Source8-md5:	be8f637d72ae08610cc483f3e6260987
 Source9:	%{name}-colorschemes.tar.bz2
-# Source9-md5:	af89fbee2e58eac2cdb2e4ab77d168a5
+# Source9-md5:	8cb483f9de4740283e1fdd27d187d970
 Source10:	%{name}-servicemenus.tar.bz2
-# Source10-md5:	c75c9cc23283ca7de61f2a1a6f1258a0
+# Source10-md5:	9d1389fb6f266f10e7e84ed080560166
 Source11:	%{name}-konqsidebarext.tar.bz2
 # Source11-md5:	23ea11aaa85d78c0e39bdf5dd4f4ebda
 Source12:	http://ep09.pld-linux.org/~adgor/kde/%{name}-splash-Default-PLD-0.2.tar.bz2
@@ -109,13 +109,16 @@ BuildRequires:	qt-doc >= %{qtver}
 BuildRequires:	doxygen
 BuildRequires:	graphviz
 %endif
-BuildConflicts:	kdebase-konqueror-libs
 Conflicts:	kdelibs < 9:3.1.94.040110-1
 # TODO: sensors
 #BuildRequires:	sensors-devel
 BuildRequires:	zlib-devel
 BuildRequires:	bzip2-devel
 BuildRequires:	pcre-devel
+BuildConflicts:	kdebase-libkickermain
+BuildConflicts:	kdebase-libkonq
+BuildConflicts:	kdebase-kicker-libs
+BuildConflicts:	kdebase-konqueror-libs
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_xdgdatadir	%{_datadir}/desktop-directories
@@ -402,6 +405,7 @@ Podstawowe aplikacje ¶rodowiska KDE. Pakiet ten zawiera:
 Summary:	KDesktop - handling of desktop icons, popup menus etc.
 Summary(pl):	KDesktop - obs³uga ikon na pulpicie, menu itp.
 Group:		X11/Applications
+Provides:	kdebase-kicker
 Requires:	kde-logoutpic
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
 Requires:	konqueror = %{epoch}:%{version}-%{release}
