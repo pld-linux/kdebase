@@ -26,8 +26,8 @@
      emit changed(true);
  }
  
---- kdebase-3.1/kcontrol/kdm/kdm-appear.cpp.orig	Mon Nov 18 14:14:28 2002
-+++ kdebase-3.1/kcontrol/kdm/kdm-appear.cpp	Fri Nov 29 18:50:12 2002
+--- kdebase-3.1.1/kcontrol/kdm/kdm-appear.cpp~	Sun Mar  2 19:31:52 2003
++++ kdebase-3.1.1/kcontrol/kdm/kdm-appear.cpp	Tue Mar  4 15:13:46 2003
 @@ -193,6 +193,7 @@
  
    guicombo = new KComboBox(false, hlp);
@@ -36,7 +36,7 @@
    label = new QLabel(guicombo, i18n("GUI s&tyle:"), hlp);
    connect(guicombo, SIGNAL(activated(int)), SLOT(changed()));
    hglay->addWidget(label, 0, 0);
-@@ -316,7 +317,7 @@
+@@ -318,7 +319,7 @@
  bool KDMAppearanceWidget::setLogo(QString logo)
  {
      QString flogo = logo.isEmpty() ?
@@ -45,7 +45,7 @@
                      logo;
      QPixmap p(flogo);
      if (p.isNull())
-@@ -333,7 +334,7 @@
+@@ -335,7 +336,7 @@
  {
      KImageIO::registerFormats();
      QString fileName = KFileDialog::getOpenFileName(
@@ -54,7 +54,7 @@
  	KImageIO::pattern());
      if (!fileName.isEmpty())
  	if (setLogo(fileName))
-@@ -390,9 +391,7 @@
+@@ -392,9 +393,7 @@
  
  	// we gotta check if it is a non-local file and make a tmp copy at the hd.
  	if(!url->isLocalFile()) {
@@ -65,7 +65,7 @@
  	    KIO::NetAccess::copy(*url, pixurl);
  	    istmp = true;
  	} else {
-@@ -447,7 +446,7 @@
+@@ -449,10 +448,10 @@
    config->setGroup("X-*-Greeter");
  
    // Read the greeting string
@@ -73,8 +73,12 @@
 +  greetstr_lined->setText(config->readEntry("GreetString", i18n("Welcome to PLD Linux at %n")));
  
    // Regular logo or clock
-   QString logoArea = config->readEntry("LogoArea", "Logo" );
-@@ -466,7 +465,7 @@
+-  QString logoArea = config->readEntry("LogoArea", "Logo" );
++  QString logoArea = config->readEntry("LogoArea", "None" );
+   if (logoArea == "Clock") {
+     clockRadio->setChecked(true);
+     slotAreaRadioClicked(KdmClock);
+@@ -468,7 +467,7 @@
    setLogo( config->readEntry("LogoPixmap", ""));
  
    // Check the GUI type
@@ -83,23 +87,37 @@
  
    // Check the Color Scheme
    colcombo->setCurrentItem (config->readEntry("ColorScheme", "Default"), true, 0);
-@@ -497,13 +496,14 @@
+@@ -499,13 +498,13 @@
  
  void KDMAppearanceWidget::defaults()
  {
 -  greetstr_lined->setText( i18n("Welcome to %s at %n") );
+-  logoRadio->setChecked( true );
+-  slotAreaRadioClicked( KdmLogo );
 +  greetstr_lined->setText( i18n("Welcome to PLD Linux at %n") );
-   logoRadio->setChecked( true );
-   slotAreaRadioClicked( KdmLogo );
++  noneRadio->setChecked( true );
++  slotAreaRadioClicked( KdmNone );
    posCenterRadio->setChecked( true );
    slotPosRadioClicked( 0 );
    setLogo( "" );
--  guicombo->setCurrentItem( QString::fromLatin1("Default"), true, 0 );
-+  guicombo->setCurrentItem( QString::fromLatin1("KDE"), true, 0 );
-+  colcombo->setCurrentItem( QString::fromLatin1("Default"), true, 0 );
-   echocombo->setCurrentItem( 1 );
+-  guicombo->setCurrentItem (QString::fromLatin1("Default"), true, 0);
++  guicombo->setCurrentItem (QString::fromLatin1("KDE"), true, 0);
  
-   langcombo->setCurrentItem( "en_US" );
+   colcombo->setCurrentItem( QString::fromLatin1("Default"), true, 0 );
+   echocombo->setCurrentItem( 1 );
+--- kdebase-3.1.1/kcontrol/kdm/kdm-font.cpp~	Sun Sep 15 23:08:39 2002
++++ kdebase-3.1.1/kcontrol/kdm/kdm-font.cpp	Tue Mar  4 18:51:26 2003
+@@ -112,8 +112,8 @@
+ 
+ void KDMFontWidget::set_def()
+ {
+-  stdfont = QFont("helvetica", 12);
+-  failfont = QFont("helvetica", 12, QFont::Bold);
++  stdfont = QFont("helvetica", 11);
++  failfont = QFont("helvetica", 11, QFont::Bold);
+   greetfont = QFont("charter", 24);
+ }
+ 
 --- kdebase-3.1/kcontrol/kdm/kdm-sess.cpp.orig	Sun Sep 15 23:08:39 2002
 +++ kdebase-3.1/kcontrol/kdm/kdm-sess.cpp	Thu Nov 21 23:18:34 2002
 @@ -400,11 +400,6 @@
@@ -162,8 +180,8 @@
  
  messages:
  	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
---- kdebase-3.1/kdm/kfrontend/genkdmconf.c.orig	Mon Oct 28 10:55:24 2002
-+++ kdebase-3.1/kdm/kfrontend/genkdmconf.c	Fri Nov 22 21:36:01 2002
+--- kdebase-3.1.1/kdm/kfrontend/genkdmconf.c~	Sun Mar  2 19:35:05 2003
++++ kdebase-3.1.1/kdm/kfrontend/genkdmconf.c	Tue Mar  4 15:53:10 2003
 @@ -56,7 +56,7 @@
  
  #define as(ar) ((int)(sizeof(ar)/sizeof(ar[0])))
@@ -173,18 +191,16 @@
  
  #define RCVERMAJOR 2
  #define RCVERMINOR 0
-@@ -745,9 +745,8 @@
+@@ -757,7 +757,7 @@
  "Program=\n"
  "ReverseBlending=false\n"
  "UseSHM=false\n"
 -"Wallpaper=default_blue.jpg\n"
++"Wallpaper=/etc/X11/kdm/pics/pldwallpaper.png\n"
  "WallpaperList=\n"
--"WallpaperMode=Scaled\n";
-+"WallpaperMode=NoWallpaper\n";
+ "WallpaperMode=Scaled\n";
  
- static FILE *
- Create (const char *fn, int mode)
-@@ -1816,18 +1815,18 @@
+@@ -1831,18 +1831,18 @@
  "# this opens a security hole: a secured display lock can be circumvented\n"
  "# (unless you use KDE's built-in screen lock). Default is false\n" },
  { "AllowRootLogin",	0, 0, 
@@ -208,7 +224,7 @@
  { "DefaultSdMode",	0, 0, 
  "# The default choice for the shutdown condition/timing.\n"
  "# \"Schedule\" - shutdown after all sessions exit (possibly at once) (Default)\n"
-@@ -1842,7 +1841,7 @@
+@@ -1857,7 +1857,7 @@
  "# option!), i.e., KDM will behave exactly as before KDE 3.0.\n" }, 
  { "SessSaveFile",	0, 0, 
  "# Where (relatively to the user's home directory) to store the last\n"
@@ -217,7 +233,29 @@
  { "ServerAttempts",	0, 0, 
  "# How often to try to run the X-server. Running includes executing it and\n"
  "# waiting for it to come up. Default is 1\n" },
-@@ -1910,7 +1909,7 @@
+@@ -1894,17 +1894,17 @@
+ { "GUIStyle",		0, upd_guistyle, 
+ "# Widget Style of the greeter:\n"
+ "# Default, Windows, Platinum, Motif, MotifPlus, CDE, SGI, and any styles you\n"
+-"# may have installed, e.g., HighColor; Default is \"Default\"\n" },
++"# may have installed, e.g., HighColor; Default is \"KDE\"\n" },
+ { "ColorScheme",		0, 0, 
+ "# Widget Colors of the greeter:\n"
+ "# Default, and any color schemes you may have installed. Default is \"Default\"\n" },
+ { "LogoArea",		0, upd_logoarea, 
+ "# What should be shown righthand of the input lines:\n"
+-"# \"Logo\" - the image specified by LogoPixmap (Default)\n"
++"# \"Logo\" - the image specified by LogoPixmap \n"
+ "# \"Clock\" - a neat analog clock\n"
+-"# \"None\" - nothing\n" },
++"# \"None\" - nothing (Default)\n" },
+ { "LogoPixmap",		0, 0, 
+-"# The image to show when LogoArea=Logo. Default is kdelogo.png\n" },
++"# The image to show when LogoArea=Logo. Default is pldlogo.png\n" },
+ { "GreeterPosFixed",	0, 0, 
+ "# Normally, the greeter is centered on the screen. Use this, if you want\n"
+ "# it to appear elsewhere on the screen. Default is false\n" },
+@@ -1925,13 +1925,13 @@
  "# - %r -> the operating system's version\n"
  "# - %m -> the machine (hardware) type\n"
  "# - %% -> a single %\n"
@@ -226,7 +264,15 @@
  { "GreetFont",		0, 0, 
  "# The font for the headline. Default is charter,24,bold\n" },
  { "StdFont",		0, 0, 
-@@ -2106,10 +2105,10 @@
+-"# The normal font used in the greeter. Default is helvetica,12\n" },
++"# The normal font used in the greeter. Default is helvetica,11\n" },
+ { "FailFont",		0, 0, 
+-"# The font used for the \"Login Failed\" message. Default is helvetica,12,bold\n" },
++"# The font used for the \"Login Failed\" message. Default is helvetica,11,bold\n" },
+ { "AntiAliasing",	0, 0,
+ "# Whether the fonts shown in the greeter should be antialiased. Default is false\n" },
+ { "NumLock",		0, 0,
+@@ -2121,10 +2121,10 @@
  { "UserAuthDir",	"", 0 },
  { "Chooser",		"", 0 },	/* XXX kill */
  { "AutoReLogin",	"true", 0 },
@@ -241,7 +287,16 @@
  { "DefaultSdMode",	"ForceNow", 0}, 
  { "InteractiveSd",	"false", 0}, 
  { "SessSaveFile",	"", 0 },	/* XXX .dmrc */
-@@ -2152,8 +2151,8 @@
+@@ -2134,7 +2134,7 @@
+ { "SessionTypes",	"default,kde,failsafe", 1 },
+ { "GUIStyle",		"Windows", 0 },
+ { "ColorScheme",	"Pumpkin", 0 },
+-{ "LogoArea",		"None", 0 },
++{ "LogoArea",		"Logo", 0 },
+ { "LogoPixmap",		"", 0 },
+ { "GreeterPosFixed",	"true", 0 },
+ { "GreeterPosX",	"200", 0 },
+@@ -2167,8 +2167,8 @@
  { "ServerAttempts",	"", 0 },
  { "ServerTimeout",	"", 0 },
  { "AllowShutdown",	"All", 1 },
@@ -252,8 +307,8 @@
  { "NoPassEnable",	"true", 0 },
  { "NoPassUsers",	"fred,ethel", 0 },
  };
---- kdebase-3.1/kdm/kfrontend/kdm_config.c.orig	Sun Oct 27 00:05:55 2002
-+++ kdebase-3.1/kdm/kfrontend/kdm_config.c	Wed Nov 20 22:09:09 2002
+--- kdebase-3.1.1/kdm/kfrontend/kdm_config.c~	Thu Dec  5 21:40:21 2002
++++ kdebase-3.1.1/kdm/kfrontend/kdm_config.c	Tue Mar  4 15:10:48 2003
 @@ -38,7 +38,7 @@
  #include <netdb.h>
  #include <grp.h>
@@ -280,11 +335,22 @@
  { "DefaultSdMode",	C_defSdMode | C_ENUM, sd_mode,	"Schedule" },
  { "InteractiveSd",	C_interactiveSd | C_BOOL, 0,	"true" },
  };
-@@ -540,7 +540,7 @@
+@@ -532,15 +532,15 @@
+ { "SessionTypes",	C_SessionTypes,		0,	"default,failsafe" },
+ { "GUIStyle",		C_GUIStyle, 		0,	"KDE" },
+ { "ColorScheme",	C_ColorScheme,		0,	"Default" },
+-{ "LogoArea",		C_LogoArea | C_ENUM, logoarea,	"Logo" },
++{ "LogoArea",		C_LogoArea | C_ENUM, logoarea,	"None" },
+ { "LogoPixmap",		C_LogoPixmap,		0,	"" },
+ { "GreeterPosFixed",	C_GreeterPosFixed | C_BOOL, 0,	"false" },
+ { "GreeterPosX",	C_GreeterPosX,		0,	"0" },
+ { "GreeterPosY",	C_GreeterPosY,		0,	"0" },
  { "GreeterScreen",	C_GreeterScreen,	0,	"0" },
- { "StdFont",		C_StdFont,		0,	"helvetica,12,5,0,50,0" },
- { "FailFont",		C_FailFont,		0,	"helvetica,12,5,0,75,0" },
+-{ "StdFont",		C_StdFont,		0,	"helvetica,12,5,0,50,0" },
+-{ "FailFont",		C_FailFont,		0,	"helvetica,12,5,0,75,0" },
 -{ "GreetString",	C_GreetString,		0,	"Welcome to %s at %n" },
++{ "StdFont",		C_StdFont,		0,	"helvetica,11,5,0,50,0" },
++{ "FailFont",		C_FailFont,		0,	"helvetica,11,5,0,75,0" },
 +{ "GreetString",	C_GreetString,		0,	"Welcome to PLD Linux at %n" },
  { "GreetFont",		C_GreetFont,		0,	"charter,24,5,0,50,0" },
  { "AntiAliasing",	C_AntiAliasing | C_BOOL,0,	"false" },
