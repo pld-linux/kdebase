@@ -28,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.12
+Release:	0.13
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -895,6 +895,7 @@ programs=" \
 	bell \
 	desktop \
 	energy \
+	fontinst \
 	kaccess \
 	kcmaccess \
 	kcmarts \
@@ -925,6 +926,8 @@ programs=" \
 	kstart \
 	ktip \
 	kwin \
+	kwin_default_config \
+	kwin_keramik_config \
 	kwindecoration \
 	kxkb \
 	mouse \
@@ -987,6 +990,8 @@ programs="\
 	kcmkonq \
 	kcmkonqhtml \
 	kcmkurifilt \
+	kcmsocks \
+	kfile_font \
 	kfmclient \
 	kfmexec \
 	khtml \
@@ -1054,28 +1059,32 @@ for i in $programs; do
 	cat $i.lang >> mailnews.lang
 done
 
-%find_lang	kappfinder	--with-kde
-%find_lang	kate		--with-kde
-%find_lang	kcmkonsole	--with-kde
-%find_lang	kcmscreensaver	--with-kde
-%find_lang	kcmthemes	--with-kde
-%find_lang	kdeprintfax	--with-kde
-%find_lang	kdialog		--with-kde
-%find_lang	kfind		--with-kde
+%find_lang	kappfinder		--with-kde
+%find_lang	kate			--with-kde
+%find_lang	kcmkonsole		--with-kde
+%find_lang	kcmscreensaver		--with-kde
+%find_lang	kcmthemes		--with-kde
+%find_lang	kdeprintfax		--with-kde
+%find_lang	kdialog			--with-kde
+%find_lang	kfind			--with-kde
 # used by both: kfind and konqueror (libkfindpart)
-%find_lang	kfindpart	--with-kde
-%find_lang	kjobviewer	--with-kde
-%find_lang	klipper		--with-kde
-%find_lang	kmenuedit	--with-kde
-%find_lang	konsole		--with-kde
-%find_lang	kpager		--with-kde
-%find_lang	kscreensaver	--with-kde
-%find_lang	ksysguard	--with-kde
-%find_lang	ksystraycmd	--with-kde
-%find_lang	kthememgr	--with-kde
-%find_lang	kwrite		--with-kde
-%find_lang	libkonq		--with-kde
-%find_lang	screensaver	--with-kde
+%find_lang	kfindpart		--with-kde
+%find_lang	kjobviewer		--with-kde
+%find_lang	klipper			--with-kde
+%find_lang	kmenuedit		--with-kde
+%find_lang	konsole			--with-kde
+%find_lang	kpager			--with-kde
+%find_lang	kscreensaver		--with-kde
+%find_lang	ksysguard		--with-kde
+%find_lang	ksystraycmd		--with-kde
+%find_lang	kthememgr		--with-kde
+%find_lang	kwin_b2_config		--with-kde
+%find_lang	kwin_icewm_config	--with-kde
+%find_lang	kwin_modernsys_config	--with-kde
+%find_lang	kwin_quartz_config	--with-kde
+%find_lang	kwrite			--with-kde
+%find_lang	libkonq			--with-kde
+%find_lang	screensaver		--with-kde
 
 cat kcmkonsole.lang	>> konsole.lang
 cat kcmscreensaver.lang	>> screensaver.lang
@@ -1085,12 +1094,20 @@ cat kfindpart.lang	>> konqueror.lang
 cat kscreensaver.lang	>> screensaver.lang
 
 # do not build
-#%find_lang	htmlsearch	--with-kde
-#%find_lang	kcmhtmlsearch	--with-kde
-#%find_lang	kcmsmartcard	--with-kde
-#%find_lang	kio_smb		--with-kde
-#%find_lang	klegacyimport	--with-kde
-#%find_lang	ppdtranslations	--with-kde
+#%find_lang	htmlsearch		--with-kde
+#%find_lang	kcmhtmlsearch		--with-kde
+#%find_lang	kcmsmartcard		--with-kde
+#%find_lang	kfontviewpart		--with-kde
+#%find_lang	kio_smb			--with-kde
+#%find_lang	klegacyimport		--with-kde
+#%find_lang	ppdtranslations		--with-kde
+
+# probably from other packages
+#%find_lang	kcmkwintheme		--with-kde
+#%find_lang	kcmmidi			--with-kde
+#%find_lang	klprfax			--with-kde
+#%find_lang	kpm			--with-kde
+#%find_lang	kxsconfig		--with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -1402,7 +1419,7 @@ fi
 %{_includedir}/kate
 %{_includedir}/ksgrd
 
-%files -n kde-decoration-b2
+%files -n kde-decoration-b2 -f kwin_b2_config.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde3/kwin_b2.so
 %{_libdir}/kde3/kwin_b2.la
@@ -1416,7 +1433,7 @@ fi
 %{_libdir}/kde3/kwin_laptop.la
 %{_datadir}/apps/kwin/laptop.desktop
 
-%files -n kde-decoration-modernsys
+%files -n kde-decoration-modernsys -f kwin_modernsys_config.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde3/kwin_modernsys.so
 %{_libdir}/kde3/kwin_modernsys.la
@@ -1424,7 +1441,7 @@ fi
 %{_libdir}/kde3/kwin_modernsys_config.la
 %{_datadir}/apps/kwin/modernsystem.desktop
 
-%files -n kde-decoration-quartz
+%files -n kde-decoration-quartz -f kwin_quartz_config.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde3/kwin_quartz.so
 %{_libdir}/kde3/kwin_quartz.la
@@ -1848,7 +1865,7 @@ fi
 %{_libdir}/kde3/kwin_system.la
 %{_datadir}/apps/kwin/system*
 
-%files -n kde-decoration-icewm
+%files -n kde-decoration-icewm -f kwin_icewm_config.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde3/kwin_icewm*.so
 %{_libdir}/kde3/kwin_icewm*.la
