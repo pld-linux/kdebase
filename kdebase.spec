@@ -1,8 +1,5 @@
 #
-# FIXME: missing /etc/pam.d/kdm
 # FIXME: infinite loop in symlinks to kdmrc
-# FIXME: brain-dead findwm script
-# FIXME: kdebase must be installed from X-Window system on local machine running with root privilages.
 #
 
 %define		_state		unstable
@@ -19,7 +16,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.99
-Release:	1
+Release:	2
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -79,7 +76,7 @@ BuildRequires:	zlib-devel
 #BuildRequires:	sensors-devel
 Requires(post,postun):	/sbin/ldconfig
 Prereq:		/usr/X11R6/bin/mkfontdir
-Requires:	applnk >= 1.5.11
+Requires:	applnk >= 1.5.14
 Requires:	kde-splash
 Requires:       kde-sdscreen
 Requires:	konqueror = %{version}-%{release}
@@ -962,7 +959,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kscreensaver
 %attr(0755,root,root) %{_libdir}/kde3/kcm_screensaver.??
 %{_applnkdir}/Settings/KDE/LookNFeel/screensaver.desktop
-%{_applnkdir}/System/ScreenSavers
+%{_applnkdir}/System/ScreenSavers/*
 %{_pixmapsdir}/*/*/apps/kscreensaver.png
 
 %files wallpapers
