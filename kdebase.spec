@@ -28,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	5
+Release:	5.1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -39,6 +39,7 @@ Source4:	%{name}-kdm.Xsession
 Source5:	%{name}-kdm.Xservers
 Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
+Source8:	kde-i18n-%{name}-%{version}.tar.bz2
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 Patch1:		%{name}-fix-mouse.cpp.patch
 Patch2:		%{name}-fontdir.patch
@@ -554,6 +555,8 @@ for f in `find $ALD -name '.directory' -o -name '*.dekstop'` ; do
 	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
 	mv -f $f{.tmp,}
 done
+
+bzip2 -dc %{SOURCE8} | tar xf - -C $RPM_BUILD_ROOT
 
 > %{name}.lang
 
