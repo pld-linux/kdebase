@@ -160,6 +160,7 @@ Requires:	%{name}-kfontinst = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libksgrd = %{epoch}:%{version}-%{release}
 Requires:	kdelibs-devel >= %{_minlibsevr}
+Obsoletes:	kdebase-ksysguard-libs
 
 %description devel
 This package contains header files needed to develop KDE applications.
@@ -454,8 +455,8 @@ Summary(pl):	Pliki wspólne dla konsole i konsolepart
 Group:		X11/Applications
 Requires(post,postun):	fontpostinst
 Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	%{name} < 3.0.9-2.4
-Obsoletes:	%{name}-fonts
+Obsoletes:	kdebase < 3.0.9-2.4
+Obsoletes:	kdebase-fonts
 
 %description common-konsole
 Color schemes, icons, fonts and shell profiles for konsole.
@@ -469,10 +470,10 @@ Summary(pl):	Podstawowe aplikacje KDE
 Group:		X11/Applications
 Requires:	applnk >= 1.9.0
 Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	%{name} < 8:3.2-0.030428.1
-Obsoletes:	%{name}-kcontrol
-Obsoletes:	%{name}-khelpcenter
-Obsoletes:	%{name}-helpcenter
+Obsoletes:	kdebase < 8:3.2-0.030428.1
+Obsoletes:	kdebase-kcontrol
+Obsoletes:	kdebase-khelpcenter
+Obsoletes:	kdebase-helpcenter
 
 %description core
 KDE Core apps. This package contains:
@@ -565,7 +566,7 @@ Summary:	Menu Updating Tool
 Summary(pl):	Narzêdzie do aktualizacji menu
 Group:		X11/Applications
 Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	%{name} =< 8:3.2-0.030418.2
+Obsoletes:	kdebase =< 8:3.2-0.030418.2
 
 %description kappfinder
 The tool for finding installed application and adding them to your
@@ -640,7 +641,7 @@ Summary:	Graphic DCOP browser/client
 Summary(pl):	Graficzna przegladarka/klient DCOP
 Group:		X11/Applications
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
-Obsoletes:	%{name}-desktop < 9:3.1.91.030911
+Obsoletes:	kdebase-desktop < 9:3.1.91.030911
 
 %description kdcop
 Graphic DCOP browser/client. Actually useful only for developers and
@@ -655,7 +656,7 @@ Summary:	A KDE version of dialog
 Summary(pl):	Wersja KDE dialogu
 Group:		X11/Applications
 Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	%{name} < 8:3.2-0.030423.2
+Obsoletes:	kdebase < 8:3.2-0.030423.2
 
 %description kdialog
 Kdialog allows to display window dialogs with KDE widgets from shell
@@ -683,7 +684,7 @@ Summary:	K Font Installer
 Summary(pl):	Instalator fontów dla KDE
 Group:		X11/Applications
 #Requires:	konqueror = %{epoch}:%{version}-%{release}
-Obsoletes:	%{name}-desktop < 3.1.90.030720
+Obsoletes:	kdebase-desktop < 3.1.90.030720
 
 %description kfontinst
 KDE font installer.
@@ -736,7 +737,7 @@ Summary:	Desktop Pager
 Summary(pl):	Prze³±cznik biurek
 Group:		X11/Applications
 Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	%{name} =< 8:3.2-0.030418.2
+Obsoletes:	kdebase =< 8:3.2-0.030418.2
 
 %description kpager
 KDE Desktop Pager.
@@ -750,7 +751,7 @@ Summary(pl):	Kreator ustawieñ ¶rodowiska KDE
 Group:		X11/Applications
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 Requires:	%{name}-klipper = %{epoch}:%{version}-%{release}
-Obsoletes:	%{name} < 9:3.1.92.031021
+Obsoletes:	kdebase < 9:3.1.92.031021
 
 %description kpersonalizer
 KDE desktop settings wizard.
@@ -796,7 +797,7 @@ Summary(pl):	Demon do KDE obs³uguj±cy wymianê wiadomo¶ci za pomoc± write
 Group:		X11/Applications
 # With functional reasons
 Requires:	kdebase-core = %{epoch}:%{version}-%{release}
-Obsoletes:	%{name} < 8:3.2-0.030423.1
+Obsoletes:	kdebase < 8:3.2-0.030423.1
 
 %description kwrited
 A kde daeomn that watches for messages from local users sent with
@@ -885,8 +886,8 @@ Obsoletes:	X11-xdm
 Obsoletes:	gdm
 Obsoletes:	wdm
 Obsoletes:	xdm
-Obsoletes:	%{name}-kdm
-Obsoletes:	%{name}-pam
+Obsoletes:	kdebase-kdm
+Obsoletes:	kdebase-pam
 
 %description -n kdm
 A program used for managing X11 sessions on local or remote computers.
