@@ -1,37 +1,40 @@
-diff -ur kdebase-3.0.4.orig/kicker/applets/launcher/quicklauncher.cpp kdebase-3.0.4/kicker/applets/launcher/quicklauncher.cpp
---- kdebase-3.0.4.orig/kicker/applets/launcher/quicklauncher.cpp	Thu Jan  3 21:29:36 2002
-+++ kdebase-3.0.4/kicker/applets/launcher/quicklauncher.cpp	Tue Oct 29 23:54:52 2002
-@@ -66,9 +66,9 @@
+--- kdebase-3.0.4/kicker/applets/launcher/quicklauncher.cpp~	Wed Nov 13 23:37:14 2002
++++ kdebase-3.0.4/kicker/applets/launcher/quicklauncher.cpp	Wed Nov 13 23:38:34 2002
+@@ -65,10 +65,10 @@
+          buttonList.append(new QuickButton(*it, this));
     }
     else {
-       buttonList.append(new QuickButton(locate("apps", "Home.desktop"), this));
+-      buttonList.append(new QuickButton(locate("apps", "Home.desktop"), this));
 -      buttonList.append(new QuickButton(locate("apps", "System/konsole.desktop"), this));
-+      buttonList.append(new QuickButton(locate("apps", "Terminals/konsole.desktop"), this));
-       buttonList.append(new QuickButton(locate("apps", "KControl.desktop"), this));
+-      buttonList.append(new QuickButton(locate("apps", "KControl.desktop"), this));
 -      buttonList.append(new QuickButton(locate("apps", "Help.desktop"), this));
++      buttonList.append(new QuickButton(locate("apps", "Utilities/Home.desktop"), this));
++      buttonList.append(new QuickButton(locate("apps", "Terminals/konsole.desktop"), this));
++      buttonList.append(new QuickButton(locate("apps", "Settings/KControl.desktop"), this));
 +      buttonList.append(new QuickButton(locate("apps", "Help/Help.desktop"), this));
        buttonList.append(new QuickButton(locate("apps", "Editors/kwrite.desktop"), this));
        saveConfig();
     }
-diff -ur kdebase-3.0.4.orig/kicker/core/containerarea.cpp kdebase-3.0.4/kicker/core/containerarea.cpp
---- kdebase-3.0.4.orig/kicker/core/containerarea.cpp	Mon Jun 24 13:56:45 2002
-+++ kdebase-3.0.4/kicker/core/containerarea.cpp	Tue Oct 29 23:59:44 2002
+--- kdebase-3.0.4/kicker/core/containerarea.cpp~	Wed Nov 13 23:41:26 2002
++++ kdebase-3.0.4/kicker/core/containerarea.cpp	Wed Nov 13 23:41:26 2002
 @@ -137,16 +137,16 @@
  
          f.close();
      } else {
 -        buttons << "System/konsole.desktop";
-+        buttons << "Terminals/konsole.desktop";
-         buttons << "KControl.desktop";
+-        buttons << "KControl.desktop";
 -        buttons << "Help.desktop";
-+        buttons << "Help/Help.desktop";
-         buttons << "Home.desktop";
+-        buttons << "Home.desktop";
 -        buttons << "Internet/konqbrowser.desktop";
 -        buttons << "Internet/KMail.desktop";
 -        buttons << "Office/kword.desktop";
 -        buttons << "Office/kspread.desktop";
 -        buttons << "Office/kpresenter.desktop";
 -        buttons << "Office/kontour.desktop";
++        buttons << "Terminals//konsole.desktop";
++        buttons << "Settings/KControl.desktop";
++        buttons << "Help/Help.desktop";
++        buttons << "Utilities/Home.desktop";
 +        buttons << "Network/WWW/konqbrowser.desktop";
 +        buttons << "Network/Mail/KMail.desktop";
 +        buttons << "Office/Wordprocessors/kword.desktop";
@@ -41,22 +44,23 @@ diff -ur kdebase-3.0.4.orig/kicker/core/containerarea.cpp kdebase-3.0.4/kicker/c
          buttons << "Editors/kate.desktop";
      }
  
-diff -ur kdebase-3.0.4.orig/kicker/core/default-apps kdebase-3.0.4/kicker/core/default-apps
---- kdebase-3.0.4.orig/kicker/core/default-apps	Fri Mar  8 02:16:47 2002
-+++ kdebase-3.0.4/kicker/core/default-apps	Wed Oct 30 00:03:16 2002
+--- kdebase-3.0.4/kicker/core/default-apps~	Wed Nov 13 23:43:16 2002
++++ kdebase-3.0.4/kicker/core/default-apps	Wed Nov 13 23:43:16 2002
 @@ -1,11 +1,11 @@
 -System/konsole.desktop
-+Terminals/konsole.desktop
- KControl.desktop
+-KControl.desktop
 -Help.desktop
-+Help/Help.desktop
- Home.desktop
+-Home.desktop
 -Internet/konqbrowser.desktop
 -Internet/KMail.desktop
 -Office/kword.desktop
 -Office/kspread.desktop
 -Office/kpresenter.desktop
 -Office/kontour.desktop
++Terminals/konsole.desktop
++Settings/KControl.desktop
++Help/Help.desktop
++Utilities/Home.desktop
 +Network/WWW/konqbrowser.desktop
 +Network/Mail/KMail.desktop
 +Office/Wordprocessors/kword.desktop
