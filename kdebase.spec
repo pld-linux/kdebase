@@ -363,8 +363,8 @@ Podstawowe aplikacje ¶rodowiska KDE. Pakiet ten zawiera:
 - Frontend dla programu "su".
 
 %package desktop
-Summary:	TODO
-Summary(pl):	TODO
+Summary:	KDesktop - handling of desktop icons, popup menus etc.
+Summary(pl):	KDesktop - obs³uga ikon na pulpicie, menu itp.
 Group:		X11/Applications
 Requires:	kde-logoutpic
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
@@ -387,24 +387,26 @@ Obsoletes:	%{name}-wallpapers
 Obsoletes:	kde-theme-keramik
 
 %description desktop
-TODO.
+KDesktop is the program that handles the desktop icons, the popup
+menus for the desktop, the mac menubar, and the screensaver system.
 
 %description desktop -l pl
-TODO.
+KDesktop to program obs³uguj±cy ikony na pulpicie, menu dla pulpitu,
+pasek menu oraz system wygaszacza ekranu.
 
 %package desktop-libs
-Summary:	TODO
-Summary(pl):	TODO
+Summary:	KDesktop libraries
+Summary(pl):	Biblioteki KDesktop
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	kdelibs >= 9:%{version}
 Obsoletes:	%{name}-desktop < 9:3.1.92.031006
 
 %description desktop-libs
-TODO.
+KDesktop libraries.
 
 %description desktop-libs -l pl
-TODO.
+Biblioteki KDesktop.
 
 %package infocenter
 Summary:	KDE Info Center
@@ -500,18 +502,18 @@ KDE Find Tool.
 Narzêdzie do wyszukiwania plików dla KDE.
 
 %package kfontinst
-Summary:	TODO
-Summary(pl):	TODO
+Summary:	K Font Installer
+Summary(pl):	Instalator fontów dla KDE
 Group:		X11/Applications
 #Requires:	konqueror = %{epoch}:%{version}-%{release}
 Requires:	kdebase-core = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name}-desktop < 3.1.90.030720
 
 %description kfontinst
-TODO.
+K Font Installer.
 
 %description kfontinst -l pl
-TODO.
+Instalator fontów dla KDE.
 
 %package kicker
 Summary:	KDE Panel - kicker
@@ -595,7 +597,7 @@ Obsoletes:	konqueror < 9:3.1.92.031006
 Shared libraries used by konqueror.
 
 %description konqueror-libs -l pl
-Biblioteki wspó³dzielone u?ywane przez konquerora.
+Biblioteki wspó³dzielone u¿ywane przez konquerora.
 
 %package konsole
 Summary:	KDE Terminal Emulator
