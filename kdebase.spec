@@ -1259,6 +1259,7 @@ fi
 
 %files core -f core.lang
 %defattr(644,root,root,755)
+%lang(en) %dir %{_kdedocdir}/en/%{name}-%{_snap}-apidocs
 %lang(en) %dir %{_kdedocdir}/en/kcontrol
 %lang(en) %{_kdedocdir}/en/kcontrol/common
 %lang(en) %{_kdedocdir}/en/kcontrol/helpindex.html
