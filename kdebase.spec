@@ -72,7 +72,6 @@ Patch18:	%{name}-fileshareset.patch
 Patch19:	%{name}-kio_settings.patch
 Patch20:	%{name}-vt-numbers-fix.patch
 Patch21:	%{name}-konsole-default-keytab.patch
-Patch22:	%{name}-konsole-default_shell.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	audiofile-devel
@@ -1291,7 +1290,6 @@ Pliki umiêdzynarodawiaj±ce dla mailnews.
 %patch19 -p1
 %patch20 -p1
 %patch21 -p1
-%patch22 -p1
 
 %build
 cp %{_datadir}/automake/config.sub admin
