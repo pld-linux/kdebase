@@ -398,7 +398,6 @@ Allows to display menu boxes from shell scripts.
 Umo¿liwia wy¶wietlanie komunikatów z poziomu skryptów
 pow³oki.
 
-
 %package kfind
 Summary:	KDE Find Tool
 Summary(pl):	Narzêdzie do wyszukiwania plików dla KDE
@@ -435,11 +434,11 @@ Requires:	%{name} = %{version}-%{release}
 KDE Print Job Viewer.
 
 %description kjobviewer -l pl
-Podglad zadañ drukowania dla KDE.
+Podgl±d zadañ drukowania dla KDE.
 
 %package klipper
 Summary:        Clipboard Tool
-Summary(pl):    Narzedzie schowka
+Summary(pl):    Narzêdzie schowka
 Group:          X11/Applications
 Requires:       %{name}-kicker = %{version}-%{release}
 
@@ -447,7 +446,7 @@ Requires:       %{name}-kicker = %{version}-%{release}
 KDE Clipboard Tool.
 
 %description klipper -l pl
-Narzedzie schowka dla KDE.
+Narzêdzie schowka dla KDE.
 
 %package kmenuedit
 Summary:        Menu Editor
@@ -501,8 +500,8 @@ KDE System Guard.
 Stra¿nik systemu dla KDE.
 
 %package ksystraycmd
-Summary:	A tool that allows running applications in taskbar.
-Summary(pl):	Narzêdzie do odpalania aplikacji w pasku zadañ.
+Summary:	A tool that allows running applications in taskbar
+Summary(pl):	Narzêdzie do uruchamiania aplikacji w pasku zadañ
 Group:		X11/Applications
 Requires:	%{name}-kicker = %{version}-%{release}
 
@@ -511,13 +510,13 @@ KSysTrayCmd is a utility that allows you to run any application you
 like in the system tray, not just those designed to use it.
 
 %description ksystraycmd -l pl
-KSysTrayCmd to narzedzie pozwalaj±ce na uruchomienie dowolnej
+KSysTrayCmd to narzêdzie pozwalaj±ce na uruchomienie dowolnej
 aplikacji w tacce systemowej - nie tylko tych, które zosta³y
 wyposa¿one w tak± w³a¶ciwo¶æ.
 
 %package kwmtheme
 Summary:	Desktop Theme Manager
-Summary(pl):	Mened¿er motywów biurka
+Summary(pl):	Zarz±dca motywów biurka
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 
@@ -526,7 +525,7 @@ KDE Desktop Theme Manager. This package contains also a few desktop
 themes.
 
 %description kwmtheme -l pl
-Menedzer motywów biurka KDE. Ten pakiet zawiera równie¿ kilka motywów.
+Zarz±dca motywów biurka KDE. Ten pakiet zawiera równie¿ kilka motywów.
 
 %package kwrite
 Summary:	KDE Text Editor
@@ -548,6 +547,7 @@ Summary(pl):	Demon zapisu KDE
 Group:		X11/Applications
 Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
 Obsoletes:	%{name} < 3.2-0.030423.1
+
 %description kwrited
 KDE Write Daemon.
 
@@ -556,7 +556,7 @@ Demon zapisu KDE.
 
 %package libkate
 Summary:	A libraries for KDE text editors
-Summary(pl):	Biblioteki dla edytorów teksu KDE
+Summary(pl):	Biblioteki dla edytorów tekstu KDE
 Group:		X11/Libraries
 Requires:	%{name}-libkmultitabbar = %{version}-%{release}
 Obsoletes:	%{name}-kate < 3.2-0.030423.1
@@ -565,11 +565,11 @@ Obsoletes:	%{name}-kate < 3.2-0.030423.1
 A libraries for KDE text editors.
 
 %description libkate -l pl
-Biblioteki dla edytorów teksu KDE.
+Biblioteki dla edytorów tekstu KDE.
 
 %package libkmultitabbar
-Summary:	Library containing multiple tab support.
-Summary(pl):	Biblioteka zawieraj±ca obs³ugê kilku kart.
+Summary:	Library containing multiple tab support
+Summary(pl):	Biblioteka zawieraj±ca obs³ugê kilku kart
 Group:		X11/Libraries
 Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
 Obsoletes:	%{name}-common-filemanagement < 3.2-0.030428.1
