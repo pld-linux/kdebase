@@ -1055,7 +1055,7 @@ export UNSERMAKE=/usr/share/unsermake/unsermake
 %{?with_apidocs:%{__make} apidox}
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT *.lang
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
