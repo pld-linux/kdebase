@@ -10,7 +10,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.1.94
-%define		_snap		031204
+%define		_snap		040110
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -23,13 +23,13 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}.%{_snap}
-Release:	2
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
-Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	753bfde5de073c93440f3d46a16184c3
+Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{_snap}.tar.bz2
+# Source0-md5:	c2b071d55e1edc52b612321c18bac805
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -39,9 +39,9 @@ Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-ircpld.desktop
 Source9:	%{name}-specs.desktop
 Source11:	%{name}-QtCurve.kcsrc
-Source12:	http://www.kernel.pl/~adgor/kde/%{name}-splash-Default-PLD-0.2.tar.bz2
+Source12:	http://ep09.pld-linux.org/~adgor/kde/%{name}-splash-Default-PLD-0.2.tar.bz2
 # Source12-md5:	24f9c6a4b711be36437639c410b400b2
-Source13:	http://www.kernel.pl/~adgor/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
+Source13:	http://ep09.pld-linux.org/~adgor/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
 #Patch0:	%{name}-fix-mem-leak-in-kfind.patch
 Patch2:		%{name}-fontdir.patch
@@ -66,7 +66,7 @@ Patch24:	%{name}-fix-mouse_cpp_for_enable_final.patch
 Patch25:	%{name}-session.patch
 Patch26:	%{name}-bgdefaults.patch
 Patch27:	%{name}-vmenus.patch
-Patch28:	kde-general-utmpx.patch
+Patch28:	kde-common-utmpx.patch
 Patch29:	%{name}-fileshareset.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
@@ -954,14 +954,12 @@ SizePercentage=50
 UseBackgroundTheme=false
 EOF
 
+mv $RPM_BUILD_ROOT%{_desktopdir}/kde/print{ers,mgr}.desktop
+
+
 # Some order with desktop files
 ALD=$RPM_BUILD_ROOT%{_datadir}/applnk
-mv $ALD/Help.desktop			$RPM_BUILD_ROOT%{_desktopdir}/kde
-mv $ALD/Home.desktop			$RPM_BUILD_ROOT%{_desktopdir}/kde
-mv $ALD/Kfind.desktop			$RPM_BUILD_ROOT%{_desktopdir}/kde
-mv $ALD/System/kinfocenter.desktop	$RPM_BUILD_ROOT%{_desktopdir}/kde
-
-mv $RPM_BUILD_ROOT%{_desktopdir}/kde/print{ers,mgr}.desktop
+mv $ALD/System/kinfocenter.desktop      $RPM_BUILD_ROOT%{_desktopdir}/kde
 
 # <find_lang>
 > core.lang
@@ -1424,7 +1422,6 @@ fi
 %defattr(644,root,root,755)
 %doc AUTHORS README README.pam
 %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdesktop
-%attr(0755,root,root) %{_bindir}/kconf_update_bin/khotkeys_update
 %attr(0755,root,root) %{_bindir}/kaccess
 %attr(0755,root,root) %{_bindir}/kcheckpass
 %attr(0755,root,root) %{_bindir}/kdeeject
@@ -1444,6 +1441,7 @@ fi
 #%attr(0755,root,root) %{_bindir}/kwin_dialog_helper
 %attr(0755,root,root) %{_bindir}/kxkb
 %attr(0755,root,root) %{_bindir}/startkde
+%{_libdir}/kconf_update_bin/khotkeys_update
 %{_libdir}/krandrinithack.la
 %attr(0755,root,root) %{_libdir}/krandrinithack.so
 %{_libdir}/libkdeinit_kaccess.la
@@ -1496,6 +1494,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_kwinoptions.so
 %{_libdir}/kde3/kcm_launch.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_launch.so
+%{_libdir}/kde3/kcm_nsplugins.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_nsplugins.so
 %{_libdir}/kde3/kcm_passwords.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_passwords.so
 %{_libdir}/kde3/kcm_privacy.la
@@ -1649,12 +1649,15 @@ fi
 %{_iconsdir}/*/*/apps/gvim.png
 %{_iconsdir}/*/*/apps/gv.png
 %{_iconsdir}/*/*/apps/kcmkwm.png
+%{_iconsdir}/*/*/apps/kcmdf.png
+%{_iconsdir}/*/*/apps/kcmfontinst.png
 %{_iconsdir}/*/*/apps/kcmmidi.png
 %{_iconsdir}/*/*/apps/kdisknav.png
 %{_iconsdir}/*/*/apps/keyboard_layout.png
 %{_iconsdir}/*/*/apps/keyboard.png
 %{_iconsdir}/*/*/apps/khotkeys.png
 %{_iconsdir}/*/*/apps/knotify.png
+%{_iconsdir}/*/*/apps/ksplash.png
 %{_iconsdir}/*/*/apps/ktip.png
 %{_iconsdir}/*/*/apps/kvirc.png
 %{_iconsdir}/*/*/apps/kwin.png
@@ -1751,7 +1754,7 @@ fi
 %{_desktopdir}/kde/smbstatus.desktop
 %{_desktopdir}/kde/sound.desktop
 %{_desktopdir}/kde/xserver.desktop
-%{_desktopdir}/kde/kinfocenter.desktop
+#%%{_desktopdir}/kde/kinfocenter.desktop
 %{_iconsdir}/*/*/apps/hwinfo.png
 %{_iconsdir}/*/*/apps/kcmdevices.png
 %{_iconsdir}/*/*/apps/kcmmemory.png
@@ -1904,7 +1907,7 @@ fi
 %{_desktopdir}/kde/panel.desktop
 %{_desktopdir}/kde/panel_appearance.desktop
 %{_desktopdir}/kde/clock.desktop
-#%{_desktopdir}/kde/kcmkicker.desktop
+%{_desktopdir}/kde/kcmkicker.desktop
 %{_iconsdir}/*/*/apps/clock.png
 %{_iconsdir}/*/*/apps/date.png
 %{_iconsdir}/*/*/apps/go.png
