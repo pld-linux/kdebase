@@ -20,7 +20,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	5
+Release:	6
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -830,6 +830,7 @@ Summary(pl):	Biblioteka ksgrd
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	kdelibs >= %{_minlibsevr}
+Obsoletes:	kdebase-ksysguard-libs
 Obsoletes:	ksysguard < 9:3.1.92.031012
 
 %description libksgrd
