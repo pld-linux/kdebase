@@ -328,6 +328,7 @@ export CPPFLAGS
 	--without-ldap \
 	--without-shadow \
 	--disable-shadow \
+	--disable-rpath \
 	--with-xdmdir="%{_sysconfdir}/kdm" \
 	--enable-final
 
@@ -557,31 +558,31 @@ fi
 # We have to include *.so.1 sym-links, as ldconfig doesn't touch
 # %{_libdir}/kde3
 %attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so.*
+%attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so
 %attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.so.*
+%attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so.*
+%attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so
 %attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so.*
+%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so
 %attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so.*
+%attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so.*
+%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so.*
+%attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.so.*
+%attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.so.*
+%attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so.*
+%attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so.*
+%attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.so.*
+%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.so.*
+%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.so
 %attr(0755,root,root) %{_libdir}/kde3/i*.??
 %attr(0755,root,root) %{_libdir}/kde3/kcm_[!k]*.??
 %attr(0755,root,root) %{_libdir}/kde3/kcm_k[ehinuw]*.??
@@ -593,16 +594,16 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/klipper_panelapplet.??
 %attr(0755,root,root) %{_libdir}/kde3/kwin*.??
 %attr(0755,root,root) %{_libdir}/kde3/libkcm_[abcefilmptu]*.la
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_[abcefilmptu]*.so*
-%attr(0755,root,root) %{_libdir}/kde3/libk[fsuw]*.la*
-%attr(0755,root,root) %{_libdir}/kde3/libk[fsuw]*.so*
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_[abcefilmptu]*.so
+%attr(0755,root,root) %{_libdir}/kde3/libk[fsuw]*.la
+%attr(0755,root,root) %{_libdir}/kde3/libk[fsuw]*.so
 
 %attr(0755,root,root) %{_libdir}/kde3/lib*kdeprint*.la
-%attr(0755,root,root) %{_libdir}/kde3/lib*kdeprint*.so*
+%attr(0755,root,root) %{_libdir}/kde3/lib*kdeprint*.so
 %attr(0755,root,root) %{_libdir}/kde3/libkhelp*.la
-%attr(0755,root,root) %{_libdir}/kde3/libkhelp*.so*
+%attr(0755,root,root) %{_libdir}/kde3/libkhelp*.so
 %attr(0755,root,root) %{_libdir}/kde3/gsthumbnail.la
-%attr(0755,root,root) %{_libdir}/kde3/gsthumbnail.so*
+%attr(0755,root,root) %{_libdir}/kde3/gsthumbnail.so
 %attr(0755,root,root) %{_libdir}/kde3/textthumbnail.??
 
 # NOTE:	There are many directories created by kappfinder. They should be
@@ -770,14 +771,14 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_konq*.??
 %attr(0755,root,root) %{_libdir}/kde3/konq*.??
 %attr(0755,root,root) %{_libdir}/kde3/libkcm_nsplugin.la
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_nsplugin.so*
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_nsplugin.so
 %attr(0755,root,root) %{_libdir}/libkonq*.la
 %attr(0755,root,root) %{_libdir}/libkonq*.so*
 %attr(0755,root,root) %{_libdir}/libnsplugin.la
 %attr(0755,root,root) %{_libdir}/libnsplugin.so*
 
 %attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.la
-%attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.so*
+%attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.so
 
 %{_applnkdir}/Network/WWW/konq*.desktop
 %{_applnkdir}/Network/WWW/keditbookmarks.desktop
