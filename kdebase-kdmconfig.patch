@@ -10,8 +10,16 @@
      connect(m_background, SIGNAL(changed(bool)), SLOT(moduleChanged(bool)));
 
 --- kdebase-3.1/kcontrol/kdm/kdm-appear.cpp.orig	Mon Nov 18 14:14:28 2002
-+++ kdebase-3.1/kcontrol/kdm/kdm-appear.cpp	Thu Nov 21 03:56:35 2002
-@@ -447,7 +447,7 @@
++++ kdebase-3.1/kcontrol/kdm/kdm-appear.cpp	Fri Nov 22 01:04:37 2002
+@@ -193,6 +193,7 @@
+ 
+   guicombo = new KComboBox(false, hlp);
+   guicombo->insertStringList(QStyleFactory::keys());
++  guicombo->insertItem("KDE");
+   label = new QLabel(guicombo, i18n("GUI s&tyle:"), hlp);
+   connect(guicombo, SIGNAL(activated(int)), SLOT(changed()));
+   hglay->addWidget(label, 0, 0);
+@@ -447,7 +448,7 @@
    config->setGroup("X-*-Greeter");
  
    // Read the greeting string
@@ -20,19 +28,46 @@
  
    // Regular logo or clock
    QString logoArea = config->readEntry("LogoArea", "Logo" );
-@@ -466,10 +466,10 @@
+@@ -466,7 +467,7 @@
    setLogo( config->readEntry("LogoPixmap", ""));
  
    // Check the GUI type
 -  guicombo->setCurrentItem (config->readEntry("GUIStyle", "Default"), true, 0);
-+  guicombo->setCurrentItem (config->readEntry("GUIStyle", "Keramik"), true, 0);
++  guicombo->setCurrentItem (config->readEntry("GUIStyle", "KDE"), true, 0);
  
    // Check the Color Scheme
--  colcombo->setCurrentItem (config->readEntry("ColorScheme", "Default"), true, 0);
-+  colcombo->setCurrentItem (config->readEntry("ColorScheme", "Keramik"), true, 0);
+   colcombo->setCurrentItem (config->readEntry("ColorScheme", "Default"), true, 0);
+@@ -497,13 +498,14 @@
  
-   // Check the echo mode
-   QString echostr = config->readEntry("EchoMode", "OneStar");
+ void KDMAppearanceWidget::defaults()
+ {
+-  greetstr_lined->setText( i18n("Welcome to %s at %n") );
++  greetstr_lined->setText( i18n("Welcome to PLD Linux at %n") );
+   logoRadio->setChecked( true );
+   slotAreaRadioClicked( KdmLogo );
+   posCenterRadio->setChecked( true );
+   slotPosRadioClicked( 0 );
+   setLogo( "" );
+-  guicombo->setCurrentItem( QString::fromLatin1("Default"), true, 0 );
++  guicombo->setCurrentItem( QString::fromLatin1("KDE"), true, 0 );
++  colcombo->setCurrentItem( QString::fromLatin1("Default"), true, 0 );
+   echocombo->setCurrentItem( 1 );
+ 
+   langcombo->setCurrentItem( "en_US" );
+--- kdebase-3.1/kcontrol/kdm/kdm-sess.cpp.orig	Sun Sep 15 23:08:39 2002
++++ kdebase-3.1/kcontrol/kdm/kdm-sess.cpp	Thu Nov 21 23:18:34 2002
+@@ -400,11 +400,6 @@
+   sdlcombo->setCurrentItem(SdAll);
+   sdrcombo->setCurrentItem(SdRoot);
+ 
+-  sessionslb->clear();
+-  sessionslb->insertItem("default");
+-  sessionslb->insertItem("kde");
+-  sessionslb->insertItem("failsafe");
+-
+ #if defined(__linux__) && defined(__i386__)
+     lilo_check->setChecked(false);
+     slotLiloCheckToggled(false);
 --- kdebase-3.1/kcontrol/kdm/main.cpp.orig	Sun Oct 27 00:05:07 2002
 +++ kdebase-3.1/kcontrol/kdm/main.cpp	Thu Nov 21 02:51:19 2002
 @@ -92,7 +92,7 @@
