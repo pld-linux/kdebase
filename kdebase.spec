@@ -28,12 +28,11 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	4.1
+Release:	5
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-Source1:	%{name}-kcheckpass.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
 Source4:	%{name}-kdm.Xsession
@@ -59,6 +58,7 @@ Patch14:        %{name}-xfsreload.patch
 #
 Patch15:	%{name}-kdm_kgreeter.patch
 Patch16:	%{name}-screensavers.patch
+Patch17:	%{name}-prefmenu.patch
 %{?_without_alsa:BuildConflicts:	alsa-driver-devel}
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	OpenGL-devel
@@ -97,19 +97,19 @@ Requires(post,postun):	/sbin/ldconfig
 Requires:	applnk >= 1.5.11
 Requires:	kde-splash
 Requires:       kde-sdscreen
+Requires:	%{name}-pam = %{version}-%{release}
 Requires:	konqueror = %{version}-%{release}
-Requires:	pam
 Obsoletes:	%{name}-fonts
 Obsoletes:	%{name}-kcheckpass
+Obsoletes:	%{name}-kdesktop
 Obsoletes:	%{name}-kdesktop_lock
 Obsoletes:	%{name}-khelpcenter
-Obsoletes:	%{name}-screensaver
 Obsoletes:	%{name}-kicker
 Obsoletes:	%{name}-kioslave
 Obsoletes:	%{name}-konqueror
 Obsoletes:	%{name}-kwin
 Obsoletes:	%{name}-kxmlrpc
-Obsoletes:	%{name}-kdesktop
+Obsoletes:	%{name}-screensaver
 Obsoletes:	%{name}-wallpapers
 Obsoletes:	kde-theme-keramik
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -397,6 +397,19 @@ KDE Mail and News Services.
 %description mailnews -l pl
 Obs³uga protoko³ów pocztowych i news dla KDE.
 
+%package pam
+Summary:	KDE User Autentication 
+Summary(pl):	Uwierzytelnianie u¿ytkowników dla KDE
+Group:		X11/Applications
+Requires:	pam
+Obsoletes:	%{name} =< 3.1.1a-4.1
+Obsoletes:	kdm =< 3.1.1a-4.1
+
+%description pam
+KDE User Autentication.
+
+%description pam -l pl
+Uwierzytelnianie u¿ytkowników dla KDE.
 
 %package screensavers
 Summary:	KDE screensavers
@@ -420,14 +433,13 @@ Summary:	KDE Display Manager
 Summary(pl):	Zarz±dca ekranów KDE
 Group:		X11/Applications
 Requires:	%{name}-kcontrol = %{version}-%{release}
-Requires:	pam
+Requires:	%{name}-pam = %{version}-%{release}
 Requires:	sessreg
 Requires:	xinitrc
 Prereq:		/sbin/chkconfig
 Obsoletes:	gdm
 Obsoletes:	xdm
 Obsoletes:	%{name}-kdm
-Obsoletes:	%{name}-pam
 
 %description -n kdm
 It is KDE replacement for XDM. It manages local and remote X11
@@ -472,6 +484,7 @@ Internet Explorer.
 %patch14 -p1
 %patch15 -p1
 %patch16 -p1
+%patch17 -p1
 
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
@@ -487,8 +500,7 @@ CPPFLAGS="-I%{_includedir}"
 export CPPFLAGS
 %configure \
 	--enable-final \
-	--with-kcp-pam=kcheckpass \
-	--with-kdm-pam=kdm
+	--with-pam=kdm
 
 %{__make}
 
@@ -497,13 +509,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR="$RPM_BUILD_ROOT"
 
-install -d $RPM_BUILD_ROOT/etc/{pam.d,rc.d/init.d,security} \
-    $RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
+install -d \
+	$RPM_BUILD_ROOT/etc/{pam.d,rc.d/init.d,security} \
+	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
 
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers{,.orig}
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession{,.orig}
 
-install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kcheckpass
 install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
 install %{SOURCE3}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
@@ -511,7 +523,7 @@ install %{SOURCE5}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
 install %{SOURCE6}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldlogo.png
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldwallpaper.png
 
-touch $RPM_BUILD_ROOT/etc/security/blacklist.k{checkpass,dm}
+touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
 cp $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop \
     $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/remote
@@ -542,8 +554,6 @@ for f in `find $ALD -name '.directory' -o -name '*.dekstop'` ; do
 	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
 	mv -f $f{.tmp,}
 done
-
-#bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
 > %{name}.lang
 
@@ -707,8 +717,6 @@ fi
 %defattr(644,root,root,755)
 %doc AUTHORS README
 %config %{_sysconfdir}/ksysguarddrc
-%attr(0644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kcheckpass
-%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kcheckpass
 %attr(0755,root,root) %{_bindir}/[ades]*
 %attr(0755,root,root) %{_bindir}/k[jtx]*
 %attr(0755,root,root) %{_bindir}/ka[!pt]*
@@ -1144,7 +1152,12 @@ fi
 %{_datadir}/services/smtp.protocol
 %{_datadir}/services/smtps.protocol
 
-#%files screensavers -f libkscreensaver.lang
+%files pam
+%defattr(644,root,root,755)
+%doc README.pam
+%attr(0644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdm
+%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kdm
+
 %files screensavers -f screensaver.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/*.kss
@@ -1156,9 +1169,7 @@ fi
 
 %files -n kdm -f kdm.lang
 %defattr(644,root,root,755)
-%doc README.pam kdm/{ChangeLog,README,TODO}
-%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdm
-%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kdm
+%doc kdm/{ChangeLog,README,TODO}
 %dir %{_sysconfdir}/kdm
 %attr(0754,root,root) /etc/rc.d/init.d/kdm
 %config(noreplace) %{_sysconfdir}/kdm/kdmrc
