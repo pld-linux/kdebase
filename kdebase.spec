@@ -24,7 +24,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.%{_snap}.0.6
+Release:	0.%{_snap}.0.7
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -40,6 +40,7 @@ Source11:	ircpld.desktop
 Source12:	specs.desktop
 Source13:	kabc.desktop
 Source14:	kde-settings-kde.directory
+Source15:	kde-settings-desktop.directory
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 # obsoleted
 #Patch1:	%{name}-fix-mouse.cpp.patch
@@ -125,7 +126,7 @@ Obsoletes:	%{name}-wallpapers
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_fontdir	/usr/share/fonts/misc
-%define		_htmldir	/usr/share/doc/kde/HTML
+%define		_htmldir	%{_docdir}/kde/HTML
 %define		_sysconfdir	/etc/X11
 %define		_vfinfodir	%{_datadir}/desktop-directories
 
@@ -546,10 +547,11 @@ install -d $ALD/{Help,Settings/KDE}
 mv -f $ALD/{Settings/[!K]*,Settings/KDE}
 mv -f $ALD/Help.desktop $RPM_BUILD_ROOT%{_desktopdir}
 mv -f $ALD/Settingsmenu/[!K]*.desktop $RPM_BUILD_ROOT%{_desktopdir}
+mv -f $ALD/System/kinfocenter.desktop $RPM_BUILD_ROOT%{_desktopdir}
 mv -f $ALD/{System/ScreenSavers,.hidden}
 
 install %{SOURCE13} $ALD/Settings/KDE/Components
-install %{SOURCE14} $RPM_BUILD_ROOT%{_vfinfodir}
+install %{SOURCE14} %{SOURCE15} $RPM_BUILD_ROOT%{_vfinfodir}
 
 #for f in `find $ALD -name '.directory' -o -name '*.dekstop'` ; do
 #	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
@@ -807,7 +809,6 @@ fi
 %{_applnkdir}/.hidden/[bcmspv]*.desktop
 %{_applnkdir}/.hidden/k[!cio]*.desktop
 %{_applnkdir}/.hidden/kcmkxmlrpcd.desktop
-%{_applnkdir}/System/k[!o]*.desktop
 %{_applnkdir}/Utilities/k[!de]*.desktop
 %{_applnkdir}/Settings/KDE/Accessibility
 %{_applnkdir}/Settings/KDE/Components/[!f]*
@@ -825,10 +826,7 @@ fi
 %{_applnkdir}/Settings/KDE/System/[!k]*
 %{_applnkdir}/Settings/KDE/System/kcmfontinst.desktop
 %{_applnkdir}/Settings/KDE/WebBrowsing
-%{_vfinfodir}/kde-settings-[ailpw]*.directory
-# must be created
-#%{_vfinfodir}/kde-settings-desktop.directory
-%{_vfinfodir}/kde-settings-sound.directory
+%{_applnkdir}/System/k[!io]*.desktop
 %{_desktopdir}/kjobviewer.desktop
 %{_desktopdir}/klipper.desktop
 %{_desktopdir}/kpager.desktop
@@ -836,10 +834,14 @@ fi
 %{_desktopdir}/ktip.desktop
 # moved here
 %{_desktopdir}/kappfinder.desktop
+%{_desktopdir}/kinfocenter.desktop
 %{_desktopdir}/kmenuedit.desktop
 %{_desktopdir}/kpersonalizer.desktop
 %{_desktopdir}/printmgr.desktop
 #
+%{_vfinfodir}/kde-settings-[ailpw]*.directory
+%{_vfinfodir}/kde-settings-desktop.directory
+%{_vfinfodir}/kde-settings-sound.directory
 %{_pixmapsdir}/*/*/apps/a[!g]*
 %{_pixmapsdir}/*/*/apps/[dghilmnqrtuvwx]*
 %{_pixmapsdir}/*/*/apps/b[!e]*
@@ -1293,10 +1295,10 @@ fi
 %dir %{_applnkdir}/Settings/KDE/Security
 %{_applnkdir}/Settings/KDE/Security/crypto.desktop
 %{_applnkdir}/System/konq*.desktop
-# must be created
-#%{_vfinfodir}/kde-settings-security.directory
 %{_desktopdir}/kfmclient*.desktop
 %{_desktopdir}/konq*.desktop
+# must be created
+#%{_vfinfodir}/kde-settings-security.directory
 %{_pixmapsdir}/*/*/apps/agent.png
 %{_pixmapsdir}/*/*/apps/cache.png
 %{_pixmapsdir}/*/*/apps/cookie.png
