@@ -5,6 +5,7 @@ Summary(pt_BR):	K Desktop Environment - arquivos básicos
 Name:		kdebase
 Version:	2.2.2
 Release:	1
+Epoch:		6
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -27,6 +28,7 @@ BuildRequires:	alsa-lib-devel
 %endif
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	awk
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
@@ -220,9 +222,10 @@ find -name Makefile.in -exec touch {} \;
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
+%{__make} -f Makefile.cvs
 CPPFLAGS="-I%{_includedir}"
 export CPPFLAGS
-%configure2_13 \
+%configure \
 	--with-pam=kdm \
 	--without-shadow \
 	--disable-shadow \
