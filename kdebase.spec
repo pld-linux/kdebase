@@ -35,7 +35,7 @@ Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	e6859ad85b176e11ce997490786c124d
 Source1:	%{name}-extra_icons.tar.bz2
-# Source1-md5:	fa7b9d446dc4e41df6bbf8f42e20d461
+# Source1-md5:	e251f29dcabe367ebeb96824ee1823ab
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
 Source4:	%{name}-kdm.Xsession
@@ -852,8 +852,11 @@ mv -f $ALD/{Settingsmenu/*.desktop,Settings}
 echo -e	"Desktop\nThemes\nWindows"	> $ALD/Settings/KDE/LookNFeel/.order
 echo	"WebBrowsing"			> $ALD/Settings/KDE/Network/.order
 
-cat $ALD/Help.desktop |sed 's/Help/KDE Help/' |sed 's/Pomoc/Pomoc KDE/' \
+cat $ALD/Help.desktop | sed -e 's/Help/KDE Help/' -e 's/Pomoc/Pomoc KDE/' \
 	> $ALD/Help/Help.desktop
+
+echo -n ',s/\(^NoDisplay=\)/#\\1/\n,w' | \
+	ed %{_applnkdir}/Settings/KDE/Information/.directory
 
 for f in `find $ALD -name '.directory' -o -name '*.dekstop'` ; do
 	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
@@ -862,16 +865,26 @@ done
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT%{_pixmapsdir}
 for i in {access,agent,background,bell,cache,clock,cookie,date,email}.png \
-	 {energy_star,enhanced_browsing,filetypes,fonts,hwinfo,icons}.png \
-	 {kappfinder,kate,kdmconfig,kcmdevices,kcmkwm,kcmmemory}.png \
-	 {kcmpartitions,kcmpci,kcmprocessor,kcmscsi,key_bindings}.png \
-	 {keyboard,kfind,kfm,khelpcenter,klipper,kmenuedit,knotify}.png \
-	 {konsole,konqueror,kpager,kscreensaver,ksysguard,kthememgr}.png \
-	 {ktip,kwrite,locale,proxy,samba,style,stylesheet,usb}.png; do
+	 {energy,energy_star,enhanced_browsing,filetypes,fonts,go}.png \
+	 {hwinfo,icons,input_devices_settings,kappfinder,kate,kdmconfig}.png \
+	 {kcmdevices,kcmkwm,kcmmemory,kcmpartitions,kcmpci,kcmprocessor}.png \
+	 {kcmscsi,kcmsystem,key_bindings,keyboard,kfind,kfm,khelpcenter}.png \
+	 {klipper,kmenuedit,knotify,konsole,konqueror,kpager}.png \
+	 {kscreensaver,ksysguard,kthememgr,ktip,kwrite,locale,looknfeel}.png \
+	 {multimedia,penguin,personal,proxy,samba,style,stylesheet,usb}.png; do
 	ln -s crystalsvg/48x48/apps/$i $RPM_BUILD_ROOT%{_pixmapsdir}/$i
 done
 
+for i in `find $RPM_BUILD_ROOT%{_applnkdir} -type f`; do
+	if grep '^Icon=.[^.]*$' $i >/dev/null; then
+		echo -e ',s/\(^Icon=.*$\)/\\1.png/\n,w' | ed $i
+	fi
+done
+
 bzip2 -dc %{SOURCE13} | tar xf - -C $RPM_BUILD_ROOT
+for f in $RPM_BUILD_ROOT%{_datadir}/locale/*/LC_MESSAGES/*.mo; do
+	[ "`file $f | sed -e 's/.*,//' -e 's/message.*//'`" -le 1 ] && rm -f $f
+done
 
 > core.lang
 programs="drkonqi kcmcolors kcmfonts kcmkded kcmlocale kcmprintmgr \
@@ -1249,7 +1262,6 @@ fi
 %{_pixmapsdir}/*/*/apps/netscape.png
 %{_pixmapsdir}/*/*/apps/opera.png
 %{_pixmapsdir}/*/*/apps/password.png
-%{_pixmapsdir}/*/*/apps/penguin.png
 %{_pixmapsdir}/*/*/apps/phppg.png
 %{_pixmapsdir}/*/*/apps/plan.png
 %{_pixmapsdir}/*/*/apps/pybliographic.png
@@ -1291,7 +1303,6 @@ fi
 %{_pixmapsdir}/bell.png
 %{_pixmapsdir}/email.png
 %{_pixmapsdir}/energy_star.png
-%{_pixmapsdir}/go.png
 %{_pixmapsdir}/ktip.png
 %{_pixmapsdir}/kcmfontinst.png
 %{_pixmapsdir}/kcmkwm.png
@@ -1496,9 +1507,11 @@ fi
 %{_datadir}/services/khelpcenter.desktop
 %{_datadir}/services/man.protocol
 %{_applnkdir}/Help/Help.desktop
+%{_pixmapsdir}/*/*/apps/clock.png
 %{_pixmapsdir}/*/*/apps/colors.png
 %{_pixmapsdir}/*/*/apps/energy.png
 %{_pixmapsdir}/*/*/apps/fonts.png
+%{_pixmapsdir}/*/*/apps/go.png
 %{_pixmapsdir}/*/*/apps/help_index.png
 %{_pixmapsdir}/*/*/apps/input_devices_settings.png
 %{_pixmapsdir}/*/*/apps/kcmdrkonqi.png
@@ -1508,6 +1521,7 @@ fi
 %{_pixmapsdir}/*/*/apps/locale.png
 %{_pixmapsdir}/*/*/apps/looknfeel.png
 %{_pixmapsdir}/*/*/apps/multimedia.png
+%{_pixmapsdir}/*/*/apps/penguin.png
 %{_pixmapsdir}/*/*/apps/personal.png
 %{_pixmapsdir}/*/*/apps/printmgr.png
 %{_pixmapsdir}/*/*/apps/style.png
@@ -1516,7 +1530,16 @@ fi
 # infocenter & konqueror need it:
 %{_pixmapsdir}/*/*/apps/samba.png
 %{_pixmapsdir}/*/*/apps/usb.png
+%{_pixmapsdir}/clock.png
+%{_pixmapsdir}/energy.png
+%{_pixmapsdir}/go.png
+%{_pixmapsdir}/input_devices_settings.png
+%{_pixmapsdir}/kcmsystem.png
 %{_pixmapsdir}/khelpcenter.png
+%{_pixmapsdir}/looknfeel.png
+%{_pixmapsdir}/multimedia.png
+%{_pixmapsdir}/penguin.png
+%{_pixmapsdir}/personal.png
 
 %files infocenter -f kinfocenter.lang
 %defattr(644,root,root,755)
@@ -1652,15 +1675,13 @@ fi
 %{_datadir}/autostart/panel.desktop
 %{_applnkdir}/.hidden/kicker*.desktop
 %{_applnkdir}/Settings/KDE/System/clock.desktop
-%{_pixmapsdir}/*/*/apps/clock.png
 %{_pixmapsdir}/*/*/apps/date.png
-%{_pixmapsdir}/*/*/apps/go.png
 %{_pixmapsdir}/*/*/apps/kcmkicker.png
 %{_pixmapsdir}/*/*/apps/kicker.png
 %{_pixmapsdir}/*/*/apps/package*.png
 %{_pixmapsdir}/*/*/apps/panel.png
 %{_pixmapsdir}/*/*/apps/panel_settings.png
-%{_pixmapsdir}/clock.png
+%{_pixmapsdir}/date.png
 
 %files kjobviewer -f kjobviewer.lang
 %defattr(644,root,root,755)
