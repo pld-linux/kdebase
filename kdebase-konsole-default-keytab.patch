@@ -1,16 +1,22 @@
 --- kdebase/konsole/konsole/default.keytab.h.orig	2003-03-26 16:22:26.000000000 +0100
-+++ kdebase/konsole/konsole/default.keytab.h	2004-03-27 20:27:33.947197608 +0100
-@@ -43,7 +43,12 @@
++++ kdebase/konsole/konsole/default.keytab.h	2004-03-28 05:22:42.566712296 +0200
+@@ -43,7 +43,7 @@
    "\n"
    "# Backspace and Delete codes are preserving CTRL-H.\n"
    "\n"
 -  "key Backspace      : \"\\x7f\"\n"
 +  "key Backspace      : \"\\x08\"\n"
-+  "\n"
-+  "# Home and End keys.\n"
-+  "\n"
-+  "key Home	: \"\\E[1~\"\n"
-+  "key End	: \"\\E[4~\"\n"
    "\n"
    "# Arrow keys in VT52 mode\n"
+   "\n"
+@@ -69,8 +69,8 @@
+   "key Enter+NewLine : \"\\r\\n\"\n"
+   "key Enter-NewLine : \"\\r\"\n"
+   "\n"
+-  "key Home  -Shift-AppCuKeys : \"\\E[H\"  \n"
+-  "key End   -Shift-AppCuKeys : \"\\E[F\"  \n"
++  "key Home  -Shift-AppCuKeys : \"\\E[1~\"  \n"
++  "key End   -Shift-AppCuKeys : \"\\E[4~\"  \n"
+   "key Home  +Shift-AppCuKeys : \"\\E[2H\"  \n"
+   "key End   +Shift-AppCuKeys : \"\\E[2F\"  \n"
    "\n"
