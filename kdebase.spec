@@ -184,9 +184,9 @@ Summary:	Include files to develop KDE applications
 Summary(pl):	Pliki nag³ówkowe potrzebne do programowania
 Summary(pt_BR):	Arquivos de inclusão para compilar aplicativos que usem bibliotecas do kdebase
 Group:		X11/Development/Libraries
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+#Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kicker = %{epoch}:%{version}-%{release}
-Requires:	%{name}-ksysguard = %{epoch}:%{version}-%{release}
+Requires:	%{name}-ksysguard-libs = %{epoch}:%{version}-%{release}
 Requires:	kdelibs-devel >= 8:%{version}
 Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
 Obsoletes:	kdebase-static
@@ -579,11 +579,24 @@ KDE Desktop Pager.
 %description kpager -l pl
 Prze³±cznik biurek dla KDE.
 
+%package ksysguard-libs
+Summary:	ksysguard shared libraries
+Summary(pl):	Biblioteki wspó³dzielone ksysguard
+Group:		X11/Applications
+#Requires:	%{name}-core = %{epoch}:%{version}-%{release}
+
+%description ksysguard-libs
+Shared libraries for KDE System Guard.
+
+%description ksysguard-libs -l pl
+Biblioteki wspó³dzielone stra¿nika systemu dla KDE ksysguard.
+
 %package ksysguard
 Summary:	System Guard
 Summary(pl):	Stra¿nik systemu
 Group:		X11/Applications
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
+Requires:	%{name}-ksysguard-libs = %{epoch}:%{version}-%{release}
 
 %description ksysguard
 KDE System Guard.
@@ -791,9 +804,9 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 CPPFLAGS="-I%{_includedir}"
 export CPPFLAGS
 
-for plik in `find ./ -name *.desktop | grep -l '\[nb\]'` ; do
-	echo $plik
-	echo -e ',s/\[nb\]/[no]/\n,w' | ed $plik
+for plik in `find . -name \*.desktop -o -name \*rc -o -name .directory -o \
+	     -name directory.t\* | xargs grep -l '\[nb\]'` ; do
+	echo -e ',s/\[nb\]=/[no]=/\n,w' | ed $plik 2>/dev/null
 done
 
 # bleh, this cannot be done (new libtool translates kicker.la to -lkicker, which fails)
@@ -984,6 +997,7 @@ done
 %find_lang	konsole			--with-kde
 %find_lang	kpager			--with-kde
 %find_lang	kscreensaver		--with-kde
+# ksysguard is also used by ksysguard-libs: should it be moved there?
 %find_lang	ksysguard		--with-kde
 %find_lang	ksystraycmd		--with-kde
 %find_lang	kthememgr		--with-kde
@@ -1099,8 +1113,6 @@ fi
 %attr(755,root,root) %{_bindir}/kwin
 %attr(755,root,root) %{_bindir}/kxkb
 %attr(755,root,root) %{_bindir}/startkde
-# shared library (.la in -devel)
-%attr(755,root,root) %{_libdir}/libsensordisplays.so.*.*.*
 # KDE-style (lt_)dlopenable binaries
 %attr(755,root,root) %{_libdir}/kaccess.so
 %{_libdir}/kaccess.la
@@ -1748,14 +1760,18 @@ fi
 %{_pixmapsdir}/*/*/apps/kpager.png
 %{_pixmapsdir}/kpager.png
 
+%files ksysguard-libs
+%defattr(644,root,root,755)
+# shared libraries (.la in -devel)
+%attr(755,root,root) %{_libdir}/libksgrd.so.*.*.*
+%attr(755,root,root) %{_libdir}/libsensordisplays.so.*.*.*
+
 %files ksysguard -f ksysguard.lang
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not size mtime md5) /etc/X11/ksysguarddrc
 %attr(755,root,root) %{_bindir}/kpm
 %attr(755,root,root) %{_bindir}/ksysguard
 %attr(755,root,root) %{_bindir}/ksysguardd
-# shared library (.la in -devel)
-%attr(755,root,root) %{_libdir}/libksgrd.so.*.*.*
 # plugin
 %attr(755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
 %{_libdir}/kde3/sysguard_panelapplet.la
