@@ -983,7 +983,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 %prep
 %setup -q
-#%patch100 -p1
+%patch100 -p1
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -1280,18 +1280,8 @@ rm -rf $RPM_BUILD_ROOT
 %postun common-konsole
 /usr/bin/fontpostinst misc
 
-%post core
-cat << EOF
-
- ******************************************
- *                                        *
- * NOTE:                                  *
- * Set sgid for kdesud daemon if You want *
- * superuser password caching feature.    *
- *                                        *
- ******************************************
-
-EOF
+%post core -p /sbin/ldconfig
+%postun core -p /sbin/ldconfig
 
 %post	desktop-libs	-p /sbin/ldconfig
 %postun	desktop-libs	-p /sbin/ldconfig
@@ -1528,7 +1518,7 @@ fi
 %attr(0755,root,root) %{_bindir}/kcontrol
 %attr(0755,root,root) %{_bindir}/kdebugdialog
 %attr(0755,root,root) %{_bindir}/kdesu
-%attr(0755,root,root) %{_bindir}/kdesud
+%attr(2755,root,root) %{_bindir}/kdesud
 %attr(0755,root,root) %{_bindir}/khc_indexbuilder
 %attr(0755,root,root) %{_bindir}/khelpcenter
 %attr(0755,root,root) %{_bindir}/kprinter
@@ -1761,6 +1751,7 @@ fi
 %{_datadir}/apps/clockapplet
 %{_datadir}/apps/kcm_componentchooser/*
 %dir %{_datadir}/apps/kcminput
+%{_datadir}/apps/kcminput/cursor*.pcf*
 %{_datadir}/apps/kcminput/pics
 %{_datadir}/apps/kcmkeys
 %{_datadir}/apps/kcmlocale
