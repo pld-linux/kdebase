@@ -105,6 +105,7 @@ BuildRequires:	openssl-devel >= 0.9.7c
 BuildRequires:	openldap-devel
 BuildRequires:	pam-devel
 BuildRequires:	sed >= 4.0
+BuildRequires:	xcursor-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
 BuildRequires:	zlib-devel
