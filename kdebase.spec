@@ -195,7 +195,7 @@ Este pacote contém os arquivos de inclusão que são necessários para
 compilar aplicativos que usem bibliotecas do kdebase.
 
 %package static
-Summary:	Include static libraries to develop KDE applications
+Summary:	Static libraries to develop KDE applications
 Summary(pl):	Statyczne biblioteki KDE
 Summary(pt_BR):	Bibliotecas estáticas do kdebase
 Group:		X11/Development/Libraries
@@ -265,7 +265,7 @@ Group:          X11/Amusements
 Requires:       %{name} = %{version}-%{release}
 
 %description -n kde-decoration-redmond
-KDE Window Decoration - Radmond.
+KDE Window Decoration - Redmond.
 
 %description -n kde-decoration-redmond -l pl
 Dekoracja okna dla KDE - Redmond.
@@ -291,6 +291,7 @@ Requires:       %{name} = %{version}-%{release}
 
 %description -n kde-decoration-kstep
 KDE Window Decoration - Kstep.
+
 %description -n kde-decoration-kstep -l pl
 Dekoracja okna dla KDE - Kstep.
 
@@ -401,7 +402,7 @@ Pliki wspólne dla konsole i konsolepart.
 
 %package core
 Summary:        KDE Core Apps
-Summary(pl):    Podstaqwowe aplikacje KDE
+Summary(pl):    Podstawowe aplikacje KDE
 Group:          X11/Applications
 Requires:       kdelibs >= %{version}-%{_kdelibsminrel}
 Obsoletes:      %{name} < 3.1.2-1
@@ -494,7 +495,6 @@ Allows to display menu boxes from shell scripts.
 Umo¿liwia wy¶wietlanie komunikatów z poziomu skryptów
 pow³oki.
 
-
 %package kfind
 Summary:	KDE Find Tool
 Summary(pl):	Narzêdzie do wyszukiwania plików dla KDE
@@ -525,7 +525,7 @@ Panel KDE - kicker.
 
 %package kjobviewer
 Summary:        Print Job Viewer
-Summary(pl):    Podglad zadañ drukowania
+Summary(pl):    Podgl±d zadañ drukowania
 Group:          X11/Applications
 Requires:       %{name} = %{version}-%{release}
 
@@ -533,12 +533,11 @@ Requires:       %{name} = %{version}-%{release}
 KDE Print Job Viewer.
 
 %description kjobviewer -l pl
-Podglad zadañ drukowania dla KDE.
-
+Podgl±d zadañ drukowania dla KDE.
 
 %package klipper
 Summary:        Clipboard Tool
-Summary(pl):    Narzedzie schowka
+Summary(pl):    Narzêdzie schowka
 Group:          X11/Applications
 Requires:       %{name}-kicker = %{version}-%{release}
 
@@ -546,7 +545,7 @@ Requires:       %{name}-kicker = %{version}-%{release}
 KDE Clipboard Tool.
 
 %description klipper -l pl
-Narzedzie schowka dla KDE.
+Narzêdzie schowka dla KDE.
 
 %package kmenuedit
 Summary:        Menu Editor
@@ -557,7 +556,8 @@ Requires:       %{name}-core = %{version}-%{release}
 %description kmenuedit
 KDE Menu Editor.
 
-
+%description kmenuedit -l pl
+Edytor menu KDE.
 
 %package konsole
 Summary:	KDE Terminal Emulator
@@ -587,7 +587,6 @@ KDE Desktop Pager.
 %description kpager -l pl
 Prze³±cznik biurek dla KDE.
 
-
 %package ksysguard
 Summary:        System Guard
 Summary(pl):    Stra¿nik systemu
@@ -611,13 +610,13 @@ KSysTrayCmd is a utility that allows you to run any application you
 like in the system tray, not just those designed to use it.
 
 %description ksystraycmd -l pl
-KSysTrayCmd to narzedzie pozwalaj±ce na uruchomienie dowolnej
+KSysTrayCmd to narzêdzie pozwalaj±ce na uruchomienie dowolnej
 aplikacji w tacce systemowej - nie tylko tych, które zosta³y
 wyposa¿one w tak± w³a¶ciwo¶æ.
 
 %package kwmtheme
 Summary:        Desktop Theme Manager
-Summary(pl):    Mened¿er motywów biurka
+Summary(pl):	Zarz±dca motywów biurka
 Group:          X11/Applications
 Requires:       %{name} = %{version}-%{release}
 
@@ -626,7 +625,7 @@ KDE Desktop Theme Manager. This package contains also a few desktop
 themes.
 
 %description kwmtheme -l pl
-Menedzer motywów biurka KDE. Ten pakiet zawiera równie¿ kilka motywów.
+Zarz±dca motywów biurka KDE. Ten pakiet zawiera równie¿ kilka motywów.
 
 %package kwrite
 Summary:	KDE Text Editor
@@ -649,6 +648,7 @@ Summary(pl):    Demon zapisu KDE
 Group:          X11/Applications
 Requires:       kdelibs >= %{version}-%{_kdelibsminrel}
 Obsoletes:      %{name} < 3.1.2-1
+
 %description kwrited
 KDE Write Daemon.
 
