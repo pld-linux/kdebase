@@ -3,7 +3,7 @@ Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
 Version:	2.2
-Release:	0.%{sver}.1
+Release:	0.%{sver}.10
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -14,11 +14,13 @@ Source2:	kdm.pamd
 Source3:	kdm.init
 Source4:	kdm.Xsession
 Source5:	kdmrc
+Source6:	%{name}-kscreensaver.pam
 Patch0:		%{name}-waitkdm.patch
 Patch1:		%{name}-konsole-TERM.patch
 Patch2:		%{name}-glibc-2.2.2.patch
 Patch3:		%{name}-arrange.patch
 Patch4:		%{name}-utmp.patch
+Patch5:		%{name}-nsplugins_dirs.patch
 BuildRequires:	grep
 BuildRequires:	awk
 BuildRequires:	findutils
@@ -166,6 +168,7 @@ Wygaszacze ekranu desktopu KDE.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 #libtoolize --copy --force
@@ -202,11 +205,6 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,S
  	DESTDIR="$RPM_BUILD_ROOT" \
  	fontdir="%{_fontdir}/misc"
 
-#install konqueror/konqbrowser.desktop	$RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
-#install konqueror/keditbookmarks/keditbookmarks.desktop \
-#	$RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
-#install ktip/ktip.desktop		$RPM_BUILD_ROOT%{_applnkdir}/Amusements
-
 ALD=$RPM_BUILD_ROOT%{_applnkdir}
 mv $ALD/{Internet/konqbrowser.desktop,Network/WWW}
 mv $ALD/{Internet/keditbookmarks.desktop,Network/WWW}
@@ -214,6 +212,7 @@ mv $ALD/{Toys/ktip.desktop,Amusements}
 
 install %{SOURCE1}			$RPM_BUILD_ROOT%{_bindir}/startkde
 install %{SOURCE2}			$RPM_BUILD_ROOT%{_sysconfdir}/pam.d/kdm
+install %{SOURCE6}			$RPM_BUILD_ROOT%{_sysconfdir}/pam.d/kscreensaver
 install %{SOURCE3}			$RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/kdm
 install %{SOURCE4}			$RPM_BUILD_ROOT%{_sysconfdir}/X11/kdm/Xsession
 install %{SOURCE5}			$RPM_BUILD_ROOT%{_datadir}/config/kdmrc
@@ -231,19 +230,6 @@ EOF
 # removing unneeded directories
 # XXX rm -rf $RPM_BUILD_ROOT%{_applnkdir}/{Editors,Toys}
 
-# make compatibile with GNOME
-#for a in `find $RPM_BUILD_ROOT%{_applnkdir} -name '.directory'`; do
-#        cat $a |sed -n '/^Icon=/!p' > $a.
-#        echo "Type=Directory" >> $a.
-#        cat $a |awk '/^Icon/ {print $1".png" }' >> $a.
-#        mv -f $a. $a
-#done
-#for a in `find $RPM_BUILD_ROOT%{_applnkdir} -name '*.desktop'`; do
-#        cat $a |sed -n '/^Icon=/!p' > $a.
-#        echo >> $a.
-#        cat $a |awk '/^Icon/ {print $1".png" }' >> $a.
-#        mv -f $a. $a
-#done
 for f in `find $RPM_BUILD_ROOT%{_applnkdir} -name '.directory' -o -name '*.dekstop'` ; do
 	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
 	mv -f $f{.tmp,}
@@ -312,12 +298,17 @@ fi
 %doc *gz
 %attr(0755,root,root) %{_bindir}/[ades]*
 %attr(0755,root,root) %{_bindir}/conttest
-%attr(0755,root,root) %{_bindir}/k[acijtwx]*
-#%attr(0755,root,root) %{_bindir}/l*
+%attr(0755,root,root) %{_bindir}/k[aijtwx]*
+%attr(0755,root,root) %{_bindir}/kc[!h]*
+%attr(6755,root,root) %{_bindir}/kcheckpass
 %attr(0755,root,root) %{_bindir}/keditfiletype
-%attr(0755,root,root) %{_bindir}/kd[ce]*
+%attr(0755,root,root) %{_bindir}/kdc*
+%attr(0755,root,root) %{_bindir}/kde[!s]*
+%attr(0755,root,root) %{_bindir}/kdes[!u]*
+%attr(0755,root,root) %{_bindir}/kdesu
+%attr(6755,root,root) %{_bindir}/kdesud
 %attr(0755,root,root) %{_bindir}/konsole
-%attr(4755,root,root) %{_bindir}/konsole_grantpty
+%attr(6755,root,root) %{_bindir}/konsole_grantpty
 %attr(0755,root,root) %{_bindir}/khelpcenter
 %attr(0755,root,root) %{_bindir}/khotkeys
 %attr(0755,root,root) %{_bindir}/khtmlindex
@@ -445,6 +436,11 @@ fi
 %{_fontdir}/misc/console8*.gz
 #%{_fontdir}/misc/*.gz
 
+%attr(0640,root,root) %config %verify(not size mtime md5) %{_sysconfdir}/pam.d/kscreensaver
+# Must be here. kcheckpass needs it.
+%attr(0640,root,root) %config %verify(not size mtime md5) %{_sysconfdir}/pam.d/kdm
+%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/security/blacklist.kdm
+
 %files devel
 %defattr(644,root,root,755)
 %dir %{_includedir}/kwin
@@ -470,8 +466,6 @@ fi
 %dir %{_sysconfdir}/X11/kdm
 %attr(0755,root,root) %{_sysconfdir}/X11/kdm/*
 %attr(0754,root,root) %{_sysconfdir}/rc.d/init.d/kdm
-%attr(0640,root,root) %config %verify(not size mtime md5) %{_sysconfdir}/pam.d/kdm
-%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/security/blacklist.kdm
 
 %{_applnkdir}/Settings/KDE/System/kdm.desktop
 
