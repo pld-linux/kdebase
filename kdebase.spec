@@ -15,7 +15,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.8
-Release:	1
+Release:	2
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -29,15 +29,17 @@ Source6:	%{name}-kscreensaver.pam
 Source7:	%{name}-kdm.Xservers
 # updated 
 Patch0:		%{name}-kdmrc.patch
-Patch1:		%{name}-glibc-2.2.2.patch
-# updated
-Patch2:		%{name}-nsplugins_dirs.patch
-Patch3:		%{name}-hardcoded_paths.patch
-Patch4:		%{name}-kdm.daemon_output.patch
-Patch5:		%{name}-dont_merge_old_kdmrc.patch
+Patch1:		%{name}-fix-mem-leak-in-kfind.patch
+Patch2:		%{name}-dont_merge_old_kdmrc.patch
+Patch3:		%{name}-glibc-2.2.2.patch
+Patch4:		%{name}-hardcoded_paths.patch
+Patch5:		%{name}-kdm.daemon_output.patch
 # updated
 Patch6:		%{name}-kicker.patch
-Patch7:		%{name}-fix-mem-leak-in-kfind.patch
+# All console patches updated & merged in one
+Patch7:		%{name}-konsole_all.patch
+# updated
+Patch8:		%{name}-nsplugins_dirs.patch
 %ifnarch sparc sparc64
 BuildRequires:	alsa-lib-devel
 %endif
@@ -269,6 +271,7 @@ Standardowy obrazek okna "Wyloguj" KDE.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 %build
 
@@ -334,6 +337,11 @@ Icon=kcontrol
 X-KDE-BaseGroup=settings
 EOF
 
+cat $ALD/Help/Help.desktop |sed 's/Help/KDE Help/' |sed 's/Pomoc/Pomoc KDE/' \
+    > Help.desktop.tmp
+cat Help.desktop.tmp > $ALD/Help/Help.desktop
+rm -f Help.desktop.tmp     
+
 for f in `find $ALD -name '.directory' -o -name '*.dekstop'` ; do
 	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
 	mv -f $f{.tmp,}
@@ -395,7 +403,7 @@ done
 #cat kio.lang >> %{name}.lang
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+%{!?_without_clean:rm -rf $RPM_BUILD_ROOT}
 
 %post
 /sbin/ldconfig
@@ -446,8 +454,7 @@ if [ "$1" = "0" ]; then
 	/usr/sbin/groupdel xdm
 fi
 
-#%files -f %{name}.lang
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS README* konsole-doc
 %config %{_sysconfdir}/ksysguarddrc
@@ -661,8 +668,9 @@ fi
 # TODO: file /usr/share/fonts/misc/9x15.pcf.gz from install of kdebase-3.0.3
 # conflicts with file from package XFree86-fonts-4.2.0.
 #%{_fontdir}/misc/*.gz
-%{_fontdir}/misc/console8*.gz
-%{_fontdir}/misc/cursor_*.gz
+%{_fontdir}/misc/console*.gz
+%{_fontdir}/misc/cursor_large*.gz
+%{_fontdir}/misc/cursor_small*.gz
 
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kscreensaver
 # Must be here. kcheckpass needs it.
