@@ -7,7 +7,7 @@
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040424
+%define		_snap		040501
 %define		_packager	adgor
 
 Summary:	K Desktop Environment - core files
@@ -21,7 +21,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}.%{_snap}
-Release:	2
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -158,6 +158,7 @@ Summary(pt_BR):	Arquivos de inclusão para compilar aplicativos que usem bibliote
 Group:		X11/Development/Libraries
 Requires:	konqueror-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kfontinst = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libksgrd = %{epoch}:%{version}-%{release}
 Requires:	kdelibs-devel >= 9:%{version}
@@ -1883,6 +1884,7 @@ fi
 %{_libdir}/libkateinterfaces.so
 %{_libdir}/libkateutils.so
 %{_libdir}/libkdecorations.so
+%{_libdir}/libkfontinst.so
 %{_libdir}/libkickermain.so
 %{_libdir}/libkonq.so
 %{_libdir}/libkonqsidebarplugin.so
@@ -2696,6 +2698,9 @@ fi
 %files kfontinst -f kcmfontinst_en.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kfontinst
+%attr(0755,root,root) %{_bindir}/kfontview
+%{_libdir}/libkfontinst.la
+%attr(0755,root,root) %{_libdir}/libkfontinst.so.*.*.*
 %{_libdir}/kde3/libkfontviewpart.la
 %attr(0755,root,root) %{_libdir}/kde3/libkfontviewpart.so
 %{_libdir}/kde3/kcm_fontinst.la
@@ -2703,13 +2708,17 @@ fi
 %{_libdir}/kde3/kio_fonts.la
 %attr(0755,root,root) %{_libdir}/kde3/kio_fonts.so
 #%{_datadir}/apps/konqsidebartng/virtual_folders/services/fonts.desktop
+%{_datadir}/apps/kfontview
 %dir %{_datadir}/mimelnk/fonts
 %{_datadir}/mimelnk/fonts/folder.desktop
 %{_datadir}/mimelnk/fonts/system-folder.desktop
 %{_datadir}/services/fonts.protocol
 %{_datadir}/services/kfontviewpart.desktop
 %{_desktopdir}/kde/kcmfontinst.desktop
+%{_desktopdir}/kde/kfontview.desktop
 %{_iconsdir}/[!l]*/*/apps/kcmfontinst.png
+%{_iconsdir}/*/*/apps/kfontview.png
+%{_iconsdir}/*/*/actions/textwaterfall.png
 
 %files kjobviewer
 %defattr(644,root,root,755)
