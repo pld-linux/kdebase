@@ -1,5 +1,5 @@
 --- kdebase/konsole/other/shell.desktop.orig	2004-02-02 11:47:38.000000000 +0100
-+++ kdebase/konsole/other/shell.desktop	2004-03-28 03:04:58.844988952 +0200
++++ kdebase/konsole/other/shell.desktop	2004-03-28 03:47:50.569027472 +0200
 @@ -1,7 +1,7 @@
  [Desktop Entry]
  Encoding=UTF-8
@@ -14,7 +14,7 @@
  Name[nn]=Skal
  Name[nso]=Legapi
 -Name[pl]=Powłoka
-+Name[pl]=Powłoka zg�.oszeniowa
++Name[pl]=Powłoka zgłoszeniowa
  Name[pt]=Konsole
  Name[ro]=Interpretor
  Name[se]=Skálžu
@@ -32,7 +32,7 @@
  Comment[nn]=Nytt skal
  Comment[nso]=Legapi le Leswa
 -Comment[pl]=Powłoka
-+Comment[pl]=Nowa powłoka zg�.oszeniowa
++Comment[pl]=Nowa powłoka zgłoszeniowa
  Comment[pt]=Nova Linha de Comandos
  Comment[pt_BR]=Novo Shell
  Comment[ro]=Interpretor nou
