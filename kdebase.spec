@@ -449,6 +449,7 @@ Summary:	KDE Display Manager
 Summary(pl):	Zarz±dca ekranów KDE
 Group:		X11/Applications
 PreReq:		rc-scripts
+Requires(pre):	user-xdm
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-kcontrol = %{version}-%{release}
 Requires:	%{name}-pam = %{version}-%{release}
@@ -680,12 +681,6 @@ cd %{_fontdir}
 umask 022
 /usr/X11R6/bin/mkfontdir
 
-%pre -n kdm
-/usr/sbin/groupadd -g 55 -r -f xdm
-if [ -z "`id -u xdm 2>/dev/null`" ]; then
-	/usr/sbin/useradd -u 55 -r -d /dev/null -s /bin/false -c 'X Display Manager' -g xdm xdm 1>&2
-fi
-
 %post -n kdm
 /sbin/chkconfig --add kdm
 if [ -f /var/lock/subsys/kdm ]; then
@@ -704,14 +699,6 @@ if [ "$1" = "0" ]; then
 		/etc/rc.d/init.d/kdm stop >&2
 	fi
 	/sbin/chkconfig --del kdm
-fi
-
-%postun -n kdm
-if [ "$1" = "0" ]; then
-	if [ -n "`id -u xdm 2>/dev/null`" ]; then
-		/usr/sbin/userdel xdm
-	fi
-	/usr/sbin/groupdel xdm
 fi
 
 %post   -n konqueror -p /sbin/ldconfig
