@@ -63,7 +63,7 @@ BuildRequires:	automake
 BuildRequires:	awk
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
-BuildRequires:	db3-devel
+BuildRequires:	db-devel
 BuildRequires:	findutils
 BuildRequires:	gettext-devel
 BuildRequires:	glut-devel
@@ -1108,6 +1108,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_applnkdir}/Settings/KDE/Components/filetypes.desktop
 %{_applnkdir}/Settings/KDE/Network/WebBrowsing
 %{_applnkdir}/Settings/KDE/Network/netpref.desktop
+%{_applnkdir}/Settings/KDE/Network/lanbrowser.desktop
+%{_applnkdir}/Settings/KDE/Network/proxy.desktop
 %dir %{_applnkdir}/Settings/KDE/Security
 %{_applnkdir}/Settings/KDE/Security/.directory
 %{_applnkdir}/Settings/KDE/Security/crypto.desktop
