@@ -12,6 +12,8 @@
 %define         _state          stable
 %define         _ver		3.1.2
 
+%define         _kdelibsminrel  1
+
 %ifarch	sparc sparcv9 sparc64
 %define		_without_alsa	1
 %endif
