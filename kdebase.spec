@@ -83,6 +83,7 @@ BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
 BuildRequires:	db-devel
 BuildRequires:	ed
+BuildRequires:	freetype-devel <= 2.1.7
 BuildRequires:	gettext-devel
 BuildRequires:	jasper-devel
 BuildRequires:	kdelibs-devel >= 9:%{version}
