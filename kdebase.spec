@@ -31,10 +31,10 @@ Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}.tar.bz2
+#Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}.tar.bz2
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
-#Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}-%{_snap}.tar.bz2
-##%% Source0-md5:	9d05be3ccd6cc0294d6153e5d4dfa63a
+Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{_snap}.tar.bz2
+# Source0-md5:	40180ee37fb4057958d1906392705af8
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -1350,7 +1350,7 @@ Pliki umiêdzynarodawiaj±ce dla mailnews.
 ### </i18n stuff>
 
 %prep
-%setup -q -n %{name}
+%setup -q -n %{name}-%{_snap}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -1994,7 +1994,8 @@ fi
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%{_kdedocdir}/en/%{name}-apidocs
+##%{_kdedocdir}/en/%{name}-apidocs
+%{_kdedocdir}/en/%{name}-%{_snap}-apidocs
 %endif
 
 %files -n kde-decoration-b2
