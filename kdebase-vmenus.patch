@@ -1,5 +1,5 @@
---- kdebase-031123/applnk/kde-essential.menu.orig	2003-11-23 16:35:08.000000000 +0100
-+++ kdebase-031123/applnk/kde-essential.menu	2003-11-23 16:44:56.000000000 +0100
+--- kdebase-031204/applnk/kde-essential.menu.orig	2003-11-23 16:35:20.000000000 +0100
++++ kdebase-031204/applnk/kde-essential.menu	2003-12-04 17:08:45.000000000 +0100
 @@ -4,7 +4,7 @@
  <Menu>
          <!-- The following menus are hidden by default -->
@@ -9,7 +9,7 @@
  		<Directory>kde-settings.directory</Directory>
                  <MergeFile>../kde-settings.menu</MergeFile>
  	</Menu>
-@@ -16,12 +16,6 @@
+@@ -16,12 +16,4 @@
          <Move>
             <Old>Settings/Information</Old><New>Information</New>
          </Move>
@@ -21,8 +21,6 @@
 -	                <MergeFile>../kde-screensavers.menu</MergeFile>
 -		</Menu>
 -	</Menu>
-+	<!-- For user menu modified with kmenuedit -->
-+	<MergeFile>applications-kmenuedit.menu</MergeFile>
  </Menu>
 --- kdebase-031030/applnk/kde-settings.menu.orig	2003-04-02 22:47:54.000000000 +0200
 +++ kdebase-031030/applnk/kde-settings.menu	2003-10-30 11:21:33.000000000 +0100
