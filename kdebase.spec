@@ -393,7 +393,6 @@ Summary:	Default clasic KDE splashscreen
 Summary(pl):	Domy¶lny klasyczny ekran startowy KDE
 Group:		X11/Amusements
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
-Provides:	kde-splash
 
 %description -n kde-splash-Default
 Default splashscreen that came with this version of KDE.
@@ -406,7 +405,6 @@ Summary:	KDE blue-bend splashscreen
 Summary(pl):	Ekran powitalny KDE blue-bend
 Group:		X11/Amusements
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
-Provides:	kde-splash
 
 %description -n kde-splash-blue-bend
 KDE blue-bend splashcreen.
@@ -519,7 +517,6 @@ Requires:	%{name}-kjobviewer = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kpager = %{epoch}:%{version}-%{release}
 Requires:	konqueror = %{epoch}:%{version}-%{release}
 Requires:	xcursor >= 1.1.0
-Requires:	kde-splash
 Requires:	kde-splash-Default
 Obsoletes:	kde-theme-keramik
 Obsoletes:	kdebase
