@@ -109,8 +109,8 @@
  
  messages:
  	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
---- kdebase-040116/kdm/kfrontend/genkdmconf.c.orig	2004-01-16 23:07:51.000000000 +0100
-+++ kdebase-040116/kdm/kfrontend/genkdmconf.c	2004-01-16 23:36:17.000000000 +0100
+--- kdebase-040201/kdm/kfrontend/genkdmconf.c.orig	2004-02-02 11:46:59.000000000 +0100
++++ kdebase-040201/kdm/kfrontend/genkdmconf.c	2004-02-02 12:00:50.000000000 +0100
 @@ -64,7 +64,7 @@
  #define __stringify(x) #x
  #define stringify(x) __stringify(x)
@@ -124,23 +124,23 @@
  #endif
  
  #ifdef __linux__
--# define DEF_SERVER_LINE ":0 local@tty1 " XBINDIR "/X vt7"
-+# define DEF_SERVER_LINE ":0 local@tty1 " XBINDIR "/X vt9"
+-# define DEF_SERVER_LINE ":0 local@tty1 " XBINDIR "/X -nolisten tcp vt7"
++# define DEF_SERVER_LINE ":0 local@tty1 " XBINDIR "/X -nolisten tcp vt9"
  /* ###
  # define DEF_SERVER_LINES DEF_SERVER_LINE "\n" \
- 			 ":1 local@tty2 reserve " XBINDIR "/X :1 vt8\n" \
+ 			 ":1 local@tty2 reserve " XBINDIR "/X -nolisten tcp :1 vt8\n" \
 @@ -541,10 +541,8 @@
- 			 "#:4 local@tty5 reserve " XBINDIR "/X :4 vt11\n"
+ 			 "#:4 local@tty5 reserve " XBINDIR "/X -nolisten tcp :4 vt11\n"
  */
  # define DEF_SERVER_LINES DEF_SERVER_LINE "\n" \
--			 "#:1 local@tty2 reserve " XBINDIR "/X :1 vt8\n" \
--			 "#:2 local@tty3 reserve " XBINDIR "/X :2 vt9\n" \
--			 "#:3 local@tty4 reserve " XBINDIR "/X :3 vt10\n" \
--			 "#:4 local@tty5 reserve " XBINDIR "/X :4 vt11\n"
-+			 "#:1 local@tty2 reserve " XBINDIR "/X :1 vt10\n" \
-+			 "#:2 local@tty3 reserve " XBINDIR "/X :2 vt11\n"
+-			 "#:1 local@tty2 reserve " XBINDIR "/X -nolisten tcp :1 vt8\n" \
+-			 "#:2 local@tty3 reserve " XBINDIR "/X -nolisten tcp :2 vt9\n" \
+-			 "#:3 local@tty4 reserve " XBINDIR "/X -nolisten tcp :3 vt10\n" \
+-			 "#:4 local@tty5 reserve " XBINDIR "/X -nolisten tcp :4 vt11\n"
++			 "#:3 local@tty4 reserve " XBINDIR "/X -nolisten tcp :1 vt10\n" \
++			 "#:4 local@tty5 reserve " XBINDIR "/X -nolisten tcp :2 vt11\n"
  #elif defined(__sun__)
- # define DEF_SERVER_LINE ":0 local@console " XBINDIR "/X"
+ # define DEF_SERVER_LINE ":0 local@console " XBINDIR "/X -nolisten tcp"
  #elif defined(_AIX)
 @@ -787,14 +785,15 @@
  "esac\n"
