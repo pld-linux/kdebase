@@ -1907,7 +1907,7 @@ Pliki umiêdzynarodawiaj±ce dla screensavers.
 Summary:	Internationalization and localization files for kdm
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kdm
 Group:	X11/Applications
-Requires:	%{name}-kdm = %{epoch}:%{version}-%{release}
+Requires:	kdm = %{epoch}:%{version}-%{release}
 Obsoletes:	kde-i18n-Affrikaans
 Obsoletes:	kde-i18n-Afrikaans
 Obsoletes:	kde-i18n-Arabic
@@ -1982,7 +1982,7 @@ Pliki umiêdzynarodawiaj±ce dla kdm.
 Summary:	Internationalization and localization files for konqueror
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla konqueror
 Group:	X11/Applications
-Requires:	%{name}-konqueror = %{epoch}:%{version}-%{release}
+Requires:	konqueror = %{epoch}:%{version}-%{release}
 Obsoletes:	kde-i18n-Affrikaans
 Obsoletes:	kde-i18n-Afrikaans
 Obsoletes:	kde-i18n-Arabic
