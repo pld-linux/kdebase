@@ -867,24 +867,29 @@ bzip2 -dc %{SOURCE13} | tar xf - -C $RPM_BUILD_ROOT
 
 > core.lang
 programs=" \
-	colors \
-	fonts \
 	kcmcolors \
 	kcmfonts \
 	kcmkded \
 	kcmlocale \
 	kcmprintmgr \
-	kcmstyle \
 	kcontrol \
 	kdeprint \
 	kdebugdialog \
 	kdesu \
 	khelpcenter \
-	krdb \
+	krdb"
+programs-nk=" \
+	colors \
+	fonts \
+	kcmstyle \
 	language"
 
 for i in $programs; do
 	%find_lang $i --with-kde
+	cat $i.lang >> core.lang
+done
+for i in $programs-nk; do
+	%find_lang $i
 	cat $i.lang >> core.lang
 done
 
