@@ -602,16 +602,11 @@ for i in $programs; do
 	cat $i.lang >> konqueror.lang
 done
 
-%find_lang	kcmkonsole	--with-kde
-%find_lang	konsole		--with-kde
-cat kcmkonsole.lang >> konsole.lang
-
-
-%find_lang	screensaver	--with-kde
-programs="kscreensaver kcmscreensaver"
+> mailnews.lang
+programs="kio_imap4 kio_nntp kio_pop3 kio_smtp"
 for i in $programs; do
 	%find_lang $i --with-kde
-	cat $i.lang >> screensaver.lang
+	cat $i.lang >>  mailnews.lang
 done
 
 %find_lang	kdm		--with-kde
@@ -621,16 +616,20 @@ for i in $programs; do
 	cat $i.lang >>  kdm.lang
 done
 
-> mailnews.lang
-programs="kio_imap4 kio_nntp kio_pop3 kio_smtp"
+%find_lang	screensaver	--with-kde
+programs="kscreensaver kcmscreensaver"
 for i in $programs; do
 	%find_lang $i --with-kde
-	cat $i.lang >>  mailnews.lang
+	cat $i.lang >> screensaver.lang
 done
+
+%find_lang	kcmkonsole	--with-kde
+%find_lang	konsole		--with-kde
+cat kcmkonsole.lang >> konsole.lang
 
 %find_lang	khelpcenter	--with-kde
 %find_lang	kio_man		--with-kde
-cat kio_man >> khelpcenter.lang
+cat kio_man.lang >> khelpcenter.lang
 
 %find_lang	kappfinder	--with-kde
 %find_lang	kate		--with-kde
@@ -1081,10 +1080,11 @@ fi
 %{_applnkdir}/Settings/KDE/System/.directory
 %{_pixmapsdir}/*/*/apps/kcontrol.png
 %{_pixmapsdir}/*/*/apps/kcmsystem.png
-%lang(en) %dir %{_htmldir}/en/kcontrol
-%lang(en) %{_htmldir}/en/kcontrol/common
-%lang(en) %{_htmldir}/en/kcontrol/index.*
-%lang(en) %{_htmldir}/en/kcontrol/screenshot.png
+# These are provided by find_lang macro
+#%lang(en) %dir %{_htmldir}/en/kcontrol
+#%lang(en) %{_htmldir}/en/kcontrol/common
+#%lang(en) %{_htmldir}/en/kcontrol/index.*
+#%lang(en) %{_htmldir}/en/kcontrol/screenshot.png
 
 %files kdeprintfax
 %defattr(644,root,root,755)
