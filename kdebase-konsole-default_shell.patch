@@ -1,0 +1,45 @@
+--- kdebase/konsole/other/shell.desktop.orig	2004-02-02 11:47:38.000000000 +0100
++++ kdebase/konsole/other/shell.desktop	2004-03-28 03:04:58.844988952 +0200
+@@ -1,7 +1,7 @@
+ [Desktop Entry]
+ Encoding=UTF-8
+ Type=KonsoleApplication
+-Name=Shell
++Name=Login Shell
+ Name[af]=Tolk
+ Name[ar]=الغلاف
+ Name[az]=Qabıq
+@@ -29,7 +29,7 @@
+ Name[nb]=Skall
+ Name[nn]=Skal
+ Name[nso]=Legapi
+-Name[pl]=Powłoka
++Name[pl]=Powłoka zg�.oszeniowa
+ Name[pt]=Konsole
+ Name[ro]=Interpretor
+ Name[se]=Skálžu
+@@ -45,7 +45,7 @@
+ Name[xh]=Iqokobhe
+ Name[xx]=xxShellxx
+ Name[zu]=Igobolodo
+-Comment=New Shell
++Comment=New Login Shell
+ Comment[af]=Nuwe Tolk
+ Comment[ar]=غلاف جديد
+ Comment[be]=Новая абалонка
+@@ -80,7 +80,7 @@
+ Comment[nl]=Nieuwe shell
+ Comment[nn]=Nytt skal
+ Comment[nso]=Legapi le Leswa
+-Comment[pl]=Powłoka
++Comment[pl]=Nowa powłoka zg�.oszeniowa
+ Comment[pt]=Nova Linha de Comandos
+ Comment[pt_BR]=Novo Shell
+ Comment[ro]=Interpretor nou
+@@ -105,5 +105,5 @@
+ Comment[zh_CN]=新建 Shell
+ Comment[zh_TW]=新增 Shell
+ Comment[zu]=Igobolodo Elisha
+-Exec=
++Exec=$SHELL -l
+ Cwd=
