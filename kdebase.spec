@@ -28,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.%{_snap}.1
+Release:	0.%{_snap}.2
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -46,6 +46,7 @@ Source12:	specs.desktop
 Source13:	kabc.desktop
 Source14:	kde-settings-kde.directory
 Source15:	kde-settings-desktop.directory
+Source16:	kde-settings-security.directory
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 # obsoleted
 #Patch1:	%{name}-fix-mouse.cpp.patch
@@ -73,7 +74,8 @@ Patch19:	%{name}-vroot.patch
 # not tested yet
 #Patch20:	%{name}-konsolepropfontwidth3.patch
 #
-Patch21:	%{name}-vcategories.patch 
+Patch21:	%{name}-vcategories.patch
+Patch22:	%{name}-screensavers.patch
 %{?_without_alsa:BuildConflicts:	alsa-driver-devel}
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	OpenGL-devel
@@ -494,6 +496,7 @@ Internet Explorer.
 # not tested yet
 #%patch20 -p1
 %patch21 -p1
+%patch22 -p1
 
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
@@ -543,15 +546,14 @@ cp $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop 
     $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/remote
 
 ALD=$RPM_BUILD_ROOT%{_applnkdir}
-install -d $ALD/{Help,Settings/KDE}
+install -d $ALD/Settings/KDE
 mv -f $ALD/{Settings/[!K]*,Settings/KDE}
 mv -f $ALD/Help.desktop $RPM_BUILD_ROOT%{_desktopdir}
 mv -f $ALD/Settingsmenu/[!K]*.desktop $RPM_BUILD_ROOT%{_desktopdir}
 mv -f $ALD/System/kinfocenter.desktop $RPM_BUILD_ROOT%{_desktopdir}
-mv -f $ALD/{System/ScreenSavers,.hidden}
 
 install %{SOURCE13} $ALD/Settings/KDE/Components
-install %{SOURCE14} %{SOURCE15} $RPM_BUILD_ROOT%{_vfinfodir}
+install %{SOURCE14} %{SOURCE15} %{SOURCE16} $RPM_BUILD_ROOT%{_vfinfodir}
 
 > %{name}.lang
 
@@ -1126,8 +1128,8 @@ fi
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kscreensaver
 %{_libdir}/kde3/kcm_screensaver.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_screensaver.so
+%{_datadir}/apps/screensavers
 %{_applnkdir}/Settings/KDE/LookNFeel/screensaver.desktop
-%{_applnkdir}/.hidden/ScreenSavers
 %{_pixmapsdir}/*/*/apps/kscreensaver.png
 
 
@@ -1302,8 +1304,7 @@ fi
 %{_applnkdir}/System/konq*.desktop
 %{_desktopdir}/kfmclient*.desktop
 %{_desktopdir}/konq*.desktop
-# must be created
-#%{_vfinfodir}/kde-settings-security.directory
+%{_vfinfodir}/kde-settings-security.directory
 %{_pixmapsdir}/*/*/apps/agent.png
 %{_pixmapsdir}/*/*/apps/cache.png
 %{_pixmapsdir}/*/*/apps/cookie.png
