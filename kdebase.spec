@@ -2,7 +2,7 @@ Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
 Version:	2.2
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -40,6 +40,7 @@ BuildRequires:	libvorbis-devel
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	lame-libs-devel
 BuildRequires:	glut-devel
+BuildRequires:	cups-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
 Prereq:		/sbin/ldconfig
