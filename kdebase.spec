@@ -8,7 +8,11 @@ Group:		X11/Applications
 Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
 Source0:	ftp://ftp.kde.org/pub/kde/stable/2.0/distribution/generic/tar/src/%{name}-%{version}.tar.bz2
-Source1:	kdeenv
+Source1:	%{name}-startkde.sh
+Source2:	kdm.pamd
+Source3:	kdm.init
+Patch0:		%{name}-key.patch
+Patch1:		%{name}-waitkdm.patch
 BuildRequires:	qt >= 2.2.1-6
 BuildRequires:	kdelibs-devel >= %{version}
 BuildRequires:	libjpeg-devel
@@ -86,6 +90,8 @@ Zamiennik XDM rodem z KDE.
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
 
 %build
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
@@ -109,11 +115,21 @@ rm -rf $RPM_BUILD_ROOT
 	install
 
 install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements}
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/{pam.d,security,rc.d/init.d}
 
 install kwrite/kwrite.desktop		$RPM_BUILD_ROOT%{_applnkdir}/Office/Editors
 install konqueror/konqbrowser.desktop	$RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
 install ktip/ktip.desktop		$RPM_BUILD_ROOT%{_applnkdir}/Amusements
-install %{SOURCE1}			$RPM_BUILD_ROOT%{_bindir}
+install %{SOURCE1}			$RPM_BUILD_ROOT%{_bindir}/startkde
+install %{SOURCE2}			$RPM_BUILD_ROOT%{_sysconfdir}/pam.d/kdm
+install %{SOURCE3}			$RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/kdm
+touch $RPM_BUILD_ROOT%{_sysconfdir}/security/blacklist.kdm
+
+# this is included in XF4
+rm -f $RPM_BUILD_ROOT%{_fontdir}/misc/9x15.pcf.gz 
+
+# this is included in control-center
+rm -f $RPM_BUILD_ROOT%%{_applnk}/Settings/Peripherals/.directory
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -130,6 +146,38 @@ cd %{_fontdir}/misc
 umask 022
 %{_bindir}/mkfontdir
 
+%pre -n kdm
+/usr/sbin/groupadd -g 55 -r -f xdm
+
+if [ -z "`id -u xdm 2>/dev/null`" ]; then
+	/usr/sbin/useradd -u 55 -r -d /dev/null -s /bin/false -c 'X Display Manager' -g xdm xdm 1>&2
+	if [ -f /var/db/passwd/db ]; then
+		/usr/sbin/update-db 1>&2
+	fi
+fi
+
+%post -n kdm
+/sbin/chkconfig --add kdm
+if [ -f /var/lock/subsys/kdm ]; then
+        /etc/rc.d/init.d/kdm restart >&2
+else
+        echo "Run \"/etc/rc.d/init.d/kdm start\" to start kdm." >&2
+fi
+
+%preun -n kdm
+if [ -f /var/lock/subsys/kdm ]; then
+		 /etc/rc.d/init.d/kdm stop >&2
+fi
+/sbin/chkconfig --del kdm
+
+%postun -n kdm
+if [ "$1" = "0" ]; then
+	if [ -n "`id -u xdm 2>/dev/null`" ]; then
+		/usr/sbin/userdel xdm
+	fi
+	/usr/sbin/groupdel xdm
+fi
+
 %files
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/[as]*
@@ -137,7 +185,6 @@ umask 022
 %attr(0755,root,root) %{_bindir}/conttest
 %attr(0755,root,root) %{_bindir}/kdebugdialog
 %attr(0755,root,root) %{_bindir}/kdeeject
-%attr(0755,root,root) %{_bindir}/kdeenv
 %attr(0755,root,root) %{_bindir}/kdesktop
 %attr(0755,root,root) %{_bindir}/kdesu
 %attr(2750,root,root) %{_bindir}/kdesud
@@ -261,7 +308,10 @@ umask 022
 %files -n kdm
 %defattr(644,root,root,755)
 %doc %{_docdir}/HTML/en/kdm
-%attr(0755,root,root) %{_bindir}/chooser
-%attr(0755,root,root) %{_bindir}/kdm
-%{_sysconfdir}/X11/kdm
+%attr(0755,xdm,xdm) %{_bindir}/chooser
+%attr(0755,xdm,xdm) %{_bindir}/kdm
+%attr(0755,xdm,xdm) %{_sysconfdir}/X11/kdm
+%attr(0640,root,root) %config %verify(not size mtime md5) %{_sysconfdir}/pam.d/kdm
+%attr(0640,root,root) %config(norepalce) %verify(not size mtime md5) %{_sysconfdir}/security/blacklist.kdm
+%attr(0754,root,root) %{_sysconfdir}/rc.d/init.d/kdm
 %{_datadir}/apps/kdm
