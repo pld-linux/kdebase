@@ -1,0 +1,8 @@
+[Desktop Entry]
+Charset=
+Hidden=false
+Keys=specs
+Name=PLD fast specs changelog access
+Query=http://cvs.pld.org.pl/SPECS/\\{@}.spec
+ServiceTypes=SearchProvider
+Type=Service
