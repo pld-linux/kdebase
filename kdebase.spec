@@ -1,8 +1,9 @@
 #
-# TODO: When GUIStyle variable in kdmrc is set to any existing kde style
-#       (including kdm "Default" style), then ColorSheme=Default doesn't
-#       appear properly.
-#       KDM logo & user pics should be stored in /etc/X11/kdm/pics
+# TODO:
+# * ColorSheme=Default in kdm doesn't appear properly while GUIStyle variable
+#   (including kdm "Default" style) is set to any existing kde style
+# * KDM logo & user pics should be stored in /etc/X11/kdm/pics
+# * Replacing findwm with a better solution (it's in the way)
 #
 # _without_alsa - disable alsa
 #
@@ -21,7 +22,7 @@ Summary(uk):	K Desktop Environment - базов╕ файли
 Summary(zh_CN): KDE╨кпд
 Name:		kdebase
 Version:	3.1
-Release:	2.1
+Release:	2.2
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -99,6 +100,7 @@ Obsoletes:	%{name}-konqueror
 Obsoletes:	%{name}-kwin
 Obsoletes:	%{name}-kxmlrpc
 Obsoletes:	%{name}-kdesktop
+Obsoletes:	%{name}-wallpapers
 #
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -370,19 +372,6 @@ Wygaszacze ekranu desktopu KDE.
 
 %description screensavers -l ru
 Некоторые 3D хранители экрана для K Desktop Environment.
-
-%package wallpapers
-Summary:	KDE Wallpapers
-Summary(pl):	Tapety pulpitu dla KDE
-Group:		X11/Amusements
-Requires:	kdelibs >= %{version}
-Obsoletes:	%{name} < 3.0.9-2.4
-
-%description wallpapers
-KDE Wallpapers
-
-%description wallpapers -l pl
-Tapety pulpitu dla KDE.
 
 %package -n kdm
 Summary:	KDE Display Manager
@@ -756,6 +745,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{_datadir}/sounds
 %{_datadir}/templates
+%{_datadir}/wallpapers
 
 %{_applnkdir}/Home.desktop
 %{_applnkdir}/.hidden/[kms][!c]*
@@ -991,16 +981,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_applnkdir}/.hidden/ScreenSavers
 %{_pixmapsdir}/*/*/apps/kscreensaver.png
 
-%files wallpapers
-%defattr(644,root,root,755)
-%attr(0755,root,root) %{_bindir}/krootimage
-%{_datadir}/wallpapers
 
 %files -n kdm -f kdm.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/chooser
 %attr(0755,root,root) %{_bindir}/findwm
 %attr(0755,root,root) %{_bindir}/kdm*
+%attr(0755,root,root) %{_bindir}/krootimage
 %attr(0755,root,root) %{_libdir}/kde3/kcm_kdm.??
 %dir %{_sysconfdir}/kdm
 %config(noreplace) %{_sysconfdir}/kdm/kdmrc
