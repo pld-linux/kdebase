@@ -21,7 +21,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.1
-Release:	2
+Release:	2.1
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -35,15 +35,16 @@ Source6:	%{name}-kscreensaver.pam
 Source7:	%{name}-kdm.Xservers
 Source8:	%{name}-kdm.findwm
 Source9:	%{name}-kdm_pldlogo.png
-Patch0:		%{name}-fix-mem-leak-in-kfind.patch
-Patch1:		%{name}-fontdir.patch
-Patch2:		%{name}-glibc-2.2.2.patch
-Patch3:		%{name}-kcm_background.patch
-Patch4:		%{name}-kdm.daemon_output.patch
-Patch5:		%{name}-kdmconfig.patch
-Patch6:		%{name}-kicker.patch
-Patch7:		%{name}-konsole_all.patch
-Patch8:		%{name}-nsplugins_dirs.patch
+Patch0:		%{name}-fix-kdm-users.cpp.patch
+Patch1:		%{name}-fix-mem-leak-in-kfind.patch
+Patch2:		%{name}-fontdir.patch
+Patch3:		%{name}-glibc-2.2.2.patch
+Patch4:		%{name}-kcm_background.patch
+Patch5:		%{name}-kdm.daemon_output.patch
+Patch6:		%{name}-kdmconfig.patch
+Patch7:		%{name}-kicker.patch
+Patch8:		%{name}-konsole_all.patch
+Patch9:		%{name}-nsplugins_dirs.patch
 %ifnarch sparc sparc64
 %{!?_without_alsa:BuildRequires: alsa-lib-devel}
 %endif
@@ -431,6 +432,7 @@ Internet Explorer.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 %build
 
