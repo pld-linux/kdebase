@@ -8,8 +8,6 @@
 # Conditional build:
 # _without_alsa 	- disable alsa
 #
-# _with_vfolders	- dont use it for now (I AM SERIOUS)
-#
 
 %define         _state          stable
 %define         _ver		3.1.1
@@ -25,7 +23,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.5.1
+Release:	0.6
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -41,11 +39,6 @@ Source9:	%{name}-kdm_pldlogo.png
 Source10:	%{name}-kdm_pldwallpaper.png
 Source11:	ircpld.desktop
 Source12:	specs.desktop
-#taken from rh
-Source13:	vfolder-0.1.tar.bz2
-Source14:	desktopconv.tar.bz2
-Source15:	desktop-create-kmenu.c
-#
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 Patch1:		%{name}-fix-mouse.cpp.patch
 Patch2:		%{name}-fontdir.patch
@@ -62,14 +55,14 @@ Patch12:	%{name}-gtkrc.patch
 Patch13:	%{name}-krdb.patch
 Patch14:	%{name}-pldcredits.patch
 Patch15:	%{name}-searchprov.patch
-# stolen from rh
+# rh stuff
 Patch16:	%{name}-kicker_nodesktop.patch
 Patch17:        %{name}-xfsreload.patch
 Patch18:	%{name}-kdesukonsole.patch
 Patch19:	%{name}-vroot.patch
 Patch20:	%{name}-konsolepropfontwidth3.patch
-Patch21:	%{name}-vfolder.patch
 #
+Patch21:	%{name}-kdm_kgreeter.patch
 %ifnarch sparc sparc64
 %{!?_without_alsa:BuildRequires: alsa-lib-devel}
 %endif
@@ -483,7 +476,7 @@ Internet Explorer.
 %patch18 -p1
 %patch19 -p1
 ##%patch20 -p1
-%{?_with_vfolders:%patch21 -p1}
+%patch21 -p1
 
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
@@ -514,32 +507,10 @@ cp {%{SOURCE11},%{SOURCE12}} kcontrol/ebrowsing/plugins/ikws/searchproviders/
 
 %{__make}
 
-%if %{?_with_vfolders:1}0
-tar xfj %{SOURCE13}
-cd vfolder-0.1
-%{__make} -f Makefile.cvs
-%configure
-%{__make} -C kioslave
-cd ..
-tar xfj %{SOURCE14}
-cd desktopconv
-export CXXFLAGS="%{rpmcflags}"
-export CXX="%{__cxx}"
-%{__make} 
-cd ..
-%{__cc} %{rpmcflags} -o desktop-create-kmenu %{SOURCE15}
-%endif
-
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR="$RPM_BUILD_ROOT"
-
-%if %{?_with_vfolders:1}0
-cd vfolder-0.1
-%{__make} install -C kioslave DESTDIR="$RPM_BUILD_ROOT"
-cd ..
-%endif
 
 install -d $RPM_BUILD_ROOT/etc/{pam.d,rc.d/init.d,security} \
     $RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
@@ -554,11 +525,6 @@ install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
 install %{SOURCE9}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldlogo.png
 install %{SOURCE10}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldwallpaper.png
-
-%if %{?_with_vfolders:1}0
-install desktopconv/desktopconv      $RPM_BUILD_ROOT%{_bindir}
-install desktop-create-kmenu      $RPM_BUILD_ROOT%{_bindir}
-%endif
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
@@ -705,10 +671,6 @@ fi
 %attr(0755,root,root) %{_bindir}/kdc*
 %attr(0755,root,root) %{_bindir}/kde[!ps]*
 %attr(0755,root,root) %{_bindir}/kdes[!u]*
-%if     %{?_with_vfolders:1}0
-%attr(0755,root,root) %{_bindir}/desktop-create-kmenu
-%attr(0755,root,root) %{_bindir}/desktopconv
-%endif
 %attr(2755,root,nobody) %{_bindir}/kdesud
 %attr(2755,root,nobody) %{_bindir}/kdialog
 %attr(0755,root,root) %{_bindir}/khotkeys
@@ -815,10 +777,6 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kwin*.so
 %{_libdir}/kde3/libkdeprint_part.la
 %attr(0755,root,root) %{_libdir}/kde3/libkdeprint_part.so
-%if     %{?_with_vfolders:1}0
-%attr(0755,root,root) %{_libdir}/kde3/kio_vfolder.so
-%{_libdir}/kde3/kio_vfolder.la
-%endif
 %{_libdir}/kde3/sysguard_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
 %dir %{_datadir}/apps/ksmserver
@@ -849,9 +807,6 @@ fi
 %{_datadir}/services/kdeprint_part.desktop
 %{_datadir}/services/kwrited.desktop
 %{_datadir}/services/kxkb.desktop
-%if     %{?_with_vfolders:1}0
-%{_datadir}/services/vfolder.protocol
-%endif
 %{_datadir}/sounds
 %{_datadir}/templates
 %{_datadir}/wallpapers
