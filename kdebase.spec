@@ -13,7 +13,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define         _snap		030502
+%define         _snap		030504
 %define		_kdelibsminrel	0.%{_snap}.1
 
 %ifarch	sparc sparcv9 sparc64
@@ -37,7 +37,7 @@ License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:        http://team.pld.org.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-Source1:	%{name}-kcheckpass.pam
+Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
 Source4:	%{name}-kdm.Xsession
@@ -699,8 +699,9 @@ for plik in `find ./ -name *.desktop` ; do
 done
 
 %configure \
-	--with-kcp-pam=kcheckpass \
-	--with-kdm-pam=kdm
+	--enable-final \
+	--with-kdm-pam=kdm \
+	--with-pam=kdesktop
 
 %{__make}
 
@@ -724,9 +725,9 @@ install -d \
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers{,.orig}
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession{,.orig}
 
-touch $RPM_BUILD_ROOT/etc/security/blacklist.k{checkpass,dm}
+touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
-install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kcheckpass
+install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
 install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
 install %{SOURCE3}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
@@ -890,8 +891,7 @@ fi
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS README README.pam
-%config(noreplace) %verify(not size mtime md5) /etc/pam.d/kcheckpass
-%config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kcheckpass
+%config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdesktop
 %attr(0755,root,root) %{_bindir}/kaccess
 %attr(0755,root,root) %{_bindir}/kcheckpass
 %attr(0755,root,root) %{_bindir}/kdcop
