@@ -2394,6 +2394,7 @@ if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del kdm
 fi
 
+%if %{with i18n}
 %files core-i18n -f core.lang
 %files desktop-i18n -f kdebase.lang
 %files infocenter-i18n -f kinfocenter.lang
@@ -2410,7 +2411,7 @@ fi
 %files screensavers-i18n -f screensaver.lang
 %files -n kdm-i18n -f kdm.lang
 %files -n konqueror-i18n -f konqueror.lang
-
+%endif
 
 %files devel
 %defattr(644,root,root,755)
