@@ -1721,8 +1721,7 @@ do
 done
 
 
-%find_lang desktop_kdebase --with-kde
-mv desktop_kdebase.lang i18n.lang
+:> i18n.lang
 
 for i in $RPM_BUILD_ROOT%{_datadir}/locale/* ;
 do
