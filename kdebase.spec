@@ -1035,6 +1035,7 @@ fi
 %attr(0755,root,root) %{_bindir}/kwin
 %attr(0755,root,root) %{_bindir}/kxkb
 %attr(0755,root,root) %{_bindir}/startkde
+%attr(0755,root,root) %{_bindir}/chooser
 %{_libdir}/kaccess.la
 %attr(0755,root,root) %{_libdir}/kaccess.so
 %{_libdir}/kdesktop.la
@@ -1049,6 +1050,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kxkb.so
 %{_libdir}/kde3/kcm_access.la
 %attr(0755,root,root) %{_libdir}/libsensordisplays.so.*
+%{_libdir}/libsensordisplays.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_access.so
 %{_libdir}/kde3/kcm_arts.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_arts.so
@@ -1349,6 +1351,7 @@ fi
 %files common-konsole
 %defattr(644,root,root,755)
 %{_fontdir}/console*.gz
+%{_fontdir}/9x15.pcf.gz
 %{_datadir}/apps/konsole
 %{_datadir}/mimelnk/application/x-konsole.desktop
 %{_pixmapsdir}/[!l]*/*/apps/bell.png
@@ -1509,6 +1512,7 @@ fi
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kicker
 %attr(0755,root,root) %{_libdir}/kicker.so
+%{_libdir}/kicker.la
 %{_libdir}/libkickermain.la
 %attr(0755,root,root) %{_libdir}/libkickermain.so.*
 %{_libdir}/libtaskbar.la
@@ -1668,6 +1672,7 @@ fi
 %files libkate
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_libdir}/libkateinterfaces.so
+%{_libdir}/libkateinterfaces.la
 
 %files -n kde-decoration-kde1
 %defattr(644,root,root,755)
