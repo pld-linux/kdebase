@@ -1046,8 +1046,7 @@ cd -
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Network;WebBrowser;/' \
 	konqueror/konqbrowser.desktop
 %{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
-	khotkeys/khotkeys.desktop
-%{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
+	khotkeys/khotkeys.desktop \
 	kioslave/cgi/kcmcgi/kcmcgi.desktop
 %{__sed} -i -e 's/Terminal=0/Terminal=false/' \
 	kappfinder/kappfinder.desktop \
@@ -1061,7 +1060,7 @@ cd -
 	ktip/ktip.desktop \
 	kate/data/kwrite.desktop \
 	konqueror/Home.desktop \
-	3.3.0/konqueror/kfmclient.desktop \
+	konqueror/kfmclient.desktop \
 	konqueror/kfmclient_dir.desktop \
 	konqueror/kfmclient_html.desktop \
 	konqueror/kfmclient_war.desktop
