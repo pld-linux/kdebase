@@ -27,7 +27,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}%{_rcver}
-Release:	1
+Release:	2
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -51,6 +51,7 @@ Patch7:		%{name}-kicker.patch
 Patch8:		%{name}-konsole_all.patch
 Patch9:		%{name}-nsplugins_dirs.patch
 Patch10:	%{name}-startkde.patch
+#Patch11:	%{name}-gtkrc.patch
 %ifnarch sparc sparc64
 %{!?_without_alsa:BuildRequires: alsa-lib-devel}
 %endif
@@ -113,7 +114,6 @@ Obsoletes:	%{name}-wallpapers
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
-%define		_prefix 	/usr/X11R6
 %define		_fontdir	/usr/share/fonts/misc
 %define		_htmldir	/usr/share/doc/kde/HTML
 %define		_sysconfdir	/etc/X11
@@ -448,6 +448,7 @@ Internet Explorer.
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
+#%patch11 -p1
 
 %build
 
@@ -569,17 +570,17 @@ done
 %post common-konsole
 cd %{_fontdir}
 umask 022
-%{_bindir}/mkfontdir
-if [ -x %{_bindir}/xftcache ]; then
-    %{_bindir}/xftcache .
+/usr/X11R6/bin/mkfontdir
+if [ -x /usr/X11R6/bin/xftcache ]; then
+    /usr/X11R6/bin/xftcache .
 fi
 
 %postun common-konsole
 cd %{_fontdir}
 umask 022
-%{_bindir}/mkfontdir
-if [ -x %{_bindir}/xftcache ]; then
-    %{_bindir}/xftcache .
+/usr/X11R6/bin/mkfontdir
+if [ -x /usr/X11R6/bin/xftcache ]; then
+    /usr/X11R6/bin/xftcache .
 fi
 
 %pre -n kdm
