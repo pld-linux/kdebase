@@ -44,6 +44,7 @@ Source8:	%{name}-ircpld.desktop
 Source9:	%{name}-specs.desktop
 Source10:       %{name}-kdesktop.pam
 Source11:       %{name}-kde-settings.menu
+Source12:       %{name}-imdb.desktop
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 Patch1:		%{name}-fix-mouse.cpp.patch
 Patch2:		%{name}-fontdir.patch
@@ -827,6 +828,7 @@ install %{SOURCE7}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldwallpaper.png
 install %{SOURCE8}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/ircpld.desktop
 install %{SOURCE9}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/specs.desktop
 install %{SOURCE11}     $RPM_BUILD_ROOT/etc/xdg/menus/kde-settings.menu
+install %{SOURCE12}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/imdb.desktop
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
