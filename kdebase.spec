@@ -4,17 +4,16 @@
 # * KDM: Replacing findwm with a better solution (it's in the way)
 #
 # Conditional build:
-# _without_alsa 	- disable alsa
-# _without_ldap         - without LDAP support
-#
+%bcond_without	alsa 	- disable alsa
+%bcond_without	ldap	- without LDAP support
 
 %define		_state		stable
-%define		_ver		3.1.4
+%define		_ver		3.1.5
 
 %define		_kdelibsminrel	1
 
 %ifarch	sparc sparcv9 sparc64
-%define		_without_alsa	1
+%undefine	with_alsa
 %endif
 
 Summary:	K Desktop Environment - core files
@@ -28,12 +27,12 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	2
+Release:	0.1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	e6859ad85b176e11ce997490786c124d
+# Source0-md5:	88c94a1a6b3381c67164e1051b2e070e
 Source1:	%{name}-extra_icons.tar.bz2
 # Source1-md5:	e251f29dcabe367ebeb96824ee1823ab
 Source2:	%{name}-kdm.pam
@@ -48,8 +47,8 @@ Source10:	%{name}-kdesktop.pam
 Source11:	%{name}-kde-settings.menu
 Source12:	%{name}-imdb.desktop
 # generated from kde-i18n-%{version}.tar.bz2:
-Source13:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/%{version}/kde-i18n-%{name}-%{version}.tar.bz2
-# Source13-md5:	6810997339287b491f5b57abbf472baf
+Source13:	kde-i18n-%{name}-%{version}.tar.bz2
+# Source13-md5:	e3ba104f952765ff0fa768f7a88ccdb8
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 #Patch1:		%{name}-fix-mouse.cpp.patch
 Patch2:		%{name}-fontdir.patch
@@ -74,8 +73,8 @@ Patch18:	%{name}-screensavers.patch
 Patch19:	%{name}-prefmenu.patch
 Patch20:	%{name}-kdesktop_lock.patch
 Patch21:	%{name}-libtool-sanitize.patch
-%{?_without_alsa:BuildConflicts:	alsa-driver-devel}
-%{!?_without_alsa:BuildRequires:	alsa-lib-devel}
+%{!?with_alsa:BuildConflicts:	alsa-driver-devel}
+%{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 #BuildRequires:	XFree86-xrender-devel
@@ -103,7 +102,7 @@ BuildRequires:	libvorbis-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	motif-devel
-%{!?_without_ldap:BuildRequires:	openldap-devel}
+%{?with_ldap:BuildRequires:	openldap-devel}
 BuildRequires:	openssl-devel >= 0.9.6m
 BuildRequires:	pam-devel
 BuildRequires:	qt-devel >= 3.1
@@ -2013,7 +2012,7 @@ fi
 %{_libdir}/kde3/kio_fish.la
 %attr(755,root,root) %{_libdir}/kde3/kio_floppy.so
 %{_libdir}/kde3/kio_floppy.la
-%if %{?_without_ldap:0}%{!?_without_ldap:1}
+%if %{with ldap}
 %attr(755,root,root) %{_libdir}/kde3/kio_ldap.so
 %{_libdir}/kde3/kio_ldap.la
 %endif
@@ -2101,7 +2100,7 @@ fi
 %{_datadir}/services/kshorturifilter.desktop
 %{_datadir}/services/kuriikwsfilter.desktop
 %{_datadir}/services/kurisearchfilter.desktop
-%{!?_without_ldap:%{_datadir}/services/ldap.protocol}
+%{?with_ldap:%{_datadir}/services/ldap.protocol}
 %{_datadir}/services/localdomainurifilter.desktop
 %{_datadir}/services/mac.protocol
 %{_datadir}/services/nfs.protocol
