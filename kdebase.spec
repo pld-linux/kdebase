@@ -8,9 +8,9 @@
 # * Proper descriptions
 #
 
-%define         _state          snapshots
-%define         _ver		3.1.93
-%define         _snap		031105
+%define		_state		snapshots
+%define		_ver		3.1.93
+%define		_snap		031105
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -28,7 +28,7 @@ Epoch:		9
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
-Source0:        http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
+Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
 # Source0-md5:	45260d6d63dbc35eebf3ea62bef4d413
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
@@ -51,13 +51,13 @@ Patch7:		%{name}-kicker.patch
 Patch8:		%{name}-konsole_all.patch
 Patch9:		%{name}-nsplugins_dirs.patch
 Patch10:	%{name}-startkde.patch
-Patch11:        %{name}-kcm_fonts.patch
+Patch11:	%{name}-kcm_fonts.patch
 # TODO
 Patch12:	%{name}-gtkrc.patch
 #
 #Patch14:	%{name}-pldcredits.patch
 #Patch16:	%{name}-kicker_nodesktop.patch
-#Patch17:       %{name}-xfsreload.patch
+#Patch17:	%{name}-xfsreload.patch
 Patch18:	%{name}-kdesukonsole.patch
 #Patch19:	%{name}-vroot.patch
 Patch21:	%{name}-vcategories.patch
@@ -78,6 +78,7 @@ BuildRequires:	awk
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
 BuildRequires:	db-devel
+BuildRequires:	ed
 BuildRequires:	findutils
 BuildRequires:	gettext-devel
 BuildRequires:	grep
@@ -99,7 +100,6 @@ BuildRequires:	openssl-devel >= 0.9.7c
 BuildRequires:	openldap-devel
 BuildRequires:	pam-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
-BuildRequires:	sed >= 4.0
 BuildRequires:	xcursor-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
@@ -113,7 +113,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 KDE specific files. Used by core KDE applications. Package includes:
 - KDE menu hierarchy,
-- kappfinder - script installing some non-KDE apps in KDE menu,
+- kappfinder - script installing some non-KDE apps in KDE menu.
 
 %description -l ja
 KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ÍÑ¤Î´ðËÜ¥¢¥×¥ê¥±¡¼¥·¥ç¥ó¡£
@@ -124,7 +124,7 @@ Pliki specyficzne dla ¶rodowiska KDE i wykorzystywane przez g³ówne
 aplikacje KDE. Pakiet zawiera:
 - Hierarchiê menu KDE,
 - kappfinder - skrypt u³awiaj±cy uruchamianie niektórych programów
-  spoza KDE
+  spoza KDE.
 
 %description -l ru
 âÁÚÏ×ÙÅ ÐÒÏÇÒÁÍÍÙ ÄÌÑ K Desktop Environment. ÷ËÌÀÞÅÎÙ: kdm (ÚÁÍÅÎÁ
@@ -138,6 +138,7 @@ kfind, kfontmanager, kmenuedit, kappfinder).
 
 %description -l uk
 âÁÚÏ×¦ ÐÒÏÇÒÁÍÉ ÄÌÑ K Desktop Environment. ÷ËÌÀÞÅÎ¦: kdm (ÚÁÍ¦ÎÁ xdm),
+kwin (×¦ËÏÎÎÙÊ ÍÅÎÅÄÖÅÒ), konqueror (ÆÁÊÌÏ×ÉÊ ÍÅÎÅÄÖÅÒ, web-ÂÒÁÕÚÅÒ,
 ftp-ËÌ¦ÅÎÔ, ...), konsole (ÚÁÍ¦ÎÁ xterm), kicker (ÚÁÐÕÓËÁÌËÁ ÐÒÏÇÒÁÍ
 ÔÁ ÐÅÊÄÖÅÒ ÒÏÂÏÞÏÇÏ ÓÔÏÌÕ), kaudio (ÁÕÄ¦ÏÓÅÒ×ÅÒ), kdehelp (ÐÒÏÇÒÁÍÁ
 ÄÌÑ ÐÅÒÅÇÌÑÄÕ ÆÁÊÌ¦× ÄÏ×¦ÄËÉ kde, ÆÁÊÌ¦× info ÔÁ man), kthememgr
@@ -241,13 +242,12 @@ KDE Window Decoration - Web.
 %description -n kde-decoration-web -l pl
 Dekoracja okna dla KDE - Web.
 
-
 %package -n kde-kside-default
-Summary:        Default kicker sidebar
-Summary(pl):    Domy¶lny boczny pasek do menu KDE 
-Group:          Themes
+Summary:	Default kicker sidebar
+Summary(pl):	Domy¶lny boczny pasek do menu KDE 
+Group:		Themes
 Provides:	kde-kside
-Requires:       kdebase-kicker >= 9:3.1.91
+Requires:	kdebase-kicker >= 9:3.1.91
 
 %description -n kde-kside-default
 Default kicker sidebar.
@@ -256,10 +256,10 @@ Default kicker sidebar.
 Domy¶lny boczny pasek do menu KDE.
 
 %package -n kde-logoutpic-default
-Summary:        KDE "Logout" picture
-Summary(pl):    Obrazek okna "Wyloguj" KDE
-Group:          X11/Amusements
-Provides:       kde-logoutpic
+Summary:	KDE "Logout" picture
+Summary(pl):	Obrazek okna "Wyloguj" KDE
+Group:		X11/Amusements
+Provides:	kde-logoutpic
 Obsoletes:	kde-logoutpic-PLD
 Requires:	%{name}-desktop
 
@@ -343,7 +343,7 @@ Requires:	kdelibs >= 9:%{version}
 Obsoletes:	%{name} < 8:3.2-0.030428.1
 Obsoletes:	%{name}-kcontrol
 Obsoletes:	%{name}-khelpcenter
-Obsoletes:      %{name}-helpcenter
+Obsoletes:	%{name}-helpcenter
 
 %description core
 KDE Core apps. This package contains:
@@ -365,7 +365,7 @@ Podstawowe aplikacje ¶rodowiska KDE. Pakiet ten zawiera:
 Summary:	TODO
 Summary(pl):	TODO
 Group:		X11/Applications
-Requires:       kde-logoutpic
+Requires:	kde-logoutpic
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
 Requires:	kicker
 Requires:	konqueror = %{epoch}:%{version}-%{release}
@@ -515,9 +515,9 @@ TODO.
 TODO.
 
 %package kicker
-Summary:        KDE Panel - kicker
-Summary(pl):    Panel KDE - kicker
-Group:          X11/Applications
+Summary:	KDE Panel - kicker
+Summary(pl):	Panel KDE - kicker
+Group:		X11/Applications
 Provides:	kicker
 Requires:	%{name}-kfind = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kicker-libs = %{epoch}:%{version}-%{release}
@@ -535,23 +535,23 @@ KDE Panel - kicker.
 Panel KDE - kicker.
 
 %package kicker-libs
-Summary:        TODO
-Summary(pl):    TODO
-Group:          X11/Libraries
+Summary:	kicker shared libraries
+Summary(pl):	Biblioteki wspó³dzielone kickera
+Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	%{name}-libkickermain = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name}-kicker < 9:3.1.92.031006
 
 %description kicker-libs
-TODO.
+Shared libraries used by kicker.
 
 %description kicker-libs -l pl
-TODO.
+Biblioteki wspó³dzielone u¿ywane przez kickera.
 
 %package kjobviewer
-Summary:        Print Job Viewer
-Summary(pl):    Podgl±d zadañ drukowania
-Group:          X11/Applications
+Summary:	Print Job Viewer
+Summary(pl):	Podgl±d zadañ drukowania
+Group:		X11/Applications
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 
 %description kjobviewer
@@ -561,10 +561,10 @@ KDE Print Job Viewer.
 Podgl±d zadañ drukowania dla KDE.
 
 %package klipper
-Summary:        Clipboard Tool
-Summary(pl):    Narzêdzie schowka
-Group:          X11/Applications
-Requires:       %{name}-kicker = %{epoch}:%{version}-%{release}
+Summary:	Clipboard Tool
+Summary(pl):	Narzêdzie schowka
+Group:		X11/Applications
+Requires:	%{name}-kicker = %{epoch}:%{version}-%{release}
 
 %description klipper
 KDE Clipboard Tool.
@@ -573,10 +573,10 @@ KDE Clipboard Tool.
 Narzêdzie schowka dla KDE.
 
 %package kmenuedit
-Summary:        Menu Editor
-Summary(pl):    Edytor menu
-Group:          X11/Applications
-Requires:       %{name}-core = %{epoch}:%{version}-%{release}
+Summary:	Menu Editor
+Summary(pl):	Edytor menu
+Group:		X11/Applications
+Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 
 %description kmenuedit
 KDE Menu Editor.
@@ -585,18 +585,18 @@ KDE Menu Editor.
 Edytor menu KDE.
 
 %package konqueror-libs
-Summary:        TODO
-Summary(pl):    TODO
-Group:          X11/Libraries
+Summary:	konqueror shared libraries
+Summary(pl):	Biblioteki wspó³dzielone konquerora
+Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	kdelibs >= 9:%{version}
 Obsoletes:	konqueror < 9:3.1.92.031006
 
 %description konqueror-libs
-TODO.
+Shared libraries used by konqueror.
 
 %description konqueror-libs -l pl
-TODO.
+Biblioteki wspó³dzielone u?ywane przez konquerora.
 
 %package konsole
 Summary:	KDE Terminal Emulator
@@ -725,18 +725,18 @@ A libraries for KDE text editors.
 Biblioteki dla edytorów tekstu KDE.
 
 %package libkickermain
-Summary:	TODO
-Summary(pl):	TODO
+Summary:	libkickermain library
+Summary(pl):	Biblioteka libkickermain
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	kdelibs >= 9:%{version}
 Obsoletes:	%{name}-kicker < 9:3.1.90.030629-0.1
 
 %description libkickermain
-TODO.
+libkickermain shared library.
 
 %description libkickermain -l pl
-TODO.
+Biblioteka wspó³dzielona libkickermain.
 
 %package libkonq
 Summary:	Konqueror library files
@@ -747,10 +747,11 @@ Requires:	kdelibs >= 9:%{version}
 Obsoletes:	konqueror < 8:3.2-0.030423.2
 
 %description libkonq
-Libraries containing functions used by konqueror.
+Libraries containing functions used by konqueror and kicker.
 
 %description libkonq -l pl
-Biblioteki zawieraj±ce funkcje wykorzystywane przez konquerora.
+Biblioteki zawieraj±ce funkcje wykorzystywane przez konquerora i
+kickera.
 
 %package libksgrd
 Summary:	ksgrd library
@@ -872,8 +873,8 @@ Internet Explorer.
 
 %build
 
-for f in `find . -name *.desktop` ; do
-	sed -i 's/\[nb\]/\[no\]/g' $f
+for f in `find . -name *.desktop | grep -l '\[nb\]'` ; do
+	echo -e ',s/\[nb\]/[no]/\n,w' | ed $f
 done
 
 %{__make} -f admin/Makefile.common cvs
@@ -915,16 +916,16 @@ install %{SOURCE11}	$RPM_BUILD_ROOT%{_datadir}/apps/kdisplay/color-schemes/QtCur
 # Make PLD splashscreen as default
 cd $RPM_BUILD_ROOT%{_datadir}/apps/ksplash/Themes
 mv Default Default-KDE
-sed -i 's/\[KSplash Theme: Default\]/\[KSplash Theme: Default-KDE\]/' \
-    Default-KDE/Theme.rc
+echo ',s/\[KSplash Theme: Default\]/[KSplash Theme: Default-KDE]/\n,w' |\
+	ed Default-KDE/Theme.rc
 bzip2 -dc %{SOURCE12} | tar xf -
 cd -
 
 # Copying default faces to kdm config dir
 cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/default1.png \
-    $RPM_BUILD_ROOT/etc/X11/kdm/faces/.default.face.icon
+	$RPM_BUILD_ROOT/etc/X11/kdm/faces/.default.face.icon
 cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
-    $RPM_BUILD_ROOT/etc/X11/kdm/faces/root.face.icon
+	$RPM_BUILD_ROOT/etc/X11/kdm/faces/root.face.icon
 
 # Some desktop & kicker appearance defaults
 cat > $RPM_BUILD_ROOT%{_datadir}/config/kdesktoprc << EOF
@@ -950,7 +951,7 @@ mv $ALD/System/kinfocenter.desktop	$RPM_BUILD_ROOT%{_desktopdir}/kde
 mv $RPM_BUILD_ROOT%{_desktopdir}/kde/print{ers,mgr}.desktop
 
 mv $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop \
-    $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/services
+   $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/services
 
 > core.lang
 programs=" \
