@@ -2,7 +2,7 @@
 # - make separate subpackages
 
 %define		_state		unstable
-%define		_kdever		kde-3.1-beta2
+%define		_kdever		kde-3.1-rc1
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -14,8 +14,8 @@ Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
-Version:	3.0.8
-Release:	2.3	
+Version:	3.0.9
+Release:	1
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -27,18 +27,14 @@ Source3:	kdm.init
 Source4:	kdm.Xsession
 Source6:	%{name}-kscreensaver.pam
 Source7:	%{name}-kdm.Xservers
-# updated 
 Patch0:		%{name}-kdmrc.patch
 Patch1:		%{name}-fix-mem-leak-in-kfind.patch
 Patch2:		%{name}-dont_merge_old_kdmrc.patch
 Patch3:		%{name}-glibc-2.2.2.patch
 Patch4:		%{name}-hardcoded_paths.patch
 Patch5:		%{name}-kdm.daemon_output.patch
-# updated
 Patch6:		%{name}-kicker.patch
-# All console patches updated & merged in one
 Patch7:		%{name}-konsole_all.patch
-# updated & corrected plugins available @ konqueror-plugin-*.rpm
 Patch8:		%{name}-nsplugins_dirs.patch
 %ifnarch sparc sparc64
 BuildRequires:	alsa-lib-devel
@@ -458,7 +454,7 @@ if [ "$1" = "0" ]; then
 fi
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+#rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
@@ -660,15 +656,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/templates
 %{_datadir}/wallpapers
 
-%{_pixmapsdir}/*/*/apps/[abcdefghilmnprstuwx]*
-%{_pixmapsdir}/*/*/apps/k[acefhijlmnptwmx]*
+%{_pixmapsdir}/[!l]*/*/apps/[abcdefghilmnpqrstuvwx]*
+%{_pixmapsdir}/[!l]*/*/apps/k[acefhijlmnptvwmx]*
 %{_pixmapsdir}/*/*/apps/konsole.png
 %{_pixmapsdir}/*/*/apps/ksysguard.png
 %{_pixmapsdir}/*/*/apps/kdisk*
 %{_pixmapsdir}/*/*/apps/kdeprint*
 %{_pixmapsdir}/*/*/apps/opera*
-%{_pixmapsdir}/*/*/actions/*
-%{_pixmapsdir}/*/*/devices/*
+#%{_pixmapsdir}/*/*/actions/*
+%{_pixmapsdir}/*/*/devices/print_[!c]*
 %{_pixmapsdir}/*/*/filesystems/*
 
 # TODO: file /usr/share/fonts/misc/9x15.pcf.gz from install of kdebase-3.0.3
