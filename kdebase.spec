@@ -19,7 +19,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.98
-Release:	1.1
+Release:	1.2
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -549,12 +549,14 @@ done
 cd %{_fontdir}/misc
 umask 022
 %{_bindir}/mkfontdir
-%{_bindir}/xset fp rehash
+if [ -x %{_bindir}/xset ] && [ X$DISPLAY != X"" ]; then
+    %{_bindir}/xset fp rehash
+fi    
 if [ -x %{_bindir}/xftcache ]; then
-	%{_bindir}/xftcache .
+    %{_bindir}/xftcache .
 fi
 if [ -x %{_bindir}/findwm ]; then
-	%{_bindir}/findwm
+    %{_bindir}/findwm
 fi
 
 %postun
@@ -562,65 +564,71 @@ fi
 cd %{_fontdir}/misc
 umask 022
 %{_bindir}/mkfontdir
-%{_bindir}/xset fp rehash
+if [ -x %{_bindir}/xset ] && [ X$DISPLAY != X"" ]; then
+    %{_bindir}/xset fp rehash
+fi    
 if [ -x %{_bindir}/xftcache ]; then
-	%{_bindir}/xftcache .
+    %{_bindir}/xftcache .
 fi
 if [ -x %{_bindir}/findwm ]; then
-	%{_bindir}/findwm
+    %{_bindir}/findwm
 fi
 
 %post common-konsole
 cd %{_fontdir}/misc
 umask 022
 %{_bindir}/mkfontdir
-%{_bindir}/xset fp rehash
+if [ -x %{_bindir}/xset ] && [ X$DISPLAY != X"" ]; then
+    %{_bindir}/xset fp rehash
+fi
 if [ -x %{_bindir}/xftcache ]; then
-	%{_bindir}/xftcache .
+    %{_bindir}/xftcache .
 fi
 
 %postun common-konsole
 cd %{_fontdir}/misc
 umask 022
 %{_bindir}/mkfontdir
-%{_bindir}/xset fp rehash
+if [ -x %{_bindir}/xset ] && [ X$DISPLAY != X"" ]; then
+    %{_bindir}/xset fp rehash
+fi
 if [ -x %{_bindir}/xftcache ]; then
-	%{_bindir}/xftcache .
+    %{_bindir}/xftcache .
 fi
 
 %pre -n kdm
 /usr/sbin/groupadd -g 55 -r -f xdm
 if [ -z "`id -u xdm 2>/dev/null`" ]; then
-	/usr/sbin/useradd -u 55 -r -d /dev/null -s /bin/false -c 'X Display Manager' -g xdm xdm 1>&2
+    /usr/sbin/useradd -u 55 -r -d /dev/null -s /bin/false -c 'X Display Manager' -g xdm xdm 1>&2
 fi
 
 %post -n kdm
 /sbin/chkconfig --add kdm
 if [ -f /var/lock/subsys/kdm ]; then
-        echo "To make sure that new version of KDM is running you should restart"
-	echo "KDM with:"
-	echo "/etc/rc.d/init.d/kdm restart"
-	echo
-	echo "WARNING: restarting KDM will terminate any X session started by it!"
+    echo "To make sure that new version of KDM is running you should restart"
+    echo "KDM with:"
+    echo "/etc/rc.d/init.d/kdm restart"
+    echo
+    echo "WARNING: restarting KDM will terminate any X session started by it!"
 else
-        echo "Run \"/etc/rc.d/init.d/kdm start\" to start kdm." >&2
+    echo "Run \"/etc/rc.d/init.d/kdm start\" to start kdm." >&2
 fi
-/usr/X11R6/bin/findwm
+%{_bindir}/findwm
 
 %preun -n kdm
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/kdm ]; then
-		 /etc/rc.d/init.d/kdm stop >&2
-	fi
-	/sbin/chkconfig --del kdm
+    if [ -f /var/lock/subsys/kdm ]; then
+	 /etc/rc.d/init.d/kdm stop >&2
+    fi
+    /sbin/chkconfig --del kdm
 fi
 
 %postun -n kdm
 if [ "$1" = "0" ]; then
-	if [ -n "`id -u xdm 2>/dev/null`" ]; then
-		/usr/sbin/userdel xdm
-	fi
-	/usr/sbin/groupdel xdm
+    if [ -n "`id -u xdm 2>/dev/null`" ]; then
+	/usr/sbin/userdel xdm
+    fi
+    /usr/sbin/groupdel xdm
 fi
 
 %post   -n konqueror -p /sbin/ldconfig
