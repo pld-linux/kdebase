@@ -19,6 +19,10 @@ Patch3:		%{name}-glibc-2.2.2.patch
 Patch4:		%{name}-kxmlrpcd-tcpsocket.patch
 Patch5:		%{name}-arrange.patch
 Patch6:		%{name}-utmp.patch
+Patch7:		%{name}-2.1-allow-to-change-user-agent.patch.bz2
+Patch8:		%{name}-2.1-disable_fonts_for_nonkde_apps.patch.bz2
+Patch9:		%{name}-2.1-kcontrol.patch.bz2
+Patch10:	konq_history_security_patch.diff.bz2
 BuildRequires:	grep
 BuildRequires:	qt-devel >= 2.3.0
 BuildRequires:	kdelibs-devel >= %{version}
@@ -156,6 +160,10 @@ Wygaszacze ekranu desktopu KDE.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
+%patch8 -p1
+%patch9 -p1
+%patch10 -p1
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
