@@ -6,6 +6,14 @@
  X-DCOP-ServiceType=Multi
 -Categories=Qt;KDE;System
 +Categories=Qt;KDE;Settings
+--- kdebase-030418/kcontrol/kcontrol/KControl.desktop~	2003-04-18 03:49:26.000000000 +0200
++++ kdebase-030418/kcontrol/kcontrol/KControl.desktop	2003-04-18 16:48:48.000000000 +0200
+@@ -66,3 +66,5 @@
+ Name[zu]=Indawo Yokulawula
+ 
+ X-DCOP-ServiceType=Unique
++
++Categories=Qt;KDE;Settings
 --- kdebase-030317/khelpcenter/Help.desktop~	Wed Jan 22 00:36:14 2003
 +++ kdebase-030317/khelpcenter/Help.desktop	Fri Mar 21 04:11:31 2003
 @@ -6,7 +6,7 @@
