@@ -809,7 +809,7 @@ fi
 %{_pixmapsdir}/*/*/apps/en[!h]*
 %{_pixmapsdir}/*/*/apps/k[ijlmnptvmx]*
 %{_pixmapsdir}/*/*/apps/kappfinder.png
-%{_pixmapsdir}/[!l]*/*/apps/kc[!o][!s]*
+%{_pixmapsdir}/*/*/apps/kc[!o][!s]*
 %{_pixmapsdir}/*/*/apps/kcms[!y]*
 %{_pixmapsdir}/*/*/apps/key[!_]*
 %{_pixmapsdir}/*/*/apps/ksysguard.png
@@ -894,7 +894,7 @@ fi
 %defattr(644,root,root,755)
 %{_fontdir}/misc/console*.gz
 %{_datadir}/apps/konsole
-%{_pixmapsdir}/[!l]*/*/apps/bell.png
+%{_pixmapsdir}/*/*/apps/bell.png
 %{_pixmapsdir}/*/*/apps/key_bindings.png
 
 %files helpcenter -f khelpcenter.lang
