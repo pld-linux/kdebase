@@ -8,8 +8,8 @@
 # * Proper descriptions
 #
 
-%define		_state		snapshots
-%define		_ver		3.1.94
+%define		_state		unstable
+%define		_ver		3.1.95
 %define		_snap		040110
 
 Summary:	K Desktop Environment - core files
@@ -22,14 +22,14 @@ Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
-Version:	%{_ver}.%{_snap}
-Release:	3
-Epoch:		9
+Version:	3.1.95
+Release:	0.1
+Epoch:		10
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	c2b071d55e1edc52b612321c18bac805
+Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
+# Source0-md5:	7b60b22787ade2897c0760a24cf6feba	
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -101,6 +101,7 @@ BuildRequires:	openldap-devel
 BuildRequires:	pam-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	xcursor-devel
+Conflicts:	kdelibs < 9:3.1.94.040110-1
 # TODO: sensors
 #BuildRequires:	sensors-devel
 BuildRequires:	zlib-devel
@@ -840,7 +841,7 @@ Konqueror jest przegl±dark± WWW i zarz±dc± plików podobnym do MS
 Internet Explorer.
 
 %prep
-%setup -q -n %{name}-%{_snap}
+%setup -q -n %{name}-%{version}
 #%patch0 -p1
 %patch2 -p1
 %patch3 -p1
@@ -1065,8 +1066,8 @@ cat kioslave.lang	>> kinfocenter.lang
 
 # apicdocs dir is independently installed
 for f in *.lang; do
-	if grep -q %{name}-%{_snap}-apidocs $f; then
-		grep -v %{name}-%{_snap}-apidocs $f > $f.tmp
+	if grep -q %{name}-%{version}-apidocs $f; then
+		grep -v %{name}-%{version}-apidocs $f > $f.tmp
 		mv $f.tmp $f
 	fi
 done
@@ -1167,7 +1168,7 @@ fi
 
 %files devel
 %defattr(644,root,root,755)
-%lang(en) %{_kdedocdir}/en/%{name}-%{_snap}-apidocs
+%lang(en) %{_kdedocdir}/en/%{name}-%{version}-apidocs
 %{_includedir}/*.h
 %{_includedir}/kate
 %{_includedir}/ksgrd
