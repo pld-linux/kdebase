@@ -1,9 +1,11 @@
---- kdenetwork-031105/admin/acinclude.m4.in.orig	2003-10-29 01:25:52.000000000 +0100
-+++ kdenetwork-031105/admin/acinclude.m4.in	2003-11-12 18:15:08.000000000 +0100
-@@ -4274,20 +4274,7 @@
+--- kde-common/admin/acinclude.m4.in.orig	2003-10-29 01:25:52.000000000 +0100
++++ kde-common/admin/acinclude.m4.in	2003-11-12 19:49:05.000000000 +0100
+@@ -4272,32 +4272,11 @@
+ [
+     AC_MSG_CHECKING([for utmp file])
  
-     AC_CACHE_VAL(kde_cv_utmp_file,
-     [
+-    AC_CACHE_VAL(kde_cv_utmp_file,
+-    [
 -    kde_cv_utmp_file=no
 -
 -    for ac_file in    \
@@ -18,7 +20,20 @@
 -       break
 -     fi
 -    done
-+    kde_cv_utmp_file=/var/run/utmpx
-     ])
+-    ])
++    AC_CACHE_VAL(kde_cv_utmp_file, [kde_cv_utmp_file=/var/run/utmpx])
  
-     if test "$kde_cv_utmp_file" != "no"; then
+-    if test "$kde_cv_utmp_file" != "no"; then
+-	AC_DEFINE_UNQUOTED(UTMP, "$kde_cv_utmp_file", [Define the file for utmp entries])
+-	$1
+-	AC_MSG_RESULT($kde_cv_utmp_file)
+-    else
+-    	$2
+-	AC_MSG_RESULT([non found])
+-    fi
++    AC_DEFINE_UNQUOTED(UTMP, "$kde_cv_utmp_file", [Define the file for utmp entries])
++    $1
++    AC_MSG_RESULT(We are using $kde_cv_utmp_file in PLD instead.)
+ ])
+ 
+ 
