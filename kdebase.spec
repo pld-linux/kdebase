@@ -24,7 +24,7 @@ Requires:    	qt >= 1.44
 Requires:	kdelibs = %{version}
 BuildRoot:   	/tmp/%{name}-%{version}-root
 
-%define _prefix	/usr/X11R6
+%define 	_prefix		/usr/X11R6
 
 %description
 KDE specific files. Used by core KDE applications.
@@ -248,20 +248,21 @@ Przyk³adowe tapety s± tak¿e do³±czone
 export KDEDIR=%{_prefix}
 CXXFLAGS="$RPM_OPT_FLAGS" \
 CFLAGS="$RPM_OPT_FLAGS -Wall" \
-./configure %{_target} \
+./configure %{_target_platform} \
 	--prefix=$KDEDIR \
- 	--with-pam="yes"
+ 	--with-pam=yes
+
 make KDEDIR=$KDEDIR
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT/etc/X11/kde
+
 make \
 	RUN_KAPPFINDER=no \
 	DESTDIR=$RPM_BUILD_ROOT \
 	localedir="$RPM_BUILD_ROOT/usr/X11R6/share/locale" \
 	install
-
-install -d $RPM_BUILD_ROOT/etc/X11/kde
 
 install $RPM_SOURCE_DIR/kdeenv $RPM_BUILD_ROOT%{_bindir}/kdeenv
 
@@ -455,7 +456,7 @@ rm -rf $RPM_BUILD_ROOT
 #             KONSOLE - checking - on air
 #################################################
 %files konsole -f konsole.lang
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 
 %config(missingok) /etc/X11/kde/applnk/Utilities/konsole.kdelnk
 
@@ -474,7 +475,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files kwm -f _kwm.lang
 
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 
 %{_datadir}/kde/doc/HTML/en/kwm/
 %{_datadir}/kde/doc/HTML/en/kcontrol/kcmkwm/
@@ -519,7 +520,7 @@ rm -rf $RPM_BUILD_ROOT
 %files kdehelp -f kdehelp.lang
 %defattr(644,root,root,755)
 
-%lang(en) %{_datadir}/kde/doc/HTML/en/kdehelp/
+%{_datadir}/kde/doc/HTML/en/kdehelp/
 
 %{_datadir}/kde/icons/mini/kdehelp.xpm
 %{_datadir}/kde/icons/kdehelp.xpm
@@ -534,7 +535,7 @@ rm -rf $RPM_BUILD_ROOT
 #################################################
 
 %files kfm -f _kfm.lang
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 
 %config(missingok) /etc/X11/kde/applnk/Krefresh.kdelnk
 %config(missingok) /etc/X11/kde/applnk/Trash.kdelnk
@@ -709,11 +710,11 @@ rm -rf $RPM_BUILD_ROOT
 #################################################
 
 %files kfind -f kfind.lang
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 
 %config(missingok) /etc/X11/kde/applnk/Kfind.kdelnk
 
-%lang(en) %{_datadir}/kde/doc/HTML/en/kfind/
+%{_datadir}/kde/doc/HTML/en/kfind/
 
 %{_datadir}/kde/apps/kfind/
 
@@ -798,9 +799,9 @@ rm -rf $RPM_BUILD_ROOT
 #################################################
 
 %files kvt -f kvt.lang
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 
-%lang(en) %{_datadir}/kde/doc/HTML/en/kvt
+%{_datadir}/kde/doc/HTML/en/kvt
 
 %config(missingok) /etc/X11/kde/applnk/Utilities/kvt.kdelnk
 
@@ -814,9 +815,9 @@ rm -rf $RPM_BUILD_ROOT
 #################################################
 
 %files kmenuedit -f kmenuedit.lang
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 
-%lang(en) %{_datadir}/kde/doc/HTML/en/kmenuedit/
+%{_datadir}/kde/doc/HTML/en/kmenuedit/
 
 %config(missingok) /etc/X11/kde/applnk/Utilities/KMenuEdit.kdelnk
 
@@ -830,7 +831,7 @@ rm -rf $RPM_BUILD_ROOT
 #################################################
 
 %files kpanel -f kpanel.lang -f kcmkpanel.lang
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 
 %config /etc/X11/kde/kpanelrc
 
@@ -854,8 +855,8 @@ rm -rf $RPM_BUILD_ROOT
 %files kdm -f kdm.lang -f kdmconfig.lang
 %defattr(644,root,root,755)
 
-%lang(en) %{_datadir}/kde/doc/HTML/en/kdm/
-%lang(en) %{_datadir}/kde/doc/HTML/en/kcontrol/kdmconfig/
+%{_datadir}/kde/doc/HTML/en/kdm/
+%{_datadir}/kde/doc/HTML/en/kcontrol/kdmconfig/
 
 %config(missingok) /etc/X11/kde/applnk/Settings/Applications/kdm.kdelnk
 %config /etc/X11/kde/kdmrc
@@ -875,9 +876,9 @@ rm -rf $RPM_BUILD_ROOT
 #################################################
 
 %files kfontmanager -f kfontmanager.lang
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 
-%lang(en) %{_datadir}/kde/doc/HTML/en/kfontmanager/
+%{_datadir}/kde/doc/HTML/en/kfontmanager/
 
 %config(missingok) /etc/X11/kde/applnk/System/Kfontmanager.kdelnk
 
