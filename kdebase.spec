@@ -11,7 +11,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define         _snap		030406
+%define         _snap		030409
 
 %ifarch	sparc sparcv9 sparc64
 %define		_without_alsa	1
@@ -28,12 +28,13 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.%{_snap}.1.1
+Release:	0.%{_snap}.1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:        http://team.pld.org.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
+Source1:        http://www.eleceng.ohio-state.edu/~ravi/ksplashplugins-0.1pre.tar.gz
 Source2:	kdm.pamd
 Source3:	kdm.init
 Source4:	kdm.Xsession
@@ -113,10 +114,12 @@ BuildRequires:	zlib-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
 Requires(post,postun):	/sbin/ldconfig
-Requires:	applnk > 1.5.17
-Requires:	kde-splash
+Requires:	applnk >= 1.6
+# Old ksplash is obsoleted
+#Requires:	kde-splash
+#
 Requires:       kde-sdscreen
-Requires:       kdelibs >= 3.2-0.030317.0.3
+Requires:       kdelibs >= 3.2-0.030409.1
 Requires:	konqueror = %{version}-%{release}
 Requires:	%{name}-pam = %{version}-%{release}
 #
@@ -187,6 +190,7 @@ Summary(pl):	Pliki nag³ówkowe potrzebne do programowania
 Summary(pt_BR):	Arquivos de inclusão para compilar aplicativos que usem bibliotecas do kdebase
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-kate = %{version}-%{release}
 Requires:	kdelibs-devel >= %{version}
 
 %description devel
@@ -470,7 +474,7 @@ Konqueror jest przegl±dark± WWW i zarz±dc± plików podobnym do MS
 Internet Explorer.
 
 %prep
-%setup -q -n %{name}-%{_snap}
+%setup -q -n %{name}-%{_snap} -a1
 %patch0 -p1
 # obsoleted
 #%patch1 -p1
@@ -504,24 +508,27 @@ kde_appsdir="%{_applnkdir}"; export kde_appsdir
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
-CPPFLAGS="-I%{_includedir}"
-export CPPFLAGS
-
 for plik in `find ./ -name *.desktop` ; do
-	if [ -d $plik ]; then
 	echo $plik
-	sed -ie "s/\[nb\]/\[no\]/g" $plik
-	fi
+	sed -i -e "s/\[nb\]/\[no\]/g" $plik
 done
 
 %configure \
 	--with-pam=kdm
 	
+cd ksplashplugins
+%configure --enable-final	
+cd -
+	
 %{__make}
 
 cd ksplashml
 %{__make}
-cd ..
+cd -
+
+cd ksplasplugins
+%{__make}
+cd -
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -530,7 +537,11 @@ rm -rf $RPM_BUILD_ROOT
 
 cd ksplashml
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
-cd ..
+cd -
+
+cd ksplasplugins
+%{__make} install DESTDIR=$RPM_BUILD_ROOT
+cd -
 
 
 install -d $RPM_BUILD_ROOT/etc/{X11/desktop/menus,pam.d,rc.d/init.d,security} \
@@ -784,12 +795,25 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kwin*.so
 %{_libdir}/kde3/libkdeprint_part.la
 %attr(0755,root,root) %{_libdir}/kde3/libkdeprint_part.so
+# should be separated to subpackages
 %{_libdir}/kde3/libksplashdefault.la
 %attr(0755,root,root) %{_libdir}/kde3/libksplashdefault.so*
+# added as ksplashplugins
+%{_libdir}/kde3/libksplashmacclassic.la
+%attr(0755,root,root) %{_libdir}/kde3/libksplashmacclassic.so*
+%{_libdir}/kde3/libksplashstandard.la
+%attr(0755,root,root) %{_libdir}/kde3/libksplashstandard.so*
+%{_libdir}/kde3/libksplashxplike.la
+%attr(0755,root,root) %{_libdir}/kde3/libksplashxplike.so*
+#
 %{_libdir}/kde3/sysguard_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
 %dir %{_datadir}/apps/ksmserver
 %dir %{_datadir}/apps/ksplash
+%dir %{_datadir}/apps/ksplash/Themes
+# should be separated to subpackages
+%{_datadir}/apps/ksplash/Themes/*
+#
 %{_datadir}/apps/?[!acdefhiosw]*
 %{_datadir}/apps/kappfinder
 %{_datadir}/apps/kcm[!_c]*
@@ -815,7 +839,9 @@ fi
 %{_datadir}/locale/*
 %{_datadir}/services/kaccess.desktop
 %{_datadir}/services/kdeprint_part.desktop
+# should be separated to subpackages
 %{_datadir}/services/ksplash*.desktop
+#
 %{_datadir}/services/kwrited.desktop
 %{_datadir}/services/kxkb.desktop
 %{_datadir}/sounds
@@ -892,6 +918,8 @@ fi
 %{_includedir}/kate
 %{_includedir}/ksgrd
 %{_includedir}/ksplash
+%{_libdir}/libkateinterfaces.so
+%{_libdir}/libkateutils.so
 %{_libdir}/libkickermain.so
 %{_libdir}/libkmultitabbar.so
 %{_libdir}/libkonq.so
@@ -912,7 +940,7 @@ fi
 
 %files -n kde-splash-default                                                  
 %defattr(644,root,root,755)                                                     
-%{_datadir}/apps/ksplash/* 
+%{_datadir}/apps/ksplash/pics
 
 %files common-filemanagement
 %defattr(644,root,root,755)
@@ -980,12 +1008,10 @@ fi
 %attr(0755,root,root) %{_bindir}/kate
 %{_libdir}/kate.la
 %attr(0755,root,root) %{_libdir}/kate.so
-# *.so already included here
 %{_libdir}/libkateinterfaces.la
-%attr(0755,root,root) %{_libdir}/libkateinterfaces.so*
+%attr(0755,root,root) %{_libdir}/libkateinterfaces.so.*
 %{_libdir}/libkateutils.la
-%attr(0755,root,root) %{_libdir}/libkateutils.so*
-#
+%attr(0755,root,root) %{_libdir}/libkateutils.so.*
 %{_libdir}/kde3/katedefaultprojectplugin.la
 %attr(0755,root,root) %{_libdir}/kde3/katedefaultprojectplugin.so
 %{_datadir}/apps/kate
