@@ -3,11 +3,12 @@
 # * KDM: ColorSheme=Default works properly with GUIStyle=KDE only
 # * Adding %%doc to subpkgs
 #
-
+# Conditional build:
+%bcond_without 	i18n	# don't build i18n packages per module 
+#
 %define		_state		stable
 %define		_ver		3.2.0
 #%%define		_snap		040110
-%bcond_without 	i18n # dont build i18n per module 
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -1860,22 +1861,22 @@ fi
 %files devel
 %defattr(644,root,root,755)
 %lang(en) %{_kdedocdir}/en/%{name}-apidocs
+%attr(755,root,root) %{_libdir}/libkateinterfaces.so
+%attr(755,root,root) %{_libdir}/libkateutils.so
+%attr(755,root,root) %{_libdir}/libkdecorations.so
+%attr(755,root,root) %{_libdir}/libkickermain.so
+%attr(755,root,root) %{_libdir}/libkonq.so
+%attr(755,root,root) %{_libdir}/libkonqsidebarplugin.so
+%attr(755,root,root) %{_libdir}/libksgrd.so
+%attr(755,root,root) %{_libdir}/libksplashthemes.so
+#%attr(755,root,root) %{_libdir}/libsensordisplays.so
+%attr(755,root,root) %{_libdir}/libtaskbar.so
+%attr(755,root,root) %{_libdir}/libtaskmanager.so
 %{_includedir}/*.h
 %{_includedir}/kate
 %{_includedir}/ksgrd
 %{_includedir}/ksplash
 %{_includedir}/kwin
-%{_libdir}/libkateinterfaces.so
-%{_libdir}/libkateutils.so
-%{_libdir}/libkdecorations.so
-%{_libdir}/libkickermain.so
-%{_libdir}/libkonq.so
-%{_libdir}/libkonqsidebarplugin.so
-%{_libdir}/libksgrd.so
-%{_libdir}/libksplashthemes.so
-#%{_libdir}/libsensordisplays.so
-%{_libdir}/libtaskbar.so
-%{_libdir}/libtaskmanager.so
 
 %files -n kde-decoration-b2
 %defattr(644,root,root,755)
