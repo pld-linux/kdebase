@@ -4,7 +4,7 @@ Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Summary(pt_BR):	K Desktop Environment - arquivos básicos
 Name:		kdebase
 Version:	2.2.2
-Release:	5
+Release:	6
 Epoch:		6
 License:	GPL
 Group:		X11/Applications
@@ -241,7 +241,7 @@ export CPPFLAGS
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,Settings/KDE} \
+install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,Settings/KDE,Help} \
 	$RPM_BUILD_ROOT/etc/{pam.d,security,rc.d/init.d,X11/kdm}
 
 %{__make} install \
@@ -257,6 +257,10 @@ ALD=$RPM_BUILD_ROOT%{_applnkdir}
 mv -f $ALD/{Internet/konqbrowser.desktop,Network/WWW}
 mv -f $ALD/{Internet/keditbookmarks.desktop,Network/WWW}
 mv -f $ALD/{Toys/ktip.desktop,Amusements}
+mv -f $ALD/{Editors/kate.desktop,Office/Editors}
+mv -f $ALD/{Editors/kwrite.desktop,Office/Editors}
+mv -f $ALD/{Help.desktop,Help}
+mv -f $ALD/{KControl.desktop,Settings/KDE}
 
 install %{SOURCE1}			$RPM_BUILD_ROOT%{_bindir}/startkde
 install %{SOURCE2}			$RPM_BUILD_ROOT/etc/pam.d/kdm
@@ -285,9 +289,6 @@ Name=KDE
 Icon=package_settings
 X-KDE-BaseGroup=settings
 EOF
-
-# removing unneeded directories
-# XXX rm -rf $RPM_BUILD_ROOT%{_applnkdir}/{Editors,Toys}
 
 for f in `find $RPM_BUILD_ROOT%{_applnkdir} -name '.directory' -o -name '*.dekstop'` ; do
 	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
@@ -430,12 +431,13 @@ fi
 # NOTE:	There are many directories created by kappfinder. They should be
 #	ignored as such functionality is provided by applnk package and
 #	*.dekstop files from apropriate packages.
-%{_applnkdir}/Help.desktop
+
 %{_applnkdir}/Home.desktop
-%{_applnkdir}/KControl.desktop
 %{_applnkdir}/.hidden/konqfilemgr.desktop
 %{_applnkdir}/Amusements/*.desktop
+%{_applnkdir}/Help/Help.desktop
 %dir %{_applnkdir}/Settings
+%{_applnkdir}/Settings/KDE/KControl.desktop
 %{_applnkdir}/Settings/KDE/Help
 %{_applnkdir}/Settings/KDE/Databases
 %{_applnkdir}/Settings/KDE/Information
@@ -455,9 +457,7 @@ fi
 %{_applnkdir}/System/k[!o]*.desktop
 %{_applnkdir}/System/kon[!q]*.desktop
 %{_applnkdir}/Utilities/*.desktop
-%{_applnkdir}/Editors/*.desktop
-# No idea what it is for...
-%{_applnkdir}/ksysguard
+%{_applnkdir}/Office/Editors/*.desktop
 
 %{_datadir}/apps/[cdn]*
 %{_datadir}/apps/k[abcfhijmtw]*
@@ -538,7 +538,6 @@ fi
 %{_datadir}/apps/kdm
 %dir %{_datadir}/config/kdm
 %config(noreplace) %{_datadir}/config/kdm/kdmrc
-#%{_datadir}/config/kdm/README
 
 %{_pixmapsdir}/*/*/apps/kdmconfig.png
 
@@ -586,7 +585,6 @@ fi
 %{_datadir}/servicetypes/konqaboutpage.desktop
 
 %{_pixmapsdir}/*/*/apps/konqueror.png
-
 
 %files screensavers
 %defattr(644,root,root,755)
