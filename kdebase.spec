@@ -13,7 +13,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define         _snap		030504
+%define         _snap		030509
 %define		_kdelibsminrel	0.%{_snap}.1
 
 %ifarch	sparc sparcv9 sparc64
@@ -844,6 +844,9 @@ cat kioslave.lang	>> kinfocenter.lang
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post			-p /sbin/ldconfig
+%postun			-p /sbin/ldconfig
+
 %post common-konsole
 cd %{_fontdir}
 umask 022
@@ -853,6 +856,21 @@ umask 022
 cd %{_fontdir}
 umask 022
 /usr/X11R6/bin/mkfontdir
+
+%post	kicker		-p /sbin/ldconfig
+%postun	kicker		-p /sbin/ldconfig
+
+%post	ksysguard	-p /sbin/ldconfig
+%postun	ksysguard	-p /sbin/ldconfig
+
+%post	libkate		-p /sbin/ldconfig
+%postun	libkate		-p /sbin/ldconfig
+
+%post	libkmultitabbar	-p /sbin/ldconfig
+%postun	libkmultitabbar	-p /sbin/ldconfig
+
+%post	libkonq		-p /sbin/ldconfig
+%postun	libkonq		-p /sbin/ldconfig
 
 %pre -n kdm
 /usr/sbin/groupadd -g 55 -r -f xdm
@@ -887,6 +905,9 @@ if [ "$1" = "0" ]; then
 	fi
 	/usr/sbin/groupdel xdm
 fi
+
+%post	-n konqueror	-p /sbin/ldconfig
+%postun	-n konqueror	-p /sbin/ldconfig
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
@@ -923,10 +944,10 @@ fi
 %{_libdir}/kxkb.la
 %attr(0755,root,root) %{_libdir}/kxkb.so
 %{_libdir}/libksplashthemes.la
-%attr(0755,root,root) %{_libdir}/libksplashthemes.so.*
+%attr(0755,root,root) %{_libdir}/libksplashthemes.so.*.*.*
 %{_libdir}/kde3/kcm_access.la
 #%{_libdir}/libsensordisplays.la
-#%attr(0755,root,root) %{_libdir}/libsensordisplays.so.*
+#%attr(0755,root,root) %{_libdir}/libsensordisplays.so.*.*.*
 %attr(0755,root,root) %{_libdir}/kde3/kcm_access.so
 %{_libdir}/kde3/kcm_arts.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_arts.so
@@ -1460,11 +1481,11 @@ fi
 %{_libdir}/kicker.la
 %attr(0755,root,root) %{_libdir}/kicker.so
 %{_libdir}/libkickermain.la
-%attr(0755,root,root) %{_libdir}/libkickermain.so.*
+%attr(0755,root,root) %{_libdir}/libkickermain.so.*.*.*
 %{_libdir}/libtaskbar.la
-%attr(0755,root,root) %{_libdir}/libtaskbar.so.*
+%attr(0755,root,root) %{_libdir}/libtaskbar.so.*.*.*
 %{_libdir}/libtaskmanager.la
-%attr(0755,root,root) %{_libdir}/libtaskmanager.so.*
+%attr(0755,root,root) %{_libdir}/libtaskmanager.so.*.*.*
 %{_libdir}/kde3/childpanel_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so
 %{_libdir}/kde3/clock_panelapplet.la
@@ -1590,7 +1611,7 @@ fi
 %attr(0755,root,root) %{_bindir}/ksysguard
 %attr(0755,root,root) %{_bindir}/ksysguardd
 %{_libdir}/libksgrd.la
-%attr(0755,root,root) %{_libdir}/libksgrd.so.*
+%attr(0755,root,root) %{_libdir}/libksgrd.so.*.*.*
 %{_libdir}/kde3/sysguard_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
 %{_datadir}/apps/ksysguard
@@ -1637,19 +1658,19 @@ fi
 %files libkate
 %defattr(644,root,root,755)
 %{_libdir}/libkateinterfaces.la
-%attr(0755,root,root) %{_libdir}/libkateinterfaces.so.*
+%attr(0755,root,root) %{_libdir}/libkateinterfaces.so.*.*.*
 %{_libdir}/libkateutils.la
-%attr(0755,root,root) %{_libdir}/libkateutils.so.*
+%attr(0755,root,root) %{_libdir}/libkateutils.so.*.*.*
 
 %files libkmultitabbar
 %defattr(644,root,root,755)
 %{_libdir}/libkmultitabbar.la
-%attr(0755,root,root) %{_libdir}/libkmultitabbar.so.*
+%attr(0755,root,root) %{_libdir}/libkmultitabbar.so.*.*.*
 
 %files libkonq
 %defattr(644,root,root,755)
 %{_libdir}/libkonq.la
-%attr(0755,root,root) %{_libdir}/libkonq.so.*
+%attr(0755,root,root) %{_libdir}/libkonq.so.*.*.*
 %{_libdir}/kde3/konq_sound.la
 %attr(0755,root,root) %{_libdir}/kde3/konq_sound.so
 
@@ -1730,9 +1751,9 @@ fi
 %{_libdir}/libkonq_sidebar_tree.la
 %attr(0755,root,root) %{_libdir}/libkonq_sidebar_tree.so
 %{_libdir}/libkonqsidebarplugin.la
-%attr(0755,root,root) %{_libdir}/libkonqsidebarplugin.so.*
+%attr(0755,root,root) %{_libdir}/libkonqsidebarplugin.so.*.*.*
 %{_libdir}/libnsplugin.la
-%attr(0755,root,root) %{_libdir}/libnsplugin.so.*
+%attr(0755,root,root) %{_libdir}/libnsplugin.so.*.*.*
 %{_libdir}/kde3/kcm_cgi.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_cgi.so
 %{_libdir}/kde3/kcm_crypto.la
