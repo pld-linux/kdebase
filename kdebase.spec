@@ -21,7 +21,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}.%{_snap}
-Release:	1
+Release:	2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -258,6 +258,20 @@ KDE Window Decoration - Web.
 %description -n kde-decoration-web -l pl
 Dekoracja okna dla KDE - Web.
 
+%package -n kde-kgreet-classic
+Summary:	TODO
+Summary(pl):	TODO
+Group:		X11/Libraries
+Requires:	kdelibs >= 9:%{version}
+Provides:	kde-kgreet
+Conflicts:	kdm =< 3.2.90.040503-1
+
+%description -n kde-kgreet-classic
+TODO.
+
+%description -n kde-kgreet-classic -l pl
+TODO.
+
 %package -n kde-kio-imap4
 Summary:	KDE IMAP4 protocol service
 Summary(pl):	Obs³uga protoko³u IMAP4
@@ -459,6 +473,7 @@ Podstawowe aplikacje ¶rodowiska KDE. Pakiet ten zawiera:
 Summary:	KDesktop - handling of desktop icons, popup menus etc.
 Summary(pl):	KDesktop - obs³uga ikon na pulpicie, menu itp.
 Group:		X11/Applications
+Requires:	kde-kgreet
 Requires:	kde-kside
 Requires:	kde-logoutpic
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
@@ -790,6 +805,7 @@ Summary(pl):	Zarz±dca ekranów KDE
 Group:		X11/Applications
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
+Requires:	kde-kgreet
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	pam
 Requires:	sessreg
@@ -1943,6 +1959,11 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kwin3_web.so
 %{_datadir}/apps/kwin/web.desktop
 
+%files -n kde-kgreet-classic
+%defattr(644,root,root,755)
+%{_libdir}/kde3/kgreet_classic.la
+%attr(0755,root,root) %{_libdir}/kde3/kgreet_classic.so
+
 %files -n kde-kio-imap4
 %defattr(644,root,root,755)
 %{_libdir}/kde3/kio_imap4.la
@@ -2888,8 +2909,6 @@ fi
 %attr(0755,root,root) %{_bindir}/krootimage
 %{_libdir}/kde3/kcm_kdm.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_kdm.so
-%{_libdir}/kde3/kgreet_classic.la
-%attr(0755,root,root) %{_libdir}/kde3/kgreet_classic.so
 %{_datadir}/apps/kdm
 %{_datadir}/wallpapers/kdm_pld.png
 %{_desktopdir}/kde/kdm.desktop
