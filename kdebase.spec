@@ -13,7 +13,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.1.90
-%define         _snap		030622
+%define         _snap		030623
 
 %ifarch	sparc sparcv9 sparc64
 %define		_without_alsa	1
@@ -35,9 +35,9 @@ Epoch:		9
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
-#Source0:        http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-Source0:        http://team.pld.org.pl/~djurban/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	fc2f7256966bbe15d9da8a6ef0b62136 
+Source0:        http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
+#Source0:        http://team.pld.org.pl/~djurban/kde/%{name}-%{_snap}.tar.bz2
+# Source0-md5:	8991b25848de4d8709104f2d03126a1e
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -1111,7 +1111,7 @@ fi
 #
 %{_desktopdir}/kpersonalizer.desktop
 %{_desktopdir}/ktip.desktop
-#%{_desktopdir}/printmgr.desktop
+%{_desktopdir}/printmgr.desktop
 %{_icondir}/*/*/apps/access.png
 %{_icondir}/*/*/apps/acroread.png
 %{_icondir}/*/*/apps/alevt.png
@@ -1582,7 +1582,7 @@ fi
 #
 %{_applnkdir}/KDE-Settings/LookNFeel/panel_appearance.desktop
 %{_applnkdir}/KDE-Settings/System/clock.desktop
-#%{_desktopdir}/kcmkicker.desktop
+%{_desktopdir}/kcmkicker.desktop
 %{_icondir}/*/*/apps/clock.png
 %{_icondir}/*/*/apps/date.png
 %{_icondir}/*/*/apps/go.png
@@ -1955,12 +1955,12 @@ fi
 %{_applnkdir}/.hidden/filebehavior.desktop
 %{_applnkdir}/.hidden/filepreviews.desktop
 %{_applnkdir}/.hidden/kcmkonq.desktop
+%{_applnkdir}/.hidden/kcmkonqyperformance.desktop
 %{_applnkdir}/.hidden/konqfilemgr.desktop
 %{_applnkdir}/.hidden/konqhtml.desktop
 %{_applnkdir}/.hidden/smb.desktop
 %{_applnkdir}/KDE-Settings/Components/filebrowser.desktop
 %{_applnkdir}/KDE-Settings/Components/filetypes.desktop
-%{_applnkdir}/KDE-Settings/Components/kcmkonqyperformance.desktop
 %{_applnkdir}/KDE-Settings/Components/kcmperformance.desktop
 %{_applnkdir}/KDE-Settings/LookNFeel/icons.desktop
 %{_applnkdir}/KDE-Settings/Network/WebBrowsing/cache.desktop
