@@ -2,12 +2,12 @@ Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
 Version:	2.2
-Release:	0.1
+Release:	1
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
-Source0:	ftp://ftp.kde.org/pub/kde/unstable/%{version}/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
 Source1:	%{name}-startkde.sh
 Source2:	kdm.pamd
 Source3:	kdm.init
@@ -17,9 +17,8 @@ Source6:	%{name}-kscreensaver.pam
 Patch0:		%{name}-waitkdm.patch
 Patch1:		%{name}-konsole-TERM.patch
 Patch2:		%{name}-glibc-2.2.2.patch
-Patch3:		%{name}-arrange.patch
-Patch4:		%{name}-utmp.patch
-Patch5:		%{name}-nsplugins_dirs.patch
+Patch3:		%{name}-utmp.patch
+Patch4:		%{name}-nsplugins_dirs.patch
 BuildRequires:	grep
 BuildRequires:	awk
 BuildRequires:	findutils
@@ -63,6 +62,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_prefix 	/usr/X11R6
 %define		_fontdir 	/usr/share/fonts
 %define		_htmldir	%{_datadir}/doc/kde/HTML
+%define		_sysconfdir	/etc/X11
 
 %description
 KDE specific files. Used by core KDE applications. Package includes:
@@ -161,22 +161,14 @@ KDE screensavers.
 Wygaszacze ekranu desktopu KDE.
 
 %prep
-#%setup  -q -n %{name}-%{version}%{sver}
-%setup  -q -n %{name}-%{version}
+%setup  -q
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
 
 %build
-#libtoolize --copy --force
-#aclocal
-#autoconf
-#automake -a -c
-#perl admin/am_edit
-#autoconf
 
 # workaround -- don't allow to regenerate Makefile.xx
 find -name Makefile.am -exec touch {} \;
@@ -191,7 +183,7 @@ export CPPFLAGS
 	--with-pam=kdm \
 	--without-shadow \
 	--disable-shadow \
-	--with-xdmdir="%{_sysconfdir}/X11/kdm" \
+	--with-xdmdir="%{_sysconfdir}/kdm" \
 	--enable-final
 
 %{__make}
@@ -199,7 +191,7 @@ export CPPFLAGS
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,Settings/KDE} \
-	$RPM_BUILD_ROOT%{_sysconfdir}/{pam.d,security,rc.d/init.d,X11/kdm}
+	$RPM_BUILD_ROOT/etc/{pam.d,security,rc.d/init.d,X11/kdm}
 
 %{__make} install \
  	DESTDIR="$RPM_BUILD_ROOT" \
@@ -211,10 +203,10 @@ mv $ALD/{Internet/keditbookmarks.desktop,Network/WWW}
 mv $ALD/{Toys/ktip.desktop,Amusements}
 
 install %{SOURCE1}			$RPM_BUILD_ROOT%{_bindir}/startkde
-install %{SOURCE2}			$RPM_BUILD_ROOT%{_sysconfdir}/pam.d/kdm
-install %{SOURCE6}			$RPM_BUILD_ROOT%{_sysconfdir}/pam.d/kscreensaver
-install %{SOURCE3}			$RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/kdm
-install %{SOURCE4}			$RPM_BUILD_ROOT%{_sysconfdir}/X11/kdm/Xsession
+install %{SOURCE2}			$RPM_BUILD_ROOT/etc/pam.d/kdm
+install %{SOURCE6}			$RPM_BUILD_ROOT/etc/pam.d/kscreensaver
+install %{SOURCE3}			$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
+install %{SOURCE4}			$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
 install %{SOURCE5}			$RPM_BUILD_ROOT%{_datadir}/config/kdmrc
 
 # Make Control Center a subdirectory of Settings. Control Center applets can
@@ -235,7 +227,7 @@ for f in `find $RPM_BUILD_ROOT%{_applnkdir} -name '.directory' -o -name '*.dekst
 	mv -f $f{.tmp,}
 done
 
-touch $RPM_BUILD_ROOT%{_sysconfdir}/security/blacklist.kdm
+touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
 gzip AUTHORS README*
 
@@ -296,6 +288,7 @@ fi
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc *gz
+%config %{_sysconfdir}/ksysguarddrc
 %attr(0755,root,root) %{_bindir}/[ades]*
 %attr(0755,root,root) %{_bindir}/conttest
 %attr(0755,root,root) %{_bindir}/k[aijtwx]*
@@ -311,7 +304,6 @@ fi
 %attr(6755,root,root) %{_bindir}/konsole_grantpty
 %attr(0755,root,root) %{_bindir}/khelpcenter
 %attr(0755,root,root) %{_bindir}/khotkeys
-%attr(0755,root,root) %{_bindir}/khtmlindex
 %attr(0755,root,root) %{_bindir}/klegacyimport
 %attr(0755,root,root) %{_bindir}/klipper
 %attr(0755,root,root) %{_bindir}/ks[mty]*
@@ -325,10 +317,8 @@ fi
 
 %attr(0755,root,root) %{_libdir}/[ae]*.la
 %attr(0755,root,root) %{_libdir}/[ae]*.so*
-%attr(0755,root,root) %{_libdir}/k[dhilmwx]*.la
-%attr(0755,root,root) %{_libdir}/k[dhilmwx]*.so*
-%attr(0755,root,root) %{_libdir}/kcminit.??
-%attr(0755,root,root) %{_libdir}/kcontrol.??
+%attr(0755,root,root) %{_libdir}/k[dhijlmwx]*.la
+%attr(0755,root,root) %{_libdir}/k[dhijlmwx]*.so*
 %attr(0755,root,root) %{_libdir}/kate.??
 %attr(0755,root,root) %{_libdir}/konsole.la
 %attr(0755,root,root) %{_libdir}/konsole.so*
@@ -347,8 +337,8 @@ fi
 
 %attr(0755,root,root) %{_libdir}/kde2/[ikt]*.la
 %attr(0755,root,root) %{_libdir}/kde2/[ikt]*.so*
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_[abcefilmpt]*.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_[abcefilmpt]*.so*
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_[abcefilmptu]*.la
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_[abcefilmptu]*.so*
 %attr(0755,root,root) %{_libdir}/kde2/libkcm_k[ehinuw]*.la
 %attr(0755,root,root) %{_libdir}/kde2/libkcm_k[ehinuw]*.so*
 %attr(0755,root,root) %{_libdir}/kde2/libkcm_s[amt]*.la
@@ -379,10 +369,12 @@ fi
 %{_applnkdir}/Amusements/*.desktop
 %dir %{_applnkdir}/Settings
 %{_applnkdir}/Settings/KDE/Help
+%{_applnkdir}/Settings/KDE/Databases
 %{_applnkdir}/Settings/KDE/Information
 %dir %{_applnkdir}/Settings/KDE/LookNFeel
 %{_applnkdir}/Settings/KDE/LookNFeel/s[!c]*
 %{_applnkdir}/Settings/KDE/LookNFeel/[!s]*
+%{_applnkdir}/Settings/KDE/LookNFeel/.directory
 %{_applnkdir}/Settings/KDE/Network
 %{_applnkdir}/Settings/KDE/Peripherals
 %{_applnkdir}/Settings/KDE/Personalization
@@ -391,10 +383,13 @@ fi
 %dir %{_applnkdir}/Settings/KDE/System
 %{_applnkdir}/Settings/KDE/System/k[!d]*
 %{_applnkdir}/Settings/KDE/System/[!k]*
+%{_applnkdir}/Settings/KDE/System/.directory
 %{_applnkdir}/System/k[!o]*.desktop
 %{_applnkdir}/System/kon[!q]*.desktop
 %{_applnkdir}/Utilities/*.desktop
 %{_applnkdir}/Editors/*.desktop
+# No idea what it is for...
+%{_applnkdir}/ksysguard
 
 %{_datadir}/apps/[cdn]*
 %{_datadir}/apps/k[abcfhijmtw]*
@@ -436,10 +431,10 @@ fi
 %{_fontdir}/misc/console8*.gz
 #%{_fontdir}/misc/*.gz
 
-%attr(0640,root,root) %config %verify(not size mtime md5) %{_sysconfdir}/pam.d/kscreensaver
+%attr(0640,root,root) %config %verify(not size mtime md5) /etc/pam.d/kscreensaver
 # Must be here. kcheckpass needs it.
-%attr(0640,root,root) %config %verify(not size mtime md5) %{_sysconfdir}/pam.d/kdm
-%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/security/blacklist.kdm
+%attr(0640,root,root) %config %verify(not size mtime md5) /etc/pam.d/kdm
+%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kdm
 
 %files devel
 %defattr(644,root,root,755)
@@ -459,9 +454,9 @@ fi
 %attr(0755,root,root) %{_libdir}/kde2/libkcm_kdm.la
 %attr(0755,root,root) %{_libdir}/kde2/libkcm_kdm.so*
 
-%dir %{_sysconfdir}/X11/kdm
-%attr(0755,root,root) %{_sysconfdir}/X11/kdm/*
-%attr(0754,root,root) %{_sysconfdir}/rc.d/init.d/kdm
+%dir %{_sysconfdir}/kdm
+%attr(0755,root,root) %{_sysconfdir}/kdm/*
+%attr(0754,root,root) /etc/rc.d/init.d/kdm
 
 %{_applnkdir}/Settings/KDE/System/kdm.desktop
 
@@ -481,14 +476,9 @@ fi
 
 %attr(0755,root,root) %{_libdir}/keditbookmarks.la
 %attr(0755,root,root) %{_libdir}/keditbookmarks.so
-%attr(0755,root,root) %{_libdir}/kcmshell.??
 %attr(0755,root,root) %{_libdir}/kfm*.??
 %attr(0755,root,root) %{_libdir}/konqueror.la
 %attr(0755,root,root) %{_libdir}/konqueror.so*
-%attr(0755,root,root) %{_libdir}/libhtmlsearch.la
-%attr(0755,root,root) %{_libdir}/libhtmlsearch.so*
-%attr(0755,root,root) %{_libdir}/libkcm_htmlsearch.la
-%attr(0755,root,root) %{_libdir}/libkcm_htmlsearch.so*
 %attr(0755,root,root) %{_libdir}/libkcm_nsplugin.la
 %attr(0755,root,root) %{_libdir}/libkcm_nsplugin.so*
 %attr(0755,root,root) %{_libdir}/libkonq*.la
