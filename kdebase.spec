@@ -210,7 +210,7 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,S
 ALD=$RPM_BUILD_ROOT%{_applnkdir}
 mv $ALD/{Internet/konqbrowser.desktop,Network/WWW}
 mv $ALD/{Internet/keditbookmarks.desktop,Network/WWW}
-mv $ALD/{Toys/ktip.dekstop,Amusements}
+mv $ALD/{Toys/ktip.desktop,Amusements}
 
 install %{SOURCE1}			$RPM_BUILD_ROOT%{_bindir}/startkde
 install %{SOURCE2}			$RPM_BUILD_ROOT%{_sysconfdir}/pam.d/kdm
