@@ -1052,9 +1052,9 @@ cd -
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Utility;/' \
 	-e 's/Terminal=0/Terminal=false/' -e 's/OnlyShowIn=KDE;//g' \
 	kfind/Kfind.desktop
-%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;System;X-administration;/' \
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;SystemSetup;/' \
 	konqueror/konquerorsu.desktop
-%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;System;X-administration;/' \
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Systemsetup;/' \
 	-e 's/Terminal=0/Terminal=false/' \
 	konsole/konsolesu.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Network;WebBrowser;/' \
