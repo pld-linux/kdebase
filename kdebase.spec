@@ -10,7 +10,7 @@
 #
 
 %define         _state          stable
-%define         _ver		3.1.1
+%define         _ver		3.1.1a
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -23,7 +23,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	2
+Release:	0.1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -54,7 +54,8 @@ Patch11:        %{name}-kcm_fonts.patch
 Patch12:	%{name}-gtkrc.patch
 Patch13:	%{name}-krdb.patch
 Patch14:	%{name}-pldcredits.patch
-Patch15:	%{name}-searchprov.patch
+# doesn't work
+#Patch15:	%{name}-searchprov.patch
 # rh stuff
 Patch16:	%{name}-kicker_nodesktop.patch
 Patch17:        %{name}-xfsreload.patch
@@ -472,7 +473,8 @@ Internet Explorer.
 %patch12 -p1 
 %patch13 -p1
 %patch14 -p1
-%patch15 -p1
+# doesn't work
+#%patch15 -p1
 %patch16 -p1
 %patch17 -p1
 %patch18 -p1
@@ -490,14 +492,9 @@ CPPFLAGS="-I%{_includedir}"
 export CPPFLAGS
 
 for plik in `find ./ -name *.desktop` ; do
-	if [ -d $plik ]; then
 	echo $plik
-	sed -ie 's/\[nb\]/\[no\]/g' $plik
-	fi
+	sed -i -e "s/\[nb\]/\[no\]/g" $plik
 done
-
-rm -f kcontrol/ebrowsing/plugins/ikws/searchproviders/{ircpld,specs}.desktop
-cp {%{SOURCE11},%{SOURCE12}} kcontrol/ebrowsing/plugins/ikws/searchproviders/
 
 %configure \
 	--with-pam=kdm \
@@ -528,6 +525,9 @@ install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
 install %{SOURCE9}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldlogo.png
 install %{SOURCE10}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldwallpaper.png
+
+install {%{SOURCE11},%{SOURCE12}} \
+    $RPM_BUILD_ROOT%{_datadir}/services/searchproviders
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
