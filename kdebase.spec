@@ -2,7 +2,7 @@ Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
 Version:	2.2.1
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -79,8 +79,8 @@ u³awiaj±cy uruchamianie niektórych programów spoza KDE krootwm - modu³
 wykorzystywany przez kwm i kfm kaudio - serwer d¼wiêku dla KDE.
 
 %package devel
-Summary:	Include files to develop KDE applications.
-Summary(pl):	Pliki nag³ówkowe potrzebne do programowania.
+Summary:	Include files to develop KDE applications
+Summary(pl):	Pliki nag³ówkowe potrzebne do programowania
 Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
@@ -117,6 +117,7 @@ Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
 Requires:	qt >= 2.3.0
 Requires:	kdelibs >= %{version}
+Prereq:		/sbin/chkconfig
 Obsoletes:	gdm
 Obsoletes:	xdm
 Obsoletes:	%{name}-kdm
@@ -200,9 +201,9 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,S
  	fontdir="%{_fontdir}/misc"
 
 ALD=$RPM_BUILD_ROOT%{_applnkdir}
-mv $ALD/{Internet/konqbrowser.desktop,Network/WWW}
-mv $ALD/{Internet/keditbookmarks.desktop,Network/WWW}
-mv $ALD/{Toys/ktip.desktop,Amusements}
+mv -f $ALD/{Internet/konqbrowser.desktop,Network/WWW}
+mv -f $ALD/{Internet/keditbookmarks.desktop,Network/WWW}
+mv -f $ALD/{Toys/ktip.desktop,Amusements}
 
 install %{SOURCE1}			$RPM_BUILD_ROOT%{_bindir}/startkde
 install %{SOURCE2}			$RPM_BUILD_ROOT/etc/pam.d/kdm
@@ -260,7 +261,6 @@ umask 022
 
 %pre -n kdm
 /usr/sbin/groupadd -g 55 -r -f xdm
-
 if [ -z "`id -u xdm 2>/dev/null`" ]; then
 	/usr/sbin/useradd -u 55 -r -d /dev/null -s /bin/false -c 'X Display Manager' -g xdm xdm 1>&2
 fi
@@ -274,10 +274,12 @@ else
 fi
 
 %preun -n kdm
-if [ -f /var/lock/subsys/kdm ]; then
-	 /etc/rc.d/init.d/kdm stop >&2
+if [ "$1" = "0" ]; then
+	if [ -f /var/lock/subsys/kdm ]; then
+		 /etc/rc.d/init.d/kdm stop >&2
+	fi
+	/sbin/chkconfig --del kdm
 fi
-/sbin/chkconfig --del kdm
 
 %postun -n kdm
 if [ "$1" = "0" ]; then
