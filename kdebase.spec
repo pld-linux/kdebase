@@ -1,13 +1,13 @@
 #
 # Conditional build:
-%bcond_without	apidocs	# prepare API documentation
-%bcond_without	ldap	# build or not ldap ioslave
+%bcond_without	apidocs		# prepare API documentation
+%bcond_without	ldap		# build or not ldap ioslave
 %bcond_with	kwin_shadow	# experimental support for kwin shadows
 %bcond_with	cvs		# use cvs checkouts instead of tarballs
+
 %define		_state		snapshots
 %define		_ver		3.2.91
 %define		_snap		040629
-%define		_packager	adgor
 
 %define		_minlibsevr	9:3.2.91.030629
 
@@ -27,9 +27,7 @@ Epoch:		9
 License:	GPL
 Group:		X11/Applications
 %if ! %{with cvs}
-#Source0:        ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
-##%% Source0-md5:  53b213398dc488af5de57b74c6b3bbf5
+Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{_snap}.tar.bz2
 %else
 Source0:        kdesource.tar.gz
 %endif
@@ -47,9 +45,9 @@ Source10:	%{name}-servicemenus.tar.bz2
 # Source10-md5:	c75c9cc23283ca7de61f2a1a6f1258a0
 Source11:	%{name}-konqsidebarext.tar.bz2
 # Source11-md5:	23ea11aaa85d78c0e39bdf5dd4f4ebda
-Source12:	http://ep09.pld-linux.org/~adgor/kde/%{name}-splash-Default-PLD-0.2.tar.bz2
+Source12:	ftp://ftp.pld-linux.org/software/kde/%{name}-splash-Default-PLD-0.2.tar.bz2
 # Source12-md5:	24f9c6a4b711be36437639c410b400b2
-Source13:	http://ep09.pld-linux.org/~adgor/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
+Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-fontdir.patch
