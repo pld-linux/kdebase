@@ -73,6 +73,7 @@ Patch18:	%{name}-sasl-includes.patch
 Patch19:	%{name}-kio_settings.patch
 Patch20:	kde-common-QTDOCDIR.patch
 Patch21:	%{name}-konsole-default-keytab.patch
+Patch22:	%{name}-konsole-default_shell.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	arts-devel >= 1.2.0
@@ -104,6 +105,7 @@ BuildRequires:	motif-devel
 BuildRequires:	openssl-devel >= 0.9.7c
 %{?with_ldap:BuildRequires:	openldap-devel}
 BuildRequires:	pam-devel
+%{?with_apidocs:BuildRequires:  qt-doc}
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	unsermake
 BuildRequires:	xcursor-devel
@@ -170,8 +172,7 @@ Requires:	kdelibs-devel >= 9:%{version}
 Summary:	API documentation
 Summary(pl):	Dokumentacja API
 Group:		Development/Docs
-#Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
-Requires:	%{name}-desktop
+Requires:	kdelibs >= 9:3.2.90 
 
 %description apidocs
 API documentation.
@@ -1372,14 +1373,15 @@ Pliki umiêdzynarodawiaj±ce dla mailnews.
 %patch19 -p1
 %patch20 -p1
 %patch21 -p1
+%patch22 -p1
+
+# Sometimes i think They are insane
+rm kdepasswd/configure.in.in
 
 %build
 cp /usr/share/automake/config.sub admin
 
 export UNSERMAKE=/usr/share/unsermake/unsermake
-
-# Sometimes i think They are insane
-rm kdepasswd/configure.in.in
 
 %{__make} -f admin/Makefile.common cvs
 
@@ -1401,6 +1403,17 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_htmldir=%{_kdedocdir}
+
+# Workaround for doc caches (unsermake bug?)
+cd doc
+for i in `find . -name index.cache.bz2`; do
+	if [ -d `echo $RPM_BUILD_ROOT%{_kdedocdir}/en/$i |sed -e 's/\/index.cache.bz2//'` ]; then 
+		install -c -p -m 644 $i $RPM_BUILD_ROOT%{_kdedocdir}/en/$i
+	fi	
+done
+cd -
+install -c -p -m 644 doc/kcontrol/helpindex/index.cache.bz2 \
+	$RPM_BUILD_ROOT%{_kdedocdir}/en/kcontrol/helpindex.html/index.cache.bz2
 
 install -d \
 	$RPM_BUILD_ROOT/etc/{X11/kdm/faces,pam.d,rc.d/init.d,security} \
@@ -1469,6 +1482,7 @@ EOF
 mv $RPM_BUILD_ROOT%{_datadir}/applnk/System/kinfocenter.desktop \
 	$RPM_BUILD_ROOT%{_desktopdir}/kde
 
+# TODO
 mv $RPM_BUILD_ROOT%{_desktopdir}/kde/print{ers,mgr}.desktop
 
 # Workaround for gnome menu which maps all these to "Others" dir
@@ -1477,17 +1491,6 @@ for f in `grep -El 'X-KDE-settings|X-KDE-information' *`; do
 	echo "OnlyShowIn=KDE" >> $f
 done
 cd -
-
-# Workaround for doc caches (unsermake bug?)
-cd doc
-for i in `find . -name index.cache.bz2`; do
-	if [ -d `echo $RPM_BUILD_ROOT%{_kdedocdir}/en/$i |sed -e 's/\/index.cache.bz2//'` ]; then 
-		install -c -p -m 644 $i $RPM_BUILD_ROOT%{_kdedocdir}/en/$i
-	fi	
-done
-cd -
-install -c -p -m 644 doc/kcontrol/helpindex/index.cache.bz2 \
-	$RPM_BUILD_ROOT%{_kdedocdir}/en/kcontrol/helpindex.html/index.cache.bz2
 
 %if %{with i18n}
 bzip2 -dc %{SOURCE14} | tar xf - -C $RPM_BUILD_ROOT
@@ -1742,7 +1745,6 @@ for i in $screen; do
 	%find_lang $i --with-kde
 	cat $i.lang >> screensaver.lang
 done
-
 
 kdm="\
 	kdmchooser \
@@ -2326,8 +2328,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_componentchooser.so
 %{_libdir}/kde3/kcm_display.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_display.so
-%{_libdir}/kde3/kcm_email.la
-%attr(0755,root,root) %{_libdir}/kde3/kcm_email.so
+#%{_libdir}/kde3/kcm_email.la
+#%attr(0755,root,root) %{_libdir}/kde3/kcm_email.so
 %{_libdir}/kde3/kcm_energy.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_energy.so
 %{_libdir}/kde3/kcm_input.la
@@ -2394,7 +2396,7 @@ fi
 %{_datadir}/apps/kdcop
 %{_datadir}/apps/kdesktop
 %{_datadir}/apps/kdewizard
-%{_datadir}/apps/kdisplay/app-defaults
+#%{_datadir}/apps/kdisplay/app-defaults
 %{_datadir}/apps/khotkeys
 %dir %{_datadir}/apps/ksmserver
 %dir %{_datadir}/apps/ksmserver/pics
@@ -2449,6 +2451,7 @@ fi
 %{_datadir}/applnk/.hidden/battery.desktop
 %{_datadir}/applnk/.hidden/bwarning.desktop
 %{_datadir}/applnk/.hidden/cwarning.desktop
+%{_datadir}/applnk/.hidden/email.desktop
 %{_datadir}/applnk/.hidden/energy.desktop
 %{_datadir}/applnk/.hidden/kcmkxmlrpcd.desktop
 %{_datadir}/applnk/.hidden/kwinactions.desktop
@@ -2468,8 +2471,6 @@ fi
 %{_desktopdir}/kde/desktopbehavior.desktop
 %{_desktopdir}/kde/desktoppath.desktop
 %{_desktopdir}/kde/display.desktop
-%{_desktopdir}/kde/email.desktop
-#%{_desktopdir}/kde/energy.desktop
 %{_desktopdir}/kde/kcmaccess.desktop
 %{_desktopdir}/kde/kcmlaunch.desktop
 %{_desktopdir}/kde/kcmsmserver.desktop
@@ -3152,6 +3153,7 @@ fi
 %{_datadir}/apps/konqueror/servicemenus/*
 %{_datadir}/apps/konqueror/tiles
 %{_datadir}/apps/konqueror/konqueror.rc
+%{_datadir}/apps/konqueror/konq-simplebrowser.rc
 # TODO
 %dir %{_datadir}/apps/plugin
 %{_datadir}/apps/plugin/nspluginpart.rc
