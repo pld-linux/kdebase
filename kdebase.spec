@@ -24,7 +24,7 @@ Summary(uk):	K Desktop Environment - базов╕ файли
 Summary(zh_CN):	KDE╨кпд
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.1
+Release:	0.2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -1853,7 +1853,6 @@ fi
 %{_kdedocdir}/en/kcontrol/keyboard 
 %{_kdedocdir}/en/kcontrol/keys 
 %{_kdedocdir}/en/kcontrol/kwindecoration 
-%{_kdedocdir}/en/kcontrol/kcmsmserver
 %{_kdedocdir}/en/kicker 
 %{_kdedocdir}/en/ksplashml 
 %{_kdedocdir}/en/kxkb 
