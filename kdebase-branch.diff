@@ -93,7 +93,7 @@ diff -urN -x CVS kdebase.orig/admin/acinclude.m4.in kdebase/admin/acinclude.m4.i
      ])
 diff -urN -x CVS kdebase.orig/admin/am_edit kdebase/admin/am_edit
 --- kdebase.orig/admin/am_edit	2004-12-17 21:18:28.000000000 +0100
-+++ kdebase/admin/am_edit	2005-03-01 19:46:09.000000000 +0100
++++ kdebase/admin/am_edit	2005-03-29 11:15:16.000000000 +0200
 @@ -483,6 +483,7 @@
              $MakefileData =~ s/$lookup/$replacement/;
              $lookup =~ s/\\\$\\\(CXXFLAGS\\\)/\\\$\\\(KCXXFLAGS\\\)/;
@@ -102,6 +102,15 @@ diff -urN -x CVS kdebase.orig/admin/am_edit kdebase/admin/am_edit
              substituteLine($lookup, $replacement);
          } else {
              $found = 0;
+@@ -634,7 +635,7 @@
+ 		if ($pre eq '' && exists($varcontent{$variable})) {
+ 		    my @addlist = split(/[\034\s]+/, $varcontent{$variable});
+ 		    push(@objlist, @addlist);
+-                } elsif ($variable !~ 'OBJEXT') {
++                } elsif ($variable !~ 'OBJEXT' && $variable !~ /am__objects_\d+/ ) {
+                     $ocv = 1;
+ 		}
+             }
 @@ -2276,7 +2277,7 @@
             "\t        echo \"\$\$i\"; \\\n" . 
             "\t        if ! ";
@@ -430,7 +439,7 @@ diff -urN -x CVS kdebase.orig/applnk/.directory kdebase/applnk/.directory
  Name[zu]=Okwendalo
 diff -urN -x CVS kdebase.orig/applnk/hidden.directory kdebase/applnk/hidden.directory
 --- kdebase.orig/applnk/hidden.directory	2005-02-22 22:47:38.000000000 +0100
-+++ kdebase/applnk/hidden.directory	2005-03-26 08:37:38.000000000 +0100
++++ kdebase/applnk/hidden.directory	2005-03-28 09:02:16.000000000 +0200
 @@ -2,4 +2,29 @@
  Encoding=UTF-8
  Type=Directory
@@ -457,7 +466,7 @@ diff -urN -x CVS kdebase.orig/applnk/hidden.directory kdebase/applnk/hidden.dire
 +Name[ru]=Внутренние службы
 +Name[sl]=Notranje storitve
 +Name[sr]=Унутрашњи сервиси
-+Name[sr@Latn]=Унутрашњи сервиси
++Name[sr@Latn]=Unutrašnji servisi
 +Name[sv]=Interna tjänster
 +Name[uk]=Внутрішні служби
  NoDisplay=true
@@ -891,7 +900,16 @@ diff -urN -x CVS kdebase.orig/applnk/kde-settings-power.directory kdebase/applnk
  Name[zu]=Ukulawulwa kwamandla
 diff -urN -x CVS kdebase.orig/applnk/kde-settings-security.directory kdebase/applnk/kde-settings-security.directory
 --- kdebase.orig/applnk/kde-settings-security.directory	2005-02-23 06:05:24.000000000 +0100
-+++ kdebase/applnk/kde-settings-security.directory	2005-03-07 15:14:41.000000000 +0100
++++ kdebase/applnk/kde-settings-security.directory	2005-03-28 09:02:16.000000000 +0200
+@@ -31,7 +31,7 @@
+ Name[hr]=Sigurnost i privatnost
+ Name[hsb]=Wěstosć & Anonymnosć
+ Name[hu]=Adatvédelem
+-Name[is]=Öryggi og Einkamál
++Name[is]=Öryggi og einkamál
+ Name[it]=Sicurezza e Privacy
+ Name[ja]=セキュリティ & プライバシー
+ Name[ko]=보안과 사생활
 @@ -69,7 +69,6 @@
  Name[vi]=Bảo mật & Tính riêng tư
  Name[wa]=Såvrité & Privaceye
@@ -902,7 +920,16 @@ diff -urN -x CVS kdebase.orig/applnk/kde-settings-security.directory kdebase/app
  Name[zu]=Ukuvikeleka & Ingasese
 diff -urN -x CVS kdebase.orig/applnk/kde-settings-sound.directory kdebase/applnk/kde-settings-sound.directory
 --- kdebase.orig/applnk/kde-settings-sound.directory	2005-02-23 06:05:24.000000000 +0100
-+++ kdebase/applnk/kde-settings-sound.directory	2005-03-07 15:14:41.000000000 +0100
++++ kdebase/applnk/kde-settings-sound.directory	2005-03-28 09:02:16.000000000 +0200
+@@ -29,7 +29,7 @@
+ Name[hr]=Zvuk i multimedija
+ Name[hsb]=Zwuk & Multimedia
+ Name[hu]=Hang, multimédia
+-Name[is]=Hljóð og Margmiðlun
++Name[is]=Hljóð og margmiðlun
+ Name[it]=Suono e Multimedia
+ Name[ja]=サウンド & マルチメディア
+ Name[ko]=소리와 멀티미디어
 @@ -67,7 +67,6 @@
  Name[vi]=Âm nhạc & Đa phương tiện 
  Name[wa]=Son & Multimedia
@@ -932,7 +959,16 @@ diff -urN -x CVS kdebase.orig/applnk/kde-settings-system.directory kdebase/appln
  Icon=kcmsystem
 diff -urN -x CVS kdebase.orig/applnk/kde-settings-webbrowsing.directory kdebase/applnk/kde-settings-webbrowsing.directory
 --- kdebase.orig/applnk/kde-settings-webbrowsing.directory	2005-02-23 06:05:24.000000000 +0100
-+++ kdebase/applnk/kde-settings-webbrowsing.directory	2005-03-07 15:14:41.000000000 +0100
++++ kdebase/applnk/kde-settings-webbrowsing.directory	2005-03-28 09:02:16.000000000 +0200
+@@ -31,7 +31,7 @@
+ Name[hr]=Web pretraživač
+ Name[hsb]=Web-browser
+ Name[hu]=Webböngésző
+-Name[is]=Vefskoðari
++Name[is]=Vafri
+ Name[it]=Navigazione Web
+ Name[ja]=Webブラウザ
+ Name[ko]=웹 탐색기
 @@ -55,7 +55,7 @@
  Name[sk]=Webový prehliadač
  Name[sl]=Spletni brskalnik
@@ -6481,7 +6517,7 @@ diff -urN -x CVS kdebase.orig/kcontrol/accessibility/accessibility.desktop kdeba
  Keywords[zu]=ngena,ukungena,okuthuli,kukhubazekile,insimbi,insimbiezwakalayo, insimbi ebonakalayo,okhiye,okhiye abanamathelayo,okhiyeababhampayo,okhiye abahamba kancane,ukuzula kwe-mouse,num pad
 diff -urN -x CVS kdebase.orig/kcontrol/arts/arts.desktop kdebase/kcontrol/arts/arts.desktop
 --- kdebase.orig/kcontrol/arts/arts.desktop	2005-02-11 05:51:49.000000000 +0100
-+++ kdebase/kcontrol/arts/arts.desktop	2005-03-07 15:15:02.000000000 +0100
++++ kdebase/kcontrol/arts/arts.desktop	2005-03-29 08:24:37.000000000 +0200
 @@ -73,7 +73,6 @@
  Name[vi]=Hệ thống âm thanh
  Name[wa]=Sistinme di son
@@ -6498,6 +6534,15 @@ diff -urN -x CVS kdebase.orig/kcontrol/arts/arts.desktop kdebase/kcontrol/arts/a
  Comment[zh_CN]=声音系统配置
  Comment[zh_TW]=聲音系統組態
  Comment[zu]=Inhlanganiselo yesistimu yomsindo
+@@ -178,7 +176,7 @@
+ Keywords[nl]=aRts,sound server,artsd,audio,sound,geluidsserver,geluid,opstarten,netwerk ,netwerktransparantie,priority,prioriteit,duplex,full duplex,response time,responstijd,volume,KMix,kanalen,login,aanmelden,synthesizer,muziek,mixer,midi,
+ Keywords[nn]=aRts,lydtenar,artsd,lyd,audio,oppstart,nettverkstransparens,transparens,prioritet,dupleks,full dupleks,svartid,responstid,miksar,volum,lydstyrke,KMix,innlogging,synt,musikk
+ Keywords[nso]=aRts,Seabi sa Modumo,artsd,Kwagalo,Modumo,thomiso, bobontsha tsakamosola bja kgokagano,bobontsha tsaka mosola,kgethokgolo,kgatiso, kgatiso yeo e feleletsego,nako ya phetolo,Setswaki,Volume,KMix,Motswako,tsena,MIDI, mokopanyi,mmino
+-Keywords[pl]=aRts,Serwer dźwiękowy,artsd,Audio,Dzwięk,uruchomienie,przeźroczystość dla sieci,przeźroczystość,priorytet,dupleks,pełny dupleks,czas odpowiedzi,mikser,głośność, KMix,Mix,logowanie,MIDI,syntezator,muzyka,rozpoczęcie pracy
++Keywords[pl]=aRts,Serwer dźwiękowy,artsd,Audio,Dźwięk,uruchomienie,przeźroczystość dla sieci,przeźroczystość,priorytet,dupleks,pełny dupleks,czas odpowiedzi,mikser,głośność, KMix,Mix,logowanie,MIDI,syntezator,muzyka,rozpoczęcie pracy
+ Keywords[pt]=aRts,servidor de som,artsd,áudio,som,iniciar,transparência de rede,transparência,prioridade,duplex,full duplex,tempo de resposta,mistura,volume,KMix,Misturador,MIDI,ligação,sintetizador,música
+ Keywords[pt_BR]=aRts,servidor de som,artsd,áudio,som,inicialização,transparência de rede,transparência,prioridade,duplex,full-duplex,tempo de resposta,mixer,volume,KMix,Mix,login,MIDI,sintetizador,música
+ Keywords[ro]=aRts,server de sunet,artsd,audio,sunet,pornire,startare,transparenţă de reţea,transparenţă,prioritate,duplex,duplex integral,timp de răspuns,mixer,volum,KMix,logare,MIDI,sintetizator,muzică
 @@ -194,7 +192,6 @@
  Keywords[uz]=aRts,Товуш сервери,artsd,Аудио,Товуш,startup,тармоқ шаффофлиги,шаффофлик,муҳимлик даражаси,дуплекс,тўлиқ дуплекс,жавоб бериш вақти,Миксер,Товуш баландлиги,KMix,Mix,кириш,MIDI,синтезатор,мусиқа
  Keywords[ven]=aRts,Siva ya Mubvumo,artsd,Pfala,Mubvumo,thoma,vhudavhidzano ha khagala,khagala,tshipikwa,dubulekisi,dubulekisi yo fhelelaho, tshifhinga tshau fhindula,tshitanganisi,Volomu,KMix,Tanganisa, u loga,MIDI,tshiiti,muzika
@@ -6715,7 +6760,16 @@ diff -urN -x CVS kdebase.orig/kcontrol/componentchooser/componentchooser.desktop
  Keywords[zu]=amalunga,umkhethi welunga,amathuluzi okusebenza,umxhasi weposi lekhomputha,umlingisi wethuluzi langaphandle
 diff -urN -x CVS kdebase.orig/kcontrol/componentchooser/componentservices/kcm_browser.desktop kdebase/kcontrol/componentchooser/componentservices/kcm_browser.desktop
 --- kdebase.orig/kcontrol/componentchooser/componentservices/kcm_browser.desktop	2005-02-23 06:05:32.000000000 +0100
-+++ kdebase/kcontrol/componentchooser/componentservices/kcm_browser.desktop	2005-03-22 18:38:03.000000000 +0100
++++ kdebase/kcontrol/componentchooser/componentservices/kcm_browser.desktop	2005-03-28 09:02:16.000000000 +0200
+@@ -28,7 +28,7 @@
+ Name[hr]=Web pretraživač
+ Name[hsb]=Web-browser
+ Name[hu]=Webböngésző
+-Name[is]=Vefskoðari
++Name[is]=Vafri
+ Name[it]=Navigazione Web
+ Name[ja]=Webブラウザ
+ Name[ko]=웹 탐색기
 @@ -52,7 +52,7 @@
  Name[sk]=Webový prehliadač
  Name[sl]=Spletni brskalnik
@@ -6959,8 +7013,8 @@ diff -urN -x CVS kdebase.orig/kcontrol/display/display.desktop kdebase/kcontrol/
  Categories=Qt;KDE;X-KDE-settings-hardware;
 diff -urN -x CVS kdebase.orig/kcontrol/dnssd/kcm_kdnssd.desktop kdebase/kcontrol/dnssd/kcm_kdnssd.desktop
 --- kdebase.orig/kcontrol/dnssd/kcm_kdnssd.desktop	2005-02-23 06:05:32.000000000 +0100
-+++ kdebase/kcontrol/dnssd/kcm_kdnssd.desktop	2005-03-22 18:38:03.000000000 +0100
-@@ -2,12 +2,14 @@
++++ kdebase/kcontrol/dnssd/kcm_kdnssd.desktop	2005-03-28 09:02:17.000000000 +0200
+@@ -2,20 +2,23 @@
  Comment=Configure service discovery
  Comment[bg]=Конфигуриране на откриването на услуги
  Comment[bn]=সার্ভিস উদ্ঘাটন কনফিগার করুন
@@ -6975,15 +7029,17 @@ diff -urN -x CVS kdebase.orig/kcontrol/dnssd/kcm_kdnssd.desktop kdebase/kcontrol
  Comment[fi]=Asetuspalvelimen löytäminen
  Comment[fr]=Configuration de la découverte de service
  Comment[fy]=Tsjinst waarnimming ynstellen
-@@ -16,6 +18,7 @@
+ Comment[he]=הגדרת זיהוי השירותים
+ Comment[hi]=सेवा डिस्कवरी कॉन्फ़िगर करें
  Comment[hu]=A szolgáltatásdetektálás beállításai
- Comment[is]=Stilla þjónustu uppgötvara
+-Comment[is]=Stilla þjónustu uppgötvara
++Comment[is]=Stilla uppgötvun þjónustna
  Comment[it]=Configura scoperta servizi
 +Comment[ja]=サービスディスカバリの設定
  Comment[lt]=Konfigūruoti tarnybų radimą
  Comment[nb]=Sett opp oppdagingstjenesten
  Comment[nl]=Dienstwaarneming instellen
-@@ -26,30 +29,31 @@
+@@ -26,38 +29,40 @@
  Comment[pt_BR]=Configurar o serviço discovery
  Comment[ru]=Настройка обнаружения сервисов
  Comment[se]=Heivet bálvalusáicama
@@ -7018,9 +7074,11 @@ diff -urN -x CVS kdebase.orig/kcontrol/dnssd/kcm_kdnssd.desktop kdebase/kcontrol
  Name[fi]=Palvelut
  Name[fr]=Découverte de service
  Name[fy]=Tsjinst warskôging
-@@ -58,6 +62,7 @@
+ Name[he]=זיהוי שירותים
+ Name[hi]=सेवा डिस्कवरी
  Name[hu]=Szolgáltatásdetektálás
- Name[is]=Þjónustu uppgötvun
+-Name[is]=Þjónustu uppgötvun
++Name[is]=Uppgötvun þjónustu
  Name[it]=Scoperta servizi
 +Name[ja]=サービスディスカバリ
  Name[lt]=Tarnybų radimas
@@ -8888,7 +8946,7 @@ diff -urN -x CVS kdebase.orig/kcontrol/filetypes/filetypes.desktop kdebase/kcont
  Keywords[zu]=Izinhlobo zamafayela, Ubudlelwano bamafayela,Izinhlobo zamafayela,Amaphethini amafayela,Iphethini
 diff -urN -x CVS kdebase.orig/kcontrol/fonts/fonts.desktop kdebase/kcontrol/fonts/fonts.desktop
 --- kdebase.orig/kcontrol/fonts/fonts.desktop	2005-02-05 05:14:52.000000000 +0100
-+++ kdebase/kcontrol/fonts/fonts.desktop	2005-03-26 08:37:40.000000000 +0100
++++ kdebase/kcontrol/fonts/fonts.desktop	2005-03-27 09:28:58.000000000 +0200
 @@ -75,7 +75,6 @@
  Name[vi]=Phông 
  Name[wa]=Fontes
@@ -8923,6 +8981,15 @@ diff -urN -x CVS kdebase.orig/kcontrol/fonts/fonts.desktop kdebase/kcontrol/font
  Keywords[gl]=fontes,tamaño da fonte,estilos,codificación,conxunto de caracteres,panel,kicker,panel de control,escritorios,Xestor de Ficheiros,Barras de ferramentas,Menú,Título da Fiestra,Título
  Keywords[he]=לוח הבקרה,שולחנות עבודה,מנהל קבצים,סרגלי כלים,תפריט,כותרת חלון,כותרת,גופנים,גודל גופן,סגנונות,מערכי תווים,לוח
  Keywords[hi]=फ़ॉन्ट्स, फ़ॉन्ट्स आकार,शैली,कैरसेट,कैरेक्टर सेट्स,फलक,किकर, नियंत्रण फलक,डेस्कटॉप,फ़ाइल प्रबंधक,औज़ार पट्टी,मेन्यू,विंडो शीर्षक,शीर्षक
+@@ -184,7 +182,7 @@
+ Keywords[mn]=Бичгүүд,Бичгийн хэмжээ,Тэмдэгтүүд,Удирдах самбар,Самбар,Дамжуулагч,Хэлбэр,Файл удирдагч,Ажлын тавцан,Багаж самбар,Цэс,Цонхны толгой,Гарчиг
+ Keywords[nb]=skrift,skrifttyper,skriftstørrelse,stil,tegnsett,panel,kicker,kontrollpanel,skrivebord,filbehandler,verktøylinjer,meny,vindustittel,tittel
+ Keywords[nds]=Schriftoorden,Schriftgrött,Stilen,Tekensetten,Paneel,kicker,Kuntrullbalken,Schriefdischen,Dateimanager,Dateipleger,Warktüüchbalken,Menü,Finstertitel,Titel
+-Keywords[nl]=fonts,font,letters,lettertypen,lettertypes,tekenset,karakterverzamelingen,paneel,kicker,configuratiecentrum,stijl,bestandsbeheerder,werkbalk,menu,venster,titel,venstertitel,desktops,bureaubladen
++Keywords[nl]=fonts,font,letters,lettertypen,lettertypes,tekenset,tekenverzamelingen,paneel,kicker,configuratiecentrum,stijl,bestandsbeheerder,werkbalk,menu,venster,titel,venstertitel,desktops,bureaubladen
+ Keywords[nn]=skrift,skrift,skriftstorleik,stil,teiknsett,panel,kicker,kontrollpanel,skrivebord,filhandsamar,verktøylinjer,meny,vindaugstittel,tittel
+ Keywords[nso]=difonto,bogolo bja difonto,mokgwa,charsets,dipeakanyo tsa dihlaka, panel,seragi,panel ya taolo,di-desktop,Molaodi wa Faele,Di-bar tsa Dibereka,Menu, Sehlogo sa Window,Sehlogo
+ Keywords[pl]=czcionki,rozmiar czcionki,styl,zestaw znaków,panel,kicker,panel sterowania,pulpity,biurka,menedżer plików,paski narzędzi,menu,tytuł okna,tytuł
 @@ -206,7 +204,6 @@
  Keywords[vi]=Phông, cỡ, kiểu, bảng mã, bộ ký tự, bảng, kicker, bảng điều khiển, desktops, Trình quản lý tệp tin, Thanh công cụ, Thực đơn, Tên cửa sổ, Tên
  Keywords[wa]=fonte,fontes,grandeu del fonte,stîle,miernowes,cråsses,clintcheyes,ecôdaedjes,djeu di caracteres,scriftôr,kicker,cinte di contrôle,scribannes,Manaedjeu di fitchîs,Bår d' usteyes,Menu,Tite do purnea,Bår di tite,Tite
@@ -10577,7 +10644,7 @@ diff -urN -x CVS kdebase.orig/kcontrol/kio/lanbrowser.desktop kdebase/kcontrol/k
  Categories=Qt;KDE;X-KDE-settings-network;
 diff -urN -x CVS kdebase.orig/kcontrol/kio/netpref.desktop kdebase/kcontrol/kio/netpref.desktop
 --- kdebase.orig/kcontrol/kio/netpref.desktop	2005-02-23 06:05:37.000000000 +0100
-+++ kdebase/kcontrol/kio/netpref.desktop	2005-03-22 18:38:06.000000000 +0100
++++ kdebase/kcontrol/kio/netpref.desktop	2005-03-28 09:02:17.000000000 +0200
 @@ -62,7 +62,6 @@
  Comment[ven]=Khonifigarani thodea dza vhukwamani sa tshifhinga tsho fhelaho
  Comment[vi]=Cấu hình mạng nói chung ví dụ như giá trị timeout
@@ -10634,9 +10701,12 @@ diff -urN -x CVS kdebase.orig/kcontrol/kio/netpref.desktop kdebase/kcontrol/kio/
  Name[fi]=Asetukset
  Name[fr]=Préférences de connexion
  Name[fy]=Ferbiningfoarkar
-@@ -114,6 +118,7 @@
+@@ -112,8 +116,9 @@
+ Name[he]=העדפות חיבור
+ Name[hi]=कनेक्शन वरीयताएँ
  Name[hu]=Hálózati paraméterek
- Name[is]=Tengingar stillingar
+-Name[is]=Tengingar stillingar
++Name[is]=Stillingar tenginga
  Name[it]=Preferenze sulle connessioni
 +Name[ja]=接続設定
  Name[lt]=Prisijungimo pasirinkimai
@@ -11457,7 +11527,16 @@ diff -urN -x CVS kdebase.orig/kcontrol/kio/useragent.desktop kdebase/kcontrol/ki
  Keywords[zu]=Ummeli Womsebenzisi,Umcingi,Internet,WWW,Uxhumano olusakazekile, ummeli,izibongo,umlekeleli,ngena ngaphakathi
 diff -urN -x CVS kdebase.orig/kcontrol/knotify/kcmnotify.desktop kdebase/kcontrol/knotify/kcmnotify.desktop
 --- kdebase.orig/kcontrol/knotify/kcmnotify.desktop	2005-02-11 05:51:58.000000000 +0100
-+++ kdebase/kcontrol/knotify/kcmnotify.desktop	2005-03-26 08:37:41.000000000 +0100
++++ kdebase/kcontrol/knotify/kcmnotify.desktop	2005-03-28 09:02:17.000000000 +0200
+@@ -38,7 +38,7 @@
+ Name[hr]=Obavijesti sustava
+ Name[hu]=Rendszerüzenetek
+ Name[id]=Pemberitahuan Sistem
+-Name[is]=Tilkynningar frá kerfinu
++Name[is]=Kerfistilkynningar
+ Name[it]=Avvisi di sistema
+ Name[ja]=システム通知
+ Name[ko]=시스템 알림
 @@ -76,7 +76,6 @@
  Name[vi]=Thông báo của hệ thống
  Name[wa]=Notifiaedjes do sistinme
@@ -11823,7 +11902,7 @@ diff -urN -x CVS kdebase.orig/kcontrol/konq/webbehavior.desktop kdebase/kcontrol
  Keywords[zu]=konqueror,imenenja yefayela,kfm,amacebo,amacebo efayela,i-window elahlukene,ama-window azelwe,ukuziphatha,ukuziphhatha, ukusetshenziswa kenkumbulo,i-URL yasekhaya,
 diff -urN -x CVS kdebase.orig/kcontrol/konqhtml/khtml_behavior.desktop kdebase/kcontrol/konqhtml/khtml_behavior.desktop
 --- kdebase.orig/kcontrol/konqhtml/khtml_behavior.desktop	2005-02-23 06:05:39.000000000 +0100
-+++ kdebase/kcontrol/konqhtml/khtml_behavior.desktop	2005-03-07 15:15:24.000000000 +0100
++++ kdebase/kcontrol/konqhtml/khtml_behavior.desktop	2005-03-27 09:28:58.000000000 +0200
 @@ -67,7 +67,6 @@
  Name[uz]=Веб хусусиятлари
  Name[vi]=Thái độ của Web
@@ -11849,6 +11928,15 @@ diff -urN -x CVS kdebase.orig/kcontrol/konqhtml/khtml_behavior.desktop kdebase/k
  Comment[zh_CN]=配置浏览器行为
  Comment[zh_TW]=設定瀏覽器行為
  Comment[zu]=Hlanaganisela ukuziphatha komcingi
+@@ -169,7 +167,7 @@
+ Keywords[mn]=Конкюрор,Kfm,Хөтөч,HTML,Вэб,WWW,Бичиг,Өнгө,Java,JavaScript,Түүчээ,Холбоосууд,Links,Зураг,Тэмдэгт олонлог,Кодчилол
+ Keywords[nb]=konqueror,kfm,nettleser,html,nettet,www,veven,verdensveven,skriftyper,farger,java,javaskript,markør,tegnsett,koding,bilde,skriptspråk,Internett
+ Keywords[nds]=Konqueror,kfm,Browser,HTML,web,www,Schriftoorden,Klören,Klöör,Java,JavaScript,Cursor,Links,Biller,Tekensett,Tekensetten,Koderen
+-Keywords[nl]=konqueror,kfm,browser,html,web,www,fonts,lettertypen,kleuren,,java,,javascript,cursor,links,koppelingen,afbeeldingen,charsets,tekensets,karakterverzamelingen,codering,internet
++Keywords[nl]=konqueror,kfm,browser,html,web,www,fonts,lettertypen,kleuren,,java,,javascript,cursor,links,koppelingen,afbeeldingen,charsets,tekensets,tekenverzamelingen,codering,internet
+ Keywords[nn]=Konqueror,KFM,nettlesar,HTML,verdsveven,WWW,skrifter,fargar,Java,JavaScript,skriptspråk,Internett,peikar,lenkjer,bilete,teiknsett,koding,teiknkoding
+ Keywords[nso]=konqueror,kfm,seinyakisi,html,web,www,difonto,mebala,mebala,java,setlankana sa java,cursor,dikgokaganyi,diponagalo,charsets,dipeakanyo tsa dihlaka,go khouta
+ Keywords[pl]=konqueror,kfm,przeglądarka,html,sieć www,czcionki,kolory,java,javascript,kursor,linki,odnośniki,obrazki,zestawy znaków,kodowanie
 @@ -180,7 +178,7 @@
  Keywords[sk]=konqueror,kfm,prehliadač,html,web,www,písma,farby,java,javascript,kurzor,odkazy,obrázky,znakové sady,kódovanie
  Keywords[sl]=konqueror,kfm,brskalnik,html,splet,www,pisave,barve,java,javascript,kurzor,povezave,slike,nabori znakov,znakovni nabori,kodiranje
@@ -12563,7 +12651,7 @@ diff -urN -x CVS kdebase.orig/kcontrol/locale/default/entry.desktop kdebase/kcon
  Name[zh_CN]=美国英语
 diff -urN -x CVS kdebase.orig/kcontrol/locale/language.desktop kdebase/kcontrol/locale/language.desktop
 --- kdebase.orig/kcontrol/locale/language.desktop	2005-02-11 05:52:00.000000000 +0100
-+++ kdebase/kcontrol/locale/language.desktop	2005-03-22 18:38:08.000000000 +0100
++++ kdebase/kcontrol/locale/language.desktop	2005-03-27 09:28:58.000000000 +0200
 @@ -11,6 +11,7 @@
  X-KDE-ParentApp=kcontrol
  
@@ -12597,6 +12685,15 @@ diff -urN -x CVS kdebase.orig/kcontrol/locale/language.desktop kdebase/kcontrol/
  Keywords[ja]=言語,翻訳,数値の書式,通貨,時刻,日付,フォーマット,地域,国,文字コード,文字セット,小数点,1000での区切り,記号,区切り文字,符号,正数,負数,小数桁数,週,週初
  Keywords[ko]=language,translation,number format,currency,time,date,formats,locale,Country,charsets,character sets,Decimal symbol,Thousands separator,symbol,separator,sign,positive,negative,fractional digits,week,week start,언어,말글,번역,말 옮김,말 옮기기,나라말,숫자,꼴,시간,날짜,로케일,나라,글자셋,문자셋,십진수,기호,구분자,사인
  Keywords[lt]=language,translation,number format,currency,time,date,formats,locale,Country,charsets,character sets,Decimal symbol,Thousands separator,symbol,separator,sign,positive,negative,fractional digits,week,week start,kalba,vertimas,skaičių formatas,valiuta,laikas,data,formatai,lokalė,Šalis,koduotės,kodavimai,Dešimtainis simbolis,Tūkstančių skirtukas,simbolis,skirtukas,požymis,teigiamas,neigiamas,trupmenų skaitmenys,savaitė,savaitės pradžia
+@@ -181,7 +180,7 @@
+ Keywords[mn]=Хэл,Орчуулга,Тооны хэлбэр,Мөнгөн нэгж,Цаг,Огноо,Хэлбэр, Бүс,Орон, Тэмдэгт олонлог,Аравтын тэмдэглэгээ,Тэмдэг,Тэмдэгт, Таслал, Нэмэх, Хасах,Бутархай тоо, Долоо хоног,Долоо хоногийн эхлэл
+ Keywords[nb]=språk,oversettelse,tallformat,valuta,tid,dato,formater,lokal,land,symbol,separator,tegn,positiv,negativ,uke,ukestart,desimaltegn,skilletegn,brøk
+ Keywords[nds]=Spraak,Översetten,Tallenformaat,Taalmiddel,Tiet,Datum,Formaten,locale,Land,Tekensetten,Tekensett,Dezimaalsymbool,Trennteken,Symbool,Dusend,Vörteken,Positiv,Negativ,Brooktallen,Week,Wekenanfang
+-Keywords[nl]=language,vertaling,taal,getallenopmaak,valuta,valutasymbool,tijd,datum, opmaak,lokaal,locale,land,tekensets,charsets,karakterverzamelingen,Decimaalsymbool, scheidingsteken,duizendtallen,symbool,symbolen,gulden,teken,positief,negatief,week,weken,geld,bedragen
++Keywords[nl]=language,vertaling,taal,getallenopmaak,valuta,valutasymbool,tijd,datum, opmaak,lokaal,locale,land,tekensets,charsets,tekenverzamelingen,Decimaalsymbool, scheidingsteken,duizendtallen,symbool,symbolen,gulden,teken,positief,negatief,week,weken,geld,bedragen
+ Keywords[nn]=språk,omsetjing,talformat,valuta,pengar,tid,dato,format,lokale,land,teiknsett,desimalteikn,skiljeteikn,symbol,teikn,positiv,negativ,desimaltal,veke,vekestart
+ Keywords[nso]=leleme,tiragatso,thlolego ya dinomoro,currency,nako,tsatsikgwedi,dithlolego,tulo,Naga,charsets,dipeakanyo tsa dihlaka,Leswao la decimal,Searoganyi sa Dikete, leswao,searoganyi,leswao,dumela,ganetsa,dinomoro tsa fraction,beke,thomiso ya beke
+ Keywords[pl]=język,tłumaczenie,format liczb,jednostka walutowa,czas,data,formaty,ustawienia regionalne,kraj,zestawy znaków,symbol dziesiętny,znak rozdzielający tysiące,symbol,separator,znak,dodatni,ujemny,liczby ułamkowe,tydzień,początek tygodnia
 @@ -202,7 +201,6 @@
  Keywords[ven]=luambo,dologa,vhuvha ha nomboro,zwamasheleni,tshifhinga,datumu,vhuvha,henefhano,shango,tshasete,mavhekenyele a tshasete,zwiga zwa desimala,zwikhaukani zwa zwigidi,swiga,zwikhaukani,tshiga,zwavhudi,zwisizwavhudi,vhege,u thoma vhege
  Keywords[vi]=ngôn ngữ,dịch,dạng hiển thị số,tiền tệ,thời gian,ngày,dạng,địa phương,Nước,bảng mã,bảng mã,ký hiệu thập phân,dấu cách hàng ngìn,ký hiệu,dấu phân cách,dấu,dương,âm,phân số,tuần,bắt đầu của tuần
@@ -14095,8 +14192,20 @@ diff -urN -x CVS kdebase.orig/kdesktop/kdesktopSetAsBackground.desktop kdebase/k
  Exec=dcop kdesktop KBackgroundIface setWallpaper %u 2
 diff -urN -x CVS kdebase.orig/kdesktop/krootwm.cc kdebase/kdesktop/krootwm.cc
 --- kdebase.orig/kdesktop/krootwm.cc	2005-02-19 16:45:35.000000000 +0100
-+++ kdebase/kdesktop/krootwm.cc	2005-03-09 14:15:54.000000000 +0100
-@@ -690,8 +690,8 @@
++++ kdebase/kdesktop/krootwm.cc	2005-03-26 14:54:51.000000000 +0100
+@@ -394,11 +394,9 @@
+     if (m_bDesktopEnabled)
+     {
+         action = m_pDesktop->actionCollection()->action( "undo" );
+-        Q_ASSERT( action );
+         if (action)
+            action->plug( desktopMenu );
+         action = m_pDesktop->actionCollection()->action( "paste" );
+-        Q_ASSERT( action );
+         if (action)
+            action->plug( desktopMenu );
+         desktopMenu->insertSeparator();
+@@ -690,8 +688,8 @@
  
  QStringList KRootWm::configModules() {
    QStringList args;
@@ -15864,7 +15973,7 @@ diff -urN -x CVS kdebase.orig/khelpcenter/plugins/faq.desktop kdebase/khelpcente
  Name[zu]=I-FAQ ye-KDE
 diff -urN -x CVS kdebase.orig/khelpcenter/plugins/info.desktop kdebase/khelpcenter/plugins/info.desktop
 --- kdebase.orig/khelpcenter/plugins/info.desktop	2005-02-23 06:05:43.000000000 +0100
-+++ kdebase/khelpcenter/plugins/info.desktop	2005-03-18 09:21:29.000000000 +0100
++++ kdebase/khelpcenter/plugins/info.desktop	2005-03-29 08:24:37.000000000 +0200
 @@ -3,6 +3,7 @@
  Name=Browse Info Pages
  Name[bg]=Преглед на страниците Info
@@ -15873,6 +15982,15 @@ diff -urN -x CVS kdebase.orig/khelpcenter/plugins/info.desktop kdebase/khelpcent
  Name[bs]=Pregled info stranica
  Name[ca]=Fulleja les pàgines Info
  Name[cs]=Prohlížeč info stránek
+@@ -31,7 +32,7 @@
+ Name[nl]=Info-pagina's doorbladeren
+ Name[nn]=Les info-sider
+ Name[pa]=ਜਾਣਕਾਰੀ ਸਫੇ ਝਲਕ
+-Name[pl]=Przeglądaj stron informacyjnych
++Name[pl]=Przeglądanie stron informacyjnych
+ Name[pt]=Navegar nas Páginas Info
+ Name[pt_BR]=Navegar nas Páginas Info
+ Name[ro]=Pagini info
 @@ -40,13 +41,12 @@
  Name[sk]=Prehliadanie info stránok
  Name[sl]=Brskanje po straneh info
@@ -17899,7 +18017,7 @@ diff -urN -x CVS kdebase.orig/kioslave/media/kdedmodule/linuxcdpolling.h kdebase
  
 diff -urN -x CVS kdebase.orig/kioslave/media/kdedmodule/mediamanager.desktop kdebase/kioslave/media/kdedmodule/mediamanager.desktop
 --- kdebase.orig/kioslave/media/kdedmodule/mediamanager.desktop	2005-02-23 06:05:50.000000000 +0100
-+++ kdebase/kioslave/media/kdedmodule/mediamanager.desktop	2005-03-22 18:38:13.000000000 +0100
++++ kdebase/kioslave/media/kdedmodule/mediamanager.desktop	2005-03-29 08:24:37.000000000 +0200
 @@ -5,6 +5,7 @@
  Name[az]=KDED Mediya İdarəcisi
  Name[bg]=Управление на устройствата KDED
@@ -17962,7 +18080,13 @@ diff -urN -x CVS kdebase.orig/kioslave/media/kdedmodule/mediamanager.desktop kde
  Comment[lt]=Stebi laikmenose vykdomus veiksmus ir leidžia (iš)montuoti (media:/)
  Comment[mk]=Води сметка за активностите на носачите и дозволува (де)монтирање (media:/)
  Comment[mt]=Żomm kont ta' attivitajiet ta' mmuntar u ippermetti (un)mount (media:/)
-@@ -67,14 +73,14 @@
+@@ -62,19 +68,19 @@
+ Comment[nl]=Houdt de media-activiteiten bij en staat u toe om media aan- en af te koppelen (media:/)
+ Comment[nn]=Held styr på medieaktivitetar og lèt deg montera og avmontera (media:/)
+ Comment[pa]=ਮਾਊਟ ਕਾਰਵਾਈਆਂ ਦੀ ਜਾਣਕਾਰੀ ਰੱਖੋ ਅਤੇ ਅਨ-ਮਾਊਟ ਕਰਨ ਦਿਓ (ਜੰਤਰ:/)
+-Comment[pl]=Śledzi zdarzenia związane z nośnikami danych i pozala je (od)montować (media:/)
++Comment[pl]=Śledzi zdarzenia związane z nośnikami danych i pozwala je (od)montować (media:/)
+ Comment[pt]=Manter o registo das actividades de dispositivos e permitir a (des)montagem (media:/)
  Comment[pt_BR]=Monitora as atividades de mídias e permite a (des)montagem (media:/)
  Comment[ru]=Отслеживает активность устройств и позволяет (от)монтировать (media:/)
  Comment[se]=Gozit mii dáhpáhuvvá median ja diktá du gálgat ja čadnat daid (media:/)
@@ -19732,6 +19856,18 @@ diff -urN -x CVS kdebase.orig/klipper/klipperrc.desktop kdebase/klipper/klipperr
  Number of Actions=7
  PopupAtMousePosition=false
  URLGrabberEnabled=false
+diff -urN -x CVS kdebase.orig/kmenuedit/khotkeys.cpp kdebase/kmenuedit/khotkeys.cpp
+--- kdebase.orig/kmenuedit/khotkeys.cpp	2005-01-28 12:26:29.000000000 +0100
++++ kdebase/kmenuedit/khotkeys.cpp	2005-03-28 22:02:14.000000000 +0200
+@@ -80,7 +80,7 @@
+ 
+ void KHotKeys::cleanup()
+ {
+-    if( khotkeys_inited )
++    if( khotkeys_inited && khotkeys_present )
+         khotkeys_cleanup_2();
+     khotkeys_inited = false;
+ }
 diff -urN -x CVS kdebase.orig/kmenuedit/kmenuedit.desktop kdebase/kmenuedit/kmenuedit.desktop
 --- kdebase.orig/kmenuedit/kmenuedit.desktop	2005-02-05 05:15:33.000000000 +0100
 +++ kdebase/kmenuedit/kmenuedit.desktop	2005-03-07 15:16:01.000000000 +0100
@@ -19886,8 +20022,18 @@ diff -urN -x CVS kdebase.orig/knetattach/knetattach.desktop kdebase/knetattach/k
  InitialPreference=6
 diff -urN -x CVS kdebase.orig/knetattach/knetattach.ui.h kdebase/knetattach/knetattach.ui.h
 --- kdebase.orig/knetattach/knetattach.ui.h	2005-03-02 21:46:39.000000000 +0100
-+++ kdebase/knetattach/knetattach.ui.h	2005-03-22 06:32:04.000000000 +0100
-@@ -135,6 +135,7 @@
++++ kdebase/knetattach/knetattach.ui.h	2005-03-28 06:02:34.000000000 +0200
+@@ -68,6 +68,9 @@
+ 	    setInformationText("FTP");
+ 	    updateForProtocol("FTP");
+ 	    _port->setValue(21);
++	    if (_path->text().isEmpty()) {
++		_path->setText("/");
++	    }
+ 	} else if (_smb->isChecked()) {
+ 	    setInformationText("SMB");
+ 	    updateForProtocol("SMB");
+@@ -135,6 +138,7 @@
  	url.setPort(_port->value());
      } else if (_type == "Fish") {
  	url.setProtocol("fish");
@@ -19895,7 +20041,7 @@ diff -urN -x CVS kdebase.orig/knetattach/knetattach.ui.h kdebase/knetattach/knet
      } else if (_type == "FTP") {
  	url.setProtocol("ftp");
  	url.setPort(_port->value());
-@@ -256,7 +257,7 @@
+@@ -256,7 +260,7 @@
  	_useEncryption->hide();
  	_portText->show();
  	_port->show();
@@ -21556,6 +21702,38 @@ diff -urN -x CVS kdebase.orig/konqueror/quickprint/text-xslt-print.desktop kdeba
  Name[zh_CN]=打印...
  Exec=kprinter -t %n --caption %n --icon %i --miniicon %m %U
  Icon=filequickprint
+diff -urN -x CVS kdebase.orig/konqueror/shellcmdplugin/kshellcmdexecutor.cpp kdebase/konqueror/shellcmdplugin/kshellcmdexecutor.cpp
+--- kdebase.orig/konqueror/shellcmdplugin/kshellcmdexecutor.cpp	2003-11-02 14:42:04.000000000 +0100
++++ kdebase/konqueror/shellcmdplugin/kshellcmdexecutor.cpp	2005-03-28 04:55:18.000000000 +0200
+@@ -70,8 +70,8 @@
+ 
+    QCStringList args;
+    args+="-c";
+-   args+=m_command.latin1();
+-   //kdDebug()<<"------- executing: "<<m_command.latin1()<<endl;
++   args+=m_command.local8Bit();
++   //kdDebug()<<"------- executing: "<<m_command.local8Bit()<<endl;
+ 
+    QCString shell( getenv("SHELL") );
+    if (shell.isEmpty())
+@@ -108,7 +108,7 @@
+    {
+       //kdDebug()<<"***********************\n"<<buffer<<"###################\n"<<endl;
+       buffer[bytesRead]='\0';
+-      this->append(QString(buffer));
++      this->append(QString::fromLocal8Bit(buffer));
+       setTextFormat(PlainText);
+    };
+ }
+@@ -121,7 +121,7 @@
+       i18n( "Input Required:" ), QString::null, &ok, this );
+    if ( ok )
+    {
+-      QCString input=str.latin1();
++      QCString input=str.local8Bit();
+       ::write(m_shellProcess->fd(),input,input.length());
+       ::write(m_shellProcess->fd(),"\n",1);
+    }
 diff -urN -x CVS kdebase.orig/konqueror/sidebar/konq_sidebartng.desktop kdebase/konqueror/sidebar/konq_sidebartng.desktop
 --- kdebase.orig/konqueror/sidebar/konq_sidebartng.desktop	2005-02-05 05:15:37.000000000 +0100
 +++ kdebase/konqueror/sidebar/konq_sidebartng.desktop	2005-03-07 15:16:05.000000000 +0100
@@ -22272,6 +22450,49 @@ diff -urN -x CVS kdebase.orig/konsole/kcmkonsole.desktop kdebase/konsole/kcmkons
 -Keywords[xx]=xxkonsole,console,terminalxx
  Keywords[zh_TW]=konsole,console,terminal,主控台,終端機
  Keywords[zu]=ikhonsoli,ikhonsoli,okwangaphandle
+diff -urN -x CVS kdebase.orig/konsole/konsole/keytrans.cpp kdebase/konsole/konsole/keytrans.cpp
+--- kdebase.orig/konsole/konsole/keytrans.cpp	2005-01-25 18:56:47.000000000 +0100
++++ kdebase/konsole/konsole/keytrans.cpp	2005-03-28 21:42:26.000000000 +0200
+@@ -26,6 +26,7 @@
+ #include <klocale.h>
+ 
+ #include <stdio.h>
++#include <stddef.h>
+ 
+ #ifndef HERE
+ #define HERE printf("%s(%d): here\n",__FILE__,__LINE__)
+@@ -372,7 +373,7 @@
+ //printf("line %3d: ",startofsym);
+     getSymbol(); assertSyntax(sym == SYMName, "Name expected")
+     assertSyntax(syms->keysyms[res], "Unknown key name")
+-    int key = (long)( syms->keysyms[res] ) -1;
++    ptrdiff_t key = (ptrdiff_t)(syms->keysyms[res]) - 1;
+ //printf(" key %s (%04x)",res.latin1(),(int)syms->keysyms[res]-1);
+     getSymbol(); // + - :
+     int mode = 0;
+@@ -384,7 +385,7 @@
+       // mode name
+       assertSyntax(sym == SYMName, "Name expected")
+       assertSyntax(syms->modsyms[res], "Unknown mode name")
+-      int bits = (long)syms->modsyms[res]-1;
++      ptrdiff_t bits = (ptrdiff_t)(syms->modsyms[res]) - 1;
+       if (mask & (1 << bits))
+       {
+         fprintf(stderr,"%s(%d,%d): mode name used multible times.\n",path.ascii(),slinno,scolno);
+@@ -401,11 +402,11 @@
+     getSymbol();
+     // string or command
+     assertSyntax(sym == SYMName || sym == SYMString,"Command or string expected")
+-    int cmd = 0;
++    ptrdiff_t cmd = 0;
+     if (sym == SYMName)
+     {
+       assertSyntax(syms->oprsyms[res], "Unknown operator name")
+-      cmd = (long)syms->oprsyms[res]-1;
++      cmd = (ptrdiff_t)(syms->oprsyms[res]) - 1;
+ //printf(": do %s(%d)",res.latin1(),(int)syms->oprsyms[res]-1);
+     }
+     if (sym == SYMString)
 diff -urN -x CVS kdebase.orig/konsole/konsole/konsole.cpp kdebase/konsole/konsole/konsole.cpp
 --- kdebase.orig/konsole/konsole/konsole.cpp	2005-02-28 18:33:56.000000000 +0100
 +++ kdebase/konsole/konsole/konsole.cpp	2005-03-20 04:22:14.000000000 +0100
@@ -23176,6 +23397,27 @@ diff -urN -x CVS kdebase.orig/kwin/activation.cpp kdebase/kwin/activation.cpp
          requestFocus( c, force );
  
      // Don't update user time for clients that have focus stealing workaround.
+diff -urN -x CVS kdebase.orig/kwin/clients/b2/b2client.cpp kdebase/kwin/clients/b2/b2client.cpp
+--- kdebase.orig/kwin/clients/b2/b2client.cpp	2004-11-25 17:08:44.000000000 +0100
++++ kdebase/kwin/clients/b2/b2client.cpp	2005-03-27 16:04:53.000000000 +0200
+@@ -354,6 +354,9 @@
+ 	i18n("Resize") 
+     };
+ 
++    // This check has to be made early - to make the preview widget work.
++    resizable = isResizable();
++    
+     createMainWidget(WResizeNoErase | WRepaintNoErase);
+     widget()->installEventFilter(this);
+ 
+@@ -425,7 +428,6 @@
+     positionButtons();
+     titlebar->recalcBuffer();
+     titlebar->installEventFilter(this);
+-    resizable = isResizable();
+ }
+ 
+ void B2Client::addButtons(const QString& s, const QString tips[],
 diff -urN -x CVS kdebase.orig/kwin/clients/b2/b2.desktop kdebase/kwin/clients/b2/b2.desktop
 --- kdebase.orig/kwin/clients/b2/b2.desktop	2004-10-27 05:00:15.000000000 +0200
 +++ kdebase/kwin/clients/b2/b2.desktop	2005-03-07 15:16:14.000000000 +0100
@@ -24254,7 +24496,7 @@ diff -urN -x CVS kdebase.orig/kwin/kcmkwin/kwinoptions/kwintranslucency.desktop 
 -Keywords[xx]=xxtranslucency,transparence,shadowsxx
 diff -urN -x CVS kdebase.orig/kwin/kcmkwin/kwinrules/kwinrules.desktop kdebase/kwin/kcmkwin/kwinrules/kwinrules.desktop
 --- kdebase.orig/kwin/kcmkwin/kwinrules/kwinrules.desktop	2005-02-23 06:06:00.000000000 +0100
-+++ kdebase/kwin/kcmkwin/kwinrules/kwinrules.desktop	2005-03-26 08:37:44.000000000 +0100
++++ kdebase/kwin/kcmkwin/kwinrules/kwinrules.desktop	2005-03-28 09:02:17.000000000 +0200
 @@ -12,6 +12,7 @@
  Name=Window-Specific Settings
  Name[bg]=Потребителски
@@ -24275,7 +24517,8 @@ diff -urN -x CVS kdebase.orig/kwin/kcmkwin/kwinrules/kwinrules.desktop kdebase/k
  Name[he]=הגדרות חלונות ספציפיות
  Name[hi]=विशिष्ट-विंडो विन्यास
  Name[hu]=Egyedi ablakbeállítások
- Name[is]=Stillingar þessa glugga
+-Name[is]=Stillingar þessa glugga
++Name[is]=Stillingar einstakra glugga
  Name[it]=Impostazioni specifiche della finestra
 +Name[ja]=ウィンドウ固有の設定
  Name[lt]=Nuo lango priklausantys nustatymai
