@@ -6,12 +6,13 @@
 # * Separating kicker, kwin, wtf
 #
 # Conditional build:
-# --without	alsa	Set this option in case you don't want alsa.
+# _without_alsa		- without alsa support
 #
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define         _snap		030409
+%define         _snap		030410
+%define		_kdelibsminrel	0.%{_snap}.1 
 
 %ifarch	sparc sparcv9 sparc64
 %define		_without_alsa	1
@@ -34,7 +35,6 @@ License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:        http://team.pld.org.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-Source1:        http://www.eleceng.ohio-state.edu/~ravi/ksplashplugins-0.1pre.tar.gz
 Source2:	kdm.pamd
 Source3:	kdm.init
 Source4:	kdm.Xsession
@@ -93,8 +93,8 @@ BuildRequires:	db-devel
 BuildRequires:	findutils
 BuildRequires:	gettext-devel
 BuildRequires:	grep
-BuildRequires:	kdelibs-devel >= %{version}
-BuildRequires:	kdelibs-static >= %{version}
+BuildRequires:	kdelibs-devel >= %{version}-%{_kdelibsminrel}
+BuildRequires:	kdelibs-static >= %{version}-%{_kdelibsminrel}
 BuildRequires:	lame-libs-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
@@ -119,9 +119,9 @@ Requires:	applnk >= 1.6
 #Requires:	kde-splash
 #
 Requires:       kde-sdscreen
-Requires:       kdelibs >= 3.2-0.030409.1
-Requires:	konqueror = %{version}-%{release}
+Requires:       kdelibs >= %{version}-%{_kdelibsminrel}
 Requires:	%{name}-pam = %{version}-%{release}
+Requires:	konqueror = %{version}-%{release}
 #
 Obsoletes:	%{name}-fonts
 Obsoletes:	%{name}-khelpcenter
@@ -132,6 +132,7 @@ Obsoletes:	%{name}-kwin
 Obsoletes:	%{name}-kxmlrpc
 Obsoletes:	%{name}-kdesktop
 Obsoletes:	%{name}-wallpapers
+Obsoletes:	kde-splash
 Obsoletes:	kde-theme-keramik
 #
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -191,7 +192,7 @@ Summary(pt_BR):	Arquivos de inclusão para compilar aplicativos que usem bibliote
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-kate = %{version}-%{release}
-Requires:	kdelibs-devel >= %{version}
+Requires:	kdelibs-devel >= %{version}-%{_kdelibsminrel}
 
 %description devel
 This package contains header files needed to develop KDE applications.
@@ -235,20 +236,20 @@ Default KDE "Logout" picture.
 %description -n kde-sdscreen-default -l pl
 Standardowy obrazek okna "Wyloguj" KDE. 
 
-%package -n kde-splash-default
-Summary:	KDE splash screen
-Summary(pl):	Obrazek startowy KDE
-Group:		X11/Amusements
-Provides:	kde-splash
-Requires:	%{name} >= 3.0.3
-Obsoletes:	kde-splash-KDEGirl
-Obsoletes:	kde-splash-keramik
+#%package -n kde-splash-default
+#Summary:	KDE splash screen
+#Summary(pl):	Obrazek startowy KDE
+#Group:		X11/Amusements
+#Provides:	kde-splash
+#Requires:	%{name} >= 3.0.3
+#Obsoletes:	kde-splash-KDEGirl
+#Obsoletes:	kde-splash-keramik
 
-%description -n kde-splash-default
-Default splash screen for KDE.
+#%description -n kde-splash-default
+#Default splash screen for KDE.
 
-%description -n kde-splash-default -l pl
-Standardowy obrazek startowy KDE.
+#%description -n kde-splash-default -l pl
+#Standardowy obrazek startowy KDE.
 
 %package common-filemanagement
 Summary:	Common Files for kate and konqueror
@@ -340,7 +341,6 @@ Summary:	KDE Find Tool
 Summary(pl):	Narzêdzie do wyszukiwania plików dla KDE
 Group:		X11/Applications
 Requires:	%{name}-helpcenter = %{version}-%{release}
-Requires:	kdelibs >= %{version}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	kfind
 
@@ -395,7 +395,7 @@ Edytor tekstu z pod¶wietlaniem sk³adni dla KDE.
 Summary:	KDE Mail and News Services
 Summary(pl):	Obs³uga protoko³ów pocztowych i news dla KDE
 Group:		X11/Libraries
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	%{name}-kioslave
 
@@ -474,7 +474,7 @@ Konqueror jest przegl±dark± WWW i zarz±dc± plików podobnym do MS
 Internet Explorer.
 
 %prep
-%setup -q -n %{name}-%{_snap} -a1
+%setup -q -n %{name}-%{_snap}
 %patch0 -p1
 # obsoleted
 #%patch1 -p1
@@ -515,18 +515,10 @@ done
 
 %configure \
 	--with-pam=kdm
-	
-cd ksplashplugins
-%configure --enable-final	
-cd -
-	
+		
 %{__make}
 
 cd ksplashml
-%{__make}
-cd -
-
-cd ksplasplugins
 %{__make}
 cd -
 
@@ -539,18 +531,13 @@ cd ksplashml
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 cd -
 
-cd ksplasplugins
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
-cd -
-
-
 install -d $RPM_BUILD_ROOT/etc/{X11/desktop/menus,pam.d,rc.d/init.d,security} \
     $RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
 
-touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
-
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers{,.orig}
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession{,.orig}
+
+touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
 install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
 install %{SOURCE6}	$RPM_BUILD_ROOT/etc/pam.d/kscreensaver
@@ -795,25 +782,13 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kwin*.so
 %{_libdir}/kde3/libkdeprint_part.la
 %attr(0755,root,root) %{_libdir}/kde3/libkdeprint_part.so
-# should be separated to subpackages
 %{_libdir}/kde3/libksplashdefault.la
-%attr(0755,root,root) %{_libdir}/kde3/libksplashdefault.so*
-# added as ksplashplugins
-%{_libdir}/kde3/libksplashmacclassic.la
-%attr(0755,root,root) %{_libdir}/kde3/libksplashmacclassic.so*
-%{_libdir}/kde3/libksplashstandard.la
-%attr(0755,root,root) %{_libdir}/kde3/libksplashstandard.so*
-%{_libdir}/kde3/libksplashxplike.la
-%attr(0755,root,root) %{_libdir}/kde3/libksplashxplike.so*
-#
+%attr(755,root,root) %{_libdir}/kde3/libksplashdefault.so*
 %{_libdir}/kde3/sysguard_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
 %dir %{_datadir}/apps/ksmserver
-%dir %{_datadir}/apps/ksplash
 %dir %{_datadir}/apps/ksplash/Themes
-# should be separated to subpackages
-%{_datadir}/apps/ksplash/Themes/*
-#
+%{_datadir}/apps/ksplash/Themes/Default
 %{_datadir}/apps/?[!acdefhiosw]*
 %{_datadir}/apps/kappfinder
 %{_datadir}/apps/kcm[!_c]*
@@ -839,9 +814,7 @@ fi
 %{_datadir}/locale/*
 %{_datadir}/services/kaccess.desktop
 %{_datadir}/services/kdeprint_part.desktop
-# should be separated to subpackages
 %{_datadir}/services/ksplash*.desktop
-#
 %{_datadir}/services/kwrited.desktop
 %{_datadir}/services/kxkb.desktop
 %{_datadir}/sounds
@@ -938,9 +911,9 @@ fi
 %defattr(644,root,root,755)                                                     
 %{_datadir}/apps/ksmserver/* 
 
-%files -n kde-splash-default                                                  
-%defattr(644,root,root,755)                                                     
-%{_datadir}/apps/ksplash/pics
+#%files -n kde-splash-default                                                  
+#%defattr(644,root,root,755)                                                     
+#%{_datadir}/apps/ksplash/pics
 
 %files common-filemanagement
 %defattr(644,root,root,755)
