@@ -252,19 +252,14 @@ fi
 #	ignored as such functionality is provided by applnk package and
 #	*.dekstop files from apropriate packages.
 %{_applnkdir}/Amusements/*.desktop
-#%{_applnkdir}/Development/*.desktop
-# This will go to "konqueror".
-#%{_applnkdir}/Network/WWW/*.desktop
 %{_applnkdir}/Office/Editors/*.desktop
 %{_applnkdir}/Settings/KDE
 %{_applnkdir}/System/[!k]*.desktop
 %{_applnkdir}/System/k[!o]*.desktop
-#%{_applnkdir}/System/ko[!n]*.desktop
 %{_applnkdir}/System/kon[!q]*.desktop
 %{_applnkdir}/System/ScreenSavers/*.desktop
 %{_applnkdir}/Utilities/klipper.desktop
 %{_applnkdir}/Utilities/kpager.desktop
-#%{_applnkdir}/Utilities/passwd.desktop
 %{_applnkdir}/Help.desktop
 %{_applnkdir}/Home.desktop
 %{_applnkdir}/KControl.desktop
