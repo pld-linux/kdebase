@@ -20,7 +20,7 @@
 +   r->setBackgroundMode(KBackgroundSettings::Flat);
 +   r->setColorA(QColor("#0000C8"));
 +   r->setColorB(_defColorB);
-+   r->setWallpaper(QString::fromLatin1("/etc/X11/kdm/pics/pldwallpaper.png"));
++   r->setWallpaper("pldwallpaper.png");
 +   r->setWallpaperMode(KBackgroundSettings::Scaled);
 +   r->setMultiWallpaperMode(_defMultiMode);
 +   m_slideShowRandom = _defMultiMode;

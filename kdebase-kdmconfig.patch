@@ -30,30 +30,10 @@
  {
      QString flogo = logo.isEmpty() ?
 -                    locate("data", QString::fromLatin1("kdm/pics/kdelogo.png") ) :
-+                    QString::fromLatin1("/etc/X11/kdm/pics/pldlogo.png") :
++                    locate("data", QString::fromLatin1("kdm/pics/pldlogo.png") ) :
                      logo;
      QPixmap p(flogo);
      if (p.isNull())
-@@ -396,7 +396,7 @@
- {
-     KImageIO::registerFormats();
-     QString fileName = KFileDialog::getOpenFileName(
--	locate("data", QString::fromLatin1("kdm/pics/") ),
-+	QString::fromLatin1("/etc/X11/kdm/pics/"),
- 	KImageIO::pattern());
-     if (!fileName.isEmpty())
- 	if (setLogo(fileName))
-@@ -453,9 +453,7 @@
- 
- 	// we gotta check if it is a non-local file and make a tmp copy at the hd.
- 	if(!url->isLocalFile()) {
--	    pixurl = "file:" +
--		     KGlobal::dirs()->resourceDirs("data").last() +
--		     "kdm/pics/" + url->fileName();
-+	    pixurl = "file:/etc/X11/kdm/pics/" + url->fileName();
- 	    KIO::NetAccess::copy(*url, pixurl);
- 	    istmp = true;
- 	} else {
 @@ -510,10 +508,10 @@
    config->setGroup("X-*-Greeter");
  
@@ -103,9 +83,9 @@
  
    config->setGroup("X-*-Core");
    readSD(sdrcombo, "Root");
---- kdebase-3.1/kcontrol/kdm/kdm-users.cpp.fixed	Fri Nov 29 03:55:12 2002
-+++ kdebase-3.1/kcontrol/kdm/kdm-users.cpp	Fri Nov 29 18:53:19 2002
-@@ -66,7 +66,7 @@
+--- kdebase-030610/kcontrol/kdm/kdm-users.cpp~	2003-06-10 15:44:58.000000000 +0200
++++ kdebase-030610/kcontrol/kdm/kdm-users.cpp	2003-06-10 15:50:51.000000000 +0200
+@@ -64,7 +64,7 @@
  
      // We assume that $kde_datadir/kdm exists, but better check for pics/ and pics/users,
      // and create them if necessary.
@@ -114,6 +94,15 @@
      m_notFirst = false;
      QDir testDir( m_userPixDir );
      if ( !testDir.exists() && !testDir.mkdir( testDir.absPath() )) {
+@@ -287,7 +287,7 @@
+ 
+ void KDMUsersWidget::slotUserButtonClicked()
+ {
+-    KFileDialog dlg(m_notFirst ? QString::null : m_userPixDir,
++    KFileDialog dlg(m_notFirst ? QString::null : KGlobal::dirs()->resourceDirs("data").last() + "kdm/pics/faces/",
+                     KImageIO::pattern( KImageIO::Reading ),
+                     this, 0, true);
+     dlg.setOperationMode( KFileDialog::Opening );
 --- kdebase-3.1/kcontrol/kdm/main.cpp.orig	Sun Oct 27 00:05:07 2002
 +++ kdebase-3.1/kcontrol/kdm/main.cpp	Thu Nov 21 02:51:19 2002
 @@ -92,7 +92,7 @@
@@ -167,7 +156,7 @@
  "ReverseBlending=false\n"
  "UseSHM=false\n"
 -"Wallpaper=default_blue.jpg\n"
-+"Wallpaper=/etc/X11/kdm/pics/pldwallpaper.png\n"
++"Wallpaper=pldwallpaper.png\n"
  "WallpaperList=\n"
  "WallpaperMode=Scaled\n";
  
@@ -330,7 +319,7 @@
      _logo = GetCfgQStr (C_LogoPixmap);
      if( _logo.isEmpty())
 -	_logo = locate("data", QString::fromLatin1("kdm/pics/kdelogo.png") );
-+	_logo = QString::fromLatin1("/etc/X11/kdm/pics/pldlogo.png");
++	_logo = locate("data", QString::fromLatin1("kdm/pics/pldlogo.png") );
  
      _showUsers = GetCfgInt (C_ShowUsers);
      _users = GetCfgQStrList (C_SelectedUsers);
@@ -355,23 +344,25 @@
      stsfile->setGroup( "PrevUser" );
      enam = QString::fromLocal8Bit( dname );
      if (kdmcfg->_preselUser != PRESEL_PREV)
---- kdebase-3.1/kdm/kfrontend/pics/Makefile.am.orig	Sun Feb 20 17:34:48 2000
-+++ kdebase-3.1/kdm/kfrontend/pics/Makefile.am	Fri Nov 29 18:38:41 2002
-@@ -1,5 +1,5 @@
- 
--picsdir = $(kde_datadir)/kdm/pics
-+picsdir = /etc/X11/kdm/pics
+--- kdebase-030610/kdm/kfrontend/pics/Makefile.am~	2000-02-20 17:34:48.000000000 +0100
++++ kdebase-030610/kdm/kfrontend/pics/Makefile.am	2003-06-10 16:16:10.000000000 +0200
+@@ -2,7 +2,7 @@
+ picsdir = $(kde_datadir)/kdm/pics
  pics_DATA = kdelogo.png kdeflower.png
  
- usersdir = $(picsdir)/users
---- kdebase-3.1/kdm/kfrontend/pics/Makefile.in.orig	Mon Nov 25 04:46:12 2002
-+++ kdebase-3.1/kdm/kfrontend/pics/Makefile.in	Fri Nov 29 18:38:16 2002
-@@ -286,7 +286,7 @@
- x_includes = @x_includes@
- x_libraries = @x_libraries@
+-usersdir = $(picsdir)/users
++usersdir = $(picsdir)/faces
+ users_DATA = default.png default2.png root.png root2.png
  
--picsdir = $(kde_datadir)/kdm/pics
-+picsdir = /etc/X11/kdm/pics
+ wall_DATA = kdm_bg.jpg
+--- kdebase-030610/kdm/kfrontend/pics/Makefile.in~	2003-06-10 00:38:43.000000000 +0200
++++ kdebase-030610/kdm/kfrontend/pics/Makefile.in	2003-06-10 16:20:20.000000000 +0200
+@@ -298,7 +298,7 @@
+ picsdir = $(kde_datadir)/kdm/pics
  pics_DATA = kdelogo.png kdeflower.png
  
- usersdir = $(picsdir)/users
+-usersdir = $(picsdir)/users
++usersdir = $(picsdir)/faces
+ users_DATA = default.png default2.png root.png root2.png
+ 
+ wall_DATA = kdm_bg.jpg
