@@ -13,7 +13,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define         _snap		030527
+%define         _snap		030602
 %define		_kdelibsminrel	0.%{_snap}.1
 
 %ifarch	sparc sparcv9 sparc64
@@ -36,8 +36,8 @@ Epoch:		8
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
+# Source0-md5:	870c19398bd9a134bf9e51ee48d0da94
 Source0:        http://team.pld.org.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	326edba970fd759561b603f162f1671b
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -1644,6 +1644,7 @@ fi
 
 %files kwmtheme -f kthememgr.lang
 %defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/kdeinstallktheme
 %attr(0755,root,root) %{_bindir}/kwmtheme
 %{_libdir}/kde3/kcm_themes.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_themes.so
