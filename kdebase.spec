@@ -13,7 +13,7 @@ Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Summary(pt_BR):	K Desktop Environment - arquivos básicos
 Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
-Summary(zh_CN): KDEºËÐÄ
+Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.4
 Release:	16
@@ -92,7 +92,7 @@ Prereq:		/usr/X11R6/bin/mkfontdir
 Requires:	applnk
 Requires:	kdelibs >= %{version}
 Requires:	kde-splash
-Requires:       kde-sdscreen
+Requires:	kde-sdscreen
 Requires:	konqueror >= %{version}
 Obsoletes:	%{name}-kcontrol
 Obsoletes:	%{name}-khelpcenter
@@ -235,8 +235,7 @@ It is KDE replacement for XDM. It manages local and remote X11
 displays.
 
 %description -n kdm -l pl
-Zamiennik XDM rodem z KDE. Zarz±dza lokalnymi i zdalnymi ekranami
-X11.
+Zamiennik XDM rodem z KDE. Zarz±dza lokalnymi i zdalnymi ekranami X11.
 
 %package -n konqueror
 Summary:	Konqueror - web browser and file manager
@@ -289,18 +288,18 @@ Default splash screen for KDE.
 Standardowy obrazek startowy KDE.
 
 %package -n kde-sdscreen-default
-Summary:        KDE "Logout" picture
-Summary(pl):    Obrazek okna "Wyloguj" KDE
-Group:          X11/Amusements
-Provides:       kde-sdscreen
-Obsoletes:      kde-sdscreen
+Summary:	KDE "Logout" picture
+Summary(pl):	Obrazek okna "Wyloguj" KDE
+Group:		X11/Amusements
+Provides:	kde-sdscreen
+Obsoletes:	kde-sdscreen
 Obsoletes:	kde-sdscreen-KDEGirl
 
 %description -n kde-sdscreen-default
 Default KDE "Logout" picture.
 
 %description -n kde-sdscreen-default -l pl
-Standardowy obrazek okna "Wyloguj" KDE. 
+Standardowy obrazek okna "Wyloguj" KDE.
 
 %prep
 %setup -q
@@ -397,7 +396,7 @@ bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
 # Patch kdmrc. It is generated so it can not be patched in %%prep.
 cd $RPM_BUILD_ROOT%{_datadir}/config/kdm
-patch -p0  < %{PATCH0}
+patch -p0 < %{PATCH0}
 cd -
 
 ALD=$RPM_BUILD_ROOT%{_applnkdir}
@@ -852,6 +851,6 @@ fi
 %defattr(644,root,root,755)
 %{_datadir}/apps/ksplash/*
 
-%files -n kde-sdscreen-default                                                  
-%defattr(644,root,root,755)                                                     
-%{_datadir}/apps/ksmserver/* 
+%files -n kde-sdscreen-default
+%defattr(644,root,root,755)
+%{_datadir}/apps/ksmserver/*
