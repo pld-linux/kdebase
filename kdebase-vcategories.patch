@@ -1,11 +1,3 @@
---- kdebase-030317/kappfinder/kappfinder.desktop~	Mon Mar  3 00:43:32 2003
-+++ kdebase-030317/kappfinder/kappfinder.desktop	Wed Mar 19 19:12:37 2003
-@@ -83,4 +83,4 @@
- GenericName[zh_TW]=選單更新工具
- GenericName[zu]=Ithuluzi Lokulungisa ngokusha Imenu
- X-DCOP-ServiceType=Multi
--Categories=Qt;KDE;System
-+Categories=Qt;KDE;Settings
 --- kdebase-030418/kcontrol/kcontrol/KControl.desktop~	2003-04-18 03:49:26.000000000 +0200
 +++ kdebase-030418/kcontrol/kcontrol/KControl.desktop	2003-04-18 16:48:48.000000000 +0200
 @@ -66,3 +66,5 @@
@@ -39,14 +31,6 @@
  Name[zu]=Usizo
  
 +Categories=Qt;KDE;Help
---- kdebase-030317/kmenuedit/kmenuedit.desktop~	Wed Jan 22 00:36:26 2003
-+++ kdebase-030317/kmenuedit/kmenuedit.desktop	Wed Mar 19 19:13:50 2003
-@@ -64,4 +64,4 @@
- Name[zu]=Umlungisi wemenu
- 
- X-DCOP-ServiceType=Unique
--Categories=Qt;KDE;System
-+Categories=Qt;KDE;Settings
 --- kdebase-030317/konqueror/konquerorsu.desktop~	Fri Feb 28 00:41:58 2003
 +++ kdebase-030317/konqueror/konquerorsu.desktop	Wed Mar 19 19:06:14 2003
 @@ -56,4 +56,4 @@
@@ -71,11 +55,3 @@
  Name[zu]=Umcingi we-web we-Konqueror
 -Categories=Qt;KDE;Network
 +Categories=Qt;KDE;Network;WWW
---- kdebase-030317/kpersonalizer/kpersonalizer.desktop~	Wed Jan 22 00:36:30 2003
-+++ kdebase-030317/kpersonalizer/kpersonalizer.desktop	Wed Mar 19 19:15:10 2003
-@@ -58,4 +58,4 @@
- X-KDE-autostart-after=kdesktop
- X-KDE-autostart-condition=kpersonalizerrc:General:FirstLogin:true
- X-DCOP-ServiceType=Multi
--Categories=Qt;KDE;System
-+Categories=Qt;KDE;Settings
