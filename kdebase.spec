@@ -67,7 +67,7 @@ BuildRequires:	libxml2-progs
 BuildRequires:	motif-devel
 BuildRequires:	openssl-devel
 BuildRequires:	pam-devel
-BuildRequires:	qt-devel >= 3.0.5
+BuildRequires:	qt-devel >= 3.1
 BuildRequires:	zlib-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
