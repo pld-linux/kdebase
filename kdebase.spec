@@ -343,10 +343,10 @@ Group:          X11/Applications
 Requires:       %{name} = %{version}-%{release}
 
 %description kicker
-KDE Panel - kicker
+KDE Panel - kicker.
 
 %description kicker -l pl
-Panel KDE - kicker
+Panel KDE - kicker.
 
 %package konsole
 Summary:	KDE Terminal Emulator
@@ -425,11 +425,12 @@ Wygaszacze ekranu desktopu KDE.
 Summary:	KDE Display Manager
 Summary(pl):	Zarz±dca ekranów KDE
 Group:		X11/Applications
+PreReq:		rc-scripts
+Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-kcontrol = %{version}-%{release}
 Requires:	%{name}-pam = %{version}-%{release}
 Requires:	sessreg
 Requires:	xinitrc
-Prereq:		/sbin/chkconfig
 Obsoletes:	gdm
 Obsoletes:	xdm
 Obsoletes:	%{name}-kdm
