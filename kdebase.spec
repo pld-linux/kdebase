@@ -1,12 +1,11 @@
 #
-# FIXME: missing /etc/pam.d/kdm
-# FIXME: infinite loop in symlinks to kdmrc
-# FIXME: brain-dead findwm script
-# FIXME: kdebase must be installed from X-Window system on local machine running with root privilages.
-#
+# TODO: When GUIStyle variable in kdmrc is set to any existing kde style
+#       (including kdm "Default" style), then ColorSheme=Default doesn't
+#       appear properly.
+# 
 
 %define		_state		unstable
-%define		_kdever		kde-3.1-rc3
+%define		_kdever		kde-3.1-rc4
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -18,7 +17,7 @@ Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
-Version:	3.0.99
+Version:	3.1
 Release:	1
 Epoch:		7
 License:	GPL
@@ -31,16 +30,15 @@ Source3:	kdm.init
 Source4:	kdm.Xsession
 Source6:	%{name}-kscreensaver.pam
 Source7:	%{name}-kdm.Xservers
-#Source8:	%{name}-kdm.findwm
-Patch0:		%{name}-kdmrc.patch
-Patch1:		%{name}-fix-mem-leak-in-kfind.patch
-Patch2:		%{name}-dont_merge_old_kdmrc.patch
-Patch3:		%{name}-glibc-2.2.2.patch
-Patch4:		%{name}-hardcoded_paths.patch
-Patch5:		%{name}-kdm.daemon_output.patch
-Patch6:		%{name}-kicker.patch
-Patch7:		%{name}-konsole_all.patch
-Patch8:		%{name}-nsplugins_dirs.patch
+Source8:	%{name}-kdm.findwm
+Patch0:		%{name}-fix-mem-leak-in-kfind.patch
+Patch1:		%{name}-fontdir.patch
+Patch2:		%{name}-glibc-2.2.2.patch
+Patch3:		%{name}-kdm.daemon_output.patch
+Patch4:		%{name}-kdmconfig.patch
+Patch5:		%{name}-kicker.patch
+Patch6:		%{name}-konsole_all.patch
+Patch7:		%{name}-nsplugins_dirs.patch
 %ifnarch sparc sparc64
 BuildRequires:	alsa-lib-devel
 %endif
@@ -100,7 +98,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 %define		_prefix 	/usr/X11R6
-%define		_fontdir 	/usr/share/fonts
+%define		_fontdir	/usr/share/fonts/misc
 %define		_htmldir	/usr/share/doc/kde/HTML
 %define		_sysconfdir	/etc/X11
 
@@ -252,6 +250,20 @@ KDE Help Center
 %description helpcenter -l pl
 Przegladarka plików pomocy dla KDE
 
+%package kate
+Summary:	KDE Advanced Text Editor
+Summary(pl):	Zaawansowany edytor tekstu dla KDE
+Group:		X11/Applications/Editors
+Requires:	%{name}-common-filemanagement = %{version}-%{release}
+Obsoletes:	%{name} < 3.0.9-2.4
+Obsoletes:	kate
+
+%description kate
+KDE advanced text editor. 
+
+%description kate -l pl
+Zaawansowany edytor tekstu dla KDE
+
 %package kcontrol
 Summary:	KDE Control Center
 Summary(pl):	Centrum Sterowania KDE
@@ -264,6 +276,50 @@ KDE Control Center
 
 %description kcontrol -l pl
 Narzêdzie do konfigurowania aplikacji KDE
+
+%package kfind
+Summary:	KDE Find Tool
+Summary(pl):	Narzêdzie do wyszukiwania plików dla KDE
+Group:		X11/Applications
+Requires:	%{name}-helpcenter = %{version}-%{release}
+Requires:	kdelibs >= %{version}
+Obsoletes:	%{name} < 3.0.9-2.4
+Obsoletes:	kfind
+
+%description kfind
+KDE Find Tool
+
+%description kfind -l pl
+Narzêdzie do wyszukiwania plików dla KDE
+
+%package konsole
+Summary:	KDE Terminal Emulator
+Summary(pl):	Emulator terminala dla KDE
+Group:		X11/Applications
+Requires:	%{name}-common-konsole = %{version}-%{release}
+Requires:	%{name}-kcontrol = %{version}-%{release}
+Obsoletes:	%{name} < 3.0.9-2.4
+Obsoletes:	konsole
+
+%description konsole
+KDE Terminal Emulator
+
+%description konsole -l pl
+Emulator terminala dla KDE
+
+%package kwrite
+Summary:	KDE Text Editor
+Summary(pl):	Edytor tekstu dla KDE
+Group:		X11/Applications/Editors
+Requires:	%{name}-helpcenter = %{version}-%{release}
+Obsoletes:	%{name} < 3.0.9-2.4
+Obsoletes:	kwrite
+
+%description kwrite
+KDE text editor with syntax highlighting. 
+
+%description kwrite -l pl
+Edytor tekstu z pod¶wietlaniem sk³adni dla KDE
 
 %package mailnews
 Summary:	KDE Mail and News Services
@@ -278,7 +334,6 @@ KDE Mail and News Services
 
 %description mailnews -l pl
 Obs³uga protoko³ów pocztowych i news dla KDE
-
 
 %package pam
 Summary:        KDE User Autentication 
@@ -323,20 +378,6 @@ KDE Wallpapers
 %description wallpapers -l pl
 Tapety pulpitu dla KDE.
 
-%package kate
-Summary:	KDE Advanced Text Editor
-Summary(pl):	Zaawansowany edytor tekstu dla KDE
-Group:		X11/Applications/Editors
-Requires:	%{name}-common-filemanagement = %{version}-%{release}
-Obsoletes:	%{name} < 3.0.9-2.4
-Obsoletes:	kate
-
-%description kate
-KDE advanced text editor. 
-
-%description kate -l pl
-Zaawansowany edytor tekstu dla KDE
-
 %package -n kdm
 Summary:	KDE Display Manager
 Summary(pl):	KDE Display Manager
@@ -358,21 +399,6 @@ displays.
 %description -n kdm -l pl
 Zamiennik XDM rodem z KDE.
 
-%package kfind
-Summary:	KDE Find Tool
-Summary(pl):	Narzêdzie do wyszukiwania plików dla KDE
-Group:		X11/Applications
-Requires:	%{name}-helpcenter = %{version}-%{release}
-Requires:	kdelibs >= %{version}
-Obsoletes:	%{name} < 3.0.9-2.4
-Obsoletes:	kfind
-
-%description kfind
-KDE Find Tool
-
-%description kfind -l pl
-Narzêdzie do wyszukiwania plików dla KDE
-
 %package -n konqueror
 Summary:	Konqueror - web browser and file manager
 Summary(pl):	Konqueror - przegl±darka WWW i mened¿er plików
@@ -390,38 +416,9 @@ Explorer.
 Konqueror jest przegl±dark± WWW i mene¿derem plików podobnym do MS
 Internet Explorer.
 
-%package konsole
-Summary:	KDE Terminal Emulator
-Summary(pl):	Emulator terminala dla KDE
-Group:		X11/Applications
-Requires:	%{name}-common-konsole = %{version}-%{release}
-Requires:	%{name}-kcontrol = %{version}-%{release}
-Obsoletes:	%{name} < 3.0.9-2.4
-Obsoletes:	konsole
-
-%description konsole
-KDE Terminal Emulator
-
-%description konsole -l pl
-Emulator terminala dla KDE
-
-%package kwrite
-Summary:	KDE Text Editor
-Summary(pl):	Edytor tekstu dla KDE
-Group:		X11/Applications/Editors
-Requires:	%{name}-helpcenter = %{version}-%{release}
-Obsoletes:	%{name} < 3.0.9-2.4
-Obsoletes:	kwrite
-
-%description kwrite
-KDE text editor with syntax highlighting. 
-
-%description kwrite -l pl
-Edytor tekstu z pod¶wietlaniem sk³adni dla KDE
-
 %prep
 %setup -q
-# patch0 is applied in %%install
+%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -429,7 +426,6 @@ Edytor tekstu z pod¶wietlaniem sk³adni dla KDE
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
-%patch8 -p1
 
 %build
 
@@ -451,32 +447,24 @@ export CPPFLAGS
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_applnkdir}/{Help,Network/WWW,Settings/KDE,System/Administration,Terminals} \
-	$RPM_BUILD_ROOT{/etc/{pam.d,security,rc.d/init.d,X11/kdm},%{_libdir}/kde3/plugins/konqueror}
+	$RPM_BUILD_ROOT{/etc/{pam.d,security,rc.d/init.d},%{_libdir}/kde3/plugins/konqueror}
 install -d $RPM_BUILD_ROOT
 
-%{__make} install \
- 	DESTDIR="$RPM_BUILD_ROOT" \
- 	fontdir="%{_fontdir}/misc"
+%{__make} install DESTDIR="$RPM_BUILD_ROOT"
 
-mv $RPM_BUILD_ROOT%{_datadir}/config/kdm/{Xaccess,Xreset,Xsetup,Xstartup,Xwilling,kdmrc,backgroundrc} \
-	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/
+rm -f $RPM_BUILD_ROOT%{_sysconfdir}/kdm/X{servers,session}
 
 install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
 install %{SOURCE6}	$RPM_BUILD_ROOT/etc/pam.d/kscreensaver
 install %{SOURCE3}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
-#install %{SOURCE8}	$RPM_BUILD_ROOT%{_bindir}/findwm
+install %{SOURCE8}	$RPM_BUILD_ROOT%{_bindir}/findwm
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
-cd $RPM_BUILD_ROOT%{_sysconfdir}/kdm
-patch -p0  < %{PATCH0}
-cd -
-
-ln -s %{_sysconfdir}/kdm/kdmrc $RPM_BUILD_ROOT%{_datadir}/config/kdm/kdmrc
-
-cp -r $RPM_BUILD_ROOT%{_datadir}/apps/{konqueror/dirtree,konqsidebartng/virtual_folders}
+cp $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop \
+    $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/remote
 
 ALD=$RPM_BUILD_ROOT%{_applnkdir}
 mv -f $ALD/{Help.desktop,Help}
@@ -484,6 +472,7 @@ mv -f $ALD/{Internet/konqbrowser.desktop,Network/WWW}
 mv -f $ALD/{Internet/keditbookmarks.desktop,Utilities}
 mv -f $ALD/{System/konsole.desktop,Terminals}
 mv -f $ALD/{System/More/{konquerorsu,konsolesu}.desktop,System/Administration}
+mv -f $ALD/{System/ScreenSavers,.hidden}
 mv -f $ALD/{Utilities/More/*.desktop,Utilities}
 mv -f $ALD/{Settings/[!K]*,Settings/KDE}
 mv -f $ALD/{System/kinfocenter.desktop,Settings}
@@ -547,24 +536,18 @@ done
 
 %post
 /sbin/ldconfig
-cd %{_fontdir}/misc
-umask 022
-%{_bindir}/mkfontdir
-if [ -x %{_bindir}/xftcache ]; then
-    %{_bindir}/xftcache .
+if [ -x %{_bindir}/findwm ]; then
+    %{_bindir}/findwm
 fi
 
 %postun
 /sbin/ldconfig
-cd %{_fontdir}/misc
-umask 022
-%{_bindir}/mkfontdir
-if [ -x %{_bindir}/xftcache ]; then
-    %{_bindir}/xftcache .
+if [ -x %{_bindir}/findwm ]; then
+    %{_bindir}/findwm
 fi
 
 %post common-konsole
-cd %{_fontdir}/misc
+cd %{_fontdir}
 umask 022
 %{_bindir}/mkfontdir
 if [ -x %{_bindir}/xftcache ]; then
@@ -572,7 +555,7 @@ if [ -x %{_bindir}/xftcache ]; then
 fi
 
 %postun common-konsole
-cd %{_fontdir}/misc
+cd %{_fontdir}
 umask 022
 %{_bindir}/mkfontdir
 if [ -x %{_bindir}/xftcache ]; then
@@ -596,6 +579,7 @@ if [ -f /var/lock/subsys/kdm ]; then
 	else
 	echo "Run \"/etc/rc.d/init.d/kdm start\" to start kdm." >&2
 fi
+%{_bindir}/findwm
 
 %preun -n kdm
 if [ "$1" = "0" ]; then
@@ -765,11 +749,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/sounds
 %{_datadir}/templates
 
-# Font 9x15.pcf.gz conflicts with file from package XFree86-fonts
-#%{_fontdir}/misc/9x15.pcf.gz
-%{_fontdir}/misc/cursor_large*.gz
-%{_fontdir}/misc/cursor_small*.gz
-
 %{_applnkdir}/Home.desktop
 %{_applnkdir}/.hidden/[kms][!c]*
 %{_applnkdir}/System/k[!o]*.desktop
@@ -888,7 +867,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files common-konsole
 %defattr(644,root,root,755)
-%{_fontdir}/misc/console*.gz
+%{_fontdir}/console*.gz
 %{_datadir}/apps/konsole
 %{_pixmapsdir}/[!l]*/*/apps/bell.png
 %{_pixmapsdir}/*/*/apps/key_bindings.png
@@ -905,6 +884,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/man.protocol
 %{_applnkdir}/Help/Help.desktop
 %{_pixmapsdir}/*/*/apps/khelpcenter.png
+
+%files kate -f kate.lang
+%defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/kate
+%attr(0755,root,root) %{_libdir}/kate.??
+%attr(0755,root,root) %{_libdir}/libkateinterfaces.??
+%{_datadir}/apps/kate
+%{_datadir}/servicetypes/kateplugin.desktop
+%{_applnkdir}/Editors/kate.desktop
+%{_pixmapsdir}/*/*/apps/kate.png
 
 %files kcontrol
 %defattr(644,root,root,755)
@@ -934,6 +923,35 @@ rm -rf $RPM_BUILD_ROOT
 %lang(en) %{_htmldir}/en/kcontrol/index.*
 %lang(en) %{_htmldir}/en/kcontrol/screenshot.png
 
+%files kfind -f kfind.lang
+%defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/kfind
+%{_applnkdir}/Kfind.desktop
+%{_pixmapsdir}/*/*/apps/kfind.png
+
+%files konsole -f konsole.lang
+%defattr(644,root,root,755)
+%doc konsole/README*
+%attr(0755,root,root) %{_bindir}/konsole
+%attr(6755,root,root) %{_bindir}/konsole_grantpty
+%attr(0755,root,root) %{_libdir}/konsole.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_konsole.??
+%{_datadir}/config/konsolerc
+%dir %{_applnkdir}/.hidden
+%{_applnkdir}/.hidden/kcmkonsole.desktop
+%{_applnkdir}/System/konsolesu.desktop
+%{_applnkdir}/System/Administration/konsolesu.desktop
+%{_applnkdir}/Terminals/*.desktop
+%{_pixmapsdir}/*/*/apps/konsole.png
+
+%files kwrite -f kwrite.lang
+%defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/kwrite
+%attr(0755,root,root) %{_libdir}/kwrite.??
+%{_datadir}/apps/kwrite
+%{_applnkdir}/Editors/kwrite.desktop
+%{_pixmapsdir}/*/*/apps/kwrite.png
+
 %files mailnews
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_libdir}/kde3/kio_imap4.??
@@ -962,7 +980,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kscreensaver
 %attr(0755,root,root) %{_libdir}/kde3/kcm_screensaver.??
 %{_applnkdir}/Settings/KDE/LookNFeel/screensaver.desktop
-%{_applnkdir}/System/ScreenSavers
+%{_applnkdir}/.hidden/ScreenSavers
 %{_pixmapsdir}/*/*/apps/kscreensaver.png
 
 %files wallpapers
@@ -970,20 +988,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_bindir}/krootimage
 %{_datadir}/wallpapers
 
-%files kate -f kate.lang
-%defattr(644,root,root,755)
-%attr(0755,root,root) %{_bindir}/kate
-%attr(0755,root,root) %{_libdir}/kate.??
-%attr(0755,root,root) %{_libdir}/libkateinterfaces.??
-%{_datadir}/apps/kate
-%{_datadir}/servicetypes/kateplugin.desktop
-%{_applnkdir}/Editors/kate.desktop
-%{_pixmapsdir}/*/*/apps/kate.png
-
 %files -n kdm -f kdm.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/chooser
-#%attr(0755,root,root) %{_bindir}/findwm
+%attr(0755,root,root) %{_bindir}/findwm
 %attr(0755,root,root) %{_bindir}/kdm*
 %attr(0755,root,root) %{_libdir}/kde3/kcm_kdm.??
 %dir %{_sysconfdir}/kdm
@@ -998,16 +1006,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/kdm/Xaccess
 %{_sysconfdir}/kdm/Xservers
 %{_datadir}/apps/kdm
-%dir %{_datadir}/config/kdm
-%{_datadir}/config/kdm/kdmrc
 %{_pixmapsdir}/*/*/apps/kdmconfig.png
 %{_applnkdir}/Settings/KDE/System/kdm.desktop
-
-%files kfind -f kfind.lang
-%defattr(644,root,root,755)
-%attr(0755,root,root) %{_bindir}/kfind
-%{_applnkdir}/Kfind.desktop
-%{_pixmapsdir}/*/*/apps/kfind.png
 
 %files -n konqueror -f konqueror.lang
 %defattr(644,root,root,755)
@@ -1136,26 +1136,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_pixmapsdir}/*/*/apps/personal.png
 %{_pixmapsdir}/*/*/apps/proxy.png
 %{_pixmapsdir}/*/*/apps/stylesheet.png
-
-%files konsole -f konsole.lang
-%defattr(644,root,root,755)
-%doc konsole/README*
-%attr(0755,root,root) %{_bindir}/konsole
-%attr(6755,root,root) %{_bindir}/konsole_grantpty
-%attr(0755,root,root) %{_libdir}/konsole.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_konsole.??
-%{_datadir}/config/konsolerc
-%dir %{_applnkdir}/.hidden
-%{_applnkdir}/.hidden/kcmkonsole.desktop
-%{_applnkdir}/System/konsolesu.desktop
-%{_applnkdir}/System/Administration/konsolesu.desktop
-%{_applnkdir}/Terminals/*.desktop
-%{_pixmapsdir}/*/*/apps/konsole.png
-
-%files kwrite -f kwrite.lang
-%defattr(644,root,root,755)
-%attr(0755,root,root) %{_bindir}/kwrite
-%attr(0755,root,root) %{_libdir}/kwrite.??
-%{_datadir}/apps/kwrite
-%{_applnkdir}/Editors/kwrite.desktop
-%{_pixmapsdir}/*/*/apps/kwrite.png
