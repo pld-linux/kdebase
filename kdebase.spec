@@ -20,7 +20,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	2
+Release:	3
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -1009,51 +1009,63 @@ cd -
 
 %{__sed} -i -e 's/Categories=.*/Categories=Audio;Mixer;/' \
 	kappfinder/apps/Multimedia/alsamixergui.desktop
-
 %{__sed} -i -e 's/Categories=.*/Categories=Audio;Recorder;/' \
 	kappfinder/apps/Multimedia/rezound.desktop \
 	kappfinder/apps/Multimedia/sweep.desktop \
 	kappfinder/apps/Multimedia/audacity.desktop
-
 %{__sed} -i -e 's/Categories=.*/Categories=Office;PDA;/' \
 	kappfinder/apps/Utilities/xgnokii.desktop
-
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;TerminalEmulator;/' \
-./konsole/konsole-script.desktop \
-./konsole/konsole.desktop
-
+	konsole/konsole-script.desktop
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;TerminalEmulator;/' \
+	-e 's/Terminal=0/Terminal=false/' \
+	konsole/konsole.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Amusement;/' \
 	ksplashml/ksplash.desktop
-
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;System;Monitor;/' \
+	-e 's/Terminal=0/Terminal=false/' \
 	ksysguard/gui/ksysguard.desktop
-
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Settings;/' \
 	kcontrol/kcontrol/KControl.desktop
-
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;X-KDE-settings-desktop;/' \
 	kcontrol/konq/desktoppath.desktop
-
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;X-Docklet;/' \
 	kcontrol/randr/krandrtray.desktop
-
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;X-Help;/' \
 	-e 's/Name=/Name=KDE/g' -e s'/Name[pl]=Pomoc/Name[pl]=Pomoc KDE/g' \
-	-e 's/OnlyShowIn=KDE;//g' \
+	-e 's/Terminal=0/Terminal=false/' -e 's/OnlyShowIn=KDE;//g' \
 	khelpcenter/Help.desktop
-
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Utility;/' \
-	-e 's/OnlyShowIn=KDE;//g' \
+	-e 's/Terminal=0/Terminal=false/' -e 's/OnlyShowIn=KDE;//g' \
 	kfind/Kfind.desktop
-
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;SystemSetup;/' \
 	konqueror/konquerorsu.desktop
-
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;SystemSetup;/' \
+	-e 's/Terminal=0/Terminal=false/' \
 	konsole/konsolesu.desktop
-
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Network;WebBrowser;/' \
 	konqueror/konqbrowser.desktop
+%{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
+	khotkeys/khotkeys.desktop
+%{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
+	kioslave/cgi/kcmcgi/kcmcgi.desktop
+%{__sed} -i -e 's/Terminal=0/Terminal=false/' \
+	kappfinder/kappfinder.desktop \
+	kate/data/kate.desktop \
+	kdeprint/kdeprintfax/kdeprintfax.desktop \
+	kcontrol/kfontinst/viewpart/kfontview.desktop \
+	kdeprint/kjobviewer/kjobviewer.desktop \
+	klipper/klipper.desktop \
+	kpager/kpager.desktop \
+	kpersonalizer/kpersonalizer.desktop \
+	ktip/ktip.desktop \
+	kate/data/kwrite.desktop \
+	konqueror/Home.desktop \
+	3.3.0/konqueror/kfmclient.desktop \
+	konqueror/kfmclient_dir.desktop \
+	konqueror/kfmclient_html.desktop \
+	konqueror/kfmclient_war.desktop
+
 
 %build
 cp /usr/share/automake/config.sub admin
