@@ -5,9 +5,6 @@
 # * Fixing 48x48 pld applnk-pixmaps scaling (konqsidebar, kicker)
 # * Separating kicker, kwin, wtf
 #
-# Conditional build:
-# _without_alsa 	- disable alsa
-#
 
 %define         _state          snapshots
 %define         _ver		3.2
@@ -24,7 +21,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.%{_snap}.0.1
+Release:	0.%{_snap}.1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -59,7 +56,8 @@ Patch12:	%{name}-gtkrc.patch
 # fix it if You like it
 #Patch13:	%{name}-krdb.patch
 Patch14:	%{name}-pldcredits.patch
-Patch15:	%{name}-searchprov.patch
+# doesn't work (Makefile.in should be patched too)
+#Patch15:	%{name}-searchprov.patch
 # rh stuff
 Patch16:	%{name}-kicker_nodesktop.patch
 Patch17:        %{name}-xfsreload.patch
@@ -69,9 +67,6 @@ Patch19:	%{name}-vroot.patch
 #Patch20:	%{name}-konsolepropfontwidth3.patch
 #
 Patch21:	%{name}-vcategories.patch 
-%ifnarch sparc sparc64
-%{!?_without_alsa:BuildRequires: alsa-lib-devel}
-%endif
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	arts-devel >= 1.1
@@ -481,7 +476,8 @@ Internet Explorer.
 # fix it if You like it 
 #%patch13 -p1
 %patch14 -p1
-%patch15 -p1
+# doesn't work (patches Makefile.am only!)
+#%patch15 -p1
 %patch16 -p1
 %patch17 -p1
 %patch18 -p1
@@ -505,24 +501,15 @@ for plik in `find ./ -name *.desktop` ; do
 	fi
 done
 
-rm -f kcontrol/ebrowsing/plugins/ikws/searchproviders/{ircpld,specs}.desktop
-cp {%{SOURCE11},%{SOURCE12}} kcontrol/ebrowsing/plugins/ikws/searchproviders/
-
 %configure \
-	--with-pam=kdm \
-	--without-ldap \
-	--without-shadow \
-	--disable-shadow \
-	--with-xdmdir="%{_sysconfdir}/kdm" \
-	--enable-final \
-	--with%{?_without_alsa:out}-alsa
-
+	--with-pam=kdm
+	
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install DESTDIR="$RPM_BUILD_ROOT"
+%{__make} install DESTDIR=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT/etc/{pam.d,rc.d/init.d,security} \
     $RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
@@ -540,6 +527,9 @@ install %{SOURCE7}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
 install %{SOURCE9}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldlogo.png
 install %{SOURCE10}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldwallpaper.png
 
+install {%{SOURCE11},%{SOURCE12}} \
+    $RPM_BUILD_ROOT%{_datadir}/services/searchproviders
+
 cp $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop \
     $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/remote
 
@@ -553,11 +543,6 @@ mv -f $ALD/{System/ScreenSavers,.hidden}
 
 install %{SOURCE13} $ALD/Settings/KDE/Components
 install %{SOURCE14} %{SOURCE15} $RPM_BUILD_ROOT%{_vfinfodir}
-
-#for f in `find $ALD -name '.directory' -o -name '*.dekstop'` ; do
-#	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
-#	mv -f $f{.tmp,}
-#done
 
 > %{name}.lang
 
@@ -692,6 +677,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kwrited.so
 %{_libdir}/libksgrd.la
 %attr(0755,root,root) %{_libdir}/libksgrd.so.*
+%{_libdir}/libksplashthemes.la
+%attr(0755,root,root) %{_libdir}/libksplashthemes.so.*
 #%{_libdir}/libsensordisplays.la
 #%attr(0755,root,root) %{_libdir}/libsensordisplays.so.*
 %{_libdir}/libtask*.la
@@ -772,6 +759,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kwin*.so
 %{_libdir}/kde3/libkdeprint_part.la
 %attr(0755,root,root) %{_libdir}/kde3/libkdeprint_part.so
+%{_libdir}/kde3/libksplashdefault.la
+%attr(0755,root,root) %{_libdir}/kde3/libksplashdefault.so*
 %{_libdir}/kde3/sysguard_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
 %dir %{_datadir}/apps/ksmserver
@@ -801,6 +790,7 @@ fi
 %{_datadir}/locale/*
 %{_datadir}/services/kaccess.desktop
 %{_datadir}/services/kdeprint_part.desktop
+%{_datadir}/services/ksplash*.desktop
 %{_datadir}/services/kwrited.desktop
 %{_datadir}/services/kxkb.desktop
 %{_datadir}/sounds
@@ -875,11 +865,13 @@ fi
 %{_includedir}/kwin/*.h
 %{_includedir}/kate
 %{_includedir}/ksgrd
+%{_includedir}/ksplash
 %{_libdir}/libkickermain.so
 %{_libdir}/libkmultitabbar.so
 %{_libdir}/libkonq.so
 %{_libdir}/libkonqsidebarplugin.so
 %{_libdir}/libksgrd.so
+%{_libdir}/libksplashthemes.so
 %{_libdir}/libnsplugin.so
 #%{_libdir}/libsensordisplays.so
 %{_libdir}/libtask*.so
@@ -1227,6 +1219,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kio_fish.so
 %{_libdir}/kde3/kio_floppy.la
 %attr(0755,root,root) %{_libdir}/kde3/kio_floppy.so
+%{_libdir}/kde3/kio_ldap.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_ldap.so
 %{_libdir}/kde3/kio_mac.la
 %attr(0755,root,root) %{_libdir}/kde3/kio_mac.so
 %{_libdir}/kde3/kio_nfs.la
@@ -1267,6 +1261,7 @@ fi
 %{_datadir}/services/fish.protocol
 %{_datadir}/services/floppy.protocol
 %{_datadir}/services/gzip.protocol
+%{_datadir}/services/ldap.protocol
 %{_datadir}/services/mac.protocol
 %{_datadir}/services/nfs.protocol
 %{_datadir}/services/print.protocol
