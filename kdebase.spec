@@ -13,6 +13,10 @@
 %define         _state          stable
 %define         _ver		3.1.1a
 
+%ifarch	sparc sparcv9 sparc64
+%define		_without_alsa	1
+%endif
+
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
 Summary(ja):	KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ - ´ðËÜ¥Õ¥¡¥¤¥ë
@@ -55,10 +59,8 @@ Patch14:        %{name}-xfsreload.patch
 #
 Patch15:	%{name}-kdm_kgreeter.patch
 Patch16:	%{name}-screensavers.patch
-
-%ifnarch sparc sparc64
-%{!?_without_alsa:BuildRequires: alsa-lib-devel}
-%endif
+%{?_without_alsa:BuildConflicts:	alsa-driver-devel}
+%{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	arts-devel >= 1.1
@@ -85,6 +87,7 @@ BuildRequires:	libvorbis-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	motif-devel
+BuildRequires:	openldap-devel
 BuildRequires:	openssl-devel >= 0.9.6i
 BuildRequires:	pam-devel
 BuildRequires:	qt-devel >= 3.1
@@ -468,13 +471,8 @@ done
 CPPFLAGS="-I%{_includedir}"
 export CPPFLAGS
 %configure \
-	--with-pam=kdm \
-	--without-ldap \
-	--without-shadow \
-	--disable-shadow \
-	--with-xdmdir="%{_sysconfdir}/kdm" \
 	--enable-final \
-	--with%{?_without_alsa:out}-alsa
+	--with-pam=kdm
 
 %{__make}
 
