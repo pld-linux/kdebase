@@ -2,7 +2,7 @@ Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
 Version:	2.1.1
-Release:	1
+Release:	2
 Epoch:		6
 License:	GPL
 Group:		X11/Applications
@@ -164,13 +164,21 @@ Wygaszacze ekranu desktopu KDE.
 %patch6 -p1
 
 %build
-libtoolize --copy --force
-aclocal
-autoconf
+#libtoolize --copy --force
+#aclocal
+#autoconf
+#automake -a -c
+#perl admin/am_edit
+#autoconf
+
+# workaround -- don't allow to regenerate Makefile.xx
+find -name Makefile.am -exec touch {} \;
+find -name Makefile.in -exec touch {} \;
+
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
-CPPFLAGS="-I/usr/X11R6/include"
+CPPFLAGS="-I%{_includedir}"
 export CPPFLAGS
 %configure \
 	--with-pam=kdm \
