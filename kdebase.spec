@@ -27,7 +27,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.1
+Release:	0.2
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -914,13 +914,15 @@ done
 
 > core.lang
 programs="drkonqi kcmcolors kcmfonts kcmkded kcmlocale kcmprintmgr \
-	  kcontrol kdeprint kdeprint_part kdebugdialog kdesu kdesud \
+	  kdeprint kdeprint_part kdebugdialog kdesu kdesud \
 	  khelpcenter kio_man kprinter 	krdb"
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> core.lang
 done
 %find_lang kcmstyle; cat kcmstyle.lang >> core.lang
+%find_lang kcontrol --with-kde
+grep -v '/arts\|/background\|/bell\|/cache\|/clock\|/cookies\|/crypto\|/desktop\|/ebrowsing\|/email\|/energy\|/filemanager\|/filetypes\|/icons\|/kcmaccess\|/kcmcss\|/kcmfontinst\|/kcmkonsole\|/kcmlaunch\|/kcmnotify\|/kcmsmserver\|/kcmtaskbar\|/keyboard\|/keys\|/khtml\|/kwindecoration\|/mouse\|/netpref\|/panel\|/passwords\|/proxy\|/screensaver\|/smb\|/spellchecking\|/useragent\|/windowmanagement' kcontrol.lang >> core.lang
 
 > %{name}.lang
 programs="arts background bell desktop energy fontinst kaccess kcmaccess \
@@ -1481,7 +1483,7 @@ fi
 %attr(755,root,root) %{_bindir}/kcontrol
 %attr(755,root,root) %{_bindir}/kdebugdialog
 %attr(755,root,root) %{_bindir}/kdesu
-%attr(755,root,root) %{_bindir}/kdesud
+%attr(2755,root,nogroup) %{_bindir}/kdesud
 %attr(755,root,root) %{_bindir}/khelpcenter
 %attr(755,root,root) %{_bindir}/kprinter
 # KDE-style (lt_)dlopenable binaries
