@@ -3,10 +3,12 @@
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
 Summary(ja):	KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ - ´ğËÜ¥Õ¥¡¥¤¥ë
+Summary(ko):	KDE - ±âº» ÆÄÀÏ
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Summary(pt_BR):	K Desktop Environment - arquivos básicos
 Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
+Summary(zh_CN): KDEºËĞÄ
 Name:		kdebase
 Version:	3.0.3
 Release:	12
