@@ -182,7 +182,7 @@ Summary:	Include static libraries to develop KDE applications
 Summary(pl):	Statyczne biblioteki KDE
 Summary(pt_BR):	Bibliotecas estáticas do kdebase
 Group:		X11/Development/Libraries
-Requires:	kdelibs-devel = %{version}-%{release}
+Requires:	kdelibs-devel = %{version}
 
 %description static
 This package contains KDE static libraries.
