@@ -998,7 +998,7 @@ fi
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kappfinder
 %{_datadir}/apps/kappfinder
-%{_desktopdir}/kapfinder.desktop
+%{_desktopdir}/kappfinder.desktop
 %{_pixmapsdir}/*/*/apps/kappfinder.png
 
 %files kate -f kate.lang
