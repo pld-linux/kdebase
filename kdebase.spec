@@ -12,7 +12,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.4
-Release:	7
+Release:	8
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -38,6 +38,8 @@ Patch10:	%{name}-konsoleF1.patch
 Patch11:	%{name}-linebreaks.patch
 Patch12:	%{name}-ptsname.patch
 Patch13:	%{name}-no_versioned_modules.patch
+Patch14:	%{name}-desktop.patch
+Patch15:	%{name}-dont_overwrite_our_desktops.patch
 Patch20:	%{name}-fix-klipper-bug-41137.patch
 Patch21:	%{name}-fix-konsole-bug-37890.patch
 Patch22:	%{name}-fix-mem-leak-in-kdesktop.patch
@@ -310,6 +312,8 @@ Standardowy obrazek okna "Wyloguj" KDE.
 %patch11 -p1
 %patch12 -p1
 %patch13 -p1
+%patch14 -p1
+%patch15 -p1
 
 %patch20 -p1
 %patch21 -p1
@@ -344,6 +348,22 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/{Amusements,Editors,Help,Network/WWW,Uti
 %{__make} install \
  	DESTDIR="$RPM_BUILD_ROOT" \
  	fontdir="%{_fontdir}/misc"
+
+# remove icons corresponding to used by applnk
+rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/apps/package_{applications,editors,edutainment,games{,arcade,board,card,strategy},graphics,multimedia,network,settings,system,toys,utilities,wordprocessing}.png
+
+# copy icons to toplevel %%{_pixmapsdir}
+cp -af $RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/{access,agent,bell,colors,cookie,date,designer,email,energy,energy_star,enhanced_browsing,filetypes,fonts,go,gvim,help_index,hwinfo,icons,input_devices_settings}.png \
+	$RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/{kaddressbook,kappfinder,kate,kcmdevices,kcmfontinst,kcmkwm,kcmmemory,kcmmidi,kcmpartitions,kcmpci,kcmprocessor,kcmscsi,kcmsystem,kcontrol,key_bindings,keyboard}.png \
+	$RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/{kfind,kfm,kfm_home,khelpcenter,klipper,kmenuedit,knotify,konqueror,konsole,kpager,kscreensaver,ksysguard,kthememgr,ktip,kwrite,licq,locale,looknfeel,mouse}.png \
+	$RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/{multimedia,password,personal,proxy,samba,style,stylesheet,usb,window_list}.png \
+	$RPM_BUILD_ROOT%{_pixmapsdir}	
+
+rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{emacs,gimp,mozilla,netscape,opera,xedit,xemacs,xmag,xv}.png
+rm -rf $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{access,agent,bell,colors,cookie,date,designer,email,energy,energy_star,enhanced_browsing,filetypes,fonts,go,gvim,help_index,hwinfo,icons,input_devices_settings}.png \
+	$RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{kaddressbook,kappfinder,kate,kcmdevices,kcmfontinst,kcmkwm,kcmmemory,kcmmidi,kcmpartitions,kcmpci,kcmprocessor,kcmscsi,kcmsystem,kcontrol,key_bindings,keyboard}.png \
+	$RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{kfind,kfm,kfm_home,khelpcenter,klipper,kmenuedit,knotify,konqueror,konsole,kpager,kscreensaver,ksysguard,kthememgr,ktip,kwrite,licq,locale,looknfeel,mouse}.png \
+	$RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{multimedia,password,personal,proxy,samba,style,stylesheet,usb,window_list}.png \
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
@@ -682,12 +702,17 @@ fi
 %{_datadir}/servicetypes/[fstu]*.desktop
 
 %{_pixmapsdir}/*/*/apps/[abcdefghilmnprstuwx]*
+%{_pixmapsdir}/[abcdefghilmnprstuwx]*
 %{_pixmapsdir}/*/*/apps/k[acefhijlmnptwm]*
-%{_pixmapsdir}/*/*/apps/konsole.png
-%{_pixmapsdir}/*/*/apps/ksysguard.png
-%{_pixmapsdir}/*/*/apps/kdisk*
+%{_pixmapsdir}/k[acefhijlmnptwm]*
+#%{_pixmapsdir}/*/*/apps/konsole.png
+%{_pixmapsdir}/konsole.png
+#%{_pixmapsdir}/*/*/apps/ksysguard.png
+%{_pixmapsdir}/ksysguard.png
+#%{_pixmapsdir}/*/*/apps/kdisk*
+%{_pixmapsdir}/kdisk*
 %{_pixmapsdir}/*/*/apps/kdeprint*
-%{_pixmapsdir}/*/*/apps/opera*
+#%{_pixmapsdir}/*/*/apps/opera*
 
 %{_pixmapsdir}/*/*/actions/*
 %{_pixmapsdir}/*/*/devices/*
@@ -784,7 +809,8 @@ fi
 %{_datadir}/servicetypes/konqaboutpage.desktop
 %{_datadir}/servicetypes/konqpopupmenuplugin.desktop
 
-%{_pixmapsdir}/*/*/apps/konqueror.png
+#%{_pixmapsdir}/*/*/apps/konqueror.png
+%{_pixmapsdir}/konqueror.png
 
 %files screensavers -f libkscreensaver.lang
 %defattr(644,root,root,755)
@@ -792,7 +818,8 @@ fi
 %{_applnkdir}/Settings/KDE/LookNFeel/screensaver.desktop
 %{_applnkdir}/System/ScreenSavers/*
 
-%{_pixmapsdir}/*/*/apps/kscreensaver.png
+#%{_pixmapsdir}/*/*/apps/kscreensaver.png
+%{_pixmapsdir}/kscreensaver.png
 
 %files -n kde-splash-default
 %defattr(644,root,root,755)
