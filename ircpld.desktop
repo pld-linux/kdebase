@@ -1,8 +1,0 @@
-[Desktop Entry]
-Charset=
-Hidden=false
-Keys=faq,ircpld
-Name=PLD FAQ search
-Query=http://irc.pld.org.pl/?sub=search&regexp=\\{@}
-ServiceTypes=SearchProvider
-Type=Service
