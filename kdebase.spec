@@ -39,7 +39,7 @@ Patch5:		%{name}-hardcoded_paths.patch
 Patch6:		%{name}-kdm.daemon_output.patch
 Patch7:		%{name}-startkde.patch
 Patch8:		%{name}-dont_merge_old_kdmrc.patch
-%ifnarch sparc sparc64 ppc
+%ifnarch sparc sparc64
 BuildRequires:	alsa-lib-devel
 %endif
 BuildRequires:	OpenGL-devel
