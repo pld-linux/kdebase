@@ -1720,7 +1720,7 @@ do
 done
 
 
-:> i18n.lang
+echo "%defattr(644,root,root,755)" > i18n.lang
 
 for i in $RPM_BUILD_ROOT%{_datadir}/locale/* ;
 do
