@@ -96,7 +96,7 @@ BuildRequires:	libvorbis-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	motif-devel
-BuildRequires:	openssl-devel >= 0.9.7c
+BuildRequires:	openssl-devel >= 0.9.7d
 %{?with_ldap:BuildRequires:	openldap-devel}
 BuildRequires:	pam-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
