@@ -59,17 +59,17 @@
    posCenterRadio->setChecked( true );
    slotPosRadioClicked( 0 );
    setLogo( "" );
---- kdebase-030527/kcontrol/kdm/kdm-font.cpp~	2003-05-20 00:37:03.000000000 +0200
-+++ kdebase-030527/kcontrol/kdm/kdm-font.cpp	2003-05-27 12:17:59.000000000 +0200
-@@ -110,8 +110,8 @@
+--- kdebase-030618/kcontrol/kdm/kdm-font.cpp~	2003-06-17 00:35:06.000000000 +0200
++++ kdebase-030618/kcontrol/kdm/kdm-font.cpp	2003-06-18 12:03:33.000000000 +0200
+@@ -87,8 +87,8 @@
  
  void KDMFontWidget::set_def()
  {
--  stdfont = QFont("helvetica", 10);
--  failfont = QFont("helvetica", 10, QFont::Bold);
-+  stdfont = QFont("helvetica", 11);
-+  failfont = QFont("helvetica", 11, QFont::Bold);
-   greetfont = QFont("charter", 20);
+-  stdFontChooser->setFont(QFont("helvetica", 10));
+-  failFontChooser->setFont(QFont("helvetica", 10, QFont::Bold));
++  stdFontChooser->setFont(QFont("helvetica", 11));
++  failFontChooser->setFont(QFont("helvetica", 11, QFont::Bold));
+   greetingFontChooser->setFont(QFont("charter", 20));
  }
  
 --- kdebase-030418/kcontrol/kdm/kdm-sess.cpp~	2003-04-04 00:37:58.000000000 +0200
