@@ -13,7 +13,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define         _snap		030518
+%define         _snap		030527
 %define		_kdelibsminrel	0.%{_snap}.1
 
 %ifarch	sparc sparcv9 sparc64
@@ -37,7 +37,7 @@ License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:        http://team.pld.org.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	4cb4dbab6dcedb438da5d4678e558692
+# Source0-md5:	326edba970fd759561b603f162f1671b
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -62,7 +62,7 @@ Patch11:        %{name}-kcm_fonts.patch
 Patch12:	%{name}-gtkrc.patch
 Patch14:	%{name}-pldcredits.patch
 Patch16:	%{name}-kicker_nodesktop.patch
-Patch17:        %{name}-xfsreload.patch
+#Patch17:        %{name}-xfsreload.patch
 Patch18:	%{name}-kdesukonsole.patch
 Patch19:	%{name}-vroot.patch
 Patch21:	%{name}-vcategories.patch
@@ -274,6 +274,33 @@ Default KDE "Logout" picture.
 
 %description -n kde-sdscreen-default -l pl
 Standardowy obrazek okna "Wyloguj" KDE.
+
+%package -n kde-splashplugin-Redmond
+Summary:	ksplash plugin Redmond	
+Summary(pl):	Wtyczka ksplash Redmond
+Group:		X11/Amusements
+Provides:	ksplashplugin
+Requires:	%{name} = %{version}-%{release}
+Obsoletes:	kde-splashplugin-XpLike
+
+%description -n kde-splashplugin-Redmond
+ksplash plugin Redmond.
+
+%description -n kde-splashplugin-Redmond -l pl
+Wtyczka ksplash Redmond.
+
+%package -n kde-splashplugin-Standard
+Summary:	ksplash plugin Standard
+Summary(pl):	Wtyczka ksplash Standard
+Group:		X11/Amusements
+Provides:	ksplashplugin
+Requires:	%{name} = %{version}-%{release}
+
+%description -n kde-splashplugin-Standard
+ksplash plugin Standard.
+
+%description -n kde-splashplugin-Standard -l pl
+Wtyczka ksplash Standard.
 
 %package common-filemanagement
 Summary:	Common Files for kate and konqueror
@@ -682,7 +709,7 @@ Internet Explorer.
 %patch12 -p1
 %patch14 -p1
 %patch16 -p1
-%patch17 -p1
+#%patch17 -p1
 %patch18 -p1
 %patch19 -p1
 %patch21 -p1
@@ -707,18 +734,10 @@ done
 
 %{__make}
 
-cd ksplashml
-%{__make}
-cd -
-
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
-
-cd ksplashml
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
-cd -
 
 install -d \
 	$RPM_BUILD_ROOT/etc/{xdg/menus,pam.d,rc.d/init.d,security} \
@@ -780,6 +799,7 @@ programs=" \
 	kcmsmserver \
 	keyboard \
 	keys \
+	ksplashml \
 	kwindecoration \
 	mouse \
 	passwords \
@@ -1214,6 +1234,20 @@ fi
 %files -n kde-sdscreen-default
 %defattr(644,root,root,755)
 %{_datadir}/apps/ksmserver/*
+
+%files -n kde-splashplugin-Redmond
+%defattr(644,root,root,755)
+%{_libdir}/kde3/libksplashredmond.la
+%attr(755,root,root) %{_libdir}/kde3/libksplashredmond.so*
+%{_datadir}/apps/ksplash/Themes/Redmond
+%{_datadir}/services/ksplashredmond.desktop
+
+%files -n kde-splashplugin-Standard
+%defattr(644,root,root,755)
+%{_libdir}/kde3/libksplashstandard.la
+%attr(755,root,root) %{_libdir}/kde3/libksplashstandard.so*
+%{_datadir}/apps/ksplash/Themes/Standard
+%{_datadir}/services/ksplashstandard.desktop
 
 %files common-filemanagement
 %defattr(644,root,root,755)
