@@ -2,7 +2,7 @@ Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
 Version:	2.1
-Release:	5
+Release:	6
 Epoch:		6
 License:	GPL
 Group:		X11/Applications
@@ -332,7 +332,6 @@ fi
 %{_applnkdir}/.hidden/konqfilemgr.desktop
 %{_applnkdir}/Amusements/*.desktop
 %{_applnkdir}/Office/Editors/*.desktop
-%{_applnkdir}/Settings/KDE/.directory
 %{_applnkdir}/Settings/KDE/Help
 %{_applnkdir}/Settings/KDE/Information
 %{_applnkdir}/Settings/KDE/LookNFeel/background.desktop
@@ -464,6 +463,8 @@ fi
 %{_applnkdir}/Network/WWW/konq*.desktop
 %{_applnkdir}/Network/WWW/keditbookmarks.desktop
 %{_applnkdir}/System/konq*.desktop
+%dir %{_applnkdir}/Settings/KDE
+%{_applnkdir}/Settings/KDE/.directory
 %{_applnkdir}/Settings/KDE/FileBrowsing
 %{_applnkdir}/Settings/KDE/WebBrowsing
 
