@@ -40,7 +40,7 @@ Source8:	%{name}-ircpld.desktop
 Source9:	%{name}-specs.desktop
 Source11:	%{name}-QtCurve.kcsrc
 Source12:	http://www.kernel.pl/~adgor/kde/%{name}-splash-Default-PLD.tar.bz2
-# Source12-md5:	d816105692259ada34b755c555a435fd
+# Source12-md5:	167d37fdd316e5f6c13280b54577a4fb
 #Patch0:	%{name}-fix-mem-leak-in-kfind.patch
 Patch2:		%{name}-fontdir.patch
 Patch3:		%{name}-kcm_background.patch
