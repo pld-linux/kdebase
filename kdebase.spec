@@ -552,28 +552,19 @@ fi
 %attr(0755,root,root) %{_bindir}/kpersonalizer
 %attr(0755,root,root) %{_bindir}/kmenuedit
 
-%attr(0755,root,root) %{_libdir}/[ae]*.la
 %attr(0755,root,root) %{_libdir}/[ae]*.so*
-%attr(0755,root,root) %{_libdir}/k[dhijlmswx]*.la
 %attr(0755,root,root) %{_libdir}/k[dhijlmswx]*.so*
 %attr(0755,root,root) %{_libdir}/kaccess.??
-%attr(0755,root,root) %{_libdir}/kate.la
 %attr(0755,root,root) %{_libdir}/kate.so
 %attr(0755,root,root) %{_libdir}/kcminit.??
 %attr(0755,root,root) %{_libdir}/kcmshell.??
 %attr(0755,root,root) %{_libdir}/kcontrol.??
-%attr(0755,root,root) %{_libdir}/konsole.la
 %attr(0755,root,root) %{_libdir}/konsole.so*
-%attr(0755,root,root) %{_libdir}/lib[cdqt]*.la
 %attr(0755,root,root) %{_libdir}/lib[cdqt]*.so*
-%attr(0755,root,root) %{_libdir}/libk[ahmrstw]*.la
 %attr(0755,root,root) %{_libdir}/libk[ahmrstw]*.so*
-%attr(0755,root,root) %{_libdir}/libkickermain.la
 %attr(0755,root,root) %{_libdir}/libkickermain.so.*.*.*
 %attr(0755,root,root) %{_libdir}/libkfindpart.??
-%attr(0755,root,root) %{_libdir}/libsensordisplays.la
 %attr(0755,root,root) %{_libdir}/libsensordisplays.so.*.*.*
-%attr(0755,root,root) %{_libdir}/libkonsolepart.la
 %attr(0755,root,root) %{_libdir}/libkonsolepart.so*
 
 # We have to include *.so.1 sym-links, as ldconfig doesn't touch
@@ -776,18 +767,14 @@ fi
 %attr(0755,root,root) %{_bindir}/nspluginscan
 %attr(0755,root,root) %{_bindir}/nspluginviewer
 
-%attr(0755,root,root) %{_libdir}/keditbookmarks.la
 %attr(0755,root,root) %{_libdir}/keditbookmarks.so
 %attr(0755,root,root) %{_libdir}/kfm*.??
-%attr(0755,root,root) %{_libdir}/konqueror.la
 %attr(0755,root,root) %{_libdir}/konqueror.so*
 %attr(0755,root,root) %{_libdir}/kde3/kcm_konq*.??
 %attr(0755,root,root) %{_libdir}/kde3/konq*.??
 %attr(0755,root,root) %{_libdir}/kde3/libkcm_nsplugin.la
 %attr(0755,root,root) %{_libdir}/kde3/libkcm_nsplugin.so
-%attr(0755,root,root) %{_libdir}/libkonq*.la
 %attr(0755,root,root) %{_libdir}/libkonq*.so*
-%attr(0755,root,root) %{_libdir}/libnsplugin.la
 %attr(0755,root,root) %{_libdir}/libnsplugin.so*
 
 %attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.la
