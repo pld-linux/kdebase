@@ -3,7 +3,7 @@
 
 %define		_ver		3.0.3
 #define		_sub_ver
-%define		_rel		1
+%define		_rel		1.1
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -318,11 +318,9 @@ done
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
-%find_lang tmp.%{name} --with-kde --all-name
-grep -vE konqueror\|kdm tmp.%{name}.lang > %{name}.lang
-grep -E kdm tmp.%{name}.lang > kdm.lang
+%find_lang %{name} --with-kde
 %find_lang konqueror --with-kde
-%find_lang kdm --with-kde --all-name
+%find_lang kdm --with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
