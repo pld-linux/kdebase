@@ -1,13 +1,20 @@
---- kdebase-3.1/kdm/backend/dm.c.orig	Thu Dec 19 00:57:23 2002
-+++ kdebase-3.1/kdm/backend/dm.c	Thu Dec 19 01:43:22 2002
-@@ -76,9 +76,7 @@
- 
- #if defined(CSRG_BASED) || !defined(sun)
- # include <utmp.h>
--# ifndef UTMP_FILE
+--- kdebase-050210/kdm/backend/dm.h.orig	2005-02-08 21:51:08.000000000 +0100
++++ kdebase-050210/kdm/backend/dm.h	2005-02-11 12:00:00.277539336 +0100
+@@ -137,15 +137,7 @@
+ #  define WTMP_FILE "/usr/adm/wtmp"
+ # endif
+ #endif
+-#ifndef UTMP_FILE
+-# ifdef _PATH_UTMPX
+-#  define UTMP_FILE _PATH_UTMPX
+-# elif defined(_PATH_UTMP)
 -#  define UTMP_FILE _PATH_UTMP
+-# else
+-#  define UTMP_FILE "/etc/utmp"
 -# endif
+-#endif
 +# define UTMP_FILE "/var/run/utmpx"
- # define LOGSTAT_FILE UTMP_FILE
- #else
- # include <utmpx.h>
+ 
+ #ifdef HAVE_NETCONFIG_H
+ # define STREAMSCONN
+

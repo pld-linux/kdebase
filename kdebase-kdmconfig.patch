@@ -139,8 +139,8 @@
  "WallpaperList=\n"
  "WallpaperMode=Scaled\n";
  
---- kdebase-040724/kdm/kfrontend/config.def.orig	2004-07-24 12:50:04.000000000 +0200
-+++ kdebase-040724/kdm/kfrontend/config.def	2004-07-24 13:09:38.487484896 +0200
+--- kdebase-040724/kdm/config.def.orig	2004-07-24 12:50:04.000000000 +0200
++++ kdebase-040724/kdm/config.def	2004-07-24 13:09:38.487484896 +0200
 @@ -3,7 +3,7 @@
  #define RCVERMAJOR 2
  #define RCVERMINOR 2
@@ -150,15 +150,6 @@
  #define KDMDATA KDE_DATADIR "/kdm"
  
  #ifdef _AIX
-@@ -35,7 +35,7 @@
- #endif
- 
- #ifdef __linux__
--# define DEF_SERVER_LINE ":0 local@tty1 " XBINDIR "/X -nolisten tcp"
-+# define DEF_SERVER_LINE ":0 local@tty1 " XBINDIR "/X -nolisten tcp vt9"
- /* ###
- # define DEF_SERVER_LINES DEF_SERVER_LINE "\n" \
- 			 ":1 local@tty2 reserve " XBINDIR "/X -nolisten tcp :1\n" \
 @@ -1062,7 +1062,7 @@
  
  Key: Willing
