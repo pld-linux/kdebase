@@ -1528,7 +1528,6 @@ kcmcolors \
 kcmfonts \
 kcmkded \
 kcmlocale \
-kcontrol \
 kdeprint_part \
 kio_man \
 kio_settings \
@@ -2167,8 +2166,8 @@ fi
 %attr(755,root,root) %{_bindir}/kxkb
 %attr(755,root,root) %{_bindir}/startkde
 %attr(755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
-%{_libdir}/krandrinithack.la
-%attr(755,root,root) %{_libdir}/krandrinithack.so
+#%{_libdir}/krandrinithack.la
+#%attr(755,root,root) %{_libdir}/krandrinithack.so
 %{_libdir}/libkdeinit_kaccess.la
 %attr(755,root,root) %{_libdir}/libkdeinit_kaccess.so
 %{_libdir}/libkdeinit_kdesktop.la
