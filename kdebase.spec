@@ -596,7 +596,7 @@ fi
 %attr(0755,root,root) %{_libdir}/konsole.so
 %attr(0755,root,root) %{_libdir}/libkfindpart.so
 %attr(0755,root,root) %{_libdir}/libkonsolepart.so
-%attr(0755,root,root) %{_libdir}/libkateinterface.so.*.*.*
+%attr(0755,root,root) %{_libdir}/libkateinterfaces.so.*.*
 %attr(0755,root,root) %{_libdir}/libkickermain.so.*.*.*
 %attr(0755,root,root) %{_libdir}/libksgrd.so.*.*.*
 %attr(0755,root,root) %{_libdir}/libsensordisplays.so.*.*.*
