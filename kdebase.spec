@@ -25,9 +25,6 @@ Patch3:		%{name}-utmp.patch
 Patch4:		%{name}-nsplugins_dirs.patch
 Patch5:		%{name}-hardcoded_paths.patch
 Patch6:		%{name}-kdm.daemon_output.patch
-Patch7:		%{name}-zh-langname.patch
-Patch8:		%{name}-kcontrol_samba.patch
-Patch9:		%{name}-kdesktop-segv.patch
 %ifnarch sparc sparc64
 BuildRequires:	alsa-lib-devel
 %endif
@@ -233,9 +230,6 @@ Wygaszacze ekranu desktopu KDE.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
 
 %build
 
