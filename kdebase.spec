@@ -10,7 +10,7 @@
 
 %define		_state		unstable
 %define		_ver		3.1.95
-%define		_snap		040110
+#%%define		_snap		040110
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -22,13 +22,13 @@ Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
-Version:	3.1.95
+Version:	%{_ver}
 Release:	0.1
-Epoch:		10
+Epoch:		9
 License:	GPL
 Group:		X11/Applications
-#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
+#Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
 # Source0-md5:	7b60b22787ade2897c0760a24cf6feba	
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
@@ -870,10 +870,6 @@ Internet Explorer.
 
 %build
 cp /usr/share/automake/config.sub admin
-for f in `find . -name \*.desktop -o -name \*rc | xargs grep -l '\[nb\]'` ; do
-	echo -e ',s/\[nb\]=/[no]=/\n,w' | ed $f 2>/dev/null
-done
-
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
