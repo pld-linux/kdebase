@@ -180,8 +180,39 @@
  
  messages:
  	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
---- kdebase-3.1.1/kdm/kfrontend/genkdmconf.c~	Sun Mar  2 19:35:05 2003
-+++ kdebase-3.1.1/kdm/kfrontend/genkdmconf.c	Tue Mar  4 15:53:10 2003
+--- kdebase-3.1/kdm/kfrontend/kdmconfig.cpp.orig	Mon Oct 28 10:55:24 2002
++++ kdebase-3.1/kdm/kfrontend/kdmconfig.cpp	Fri Nov 29 18:27:33 2002
+@@ -153,7 +153,7 @@
+ 
+     _logo = GetCfgQStr (C_LogoPixmap);
+     if( _logo.isEmpty())
+-	_logo = locate("data", QString::fromLatin1("kdm/pics/kdelogo.png") );
++	_logo = QString::fromLatin1("/etc/X11/kdm/pics/pldlogo.png");
+ 
+     _showUsers = GetCfgInt (C_ShowUsers);
+     _users = GetCfgQStrList (C_SelectedUsers);
+--- kdebase-3.1/kdm/kfrontend/pics/Makefile.am.orig	Sun Feb 20 17:34:48 2000
++++ kdebase-3.1/kdm/kfrontend/pics/Makefile.am	Fri Nov 29 18:38:41 2002
+@@ -1,5 +1,5 @@
+ 
+-picsdir = $(kde_datadir)/kdm/pics
++picsdir = /etc/X11/kdm/pics
+ pics_DATA = kdelogo.png kdeflower.png
+ 
+ usersdir = $(picsdir)/users
+--- kdebase-3.1/kdm/kfrontend/pics/Makefile.in.orig	Mon Nov 25 04:46:12 2002
++++ kdebase-3.1/kdm/kfrontend/pics/Makefile.in	Fri Nov 29 18:38:16 2002
+@@ -286,7 +286,7 @@
+ x_includes = @x_includes@
+ x_libraries = @x_libraries@
+ 
+-picsdir = $(kde_datadir)/kdm/pics
++picsdir = /etc/X11/kdm/pics
+ pics_DATA = kdelogo.png kdeflower.png
+ 
+ usersdir = $(picsdir)/users
+--- kdebase-3.1.2/kdm/kfrontend/genkdmconf.c.orig	2003-05-12 15:48:50.000000000 +0200
++++ kdebase-3.1.2/kdm/kfrontend/genkdmconf.c	2003-05-16 17:15:36.000000000 +0200
 @@ -56,7 +56,7 @@
  
  #define as(ar) ((int)(sizeof(ar)/sizeof(ar[0])))
@@ -233,29 +264,22 @@
  { "ServerAttempts",	0, 0, 
  "# How often to try to run the X-server. Running includes executing it and\n"
  "# waiting for it to come up. Default is 1\n" },
-@@ -1894,17 +1894,17 @@
- { "GUIStyle",		0, upd_guistyle, 
- "# Widget Style of the greeter:\n"
- "# Default, Windows, Platinum, Motif, MotifPlus, CDE, SGI, and any styles you\n"
--"# may have installed, e.g., HighColor; Default is \"Default\"\n" },
-+"# may have installed, e.g., HighColor; Default is \"KDE\"\n" },
- { "ColorScheme",		0, 0, 
- "# Widget Colors of the greeter:\n"
- "# Default, and any color schemes you may have installed. Default is \"Default\"\n" },
+@@ -1899,11 +1899,11 @@
+ "# currently is quite greyish. Default is \"\"\n" },
  { "LogoArea",		0, upd_logoarea, 
  "# What should be shown righthand of the input lines:\n"
 -"# \"Logo\" - the image specified by LogoPixmap (Default)\n"
 +"# \"Logo\" - the image specified by LogoPixmap \n"
  "# \"Clock\" - a neat analog clock\n"
 -"# \"None\" - nothing\n" },
-+"# \"None\" - nothing (Default)\n" },
++"# \"None\" - nothing(Default)\n" },
  { "LogoPixmap",		0, 0, 
 -"# The image to show when LogoArea=Logo. Default is kdelogo.png\n" },
 +"# The image to show when LogoArea=Logo. Default is pldlogo.png\n" },
  { "GreeterPosFixed",	0, 0, 
  "# Normally, the greeter is centered on the screen. Use this, if you want\n"
  "# it to appear elsewhere on the screen. Default is false\n" },
-@@ -1925,13 +1925,13 @@
+@@ -1924,13 +1924,13 @@
  "# - %r -> the operating system's version\n"
  "# - %m -> the machine (hardware) type\n"
  "# - %% -> a single %\n"
@@ -272,7 +296,7 @@
  { "AntiAliasing",	0, 0,
  "# Whether the fonts shown in the greeter should be antialiased. Default is false\n" },
  { "NumLock",		0, 0,
-@@ -2121,10 +2121,10 @@
+@@ -2120,10 +2120,10 @@
  { "UserAuthDir",	"", 0 },
  { "Chooser",		"", 0 },	/* XXX kill */
  { "AutoReLogin",	"true", 0 },
@@ -287,7 +311,7 @@
  { "DefaultSdMode",	"ForceNow", 0}, 
  { "InteractiveSd",	"false", 0}, 
  { "SessSaveFile",	"", 0 },	/* XXX .dmrc */
-@@ -2134,7 +2134,7 @@
+@@ -2133,7 +2133,7 @@
  { "SessionTypes",	"default,kde,failsafe", 1 },
  { "GUIStyle",		"Windows", 0 },
  { "ColorScheme",	"Pumpkin", 0 },
@@ -296,7 +320,7 @@
  { "LogoPixmap",		"", 0 },
  { "GreeterPosFixed",	"true", 0 },
  { "GreeterPosX",	"200", 0 },
-@@ -2167,8 +2167,8 @@
+@@ -2166,8 +2166,8 @@
  { "ServerAttempts",	"", 0 },
  { "ServerTimeout",	"", 0 },
  { "AllowShutdown",	"All", 1 },
@@ -307,8 +331,8 @@
  { "NoPassEnable",	"true", 0 },
  { "NoPassUsers",	"fred,ethel", 0 },
  };
---- kdebase-3.1.1/kdm/kfrontend/kdm_config.c~	Thu Dec  5 21:40:21 2002
-+++ kdebase-3.1.1/kdm/kfrontend/kdm_config.c	Tue Mar  4 15:10:48 2003
+--- kdebase-3.1.2/kdm/kfrontend/kdm_config.c.orig	2003-05-12 15:48:50.000000000 +0200
++++ kdebase-3.1.2/kdm/kfrontend/kdm_config.c	2003-05-16 17:20:42.000000000 +0200
 @@ -38,7 +38,7 @@
  #include <netdb.h>
  #include <grp.h>
@@ -337,10 +361,10 @@
  };
 @@ -532,15 +532,15 @@
  { "SessionTypes",	C_SessionTypes,		0,	"default,failsafe" },
- { "GUIStyle",		C_GUIStyle, 		0,	"KDE" },
- { "ColorScheme",	C_ColorScheme,		0,	"Default" },
+ { "GUIStyle",		C_GUIStyle, 		0,	"" },
+ { "ColorScheme",	C_ColorScheme,		0,	"" },
 -{ "LogoArea",		C_LogoArea | C_ENUM, logoarea,	"Logo" },
-+{ "LogoArea",		C_LogoArea | C_ENUM, logoarea,	"None" },
++{ "LogoArea",          C_LogoArea | C_ENUM, logoarea,  "None" }
  { "LogoPixmap",		C_LogoPixmap,		0,	"" },
  { "GreeterPosFixed",	C_GreeterPosFixed | C_BOOL, 0,	"false" },
  { "GreeterPosX",	C_GreeterPosX,		0,	"0" },
@@ -349,40 +373,9 @@
 -{ "StdFont",		C_StdFont,		0,	"helvetica,12,5,0,50,0" },
 -{ "FailFont",		C_FailFont,		0,	"helvetica,12,5,0,75,0" },
 -{ "GreetString",	C_GreetString,		0,	"Welcome to %s at %n" },
-+{ "StdFont",		C_StdFont,		0,	"helvetica,11,5,0,50,0" },
-+{ "FailFont",		C_FailFont,		0,	"helvetica,11,5,0,75,0" },
-+{ "GreetString",	C_GreetString,		0,	"Welcome to PLD Linux at %n" },
++{ "StdFont",           C_StdFont,              0,      "helvetica,11,5,0,50,0" },
++{ "FailFont",          C_FailFont,             0,      "helvetica,11,5,0,75,0" },
++{ "GreetString",       C_GreetString,          0,      "Welcome to PLD Linux at %n" },
  { "GreetFont",		C_GreetFont,		0,	"charter,24,5,0,50,0" },
  { "AntiAliasing",	C_AntiAliasing | C_BOOL,0,	"false" },
  { "NumLock",		C_NumLock | C_ENUM, numlock,	"Keep" },
---- kdebase-3.1/kdm/kfrontend/kdmconfig.cpp.orig	Mon Oct 28 10:55:24 2002
-+++ kdebase-3.1/kdm/kfrontend/kdmconfig.cpp	Fri Nov 29 18:27:33 2002
-@@ -153,7 +153,7 @@
- 
-     _logo = GetCfgQStr (C_LogoPixmap);
-     if( _logo.isEmpty())
--	_logo = locate("data", QString::fromLatin1("kdm/pics/kdelogo.png") );
-+	_logo = QString::fromLatin1("/etc/X11/kdm/pics/pldlogo.png");
- 
-     _showUsers = GetCfgInt (C_ShowUsers);
-     _users = GetCfgQStrList (C_SelectedUsers);
---- kdebase-3.1/kdm/kfrontend/pics/Makefile.am.orig	Sun Feb 20 17:34:48 2000
-+++ kdebase-3.1/kdm/kfrontend/pics/Makefile.am	Fri Nov 29 18:38:41 2002
-@@ -1,5 +1,5 @@
- 
--picsdir = $(kde_datadir)/kdm/pics
-+picsdir = /etc/X11/kdm/pics
- pics_DATA = kdelogo.png kdeflower.png
- 
- usersdir = $(picsdir)/users
---- kdebase-3.1/kdm/kfrontend/pics/Makefile.in.orig	Mon Nov 25 04:46:12 2002
-+++ kdebase-3.1/kdm/kfrontend/pics/Makefile.in	Fri Nov 29 18:38:16 2002
-@@ -286,7 +286,7 @@
- x_includes = @x_includes@
- x_libraries = @x_libraries@
- 
--picsdir = $(kde_datadir)/kdm/pics
-+picsdir = /etc/X11/kdm/pics
- pics_DATA = kdelogo.png kdeflower.png
- 
- usersdir = $(picsdir)/users
