@@ -9,7 +9,10 @@ Epoch:		6
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
+Group(es):	X11/Aplicaciones
 Group(pl):	X11/Aplikacje
+Group(pt_BR):	X11/Aplicações
+Group(pt):	X11/Aplicações
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
 Source1:	%{name}-startkde.sh
 Source2:	kdm.pamd
@@ -159,7 +162,10 @@ Summary:	KDE Display Manager
 Summary(pl):	KDE Display Manager
 Group:		X11/Applications
 Group(de):	X11/Applikationen
+Group(es):	X11/Aplicaciones
 Group(pl):	X11/Aplikacje
+Group(pt_BR):	X11/Aplicações
+Group(pt):	X11/Aplicações
 Requires:	qt >= 2.3.0
 Requires:	kdelibs >= %{version}
 Prereq:		/sbin/chkconfig
@@ -179,7 +185,10 @@ Summary:	Konqueror - web browser and file manager
 Summary(pl):	Konqueror - przegl±darka WWW i mened¿er plików
 Group:		X11/Applications
 Group(de):	X11/Applikationen
+Group(es):	X11/Aplicaciones
 Group(pl):	X11/Aplikacje
+Group(pt_BR):	X11/Aplicações
+Group(pt):	X11/Aplicações
 Requires:	qt >= 2.3.0
 Requires:	kdelibs >= %{version}
 Obsoletes:	kdebase-konqueror
@@ -197,7 +206,10 @@ Summary:	KDE screensavers
 Summary(pl):	Wygaszacze ekranu desktopu KDE
 Group:		X11/Applications
 Group(de):	X11/Applikationen
+Group(es):	X11/Aplicaciones
 Group(pl):	X11/Aplikacje
+Group(pt_BR):	X11/Aplicações
+Group(pt):	X11/Aplicações
 Requires:	qt >= 2.3.0
 Requires:	kdelibs >= %{version}
 Requires:	OpenGL
