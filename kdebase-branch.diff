@@ -1,0 +1,149 @@
+diff -urN -x CVS kdebase.orig/applnk/kde-settings-power.directory kdebase/applnk/kde-settings-power.directory
+--- kdebase.orig/applnk/kde-settings-power.directory	Sun May 30 15:59:36 2004
++++ kdebase/applnk/kde-settings-power.directory	Mon May 31 15:10:50 2004
+@@ -21,7 +21,7 @@
+ Name[fa]=کنترل برق
+ Name[fi]=Virranhallinta
+ Name[fo]=Orkustýring
+-Name[fr]=Indicateur de puissance
++Name[fr]=Contrôle de l'énergie
+ Name[ga]=Rialú Cumhachta
+ Name[gl]=Control da Enerxía
+ Name[he]=צריכת חשמל
+diff -urN -x CVS kdebase.orig/kappfinder/apps/Development/pose.desktop kdebase/kappfinder/apps/Development/pose.desktop
+--- kdebase.orig/kappfinder/apps/Development/pose.desktop	Sun May 30 15:59:46 2004
++++ kdebase/kappfinder/apps/Development/pose.desktop	Tue Jun  1 18:30:54 2004
+@@ -5,7 +5,7 @@
+ GenericName[ar]=محاكي بالم/لاسلكي
+ GenericName[az]=Palm/Wireless Emulyatoru
+ GenericName[bn]=পাম (Palm) / বেতার (Wireless) এমুলেটর
+-GenericName[bs]=Palm/Wireless emulator
++GenericName[bs]=Palm/Wireless simulator
+ GenericName[ca]=Emulador Palm/Wireless
+ GenericName[cs]=Emulátor Palm/Wireless
+ GenericName[cy]=Efelychydd Palm/Diwifren
+diff -urN -x CVS kdebase.orig/kcontrol/componentchooser/componentservices/kcm_terminal.desktop kdebase/kcontrol/componentchooser/componentservices/kcm_terminal.desktop
+--- kdebase.orig/kcontrol/componentchooser/componentservices/kcm_terminal.desktop	Sun May 30 16:00:18 2004
++++ kdebase/kcontrol/componentchooser/componentservices/kcm_terminal.desktop	Tue Jun  1 18:30:57 2004
+@@ -5,7 +5,7 @@
+ Name[bg]=Конзолна програма
+ Name[bn]=টার্মিনাল এমুলেটর
+ Name[br]=Kendarvanerezh termenell
+-Name[bs]=Emulator terminala
++Name[bs]=Simulator terminala
+ Name[ca]=Emulador de terminal
+ Name[cs]=Emulátor terminálu
+ Name[cy]=Efelychydd Terfynell
+@@ -68,7 +68,7 @@
+ Comment[ar]=هذه الخدمة تسمح لك بتهيئة برنامج سطر الأوامر الافتراضي. جميع تطبيقات كيدي التي ستحتاج الى الوصول الى تطبيق سطر الأوامر يجب أن تتبع هذا الضبط.
+ Comment[bg]=Избор на предпочитана конзолна програма. Всички програми от КДЕ, които се нуждаят от достъп до конзолата ще ползват този компонент.
+ Comment[bn]=এই সার্ভিসটির সাহায্যে আপনার ডিফল্ট টার্মিনাল এমুলেটর কনফিগার করতে পারেন। যে কোনো কে.ডি.ই. অ্যাপলিকেশনের টার্মিনাল এমুলেটর চালানোর প্রয়োজন হলে এই নির্বাচন মানা উচিত।
+-Comment[bs]=Ovaj servis vam omogućuje da podesite vaš podrazumjevani emulator terminala. Sve KDE aplikacije kojima je potreban pristup pozivaju emulator terminala bi trebale poštovati ovu postavku.
++Comment[bs]=Ovaj servis vam omogućuje da podesite vaš podrazumijevani simulator terminala. Sve KDE aplikacije kojima je potreban terminal bi trebale poštovati ovu postavku.
+ Comment[ca]=Aquest servei us permet configurar el vostre emulador de terminal per omissió. Totes les aplicacions KDE que precisin d'accés a una aplicació de client de correu tindria que reconèixer aquesta opció.
+ Comment[cs]=Tato služba umožňuje nastavit si výchozího emulátor terminálu. Všechny KDE aplikace, které spouští emulátor terminálu, by měly používat toto nastavení.
+ Comment[cy]=Mae'r gwasanaeth yma yn gadael i chi ffurfweddu eich efelychydd terfynell cyffredinol. Dylai pob rhaglen KDE sy'n cychwyn efelychydd terfynell ddefnyddio'r gosodiad yma.
+diff -urN -x CVS kdebase.orig/kcontrol/energy/energy.desktop kdebase/kcontrol/energy/energy.desktop
+--- kdebase.orig/kcontrol/energy/energy.desktop	Sun May 30 16:00:21 2004
++++ kdebase/kcontrol/energy/energy.desktop	Mon May 31 15:10:54 2004
+@@ -31,7 +31,7 @@
+ Name[eu]=Pantaila Energia Kontrola
+ Name[fa]=کنترل برق را نشان بده
+ Name[fi]=Näytön virranhallinta
+-Name[fr]=Contrôle de l'indicateur de puissance
++Name[fr]=Contrôle de l'énergie pour l'affichage
+ Name[gl]=Control de Enerxía da Pantalla
+ Name[he]=בקרת אנרגיה של התצוגה
+ Name[hi]=ऊर्जा नियंत्रक प्रदर्शक
+@@ -94,7 +94,7 @@
+ Comment[eu]=Pantaila energia kudeaketarako ezarpenak
+ Comment[fa]=تنظیمات مدیریت برق نمایشگر
+ Comment[fi]=Asetukset näytön virranhallinnalle
+-Comment[fr]=Paramètres pour l'affichage de la gestion d'énergie
++Comment[fr]=Paramètres de la gestion d'énergie pour l'affichage
+ Comment[gl]=Configuracións para a xestión de enerxía da pantalla
+ Comment[he]=שינוי הגדרות ניהול צריכת החשמל של התצוגה
+ Comment[hi]=ऊर्जा नियंत्रक प्रदर्शक हेतु विन्यास
+diff -urN -x CVS kdebase.orig/kcontrol/konq/filepreviews.desktop kdebase/kcontrol/konq/filepreviews.desktop
+--- kdebase.orig/kcontrol/konq/filepreviews.desktop	Sun May 30 16:00:33 2004
++++ kdebase/kcontrol/konq/filepreviews.desktop	Tue Jun  1 18:30:58 2004
+@@ -65,7 +65,7 @@
+ Comment[ar]=يمكنك تهيئة طريقة عمل عرض كونكيورر والبيانات الأولية هنا
+ Comment[bg]=Настройки на режима на преглед на Konqueror като файлов браузър
+ Comment[bn]=কনকরার-এ প্রাক্-দর্শন এবং মেটা-ডেটা কিভাবে কাজ করবে তা এখানে কনফিগার করতে পারেন
+-Comment[bs]=Ovdje možete podesiti kako rade Pregledi i Meta-podaci u Konqueroru
++Comment[bs]=Ovdje možete podesiti kako rade Pregledi i meta-podaci u Konqueroru
+ Comment[ca]=Aquí podeu configurar com funcionaran les vistes prèvies i les meta-dades en el Konqueror
+ Comment[cs]=Zde je možné nastavit chování náhledů a metadat v Konqueroru
+ Comment[cy]=Gallwch ffurfweddu sut mae Rhagolygon & Meta-data Konqueror yn gweithio yma
+diff -urN -x CVS kdebase.orig/kcontrol/locale/language.desktop kdebase/kcontrol/locale/language.desktop
+--- kdebase.orig/kcontrol/locale/language.desktop	Sun May 30 16:00:36 2004
++++ kdebase/kcontrol/locale/language.desktop	Mon May 31 15:10:55 2004
+@@ -59,7 +59,7 @@
+ Name[sr]=Држава/регион и језик
+ Name[sr@Latn]=Država/region i jezik
+ Name[sv]=Land/region och språk
+-Name[ta]=நாடு/இடம் மற்றும் மொழி
++Name[ta]=நாடு மற்றும் மொழி
+ Name[tg]=Кишвар/Забон ва Минтақа
+ Name[th]=ประเทศและภาษา
+ Name[tr]=Ülke/Bölge ve Dil
+diff -urN -x CVS kdebase.orig/konsole/konsole/TEWidget.cpp kdebase/konsole/konsole/TEWidget.cpp
+--- kdebase.orig/konsole/konsole/TEWidget.cpp	Sat May  1 20:56:07 2004
++++ kdebase/konsole/konsole/TEWidget.cpp	Tue Jun  1 14:36:57 2004
+@@ -379,6 +379,9 @@
+ 
+   setFocusPolicy( WheelFocus );
+ 
++  // im
++  setInputMethodEnabled(true);
++
+   // We're just a big pixmap, no need to have a background
+   // Speeds up redraws
+   setBackgroundMode(NoBackground);
+diff -urN -x CVS kdebase.orig/konsole/konsole/main.cpp kdebase/konsole/konsole/main.cpp
+--- kdebase.orig/konsole/konsole/main.cpp	Thu Apr 29 18:32:55 2004
++++ kdebase/konsole/konsole/main.cpp	Mon May 31 19:18:01 2004
+@@ -491,7 +491,7 @@
+   list->first();
+   while( list->current())
+   {
+-    if( list->current()->parentWidget() != NULL )
++    if( list->current()->parentWidget() != NULL || !list->current()->testWFlags( Qt::WDestructiveClose ) )
+     {
+         list->remove();
+         continue;
+@@ -502,8 +502,7 @@
+   QWidget * w;
+   while( (w=it.current()) != 0 ) {
+      ++it;
+-     if ( w->testWFlags( Qt::WDestructiveClose ) )
+-          delete w;
++     delete w;
+   }
+   delete list;
+ 
+diff -urN -x CVS kdebase.orig/konsole/konsolepart.desktop kdebase/konsole/konsolepart.desktop
+--- kdebase.orig/konsole/konsolepart.desktop	Sun May 30 16:01:39 2004
++++ kdebase/konsole/konsolepart.desktop	Tue Jun  1 18:31:02 2004
+@@ -18,7 +18,7 @@
+ Name[bg]=Конзолна програма
+ Name[bn]=টার্মিনাল এমুলেটর
+ Name[br]=Kendarvanerezh termenell
+-Name[bs]=Emulator terminala
++Name[bs]=Simulator terminala
+ Name[ca]=Emulador de terminal
+ Name[cs]=Emulátor terminálu
+ Name[cy]=Efelychydd Terfynell
+diff -urN -x CVS kdebase.orig/konsole/terminalemulator.desktop kdebase/konsole/terminalemulator.desktop
+--- kdebase.orig/konsole/terminalemulator.desktop	Sun May 30 16:01:39 2004
++++ kdebase/konsole/terminalemulator.desktop	Tue Jun  1 18:31:02 2004
+@@ -10,7 +10,7 @@
+ Name[bg]=Конзолна програма
+ Name[bn]=টার্মিনাল এমুলেটর
+ Name[br]=Kendarvanerezh termenell
+-Name[bs]=Emulator terminala
++Name[bs]=Simulator terminala
+ Name[ca]=Emulador de terminal
+ Name[cs]=Emulátor terminálu
+ Name[cy]=Efelychydd Terfynell
