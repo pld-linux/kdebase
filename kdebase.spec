@@ -1,6 +1,7 @@
 #
 # FIXME: infinite loop in symlinks to kdmrc
 #
+# _without_alsa - disable alsa
 
 %define		_state		unstable
 %define		_kdever		kde-3.1-rc3
@@ -15,7 +16,7 @@ Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
-Version:	3.0.99
+Version:	3.1
 Release:	2
 Epoch:		7
 License:	GPL
@@ -33,13 +34,13 @@ Patch0:		%{name}-kdmrc.patch
 Patch1:		%{name}-fix-mem-leak-in-kfind.patch
 Patch2:		%{name}-dont_merge_old_kdmrc.patch
 Patch3:		%{name}-glibc-2.2.2.patch
-Patch4:		%{name}-hardcoded_paths.patch
+
 Patch5:		%{name}-kdm.daemon_output.patch
 Patch6:		%{name}-kicker.patch
 Patch7:		%{name}-konsole_all.patch
 Patch8:		%{name}-nsplugins_dirs.patch
 %ifnarch sparc sparc64
-BuildRequires:	alsa-lib-devel
+%{!?_without_alsa:BuildRequires:        alsa-lib-devel}
 %endif
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
@@ -167,7 +168,7 @@ Summary:	Include static libraries to develop KDE applications
 Summary(pl):	Statyczne biblioteki KDE
 Summary(pt_BR):	Bibliotecas estáticas do kdebase
 Group:		X11/Development/Libraries
-Requires:	kdelibs-devel = %{version}-%{release}
+Requires:	kdelibs-devel >= %{version}
 
 %description static
 This package contains KDE static libraries.
@@ -422,7 +423,7 @@ Edytor tekstu z pod¶wietlaniem sk³adni dla KDE
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
+
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
@@ -441,7 +442,9 @@ export CPPFLAGS
 	--without-shadow \
 	--disable-shadow \
 	--with-xdmdir="%{_sysconfdir}/kdm" \
-	--enable-final
+	--enable-final \
+        --with%{?_without_alsa:out}-alsa
+	
 
 %{__make}
 
