@@ -1,5 +1,5 @@
---- kdebase/konsole/src/konsole_grantpty.c.glibc222	Wed Feb 14 15:14:33 2001
-+++ kdebase/konsole/src/konsole_grantpty.c	Wed Feb 14 15:16:16 2001
+--- kdebase/konsole/konsole/konsole_grantpty.c.glibc222	Wed Feb 14 15:14:33 2001
++++ kdebase/konsole/konsole/konsole_grantpty.c	Wed Feb 14 15:16:16 2001
 @@ -143,6 +143,11 @@
    }
    close(PTY_FILENO);
