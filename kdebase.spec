@@ -3,7 +3,7 @@
 
 %define		_ver		3.0.3
 #define		_sub_ver
-%define		_rel		1.1
+%define		_rel		1.2
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -318,9 +318,50 @@ done
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
-%find_lang %{name} --with-kde
-%find_lang konqueror --with-kde
-%find_lang kdm --with-kde
+> %{name}.lang
+programs="appletproxy childpanelextension clockapplet cupsdconf desktop drkonqi extensionproxy filetypes fontinst htmlsearch kaccess kaddressbook kappfinder kasbarextension kate kcontrol kdcop kdebugdialog kdeprintfax kdesktop kdesu kdesud kfind kfindpart kfmclient kfmexec khelpcenter khotkeys kicker kjobviewer klegacyimport kless klipper klock kmcop kmenuedit kminipagerapplet knotify konsole kpager kpartapp kpersonalizer kpm kprinter kreadconfig krunapplet ksmserver kstart ksysguard ksystemtrayapplet ksystraycmd ktaskbarapplet ktip kxkb libkicker libkickermenu_kdeprint libtaskbar libtaskmanager lockout naughtyapplet nsplugin passwords ppdtranslations taskbarextension"
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> %{name}.lang
+done
+
+> kcm.lang
+programs="kcmaccess kcmarts kcmaudiocd kcmbackground kcmbell kcmcolors kcmcrypto kcmcss kcmemail kcmenergy kcmfonts kcmhtmlsearch kcmicons kcminfo kcminput kcmioslaveinfo kcmkclock kcmkdb kcmkeys kcmkicker kcmkio kcmkonq kcmkonqhtml kcmkonsole kcmkurifilt kcmkwindecoration kcmkwintheme kcmkwm kcmlaunch kcmlayout kcmlocale kcmmidi kcmnic kcmnotify kcmsamba kcmscreensaver kcmsmartcard kcmsmserver kcmsocks kcmspellchecking kcmstyle kcmtaskbar kcmthemes kcmusb kcmwidgetsettings"
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> kcm.lang
+done
+
+> kwin.lang
+programs="kwin kwin_b2_config kwin_default_config kwin_icewm_config kwin_modernsys_config kwin_quartz_config"
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> kwin.lang
+done
+
+> kio.lang
+programs="kio_audiocd kio_finger kio_floppy kio_help kio_imap4 kio_man kio_nfs kio_nntp kio_pop3 kio_print kio_sftp kio_smb kio_smbro kio_smtp"
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> kio.lang
+done
+
+> kdm.lang
+programs="kdm kdmchooser kdmconfig kdmgreet"
+	%find_lang $i --with-kde
+	cat $i.lang >> kdm.lang
+done
+
+# Maybe these things should be separated, but now it comes to kdebase:
+cat kcm.lang >> %{name}.lang
+cat kwin.lang >> %{name}.lang
+cat kio.lang >> %{name}.lang
+
+%find_lang konqueror	--with-kde
+%find_lang libkonq	--with-kde
+cat libkonq.lang >> konqueror.lang
+%find_lang libkscreensaver --with-kde
+%find_lang ksplash	--with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -656,7 +697,7 @@ fi
 
 %{_pixmapsdir}/*/*/apps/konqueror.png
 
-%files screensavers
+%files screensavers -f libkscreensaver.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/*.kss
 
@@ -665,6 +706,6 @@ fi
 
 %{_pixmapsdir}/*/*/apps/kscreensaver.png
 
-%files -n kde-splash-default
+%files -n kde-splash-default -f ksplash.lang
 %defattr(644,root,root,755)
 %{_datadir}/apps/ksplash/*
