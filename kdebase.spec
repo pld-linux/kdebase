@@ -1,11 +1,7 @@
 #
 # TODO:
 # * KDM: ColorSheme=Default works properly with GUIStyle=KDE only
-# * Fixing 48x48 pld applnk-pixmaps scaling (konqsidebar, kicker)
 # * Adding %%doc to subpkgs
-# * Kicker dosn't work properly without kwin (taskbar, systray,
-#   other applets)
-# * Proper descriptions
 #
 
 %define		_state		stable
@@ -24,7 +20,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.2
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -46,7 +42,7 @@ Source13:	http://ep09.pld-linux.org/~adgor/kde/%{name}-konqsidebartng-PLD-entrie
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
 %if %{with i18n}
 Source14:       http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
-# Source14-md5: 30848effd6e53fb459a620a50f761b85 
+# Source14-md5:	30848effd6e53fb459a620a50f761b85
 %endif
 Patch0:		%{name}-fontdir.patch
 Patch1:		%{name}-kcm_background.patch
@@ -838,12 +834,26 @@ Explorer.
 Konqueror jest przegl±dark± WWW i zarz±dc± plików podobnym do MS
 Internet Explorer.
 
+%package i18n
+Summary:	Common internationalization and localization files for kdebase
+Summary(pl):	Wspó³dzielone pliki umiêdzynarodawiaj±ce dla kdebase
+Group:	X11/Applications
+#Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	kdelibs-i18n >= 9:%{version}
+
+%description i18n
+Internationalization and localization files for kdebase.
+
+%description -l pl i18n
+Pliki umiêdzynarodawiaj±ce dla kdebase.
+
 %package core-i18n
 Summary:	Internationalization and localization files for core
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla core
 Group:	X11/Applications
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	kdelibs-i18n
+Requires:	kdebase-i18n = %{epoch}:%{version}-%{release}
 
 %description core-i18n
 Internationalization and localization files for core.
@@ -1046,6 +1056,7 @@ Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kdm
 Group:	X11/Applications
 Requires:	kdm = %{epoch}:%{version}-%{release}
 Requires:	kdelibs-i18n
+Requires:	kdebase-i18n = %{epoch}:%{version}-%{release}
 Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
 %description -n kdm-i18n
 Internationalization and localization files for kdm.
@@ -1129,6 +1140,7 @@ Summary(pl):	Pliki umiêdzynarodawiaj±ce dla desktop-libs
 Group:	X11/Applications
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
 Requires:	kdelibs-i18n
+Requires:	kdebase-i18n = %{epoch}:%{version}-%{release}
 
 %description desktop-libs-i18n
 Internationalization and localization files for desktop-libs.
@@ -1142,6 +1154,7 @@ Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kappfinder
 Group:	X11/Applications
 Requires:	%{name}-kappfinder = %{epoch}:%{version}-%{release}
 Requires:	kdelibs-i18n
+Requires:	kdebase-i18n = %{epoch}:%{version}-%{release}
 
 %description kappfinder-i18n
 Internationalization and localization files for kappfinder.
@@ -1181,6 +1194,7 @@ Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kdialog
 Group:	X11/Applications
 Requires:	kdelibs-i18n
 Requires:	%{name}-kdialog = %{epoch}:%{version}-%{release}
+Requires:	kdebase-i18n = %{epoch}:%{version}-%{release}
 
 %description kdialog-i18n
 Internationalization and localization files for kdialog.
@@ -1194,6 +1208,7 @@ Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kicker-libs
 Group:	X11/Applications
 Requires:	kdelibs-i18n
 Requires:	%{name}-kicker-libs = %{epoch}:%{version}-%{release}
+Requires:	kdebase-i18n = %{epoch}:%{version}-%{release}
 
 %description kicker-libs-i18n
 Internationalization and localization files for kicker-libs.
@@ -1245,6 +1260,7 @@ Summary:	Internationalization and localization files for libkonq
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla libkonq
 Group:	X11/Applications
 Requires:	kdelibs-i18n
+Requires:	kdebase-i18n = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkonq = %{epoch}:%{version}-%{release}
 
 %description libkonq-i18n
@@ -1258,6 +1274,7 @@ Summary:	Internationalization and localization files for mailnews
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla mailnews
 Group:	X11/Applications
 Requires:	kdelibs-i18n
+Requires:	kdebase-i18n = %{epoch}:%{version}-%{release}
 Requires:	%{name}-mailnews = %{epoch}:%{version}-%{release}
 
 %description mailnews-i18n
@@ -1532,7 +1549,7 @@ drkonqi"
 for i in $core;
 do
 	%find_lang $i	--with-kde
-	cat $i >> core.lang
+	cat $i.lang >> core.lang
 done
 
 desktop="kcmkwintheme \
@@ -1568,7 +1585,7 @@ kcmmidi"
 for i in $desktop;
 do
 	%find_lang $i	--with-kde
-	cat $i >> %{name}.lang
+	cat $i.lang >> %{name}.lang
 done
 
 %find_lang ksplashthemes	--with-kde
@@ -1583,7 +1600,7 @@ kcmview1394"
 for i in $info;
 do
 	%find_lang $i	--with-kde
-	cat $i >> kinfocenter.lang
+	cat $i.lang >> kinfocenter.lang
 done
 
 %find_lang kappfinder	--with-kde
@@ -1631,7 +1648,7 @@ taskbarextension"
 for i in $kicker;
 do
 	%find_lang $i	--with-kde
-	cat $i >> kicker.lang
+	cat $i.lang >> kicker.lang
 done
 
 %find_lang libtaskbar	--with-kde
@@ -1649,7 +1666,6 @@ cat kwriteconfig.lang >> kwrite.lang
 
 %find_lang libkonq	--with-kde
 
-
 mn="kio_imap4 \
 kio_pop3 \
 kio_nntp \
@@ -1658,7 +1674,7 @@ kio_smtp"
 for i in $mn;
 do
 	%find_lang $i	--with-kde
-	cat $i >> mailnews.lang
+	cat $i.lang >> mailnews.lang
 done
 
 screen="kscreensaver \
@@ -1667,7 +1683,7 @@ kcmscreensaver"
 for i in $screen;
 do
 	%find_lang $i	--with-kde
-	cat $i >> screensaver.lang
+	cat $i.lang >> screensaver.lang
 done
 
 
@@ -1678,7 +1694,7 @@ kdmgreet"
 for i in $kdm;
 do
 	%find_lang $i	--with-kde
-	cat $i >> kdm.lang
+	cat $i.lang >> kdm.lang
 done
 
 konqueror="appletproxy \
@@ -1712,7 +1728,28 @@ kio_smbro"
 for i in $konqueror;
 do
 	%find_lang $i	--with-kde
-	cat $i >> konqueror.lang
+	cat $i.lang >> konqueror.lang
+done
+
+
+%find_lang desktop_kdebase --with-kde
+mv desktop_kdebase.lang i18n.lang
+
+for i in $RPM_BUILD_ROOT%{_datadir}/locale/* ;
+do
+	echo $i
+	if [ -d $i ] ; then
+	z=`echo $i|sed -e "s,${RPM_BUILD_ROOT}%{_datadir}/locale/,,"`
+	if [ -f ${RPM_BUILD_ROOT}%{_datadir}/locale/$z/charset ] ; then
+	echo %lang\($z\) %{_datadir}/locale/$z/charset >> i18n.lang
+	fi
+	if [ -f ${RPM_BUILD_ROOT}%{_datadir}/locale/$z/entry.desktop ] ; then
+	echo %lang\($z\) %{_datadir}/locale/$z/entry.desktop >> i18n.lang
+	fi
+	if [ -f ${RPM_BUILD_ROOT}%{_datadir}/locale/$z/flag.png ] ; then
+	echo %lang\($z\) %{_datadir}/locale/$z/flag.png >> i18n.lang
+	fi
+	fi
 done
 %endif
 
@@ -1832,7 +1869,7 @@ fi
 %files screensavers-i18n -f screensaver.lang
 %files -n kdm-i18n -f kdm.lang
 %files -n konqueror-i18n -f konqueror.lang
-
+%files i18n -f i18n.lang
 %files -n kde-decoration-b2-i18n -f kwin_b2_config.lang
 %files -n kde-decoration-modernsys-i18n -f kwin_modernsys_config.lang
 %files -n kde-decoration-quartz-i18n -f kwin_quartz_config.lang
@@ -1991,11 +2028,6 @@ fi
 
 %files core -f core_en.lang
 %defattr(644,root,root,755)
-%lang(en) %dir %{_kdedocdir}/en/kcontrol
-%lang(en) %{_kdedocdir}/en/kcontrol/common
-%lang(en) %{_kdedocdir}/en/kcontrol/helpindex.html
-%lang(en) %{_kdedocdir}/en/kcontrol/index.*
-%lang(en) %{_kdedocdir}/en/kcontrol/screenshot.png
 /etc/xdg/menus/applications-merged/kde-essential.menu
 /etc/xdg/menus/kde-settings.menu
 %attr(0755,root,root) %{_bindir}/drkonqi
