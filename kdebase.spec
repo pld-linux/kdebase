@@ -132,6 +132,7 @@ Obsoletes:	%{name}-konqueror
 Obsoletes:	%{name}-kwin
 Obsoletes:	%{name}-kxmlrpc
 Obsoletes:	%{name}-kdesktop
+Obsoletes:	%{name}-static
 Obsoletes:	%{name}-wallpapers
 Obsoletes:	kde-splash
 Obsoletes:	kde-theme-keramik
@@ -206,22 +207,6 @@ KDE.
 Este pacote contém os arquivos de inclusão que são necessários para
 compilar aplicativos que usem bibliotecas do kdebase.
 
-%package static
-Summary:	Include static libraries to develop KDE applications
-Summary(pl):	Statyczne biblioteki KDE
-Summary(pt_BR):	Bibliotecas estáticas do kdebase
-Group:		X11/Development/Libraries
-Requires:	kdelibs-devel >= %{version}
-
-%description static
-This package contains KDE static libraries.
-
-%description static -l pl
-Pakiet zawiera statyczne biblioteki KDE.
-
-%description static -l pt_BR
-Bibliotecas estáticas do kdebase.
-
 %package -n kde-sdscreen-default
 Summary:        KDE "Logout" picture
 Summary(pl):    Obrazek okna "Wyloguj" KDE
@@ -236,21 +221,6 @@ Default KDE "Logout" picture.
 
 %description -n kde-sdscreen-default -l pl
 Standardowy obrazek okna "Wyloguj" KDE. 
-
-#%package -n kde-splash-default
-#Summary:	KDE splash screen
-#Summary(pl):	Obrazek startowy KDE
-#Group:		X11/Amusements
-#Provides:	kde-splash
-#Requires:	%{name} >= 3.0.3
-#Obsoletes:	kde-splash-KDEGirl
-#Obsoletes:	kde-splash-keramik
-
-#%description -n kde-splash-default
-#Default splash screen for KDE.
-
-#%description -n kde-splash-default -l pl
-#Standardowy obrazek startowy KDE.
 
 %package common-filemanagement
 Summary:	Common Files for kate and konqueror
@@ -851,7 +821,7 @@ fi
 %{_desktopdir}/kinfocenter.desktop
 %{_desktopdir}/kmenuedit.desktop
 %{_desktopdir}/kpersonalizer.desktop
-%{_desktopdir}/printmgr.desktop
+#%{_desktopdir}/printmgr.desktop
 #
 %{_vfinfodir}/kde-information.directory
 %{_vfinfodir}/kde-settings-[ailpw]*.directory
@@ -902,17 +872,9 @@ fi
 ##%{_libdir}/libsensordisplays.so
 %{_libdir}/libtask*.so
 
-#%files static
-#%defattr(644,root,root,755)
-#%{_libdir}/libccont.a
-
 %files -n kde-sdscreen-default                                                  
 %defattr(644,root,root,755)                                                     
 %{_datadir}/apps/ksmserver/* 
-
-#%files -n kde-splash-default                                                  
-#%defattr(644,root,root,755)                                                     
-#%{_datadir}/apps/ksplash/pics
 
 %files common-filemanagement
 %defattr(644,root,root,755)
@@ -1081,7 +1043,7 @@ fi
 %{_datadir}/apps/kicker
 %{_pixmapsdir}/*/*/apps/*kicker*
 %{_applnkdir}/.hidden/kicker*.desktop
-%{_desktopdir}/kcmkicker.desktop
+#%{_desktopdir}/kcmkicker.desktop
 
 %files konsole -f konsole.lang
 %defattr(644,root,root,755)
