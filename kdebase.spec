@@ -1321,7 +1321,7 @@ fi
 %attr(755,root,root) %{_bindir}/khelpcenter
 %attr(755,root,root) %{_bindir}/kprinter
 %attr(755,root,root) %{_bindir}/iconvert
-#%%attr(755,root,root) %{_bindir}/multiple-attachments-servicemenu
+%attr(755,root,root) %{_bindir}/attach-to-email
 %{_libdir}/libkdeinit_kcminit.la
 %attr(755,root,root) %{_libdir}/libkdeinit_kcminit.so
 %{_libdir}/libkdeinit_kcmshell.la
@@ -1340,6 +1340,8 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/kcm_kded.so
 %{_libdir}/kde3/kcm_style.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_style.so
+%{_libdir}/kde3/kcm_icons.la
+%attr(755,root,root) %{_libdir}/kde3/kcm_icons.so
 %{_libdir}/kde3/kcm_locale.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_locale.so
 %{_libdir}/kde3/kcm_printmgr.la
@@ -1404,6 +1406,7 @@ fi
 %{_desktopdir}/kde/printmgr.desktop
 %{_desktopdir}/kde/Help.desktop
 %{_desktopdir}/kde/KControl.desktop
+%{_desktopdir}/kde/icons.desktop
 %{_iconsdir}/*/*/apps/colors.png
 %{_iconsdir}/*/*/apps/energy.png
 %{_iconsdir}/*/*/apps/fonts.png
@@ -1425,10 +1428,21 @@ fi
 # infocenter & konqueror need it:
 %{_iconsdir}/*/*/apps/samba.png
 %{_iconsdir}/*/*/apps/usb.png
-%lang(en) %{_kdedocdir}/en/kcontrol/helpindex.html
-%lang(en) %{_kdedocdir}/en/kcontrol/index.*
-%lang(en) %{_kdedocdir}/en/kcontrol/*.png
-%lang(en) %dir %{_kdedocdir}/en/kcontrol
+%dir %{_kdedocdir}/en/kcontrol
+%{_kdedocdir}/en/kcontrol/helpindex.html
+%{_kdedocdir}/en/kcontrol/index.*
+%{_kdedocdir}/en/kcontrol/*.png
+%{_kdedocdir}/en/kcontrol/colors
+%{_kdedocdir}/en/kcontrol/fonts 
+%{_kdedocdir}/en/kcontrol/kcmstyle 
+%{_kdedocdir}/en/kcontrol/language
+%{_kdedocdir}/en/kcontrol/icons 
+%{_kdedocdir}/en/kdebugdialog 
+%{_kdedocdir}/en/kdeprint 
+%{_kdedocdir}/en/kdesu
+%{_kdedocdir}/en/khelpcenter 
+
+
 
 %files desktop 
 %defattr(644,root,root,755)
@@ -1727,6 +1741,25 @@ fi
 %{_iconsdir}/*/*/apps/x.png
 %{_iconsdir}/*/*/apps/xv.png
 %{_iconsdir}/crystalsvg/*/actions/newfont.png
+%{_iconsdir}/crystalsvg/*/*/abiword.png
+%{_iconsdir}/crystalsvg/*/*/assistant.png
+%{_iconsdir}/crystalsvg/*/*/bluefish.png
+%{_iconsdir}/crystalsvg/*/*/dia.png
+%{_iconsdir}/crystalsvg/*/*/eclipse.png
+%{_iconsdir}/crystalsvg/*/*/evolution.png
+%{_iconsdir}/crystalsvg/*/*/firefox.png
+%{_iconsdir}/crystalsvg/*/*/gabber.png
+%{_iconsdir}/crystalsvg/*/*/gaim.png
+%{_iconsdir}/crystalsvg/*/*/gnomemeeting.png
+%{_iconsdir}/crystalsvg/*/*/gnucash.png
+%{_iconsdir}/crystalsvg/*/*/gnumeric.png
+%{_iconsdir}/crystalsvg/*/*/linguist.png
+%{_iconsdir}/crystalsvg/*/*/pan.png
+%{_iconsdir}/crystalsvg/*/*/planner.png
+%{_iconsdir}/crystalsvg/*/*/scribus.png
+%{_iconsdir}/crystalsvg/*/*/sodipodi.png
+%{_iconsdir}/crystalsvg/*/*/thunderbird.png
+%{_iconsdir}/crystalsvg/*/*/wine.png
 %doc ksystraycmd/README
 %attr(755,root,root) %{_bindir}/ksystraycmd
 %attr(755,root,root) %{_bindir}/kicker
@@ -1805,6 +1838,31 @@ fi
 %{_iconsdir}/*/*/apps/package*.png
 %{_iconsdir}/*/*/apps/panel.png
 %{_iconsdir}/*/*/apps/panel_settings.png
+%{_kdedocdir}/en/kcontrol/arts
+%{_kdedocdir}/en/kcontrol/background
+%{_kdedocdir}/en/kcontrol/bell 
+%{_kdedocdir}/en/kcontrol/clock 
+%{_kdedocdir}/en/kcontrol/desktop 
+%{_kdedocdir}/en/kcontrol/desktopbehavior 
+%{_kdedocdir}/en/kcontrol/energy 
+%{_kdedocdir}/en/kcontrol/kcmaccess 
+%{_kdedocdir}/en/kcontrol/kcmlaunch 
+%{_kdedocdir}/en/kcontrol/kcmnotify 
+%{_kdedocdir}/en/kcontrol/kcmsmserver 
+%{_kdedocdir}/en/kcontrol/kcmtaskbar 
+%{_kdedocdir}/en/kcontrol/keyboard 
+%{_kdedocdir}/en/kcontrol/keys 
+%{_kdedocdir}/en/kcontrol/kwindecoration 
+%{_kdedocdir}/en/kcontrol/kcmsmserver
+%{_kdedocdir}/en/kicker 
+%{_kdedocdir}/en/ksplashml 
+%{_kdedocdir}/en/kxkb 
+%{_kdedocdir}/en/kcontrol/mouse 
+%{_kdedocdir}/en/kcontrol/panel 
+%{_kdedocdir}/en/kcontrol/panelappearance 
+%{_kdedocdir}/en/kcontrol/passwords 
+%{_kdedocdir}/en/kcontrol/spellchecking 
+%{_kdedocdir}/en/kcontrol/windowmanagement
 
 %files desktop-libs
 %defattr(644,root,root,755)
@@ -1864,6 +1922,8 @@ fi
 %{_iconsdir}/*/*/apps/kcmx.png
 # !!!
 %{_iconsdir}/*/*/apps/kthememgr.png
+%{_kdedocdir}/en/kinfocenter
+%{_kdedocdir}/en/kioslave
 
 %files kappfinder
 %defattr(644,root,root,755)
@@ -1893,6 +1953,7 @@ fi
 %{_desktopdir}/kde/kate.desktop
 # konqueror needs it ?
 %{_iconsdir}/*/*/apps/kate.png
+%{_kdedocdir}/en/kate
 
 %files kdcop
 %defattr(644,root,root,755)
@@ -1918,6 +1979,7 @@ fi
 %attr(755,root,root) %{_bindir}/kfind
 %{_desktopdir}/kde/Kfind.desktop
 %{_iconsdir}/*/*/apps/kfind.png
+%{_kdedocdir}/en/kfind
 
 %files kfontinst 
 %defattr(644,root,root,755)
@@ -1936,6 +1998,7 @@ fi
 %{_datadir}/services/kfontviewpart.desktop
 %{_desktopdir}/kde/kcmfontinst.desktop
 %{_iconsdir}/[!l]*/*/apps/kcmfontinst.png
+%{_kdedocdir}/en/kcontrol/kcmfontinst
 
 %files kjobviewer
 %defattr(644,root,root,755)
@@ -1961,6 +2024,7 @@ fi
 %{_datadir}/config/klipperrc
 %{_desktopdir}/kde/klipper.desktop
 %{_iconsdir}/*/*/apps/klipper.png
+%{_kdedocdir}/en/klipper
 
 %files kmenuedit 
 %defattr(644,root,root,755)
@@ -1973,6 +2037,7 @@ fi
 %{_desktopdir}/kde/kmenuedit.desktop
 %{_iconsdir}/*/*/apps/kmenu.png
 %{_iconsdir}/*/*/apps/kmenuedit.png
+%{_kdedocdir}/en/kmenuedit
 
 %files konsole
 %defattr(644,root,root,755)
@@ -1989,12 +2054,15 @@ fi
 %{_datadir}/applnk/.hidden/kcmkonsole.desktop
 %{_desktopdir}/kde/konsole*.desktop
 %{_iconsdir}/*/*/apps/konsole.png
+%{_kdedocdir}/en/kcontrol/kcmkonsole
+%{_kdedocdir}/en/konsole
 
 %files kpager 
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kpager
 %{_desktopdir}/kde/kpager.desktop
 %{_iconsdir}/*/*/apps/kpager.png
+%{_kdedocdir}/en/kpager
 
 %files kpersonalizer
 %defattr(644,root,root,755)
@@ -2015,6 +2083,7 @@ fi
 %{_datadir}/mimelnk/application/x-ksysguard.desktop
 %{_desktopdir}/kde/ksysguard.desktop
 %{_iconsdir}/*/*/apps/ksysguard.png
+%{_kdedocdir}/en/ksysguard 
 
 %files -n konqueror-libs
 %defattr(644,root,root,755)
@@ -2051,6 +2120,7 @@ fi
 %{_datadir}/apps/kwrite
 %{_desktopdir}/kde/kwrite.desktop
 %{_iconsdir}/*/*/apps/kwrite.png
+%{_kdedocdir}/en/kwrite
 
 %files kwrited
 %defattr(644,root,root,755)
@@ -2104,6 +2174,7 @@ fi
 %{_datadir}/apps/kscreensaver
 %{_desktopdir}/kde/screensaver.desktop
 %{_iconsdir}/*/*/apps/kscreensaver.png
+%{_kdedocdir}/en/kcontrol/screensaver
 
 %files -n kde-kgreet-classic
 %defattr(644,root,root,755)
@@ -2140,6 +2211,8 @@ fi
 %{_datadir}/wallpapers/kdm_pld.png
 %{_desktopdir}/kde/kdm.desktop
 %{_iconsdir}/*/*/apps/kdmconfig.png
+%{_kdedocdir}/en/kdm
+%{_kdedocdir}/en/kcontrol/kdm
 
 %files -n konqueror
 %defattr(644,root,root,755)
@@ -2181,8 +2254,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/kcm_filetypes.so
 %{_libdir}/kde3/kcm_history.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_history.so
-%{_libdir}/kde3/kcm_icons.la
-%attr(755,root,root) %{_libdir}/kde3/kcm_icons.so
 %{_libdir}/kde3/kcm_kio.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_kio.so
 %{_libdir}/kde3/kcm_konq.la
@@ -2255,6 +2326,10 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/konqueror.so
 %{_libdir}/kde3/konqsidebar_tree.la
 %attr(755,root,root) %{_libdir}/kde3/konqsidebar_tree.so
+%{_libdir}/kde3/konqsidebar_speedbar.la
+%attr(755,root,root) %{_libdir}/kde3/konqsidebar_speedbar.so
+%{_libdir}/kde3/konqsidebar_ksidebar.la
+%attr(755,root,root) %{_libdir}/kde3/konqsidebar_ksidebar.so
 %{_libdir}/kde3/konqsidebar_web.la
 %attr(755,root,root) %{_libdir}/kde3/konqsidebar_web.so
 %{_libdir}/kde3/libkfindpart.la
@@ -2365,7 +2440,6 @@ fi
 %{_desktopdir}/kde/filebrowser.desktop
 %{_desktopdir}/kde/filetypes.desktop
 %{_desktopdir}/kde/kcmperformance.desktop
-%{_desktopdir}/kde/icons.desktop
 %{_desktopdir}/kde/cache.desktop
 %{_desktopdir}/kde/cookies.desktop
 %{_desktopdir}/kde/ebrowsing.desktop
@@ -2401,3 +2475,17 @@ fi
 %{_iconsdir}/*/*/apps/mac.png
 %{_iconsdir}/*/*/apps/proxy.png
 %{_iconsdir}/*/*/apps/stylesheet.png
+%{_kdedocdir}/en/konqueror
+%{_kdedocdir}/en/kcontrol/cache 
+%{_kdedocdir}/en/kcontrol/cookies 
+%{_kdedocdir}/en/kcontrol/crypto 
+%{_kdedocdir}/en/kcontrol/ebrowsing 
+%{_kdedocdir}/en/kcontrol/email 
+%{_kdedocdir}/en/kcontrol/filemanager 
+%{_kdedocdir}/en/kcontrol/filetypes 
+%{_kdedocdir}/en/kcontrol/kcmcss 
+%{_kdedocdir}/en/kcontrol/khtml 
+%{_kdedocdir}/en/kcontrol/netpref 
+%{_kdedocdir}/en/kcontrol/proxy 
+%{_kdedocdir}/en/kcontrol/smb 
+%{_kdedocdir}/en/kcontrol/useragent
