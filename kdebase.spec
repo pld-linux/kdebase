@@ -569,7 +569,6 @@ mv -f $ALD/{System/More/{konquerorsu,konsolesu}.desktop,System/Administration}
 mv -f $ALD/{System/ScreenSavers,.hidden}
 mv -f $ALD/{Utilities/More/*.desktop,Utilities}
 mv -f $ALD/{Settings/[!K]*,Settings/KDE}
-mv -f $ALD/{System/kinfocenter.desktop,Settings}
 mv -f $ALD/{Settingsmenu/*.desktop,Settings}
 
 cat > $ALD/Settings/KDE/.directory << EOF
@@ -862,7 +861,6 @@ fi
 %{_applnkdir}/System/k[!o]*.desktop
 %{_applnkdir}/Utilities/k[!de]*.desktop
 %{_applnkdir}/Settings/kappfinder.desktop
-%{_applnkdir}/Settings/kinfocenter.desktop
 %{_applnkdir}/Settings/kmenuedit.desktop
 %{_applnkdir}/Settings/kpersonalizer.desktop
 %{_applnkdir}/Settings/printmgr.desktop
