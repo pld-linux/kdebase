@@ -1,0 +1,91 @@
+--- kdebase-3.1/kcontrol/input/mouse.cpp.orig	Mon Nov 18 14:14:21 2002
++++ kdebase-3.1/kcontrol/input/mouse.cpp	Sat Nov 30 19:45:58 2002
+@@ -475,11 +475,9 @@
+ 
+   settings->apply();
+   settings->save(config);
+-  if (settings->largeCursor != wasLargeCursor) {
+-    KMessageBox::information(this, i18n("KDE must be restarted for the cursor size change to take effect"), QString::null, "DoNotRemindCursor");
+-  }
+-  if (settings->whiteCursor != wasWhiteCursor) {
+-    KMessageBox::information(this, i18n("KDE must be restarted for the cursor color change to take effect"), QString::null, "DoNotRemindCursor");
++  if (settings->largeCursor != wasLargeCursor || settings->whiteCursor != wasWhiteCursor) {
++    KMessageBox::information(this, i18n("KDE must be restarted for the cursor layout change to take effect"),
++    									QString::null, "DoNotRemindCursor");
+   }
+ 
+   KConfig ac("kaccessrc", false);
+@@ -724,33 +722,6 @@
+           { };
+       m_handedNeedsApply = false;
+   }
+-
+-  // Make sure we have the 'font' resource dir registered and can find the
+-  // override dir.
+-  //
+-  // Next, if the user wants large cursors, copy the font
+-  // cursor_large.pcf.gz to (localkdedir)/share/fonts/override/cursor.pcf.gz.
+-  // Else remove the font cursor.pcf.gz from (localkdedir)/share/fonts/override.
+-  //
+-  // Run mkfontdir to update fonts.dir in that dir.
+-
+-  KGlobal::dirs()->addResourceType("font", "share/fonts/");
+-  QString overrideDir = locateLocal("font", "override/");
+-  QString font_large_black = locate("data", "kcminput/cursor_large_black.pcf.gz");
+-  QString font_large_white = locate("data", "kcminput/cursor_large_white.pcf.gz");
+-  QString font_small_white = locate("data", "kcminput/cursor_small_white.pcf.gz");
+-  QString installedFont = overrideDir + "/cursor.pcf.gz";
+-
+-  if (!largeCursor && !whiteCursor)
+-    unlink(QFile::encodeName(installedFont));
+-  else if (largeCursor && !whiteCursor)
+-    KIO::NetAccess::copy(font_large_black, installedFont);
+-  else if (largeCursor && whiteCursor)
+-    KIO::NetAccess::copy(font_large_white, installedFont);
+-  else if (!largeCursor && whiteCursor)
+-    KIO::NetAccess::copy(font_small_white, installedFont);
+-
+-  system(QFile::encodeName("mkfontdir " + overrideDir));
+ }
+ 
+ void MouseSettings::save(KConfig *config)
+@@ -775,6 +746,39 @@
+   config->writeEntry("LargeCursor", largeCursor, true, true );
+   config->writeEntry("WhiteCursor", whiteCursor, true, true );
+   config->sync();
++    
++  // Make sure we have the 'font' resource dir registered and can find the
++  // override dir.
++  //
++  // Next, if the user wants large cursors, copy the font
++  // cursor_large.pcf.gz to (localkdedir)/share/fonts/override/cursor.pcf.gz.
++  // Else remove the font cursor.pcf.gz from (localkdedir)/share/fonts/override.
++  //
++  // Run mkfontdir to update fonts.dir in that dir.
++
++  KGlobal::dirs()->addResourceType("font", "share/fonts/");
++  QString overrideDir = locateLocal("font", "override/");
++  QString font_large_black = locate("data", "kcminput/cursor_large_black.pcf.gz");
++  QString font_large_white = locate("data", "kcminput/cursor_large_white.pcf.gz");
++  QString font_small_white = locate("data", "kcminput/cursor_small_white.pcf.gz");
++  QString installedFont = overrideDir + "cursor.pcf.gz";
++  
++  if (!largeCursor && !whiteCursor)
++    unlink(QFile::encodeName(installedFont));
++  else if (largeCursor && !whiteCursor) {
++    unlink(QFile::encodeName(installedFont));
++    KIO::NetAccess::copy(font_large_black, installedFont);
++  }
++  else if (largeCursor && whiteCursor) {
++    unlink(QFile::encodeName(installedFont));
++    KIO::NetAccess::copy(font_large_white, installedFont);
++  }
++  else if (!largeCursor && whiteCursor) {
++    unlink(QFile::encodeName(installedFont));
++    KIO::NetAccess::copy(font_small_white, installedFont);
++  }
++  system(QFile::encodeName("mkfontdir " + overrideDir));
++  
+   KIPC::sendMessageAll(KIPC::SettingsChanged, KApplication::SETTINGS_MOUSE);
+ }
+ 
