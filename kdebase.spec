@@ -7,7 +7,7 @@ Summary(ru):	K Desktop Environment - базовые файлы
 Summary(uk):	K Desktop Environment - базов╕ файли
 Name:		kdebase
 Version:	2.2.2
-Release:	13
+Release:	14
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -521,6 +521,7 @@ fi
 %files devel
 %defattr(644,root,root,755)
 %dir %{_includedir}/kwin
+%dir %{_includedir}/kate
 %{_includedir}/*.h
 %{_includedir}/kwin/*.h
 %{_includedir}/kate/*.h
