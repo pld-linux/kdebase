@@ -320,7 +320,7 @@ Pliki wspólne, u¿ywane przez kate i konquerora.
 Summary:	Common files for konsole and konsolepart
 Summary(pl):	Pliki wspólne dla konsole i konsolepart
 Group:		X11/Applications
-Requires(post,postun):	/usr/X11R6/bin/mkfontdir
+Requires(post,postun):	fontpostinst
 Requires:	kdelibs >= %{version}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	%{name}-fonts
@@ -878,14 +878,10 @@ rm -rf $RPM_BUILD_ROOT
 %postun			-p /sbin/ldconfig
 
 %post common-konsole
-cd %{_fontdir}
-umask 022
-/usr/X11R6/bin/mkfontdir
+/usr/bin/fontpostinst misc
 
 %postun common-konsole
-cd %{_fontdir}
-umask 022
-/usr/X11R6/bin/mkfontdir
+/usr/bin/fontpostinst misc
 
 %post	kicker		-p /sbin/ldconfig
 %postun	kicker		-p /sbin/ldconfig
