@@ -65,8 +65,6 @@ Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
 Patch20:	%{name}-kwin_shadow.patch
 BuildRequires:	OpenGL-devel
-BuildRequires:	arts-devel >= 1.2.0
-BuildRequires:	arts-qt-devel
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
