@@ -4,9 +4,8 @@
 %bcond_without	ldap		# build or not ldap ioslave
 %bcond_with	kwin_shadow	# experimental support for kwin shadows
 
-%define		_state		snapshots
+%define		_state		stable
 %define		_ver		3.3.0
-%define		_snap		rc2
 
 %define		_minlibsevr	9:3.3.0
 
@@ -21,12 +20,13 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.%{_snap}.1
+Release:	0.1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{version}-%{_snap}.tar.bz2
-# Source0-md5:	49340c1ab3548c6c864e3ddcc847b810
+Source0:	http://download.kde.org/%{_state}/3.3/src/%{name}-%{_ver}.tar.bz2
+#Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{version}-%{_snap}.tar.bz2
+# Source0-md5:	7ff957ba4608de5720a9b4fda6c78644
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
