@@ -4,7 +4,7 @@
 # _without_alsa - disable alsa
 
 %define		_state		unstable
-%define		_kdever		kde-3.1-rc3
+%define		_kdever		kde-3.1-rc5
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -17,7 +17,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËĞÄ
 Name:		kdebase
 Version:	3.1
-Release:	2
+Release:	3
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
