@@ -802,8 +802,7 @@ Biblioteki wspó³dzielone konquerora.
 Summary:	API documentation
 Summary(pl):	Dokumentacja API
 Group:		Development/Docs
-#Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	%{name}
+Requires:	kdelibs = %{epoch}:%{version}-%{release}
 
 %description apidocs
 API documentation.
@@ -1144,10 +1143,11 @@ if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del kdm
 fi
 
-
+%if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
 %lang(en) %{_kdedocdir}/en/%{name}-apidocs
+%endif
 
 %files devel
 %defattr(644,root,root,755)
