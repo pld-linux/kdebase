@@ -802,7 +802,8 @@ done
 %configure \
 	--enable-final \
 	--with-kdm-pam=kdm \
-	--with-pam=kdesktop
+	--with-pam=kdesktop \
+	--without-java
 
 %{__make}
 
