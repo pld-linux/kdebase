@@ -1,7 +1,34 @@
 diff -urN -x CVS kdebase.orig/admin/acinclude.m4.in kdebase/admin/acinclude.m4.in
 --- kdebase.orig/admin/acinclude.m4.in	2005-02-09 23:21:09.000000000 +0100
-+++ kdebase/admin/acinclude.m4.in	2005-03-08 14:41:45.000000000 +0100
-@@ -3194,6 +3194,51 @@
++++ kdebase/admin/acinclude.m4.in	2005-03-24 20:18:09.000000000 +0100
+@@ -1644,7 +1644,15 @@
+ 
+ AC_MSG_RESULT([$kde_cv_uic_plugins])
+ if test "$kde_cv_uic_plugins" != yes; then
+-	AC_MSG_ERROR([you need to install kdelibs first.])
++	AC_MSG_ERROR([
++you need to install kdelibs first.
++
++If you did install kdelibs, then the Qt version that is picked up by
++this configure is not the same version you used to compile kdelibs. 
++The Qt Plugin installed by kdelibs is *ONLY* loadable if its the 
++same Qt version, compiled with the same compiler and the same Qt
++configuration settings.
++])
+ fi
+ fi
+ ])
+@@ -3104,8 +3112,8 @@
+         fi
+         rm -f conftest.h conftest.h.gch
+     fi
+-    AM_CONDITIONAL(unsermake_enable_pch, test "$kde_use_pch" = "yes" && test "$kde_gcc_supports_pch" = "yes")
+   fi
++  AM_CONDITIONAL(unsermake_enable_pch, test "$kde_use_pch" = "yes" && test "$kde_gcc_supports_pch" = "yes")
+   if test "$CXX" = "KCC"; then
+     dnl unfortunately we currently cannot disable exception support in KCC
+     dnl because doing so is binary incompatible and Qt by default links with exceptions :-(
+@@ -3194,6 +3202,51 @@
    ifdef([AM_DEPENDENCIES], AC_REQUIRE([KDE_ADD_DEPENDENCIES]), [])
  ])
  
@@ -53,7 +80,7 @@ diff -urN -x CVS kdebase.orig/admin/acinclude.m4.in kdebase/admin/acinclude.m4.i
  AC_DEFUN([KDE_CHECK_AND_ADD_HIDDEN_VISIBILITY],
  [
    if test "$GXX" = "yes"; then
-@@ -3202,7 +3247,9 @@
+@@ -3202,7 +3255,9 @@
      KDE_CHECK_COMPILER_FLAG(fno-common, [CXXFLAGS="$CXXFLAGS -fno-common"])
      KDE_CHECK_COMPILER_FLAG(fvisibility=hidden, 
      [
@@ -222,7 +249,7 @@ diff -urN -x CVS kdebase.orig/applnk/compat/konqhtml.desktop kdebase/applnk/comp
  Type=Application
 diff -urN -x CVS kdebase.orig/applnk/compat/passwords.desktop kdebase/applnk/compat/passwords.desktop
 --- kdebase.orig/applnk/compat/passwords.desktop	2005-02-23 06:05:26.000000000 +0100
-+++ kdebase/applnk/compat/passwords.desktop	2005-03-07 15:14:43.000000000 +0100
++++ kdebase/applnk/compat/passwords.desktop	2005-03-26 08:37:38.000000000 +0100
 @@ -79,7 +79,6 @@
  Name[vi]=Mật khẩu
  Name[wa]=Sicrets
@@ -231,6 +258,15 @@ diff -urN -x CVS kdebase.orig/applnk/compat/passwords.desktop kdebase/applnk/com
  Name[zh_CN]=密码
  Name[zh_TW]=密碼
  Name[zu]=Amagama-okudlula
+@@ -106,7 +105,7 @@
+ Comment[fa]=تنظیمات واژه‌ی رمز
+ Comment[fi]=Salasanojen asetukset
+ Comment[fr]=Configurer les réglages des mots de passe
+-Comment[fy]=Hjirre kinne jo de wachtwurd ynstellingen ynstelle
++Comment[fy]=Hjirre kinne jo de wachtwurd ynstellings ynstelle
+ Comment[ga]=Cumraigh socruithe focail faire
+ Comment[gl]=Configuración das opcións dos contrasinais
+ Comment[he]=שינוי הגדרות הססמאות
 @@ -150,7 +149,6 @@
  Comment[vi]=Cấu hình các thiết lập về mật khẩu
  Comment[wa]=Apontiaedjes po les screts
@@ -394,8 +430,8 @@ diff -urN -x CVS kdebase.orig/applnk/.directory kdebase/applnk/.directory
  Name[zu]=Okwendalo
 diff -urN -x CVS kdebase.orig/applnk/hidden.directory kdebase/applnk/hidden.directory
 --- kdebase.orig/applnk/hidden.directory	2005-02-22 22:47:38.000000000 +0100
-+++ kdebase/applnk/hidden.directory	2005-03-22 18:37:59.000000000 +0100
-@@ -2,4 +2,28 @@
++++ kdebase/applnk/hidden.directory	2005-03-26 08:37:38.000000000 +0100
+@@ -2,4 +2,29 @@
  Encoding=UTF-8
  Type=Directory
  Name=Internal services
@@ -418,6 +454,7 @@ diff -urN -x CVS kdebase.orig/applnk/hidden.directory kdebase/applnk/hidden.dire
 +Name[nl]=Interne diensten
 +Name[pt]=Serviços internos
 +Name[pt_BR]=Serviços Internos
++Name[ru]=Внутренние службы
 +Name[sl]=Notranje storitve
 +Name[sr]=Унутрашњи сервиси
 +Name[sr@Latn]=Унутрашњи сервиси
@@ -794,7 +831,7 @@ diff -urN -x CVS kdebase.orig/applnk/kde-settings-looknfeel.directory kdebase/ap
  Name[zu]=Ukubukeka & Izingqikithi
 diff -urN -x CVS kdebase.orig/applnk/kde-settingsmenu.directory kdebase/applnk/kde-settingsmenu.directory
 --- kdebase.orig/applnk/kde-settingsmenu.directory	2005-02-22 22:47:39.000000000 +0100
-+++ kdebase/applnk/kde-settingsmenu.directory	2005-03-10 17:05:06.000000000 +0100
++++ kdebase/applnk/kde-settingsmenu.directory	2005-03-26 08:37:38.000000000 +0100
 @@ -2,6 +2,7 @@
  Encoding=UTF-8
  Type=Directory
@@ -803,6 +840,15 @@ diff -urN -x CVS kdebase.orig/applnk/kde-settingsmenu.directory kdebase/applnk/k
  Name[ar]=الإعدادات
  Name[az]=Qurğular
  Name[be]=Настройкі
+@@ -21,7 +22,7 @@
+ Name[eu]=Ezarpenak
+ Name[fi]=Asetukset
+ Name[fr]=Configuration
+-Name[fy]=Ynstellingen
++Name[fy]=Ynstellings
+ Name[ga]=Socruithe
+ Name[gl]=Opcións
+ Name[he]=הגדרות
 @@ -61,6 +62,5 @@
  Name[uz]=Мосламалар
  Name[vi]=Thiết lập
@@ -6205,8 +6251,14 @@ diff -urN -x CVS kdebase.orig/kate/data/kateinitplugin.desktop kdebase/kate/data
  
 diff -urN -x CVS kdebase.orig/kate/data/kateplugin.desktop kdebase/kate/data/kateplugin.desktop
 --- kdebase.orig/kate/data/kateplugin.desktop	2005-02-23 06:05:31.000000000 +0100
-+++ kdebase/kate/data/kateplugin.desktop	2005-03-07 15:15:00.000000000 +0100
-@@ -56,7 +56,7 @@
++++ kdebase/kate/data/kateplugin.desktop	2005-03-26 08:37:38.000000000 +0100
+@@ -51,12 +51,12 @@
+ Comment[pt]='Plugin' do Kate
+ Comment[pt_BR]=Plug-in do Kate
+ Comment[ro]=Modul Kate
+-Comment[ru]=Плагин Kate
++Comment[ru]=Модуль Kate
+ Comment[se]=Kate-lassemoduvla
  Comment[sk]=Modul Kate
  Comment[sl]=Vstavek za Kate
  Comment[sr]=Kate-ин прикључак
@@ -6456,7 +6508,7 @@ diff -urN -x CVS kdebase.orig/kcontrol/arts/arts.desktop kdebase/kcontrol/arts/a
  Keywords[zu]=aRts,Umlekeleli Womsindo,artsd,Okuzwakalayo,Umsindo,Isiqaliso, ukubonakala koxhumano olusakazekile,Ukubonakala ngale,ukubaluleka,okunezingxemye ezimbili,okunezingxenye ezimbili eziphendulanayo,isikhathi sokuphendula, Umxubi,Izinga lomsindo,KMix,Xuba,ngena ngaphakathi,MIDI,umlungisi womsindo, umculo
 diff -urN -x CVS kdebase.orig/kcontrol/background/background.desktop kdebase/kcontrol/background/background.desktop
 --- kdebase.orig/kcontrol/background/background.desktop	2005-02-11 05:51:49.000000000 +0100
-+++ kdebase/kcontrol/background/background.desktop	2005-03-07 15:15:02.000000000 +0100
++++ kdebase/kcontrol/background/background.desktop	2005-03-26 08:37:39.000000000 +0100
 @@ -78,7 +78,6 @@
  Name[vi]=Ảnh nền
  Name[wa]=Fond
@@ -6465,6 +6517,15 @@ diff -urN -x CVS kdebase.orig/kcontrol/background/background.desktop kdebase/kco
  Name[zh_CN]=背景
  Name[zh_TW]=背景
  Name[zu]=Inkundla yangemuva
+@@ -104,7 +103,7 @@
+ Comment[fa]=تغییر تنظیمات پس‌زمینه
+ Comment[fi]=Muuta taustan asetuksia
+ Comment[fr]=Configuration du fond d'écran
+-Comment[fy]=Eftergrûnynstellingen wizigje
++Comment[fy]=Eftergrûnynstellings wizigje
+ Comment[gl]=Cambia-las opcións do fondo
+ Comment[he]=שינוי הגדרות הרקע
+ Comment[hi]=पृष्ठभूमि सेटिंग बदलें
 @@ -146,7 +145,6 @@
  Comment[vi]=Thay đổi thiết lập ảnh nền
  Comment[wa]=Candjî les apontiaedjes do fond del waitroûle
@@ -6535,6 +6596,60 @@ diff -urN -x CVS kdebase.orig/kcontrol/clock/clock.desktop kdebase/kcontrol/cloc
  Keywords[zh_CN]=clock,date,time,time zone,时钟,日期,时间,时区
  
  Categories=Qt;KDE;X-KDE-settings-system;
+diff -urN -x CVS kdebase.orig/kcontrol/colors/colorscm.cpp kdebase/kcontrol/colors/colorscm.cpp
+--- kdebase.orig/kcontrol/colors/colorscm.cpp	2005-02-22 01:55:02.000000000 +0100
++++ kdebase/kcontrol/colors/colorscm.cpp	2005-03-24 23:41:22.000000000 +0100
+@@ -240,7 +240,7 @@
+ 
+     cbShadeList = new QCheckBox(i18n("Shade sorted column in lists"), this);
+     stackLayout->addWidget(cbShadeList);
+-    connect(cbShadeList, SIGNAL(toggled(bool)), this, SLOT(changed()));
++    connect(cbShadeList, SIGNAL(toggled(bool)), this, SLOT(slotShadeSortColumnChanged(bool)));
+ 
+     QWhatsThis::add(cbShadeList,
+        i18n("Check this box to show the sorted column in a list with a shaded background"));
+@@ -333,7 +333,7 @@
+     cfg->writeEntry("visitedLinkColor", cs->visitedLink, true, true);
+     cfg->writeEntry("alternateBackground", cs->alternateBackground, true, true);
+ 
+-    cfg->writeEntry("shadeSortColumn", cbShadeList->isChecked());
++    cfg->writeEntry("shadeSortColumn", cs->shadeSortColumn, true, true);
+ 
+     cfg->setGroup( "WM" );
+     cfg->writeEntry("activeForeground", cs->aTxt, true, true);
+@@ -470,6 +470,7 @@
+     config->writeEntry("linkColor", cs->link);
+     config->writeEntry("visitedLinkColor", cs->visitedLink);
+     config->writeEntry("alternateBackground", cs->alternateBackground);
++    config->writeEntry("shadeSortColumn", cs->shadeSortColumn);
+ 
+     delete config;
+ }
+@@ -715,6 +716,13 @@
+     slotSelectColor(col);
+ }
+ 
++void KColorScheme::slotShadeSortColumnChanged(bool b)
++{
++    cs->shadeSortColumn = b;
++    sCurrentScheme = QString::null;
++
++    emit changed(true);
++}
+ 
+ /*
+  * Read a color scheme into "cs".
+diff -urN -x CVS kdebase.orig/kcontrol/colors/colorscm.h kdebase/kcontrol/colors/colorscm.h
+--- kdebase.orig/kcontrol/colors/colorscm.h	2005-01-12 19:49:41.000000000 +0100
++++ kdebase/kcontrol/colors/colorscm.h	2005-03-24 23:41:22.000000000 +0100
+@@ -56,6 +56,7 @@
+     void slotWidgetColor(int);
+     void slotColorForWidget(int, const QColor &);
+     void slotPreviewScheme(int);
++    void slotShadeSortColumnChanged(bool);
+ 
+ private:
+     void setColorName( const QString &name, int id );
 diff -urN -x CVS kdebase.orig/kcontrol/colors/colors.desktop kdebase/kcontrol/colors/colors.desktop
 --- kdebase.orig/kcontrol/colors/colors.desktop	2005-02-11 05:51:50.000000000 +0100
 +++ kdebase/kcontrol/colors/colors.desktop	2005-03-07 15:15:04.000000000 +0100
@@ -6642,7 +6757,7 @@ diff -urN -x CVS kdebase.orig/kcontrol/componentchooser/componentservices/kcm_br
  configurationType=internal_browser
 diff -urN -x CVS kdebase.orig/kcontrol/componentchooser/componentservices/kcm_kemail.desktop kdebase/kcontrol/componentchooser/componentservices/kcm_kemail.desktop
 --- kdebase.orig/kcontrol/componentchooser/componentservices/kcm_kemail.desktop	2005-02-23 06:05:32.000000000 +0100
-+++ kdebase/kcontrol/componentchooser/componentservices/kcm_kemail.desktop	2005-03-16 09:32:43.000000000 +0100
++++ kdebase/kcontrol/componentchooser/componentservices/kcm_kemail.desktop	2005-03-26 08:37:39.000000000 +0100
 @@ -5,7 +5,7 @@
  Name[be]=Кліент электроннай пошты
  Name[bg]=Клиент за е-поща
@@ -6669,6 +6784,15 @@ diff -urN -x CVS kdebase.orig/kcontrol/componentchooser/componentservices/kcm_ke
  Name[zh_CN]=电子邮件客户程序
  Name[zh_TW]=電子郵件客戶端程式
  Name[zu]=Umxhasi weposi lekhomputha
+@@ -87,7 +86,7 @@
+ Comment[fa]=این سرویس کارگیر پیش‌فرض پست‌الکترونیتان را تنظیم می‌کند. تمام نرم‌افزارهای KDE که نیاز به دسترسی به‌ کارگیر پست الکترونیکی دارند از این تنظیمات تبعیت خواهند کرد.
+ Comment[fi]=Tämän palvelun avulla voit määritellä oletussähköpostiohjelman. Kaikki KDE-sovellukset, jotka käyttävät sähköpostiohjelmaa, käyttävät tätä asetusta.
+ Comment[fr]=Ce service vous permet de configurer votre client de courrier par défaut. Toutes les applications KDE qui ont besoin d'accéder à un client de courrier électronique doivent accepter ce réglage.
+-Comment[fy]=Mei dizze tsjinst kinst dyn standert e-postprogramma ynstelle. KDE-tapassingen dy tagong ta in e-postprogramma neadich hawwe sille dizze ynstellingen brûke.
++Comment[fy]=Mei dizze tsjinst kinst dyn standert e-postprogramma ynstelle. KDE-tapassingen dy tagong ta in e-postprogramma neadich hawwe sille dizze ynstellings brûke.
+ Comment[gl]=Este servicio permítelle configurar os seu axente de correo predeterminado. Tódalas aplicacións de KDE que precisen acceso á aplicación de correo electrónico deberían ter en conta esta opción.
+ Comment[he]=שירות זה מאפשר לך להגדיר את תוכנית הדוא"ל שתשמש כברירת מחדל. כל יישומי KDE שיזדקקו לגישה אל תוכנית דוא"ל יתחשבו בהגדרה זו.
+ Comment[hi]=यह सेवा आपको आपके डिफ़ॉल्ट ईमेल क्लाएंट को कॉन्फ़िगर करने की स्वीकृति देती है. सभी केडीई अनुप्रयोग जो ईमेल क्लाएंट अनुप्रयोग एक्सेस करते हैं, वे इस विन्यास इस्तेमाल करेंगे.
 @@ -114,7 +113,7 @@
  Comment[sk]=Táto služba umožňuje nastaviť štandardného klienta pošty. Všetky aplikácie KDE, ktoré používajú poštového klienta, by mali používať toto nastavenie.
  Comment[sl]=Ta storitev vam omogoča nastavitev vašega privzetega e-poštnega odjemalca. Vsi programi za KDE, ki ga uporabljajo, bi morali upoštevati te nastavitve.
@@ -6735,7 +6859,7 @@ diff -urN -x CVS kdebase.orig/kcontrol/componentchooser/EXAMPLE.desktop kdebase/
  Comment[zu]=Incazelo esizayo yomxhumanisi yebhokisi lolwazi eliphezulu ngakwesokudla
 diff -urN -x CVS kdebase.orig/kcontrol/crypto/crypto.desktop kdebase/kcontrol/crypto/crypto.desktop
 --- kdebase.orig/kcontrol/crypto/crypto.desktop	2005-02-11 05:51:51.000000000 +0100
-+++ kdebase/kcontrol/crypto/crypto.desktop	2005-03-07 15:15:05.000000000 +0100
++++ kdebase/kcontrol/crypto/crypto.desktop	2005-03-26 08:37:39.000000000 +0100
 @@ -69,7 +69,6 @@
  Name[vi]=Mật mã 
  Name[wa]=Criptografeye
@@ -6744,6 +6868,15 @@ diff -urN -x CVS kdebase.orig/kcontrol/crypto/crypto.desktop kdebase/kcontrol/cr
  Name[zh_CN]=加密
  Name[zh_TW]=加密
  Comment=Configure SSL, manage certificates, and other cryptography settings
+@@ -92,7 +91,7 @@
+ Comment[fa]=تنظیم SSl,مدیریت اعتبارنامه‌ها,و سایر تنظیمات رمزنگاری
+ Comment[fi]=SSL-, sertifikaatti- ja muut salausasetukset
+ Comment[fr]=Configuration de SSL, de la cryptographie et gestion des certificats
+-Comment[fy]=Hjir kinst SSL, sertifikatenbehear en oare kryptografyske ynstellingen wizigje
++Comment[fy]=Hjir kinst SSL, sertifikatenbehear en oare kryptografyske ynstellings wizigje
+ Comment[gl]=Configurar SSL, xestionar certicados, e outras configuracións de cifrado
+ Comment[he]=שינוי ההגדרות של SSL, ניהול תעודות, והגדרות הצפנה אחרות
+ Comment[hi]=कॉन्फ़िगर एसएसएल, प्रमाणपत्र प्रबंधन, तथा अन्य क्रिप्टोग्राफी विन्यास करे
 @@ -136,7 +135,6 @@
  Comment[ven]=Khonifiga SSL, i laula sethifikheithi, na dzine mbekanyo dza khiraiputogirafi
  Comment[vi]=Cấu hình SSL, quản lí giấy chứng nhận và các thiết lập về mật mã khác 
@@ -6789,7 +6922,7 @@ diff -urN -x CVS kdebase.orig/kcontrol/css/kcmcss.desktop kdebase/kcontrol/css/k
  Keywords[zu]=CSS,HTML,isitayela,ikhasi lesitayela,ukungena
 diff -urN -x CVS kdebase.orig/kcontrol/display/display.desktop kdebase/kcontrol/display/display.desktop
 --- kdebase.orig/kcontrol/display/display.desktop	2005-02-23 06:05:32.000000000 +0100
-+++ kdebase/kcontrol/display/display.desktop	2005-03-07 15:15:05.000000000 +0100
++++ kdebase/kcontrol/display/display.desktop	2005-03-26 08:37:39.000000000 +0100
 @@ -61,7 +61,6 @@
  Name[uk]=Дисплей
  Name[uz]=Дисплей
@@ -6798,6 +6931,15 @@ diff -urN -x CVS kdebase.orig/kcontrol/display/display.desktop kdebase/kcontrol/
  Name[zh_CN]=显示
  Name[zh_TW]=顯示
  Comment=Display Settings
+@@ -83,7 +82,7 @@
+ Comment[eu]=Pantailaren konfigurazioa
+ Comment[fi]=Näytön asetukset
+ Comment[fr]=Paramètres d'affichage
+-Comment[fy]=Byldskerm ynstellingen
++Comment[fy]=Byldskerm ynstellings
+ Comment[gl]=Opcións da Pantalla
+ Comment[he]=הגדרות תצוגה
+ Comment[hi]=रूप-रंग विन्यास
 @@ -110,7 +109,7 @@
  Comment[sk]=Nastavenie displeja
  Comment[sl]=Nastavitve zaslona
@@ -8683,7 +8825,7 @@ diff -urN -x CVS kdebase.orig/kcontrol/ebrowsing/plugins/shorturi/kshorturifilte
  X-KDE-Library=libkshorturifilter
 diff -urN -x CVS kdebase.orig/kcontrol/energy/energy.desktop kdebase/kcontrol/energy/energy.desktop
 --- kdebase.orig/kcontrol/energy/energy.desktop	2005-02-23 06:05:35.000000000 +0100
-+++ kdebase/kcontrol/energy/energy.desktop	2005-03-07 15:15:10.000000000 +0100
++++ kdebase/kcontrol/energy/energy.desktop	2005-03-26 08:37:40.000000000 +0100
 @@ -79,7 +79,6 @@
  Name[vi]=Điều khiển nguồn điện 
  Name[wa]=Controle di l' alimintåcion
@@ -8692,6 +8834,15 @@ diff -urN -x CVS kdebase.orig/kcontrol/energy/energy.desktop kdebase/kcontrol/en
  Name[zh_CN]=电源控制
  Name[zh_TW]=電源控制
  Name[zu]=Ukulawulwa kwamandla
+@@ -104,7 +103,7 @@
+ Comment[fa]=تنظیمات مدیریت برق نمایشگر
+ Comment[fi]=Asetukset näytön virranhallinnalle
+ Comment[fr]=Paramètres de la gestion d'énergie pour l'affichage
+-Comment[fy]=Ynstellingen foar energybesparring foar byldskerms
++Comment[fy]=Ynstellings foar energybesparring foar byldskerms
+ Comment[gl]=Configuracións para a xestión de enerxía da pantalla
+ Comment[he]=שינוי הגדרות ניהול צריכת החשמל של התצוגה
+ Comment[hi]=बिज़ली नियंत्रण प्रदर्शक के लिए विन्यास
 @@ -145,7 +144,6 @@
  Comment[ven]=Mavhekanyele au sumbedza ndangulo ya maanda
  Comment[vi]=Thiết lập cho quản lý nguồn điện
@@ -8737,7 +8888,7 @@ diff -urN -x CVS kdebase.orig/kcontrol/filetypes/filetypes.desktop kdebase/kcont
  Keywords[zu]=Izinhlobo zamafayela, Ubudlelwano bamafayela,Izinhlobo zamafayela,Amaphethini amafayela,Iphethini
 diff -urN -x CVS kdebase.orig/kcontrol/fonts/fonts.desktop kdebase/kcontrol/fonts/fonts.desktop
 --- kdebase.orig/kcontrol/fonts/fonts.desktop	2005-02-05 05:14:52.000000000 +0100
-+++ kdebase/kcontrol/fonts/fonts.desktop	2005-03-22 18:38:04.000000000 +0100
++++ kdebase/kcontrol/fonts/fonts.desktop	2005-03-26 08:37:40.000000000 +0100
 @@ -75,7 +75,6 @@
  Name[vi]=Phông 
  Name[wa]=Fontes
@@ -8746,6 +8897,15 @@ diff -urN -x CVS kdebase.orig/kcontrol/fonts/fonts.desktop kdebase/kcontrol/font
  Name[zh_CN]=字体
  Name[zh_TW]=字型
  Name[zu]=Izinhlobo zamagama
+@@ -102,7 +101,7 @@
+ Comment[fa]=تنظیمات قلم‌ها
+ Comment[fi]=Kirjasinten asetukset
+ Comment[fr]=Configuration des police de caractères
+-Comment[fy]=Lettertypen ynstellingen
++Comment[fy]=Lettertypen ynstellings
+ Comment[gl]=Configuración das fontes
+ Comment[he]=שינוי הגדרות הגופנים
+ Comment[hi]=फ़ॉन्ट्स विन्यास
 @@ -146,7 +145,6 @@
  Comment[vi]=Thiết lập phông 
  Comment[wa]=Apontiaedje des fontes
@@ -9308,7 +9468,7 @@ diff -urN -x CVS kdebase.orig/kcontrol/info/xserver.desktop kdebase/kcontrol/inf
  Categories=Qt;KDE;X-KDE-information;
 diff -urN -x CVS kdebase.orig/kcontrol/input/mouse.desktop kdebase/kcontrol/input/mouse.desktop
 --- kdebase.orig/kcontrol/input/mouse.desktop	2005-02-05 05:14:53.000000000 +0100
-+++ kdebase/kcontrol/input/mouse.desktop	2005-03-07 15:15:13.000000000 +0100
++++ kdebase/kcontrol/input/mouse.desktop	2005-03-26 08:37:40.000000000 +0100
 @@ -75,7 +75,6 @@
  Name[ven]=Mausu
  Name[vi]=Chuột
@@ -9317,6 +9477,15 @@ diff -urN -x CVS kdebase.orig/kcontrol/input/mouse.desktop kdebase/kcontrol/inpu
  Name[zh_CN]=鼠标
  Name[zh_TW]=滑鼠
  Name[zu]=i-Mouse
+@@ -102,7 +101,7 @@
+ Comment[fa]=تنظیمات موش
+ Comment[fi]=Hiiren asetukset
+ Comment[fr]=Configuration de la souris
+-Comment[fy]=Mûsynstellingen
++Comment[fy]=Mûsynstellings
+ Comment[ga]=Socruithe luiche
+ Comment[gl]=Configuración do rato
+ Comment[he]=שינוי הגדרות העכבר
 @@ -148,7 +147,6 @@
  Comment[vi]=Thiết lập chuột
  Comment[wa]=Apontiaedjes del sori
@@ -9373,7 +9542,16 @@ diff -urN -x CVS kdebase.orig/kcontrol/joystick/joydevice.cpp kdebase/kcontrol/j
  
 diff -urN -x CVS kdebase.orig/kcontrol/joystick/joystick.desktop kdebase/kcontrol/joystick/joystick.desktop
 --- kdebase.orig/kcontrol/joystick/joystick.desktop	2005-02-19 05:27:01.000000000 +0100
-+++ kdebase/kcontrol/joystick/joystick.desktop	2005-03-07 15:15:13.000000000 +0100
++++ kdebase/kcontrol/joystick/joystick.desktop	2005-03-26 08:37:41.000000000 +0100
+@@ -15,7 +15,7 @@
+ Comment[eu]=joystick - joystickak aztertzeko kontrol modulua
+ Comment[fi]=peliohjain - KDE:n ohjauskeskuksen moduuli peliohjainta varten
+ Comment[fr]=Manettes de jeu - un module pour tester les manettes de jeu
+-Comment[fy]=joystick - in ynstellingsmodule foar it teste fan joysticks
++Comment[fy]=joystick - in Konfiguraasjemodule foar it teste fan joysticks
+ Comment[gl]=joystick - un módulo de kcontrol para probar joysticks
+ Comment[he]=ג'ויסטיק - מודול לבדיקת ג'ויסטיקים
+ Comment[hi]=जॉयस्टिक - जॉयस्टिक को जाँचने का एक के-कंट्रोल मॉड्यूल 
 @@ -39,13 +39,12 @@
  Comment[sk]=Ovládací modul pre test joysticku
  Comment[sl]=joystick - modul Nadzornega središča za preizkus igralnih palic
@@ -9589,7 +9767,7 @@ diff -urN -x CVS kdebase.orig/kcontrol/kdm/kdm.desktop kdebase/kcontrol/kdm/kdm.
  Keywords[zu]=kdm,Imenenja yokuveza,xdm,abasebenzisi,ukungena ngaphakathi,isibingelelo,Isiqubulo,izitayela,ulimi,izwe,izinhlobo zamagama, inkundla yangemuva,emaphepha ezindonga,iziqendu,vala,phinda uqale
 diff -urN -x CVS kdebase.orig/kcontrol/keys/keys.desktop kdebase/kcontrol/keys/keys.desktop
 --- kdebase.orig/kcontrol/keys/keys.desktop	2005-02-11 05:51:55.000000000 +0100
-+++ kdebase/kcontrol/keys/keys.desktop	2005-03-07 15:15:17.000000000 +0100
++++ kdebase/kcontrol/keys/keys.desktop	2005-03-26 08:37:41.000000000 +0100
 @@ -72,7 +72,6 @@
  Name[ven]=Tshikhau tsha khiibodo
  Name[vi]=Bàn phím Shortcuts
@@ -9598,6 +9776,15 @@ diff -urN -x CVS kdebase.orig/kcontrol/keys/keys.desktop kdebase/kcontrol/keys/k
  Name[zh_CN]=键盘快捷键
  Name[zh_TW]=鍵盤捷徑
  Name[zu]=Izindlela Ezimfushane zebhodi yokhiye
+@@ -99,7 +98,7 @@
+ Comment[fa]=تنظیم اعمال کلیدها
+ Comment[fi]=Näppäinsidosten asetukset
+ Comment[fr]=Configuration des raccourcis clavier
+-Comment[fy]=Ynstellingen foar snelkaaien
++Comment[fy]=Ynstellings foar snelkaaien
+ Comment[gl]=Configuración dos atallos de teclado
+ Comment[he]=שינוי הגדרות מיפוי המקשים
+ Comment[hi]=की-बाइंडिंग का कॉन्फ़िगरेशन
 @@ -142,7 +141,6 @@
  Comment[vi]=Cấu hình các tổ hợp phím
  Comment[wa]=Apontiaedje des rascourtis di tapes
@@ -11270,7 +11457,7 @@ diff -urN -x CVS kdebase.orig/kcontrol/kio/useragent.desktop kdebase/kcontrol/ki
  Keywords[zu]=Ummeli Womsebenzisi,Umcingi,Internet,WWW,Uxhumano olusakazekile, ummeli,izibongo,umlekeleli,ngena ngaphakathi
 diff -urN -x CVS kdebase.orig/kcontrol/knotify/kcmnotify.desktop kdebase/kcontrol/knotify/kcmnotify.desktop
 --- kdebase.orig/kcontrol/knotify/kcmnotify.desktop	2005-02-11 05:51:58.000000000 +0100
-+++ kdebase/kcontrol/knotify/kcmnotify.desktop	2005-03-07 15:15:23.000000000 +0100
++++ kdebase/kcontrol/knotify/kcmnotify.desktop	2005-03-26 08:37:41.000000000 +0100
 @@ -76,7 +76,6 @@
  Name[vi]=Thông báo của hệ thống
  Name[wa]=Notifiaedjes do sistinme
@@ -11279,6 +11466,15 @@ diff -urN -x CVS kdebase.orig/kcontrol/knotify/kcmnotify.desktop kdebase/kcontro
  Name[zh_CN]=系统通知
  Name[zh_TW]=系統通知
  Name[zu]=Izaziso zesistimu
+@@ -102,7 +101,7 @@
+ Comment[fa]=تنظیم هشدارهای سیستم
+ Comment[fi]=Järjestelmähuomautusten asetukset
+ Comment[fr]=Configuration du système de notifications
+-Comment[fy]=Ynstellingen fan de systeemoankundigingen
++Comment[fy]=Ynstellings fan de systeemoankundigingen
+ Comment[gl]=Configuración dos Notificadores do Sistema
+ Comment[he]=שינוי הגדרות הודעות המערכת
+ Comment[hi]=तंत्र सूचना कॉन्फ़िगरेशन
 @@ -147,7 +146,6 @@
  Comment[vi]=Cấu hình thông báo hệ thống
  Comment[wa]=Apontiaedje po les notifiaedjes do sistinme
@@ -12439,7 +12635,7 @@ diff -urN -x CVS kdebase.orig/kcontrol/nics/nic.desktop kdebase/kcontrol/nics/ni
  Comment[zu]=Ulwazi lomxhumanisi woxhumano olusakazekile
 diff -urN -x CVS kdebase.orig/kcontrol/performance/kcmkonqyperformance.desktop kdebase/kcontrol/performance/kcmkonqyperformance.desktop
 --- kdebase.orig/kcontrol/performance/kcmkonqyperformance.desktop	2005-02-05 05:15:05.000000000 +0100
-+++ kdebase/kcontrol/performance/kcmkonqyperformance.desktop	2005-03-07 15:15:27.000000000 +0100
++++ kdebase/kcontrol/performance/kcmkonqyperformance.desktop	2005-03-26 08:37:41.000000000 +0100
 @@ -63,7 +63,6 @@
  Name[uk]=Швидкодія
  Name[uz]=Унумдорлик
@@ -12448,6 +12644,15 @@ diff -urN -x CVS kdebase.orig/kcontrol/performance/kcmkonqyperformance.desktop k
  Name[zh_CN]=性能
  Name[zh_TW]=偏好設定
  
+@@ -85,7 +84,7 @@
+ Comment[fa]=تنظیماتی که می‌توانند عملکرد کانکرر را بهبود بخشند تنظیم کنید
+ Comment[fi]=Muokkaa Konquerorin suorituskykyyn liittyviä asetuksia
+ Comment[fr]=Amélioration des performances de Konqueror
+-Comment[fy]=Hjir kinst ynstellingen kieze die de prestaasjes fan Konqueror ferbetterje
++Comment[fy]=Hjir kinst ynstellings kieze die de prestaasjes fan Konqueror ferbetterje
+ Comment[ga]=Cumraigh socruithe a chuirfidh feabhas ar fheidhmiúchán Konqueror
+ Comment[gl]=Configura-las opcións que poden mellora-lo rendemento de Konqueror
+ Comment[he]=הגדר הגדרות העשויות לשפר את ביצועי Konqueror
 @@ -122,7 +121,6 @@
  Comment[uk]=Тут можна налаштувати швидкодію Konqueror
  Comment[uz]=Konqueror унумдорлигини ошириши мумкин бўлган мосламаларни мослаш
@@ -12466,7 +12671,7 @@ diff -urN -x CVS kdebase.orig/kcontrol/performance/kcmkonqyperformance.desktop k
  
 diff -urN -x CVS kdebase.orig/kcontrol/performance/kcmperformance.desktop kdebase/kcontrol/performance/kcmperformance.desktop
 --- kdebase.orig/kcontrol/performance/kcmperformance.desktop	2005-02-05 05:15:05.000000000 +0100
-+++ kdebase/kcontrol/performance/kcmperformance.desktop	2005-03-07 15:15:27.000000000 +0100
++++ kdebase/kcontrol/performance/kcmperformance.desktop	2005-03-26 08:37:41.000000000 +0100
 @@ -65,7 +65,6 @@
  Name[uk]=Швидкодія KDE
  Name[uz]=KDE унумдорлиги
@@ -12475,6 +12680,15 @@ diff -urN -x CVS kdebase.orig/kcontrol/performance/kcmperformance.desktop kdebas
  Name[zh_CN]=KDE 性能
  Name[zh_TW]=KDE 效能
  
+@@ -87,7 +86,7 @@
+ Comment[fa]=تنظیماتی که می‌توانند عملکرد KDE را بهبود بخشند تنظیم کنید
+ Comment[fi]=Muokkaa KDE:n suorituskykyyn liittyviä asetuksia
+ Comment[fr]=Configuration de paramètres qui peuvent améliorer les performances de KDE
+-Comment[fy]=Hjir kinst ynstellingen kiezen die de prestaasjees fan KDE kinne ferbetterje
++Comment[fy]=Hjir kinst ynstellings kiezen die de prestaasjees fan KDE kinne ferbetterje
+ Comment[ga]=Cumraigh socruithe a chuirfidh feabhas ar fheidhmiúchán KDE
+ Comment[gl]=Configuración das opcións que poden mellora-lo rendemento de KDE
+ Comment[he]=הגדר הגדרות שעשויות לשפר את ביצועי KDE
 @@ -124,7 +123,6 @@
  Comment[uk]=Налаштування параметрів для покращання швидкодії KDE
  Comment[uz]=KDE унумдорлигини ошириши мумкин бўлган мосламаларни мослаш
@@ -12493,7 +12707,16 @@ diff -urN -x CVS kdebase.orig/kcontrol/performance/kcmperformance.desktop kdebas
  
 diff -urN -x CVS kdebase.orig/kcontrol/privacy/privacy.desktop kdebase/kcontrol/privacy/privacy.desktop
 --- kdebase.orig/kcontrol/privacy/privacy.desktop	2005-02-05 05:15:05.000000000 +0100
-+++ kdebase/kcontrol/privacy/privacy.desktop	2005-03-07 15:15:28.000000000 +0100
++++ kdebase/kcontrol/privacy/privacy.desktop	2005-03-26 08:37:42.000000000 +0100
+@@ -18,7 +18,7 @@
+ Comment[eu]=Pribatutasuna - Erabiltzaileek sisteman zehar nahi izan gabe uzten dituzten aztarnak garbitzen dituen kcontrol modulua
+ Comment[fi]=Yksityisyys - Ohjauskeskuksen moduuli ei-toivottujen jälkien siivoamiseen järjestelmästä
+ Comment[fr]=Confidentialité - Un module externe du centre de configuration pour effacer les traces indésirables qu'un utilisateur laisse sur le système
+-Comment[fy]=Privacy - in ynstellingsmodule wêrmeist ûnwenste efterbluiwende sporen fan brûkers wisse kinst
++Comment[fy]=Privacy - in Konfiguraasjemodule wêrmeist ûnwenste efterbluiwende sporen fan brûkers wisse kinst
+ Comment[gl]=Intimidade - un módulo de kcontrol para limpa-los rastros non desexados que o usuario deixa no sistema
+ Comment[he]=פרטיות - מודול ב־kcontrol המשתמש למחיקת עקבות לא רצויים שמשתמש משאיר אחריו במערכת
+ Comment[hi]=गोपनीयता- उपयोक्ता द्वारा तंत्र में छोड़े गए अवांछित पदचिह्नों को साफ करने का एक के-कंट्रोल मॉड्यूल 
 @@ -50,7 +50,6 @@
  Comment[tr]=Gizlilik - kullanıcının sistemde bıraktığı iztenilmeyen izlemeleri temizleyen kcontrol modülü
  Comment[uk]=Конфіденційність - модуль керування для очищення небажаної інформації залишеної користувачем у системі
@@ -12688,7 +12911,7 @@ diff -urN -x CVS kdebase.orig/kcontrol/smartcard/smartcard.desktop kdebase/kcont
  Keywords[zu]=Ikhadi elikhaliphile,PKCS,SSLumfundi,okukhaliphile,ikhadi
 diff -urN -x CVS kdebase.orig/kcontrol/smserver/kcmsmserver.desktop kdebase/kcontrol/smserver/kcmsmserver.desktop
 --- kdebase.orig/kcontrol/smserver/kcmsmserver.desktop	2005-02-23 06:05:41.000000000 +0100
-+++ kdebase/kcontrol/smserver/kcmsmserver.desktop	2005-03-07 15:15:29.000000000 +0100
++++ kdebase/kcontrol/smserver/kcmsmserver.desktop	2005-03-26 08:37:42.000000000 +0100
 @@ -77,7 +77,6 @@
  Name[vi]=Trình quản lí Session
  Name[wa]=Manaedjeu di sessions
@@ -12697,6 +12920,15 @@ diff -urN -x CVS kdebase.orig/kcontrol/smserver/kcmsmserver.desktop kdebase/kcon
  Name[zh_CN]=会话管理器
  Name[zh_TW]=工作階段管理程式
  Name[zu]=Imenenja yesiqendu
+@@ -101,7 +100,7 @@
+ Comment[fa]= می‌توانید مدیر نشست و تنظیمات خروج را اینجا تنظیم کنید
+ Comment[fi]=Istunnonhallinnan ja uloskirjautumisen asetukset
+ Comment[fr]=Configuration du gestionnaire de session et réglages de la sortie
+-Comment[fy]=Hjir kinst it sesjebehear en ôfmeld-ynstellingen fêststelle
++Comment[fy]=Hjir kinst it sesjebehear en ôfmeld-ynstellings fêststelle
+ Comment[gl]=Configura-lo xestor de sesións e as opcións de saída
+ Comment[he]=שינוי הגדרות מנהל ההפעלה והיציאה מהמערכת
+ Comment[hi]=सत्र प्रबंधक तथा लॉगआउट विन्यास कॉन्फ़िगर करें
 @@ -142,7 +141,6 @@
  Comment[vi]=Cấu hình buổi trình quản lý session và các thiết lập đăng xuất
  Comment[wa]=Apontiaedje do manaedjeu si sessions eyet apontiaedjes do dislodjaedje
@@ -13082,7 +13314,7 @@ diff -urN -x CVS kdebase.orig/kdeprint/kprinter/kprinter.desktop kdebase/kdeprin
  GenericName[zu]=Ithuluzi Lokushicelela
 diff -urN -x CVS kdebase.orig/kdeprint/printmgr/printers.desktop kdebase/kdeprint/printmgr/printers.desktop
 --- kdebase.orig/kdeprint/printmgr/printers.desktop	2005-02-05 05:15:12.000000000 +0100
-+++ kdebase/kdeprint/printmgr/printers.desktop	2005-03-07 15:15:33.000000000 +0100
++++ kdebase/kdeprint/printmgr/printers.desktop	2005-03-26 08:37:42.000000000 +0100
 @@ -72,7 +72,6 @@
  Name[vi]=Máy in
  Name[wa]=Sicrireces
@@ -13091,6 +13323,15 @@ diff -urN -x CVS kdebase.orig/kdeprint/printmgr/printers.desktop kdebase/kdeprin
  Name[zh_CN]=打印机
  Name[zh_TW]=印表機
  Name[zu]=Abashicileli
+@@ -98,7 +97,7 @@
+ Comment[fa]=تنظیمات سیستم چاپ چاپگرها,کارها,کلاسها وغیره
+ Comment[fi]=Tulostusjärjestelmän asetukset (tulostimet, työt, luokat, ...)
+ Comment[fr]=Configuration du système d'impression (imprimantes, travaux d'impression, classes...)
+-Comment[fy]=Ynstellingen fan it ôfdruksysteem (printers, taken, klassen, ...)
++Comment[fy]=Ynstellings fan it ôfdruksysteem (printers, taken, klassen, ...)
+ Comment[gl]=Configuración de impresión do sistema (impresoras, traballos, clases, ...)
+ Comment[he]=שינוי הגדרות מערכת ההדפסה (מדפסות, עבודות, מחלקות...)
+ Comment[hi]=प्रिंटर तंत्र कॉन्फ़िगरेशन (प्रिंटर,कार्य,क्लासेस...)
 @@ -140,7 +139,6 @@
  Comment[ven]=Nzudzanyo ya maitele au phirintha (Dziphirinthara, mishumo, dzikilasi,...)
  Comment[vi]=Cấu hình hệ thống in ấn(máy in, tác vụ, lớp, ...)
@@ -13109,7 +13350,7 @@ diff -urN -x CVS kdebase.orig/kdeprint/printmgr/printers.desktop kdebase/kdeprin
  Keywords[zu]=shicilela,umshicileli,abaphathi boshicilelo
 diff -urN -x CVS kdebase.orig/kdeprint/printmgr/printmgr.desktop kdebase/kdeprint/printmgr/printmgr.desktop
 --- kdebase.orig/kdeprint/printmgr/printmgr.desktop	2005-02-05 05:15:12.000000000 +0100
-+++ kdebase/kdeprint/printmgr/printmgr.desktop	2005-03-07 15:15:33.000000000 +0100
++++ kdebase/kdeprint/printmgr/printmgr.desktop	2005-03-26 08:37:42.000000000 +0100
 @@ -78,7 +78,6 @@
  Name[vi]=Trình quản lí in
  Name[wa]=Manaedjeu d' imprimaedje
@@ -13118,6 +13359,15 @@ diff -urN -x CVS kdebase.orig/kdeprint/printmgr/printmgr.desktop kdebase/kdeprin
  Name[zh_CN]=打印管理器
  Name[zh_TW]=列印管理程式
  Name[zu]=Imenenja Yoshicilelo
+@@ -104,7 +103,7 @@
+ Comment[fa]=تنظیمات سیستم چاپ چاپگرها,کارها,کلاسها وغیره
+ Comment[fi]=Tulostusjärjestelmän asetukset (tulostimet, työt, luokat, ...)
+ Comment[fr]=Configuration du système d'impression (imprimantes, travaux d'impression, classes...)
+-Comment[fy]=Ynstellingen fan it ôfdruksysteem (printers, taken, klassen, ...)
++Comment[fy]=Ynstellings fan it ôfdruksysteem (printers, taken, klassen, ...)
+ Comment[gl]=Configuración de impresión do sistema (impresoras, traballos, clases, ...)
+ Comment[he]=שינוי הגדרות מערכת ההדפסה (מדפסות, עבודות, מחלקות...)
+ Comment[hi]=प्रिंटर तंत्र कॉन्फ़िगरेशन (प्रिंटर,कार्य,क्लासेस...)
 @@ -146,7 +145,6 @@
  Comment[ven]=Nzudzanyo ya maitele au phirintha (Dziphirinthara, mishumo, dzikilasi,...)
  Comment[vi]=Cấu hình hệ thống in ấn(máy in, tác vụ, lớp, ...)
@@ -15584,8 +15834,16 @@ diff -urN -x CVS kdebase.orig/khelpcenter/plugins/Applications/.directory kdebas
  Name[zu]=Izincwadi zesandla Zomyaleli
 diff -urN -x CVS kdebase.orig/khelpcenter/plugins/contact.desktop kdebase/khelpcenter/plugins/contact.desktop
 --- kdebase.orig/khelpcenter/plugins/contact.desktop	2005-02-05 05:15:18.000000000 +0100
-+++ kdebase/khelpcenter/plugins/contact.desktop	2005-03-07 15:15:41.000000000 +0100
-@@ -62,7 +62,6 @@
++++ kdebase/khelpcenter/plugins/contact.desktop	2005-03-26 08:37:43.000000000 +0100
+@@ -7,6 +7,7 @@
+ Name[be]=Кантактная інфармацыя
+ Name[bg]=Информация за връзка
+ Name[bn]=যোগাযোগ তথ্য
++Name[br]=Titouroù diwar-benn an darempred
+ Name[bs]=Kontakt informacije
+ Name[ca]=Informació de contacte
+ Name[cs]=Kontaktní informace
+@@ -62,7 +63,6 @@
  Name[ven]=Mafhungo nga vhudalo
  Name[vi]=Thông tin tiếp xúc
  Name[xh]=Qhagamshelana Nolwazi
@@ -15632,7 +15890,16 @@ diff -urN -x CVS kdebase.orig/khelpcenter/plugins/info.desktop kdebase/khelpcent
  
 diff -urN -x CVS kdebase.orig/khelpcenter/plugins/kcontrolmodules.desktop kdebase/khelpcenter/plugins/kcontrolmodules.desktop
 --- kdebase.orig/khelpcenter/plugins/kcontrolmodules.desktop	2005-02-05 05:15:18.000000000 +0100
-+++ kdebase/khelpcenter/plugins/kcontrolmodules.desktop	2005-03-07 15:15:41.000000000 +0100
++++ kdebase/khelpcenter/plugins/kcontrolmodules.desktop	2005-03-26 08:37:43.000000000 +0100
+@@ -22,7 +22,7 @@
+ Name[fa]=بخش‌های مرکز کنترل
+ Name[fi]=Ohjauskeskuksen moduulit
+ Name[fr]=Modules du centre de configuration
+-Name[fy]=Ynstellingsintrummodules
++Name[fy]=Konfiguraasjemodules
+ Name[ga]=Modúil an Lárionad Rialaithe
+ Name[gl]=Módulos do Centro de Control
+ Name[he]=מודולי מרכז הבקרה
 @@ -64,7 +64,6 @@
  Name[vi]=Trung tâm điều khiển module
  Name[wa]=Modules do cinte di contrôle di KDE
@@ -15665,8 +15932,14 @@ diff -urN -x CVS kdebase.orig/khelpcenter/plugins/kioslaves.desktop kdebase/khel
  X-DOC-Weight=-400
 diff -urN -x CVS kdebase.orig/khelpcenter/plugins/konqplugins.desktop kdebase/khelpcenter/plugins/konqplugins.desktop
 --- kdebase.orig/khelpcenter/plugins/konqplugins.desktop	2005-02-05 05:15:18.000000000 +0100
-+++ kdebase/khelpcenter/plugins/konqplugins.desktop	2005-03-07 15:15:41.000000000 +0100
-@@ -50,7 +50,7 @@
++++ kdebase/khelpcenter/plugins/konqplugins.desktop	2005-03-26 08:37:43.000000000 +0100
+@@ -45,12 +45,12 @@
+ Name[pt]='Plugins' do Konqueror
+ Name[pt_BR]=Plug-Ins do Konqueror
+ Name[ro]=Module Konqueror
+-Name[ru]=Плагины Konqueror
++Name[ru]=Модули Konqueror
+ Name[se]=Konqueror-lassemoduvllat
  Name[sk]=Moduly pre Konqueror
  Name[sl]=Vstavki za Konqueror
  Name[sr]=Konqueror-ови прикључци
@@ -16900,6 +17173,12 @@ diff -urN -x CVS kdebase.orig/kicker/extensions/dockbar/dockbarextension.desktop
  Comment[zh_CN]=停靠应用程序栏扩展。
  Comment[zh_TW]=嵌入延伸程式工具列
  Comment[zu]=Isandiso sebha Yomyaleli we-Dock
+diff -urN -x CVS kdebase.orig/kicker/extensions/kasbar/configure.in.in kdebase/kicker/extensions/kasbar/configure.in.in
+--- kdebase.orig/kicker/extensions/kasbar/configure.in.in	1970-01-01 01:00:00.000000000 +0100
++++ kdebase/kicker/extensions/kasbar/configure.in.in	2005-03-25 17:38:04.000000000 +0100
+@@ -0,0 +1,2 @@
++AC_CHECK_HEADERS(sys/loadavg.h)
++
 diff -urN -x CVS kdebase.orig/kicker/extensions/kasbar/kasbarextension.desktop kdebase/kicker/extensions/kasbar/kasbarextension.desktop
 --- kdebase.orig/kicker/extensions/kasbar/kasbarextension.desktop	2005-02-23 06:05:48.000000000 +0100
 +++ kdebase/kicker/extensions/kasbar/kasbarextension.desktop	2005-03-07 15:15:49.000000000 +0100
@@ -16928,6 +17207,21 @@ diff -urN -x CVS kdebase.orig/kicker/extensions/kasbar/kasbarextension.desktop k
  Comment[zh_CN]=备选的任务栏面板小程序。
  Comment[zh_TW]=可供選擇的另外一個工作列面板小程式。
  Comment[zu]=Enye i-applet yewindi lemininingwane yebha yemisebenzi
+diff -urN -x CVS kdebase.orig/kicker/extensions/kasbar/kasloaditem.cpp kdebase/kicker/extensions/kasbar/kasloaditem.cpp
+--- kdebase.orig/kicker/extensions/kasbar/kasloaditem.cpp	2004-12-05 02:22:53.000000000 +0100
++++ kdebase/kicker/extensions/kasbar/kasloaditem.cpp	2005-03-25 17:38:04.000000000 +0100
+@@ -1,6 +1,11 @@
+ #include <math.h>
+ #include <stdlib.h>
+ 
++#include <config.h>
++#ifdef HAVE_SYS_LOADAVG_H
++#include <sys/loadavg.h> // e.g. Solaris
++#endif
++
+ #include <qpainter.h>
+ #include <qbitmap.h>
+ #include <qdatetime.h>
 diff -urN -x CVS kdebase.orig/kicker/extensions/sidebar/sidebarextension.desktop kdebase/kicker/extensions/sidebar/sidebarextension.desktop
 --- kdebase.orig/kicker/extensions/sidebar/sidebarextension.desktop	2005-02-11 05:52:11.000000000 +0100
 +++ kdebase/kicker/extensions/sidebar/sidebarextension.desktop	2005-03-07 15:15:49.000000000 +0100
@@ -17143,7 +17437,7 @@ diff -urN -x CVS kdebase.orig/kicker/menuext/konsole/konsolemenu.desktop kdebase
  Comment[zu]=Ukulingisa-Kwangaphandle
 diff -urN -x CVS kdebase.orig/kicker/menuext/prefmenu/prefmenu.desktop kdebase/kicker/menuext/prefmenu/prefmenu.desktop
 --- kdebase.orig/kicker/menuext/prefmenu/prefmenu.desktop	2005-02-11 05:52:12.000000000 +0100
-+++ kdebase/kicker/menuext/prefmenu/prefmenu.desktop	2005-03-07 15:15:51.000000000 +0100
++++ kdebase/kicker/menuext/prefmenu/prefmenu.desktop	2005-03-26 08:37:43.000000000 +0100
 @@ -68,7 +68,6 @@
  Name[vi]=Sở thích
  Name[wa]=Preferinces
@@ -17152,6 +17446,15 @@ diff -urN -x CVS kdebase.orig/kicker/menuext/prefmenu/prefmenu.desktop kdebase/k
  Name[zh_CN]=首选项
  Name[zh_TW]=偏好設定
  Name[zu]=Okuncanyelwayo
+@@ -93,7 +92,7 @@
+ Comment[fa]=دسترسی آسان به مرکز کنترل
+ Comment[fi]=Ohjauskeskuksen moduulit
+ Comment[fr]=Accès rapide aux modules du centre de configuration
+-Comment[fy]=Snelle tagong ta de ynstellingsmodules
++Comment[fy]=Snelle tagong ta de Konfiguraasjemodules
+ Comment[gl]=Acceso doado ós módulos do Centro de Control
+ Comment[he]=גישה מהירה למודולים של מרכז הבקרה
+ Comment[hi]=नियंत्रण केंद्र मॉड्यूल्स पर आसान पहुँच
 @@ -133,7 +132,6 @@
  Comment[ven]=U dzhena ho leluwaho kha modulu wa senthara ya ndangulo
  Comment[vi]=Dễ dàng truy cập đến modules của trung tâm điều khiển
@@ -17530,6 +17833,70 @@ diff -urN -x CVS kdebase.orig/kioslave/man/kmanpart.desktop kdebase/kioslave/man
 -Name[xx]=xxKManPartxx
  ServiceTypes=KParts/ReadOnlyPart,Browser/View
  X-KDE-Library=libkmanpart
+diff -urN -x CVS kdebase.orig/kioslave/media/kdedmodule/halbackend.cpp kdebase/kioslave/media/kdedmodule/halbackend.cpp
+--- kdebase.orig/kioslave/media/kdedmodule/halbackend.cpp	2005-02-14 16:47:23.000000000 +0100
++++ kdebase/kioslave/media/kdedmodule/halbackend.cpp	2005-03-24 21:16:49.000000000 +0100
+@@ -267,6 +267,9 @@
+ 
+ 	/* Get device information from libhal-storage */
+ 	HalVolume* halVolume = hal_volume_from_udi(m_halContext, udi);
++	if (!halVolume)
++		return;
++
+ 	QString driveUdi = hal_volume_get_storage_device_udi(halVolume);
+ 	HalDrive*  halDrive  = hal_drive_from_udi(m_halContext, driveUdi.ascii());
+ 
+diff -urN -x CVS kdebase.orig/kioslave/media/kdedmodule/linuxcdpolling.cpp kdebase/kioslave/media/kdedmodule/linuxcdpolling.cpp
+--- kdebase.orig/kioslave/media/kdedmodule/linuxcdpolling.cpp	2005-02-21 10:13:51.000000000 +0100
++++ kdebase/kioslave/media/kdedmodule/linuxcdpolling.cpp	2005-03-25 23:04:18.000000000 +0100
+@@ -84,13 +84,15 @@
+ {
+ 	return m_type != None
+ 	    && m_type != Unknown
+-	    && m_type != UnknownType;
++	    && m_type != UnknownType
++	    && m_type != Broken;
+ }
+ 
+ bool DiscType::isDisc() const
+ {
+ 	return m_type != None
+-	    && m_type != Unknown;
++	    && m_type != Unknown
++	    && m_type != Broken;
+ }
+ 
+ bool DiscType::isNotDisc() const
+@@ -145,7 +147,7 @@
+ 	virtual void run()
+ 	{
+ 		kdDebug() << "PollingThread(" << m_dev << ") start" << endl;
+-		while (!m_stop)
++		while (!m_stop && m_lastPollType!=DiscType::Broken)
+ 		{
+ 			m_mutex.lock();
+ 			DiscType type = m_lastPollType;
+@@ -394,7 +396,7 @@
+ 
+ 	// open the device
+ 	fd = open(devNode, O_RDONLY | O_NONBLOCK);
+-	if (fd < 0) return DiscType::Unknown;
++	if (fd < 0) return DiscType::Broken;
+ 
+ 	switch (ioctl(fd, CDROM_DRIVE_STATUS, CDSL_CURRENT))
+ 	{
+diff -urN -x CVS kdebase.orig/kioslave/media/kdedmodule/linuxcdpolling.h kdebase/kioslave/media/kdedmodule/linuxcdpolling.h
+--- kdebase.orig/kioslave/media/kdedmodule/linuxcdpolling.h	2004-12-21 10:33:18.000000000 +0100
++++ kdebase/kioslave/media/kdedmodule/linuxcdpolling.h	2005-03-25 23:04:18.000000000 +0100
+@@ -29,7 +29,7 @@
+ {
+ public:
+ 	enum Type { None, Unknown, Audio, Data, DVD, Mixed,
+-	            Blank, VCD, SVCD, UnknownType };
++	            Blank, VCD, SVCD, UnknownType, Broken };
+ 
+ 	DiscType(Type type = Unknown);
+ 
 diff -urN -x CVS kdebase.orig/kioslave/media/kdedmodule/mediamanager.desktop kdebase/kioslave/media/kdedmodule/mediamanager.desktop
 --- kdebase.orig/kioslave/media/kdedmodule/mediamanager.desktop	2005-02-23 06:05:50.000000000 +0100
 +++ kdebase/kioslave/media/kdedmodule/mediamanager.desktop	2005-03-22 18:38:13.000000000 +0100
@@ -18674,7 +19041,7 @@ diff -urN -x CVS kdebase.orig/kioslave/system/entries/remote.desktop kdebase/kio
  X-KDE-TreeModule=Directory
 diff -urN -x CVS kdebase.orig/kioslave/system/entries/settings.desktop kdebase/kioslave/system/entries/settings.desktop
 --- kdebase.orig/kioslave/system/entries/settings.desktop	2005-02-05 05:15:31.000000000 +0100
-+++ kdebase/kioslave/system/entries/settings.desktop	2005-03-10 17:05:14.000000000 +0100
++++ kdebase/kioslave/system/entries/settings.desktop	2005-03-26 08:37:43.000000000 +0100
 @@ -4,6 +4,7 @@
  URL=settings:/
  Icon=kcontrol
@@ -18683,6 +19050,15 @@ diff -urN -x CVS kdebase.orig/kioslave/system/entries/settings.desktop kdebase/k
  Name[ar]=الإعدادات
  Name[az]=Qurğular
  Name[be]=Настройкі
+@@ -23,7 +24,7 @@
+ Name[eu]=Ezarpenak
+ Name[fi]=Asetukset
+ Name[fr]=Configuration
+-Name[fy]=Ynstellingen
++Name[fy]=Ynstellings
+ Name[ga]=Socruithe
+ Name[gl]=Opcións
+ Name[he]=הגדרות
 @@ -63,7 +64,6 @@
  Name[uz]=Мосламалар
  Name[vi]=Thiết lập
@@ -19692,8 +20068,14 @@ diff -urN -x CVS kdebase.orig/konqueror/konq_combo.cc kdebase/konqueror/konq_com
                  completionbox->setCurrentItem( item );
 diff -urN -x CVS kdebase.orig/konqueror/konq_extensionmanager.cc kdebase/konqueror/konq_extensionmanager.cc
 --- kdebase.orig/konqueror/konq_extensionmanager.cc	2004-08-26 15:56:06.000000000 +0200
-+++ kdebase/konqueror/konq_extensionmanager.cc	2005-03-22 16:16:33.000000000 +0100
-@@ -25,6 +25,7 @@
++++ kdebase/konqueror/konq_extensionmanager.cc	2005-03-25 13:57:11.000000000 +0100
+@@ -1,4 +1,4 @@
+-/*
++/* -*- indent-tabs-mode: t; tab-width: 4; c-basic-offset:4 -*-
+     konq_extensionmanager.cc - Extension Manager for Konqueror
+ 
+     Copyright (c) 2003      by Martijn Klingens      <klingens@kde.org>
+@@ -25,22 +25,23 @@
  #include <kplugininfo.h>
  #include <kpluginselector.h>
  #include <ksettings/dispatcher.h>
@@ -19701,15 +20083,107 @@ diff -urN -x CVS kdebase.orig/konqueror/konq_extensionmanager.cc kdebase/konquer
  
  #include "konq_extensionmanager.h"
  #include "konq_mainwindow.h"
-@@ -108,6 +109,8 @@
+ 
+ class KonqExtensionManagerPrivate
+ {
+-	public:
+-		KPluginSelector *pluginSelector;
+-		KonqMainWindow *mainWindow;
+-		KConfig *khtmlConfig;
+-		bool isChanged;
++public:
++	KPluginSelector *pluginSelector;
++	KonqMainWindow *mainWindow;
++	KParts::ReadOnlyPart* activePart;
++	bool isChanged;
+ };
+ 
+-KonqExtensionManager::KonqExtensionManager(QWidget *parent, const char *name, KonqMainWindow *mainWindow) :
++KonqExtensionManager::KonqExtensionManager(QWidget *parent, KonqMainWindow *mainWindow, KParts::ReadOnlyPart* activePart) :
+   KDialogBase(Plain, i18n("Configure"), Help | Default | Cancel | Apply | Ok | User1,
+-              Ok, parent, name, false, true, KGuiItem(i18n("&Reset"), "undo"))
++              Ok, parent, "extensionmanager", false, true, KGuiItem(i18n("&Reset"), "undo"))
+ {
+ 	d = new KonqExtensionManagerPrivate;
+ 	showButton(User1, false);
+@@ -59,17 +60,17 @@
+ 	        KSettings::Dispatcher::self(), SLOT(reparseConfiguration(const QCString &)));
+ 
+ 	d->mainWindow = mainWindow;
++	d->activePart = activePart;
+ 
+-	d->khtmlConfig = new KConfig("khtmlrc");
+ 	d->pluginSelector->addPlugins("konqueror", i18n("Extensions"), "Extensions", KGlobal::config());
+-	d->pluginSelector->addPlugins("khtml",     i18n("Tools"),      "Tools",      d->khtmlConfig);
+-	//d->pluginSelector->addPlugins(KPluginInfo::fromServices(KTrader::self()->query("Browser/View")), i18n("Browser Plugins"), QString::null, KGlobal::config());
++	if ( activePart )
++		d->pluginSelector->addPlugins(activePart->instance()->instanceName(), i18n("Tools"), "Tools", activePart->instance()->config());
+ }
+ 
+ KonqExtensionManager::~KonqExtensionManager()
+ {
+-	delete d->khtmlConfig;
+-        delete d;
++	//delete d->khtmlConfig;
++	delete d;
+ }
+ 
+ void KonqExtensionManager::setChanged(bool c)
+@@ -96,7 +97,7 @@
+ 	{
+ 		d->pluginSelector->save();
+ 		setChanged(false);
+-		if(d->mainWindow != 0L)
++		if( d->mainWindow )
+ 		{
+ 			KParts::Plugin::loadPlugins(d->mainWindow, d->mainWindow, KGlobal::instance());
+ 			QPtrList<KParts::Plugin> plugins = KParts::Plugin::pluginObjects(d->mainWindow);
+@@ -108,6 +109,18 @@
  				d->mainWindow->factory()->addClient(plugin);
  			}
  		}
-+		DCOPRef preloader( "kded", "konqy_preloader" );
-+		preloader.send( "unloadAllPreloaded" );
++		if ( d->activePart )
++		{
++			KParts::Plugin::loadPlugins( d->activePart, d->activePart, d->activePart->instance() );
++			QPtrList<KParts::Plugin> plugins = KParts::Plugin::pluginObjects( d->activePart );
++			QPtrListIterator<KParts::Plugin> it(plugins);
++			KParts::Plugin *plugin;
++			while((plugin = it.current()) != 0)
++			{
++				++it;
++				d->activePart->factory()->addClient(plugin);
++			}
++		}
  	}
  }
  
+diff -urN -x CVS kdebase.orig/konqueror/konq_extensionmanager.h kdebase/konqueror/konq_extensionmanager.h
+--- kdebase.orig/konqueror/konq_extensionmanager.h	2004-08-25 01:28:12.000000000 +0200
++++ kdebase/konqueror/konq_extensionmanager.h	2005-03-25 13:57:11.000000000 +0100
+@@ -1,4 +1,5 @@
+-/*
++/* -*- indent-tabs-mode: t; tab-width: 4; c-basic-offset:4 -*-
++
+     konq_extensionmanager.h - Extension Manager for Konqueror
+ 
+     Copyright (c) 2003      by Martijn Klingens      <klingens@kde.org>
+@@ -21,6 +22,7 @@
+ 
+ class KonqExtensionManagerPrivate;
+ class KonqMainWindow;
++namespace KParts { class ReadOnlyPart; }
+ 
+ /**
+  * Extension Manager for Konqueror. See KPluginSelector in kdelibs for
+@@ -34,7 +36,7 @@
+ 	Q_OBJECT
+ 
+ 	public:
+-		KonqExtensionManager(QWidget *parent, const char *name = 0L, KonqMainWindow *mainWindow = 0L);
++		KonqExtensionManager(QWidget *parent, KonqMainWindow *mainWindow, KParts::ReadOnlyPart* activePart);
+ 		~KonqExtensionManager();
+ 
+ 		void apply();
 diff -urN -x CVS kdebase.orig/konqueror/konqfilemgr.desktop kdebase/konqueror/konqfilemgr.desktop
 --- kdebase.orig/konqueror/konqfilemgr.desktop	2005-02-05 05:15:34.000000000 +0100
 +++ kdebase/konqueror/konqfilemgr.desktop	2005-03-07 15:16:01.000000000 +0100
@@ -19721,6 +20195,73 @@ diff -urN -x CVS kdebase.orig/konqueror/konqfilemgr.desktop kdebase/konqueror/ko
  Name[zh_CN]=文件管理器
  Name[zh_TW]=檔案管理程式
  Name[zu]=imenenja yamafayela
+diff -urN -x CVS kdebase.orig/konqueror/konq_mainwindow.cc kdebase/konqueror/konq_mainwindow.cc
+--- kdebase.orig/konqueror/konq_mainwindow.cc	2005-03-03 02:06:02.000000000 +0100
++++ kdebase/konqueror/konq_mainwindow.cc	2005-03-25 13:57:11.000000000 +0100
+@@ -474,7 +474,7 @@
+     req.newTab = inNewTab;
+     req.newTabInFront = true;
+     req.tempFile = tempFile;
+-    
++
+     openFilteredURL( _url, req );
+ }
+ 
+@@ -1850,8 +1850,8 @@
+ 
+ void KonqMainWindow::slotConfigureExtensions()
+ {
+-	KonqExtensionManager extensionManager(0L, "extensionmanager", this);
+-	extensionManager.exec();
++    KonqExtensionManager extensionManager(0, this, m_currentView ? m_currentView->part() : 0);
++    extensionManager.exec();
+ }
+ 
+ void KonqMainWindow::slotConfigure()
+@@ -3067,8 +3067,8 @@
+ 	  if (newView && inFront)
+ 	      m_pViewManager->showTab( newView );
+       }
+-      else      
+-	  KonqMisc::newWindowFromHistory(this->currentView(), m_goBuffer);      
++      else
++	  KonqMisc::newWindowFromHistory(this->currentView(), m_goBuffer);
+   }
+   else
+   {
+@@ -3675,20 +3675,20 @@
+ 
+   // Go menu
+   m_paUp = new KToolBarPopupAction( i18n( "&Up" ), "up", KStdAccel::shortcut(KStdAccel::Up), actionCollection(), "up" );
+-  connect( m_paUp, SIGNAL( activated( KAction::ActivationReason, Qt::ButtonState) ), this, 
++  connect( m_paUp, SIGNAL( activated( KAction::ActivationReason, Qt::ButtonState) ), this,
+ 	   SLOT( slotUp(KAction::ActivationReason, Qt::ButtonState) ) );
+   connect( m_paUp->popupMenu(), SIGNAL( aboutToShow() ), this, SLOT( slotUpAboutToShow() ) );
+   connect( m_paUp->popupMenu(), SIGNAL( activated( int ) ), this, SLOT( slotUpActivated( int ) ) );
+ 
+   QPair< KGuiItem, KGuiItem > backForward = KStdGuiItem::backAndForward();
+   m_paBack = new KToolBarPopupAction( backForward.first, KStdAccel::shortcut(KStdAccel::Back), 0, "", actionCollection(), "back" );
+-  connect( m_paBack, SIGNAL( activated( KAction::ActivationReason, Qt::ButtonState) ), this, 
++  connect( m_paBack, SIGNAL( activated( KAction::ActivationReason, Qt::ButtonState) ), this,
+ 	   SLOT( slotBack(KAction::ActivationReason, Qt::ButtonState) ) );
+   connect( m_paBack->popupMenu(), SIGNAL( aboutToShow() ), this, SLOT( slotBackAboutToShow() ) );
+   connect( m_paBack->popupMenu(), SIGNAL( activated( int ) ), this, SLOT( slotBackActivated( int ) ) );
+ 
+   m_paForward = new KToolBarPopupAction( backForward.second, KStdAccel::shortcut(KStdAccel::Forward), 0, "", actionCollection(), "forward" );
+-  connect( m_paForward, SIGNAL( activated( KAction::ActivationReason, Qt::ButtonState) ), this, 
++  connect( m_paForward, SIGNAL( activated( KAction::ActivationReason, Qt::ButtonState) ), this,
+ 	   SLOT( slotForward(KAction::ActivationReason, Qt::ButtonState) ) );
+   connect( m_paForward->popupMenu(), SIGNAL( aboutToShow() ), this, SLOT( slotForwardAboutToShow() ) );
+   connect( m_paForward->popupMenu(), SIGNAL( activated( int ) ), this, SLOT( slotForwardActivated( int ) ) );
+@@ -3698,7 +3698,7 @@
+   connect( m_paHistory, SIGNAL( activated( int ) ), this, SLOT( slotGoHistoryActivated( int ) ) );
+ 
+   m_paHome = new KAction( i18n( "Home" ), "gohome", KStdAccel::shortcut(KStdAccel::Home), actionCollection(), "home" );
+-  connect( m_paHome, SIGNAL( activated( KAction::ActivationReason, Qt::ButtonState) ), this, 
++  connect( m_paHome, SIGNAL( activated( KAction::ActivationReason, Qt::ButtonState) ), this,
+ 	   SLOT( slotHome(KAction::ActivationReason, Qt::ButtonState) ) );
+ 
+   (void) new KAction( i18n( "App&lications" ), 0, this, SLOT( slotGoApplications() ), actionCollection(), "go_applications" );
 diff -urN -x CVS kdebase.orig/konqueror/konqueror.desktop kdebase/konqueror/konqueror.desktop
 --- kdebase.orig/konqueror/konqueror.desktop	2005-02-23 06:05:54.000000000 +0100
 +++ kdebase/konqueror/konqueror.desktop	2005-03-07 15:16:01.000000000 +0100
@@ -21518,7 +22059,7 @@ diff -urN -x CVS kdebase.orig/konqueror/sidebar/trees/init/services/printsystem.
  Name[zu]=Umcingi wesistimu yokushicilela
 diff -urN -x CVS kdebase.orig/konqueror/sidebar/trees/init/services/settings.desktop kdebase/konqueror/sidebar/trees/init/services/settings.desktop
 --- kdebase.orig/konqueror/sidebar/trees/init/services/settings.desktop	2005-02-05 05:15:40.000000000 +0100
-+++ kdebase/konqueror/sidebar/trees/init/services/settings.desktop	2005-03-10 17:05:15.000000000 +0100
++++ kdebase/konqueror/sidebar/trees/init/services/settings.desktop	2005-03-26 08:37:43.000000000 +0100
 @@ -4,6 +4,7 @@
  URL=settings:/
  Icon=kcontrol
@@ -21527,6 +22068,15 @@ diff -urN -x CVS kdebase.orig/konqueror/sidebar/trees/init/services/settings.des
  Name[ar]=الإعدادات
  Name[az]=Qurğular
  Name[be]=Настройкі
+@@ -23,7 +24,7 @@
+ Name[eu]=Ezarpenak
+ Name[fi]=Asetukset
+ Name[fr]=Configuration
+-Name[fy]=Ynstellingen
++Name[fy]=Ynstellings
+ Name[ga]=Socruithe
+ Name[gl]=Opcións
+ Name[he]=הגדרות
 @@ -63,7 +64,6 @@
  Name[uz]=Мосламалар
  Name[vi]=Thiết lập
@@ -21689,7 +22239,7 @@ diff -urN -x CVS kdebase.orig/konsole/eventsrc kdebase/konsole/eventsrc
  default_presentation=0
 diff -urN -x CVS kdebase.orig/konsole/kcmkonsole.desktop kdebase/konsole/kcmkonsole.desktop
 --- kdebase.orig/konsole/kcmkonsole.desktop	2005-02-22 05:13:06.000000000 +0100
-+++ kdebase/konsole/kcmkonsole.desktop	2005-03-07 15:16:09.000000000 +0100
++++ kdebase/konsole/kcmkonsole.desktop	2005-03-26 08:37:44.000000000 +0100
 @@ -66,7 +66,6 @@
  Name[uz]=Консол
  Name[wa]=Conzôle
@@ -21698,6 +22248,15 @@ diff -urN -x CVS kdebase.orig/konsole/kcmkonsole.desktop kdebase/konsole/kcmkons
  Name[zh_CN]=控制台
  Name[zh_TW]=主控台
  Name[zu]=Ikhonsoli
+@@ -93,7 +92,7 @@
+ GenericName[fa]=تمام تنظیمات کنسول
+ GenericName[fi]=Kaikki konsolen asetukset
+ GenericName[fr]=Configuration de Konsole
+-GenericName[fy]=Alle Konsole-Ynstellingen
++GenericName[fy]=Alle Konsole-Ynstellings
+ GenericName[ga]=Gach Socrú Konsole
+ GenericName[gl]=Propiedades da Konsole
+ GenericName[he]=כל ההגדרות של המסוף
 @@ -140,7 +139,6 @@
  GenericName[vi]=Tất cả các thiết lập của Konsole
  GenericName[wa]=Tos ls apontiaedjes do terminå di KDE
@@ -23429,7 +23988,7 @@ diff -urN -x CVS kdebase.orig/kwin/kcmkwin/kwindecoration/kwindecoration.desktop
  Categories=Qt;KDE;X-KDE-settings-looknfeel;
 diff -urN -x CVS kdebase.orig/kwin/kcmkwin/kwinoptions/kwinactions.desktop kdebase/kwin/kcmkwin/kwinoptions/kwinactions.desktop
 --- kdebase.orig/kwin/kcmkwin/kwinoptions/kwinactions.desktop	2005-02-11 05:52:23.000000000 +0100
-+++ kdebase/kwin/kcmkwin/kwinoptions/kwinactions.desktop	2005-03-07 15:16:17.000000000 +0100
++++ kdebase/kwin/kcmkwin/kwinoptions/kwinactions.desktop	2005-03-26 08:37:44.000000000 +0100
 @@ -73,7 +73,6 @@
  Name[vi]=Hành động
  Name[wa]=Accions
@@ -23438,6 +23997,15 @@ diff -urN -x CVS kdebase.orig/kwin/kcmkwin/kwinoptions/kwinactions.desktop kdeba
  Name[zh_CN]=动作
  Name[zh_TW]=動作
  Name[zu]=Iminyakazo
+@@ -99,7 +98,7 @@
+ Comment[fa]=تنظیمات صفحه کلید و موش
+ Comment[fi]=Muokkaa näppäimistön ja hiiren asetuksia
+ Comment[fr]=Configuration des réglages du clavier et de la souris
+-Comment[fy]=Hjir kinst de ynstellingen fan kaaiboerd en mûs ynstelle
++Comment[fy]=Hjir kinst de ynstellings fan kaaiboerd en mûs ynstelle
+ Comment[ga]=Cumraigh socruithe an mhéarchláir agus na luiche
+ Comment[gl]=Configura-las opcións do teclado e o rato
+ Comment[he]=שינוי הגדרות המקלדת והעכבר
 @@ -141,7 +140,6 @@
  Comment[vi]=Cấu hình bàn phím và chuột ở đây
  Comment[wa]=Apontiaedjes del sori eyet del taprece
@@ -23686,7 +24254,7 @@ diff -urN -x CVS kdebase.orig/kwin/kcmkwin/kwinoptions/kwintranslucency.desktop 
 -Keywords[xx]=xxtranslucency,transparence,shadowsxx
 diff -urN -x CVS kdebase.orig/kwin/kcmkwin/kwinrules/kwinrules.desktop kdebase/kwin/kcmkwin/kwinrules/kwinrules.desktop
 --- kdebase.orig/kwin/kcmkwin/kwinrules/kwinrules.desktop	2005-02-23 06:06:00.000000000 +0100
-+++ kdebase/kwin/kcmkwin/kwinrules/kwinrules.desktop	2005-03-22 18:38:20.000000000 +0100
++++ kdebase/kwin/kcmkwin/kwinrules/kwinrules.desktop	2005-03-26 08:37:44.000000000 +0100
 @@ -12,6 +12,7 @@
  Name=Window-Specific Settings
  Name[bg]=Потребителски
@@ -23695,15 +24263,17 @@ diff -urN -x CVS kdebase.orig/kwin/kcmkwin/kwinrules/kwinrules.desktop kdebase/k
  Name[ca]=Arranjament específic de finestra
  Name[cs]=Specifická nastavení oken
  Name[cy]=Gosodiadau sy'n Benodol i'r Ffenestr
-@@ -19,6 +20,7 @@
+@@ -19,14 +20,16 @@
  Name[de]=Fensterspezifische Einstellungen
  Name[es]=Preferencias específicas de la ventana
  Name[et]=Akende seadistused
 +Name[eu]=Leihoen ezarpen espezifikoak
  Name[fi]=Ikkunakohtaiset asetukset
  Name[fr]=Paramètres spécifiques à la fenêtre
- Name[fy]=Finsterspesifike ynstellingen
-@@ -27,6 +29,7 @@
+-Name[fy]=Finsterspesifike ynstellingen
++Name[fy]=Finsterspesifike ynstellings
+ Name[he]=הגדרות חלונות ספציפיות
+ Name[hi]=विशिष्ट-विंडो विन्यास
  Name[hu]=Egyedi ablakbeállítások
  Name[is]=Stillingar þessa glugga
  Name[it]=Impostazioni specifiche della finestra
@@ -23727,6 +24297,15 @@ diff -urN -x CVS kdebase.orig/kwin/kcmkwin/kwinrules/kwinrules.desktop kdebase/k
  
  Comment=Configure settings specifically for a window
  Comment[bg]=Потребителски настройки на прозорците
+@@ -59,7 +62,7 @@
+ Comment[eu]=Konfiguratu leiho jakin baten ezarpenak
+ Comment[fi]=Muokkaa ikkunakohtaisia asetuksia
+ Comment[fr]=Configuration de paramètres spécifiques à une fenêtre
+-Comment[fy]=Hjir kinst ynstellingen kieze spesifyk foar ien finster
++Comment[fy]=Hjir kinst ynstellings kieze spesifyk foar ien finster
+ Comment[gl]=Configuración das opcións específicas para unha fiestra
+ Comment[he]=קבע הגדרות לחלון מסוים
+ Comment[hi]=किसी खास विंडो के लिए विन्यास कॉन्फ़िगर करें
 @@ -84,14 +87,13 @@
  Comment[sk]=Nastavenie pre jednotlivé okná
  Comment[sl]=Nastavite možnosti glede na posamezno okno
@@ -23902,8 +24481,16 @@ diff -urN -x CVS kdebase.orig/l10n/ag/entry.desktop kdebase/l10n/ag/entry.deskto
  Region=caribbean
 diff -urN -x CVS kdebase.orig/l10n/ai/entry.desktop kdebase/l10n/ai/entry.desktop
 --- kdebase.orig/l10n/ai/entry.desktop	2005-01-23 05:38:56.000000000 +0100
-+++ kdebase/l10n/ai/entry.desktop	2005-03-07 15:16:21.000000000 +0100
-@@ -28,7 +28,6 @@
++++ kdebase/l10n/ai/entry.desktop	2005-03-26 08:37:45.000000000 +0100
+@@ -4,6 +4,7 @@
+ Name[be]=Ангілья
+ Name[bg]=Ангила
+ Name[bn]=অ্যাঙ্গুইলা
++Name[br]=Angilla
+ Name[cy]=Angwila
+ Name[el]=Ανγκουίλα
+ Name[eo]=Angvilo
+@@ -28,7 +29,6 @@
  Name[uk]=Ангілья
  Name[uz]=Ангвилла
  Name[wa]=Anguila
@@ -24751,8 +25338,16 @@ diff -urN -x CVS kdebase.orig/l10n/fm/entry.desktop kdebase/l10n/fm/entry.deskto
  #DecimalSymbol=,
 diff -urN -x CVS kdebase.orig/l10n/fo/entry.desktop kdebase/l10n/fo/entry.desktop
 --- kdebase.orig/l10n/fo/entry.desktop	2005-02-05 05:16:01.000000000 +0100
-+++ kdebase/l10n/fo/entry.desktop	2005-03-07 15:16:39.000000000 +0100
-@@ -57,7 +57,6 @@
++++ kdebase/l10n/fo/entry.desktop	2005-03-26 08:37:45.000000000 +0100
+@@ -3,6 +3,7 @@
+ Name[ar]=جزر الفيرو
+ Name[bg]=Острови Фаро
+ Name[bn]=ফারো দ্বীপপুঞ্জ
++Name[br]=Enez Faroe
+ Name[bs]=Farska ostrva
+ Name[ca]=Illes Faroe
+ Name[cs]=Faerské ostrovy
+@@ -57,7 +58,6 @@
  Name[uz]=Фарер Ороллари
  Name[vi]=Đảo Faroe
  Name[wa]=Iye Faeroyé
@@ -24938,11 +25533,12 @@ diff -urN -x CVS kdebase.orig/l10n/gy/entry.desktop kdebase/l10n/gy/entry.deskto
  Languages=en_GB
 diff -urN -x CVS kdebase.orig/l10n/hk/entry.desktop kdebase/l10n/hk/entry.desktop
 --- kdebase.orig/l10n/hk/entry.desktop	2005-02-23 06:06:00.000000000 +0100
-+++ kdebase/l10n/hk/entry.desktop	2005-03-22 18:38:21.000000000 +0100
-@@ -2,25 +2,29 @@
++++ kdebase/l10n/hk/entry.desktop	2005-03-26 08:37:45.000000000 +0100
+@@ -2,25 +2,30 @@
  Name=Hong Kong SAR(China)
  Name[bg]=Хонг Конг (Китай)
  Name[bn]=হং কং SAR(চীন)
++Name[br]=Hong Kong SAR(Sina)
 +Name[bs]=Hong Kong SAR (Kina)
  Name[ca]=Hong Kong SAR(Xina)
  Name[cs]=Hong Kong SAR (Čína)
@@ -25495,11 +26091,12 @@ diff -urN -x CVS kdebase.orig/l10n/mn/entry.desktop kdebase/l10n/mn/entry.deskto
  
 diff -urN -x CVS kdebase.orig/l10n/mo/entry.desktop kdebase/l10n/mo/entry.desktop
 --- kdebase.orig/l10n/mo/entry.desktop	2005-02-23 06:06:01.000000000 +0100
-+++ kdebase/l10n/mo/entry.desktop	2005-03-22 18:38:21.000000000 +0100
-@@ -2,26 +2,30 @@
++++ kdebase/l10n/mo/entry.desktop	2005-03-26 08:37:45.000000000 +0100
+@@ -2,26 +2,31 @@
  Name=Macau SAR(China)
  Name[bg]=Макао (Китай)
  Name[bn]=মাকাউ SAR(চীন)
++Name[br]=Makav SAR(Sina)
 +Name[bs]=Makau SAR (Kina)
  Name[ca]=Macau SAR(Xina)
  Name[cs]=Macau SAR (Čína)
@@ -26761,8 +27358,14 @@ diff -urN -x CVS kdebase.orig/libkonq/favicons/favicons.desktop kdebase/libkonq/
  X-KDE-ModuleType=Library
 diff -urN -x CVS kdebase.orig/libkonq/konqpopupmenuplugin.desktop kdebase/libkonq/konqpopupmenuplugin.desktop
 --- kdebase.orig/libkonq/konqpopupmenuplugin.desktop	2005-02-11 05:52:25.000000000 +0100
-+++ kdebase/libkonq/konqpopupmenuplugin.desktop	2005-03-07 15:17:24.000000000 +0100
-@@ -54,7 +54,7 @@
++++ kdebase/libkonq/konqpopupmenuplugin.desktop	2005-03-26 08:37:46.000000000 +0100
+@@ -49,12 +49,12 @@
+ Comment[pt]='Plugin' para o Menu do Konqueror
+ Comment[pt_BR]=Plug-in do Konqueror para Menus Flutuantes
+ Comment[ro]=Modul pentru meniuri popup Konqueror
+-Comment[ru]=Плагин для диалога настроек
++Comment[ru]=Модуль для диалога настроек
+ Comment[se]=Lassemoduvla Konquerora báhccanfállui
  Comment[sk]=Modul pre kontextové menu Konquerora
  Comment[sl]=Vstavek za Konquerorjev pojavni menu
  Comment[sr]=Прикључак за Konqueror-ов искачући мени
@@ -26780,8 +27383,14 @@ diff -urN -x CVS kdebase.orig/libkonq/konqpopupmenuplugin.desktop kdebase/libkon
  Comment[zu]=I-Plugin yemenu egxumayo ye-Konqueror
 diff -urN -x CVS kdebase.orig/nsplugins/khtml_plugins.desktop kdebase/nsplugins/khtml_plugins.desktop
 --- kdebase.orig/nsplugins/khtml_plugins.desktop	2005-02-23 06:06:02.000000000 +0100
-+++ kdebase/nsplugins/khtml_plugins.desktop	2005-03-07 15:17:25.000000000 +0100
-@@ -60,7 +60,7 @@
++++ kdebase/nsplugins/khtml_plugins.desktop	2005-03-26 08:37:46.000000000 +0100
+@@ -55,12 +55,12 @@
+ Name[pt]='Plugins'
+ Name[pt_BR]=Plug-ins
+ Name[ro]=Module
+-Name[ru]=Плагины
++Name[ru]=Модули
+ Name[se]=Lassemoduvllat
  Name[sk]=Moduly
  Name[sl]=Vstavki
  Name[sr]=Прикључци
@@ -26798,7 +27407,13 @@ diff -urN -x CVS kdebase.orig/nsplugins/khtml_plugins.desktop kdebase/nsplugins/
  Name[zh_CN]=插件
  Name[zh_TW]=外掛程式
  Name[zu]=Ama-Plugin
-@@ -128,7 +127,7 @@
+@@ -123,12 +122,12 @@
+ Comment[pt]=Configurar os 'plugins' do navegador
+ Comment[pt_BR]=Configura os plug-ins do navegador
+ Comment[ro]=Configurează modulele de navigator de web
+-Comment[ru]=Настройка плагинов браузера
++Comment[ru]=Настройка модулей браузера
+ Comment[se]=Heivet fierpmádatlogana lassemoduvllaid
  Comment[sk]=Nastavenie modulov prehliadača
  Comment[sl]=Tu lahko nastavite predpomnilnik
  Comment[sr]=Подешавање прикључака прегледача
