@@ -27,7 +27,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -73,6 +73,7 @@ Patch18:	%{name}-screensavers.patch
 Patch19:	%{name}-prefmenu.patch
 Patch20:	%{name}-kdesktop_lock.patch
 Patch21:	%{name}-libtool-sanitize.patch
+Patch22:	%{name}-securityfix-3.1.5.patch
 %{!?with_alsa:BuildConflicts:	alsa-driver-devel}
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	OpenGL-devel
@@ -810,6 +811,7 @@ Internet Explorer.
 #%patch20
 # libtool cannot be refreshed, so patch it
 %patch21 -p1
+%patch22 -p1
 
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
