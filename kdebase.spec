@@ -36,7 +36,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.
 Source2:	kdm.pamd
 Source3:	kdm.init
 Source4:	kdm.Xsession
-Source6:	%{name}-kscreensaver.pam
+#Source6:	%{name}-kscreensaver.pam
 Source7:	%{name}-kdm.Xservers
 Source9:	%{name}-kdm_pldlogo.png
 Source10:	%{name}-kdm_pldwallpaper.png
@@ -488,7 +488,7 @@ mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers{,.orig}
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession{,.orig}
 
 install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
-install %{SOURCE6}	$RPM_BUILD_ROOT/etc/pam.d/kscreensaver
+#install %{SOURCE6}	$RPM_BUILD_ROOT/etc/pam.d/kscreensaver
 install %{SOURCE3}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
@@ -1076,7 +1076,6 @@ fi
 %files screensavers -f screensaver.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/*.kss
-%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kscreensaver
 %{_libdir}/kde3/kcm_screensaver.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_screensaver.so
 %{_datadir}/apps/kscreensaver
