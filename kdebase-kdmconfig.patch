@@ -236,7 +236,7 @@
  { "FaceDir",		0, upd_facedir, 
  "# The directory containing the user images if FaceSource is not UserOnly.\n"
 -"# Default is " KDE_DATADIR "/kdm/faces\n" },
-+"# Default is " KDMCONF "/kdm/faces\n" },
++"# Default is " KDMCONF "/faces\n" },
  { "PreselectUser",	0, 0, 
  "# Specify, if/which user should be preselected for log in.\n"
  "# Note, that enabling this feature can be considered a security hole,\n"
