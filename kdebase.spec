@@ -2,7 +2,7 @@
 # - make separate subpackages
 
 %define		_state		unstable
-%define		_kdever		kde-3.1-beta1		
+%define		_kdever		kde-3.1-beta2
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -403,9 +403,6 @@ done
 #cat kwin.lang >> %{name}.lang
 #cat kio.lang >> %{name}.lang
 
-%clean
-%{!?_without_clean:rm -rf $RPM_BUILD_ROOT}
-
 %post
 /sbin/ldconfig
 cd %{_fontdir}/misc
@@ -454,6 +451,9 @@ if [ "$1" = "0" ]; then
 	fi
 	/usr/sbin/groupdel xdm
 fi
+
+%clean
+rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
