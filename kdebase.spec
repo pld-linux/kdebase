@@ -450,7 +450,7 @@ fi
 %{_datadir}/config/[!k]*
 %{_datadir}/config/k[!d]*
 %{_datadir}/config/kdesktop*
-%{_datadir}/locale
+%{_datadir}/locale/*
 %{_datadir}/mimelnk/application/*
 %{_datadir}/services/[abfgimnpst]*
 %{_datadir}/services/k[afhsuwx]*
