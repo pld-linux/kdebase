@@ -31,7 +31,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}.%{_snap}
-Release:	1
+Release:	2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -93,7 +93,7 @@ BuildRequires:	kdelibs-devel >= 9:%{version}
 BuildRequires:	lame-libs-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
-BuildRequires:	libsmbclient-devel
+BuildRequires:	libsmbclient-devel >= 3.0.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool
@@ -2056,6 +2056,7 @@ fi
 %{_datadir}/config/konqsidebartng.rc
 %{_datadir}/config/kshorturifilterrc
 %{_datadir}/config/mountwatcher.desktop
+%{_datadir}/mimelnk/application/x-smb-workgroup.desktop
 %{_datadir}/mimelnk/kdedevice
 %{_datadir}/services/searchproviders
 %{_datadir}/services/useragentstrings
