@@ -72,7 +72,7 @@
  # Where (relatively to the user's home directory) to store the last
  # selected session. Default is .wmrc
 -#SessSaveFile=
-+#SessSaveFile=.kdmrc
++SessSaveFile=.kdmrc
  
  # Greeter config for all displays
  [X-*-Greeter]
