@@ -196,16 +196,22 @@ export CPPFLAGS
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,Settings/KDE} \
-	$RPM_BUILD_ROOT%{_sysconfdir}/{pam.d,security,rc.d/init.d}
+	$RPM_BUILD_ROOT%{_sysconfdir}/{pam.d,security,rc.d/init.d,X11/kdm}
 
 %{__make} install \
  	DESTDIR="$RPM_BUILD_ROOT" \
  	fontdir="%{_fontdir}/misc"
 
-install konqueror/konqbrowser.desktop	$RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
-install konqueror/keditbookmarks/keditbookmarks.desktop \
-	$RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
-install ktip/ktip.desktop		$RPM_BUILD_ROOT%{_applnkdir}/Amusements
+#install konqueror/konqbrowser.desktop	$RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
+#install konqueror/keditbookmarks/keditbookmarks.desktop \
+#	$RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
+#install ktip/ktip.desktop		$RPM_BUILD_ROOT%{_applnkdir}/Amusements
+
+ALD=$RPM_BUILD_ROOT%{_applnkdir}
+mv $ALD/{Internet/konqbrowser.desktop,		Network/WWW}
+mv $ALD/{Internet/keditbookmarks.desktop,	Network/WWW}
+mv $ALD/{Toys/ktip.dekstop,			Amusements}
+
 install %{SOURCE1}			$RPM_BUILD_ROOT%{_bindir}/startkde
 install %{SOURCE2}			$RPM_BUILD_ROOT%{_sysconfdir}/pam.d/kdm
 install %{SOURCE3}			$RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/kdm
@@ -239,8 +245,8 @@ EOF
 #        mv -f $a. $a
 #done
 for f in `find $RPM_BUILD_ROOT%{_applnkdir} -name '.directory' -o -name '*.dekstop'` ; do
-	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > tmp.$f
-	mv -f {tmp.,}$f
+	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
+	mv -f $f{.tmp,}
 done
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/security/blacklist.kdm
@@ -306,7 +312,8 @@ fi
 %doc *gz
 %attr(0755,root,root) %{_bindir}/[ades]*
 %attr(0755,root,root) %{_bindir}/conttest
-%attr(0755,root,root) %{_bindir}/k[acitwx]*
+%attr(0755,root,root) %{_bindir}/k[acijtwx]*
+#%attr(0755,root,root) %{_bindir}/l*
 %attr(0755,root,root) %{_bindir}/keditfiletype
 %attr(0755,root,root) %{_bindir}/kd[ce]*
 %attr(0755,root,root) %{_bindir}/konsole*
@@ -320,6 +327,8 @@ fi
 %attr(0755,root,root) %{_bindir}/krdb
 %attr(0755,root,root) %{_bindir}/kreadconfig
 %attr(0755,root,root) %{_bindir}/kpager
+%attr(0755,root,root) %{_bindir}/kprinter
+%attr(0755,root,root) %{_bindir}/kpersonalizer
 %attr(0755,root,root) %{_bindir}/kmenuedit
 
 %attr(0755,root,root) %{_libdir}/[ae]*.la
@@ -341,6 +350,8 @@ fi
 %attr(0755,root,root) %{_libdir}/libkonsolepart.so*
 %attr(0755,root,root) %{_libdir}/libnaughtyapplet.la
 %attr(0755,root,root) %{_libdir}/libnaughtyapplet.so*
+%attr(0755,root,root) %{_libdir}/libkcm_[ku]*.la
+%attr(0755,root,root) %{_libdir}/libkcm_[ku]*.so
 
 %attr(0755,root,root) %{_libdir}/kde2/[ikt]*.la
 %attr(0755,root,root) %{_libdir}/kde2/[ikt]*.so*
@@ -353,6 +364,19 @@ fi
 %attr(0755,root,root) %{_libdir}/kde2/libk[fsuw]*.la*
 %attr(0755,root,root) %{_libdir}/kde2/libk[fsuw]*.so*
 
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_socks.la
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_socks.so
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_konsole.la
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_konsole.so
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_spellchecking.la
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_spellchecking.so
+%attr(0755,root,root) %{_libdir}/kde2/libkded*.la
+%attr(0755,root,root) %{_libdir}/kde2/libkded*.so*
+%attr(0755,root,root) %{_libdir}/kde2/libkhelp*.la
+%attr(0755,root,root) %{_libdir}/kde2/libkhelp*.so*
+%attr(0755,root,root) %{_libdir}/kde2/gsthumbnail.la
+%attr(0755,root,root) %{_libdir}/kde2/gsthumbnail.so*
+
 # NOTE:	There are many directories created by kappfinder. They should be
 #	ignored as such functionality is provided by applnk package and
 #	*.dekstop files from apropriate packages.
@@ -363,36 +387,25 @@ fi
 %{_applnkdir}/Amusements/*.desktop
 %{_applnkdir}/Settings/KDE/Help
 %{_applnkdir}/Settings/KDE/Information
-%{_applnkdir}/Settings/KDE/LookNFeel/background.desktop
-%{_applnkdir}/Settings/KDE/LookNFeel/colors.desktop
-%{_applnkdir}/Settings/KDE/LookNFeel/fonts.desktop
-%{_applnkdir}/Settings/KDE/LookNFeel/icons.desktop
-%{_applnkdir}/Settings/KDE/LookNFeel/kcmnotify.desktop
-%{_applnkdir}/Settings/KDE/LookNFeel/kcmtaskbar.desktop
-%{_applnkdir}/Settings/KDE/LookNFeel/keys.desktop
-%{_applnkdir}/Settings/KDE/LookNFeel/kthememgr.desktop
-%{_applnkdir}/Settings/KDE/LookNFeel/kwinoptions.desktop
-%{_applnkdir}/Settings/KDE/LookNFeel/panel.desktop
-%{_applnkdir}/Settings/KDE/LookNFeel/style.desktop
-%{_applnkdir}/Settings/KDE/LookNFeel/virtualdesktops.desktop
-%{_applnkdir}/Settings/KDE/LookNFeel/Desktop
-%{_applnkdir}/Settings/KDE/LookNFeel/Themes
-%{_applnkdir}/Settings/KDE/LookNFeel/Windows
+%{_applnkdir}/Settings/KDE/LookNFeel/s[!c]*
+%{_applnkdir}/Settings/KDE/LookNFeel/[!s]*
 %{_applnkdir}/Settings/KDE/Network
 %{_applnkdir}/Settings/KDE/Peripherals
 %{_applnkdir}/Settings/KDE/Personalization
 %{_applnkdir}/Settings/KDE/PowerControl
 %{_applnkdir}/Settings/KDE/Sound
-%{_applnkdir}/Settings/KDE/System
+%{_applnkdir}/Settings/KDE/System/k[!d]*
+%{_applnkdir}/Settings/KDE/System/[!k]*
 %{_applnkdir}/System/k[!o]*.desktop
 %{_applnkdir}/System/kon[!q]*.desktop
-%{_applnkdir}/Utilities/klipper.desktop
-%{_applnkdir}/Utilities/kpager.desktop
+%{_applnkdir}/Utilities/*.desktop
+%{_applnkdir}/Editors/*.desktop
 
 %{_datadir}/apps/[cdn]*
-%{_datadir}/apps/k[abcfhimtw]*
+%{_datadir}/apps/k[abcfhijmtw]*
 %{_datadir}/apps/kd[cei]*
 %{_datadir}/apps/konsole
+%{_datadir}/apps/kpersonalizer
 %{_datadir}/apps/ks[py]*
 
 %{_datadir}/autostart
@@ -402,19 +415,22 @@ fi
 %{_datadir}/config/kdesktop*
 %{_datadir}/locale
 %{_datadir}/mimelnk
-%{_datadir}/services/[abfghimnpst]*
+%{_datadir}/services/[abfgimnpst]*
 %{_datadir}/services/k[afhsuwx]*
+%{_datadir}/services/kded
+%{_datadir}/services/kons*
 %{_datadir}/sounds
 %{_datadir}/templates
 %{_datadir}/wallpapers
-#pascalek %{_datadir}/fonts
-%{_datadir}/servicetypes/[stf]*.desktop
+%{_datadir}/servicetypes/[fstu]*.desktop
+%{_datadir}/servicetypes/k[!o]*.desktop
 
-%{_pixmapsdir}/*/*/apps/[abcdefghilmnprstwx]*
-%{_pixmapsdir}/*/*/apps/k[acefhilmnptwm]*
+%{_pixmapsdir}/*/*/apps/[abcdefghilmnprstuwx]*
+%{_pixmapsdir}/*/*/apps/k[acefhijlmnptwm]*
 %{_pixmapsdir}/*/*/apps/konsole.png
 %{_pixmapsdir}/*/*/apps/ksysguard.png
-%{_pixmapsdir}/*/*/apps/kdisknav.png
+%{_pixmapsdir}/*/*/apps/kdisk*
+%{_pixmapsdir}/*/*/apps/kdeprint*
 
 %{_pixmapsdir}/*/*/actions/*
 %{_pixmapsdir}/*/*/filesystems/*
@@ -422,13 +438,15 @@ fi
 # TODO:	file /usr/share/fonts/misc/9x15.pcf.gz from install of kdebase-2.0.1-3
 # 	conflicts with file from package XFree86-fonts-4.0.1-2.
 # TODO:	there is a name conflict between cursor_large and cursor from XFree86.
-%{_fontdir}/misc/console8*.gz
+#%{_fontdir}/misc/console8*.gz
+%{_fontdir}/misc/*.gz
 
 %files devel
 %defattr(644,root,root,755)
 %dir %{_includedir}/kwin
 %{_includedir}/*.h
 %{_includedir}/kwin/*.h
+%{_includedir}/kate/*.h
 
 %files static
 %defattr(644,root,root,755)
@@ -437,11 +455,10 @@ fi
 %files -f kdm.lang -n kdm
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/chooser
-%attr(0755,root,root) %{_bindir}/kdm
-%attr(0755,root,root) %{_bindir}/kdmdesktop
+%attr(0755,root,root) %{_bindir}/kdm*
 
-%attr(0755,root,root) %{_libdir}/libKdmGreet.la
-%attr(0755,root,root) %{_libdir}/libKdmGreet.so*
+#%attr(0755,root,root) %{_libdir}/libKdmGreet.la
+#%attr(0755,root,root) %{_libdir}/libKdmGreet.so*
 
 %attr(0755,root,root) %{_libdir}/kde2/libkcm_kdm.la
 %attr(0755,root,root) %{_libdir}/kde2/libkcm_kdm.so*
@@ -456,6 +473,7 @@ fi
 
 %{_datadir}/apps/kdm
 %{_datadir}/config/kdmrc
+%{_datadir}/config/kdm
 
 %{_pixmapsdir}/*/*/apps/kdmconfig.png
 
@@ -489,7 +507,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde2/libkcm_konq*.la
 %attr(0755,root,root) %{_libdir}/kde2/libkcm_konq*.so*
 %attr(0755,root,root) %{_libdir}/kde2/libkonq*la
-%attr(0755,root,root) %{_libdir}/kde2/libkonq*so
+%attr(0755,root,root) %{_libdir}/kde2/libkonq*so.*
+%attr(0755,root,root) %{_libdir}/kde2/libkonq*.so
 
 %{_applnkdir}/Network/WWW/konq*.desktop
 %{_applnkdir}/Network/WWW/keditbookmarks.desktop
@@ -503,6 +522,7 @@ fi
 %{_datadir}/apps/keditbookmarks
 %{_datadir}/services/htmlthumbnail.desktop
 %{_datadir}/services/konq*.desktop
+%{_datadir}/services/useragentstrings
 %{_datadir}/servicetypes/konqaboutpage.desktop
 
 %{_pixmapsdir}/*/*/apps/konqueror.png
