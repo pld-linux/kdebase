@@ -1,6 +1,6 @@
---- kdebase-3.1/kcontrol/background/backgnd.cpp.orig	Mon Nov 18 14:14:20 2002
-+++ kdebase-3.1/kcontrol/background/backgnd.cpp	Fri Nov 22 21:29:41 2002
-@@ -602,6 +602,32 @@
+--- kdebase-3.1.1/kcontrol/background/backgnd.cpp~	Tue Jan 14 00:38:06 2003
++++ kdebase-3.1.1/kcontrol/background/backgnd.cpp	Tue Mar  4 11:08:51 2003
+@@ -626,6 +626,33 @@
  }
  
  
@@ -20,7 +20,8 @@
 +    r->setBackgroundMode(KBackgroundSettings::Flat);
 +    r->setColorA(QColor("#0000C8"));
 +    r->setColorB(_defColorB);
-+    r->setWallpaperMode(_defWallpaperMode);
++    r->setWallpaper(QString::fromLatin1("/etc/X11/kdm/pics/pldwallpaper.png"));
++    r->setWallpaperMode(KBackgroundSettings::Scaled);
 +    r->setMultiWallpaperMode(_defMultiMode);
 +    r->setBlendMode(_defBlendMode);
 +    r->setBlendBalance(_defBlendBalance);
