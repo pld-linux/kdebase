@@ -361,8 +361,8 @@ A splash screen plugin that resembles the Windows XP post login
 animations.
 
 %description -n kde-splashplugin-Redmond -l pl
-Wtyczka uruchamiana w czasie startu KDE, podobna do animacji, ktСre w
-Windows XP maj╠ miejsce po zalogowaniu.
+Wtyczka ekranu startowego KDE, podobna do animacji, ktСre w Windows XP
+maj╠ miejsce po zalogowaniu.
 
 %package -n kde-splashplugin-Standard
 Summary:	ksplash plugin Standard
@@ -804,7 +804,7 @@ Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 KDE screensavers.
 
 %description screensavers -l pl
-Wygaszacze ekranu desktopu KDE.
+Wygaszacze ekranu dla KDE.
 
 %description screensavers -l ru
 Некоторые 3D хранители экрана для K Desktop Environment.
