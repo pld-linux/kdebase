@@ -1748,6 +1748,14 @@ for i in $files; do
 	mv ${i}.lang.1 ${i}.lang
 done
 
+for i in $durne; 
+do
+	echo $i >> control
+	grep -v en\/ $i|grep -v apidocs >> ${i}.1
+	if [ -f ${i}.1 ] ; then
+		mv ${i}.1 ${i}
+	fi
+done
 # </find_lang>
 
 %clean
