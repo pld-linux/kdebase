@@ -1,0 +1,21 @@
+- Updated to 3.1
+- Removed FONTDIR redefinition from install process - that was the wrong way!
+  Files cursor*.pcf.gz should be stored in %{_datadir}/apps/kcminput
+  directory for changing cursor layout ability by kcontrol. Storing them
+  in /usr/share/fonts/misc causes problems and have no sense at al.
+- Added fontdir.patch for storing console* fonts in /usr/share/fonts/misc
+- Moved ScreenSavers directory to %{_applnkdir}/.hidden. KDE ScreenSavers
+  dir was already hidden - kss files are useful when You choose them in
+  kcontrol only, so there's no need to accesing them by menu.
+- Updated console_all.patch - corrected "Linux" font definition.
+- Added kdmconfig.patch - now kdm uses /etc/X11/kdm location only, so we
+  don't need kdmrc link any longer.
+- Finally removed kdmrc.patch - kdmrc file generation is corrected by
+  kdmconfig.patch.
+- Removed hardcoded_paths.patch - patched entries are already
+  commented out.
+- Removed dont_merge_old_kdmrc.patch - it's obsoleted by kdmconfig.patch
+- Renumerated patches
+- Fixed smb-network.desktop copying
+- Putting packages in alphabetical order
+- findwm is back.
