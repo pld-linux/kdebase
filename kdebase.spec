@@ -13,7 +13,7 @@
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040225
+%define		_snap		040312
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -1342,6 +1342,8 @@ Pliki umiêdzynarodawiaj±ce dla mailnews.
 %build
 cp /usr/share/automake/config.sub admin
 
+export kde_htmldir=%{_kdedocdir}
+
 export UNSERMAKE=/usr/share/unsermake/unsermake
 
 %{__make} -f admin/Makefile.common cvs
@@ -1360,8 +1362,7 @@ export UNSERMAKE=/usr/share/unsermake/unsermake
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	kde_htmldir=%{_kdedocdir}
+	DESTDIR=$RPM_BUILD_ROOT
 
 install -d \
 	$RPM_BUILD_ROOT/etc/{X11/kdm/faces,pam.d,rc.d/init.d,security} \
@@ -1438,6 +1439,17 @@ for f in `grep -El 'X-KDE-settings|X-KDE-information' *`; do
 	echo "OnlyShowIn=KDE" >> $f
 done
 cd -
+
+# Workaround for doc caches (unsermake bug?)
+cd doc
+for i in `find . -name index.cache.bz2`; do
+	if [ -d `echo $RPM_BUILD_ROOT%{_kdedocdir}/en/$i |sed -e 's/\/index.cache.bz2//'` ]; then 
+		install -c -p -m 644 $i $RPM_BUILD_ROOT%{_kdedocdir}/en/$i
+	fi	
+done
+cd -
+install -c -p -m 644 doc/kcontrol/helpindex/index.cache.bz2 \
+	$RPM_BUILD_ROOT%{_kdedocdir}/en/kcontrol/helpindex.html/index.cache.bz2
 
 %if %{with i18n}
 bzip2 -dc %{SOURCE14} | tar xf - -C $RPM_BUILD_ROOT
@@ -2394,6 +2406,7 @@ fi
 %{_datadir}/applnk/.hidden/battery.desktop
 %{_datadir}/applnk/.hidden/bwarning.desktop
 %{_datadir}/applnk/.hidden/cwarning.desktop
+%{_datadir}/applnk/.hidden/energy.desktop
 %{_datadir}/applnk/.hidden/kcmkxmlrpcd.desktop
 %{_datadir}/applnk/.hidden/kwinactions.desktop
 %{_datadir}/applnk/.hidden/kwinadvanced.desktop
@@ -2413,7 +2426,7 @@ fi
 %{_desktopdir}/kde/desktoppath.desktop
 %{_desktopdir}/kde/display.desktop
 %{_desktopdir}/kde/email.desktop
-%{_desktopdir}/kde/energy.desktop
+#%{_desktopdir}/kde/energy.desktop
 %{_desktopdir}/kde/kcmaccess.desktop
 %{_desktopdir}/kde/kcmlaunch.desktop
 %{_desktopdir}/kde/kcmsmserver.desktop
@@ -2513,6 +2526,14 @@ fi
 %{_iconsdir}/*/*/apps/xpaint.png
 %{_iconsdir}/*/*/apps/x.png
 %{_iconsdir}/*/*/apps/xv.png
+%{_iconsdir}/crystalsvg/scalable/apps
+# kcontroledit
+%attr(0755,root,root) %{_bindir}/kcontroledit
+%{_libdir}/libkdeinit_kcontroledit.la
+%attr(0755,root,root) %{_libdir}/libkdeinit_kcontroledit.so
+%{_libdir}/kde3/kcontroledit.la
+%attr(0755,root,root) %{_libdir}/kde3/kcontroledit.so
+%{_datadir}/apps/kcontroledit
 
 %files desktop-libs
 %defattr(644,root,root,755)
@@ -2667,6 +2688,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kickermenu_find.so
 %{_libdir}/kde3/kickermenu_kdeprint.la
 %attr(0755,root,root) %{_libdir}/kde3/kickermenu_kdeprint.so
+%{_libdir}/kde3/kickermenu_konqueror.la
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_konqueror.so
 %{_libdir}/kde3/kickermenu_konsole.la
 %attr(0755,root,root) %{_libdir}/kde3/kickermenu_konsole.so
 %{_libdir}/kde3/kickermenu_prefmenu.la
