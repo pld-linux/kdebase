@@ -1496,7 +1496,7 @@ fi
 %attr(755,root,root) %{_bindir}/kcontrol
 %attr(755,root,root) %{_bindir}/kdebugdialog
 %attr(755,root,root) %{_bindir}/kdesu
-%attr(2755,root,nogroup) %{_bindir}/kdesud
+%attr(2755,root,nobody) %{_bindir}/kdesud
 %attr(755,root,root) %{_bindir}/khelpcenter
 %attr(755,root,root) %{_bindir}/kprinter
 # KDE-style (lt_)dlopenable binaries
