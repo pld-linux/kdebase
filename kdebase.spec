@@ -6,10 +6,10 @@
 %bcond_with	cvs		# use cvs checkouts instead of tarballs
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040603
+%define		_snap		040613
 %define		_packager	adgor
 
-%define		_minlibsevr	9:3.2.90.030603
+%define		_minlibsevr	9:3.2.90.030613
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -72,7 +72,6 @@ Patch17:	%{name}-sasl-includes.patch
 Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
 Patch20:	%{name}-kwin_shadow.patch
-Patch21:	%{name}-svgsupport.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	arts-devel >= 1.2.0
 BuildRequires:	audiofile-devel
@@ -891,9 +890,10 @@ cd kwin
 %patch20 -p0 -b .shadows
 cd -
 %endif 
-%patch21 -p1 -R
 
 %{__tar} xfj %{SOURCE11} -C konqueror/sidebar/
+
+echo "KDE_OPTIONS = nofinal" >> kicker/applets/clock/Makefile.am
 
 %build
 cp /usr/share/automake/config.sub admin
