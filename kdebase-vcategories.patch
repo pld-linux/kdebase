@@ -1,0 +1,68 @@
+--- kdebase-030905/kcontrol/konq/desktoppath.desktop~	2003-09-05 20:16:55.000000000 +0200
++++ kdebase-030905/kcontrol/konq/desktoppath.desktop	2003-09-06 11:01:58.000000000 +0200
+@@ -145,4 +145,4 @@
+ Keywords[zh_TW]=konqueror,filemanager,paths,desktop,trash,directories,autostart,征服家,檔案管理程式,路徑,桌面,垃圾桶,目錄,自動啟動
+ Keywords[zu]=konqueror,imenenja yamafayela,izindlela,desktop,izibi,uhlu lwamafayela,ukuqala ngokuzenzekela
+ 
+-Categories=Qt;KDE;X-KDE-settings-system
++Categories=Qt;KDE;X-KDE-settings-desktop
+--- kdebase-040110/khelpcenter/Help.desktop.orig	2004-01-10 14:42:58.000000000 +0100
++++ kdebase-040110/khelpcenter/Help.desktop	2004-01-10 15:00:25.000000000 +0100
+@@ -6,7 +6,7 @@
+ Type=Application
+ Terminal=0
+ 
+-Name=Help
++Name=KDE Help
+ Name[af]=Hulp
+ Name[az]=Yardım
+ Name[be]=Дапамога
+@@ -45,7 +45,7 @@
+ Name[nn]=Hjelp
+ Name[nso]=Thuso
+ Name[oc]=Ajuda
+-Name[pl]=Pomoc
++Name[pl]=Pomoc KDE
+ Name[pt]=Ajuda
+ Name[pt_BR]=Ajuda
+ Name[ro]=Ajutor
+@@ -70,5 +70,4 @@
+ Name[zh_CN]=帮助
+ Name[zh_TW]=求助
+ Name[zu]=Usizo
+-Categories=Qt;KDE;Core;
+-OnlyShowIn=KDE;
++Categories=Qt;KDE;X-Help;
+--- kdebase-040110/kfind/Kfind.desktop.orig	2004-01-10 15:04:48.000000000 +0100
++++ kdebase-040110/kfind/Kfind.desktop	2004-01-11 13:01:58.000000000 +0100
+@@ -68,5 +68,4 @@
+ Name[zh_TW]=尋找檔案
+ Name[zu]=Thola Amafayela
+ X-KDE-StartupNotify=true
+-Categories=Qt;KDE;Core;
+-OnlyShowIn=KDE;
++Categories=Qt;KDE;Utility;
+--- kdebase-030317/konqueror/konquerorsu.desktop~	Fri Feb 28 00:41:58 2003
++++ kdebase-030317/konqueror/konquerorsu.desktop	Wed Mar 19 19:06:14 2003
+@@ -56,4 +56,4 @@
+ Name[zu]=Imenenja yamafayela - Indlela Yomsebenzisi Omkhulu
+ 
+ 
+-Categories=Qt;KDE;System;X-KDE-More
++Categories=Qt;KDE;SystemSetup
+--- kdebase-030317/konsole/konsolesu.desktop~	Tue Mar 18 18:35:21 2003
++++ kdebase-030317/konsole/konsolesu.desktop	Wed Mar 19 19:11:09 2003
+@@ -106,4 +106,4 @@
+ GenericName[zh_TW]=終端機程式
+ GenericName[zu]=Uhlelo lwemisebenzi lwangaohandle
+ X-KDE-AuthorizeAction=shell_access
+-Categories=Qt;KDE;System;TerminalEmulator;X-KDE-More
++Categories=Qt;KDE;SystemSetup;TerminalEmulator
+--- kdebase-040104/konqueror/konqbrowser.desktop.orig	2004-01-04 14:57:13.000000000 +0100
++++ kdebase-040104/konqueror/konqbrowser.desktop	2004-01-04 19:25:45.242699600 +0100
+@@ -75,4 +75,4 @@
+ GenericName[zh_CN]=网页浏览器
+ GenericName[zh_TW]=網頁瀏覽器
+ GenericName[zu]=Umcingi we-Web
+-Categories=Qt;KDE;Network
++Categories=Qt;KDE;Network;X-WWW

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Charset=
+Hidden=false
+Keys=faq,ircpld
+Name=PLD FAQ search
+Query=http://irc.pld.org.pl/?sub=search&regexp=\\{@}
+ServiceTypes=SearchProvider
+Type=Service
+# vi: encoding=utf-8

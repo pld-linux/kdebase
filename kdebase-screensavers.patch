@@ -1,0 +1,65 @@
+--- kdebase-3.1.1/kcontrol/screensaver/scrnsave.cpp~	Fri Jan  3 05:41:58 2003
++++ kdebase-3.1.1/kcontrol/screensaver/scrnsave.cpp	Tue Apr  1 10:46:49 2003
+@@ -147,23 +147,9 @@
+     mMonitor = 0;
+     mTesting = false;
+ 
+-    // Add non-KDE path
+     KGlobal::dirs()->addResourceType("scrsav",
+-                                     KGlobal::dirs()->kde_default("apps") +
+-                                     "apps/ScreenSavers/");
+-
+-    // Add KDE specific screensaver path
+-    QString relPath="System/ScreenSavers/";
+-    KServiceGroup::Ptr servGroup = KServiceGroup::baseGroup( "screensavers" );
+-    if (servGroup)
+-    {
+-      relPath=servGroup->relPath();
+-      kdDebug() << "relPath=" << relPath << endl;
+-    }
+-
+-    KGlobal::dirs()->addResourceType("scrsav",
+-                                     KGlobal::dirs()->kde_default("apps") +
+-                                     relPath);
++                                     KGlobal::dirs()->kde_default("data") +
++                                     "kscreensaver/");
+ 
+     readSettings();
+ 
+--- kdebase-3.1.1/kscreensaver/Makefile.am~	Sun Oct 27 00:07:04 2002
++++ kdebase-3.1.1/kscreensaver/Makefile.am	Tue Apr  1 00:28:59 2003
+@@ -23,6 +23,6 @@
+ ########## Meta objects ##########
+ 
+ desktop_DATA = KRandom.desktop KBlankscreen.desktop
+-desktopdir = $(kde_appsdir)/System/ScreenSavers
++desktopdir = $(kde_datadir)/kscreensaver
+ 
+ EXTRA_DIST = $(desktop_DATA)
+--- kdebase-030502/kdesktop/lock/lockprocess.cc~	2003-05-02 00:36:02.000000000 +0200
++++ kdebase-030502/kdesktop/lock/lockprocess.cc	2003-05-02 15:41:23.000000000 +0200
+@@ -91,22 +91,9 @@
+     XSelectInput( qt_xdisplay(), qt_xrootwin(),
+         SubstructureNotifyMask | rootAttr.your_event_mask );
+ 
+-    // Add non-KDE path
+     KGlobal::dirs()->addResourceType("scrsav",
+-                                    KGlobal::dirs()->kde_default("apps") +
+-                                    "System/ScreenSavers/");
+-
+-    // Add KDE specific screensaver path
+-    QString relPath="System/ScreenSavers/";
+-    KServiceGroup::Ptr servGroup = KServiceGroup::baseGroup( "screensavers");
+-    if (servGroup)
+-    {
+-      relPath=servGroup->relPath();
+-      kdDebug(1204) << "relPath=" << relPath << endl;
+-    }
+-    KGlobal::dirs()->addResourceType("scrsav",
+-                                     KGlobal::dirs()->kde_default("apps") +
+-                                     relPath);
++                                     KGlobal::dirs()->kde_default("data") +
++                                     "kscreensaver/");
+ 
+     mLockOnce = false;
+ 
