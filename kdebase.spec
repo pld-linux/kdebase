@@ -28,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	1
+Release:	1.1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -45,6 +45,9 @@ Source9:	%{name}-specs.desktop
 Source10:	%{name}-kdesktop.pam
 Source11:	%{name}-kde-settings.menu
 Source12:	%{name}-imdb.desktop
+# generated from kde-i18n-%{version}.tar.bz2:
+Source13:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/%{version}/kde-i18n-%{name}-%{version}.tar.bz2
+# Source13-md5:	d6e41a97a945f6a1ace25af4c616e374
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 #Patch1:		%{name}-fix-mouse.cpp.patch
 Patch2:		%{name}-fontdir.patch
