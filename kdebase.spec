@@ -872,9 +872,7 @@ Internet Explorer.
 %patch28 -p1
 
 %build
-
-# FIXME
-for f in `grep -lr '\[nb\]=' *` ; do
+for f in `find . -name \*.desktop -o -name \*rc | xargs grep -l '\[nb\]'` ; do
 	echo -e ',s/\[nb\]=/[no]=/\n,w' | ed $f 2>/dev/null
 done
 
