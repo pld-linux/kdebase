@@ -29,23 +29,23 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.%{_snap}.1
+Release:	0.%{_snap}.2
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:        http://team.pld.org.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-Source2:	kdm.pamd
+Source1:	%{name}-kcheckpass.pam
+Source2:	%{name}-kdm.pam
 Source3:	kdm.init
 Source4:	kdm.Xsession
-Source6:	%{name}-kscreensaver.pam
-Source7:	%{name}-kdm.Xservers
-Source9:	%{name}-kdm_pldlogo.png
-Source10:	%{name}-kdm_pldwallpaper.png
-Source11:	ircpld.desktop
-Source12:	specs.desktop
-Source13:	kabc.desktop
-Source14:	kde-settings.menu
+Source5:	%{name}-kdm.Xservers
+Source6:	%{name}-kdm_pldlogo.png
+Source7:	%{name}-kdm_pldwallpaper.png
+Source8:	ircpld.desktop
+Source9:	specs.desktop
+Source10:	kabc.desktop
+Source11:	kde-settings.menu
 #
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 # obsoleted
@@ -121,7 +121,7 @@ Requires:	applnk >= 1.6.1
 #
 Requires:       kde-sdscreen
 Requires:       kdelibs >= %{version}-%{_kdelibsminrel}
-Requires:	%{name}-pam = %{version}-%{release}
+Requires:	%{name}-kcheckpass = %{version}-%{release}
 Requires:	konqueror = %{version}-%{release}
 #
 Obsoletes:	%{name}-fonts
@@ -278,6 +278,18 @@ KDE advanced text editor.
 %description kate -l pl
 Zaawansowany edytor tekstu dla KDE.
 
+%package kcheckpass
+Summary:	KDE User Autentication  
+Summary(pl):	Uwierzytelnianie u¿ytkowników dla KDE
+Group:		X11/Applications
+Obsoletes:	%{name} < 3.0.9-2.4
+
+%description kcheckpass
+KDE User Autentication.
+
+%description kcheckpass -l pl
+Uwierzytelnianie u¿ytkowników dla KDE.
+
 %package kcontrol
 Summary:	KDE Control Center
 Summary(pl):	Centrum Sterowania KDE
@@ -376,18 +388,6 @@ KDE Mail and News Services.
 %description mailnews -l pl
 Obs³uga protoko³ów pocztowych i news dla KDE.
 
-%package pam
-Summary:	KDE User Autentication 
-Summary(pl):	Uwierzytelnianie u¿ytkowników dla KDE
-Group:		X11/Applications
-Obsoletes:	%{name} < 3.0.9-2.4
-
-%description pam
-KDE User Autentication.
-
-%description pam -l pl
-Uwierzytelnianie u¿ytkowników dla KDE.
-
 %package screensavers
 Summary:	KDE screensavers
 Summary(pl):	Wygaszacze ekranu desktopu KDE
@@ -395,7 +395,7 @@ Summary(ru):	ÈÒÁÎÉÔÅÌÉ ÜËÒÁÎÁ ÄÌÑ KDE
 Summary(uk):	ÚÂÅÒ¦ÇÁÞ¦ ÅËÒÁÎÕ ÄÌÑ KDE
 Group:		X11/Applications
 Requires:	OpenGL
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-kcheckpass = %{version}-%{release}
 
 %description screensavers
 KDE screensavers.
@@ -419,6 +419,7 @@ Requires:	xinitrc
 Obsoletes:	gdm
 Obsoletes:	xdm
 Obsoletes:	%{name}-kdm
+Obsoletes:	%{name}-pam
 
 %description -n kdm
 It is KDE replacement for XDM. It manages local and remote X11
@@ -486,8 +487,9 @@ for plik in `find ./ -name *.desktop` ; do
 done
 
 %configure \
-	--with-pam=kdm
-		
+	--with-kcp-pam=kcheckpass \
+	--with-kdm-pam=kdm
+			
 %{__make}
 
 cd ksplashml
@@ -510,30 +512,31 @@ install -d \
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers{,.orig}
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession{,.orig}
 
+touch $RPM_BUILD_ROOT/etc/security/blacklist.kcheckpass
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
+install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kcheckpass
 install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
-install %{SOURCE6}	$RPM_BUILD_ROOT/etc/pam.d/kscreensaver
 install %{SOURCE3}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
-install %{SOURCE7}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
-install %{SOURCE9}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldlogo.png
-install %{SOURCE10}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldwallpaper.png
+install %{SOURCE5}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
+install %{SOURCE6}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldlogo.png
+install %{SOURCE7}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldwallpaper.png
 
-install {%{SOURCE11},%{SOURCE12}} \
+install {%{SOURCE8},%{SOURCE9}} \
     $RPM_BUILD_ROOT%{_datadir}/services/searchproviders
 
 cp $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop \
     $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/remote
 
 ALD=$RPM_BUILD_ROOT%{_applnkdir}
-mv -f $ALD/{Settings,KDE-Settings}
-mv -f $ALD/Help.desktop			$RPM_BUILD_ROOT%{_desktopdir}
-mv -f $ALD/Settingsmenu/*.desktop	$RPM_BUILD_ROOT%{_desktopdir}
-mv -f $ALD/System/kinfocenter.desktop	$RPM_BUILD_ROOT%{_desktopdir}
+mv $ALD/{Settings,KDE-Settings}
+mv $ALD/Help.desktop			$RPM_BUILD_ROOT%{_desktopdir}
+mv $ALD/Settingsmenu/*.desktop		$RPM_BUILD_ROOT%{_desktopdir}
+mv $ALD/System/kinfocenter.desktop	$RPM_BUILD_ROOT%{_desktopdir}
 
-install %{SOURCE13} $ALD/KDE-Settings/Components
-install %{SOURCE14} $RPM_BUILD_ROOT/etc/X11/desktop/menus
+install %{SOURCE10} $ALD/KDE-Settings/Components
+install %{SOURCE11} $RPM_BUILD_ROOT/etc/X11/desktop/menus
 
 > %{name}.lang
 
@@ -633,7 +636,6 @@ fi
 %attr(0755,root,root) %{_bindir}/[ades]*
 %attr(0755,root,root) %{_bindir}/k[jtx]*
 %attr(0755,root,root) %{_bindir}/ka[!t]*
-%attr(0755,root,root) %{_bindir}/kcheckpass
 %attr(0755,root,root) %{_bindir}/kdc*
 %attr(0755,root,root) %{_bindir}/kde[!ps]*
 %attr(0755,root,root) %{_bindir}/kdes[!u]*
@@ -956,6 +958,13 @@ fi
 %{_desktopdir}/kate.desktop
 %{_pixmapsdir}/*/*/apps/kate.png
 
+%files kcheckpass
+%defattr(644,root,root,755)
+%doc README.pam kcheckpass/{ChangeLog,README}
+%attr(0644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kcheckpass
+%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kcheckpass
+%attr(0755,root,root) %{_bindir}/kcheckpass
+
 %files kcontrol
 %defattr(644,root,root,755)
 /etc/X11/desktop/menus/kde-settings.menu
@@ -1081,7 +1090,6 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kio_pop3.so
 %{_libdir}/kde3/kio_smtp.la
 %attr(0755,root,root) %{_libdir}/kde3/kio_smtp.so
-
 %{_datadir}/services/imap4.protocol
 %{_datadir}/services/imaps.protocol
 %{_datadir}/services/nntp.protocol
@@ -1090,26 +1098,20 @@ fi
 %{_datadir}/services/smtp.protocol
 %{_datadir}/services/smtps.protocol
 
-%files pam
-%defattr(644,root,root,755)
-%doc README.pam
-# Must be here. kcheckpass needs it.
-%attr(0644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdm
-%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kdm
-
 %files screensavers -f screensaver.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/*.kss
-%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kscreensaver
 %{_libdir}/kde3/kcm_screensaver.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_screensaver.so
 %{_datadir}/apps/kscreensaver
 %{_applnkdir}/KDE-Settings/LookNFeel/screensaver.desktop
 %{_pixmapsdir}/*/*/apps/kscreensaver.png
 
-
 %files -n kdm -f kdm.lang
 %defattr(644,root,root,755)
+%doc README.pam kdm/{ChangeLog,README,TODO}
+%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdm
+%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kdm
 %dir %{_sysconfdir}/kdm
 %attr(0754,root,root) /etc/rc.d/init.d/kdm
 %config(noreplace) %{_sysconfdir}/kdm/kdmrc
