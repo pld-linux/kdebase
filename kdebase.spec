@@ -19,7 +19,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.98
-Release:	1.2
+Release:	1.3
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -31,7 +31,7 @@ Source3:	kdm.init
 Source4:	kdm.Xsession
 Source6:	%{name}-kscreensaver.pam
 Source7:	%{name}-kdm.Xservers
-Source8:	%{name}-kdm.findwm
+#Source8:	%{name}-kdm.findwm
 Patch0:		%{name}-kdmrc.patch
 Patch1:		%{name}-fix-mem-leak-in-kfind.patch
 Patch2:		%{name}-dont_merge_old_kdmrc.patch
@@ -324,17 +324,18 @@ KDE Wallpapers
 %description wallpapers -l pl
 Tapety pulpitu dla KDE.
 
-%package -n kate
+%package kate
 Summary:	KDE Advanced Text Editor
 Summary(pl):	Zaawansowany edytor tekstu dla KDE
 Group:		X11/Applications/Editors
 Requires:	%{name}-common-filemanagement = %{version}-%{release}
 Obsoletes:	%{name} < 3.0.9-2.4
+Obsoletes:	kate
 
-%description -n kate
+%description kate
 KDE advanced text editor. 
 
-%description -n kate -l pl
+%description kate -l pl
 Zaawansowany edytor tekstu dla KDE
 
 %package -n kdm
@@ -358,18 +359,19 @@ displays.
 %description -n kdm -l pl
 Zamiennik XDM rodem z KDE.
 
-%package -n kfind
+%package kfind
 Summary:	KDE Find Tool
 Summary(pl):	Narzêdzie do wyszukiwania plików dla KDE
 Group:		X11/Applications
 Requires:	%{name}-helpcenter = %{version}-%{release}
 Requires:	kdelibs >= %{version}
 Obsoletes:	%{name} < 3.0.9-2.4
+Obsoletes:	kfind
 
-%description -n kfind
+%description kfind
 KDE Find Tool
 
-%description -n kfind -l pl
+%description kfind -l pl
 Narzêdzie do wyszukiwania plików dla KDE
 
 %package -n konqueror
@@ -378,7 +380,7 @@ Summary(pl):	Konqueror - przegl±darka WWW i mened¿er plików
 Group:		X11/Applications
 Requires:	%{name}-common-filemanagement = %{version}-%{release}
 Requires:	%{name}-mailnews = %{version}-%{release}
-Requires:	konsole = %{version}-%{release}
+Requires:	%{name}-konsole = %{version}-%{release}
 Obsoletes:	%{name}-konqueror
 
 %description -n konqueror
@@ -389,33 +391,33 @@ Explorer.
 Konqueror jest przegl±dark± WWW i mene¿derem plików podobnym do MS
 Internet Explorer.
 
-%package -n konsole
+%package konsole
 Summary:	KDE Terminal Emulator
 Summary(pl):	Emulator terminala dla KDE
 Group:		X11/Applications
 Requires:	%{name}-common-konsole = %{version}-%{release}
 Requires:	%{name}-kcontrol = %{version}-%{release}
-Obsoletes:	%{name}-konsole
 Obsoletes:	%{name} < 3.0.9-2.4
+Obsoletes:	konsole
 
-%description -n konsole
+%description konsole
 KDE Terminal Emulator
 
-%description -n konsole -l pl
+%description konsole -l pl
 Emulator terminala dla KDE
 
-%package -n kwrite
+%package kwrite
 Summary:	KDE Text Editor
 Summary(pl):	Edytor tekstu dla KDE
 Group:		X11/Applications/Editors
 Requires:	%{name}-helpcenter = %{version}-%{release}
 Obsoletes:	%{name} < 3.0.9-2.4
-Obsoletes:	%{name}-kwrite
+Obsoletes:	kwrite
 
-%description -n kwrite
+%description kwrite
 KDE text editor with syntax highlighting. 
 
-%description -n kwrite -l pl
+%description kwrite -l pl
 Edytor tekstu z pod¶wietlaniem sk³adni dla KDE
 
 %prep
@@ -465,7 +467,7 @@ install %{SOURCE6}	$RPM_BUILD_ROOT/etc/pam.d/kscreensaver
 install %{SOURCE3}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
-install %{SOURCE8}	$RPM_BUILD_ROOT%{_bindir}/findwm
+#install %{SOURCE8}	$RPM_BUILD_ROOT%{_bindir}/findwm
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
@@ -496,7 +498,7 @@ X-KDE-BaseGroup=settings
 EOF
 
 cat $ALD/Help/Help.desktop |sed 's/Help/KDE Help/' |sed 's/Pomoc/Pomoc KDE/' \
-    > Help.desktop.tmp
+	> Help.desktop.tmp
 cat Help.desktop.tmp > $ALD/Help/Help.desktop
 rm -f Help.desktop.tmp     
 
@@ -549,14 +551,8 @@ done
 cd %{_fontdir}/misc
 umask 022
 %{_bindir}/mkfontdir
-if [ -x %{_bindir}/xset ] && [ X$DISPLAY != X"" ]; then
-    %{_bindir}/xset fp rehash
-fi    
 if [ -x %{_bindir}/xftcache ]; then
     %{_bindir}/xftcache .
-fi
-if [ -x %{_bindir}/findwm ]; then
-    %{_bindir}/findwm
 fi
 
 %postun
@@ -564,23 +560,14 @@ fi
 cd %{_fontdir}/misc
 umask 022
 %{_bindir}/mkfontdir
-if [ -x %{_bindir}/xset ] && [ X$DISPLAY != X"" ]; then
-    %{_bindir}/xset fp rehash
-fi    
 if [ -x %{_bindir}/xftcache ]; then
     %{_bindir}/xftcache .
-fi
-if [ -x %{_bindir}/findwm ]; then
-    %{_bindir}/findwm
 fi
 
 %post common-konsole
 cd %{_fontdir}/misc
 umask 022
 %{_bindir}/mkfontdir
-if [ -x %{_bindir}/xset ] && [ X$DISPLAY != X"" ]; then
-    %{_bindir}/xset fp rehash
-fi
 if [ -x %{_bindir}/xftcache ]; then
     %{_bindir}/xftcache .
 fi
@@ -589,9 +576,6 @@ fi
 cd %{_fontdir}/misc
 umask 022
 %{_bindir}/mkfontdir
-if [ -x %{_bindir}/xset ] && [ X$DISPLAY != X"" ]; then
-    %{_bindir}/xset fp rehash
-fi
 if [ -x %{_bindir}/xftcache ]; then
     %{_bindir}/xftcache .
 fi
@@ -599,43 +583,42 @@ fi
 %pre -n kdm
 /usr/sbin/groupadd -g 55 -r -f xdm
 if [ -z "`id -u xdm 2>/dev/null`" ]; then
-    /usr/sbin/useradd -u 55 -r -d /dev/null -s /bin/false -c 'X Display Manager' -g xdm xdm 1>&2
+	/usr/sbin/useradd -u 55 -r -d /dev/null -s /bin/false -c 'X Display Manager' -g xdm xdm 1>&2
 fi
 
 %post -n kdm
 /sbin/chkconfig --add kdm
 if [ -f /var/lock/subsys/kdm ]; then
-    echo "To make sure that new version of KDM is running you should restart"
-    echo "KDM with:"
-    echo "/etc/rc.d/init.d/kdm restart"
-    echo
-    echo "WARNING: restarting KDM will terminate any X session started by it!"
-else
-    echo "Run \"/etc/rc.d/init.d/kdm start\" to start kdm." >&2
+	echo "To make sure that new version of KDM is running you should restart"
+	echo "KDM with:"
+	echo "/etc/rc.d/init.d/kdm restart"
+	echo
+	echo "WARNING: restarting KDM will terminate any X session started by it!"
+	else
+	echo "Run \"/etc/rc.d/init.d/kdm start\" to start kdm." >&2
 fi
-%{_bindir}/findwm
 
 %preun -n kdm
 if [ "$1" = "0" ]; then
-    if [ -f /var/lock/subsys/kdm ]; then
-	 /etc/rc.d/init.d/kdm stop >&2
-    fi
-    /sbin/chkconfig --del kdm
+	if [ -f /var/lock/subsys/kdm ]; then
+		/etc/rc.d/init.d/kdm stop >&2
+	fi
+	/sbin/chkconfig --del kdm
 fi
 
 %postun -n kdm
 if [ "$1" = "0" ]; then
-    if [ -n "`id -u xdm 2>/dev/null`" ]; then
-	/usr/sbin/userdel xdm
-    fi
-    /usr/sbin/groupdel xdm
+	if [ -n "`id -u xdm 2>/dev/null`" ]; then
+		/usr/sbin/userdel xdm
+	fi
+	/usr/sbin/groupdel xdm
 fi
 
 %post   -n konqueror -p /sbin/ldconfig
 %postun	-n konqueror -p /sbin/ldconfig
 
 %clean
-#rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
@@ -988,7 +971,7 @@ fi
 %attr(0755,root,root) %{_bindir}/krootimage
 %{_datadir}/wallpapers
 
-%files -n kate -f kate.lang
+%files kate -f kate.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kate
 %attr(0755,root,root) %{_libdir}/kate.??
@@ -1001,7 +984,7 @@ fi
 %files -n kdm -f kdm.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/chooser
-%attr(0755,root,root) %{_bindir}/findwm
+#%attr(0755,root,root) %{_bindir}/findwm
 %attr(0755,root,root) %{_bindir}/kdm*
 %attr(0755,root,root) %{_libdir}/kde3/kcm_kdm.??
 %dir %{_sysconfdir}/kdm
@@ -1021,7 +1004,7 @@ fi
 %{_pixmapsdir}/*/*/apps/kdmconfig.png
 %{_applnkdir}/Settings/KDE/System/kdm.desktop
 
-%files -n kfind -f kfind.lang
+%files kfind -f kfind.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kfind
 %{_applnkdir}/Kfind.desktop
@@ -1155,7 +1138,7 @@ fi
 %{_pixmapsdir}/*/*/apps/proxy.png
 %{_pixmapsdir}/*/*/apps/stylesheet.png
 
-%files -n konsole -f konsole.lang
+%files konsole -f konsole.lang
 %defattr(644,root,root,755)
 %doc konsole/README*
 %attr(0755,root,root) %{_bindir}/konsole
@@ -1170,7 +1153,7 @@ fi
 %{_applnkdir}/Terminals/*.desktop
 %{_pixmapsdir}/*/*/apps/konsole.png
 
-%files -n kwrite -f kwrite.lang
+%files kwrite -f kwrite.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kwrite
 %attr(0755,root,root) %{_libdir}/kwrite.??
