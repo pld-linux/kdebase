@@ -72,7 +72,8 @@ Requires:	kdelibs-devel = %{version}
 This package contains header files needed to develop KDE applications.
 
 %description devel -l pl
-Pakiet zawiera pliki nag³ówkowe niezbêdne do programowania aplikacji KDE.
+Pakiet zawiera pliki nag³ówkowe niezbêdne do programowania aplikacji
+KDE.
 
 %package -n kdm
 Summary:	KDE Display Manager	
@@ -104,11 +105,12 @@ Requires:	kdelibs = %{version}
 Obsoletes:	kdebase-konqueror
 
 %description -n konqueror
-Konqueror is a web browser and file manager similar to MS Internet Explorer.
+Konqueror is a web browser and file manager similar to MS Internet
+Explorer.
 
 %description -n konqueror -l pl
-Konqueror jest przegl±dark± WWW i mene¿derem plików podobnym do MS Internet
-Explorer.
+Konqueror jest przegl±dark± WWW i mene¿derem plików podobnym do MS
+Internet Explorer.
 
 %prep
 %setup -q
@@ -120,14 +122,12 @@ Explorer.
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
-#CFLAGS="%{!?debug:$RPM_OPT_FLAGS}"
-#CXXFLAGS="%{!?debug:$RPM_OPT_FLAGS}"
 export CPPFLAGS="-I/usr/X11R6/include"
 %configure \
  	--with-pam=kdm \
 	--without-shadow \
 	--disable-shadow \
-	--with-xdmdir="/etc/X11/kdm" \
+	--with-xdmdir="%{_sysconfdir}/X11/kdm" \
 	--enable-final
 
 %{__make}
@@ -150,7 +150,7 @@ install %{SOURCE3}			$RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/kdm
 
 # Make Control Center a subdirectory of Settings. Control Center applets can
 # not be mixed with normal programs or CC will die on startup.
-mv $RPM_BUILD_ROOT%{_applnkdir}/Settings/{[!K]*,KDE}
+mv -f $RPM_BUILD_ROOT%{_applnkdir}/Settings/{[!K]*,KDE}
 cat > $RPM_BUILD_ROOT%{_applnkdir}/Settings/KDE/.directory << EOF
 [Desktop Entry]
 Name=KDE
@@ -159,7 +159,7 @@ X-KDE-BaseGroup=settings
 EOF
 
 # removing unneeded directories
-rm -fr $RPM_BUILD_ROOT%{_applnkdir}/{Editors,Toys}
+rm -rf $RPM_BUILD_ROOT%{_applnkdir}/{Editors,Toys}
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/security/blacklist.kdm
 
@@ -226,7 +226,7 @@ fi
 
 %preun -n kdm
 if [ -f /var/lock/subsys/kdm ]; then
-		 /etc/rc.d/init.d/kdm stop >&2
+	 /etc/rc.d/init.d/kdm stop >&2
 fi
 /sbin/chkconfig --del kdm
 
