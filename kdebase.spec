@@ -7,9 +7,9 @@
 #   other applets)
 # * Proper descriptions
 #
-
-%bcond_with 	i18n # dont build i18n per module 
-
+# Conditional build:
+%bcond_with 	i18n	# build i18n packages per module 
+#
 %define		_state		snapshots
 %define		_ver		3.2.90
 %define		_snap		040206
@@ -97,6 +97,7 @@ BuildRequires:	openssl-devel >= 0.9.7c
 BuildRequires:	openldap-devel
 BuildRequires:	pam-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
+BuildRequires:	unsermake
 BuildRequires:	xcursor-devel
 BuildConflicts: %{name}-konqueror-libs
 Conflicts:	kdelibs < 9:3.1.94.040110-1
@@ -857,1202 +858,416 @@ Internet Explorer.
 %package core-i18n
 Summary:	Internationalization and localization files for core
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla core
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
-Obsoletes:	kde-i18n-Affrikaans
-Obsoletes:	kde-i18n-Afrikaans
-Obsoletes:	kde-i18n-Arabic
-Obsoletes:	kde-i18n-Azerbaijani
-Obsoletes:	kde-i18n-Bulgarian
-Obsoletes:	kde-i18n-Bosnian
-Obsoletes:	kde-i18n-Catalan
-Obsoletes:	kde-i18n-Czech
-Obsoletes:	kde-i18n-Danish
-Obsoletes:	kde-i18n-German
-Obsoletes:	kde-i18n-Greek
-Obsoletes:	kde-i18n-English_UK
-Obsoletes:	kde-i18n-British
-Obsoletes:	kde-i18n-Esperanto
-Obsoletes:	kde-i18n-Spanish
-Obsoletes:	kde-i18n-Estonian
-Obsoletes:	kde-i18n-Finnish
-Obsoletes:	kde-i18n-French
-Obsoletes:	kde-i18n-Hebrew
-Obsoletes:	kde-i18n-Hindi
-Obsoletes:	kde-i18n-Croatian
-Obsoletes:	kde-i18n-Hungarian
-Obsoletes:	kde-i18n-Indonesian
-Obsoletes:	kde-i18n-Icelandic
-Obsoletes:	kde-i18n-Italian
-Obsoletes:	kde-i18n-Japanese
-Obsoletes:	kde-i18n-Korean
-Obsoletes:	kde-i18n-Lithuanian
-Obsoletes:	kde-i18n-Latvian
-Obsoletes:	kde-i18n-Maltese
-Obsoletes:	kde-i18n-Malay
-Obsoletes:	kde-i18n-Mongolian
-Obsoletes:	kde-i18n-Dutch
-Obsoletes:	kde-i18n-Norwegian
-Obsoletes:	kde-i18n-Norwegian_Bokmaal
-Obsoletes:	kde-i18n-Norwegian_Bookmal
-Obsoletes:	kde-i18n-Norwegian_Nynorsk
-Obsoletes:	kde-i18n-Polish
-Obsoletes:	kde-i18n-Portugnese
-Obsoletes:	kde-i18n-Portuguese
-Obsoletes:	kde-i18n-Brazil
-Obsoletes:	kde-i18n-Brazil_Portugnese
-Obsoletes:	kde-i18n-Brazil_Portuguese
-Obsoletes:	kde-i18n-Romanian
-Obsoletes:	kde-i18n-Russian
-Obsoletes:	kde-i18n-Slovak
-Obsoletes:	kde-i18n-Slovenian
-Obsoletes:	kde-i18n-Serbian
-Obsoletes:	kde-i18n-Swedish
-Obsoletes:	kde-i18n-Tamil
-Obsoletes:	kde-i18n-Thai
-Obsoletes:	kde-i18n-Turkish
-Obsoletes:	kde-i18n-Ukrainian
-Obsoletes:	kde-i18n-Uzbek
-Obsoletes:	kde-i18n-Venda
-Obsoletes:	kde-i18n-Vietnamese
-Obsoletes:	kde-i18n-Xhosa
-Obsoletes:	kde-i18n-Simplified_Chinese
-Obsoletes:	kde-i18n-Chinese
-Obsoletes:	kde-i18n-Chinese-Big5
-Obsoletes:	kde-i18n-Zulu
-Obsoletes:	kde-i18n-kdelibs
-Obsoletes:	kde-i18n
+Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 
 %description core-i18n
 Internationalization and localization files for core.
 
-%description -l pl core-i18n
+%description core-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla core.
 
 %package desktop-i18n
 Summary:	Internationalization and localization files for desktop
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla desktop
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
-Obsoletes:	kde-i18n-Affrikaans
-Obsoletes:	kde-i18n-Afrikaans
-Obsoletes:	kde-i18n-Arabic
-Obsoletes:	kde-i18n-Azerbaijani
-Obsoletes:	kde-i18n-Bulgarian
-Obsoletes:	kde-i18n-Bosnian
-Obsoletes:	kde-i18n-Catalan
-Obsoletes:	kde-i18n-Czech
-Obsoletes:	kde-i18n-Danish
-Obsoletes:	kde-i18n-German
-Obsoletes:	kde-i18n-Greek
-Obsoletes:	kde-i18n-English_UK
-Obsoletes:	kde-i18n-British
-Obsoletes:	kde-i18n-Esperanto
-Obsoletes:	kde-i18n-Spanish
-Obsoletes:	kde-i18n-Estonian
-Obsoletes:	kde-i18n-Finnish
-Obsoletes:	kde-i18n-French
-Obsoletes:	kde-i18n-Hebrew
-Obsoletes:	kde-i18n-Hindi
-Obsoletes:	kde-i18n-Croatian
-Obsoletes:	kde-i18n-Hungarian
-Obsoletes:	kde-i18n-Indonesian
-Obsoletes:	kde-i18n-Icelandic
-Obsoletes:	kde-i18n-Italian
-Obsoletes:	kde-i18n-Japanese
-Obsoletes:	kde-i18n-Korean
-Obsoletes:	kde-i18n-Lithuanian
-Obsoletes:	kde-i18n-Latvian
-Obsoletes:	kde-i18n-Maltese
-Obsoletes:	kde-i18n-Malay
-Obsoletes:	kde-i18n-Mongolian
-Obsoletes:	kde-i18n-Dutch
-Obsoletes:	kde-i18n-Norwegian
-Obsoletes:	kde-i18n-Norwegian_Bokmaal
-Obsoletes:	kde-i18n-Norwegian_Bookmal
-Obsoletes:	kde-i18n-Norwegian_Nynorsk
-Obsoletes:	kde-i18n-Polish
-Obsoletes:	kde-i18n-Portugnese
-Obsoletes:	kde-i18n-Portuguese
-Obsoletes:	kde-i18n-Brazil
-Obsoletes:	kde-i18n-Brazil_Portugnese
-Obsoletes:	kde-i18n-Brazil_Portuguese
-Obsoletes:	kde-i18n-Romanian
-Obsoletes:	kde-i18n-Russian
-Obsoletes:	kde-i18n-Slovak
-Obsoletes:	kde-i18n-Slovenian
-Obsoletes:	kde-i18n-Serbian
-Obsoletes:	kde-i18n-Swedish
-Obsoletes:	kde-i18n-Tamil
-Obsoletes:	kde-i18n-Thai
-Obsoletes:	kde-i18n-Turkish
-Obsoletes:	kde-i18n-Ukrainian
-Obsoletes:	kde-i18n-Uzbek
-Obsoletes:	kde-i18n-Venda
-Obsoletes:	kde-i18n-Vietnamese
-Obsoletes:	kde-i18n-Xhosa
-Obsoletes:	kde-i18n-Simplified_Chinese
-Obsoletes:	kde-i18n-Chinese
-Obsoletes:	kde-i18n-Chinese-Big5
-Obsoletes:	kde-i18n-Zulu
-Obsoletes:	kde-i18n-kdelibs
-Obsoletes:	kde-i18n
+Requires:	%{name}-desktop-libs-i18n = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kicker-i18n = %{epoch}:%{version}-%{release}
+Requires:	konqueror-i18n = %{epoch}:%{version}-%{release}
 
 %description desktop-i18n
 Internationalization and localization files for desktop.
 
-%description -l pl desktop-i18n
+%description desktop-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla desktop.
 
 %package infocenter-i18n
 Summary:	Internationalization and localization files for infocenter
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla infocenter
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-infocenter = %{epoch}:%{version}-%{release}
-Obsoletes:	kde-i18n-Affrikaans
-Obsoletes:	kde-i18n-Afrikaans
-Obsoletes:	kde-i18n-Arabic
-Obsoletes:	kde-i18n-Azerbaijani
-Obsoletes:	kde-i18n-Bulgarian
-Obsoletes:	kde-i18n-Bosnian
-Obsoletes:	kde-i18n-Catalan
-Obsoletes:	kde-i18n-Czech
-Obsoletes:	kde-i18n-Danish
-Obsoletes:	kde-i18n-German
-Obsoletes:	kde-i18n-Greek
-Obsoletes:	kde-i18n-English_UK
-Obsoletes:	kde-i18n-British
-Obsoletes:	kde-i18n-Esperanto
-Obsoletes:	kde-i18n-Spanish
-Obsoletes:	kde-i18n-Estonian
-Obsoletes:	kde-i18n-Finnish
-Obsoletes:	kde-i18n-French
-Obsoletes:	kde-i18n-Hebrew
-Obsoletes:	kde-i18n-Hindi
-Obsoletes:	kde-i18n-Croatian
-Obsoletes:	kde-i18n-Hungarian
-Obsoletes:	kde-i18n-Indonesian
-Obsoletes:	kde-i18n-Icelandic
-Obsoletes:	kde-i18n-Italian
-Obsoletes:	kde-i18n-Japanese
-Obsoletes:	kde-i18n-Korean
-Obsoletes:	kde-i18n-Lithuanian
-Obsoletes:	kde-i18n-Latvian
-Obsoletes:	kde-i18n-Maltese
-Obsoletes:	kde-i18n-Malay
-Obsoletes:	kde-i18n-Mongolian
-Obsoletes:	kde-i18n-Dutch
-Obsoletes:	kde-i18n-Norwegian
-Obsoletes:	kde-i18n-Norwegian_Bokmaal
-Obsoletes:	kde-i18n-Norwegian_Bookmal
-Obsoletes:	kde-i18n-Norwegian_Nynorsk
-Obsoletes:	kde-i18n-Polish
-Obsoletes:	kde-i18n-Portugnese
-Obsoletes:	kde-i18n-Portuguese
-Obsoletes:	kde-i18n-Brazil
-Obsoletes:	kde-i18n-Brazil_Portugnese
-Obsoletes:	kde-i18n-Brazil_Portuguese
-Obsoletes:	kde-i18n-Romanian
-Obsoletes:	kde-i18n-Russian
-Obsoletes:	kde-i18n-Slovak
-Obsoletes:	kde-i18n-Slovenian
-Obsoletes:	kde-i18n-Serbian
-Obsoletes:	kde-i18n-Swedish
-Obsoletes:	kde-i18n-Tamil
-Obsoletes:	kde-i18n-Thai
-Obsoletes:	kde-i18n-Turkish
-Obsoletes:	kde-i18n-Ukrainian
-Obsoletes:	kde-i18n-Uzbek
-Obsoletes:	kde-i18n-Venda
-Obsoletes:	kde-i18n-Vietnamese
-Obsoletes:	kde-i18n-Xhosa
-Obsoletes:	kde-i18n-Simplified_Chinese
-Obsoletes:	kde-i18n-Chinese
-Obsoletes:	kde-i18n-Chinese-Big5
-Obsoletes:	kde-i18n-Zulu
-Obsoletes:	kde-i18n-kdelibs
-Obsoletes:	kde-i18n
+Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
 
 %description infocenter-i18n
 Internationalization and localization files for infocenter.
 
-%description -l pl infocenter-i18n
+%description infocenter-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla infocenter.
 
 %package kate-i18n
 Summary:	Internationalization and localization files for kate
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kate
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-kate = %{epoch}:%{version}-%{release}
-Obsoletes:	kde-i18n-Affrikaans
-Obsoletes:	kde-i18n-Afrikaans
-Obsoletes:	kde-i18n-Arabic
-Obsoletes:	kde-i18n-Azerbaijani
-Obsoletes:	kde-i18n-Bulgarian
-Obsoletes:	kde-i18n-Bosnian
-Obsoletes:	kde-i18n-Catalan
-Obsoletes:	kde-i18n-Czech
-Obsoletes:	kde-i18n-Danish
-Obsoletes:	kde-i18n-German
-Obsoletes:	kde-i18n-Greek
-Obsoletes:	kde-i18n-English_UK
-Obsoletes:	kde-i18n-British
-Obsoletes:	kde-i18n-Esperanto
-Obsoletes:	kde-i18n-Spanish
-Obsoletes:	kde-i18n-Estonian
-Obsoletes:	kde-i18n-Finnish
-Obsoletes:	kde-i18n-French
-Obsoletes:	kde-i18n-Hebrew
-Obsoletes:	kde-i18n-Hindi
-Obsoletes:	kde-i18n-Croatian
-Obsoletes:	kde-i18n-Hungarian
-Obsoletes:	kde-i18n-Indonesian
-Obsoletes:	kde-i18n-Icelandic
-Obsoletes:	kde-i18n-Italian
-Obsoletes:	kde-i18n-Japanese
-Obsoletes:	kde-i18n-Korean
-Obsoletes:	kde-i18n-Lithuanian
-Obsoletes:	kde-i18n-Latvian
-Obsoletes:	kde-i18n-Maltese
-Obsoletes:	kde-i18n-Malay
-Obsoletes:	kde-i18n-Mongolian
-Obsoletes:	kde-i18n-Dutch
-Obsoletes:	kde-i18n-Norwegian
-Obsoletes:	kde-i18n-Norwegian_Bokmaal
-Obsoletes:	kde-i18n-Norwegian_Bookmal
-Obsoletes:	kde-i18n-Norwegian_Nynorsk
-Obsoletes:	kde-i18n-Polish
-Obsoletes:	kde-i18n-Portugnese
-Obsoletes:	kde-i18n-Portuguese
-Obsoletes:	kde-i18n-Brazil
-Obsoletes:	kde-i18n-Brazil_Portugnese
-Obsoletes:	kde-i18n-Brazil_Portuguese
-Obsoletes:	kde-i18n-Romanian
-Obsoletes:	kde-i18n-Russian
-Obsoletes:	kde-i18n-Slovak
-Obsoletes:	kde-i18n-Slovenian
-Obsoletes:	kde-i18n-Serbian
-Obsoletes:	kde-i18n-Swedish
-Obsoletes:	kde-i18n-Tamil
-Obsoletes:	kde-i18n-Thai
-Obsoletes:	kde-i18n-Turkish
-Obsoletes:	kde-i18n-Ukrainian
-Obsoletes:	kde-i18n-Uzbek
-Obsoletes:	kde-i18n-Venda
-Obsoletes:	kde-i18n-Vietnamese
-Obsoletes:	kde-i18n-Xhosa
-Obsoletes:	kde-i18n-Simplified_Chinese
-Obsoletes:	kde-i18n-Chinese
-Obsoletes:	kde-i18n-Chinese-Big5
-Obsoletes:	kde-i18n-Zulu
-Obsoletes:	kde-i18n-kdelibs
-Obsoletes:	kde-i18n
+Requires:	%{name}-common-filemanagement-i18n = %{epoch}:%{version}-%{release}
 
 %description kate-i18n
 Internationalization and localization files for kate.
 
-%description -l pl kate-i18n
+%description kate-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla kate.
 
 %package kfind-i18n
 Summary:	Internationalization and localization files for kfind
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kfind
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-kfind = %{epoch}:%{version}-%{release}
-Obsoletes:	kde-i18n-Affrikaans
-Obsoletes:	kde-i18n-Afrikaans
-Obsoletes:	kde-i18n-Arabic
-Obsoletes:	kde-i18n-Azerbaijani
-Obsoletes:	kde-i18n-Bulgarian
-Obsoletes:	kde-i18n-Bosnian
-Obsoletes:	kde-i18n-Catalan
-Obsoletes:	kde-i18n-Czech
-Obsoletes:	kde-i18n-Danish
-Obsoletes:	kde-i18n-German
-Obsoletes:	kde-i18n-Greek
-Obsoletes:	kde-i18n-English_UK
-Obsoletes:	kde-i18n-British
-Obsoletes:	kde-i18n-Esperanto
-Obsoletes:	kde-i18n-Spanish
-Obsoletes:	kde-i18n-Estonian
-Obsoletes:	kde-i18n-Finnish
-Obsoletes:	kde-i18n-French
-Obsoletes:	kde-i18n-Hebrew
-Obsoletes:	kde-i18n-Hindi
-Obsoletes:	kde-i18n-Croatian
-Obsoletes:	kde-i18n-Hungarian
-Obsoletes:	kde-i18n-Indonesian
-Obsoletes:	kde-i18n-Icelandic
-Obsoletes:	kde-i18n-Italian
-Obsoletes:	kde-i18n-Japanese
-Obsoletes:	kde-i18n-Korean
-Obsoletes:	kde-i18n-Lithuanian
-Obsoletes:	kde-i18n-Latvian
-Obsoletes:	kde-i18n-Maltese
-Obsoletes:	kde-i18n-Malay
-Obsoletes:	kde-i18n-Mongolian
-Obsoletes:	kde-i18n-Dutch
-Obsoletes:	kde-i18n-Norwegian
-Obsoletes:	kde-i18n-Norwegian_Bokmaal
-Obsoletes:	kde-i18n-Norwegian_Bookmal
-Obsoletes:	kde-i18n-Norwegian_Nynorsk
-Obsoletes:	kde-i18n-Polish
-Obsoletes:	kde-i18n-Portugnese
-Obsoletes:	kde-i18n-Portuguese
-Obsoletes:	kde-i18n-Brazil
-Obsoletes:	kde-i18n-Brazil_Portugnese
-Obsoletes:	kde-i18n-Brazil_Portuguese
-Obsoletes:	kde-i18n-Romanian
-Obsoletes:	kde-i18n-Russian
-Obsoletes:	kde-i18n-Slovak
-Obsoletes:	kde-i18n-Slovenian
-Obsoletes:	kde-i18n-Serbian
-Obsoletes:	kde-i18n-Swedish
-Obsoletes:	kde-i18n-Tamil
-Obsoletes:	kde-i18n-Thai
-Obsoletes:	kde-i18n-Turkish
-Obsoletes:	kde-i18n-Ukrainian
-Obsoletes:	kde-i18n-Uzbek
-Obsoletes:	kde-i18n-Venda
-Obsoletes:	kde-i18n-Vietnamese
-Obsoletes:	kde-i18n-Xhosa
-Obsoletes:	kde-i18n-Simplified_Chinese
-Obsoletes:	kde-i18n-Chinese
-Obsoletes:	kde-i18n-Chinese-Big5
-Obsoletes:	kde-i18n-Zulu
-Obsoletes:	kde-i18n-kdelibs
-Obsoletes:	kde-i18n
+Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
 
 %description kfind-i18n
 Internationalization and localization files for kfind.
 
-%description -l pl kfind-i18n
+%description kfind-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla kfind.
 
 %package kfontinst-i18n
 Summary:	Internationalization and localization files for kfontinst
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kfontinst
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-kfontinst = %{epoch}:%{version}-%{release}
-Obsoletes:	kde-i18n-Affrikaans
-Obsoletes:	kde-i18n-Afrikaans
-Obsoletes:	kde-i18n-Arabic
-Obsoletes:	kde-i18n-Azerbaijani
-Obsoletes:	kde-i18n-Bulgarian
-Obsoletes:	kde-i18n-Bosnian
-Obsoletes:	kde-i18n-Catalan
-Obsoletes:	kde-i18n-Czech
-Obsoletes:	kde-i18n-Danish
-Obsoletes:	kde-i18n-German
-Obsoletes:	kde-i18n-Greek
-Obsoletes:	kde-i18n-English_UK
-Obsoletes:	kde-i18n-British
-Obsoletes:	kde-i18n-Esperanto
-Obsoletes:	kde-i18n-Spanish
-Obsoletes:	kde-i18n-Estonian
-Obsoletes:	kde-i18n-Finnish
-Obsoletes:	kde-i18n-French
-Obsoletes:	kde-i18n-Hebrew
-Obsoletes:	kde-i18n-Hindi
-Obsoletes:	kde-i18n-Croatian
-Obsoletes:	kde-i18n-Hungarian
-Obsoletes:	kde-i18n-Indonesian
-Obsoletes:	kde-i18n-Icelandic
-Obsoletes:	kde-i18n-Italian
-Obsoletes:	kde-i18n-Japanese
-Obsoletes:	kde-i18n-Korean
-Obsoletes:	kde-i18n-Lithuanian
-Obsoletes:	kde-i18n-Latvian
-Obsoletes:	kde-i18n-Maltese
-Obsoletes:	kde-i18n-Malay
-Obsoletes:	kde-i18n-Mongolian
-Obsoletes:	kde-i18n-Dutch
-Obsoletes:	kde-i18n-Norwegian
-Obsoletes:	kde-i18n-Norwegian_Bokmaal
-Obsoletes:	kde-i18n-Norwegian_Bookmal
-Obsoletes:	kde-i18n-Norwegian_Nynorsk
-Obsoletes:	kde-i18n-Polish
-Obsoletes:	kde-i18n-Portugnese
-Obsoletes:	kde-i18n-Portuguese
-Obsoletes:	kde-i18n-Brazil
-Obsoletes:	kde-i18n-Brazil_Portugnese
-Obsoletes:	kde-i18n-Brazil_Portuguese
-Obsoletes:	kde-i18n-Romanian
-Obsoletes:	kde-i18n-Russian
-Obsoletes:	kde-i18n-Slovak
-Obsoletes:	kde-i18n-Slovenian
-Obsoletes:	kde-i18n-Serbian
-Obsoletes:	kde-i18n-Swedish
-Obsoletes:	kde-i18n-Tamil
-Obsoletes:	kde-i18n-Thai
-Obsoletes:	kde-i18n-Turkish
-Obsoletes:	kde-i18n-Ukrainian
-Obsoletes:	kde-i18n-Uzbek
-Obsoletes:	kde-i18n-Venda
-Obsoletes:	kde-i18n-Vietnamese
-Obsoletes:	kde-i18n-Xhosa
-Obsoletes:	kde-i18n-Simplified_Chinese
-Obsoletes:	kde-i18n-Chinese
-Obsoletes:	kde-i18n-Chinese-Big5
-Obsoletes:	kde-i18n-Zulu
-Obsoletes:	kde-i18n-kdelibs
-Obsoletes:	kde-i18n
+Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
 
 %description kfontinst-i18n
 Internationalization and localization files for kfontinst.
 
-%description -l pl kfontinst-i18n
+%description kfontinst-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla kfontinst.
 
 %package kicker-i18n
 Summary:	Internationalization and localization files for kicker
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kicker
-Group:	X11/Applications
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kickera
+Group:		X11/Applications
 Requires:	%{name}-kicker = %{epoch}:%{version}-%{release}
-Obsoletes:	kde-i18n-Affrikaans
-Obsoletes:	kde-i18n-Afrikaans
-Obsoletes:	kde-i18n-Arabic
-Obsoletes:	kde-i18n-Azerbaijani
-Obsoletes:	kde-i18n-Bulgarian
-Obsoletes:	kde-i18n-Bosnian
-Obsoletes:	kde-i18n-Catalan
-Obsoletes:	kde-i18n-Czech
-Obsoletes:	kde-i18n-Danish
-Obsoletes:	kde-i18n-German
-Obsoletes:	kde-i18n-Greek
-Obsoletes:	kde-i18n-English_UK
-Obsoletes:	kde-i18n-British
-Obsoletes:	kde-i18n-Esperanto
-Obsoletes:	kde-i18n-Spanish
-Obsoletes:	kde-i18n-Estonian
-Obsoletes:	kde-i18n-Finnish
-Obsoletes:	kde-i18n-French
-Obsoletes:	kde-i18n-Hebrew
-Obsoletes:	kde-i18n-Hindi
-Obsoletes:	kde-i18n-Croatian
-Obsoletes:	kde-i18n-Hungarian
-Obsoletes:	kde-i18n-Indonesian
-Obsoletes:	kde-i18n-Icelandic
-Obsoletes:	kde-i18n-Italian
-Obsoletes:	kde-i18n-Japanese
-Obsoletes:	kde-i18n-Korean
-Obsoletes:	kde-i18n-Lithuanian
-Obsoletes:	kde-i18n-Latvian
-Obsoletes:	kde-i18n-Maltese
-Obsoletes:	kde-i18n-Malay
-Obsoletes:	kde-i18n-Mongolian
-Obsoletes:	kde-i18n-Dutch
-Obsoletes:	kde-i18n-Norwegian
-Obsoletes:	kde-i18n-Norwegian_Bokmaal
-Obsoletes:	kde-i18n-Norwegian_Bookmal
-Obsoletes:	kde-i18n-Norwegian_Nynorsk
-Obsoletes:	kde-i18n-Polish
-Obsoletes:	kde-i18n-Portugnese
-Obsoletes:	kde-i18n-Portuguese
-Obsoletes:	kde-i18n-Brazil
-Obsoletes:	kde-i18n-Brazil_Portugnese
-Obsoletes:	kde-i18n-Brazil_Portuguese
-Obsoletes:	kde-i18n-Romanian
-Obsoletes:	kde-i18n-Russian
-Obsoletes:	kde-i18n-Slovak
-Obsoletes:	kde-i18n-Slovenian
-Obsoletes:	kde-i18n-Serbian
-Obsoletes:	kde-i18n-Swedish
-Obsoletes:	kde-i18n-Tamil
-Obsoletes:	kde-i18n-Thai
-Obsoletes:	kde-i18n-Turkish
-Obsoletes:	kde-i18n-Ukrainian
-Obsoletes:	kde-i18n-Uzbek
-Obsoletes:	kde-i18n-Venda
-Obsoletes:	kde-i18n-Vietnamese
-Obsoletes:	kde-i18n-Xhosa
-Obsoletes:	kde-i18n-Simplified_Chinese
-Obsoletes:	kde-i18n-Chinese
-Obsoletes:	kde-i18n-Chinese-Big5
-Obsoletes:	kde-i18n-Zulu
-Obsoletes:	kde-i18n-kdelibs
-Obsoletes:	kde-i18n
+Requires:	%{name}-kfind-i18n = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kicker-libs-i18n = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kjobviewer-i18n = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kmenuedit-i18n = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kpager-i18n = %{epoch}:%{version}-%{release}
+Requires:	%{name}-libkonq-i18n = %{epoch}:%{version}-%{release}
 
 %description kicker-i18n
 Internationalization and localization files for kicker.
 
-%description -l pl kicker-i18n
-Pliki umiêdzynarodawiaj±ce dla kicker.
+%description kicker-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla kickera.
 
 %package klipper-i18n
 Summary:	Internationalization and localization files for klipper
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla klipper
-Group:	X11/Applications
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla klippera
+Group:		X11/Applications
 Requires:	%{name}-klipper = %{epoch}:%{version}-%{release}
-Obsoletes:	kde-i18n-Affrikaans
-Obsoletes:	kde-i18n-Afrikaans
-Obsoletes:	kde-i18n-Arabic
-Obsoletes:	kde-i18n-Azerbaijani
-Obsoletes:	kde-i18n-Bulgarian
-Obsoletes:	kde-i18n-Bosnian
-Obsoletes:	kde-i18n-Catalan
-Obsoletes:	kde-i18n-Czech
-Obsoletes:	kde-i18n-Danish
-Obsoletes:	kde-i18n-German
-Obsoletes:	kde-i18n-Greek
-Obsoletes:	kde-i18n-English_UK
-Obsoletes:	kde-i18n-British
-Obsoletes:	kde-i18n-Esperanto
-Obsoletes:	kde-i18n-Spanish
-Obsoletes:	kde-i18n-Estonian
-Obsoletes:	kde-i18n-Finnish
-Obsoletes:	kde-i18n-French
-Obsoletes:	kde-i18n-Hebrew
-Obsoletes:	kde-i18n-Hindi
-Obsoletes:	kde-i18n-Croatian
-Obsoletes:	kde-i18n-Hungarian
-Obsoletes:	kde-i18n-Indonesian
-Obsoletes:	kde-i18n-Icelandic
-Obsoletes:	kde-i18n-Italian
-Obsoletes:	kde-i18n-Japanese
-Obsoletes:	kde-i18n-Korean
-Obsoletes:	kde-i18n-Lithuanian
-Obsoletes:	kde-i18n-Latvian
-Obsoletes:	kde-i18n-Maltese
-Obsoletes:	kde-i18n-Malay
-Obsoletes:	kde-i18n-Mongolian
-Obsoletes:	kde-i18n-Dutch
-Obsoletes:	kde-i18n-Norwegian
-Obsoletes:	kde-i18n-Norwegian_Bokmaal
-Obsoletes:	kde-i18n-Norwegian_Bookmal
-Obsoletes:	kde-i18n-Norwegian_Nynorsk
-Obsoletes:	kde-i18n-Polish
-Obsoletes:	kde-i18n-Portugnese
-Obsoletes:	kde-i18n-Portuguese
-Obsoletes:	kde-i18n-Brazil
-Obsoletes:	kde-i18n-Brazil_Portugnese
-Obsoletes:	kde-i18n-Brazil_Portuguese
-Obsoletes:	kde-i18n-Romanian
-Obsoletes:	kde-i18n-Russian
-Obsoletes:	kde-i18n-Slovak
-Obsoletes:	kde-i18n-Slovenian
-Obsoletes:	kde-i18n-Serbian
-Obsoletes:	kde-i18n-Swedish
-Obsoletes:	kde-i18n-Tamil
-Obsoletes:	kde-i18n-Thai
-Obsoletes:	kde-i18n-Turkish
-Obsoletes:	kde-i18n-Ukrainian
-Obsoletes:	kde-i18n-Uzbek
-Obsoletes:	kde-i18n-Venda
-Obsoletes:	kde-i18n-Vietnamese
-Obsoletes:	kde-i18n-Xhosa
-Obsoletes:	kde-i18n-Simplified_Chinese
-Obsoletes:	kde-i18n-Chinese
-Obsoletes:	kde-i18n-Chinese-Big5
-Obsoletes:	kde-i18n-Zulu
-Obsoletes:	kde-i18n-kdelibs
-Obsoletes:	kde-i18n
+Requires:	%{name}-kicker-i18n = %{epoch}:%{version}-%{release}
 
 %description klipper-i18n
 Internationalization and localization files for klipper.
 
-%description -l pl klipper-i18n
-Pliki umiêdzynarodawiaj±ce dla klipper.
+%description klipper-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla klippera.
 
 %package kmenuedit-i18n
 Summary:	Internationalization and localization files for kmenuedit
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kmenuedit
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-kmenuedit = %{epoch}:%{version}-%{release}
-Obsoletes:	kde-i18n-Affrikaans
-Obsoletes:	kde-i18n-Afrikaans
-Obsoletes:	kde-i18n-Arabic
-Obsoletes:	kde-i18n-Azerbaijani
-Obsoletes:	kde-i18n-Bulgarian
-Obsoletes:	kde-i18n-Bosnian
-Obsoletes:	kde-i18n-Catalan
-Obsoletes:	kde-i18n-Czech
-Obsoletes:	kde-i18n-Danish
-Obsoletes:	kde-i18n-German
-Obsoletes:	kde-i18n-Greek
-Obsoletes:	kde-i18n-English_UK
-Obsoletes:	kde-i18n-British
-Obsoletes:	kde-i18n-Esperanto
-Obsoletes:	kde-i18n-Spanish
-Obsoletes:	kde-i18n-Estonian
-Obsoletes:	kde-i18n-Finnish
-Obsoletes:	kde-i18n-French
-Obsoletes:	kde-i18n-Hebrew
-Obsoletes:	kde-i18n-Hindi
-Obsoletes:	kde-i18n-Croatian
-Obsoletes:	kde-i18n-Hungarian
-Obsoletes:	kde-i18n-Indonesian
-Obsoletes:	kde-i18n-Icelandic
-Obsoletes:	kde-i18n-Italian
-Obsoletes:	kde-i18n-Japanese
-Obsoletes:	kde-i18n-Korean
-Obsoletes:	kde-i18n-Lithuanian
-Obsoletes:	kde-i18n-Latvian
-Obsoletes:	kde-i18n-Maltese
-Obsoletes:	kde-i18n-Malay
-Obsoletes:	kde-i18n-Mongolian
-Obsoletes:	kde-i18n-Dutch
-Obsoletes:	kde-i18n-Norwegian
-Obsoletes:	kde-i18n-Norwegian_Bokmaal
-Obsoletes:	kde-i18n-Norwegian_Bookmal
-Obsoletes:	kde-i18n-Norwegian_Nynorsk
-Obsoletes:	kde-i18n-Polish
-Obsoletes:	kde-i18n-Portugnese
-Obsoletes:	kde-i18n-Portuguese
-Obsoletes:	kde-i18n-Brazil
-Obsoletes:	kde-i18n-Brazil_Portugnese
-Obsoletes:	kde-i18n-Brazil_Portuguese
-Obsoletes:	kde-i18n-Romanian
-Obsoletes:	kde-i18n-Russian
-Obsoletes:	kde-i18n-Slovak
-Obsoletes:	kde-i18n-Slovenian
-Obsoletes:	kde-i18n-Serbian
-Obsoletes:	kde-i18n-Swedish
-Obsoletes:	kde-i18n-Tamil
-Obsoletes:	kde-i18n-Thai
-Obsoletes:	kde-i18n-Turkish
-Obsoletes:	kde-i18n-Ukrainian
-Obsoletes:	kde-i18n-Uzbek
-Obsoletes:	kde-i18n-Venda
-Obsoletes:	kde-i18n-Vietnamese
-Obsoletes:	kde-i18n-Xhosa
-Obsoletes:	kde-i18n-Simplified_Chinese
-Obsoletes:	kde-i18n-Chinese
-Obsoletes:	kde-i18n-Chinese-Big5
-Obsoletes:	kde-i18n-Zulu
-Obsoletes:	kde-i18n-kdelibs
-Obsoletes:	kde-i18n
+Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
 
 %description kmenuedit-i18n
 Internationalization and localization files for kmenuedit.
 
-%description -l pl kmenuedit-i18n
+%description kmenuedit-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla kmenuedit.
 
 %package konsole-i18n
 Summary:	Internationalization and localization files for konsole
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla konsole
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-konsole = %{epoch}:%{version}-%{release}
-Obsoletes:	kde-i18n-Affrikaans
-Obsoletes:	kde-i18n-Afrikaans
-Obsoletes:	kde-i18n-Arabic
-Obsoletes:	kde-i18n-Azerbaijani
-Obsoletes:	kde-i18n-Bulgarian
-Obsoletes:	kde-i18n-Bosnian
-Obsoletes:	kde-i18n-Catalan
-Obsoletes:	kde-i18n-Czech
-Obsoletes:	kde-i18n-Danish
-Obsoletes:	kde-i18n-German
-Obsoletes:	kde-i18n-Greek
-Obsoletes:	kde-i18n-English_UK
-Obsoletes:	kde-i18n-British
-Obsoletes:	kde-i18n-Esperanto
-Obsoletes:	kde-i18n-Spanish
-Obsoletes:	kde-i18n-Estonian
-Obsoletes:	kde-i18n-Finnish
-Obsoletes:	kde-i18n-French
-Obsoletes:	kde-i18n-Hebrew
-Obsoletes:	kde-i18n-Hindi
-Obsoletes:	kde-i18n-Croatian
-Obsoletes:	kde-i18n-Hungarian
-Obsoletes:	kde-i18n-Indonesian
-Obsoletes:	kde-i18n-Icelandic
-Obsoletes:	kde-i18n-Italian
-Obsoletes:	kde-i18n-Japanese
-Obsoletes:	kde-i18n-Korean
-Obsoletes:	kde-i18n-Lithuanian
-Obsoletes:	kde-i18n-Latvian
-Obsoletes:	kde-i18n-Maltese
-Obsoletes:	kde-i18n-Malay
-Obsoletes:	kde-i18n-Mongolian
-Obsoletes:	kde-i18n-Dutch
-Obsoletes:	kde-i18n-Norwegian
-Obsoletes:	kde-i18n-Norwegian_Bokmaal
-Obsoletes:	kde-i18n-Norwegian_Bookmal
-Obsoletes:	kde-i18n-Norwegian_Nynorsk
-Obsoletes:	kde-i18n-Polish
-Obsoletes:	kde-i18n-Portugnese
-Obsoletes:	kde-i18n-Portuguese
-Obsoletes:	kde-i18n-Brazil
-Obsoletes:	kde-i18n-Brazil_Portugnese
-Obsoletes:	kde-i18n-Brazil_Portuguese
-Obsoletes:	kde-i18n-Romanian
-Obsoletes:	kde-i18n-Russian
-Obsoletes:	kde-i18n-Slovak
-Obsoletes:	kde-i18n-Slovenian
-Obsoletes:	kde-i18n-Serbian
-Obsoletes:	kde-i18n-Swedish
-Obsoletes:	kde-i18n-Tamil
-Obsoletes:	kde-i18n-Thai
-Obsoletes:	kde-i18n-Turkish
-Obsoletes:	kde-i18n-Ukrainian
-Obsoletes:	kde-i18n-Uzbek
-Obsoletes:	kde-i18n-Venda
-Obsoletes:	kde-i18n-Vietnamese
-Obsoletes:	kde-i18n-Xhosa
-Obsoletes:	kde-i18n-Simplified_Chinese
-Obsoletes:	kde-i18n-Chinese
-Obsoletes:	kde-i18n-Chinese-Big5
-Obsoletes:	kde-i18n-Zulu
-Obsoletes:	kde-i18n-kdelibs
-Obsoletes:	kde-i18n
+Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
 
 %description konsole-i18n
 Internationalization and localization files for konsole.
 
-%description -l pl konsole-i18n
+%description konsole-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla konsole.
 
 %package kpager-i18n
 Summary:	Internationalization and localization files for kpager
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kpager
-Group:	X11/Applications
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kpagera
+Group:		X11/Applications
 Requires:	%{name}-kpager = %{epoch}:%{version}-%{release}
-Obsoletes:	kde-i18n-Affrikaans
-Obsoletes:	kde-i18n-Afrikaans
-Obsoletes:	kde-i18n-Arabic
-Obsoletes:	kde-i18n-Azerbaijani
-Obsoletes:	kde-i18n-Bulgarian
-Obsoletes:	kde-i18n-Bosnian
-Obsoletes:	kde-i18n-Catalan
-Obsoletes:	kde-i18n-Czech
-Obsoletes:	kde-i18n-Danish
-Obsoletes:	kde-i18n-German
-Obsoletes:	kde-i18n-Greek
-Obsoletes:	kde-i18n-English_UK
-Obsoletes:	kde-i18n-British
-Obsoletes:	kde-i18n-Esperanto
-Obsoletes:	kde-i18n-Spanish
-Obsoletes:	kde-i18n-Estonian
-Obsoletes:	kde-i18n-Finnish
-Obsoletes:	kde-i18n-French
-Obsoletes:	kde-i18n-Hebrew
-Obsoletes:	kde-i18n-Hindi
-Obsoletes:	kde-i18n-Croatian
-Obsoletes:	kde-i18n-Hungarian
-Obsoletes:	kde-i18n-Indonesian
-Obsoletes:	kde-i18n-Icelandic
-Obsoletes:	kde-i18n-Italian
-Obsoletes:	kde-i18n-Japanese
-Obsoletes:	kde-i18n-Korean
-Obsoletes:	kde-i18n-Lithuanian
-Obsoletes:	kde-i18n-Latvian
-Obsoletes:	kde-i18n-Maltese
-Obsoletes:	kde-i18n-Malay
-Obsoletes:	kde-i18n-Mongolian
-Obsoletes:	kde-i18n-Dutch
-Obsoletes:	kde-i18n-Norwegian
-Obsoletes:	kde-i18n-Norwegian_Bokmaal
-Obsoletes:	kde-i18n-Norwegian_Bookmal
-Obsoletes:	kde-i18n-Norwegian_Nynorsk
-Obsoletes:	kde-i18n-Polish
-Obsoletes:	kde-i18n-Portugnese
-Obsoletes:	kde-i18n-Portuguese
-Obsoletes:	kde-i18n-Brazil
-Obsoletes:	kde-i18n-Brazil_Portugnese
-Obsoletes:	kde-i18n-Brazil_Portuguese
-Obsoletes:	kde-i18n-Romanian
-Obsoletes:	kde-i18n-Russian
-Obsoletes:	kde-i18n-Slovak
-Obsoletes:	kde-i18n-Slovenian
-Obsoletes:	kde-i18n-Serbian
-Obsoletes:	kde-i18n-Swedish
-Obsoletes:	kde-i18n-Tamil
-Obsoletes:	kde-i18n-Thai
-Obsoletes:	kde-i18n-Turkish
-Obsoletes:	kde-i18n-Ukrainian
-Obsoletes:	kde-i18n-Uzbek
-Obsoletes:	kde-i18n-Venda
-Obsoletes:	kde-i18n-Vietnamese
-Obsoletes:	kde-i18n-Xhosa
-Obsoletes:	kde-i18n-Simplified_Chinese
-Obsoletes:	kde-i18n-Chinese
-Obsoletes:	kde-i18n-Chinese-Big5
-Obsoletes:	kde-i18n-Zulu
-Obsoletes:	kde-i18n-kdelibs
-Obsoletes:	kde-i18n
+Requires:	kdelibs-i18n >= 9:%{version}
 
 %description kpager-i18n
 Internationalization and localization files for kpager.
 
-%description -l pl kpager-i18n
-Pliki umiêdzynarodawiaj±ce dla kpager.
+%description kpager-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla kpagera.
 
 %package ksysguard-i18n
 Summary:	Internationalization and localization files for ksysguard
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla ksysguard
-Group:	X11/Applications
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla ksysguarda
+Group:		X11/Applications
 Requires:	%{name}-ksysguard = %{epoch}:%{version}-%{release}
-Obsoletes:	kde-i18n-Affrikaans
-Obsoletes:	kde-i18n-Afrikaans
-Obsoletes:	kde-i18n-Arabic
-Obsoletes:	kde-i18n-Azerbaijani
-Obsoletes:	kde-i18n-Bulgarian
-Obsoletes:	kde-i18n-Bosnian
-Obsoletes:	kde-i18n-Catalan
-Obsoletes:	kde-i18n-Czech
-Obsoletes:	kde-i18n-Danish
-Obsoletes:	kde-i18n-German
-Obsoletes:	kde-i18n-Greek
-Obsoletes:	kde-i18n-English_UK
-Obsoletes:	kde-i18n-British
-Obsoletes:	kde-i18n-Esperanto
-Obsoletes:	kde-i18n-Spanish
-Obsoletes:	kde-i18n-Estonian
-Obsoletes:	kde-i18n-Finnish
-Obsoletes:	kde-i18n-French
-Obsoletes:	kde-i18n-Hebrew
-Obsoletes:	kde-i18n-Hindi
-Obsoletes:	kde-i18n-Croatian
-Obsoletes:	kde-i18n-Hungarian
-Obsoletes:	kde-i18n-Indonesian
-Obsoletes:	kde-i18n-Icelandic
-Obsoletes:	kde-i18n-Italian
-Obsoletes:	kde-i18n-Japanese
-Obsoletes:	kde-i18n-Korean
-Obsoletes:	kde-i18n-Lithuanian
-Obsoletes:	kde-i18n-Latvian
-Obsoletes:	kde-i18n-Maltese
-Obsoletes:	kde-i18n-Malay
-Obsoletes:	kde-i18n-Mongolian
-Obsoletes:	kde-i18n-Dutch
-Obsoletes:	kde-i18n-Norwegian
-Obsoletes:	kde-i18n-Norwegian_Bokmaal
-Obsoletes:	kde-i18n-Norwegian_Bookmal
-Obsoletes:	kde-i18n-Norwegian_Nynorsk
-Obsoletes:	kde-i18n-Polish
-Obsoletes:	kde-i18n-Portugnese
-Obsoletes:	kde-i18n-Portuguese
-Obsoletes:	kde-i18n-Brazil
-Obsoletes:	kde-i18n-Brazil_Portugnese
-Obsoletes:	kde-i18n-Brazil_Portuguese
-Obsoletes:	kde-i18n-Romanian
-Obsoletes:	kde-i18n-Russian
-Obsoletes:	kde-i18n-Slovak
-Obsoletes:	kde-i18n-Slovenian
-Obsoletes:	kde-i18n-Serbian
-Obsoletes:	kde-i18n-Swedish
-Obsoletes:	kde-i18n-Tamil
-Obsoletes:	kde-i18n-Thai
-Obsoletes:	kde-i18n-Turkish
-Obsoletes:	kde-i18n-Ukrainian
-Obsoletes:	kde-i18n-Uzbek
-Obsoletes:	kde-i18n-Venda
-Obsoletes:	kde-i18n-Vietnamese
-Obsoletes:	kde-i18n-Xhosa
-Obsoletes:	kde-i18n-Simplified_Chinese
-Obsoletes:	kde-i18n-Chinese
-Obsoletes:	kde-i18n-Chinese-Big5
-Obsoletes:	kde-i18n-Zulu
-Obsoletes:	kde-i18n-kdelibs
-Obsoletes:	kde-i18n
+Requires:	%{name}-desktop-i18n = %{epoch}:%{version}-%{release}
+Requires:	%{name}-klipper-i18n = %{epoch}:%{version}-%{release}
 
 %description ksysguard-i18n
 Internationalization and localization files for ksysguard.
 
-%description -l pl ksysguard-i18n
-Pliki umiêdzynarodawiaj±ce dla ksysguard.
+%description ksysguard-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla ksysguarda.
 
 %package kwrite-i18n
 Summary:	Internationalization and localization files for kwrite
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kwrite
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-kwrite = %{epoch}:%{version}-%{release}
-Obsoletes:	kde-i18n-Affrikaans
-Obsoletes:	kde-i18n-Afrikaans
-Obsoletes:	kde-i18n-Arabic
-Obsoletes:	kde-i18n-Azerbaijani
-Obsoletes:	kde-i18n-Bulgarian
-Obsoletes:	kde-i18n-Bosnian
-Obsoletes:	kde-i18n-Catalan
-Obsoletes:	kde-i18n-Czech
-Obsoletes:	kde-i18n-Danish
-Obsoletes:	kde-i18n-German
-Obsoletes:	kde-i18n-Greek
-Obsoletes:	kde-i18n-English_UK
-Obsoletes:	kde-i18n-British
-Obsoletes:	kde-i18n-Esperanto
-Obsoletes:	kde-i18n-Spanish
-Obsoletes:	kde-i18n-Estonian
-Obsoletes:	kde-i18n-Finnish
-Obsoletes:	kde-i18n-French
-Obsoletes:	kde-i18n-Hebrew
-Obsoletes:	kde-i18n-Hindi
-Obsoletes:	kde-i18n-Croatian
-Obsoletes:	kde-i18n-Hungarian
-Obsoletes:	kde-i18n-Indonesian
-Obsoletes:	kde-i18n-Icelandic
-Obsoletes:	kde-i18n-Italian
-Obsoletes:	kde-i18n-Japanese
-Obsoletes:	kde-i18n-Korean
-Obsoletes:	kde-i18n-Lithuanian
-Obsoletes:	kde-i18n-Latvian
-Obsoletes:	kde-i18n-Maltese
-Obsoletes:	kde-i18n-Malay
-Obsoletes:	kde-i18n-Mongolian
-Obsoletes:	kde-i18n-Dutch
-Obsoletes:	kde-i18n-Norwegian
-Obsoletes:	kde-i18n-Norwegian_Bokmaal
-Obsoletes:	kde-i18n-Norwegian_Bookmal
-Obsoletes:	kde-i18n-Norwegian_Nynorsk
-Obsoletes:	kde-i18n-Polish
-Obsoletes:	kde-i18n-Portugnese
-Obsoletes:	kde-i18n-Portuguese
-Obsoletes:	kde-i18n-Brazil
-Obsoletes:	kde-i18n-Brazil_Portugnese
-Obsoletes:	kde-i18n-Brazil_Portuguese
-Obsoletes:	kde-i18n-Romanian
-Obsoletes:	kde-i18n-Russian
-Obsoletes:	kde-i18n-Slovak
-Obsoletes:	kde-i18n-Slovenian
-Obsoletes:	kde-i18n-Serbian
-Obsoletes:	kde-i18n-Swedish
-Obsoletes:	kde-i18n-Tamil
-Obsoletes:	kde-i18n-Thai
-Obsoletes:	kde-i18n-Turkish
-Obsoletes:	kde-i18n-Ukrainian
-Obsoletes:	kde-i18n-Uzbek
-Obsoletes:	kde-i18n-Venda
-Obsoletes:	kde-i18n-Vietnamese
-Obsoletes:	kde-i18n-Xhosa
-Obsoletes:	kde-i18n-Simplified_Chinese
-Obsoletes:	kde-i18n-Chinese
-Obsoletes:	kde-i18n-Chinese-Big5
-Obsoletes:	kde-i18n-Zulu
-Obsoletes:	kde-i18n-kdelibs
-Obsoletes:	kde-i18n
+Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
 
 %description kwrite-i18n
 Internationalization and localization files for kwrite.
 
-%description -l pl kwrite-i18n
+%description kwrite-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla kwrite.
 
 %package screensavers-i18n
 Summary:	Internationalization and localization files for screensavers
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla screensavers
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-screensavers = %{epoch}:%{version}-%{release}
-Obsoletes:	kde-i18n-Affrikaans
-Obsoletes:	kde-i18n-Afrikaans
-Obsoletes:	kde-i18n-Arabic
-Obsoletes:	kde-i18n-Azerbaijani
-Obsoletes:	kde-i18n-Bulgarian
-Obsoletes:	kde-i18n-Bosnian
-Obsoletes:	kde-i18n-Catalan
-Obsoletes:	kde-i18n-Czech
-Obsoletes:	kde-i18n-Danish
-Obsoletes:	kde-i18n-German
-Obsoletes:	kde-i18n-Greek
-Obsoletes:	kde-i18n-English_UK
-Obsoletes:	kde-i18n-British
-Obsoletes:	kde-i18n-Esperanto
-Obsoletes:	kde-i18n-Spanish
-Obsoletes:	kde-i18n-Estonian
-Obsoletes:	kde-i18n-Finnish
-Obsoletes:	kde-i18n-French
-Obsoletes:	kde-i18n-Hebrew
-Obsoletes:	kde-i18n-Hindi
-Obsoletes:	kde-i18n-Croatian
-Obsoletes:	kde-i18n-Hungarian
-Obsoletes:	kde-i18n-Indonesian
-Obsoletes:	kde-i18n-Icelandic
-Obsoletes:	kde-i18n-Italian
-Obsoletes:	kde-i18n-Japanese
-Obsoletes:	kde-i18n-Korean
-Obsoletes:	kde-i18n-Lithuanian
-Obsoletes:	kde-i18n-Latvian
-Obsoletes:	kde-i18n-Maltese
-Obsoletes:	kde-i18n-Malay
-Obsoletes:	kde-i18n-Mongolian
-Obsoletes:	kde-i18n-Dutch
-Obsoletes:	kde-i18n-Norwegian
-Obsoletes:	kde-i18n-Norwegian_Bokmaal
-Obsoletes:	kde-i18n-Norwegian_Bookmal
-Obsoletes:	kde-i18n-Norwegian_Nynorsk
-Obsoletes:	kde-i18n-Polish
-Obsoletes:	kde-i18n-Portugnese
-Obsoletes:	kde-i18n-Portuguese
-Obsoletes:	kde-i18n-Brazil
-Obsoletes:	kde-i18n-Brazil_Portugnese
-Obsoletes:	kde-i18n-Brazil_Portuguese
-Obsoletes:	kde-i18n-Romanian
-Obsoletes:	kde-i18n-Russian
-Obsoletes:	kde-i18n-Slovak
-Obsoletes:	kde-i18n-Slovenian
-Obsoletes:	kde-i18n-Serbian
-Obsoletes:	kde-i18n-Swedish
-Obsoletes:	kde-i18n-Tamil
-Obsoletes:	kde-i18n-Thai
-Obsoletes:	kde-i18n-Turkish
-Obsoletes:	kde-i18n-Ukrainian
-Obsoletes:	kde-i18n-Uzbek
-Obsoletes:	kde-i18n-Venda
-Obsoletes:	kde-i18n-Vietnamese
-Obsoletes:	kde-i18n-Xhosa
-Obsoletes:	kde-i18n-Simplified_Chinese
-Obsoletes:	kde-i18n-Chinese
-Obsoletes:	kde-i18n-Chinese-Big5
-Obsoletes:	kde-i18n-Zulu
-Obsoletes:	kde-i18n-kdelibs
-Obsoletes:	kde-i18n
+Requires:	%{name}-desktop-i18n = %{epoch}:%{version}-%{release}
 
 %description screensavers-i18n
 Internationalization and localization files for screensavers.
 
-%description -l pl screensavers-i18n
+%description screensavers-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla screensavers.
 
 %package -n kdm-i18n
 Summary:	Internationalization and localization files for kdm
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kdm
-Group:	X11/Applications
-Requires:	%{name}-kdm = %{epoch}:%{version}-%{release}
-Obsoletes:	kde-i18n-Affrikaans
-Obsoletes:	kde-i18n-Afrikaans
-Obsoletes:	kde-i18n-Arabic
-Obsoletes:	kde-i18n-Azerbaijani
-Obsoletes:	kde-i18n-Bulgarian
-Obsoletes:	kde-i18n-Bosnian
-Obsoletes:	kde-i18n-Catalan
-Obsoletes:	kde-i18n-Czech
-Obsoletes:	kde-i18n-Danish
-Obsoletes:	kde-i18n-German
-Obsoletes:	kde-i18n-Greek
-Obsoletes:	kde-i18n-English_UK
-Obsoletes:	kde-i18n-British
-Obsoletes:	kde-i18n-Esperanto
-Obsoletes:	kde-i18n-Spanish
-Obsoletes:	kde-i18n-Estonian
-Obsoletes:	kde-i18n-Finnish
-Obsoletes:	kde-i18n-French
-Obsoletes:	kde-i18n-Hebrew
-Obsoletes:	kde-i18n-Hindi
-Obsoletes:	kde-i18n-Croatian
-Obsoletes:	kde-i18n-Hungarian
-Obsoletes:	kde-i18n-Indonesian
-Obsoletes:	kde-i18n-Icelandic
-Obsoletes:	kde-i18n-Italian
-Obsoletes:	kde-i18n-Japanese
-Obsoletes:	kde-i18n-Korean
-Obsoletes:	kde-i18n-Lithuanian
-Obsoletes:	kde-i18n-Latvian
-Obsoletes:	kde-i18n-Maltese
-Obsoletes:	kde-i18n-Malay
-Obsoletes:	kde-i18n-Mongolian
-Obsoletes:	kde-i18n-Dutch
-Obsoletes:	kde-i18n-Norwegian
-Obsoletes:	kde-i18n-Norwegian_Bokmaal
-Obsoletes:	kde-i18n-Norwegian_Bookmal
-Obsoletes:	kde-i18n-Norwegian_Nynorsk
-Obsoletes:	kde-i18n-Polish
-Obsoletes:	kde-i18n-Portugnese
-Obsoletes:	kde-i18n-Portuguese
-Obsoletes:	kde-i18n-Brazil
-Obsoletes:	kde-i18n-Brazil_Portugnese
-Obsoletes:	kde-i18n-Brazil_Portuguese
-Obsoletes:	kde-i18n-Romanian
-Obsoletes:	kde-i18n-Russian
-Obsoletes:	kde-i18n-Slovak
-Obsoletes:	kde-i18n-Slovenian
-Obsoletes:	kde-i18n-Serbian
-Obsoletes:	kde-i18n-Swedish
-Obsoletes:	kde-i18n-Tamil
-Obsoletes:	kde-i18n-Thai
-Obsoletes:	kde-i18n-Turkish
-Obsoletes:	kde-i18n-Ukrainian
-Obsoletes:	kde-i18n-Uzbek
-Obsoletes:	kde-i18n-Venda
-Obsoletes:	kde-i18n-Vietnamese
-Obsoletes:	kde-i18n-Xhosa
-Obsoletes:	kde-i18n-Simplified_Chinese
-Obsoletes:	kde-i18n-Chinese
-Obsoletes:	kde-i18n-Chinese-Big5
-Obsoletes:	kde-i18n-Zulu
-Obsoletes:	kde-i18n-kdelibs
-Obsoletes:	kde-i18n
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kdm-a
+Group:		X11/Applications
+Requires:	kdm = %{epoch}:%{version}-%{release}
+Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
 
 %description -n kdm-i18n
 Internationalization and localization files for kdm.
 
-%description -l pl -n kdm-i18n
-Pliki umiêdzynarodawiaj±ce dla kdm.
+%description -n kdm-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla kdm-a.
 
 %package -n konqueror-i18n
 Summary:	Internationalization and localization files for konqueror
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla konqueror
-Group:	X11/Applications
-Requires:	%{name}-konqueror = %{epoch}:%{version}-%{release}
-Obsoletes:	kde-i18n-Affrikaans
-Obsoletes:	kde-i18n-Afrikaans
-Obsoletes:	kde-i18n-Arabic
-Obsoletes:	kde-i18n-Azerbaijani
-Obsoletes:	kde-i18n-Bulgarian
-Obsoletes:	kde-i18n-Bosnian
-Obsoletes:	kde-i18n-Catalan
-Obsoletes:	kde-i18n-Czech
-Obsoletes:	kde-i18n-Danish
-Obsoletes:	kde-i18n-German
-Obsoletes:	kde-i18n-Greek
-Obsoletes:	kde-i18n-English_UK
-Obsoletes:	kde-i18n-British
-Obsoletes:	kde-i18n-Esperanto
-Obsoletes:	kde-i18n-Spanish
-Obsoletes:	kde-i18n-Estonian
-Obsoletes:	kde-i18n-Finnish
-Obsoletes:	kde-i18n-French
-Obsoletes:	kde-i18n-Hebrew
-Obsoletes:	kde-i18n-Hindi
-Obsoletes:	kde-i18n-Croatian
-Obsoletes:	kde-i18n-Hungarian
-Obsoletes:	kde-i18n-Indonesian
-Obsoletes:	kde-i18n-Icelandic
-Obsoletes:	kde-i18n-Italian
-Obsoletes:	kde-i18n-Japanese
-Obsoletes:	kde-i18n-Korean
-Obsoletes:	kde-i18n-Lithuanian
-Obsoletes:	kde-i18n-Latvian
-Obsoletes:	kde-i18n-Maltese
-Obsoletes:	kde-i18n-Malay
-Obsoletes:	kde-i18n-Mongolian
-Obsoletes:	kde-i18n-Dutch
-Obsoletes:	kde-i18n-Norwegian
-Obsoletes:	kde-i18n-Norwegian_Bokmaal
-Obsoletes:	kde-i18n-Norwegian_Bookmal
-Obsoletes:	kde-i18n-Norwegian_Nynorsk
-Obsoletes:	kde-i18n-Polish
-Obsoletes:	kde-i18n-Portugnese
-Obsoletes:	kde-i18n-Portuguese
-Obsoletes:	kde-i18n-Brazil
-Obsoletes:	kde-i18n-Brazil_Portugnese
-Obsoletes:	kde-i18n-Brazil_Portuguese
-Obsoletes:	kde-i18n-Romanian
-Obsoletes:	kde-i18n-Russian
-Obsoletes:	kde-i18n-Slovak
-Obsoletes:	kde-i18n-Slovenian
-Obsoletes:	kde-i18n-Serbian
-Obsoletes:	kde-i18n-Swedish
-Obsoletes:	kde-i18n-Tamil
-Obsoletes:	kde-i18n-Thai
-Obsoletes:	kde-i18n-Turkish
-Obsoletes:	kde-i18n-Ukrainian
-Obsoletes:	kde-i18n-Uzbek
-Obsoletes:	kde-i18n-Venda
-Obsoletes:	kde-i18n-Vietnamese
-Obsoletes:	kde-i18n-Xhosa
-Obsoletes:	kde-i18n-Simplified_Chinese
-Obsoletes:	kde-i18n-Chinese
-Obsoletes:	kde-i18n-Chinese-Big5
-Obsoletes:	kde-i18n-Zulu
-Obsoletes:	kde-i18n-kdelibs
-Obsoletes:	kde-i18n
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla konquerora
+Group:		X11/Applications
+Requires:	konqueror = %{epoch}:%{version}-%{release}
+Requires:	%{name}-common-filemanagement-i18n = %{epoch}:%{version}-%{release}
+Requires:	%{name}-konsole-i18n = %{epoch}:%{version}-%{release}
+Requires:	%{name}-libkonq-i18n = %{epoch}:%{version}-%{release}
+Requires:	%{name}-mailnews-i18n = %{epoch}:%{version}-%{release}
 
 %description -n konqueror-i18n
 Internationalization and localization files for konqueror.
 
-%description -l pl -n konqueror-i18n
-Pliki umiêdzynarodawiaj±ce dla konqueror.
+%description -n konqueror-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla konquerora.
+
+%package -n kde-decoration-b2-i18n
+Summary:	Internationalization and localization files for kde-decoration-b2
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kde-decoration-b2
+Group:		X11/Applications
+Requires:	kde-decoration-b2 = %{epoch}:%{version}-%{release}
+Requires:	%{name}-desktop-i18n = %{epoch}:%{version}-%{release}
+
+%description -n kde-decoration-b2-i18n
+Internationalization and localization files for kde-decoration-b2.
+
+%description -n kde-decoration-b2-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla kde-decoration-b2.
+
+%package -n kde-decoration-modernsys-i18n
+Summary:	Internationalization and localization files for kde-decoration-modernsys
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kde-decoration-modernsys
+Group:		X11/Applications
+Requires:	%{name}-desktop-i18n = %{epoch}:%{version}-%{release}
+Requires:	kde-decoration-modernsys = %{epoch}:%{version}-%{release}
+
+%description -n kde-decoration-modernsys-i18n
+Internationalization and localization files for kde-decoration-modernsys.
+
+%description -n kde-decoration-modernsys-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla kde-decoration-modernsys.
+
+%package -n kde-decoration-quartz-i18n
+Summary:	Internationalization and localization files for kde-decoration-quartz
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kde-decoration-quartz
+Group:		X11/Applications
+Requires:	%{name}-desktop-i18n = %{epoch}:%{version}-%{release}
+Requires:	kde-decoration-quartz = %{epoch}:%{version}-%{release}
+
+%description -n kde-decoration-quartz-i18n
+Internationalization and localization files for kde-decoration-quartz.
+
+%description -n kde-decoration-quartz-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla kde-decoration-quartz.
+
+%package common-filemanagement-i18n
+Summary:	Internationalization and localization files for common-filemanagement
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla common-filemanagement
+Group:		X11/Applications
+Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
+Requires:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
+
+%description common-filemanagement-i18n
+Internationalization and localization files for common-filemanagement.
+
+%description common-filemanagement-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla common-filemanagement.
+
+%package desktop-libs-i18n
+Summary:	Internationalization and localization files for desktop-libs
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla desktop-libs
+Group:		X11/Applications
+Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
+Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
+
+%description desktop-libs-i18n
+Internationalization and localization files for desktop-libs.
+
+%description desktop-libs-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla desktop-libs.
+
+%package kappfinder-i18n
+Summary:	Internationalization and localization files for kappfinder
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kappfindera
+Group:		X11/Applications
+Requires:	%{name}-kappfinder = %{epoch}:%{version}-%{release}
+Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
+
+%description kappfinder-i18n
+Internationalization and localization files for kappfinder.
+
+%description kappfinder-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla kappfindera.
+
+%package kdcop-i18n
+Summary:	Internationalization and localization files for kdcop
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kdcopa
+Group:		X11/Applications
+Requires:	%{name}-kdcop = %{epoch}:%{version}-%{release}
+Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
+
+%description kdcop-i18n
+Internationalization and localization files for kdcop.
+
+%description kdcop-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla kdcopa.
+
+%package kdeprintfax-i18n
+Summary:	Internationalization and localization files for kdeprintfax
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kdeprintfax
+Group:		X11/Applications
+Requires:	%{name}-kdeprintfax = %{epoch}:%{version}-%{release}
+Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
+
+%description kdeprintfax-i18n
+Internationalization and localization files for kdeprintfax.
+
+%description kdeprintfax-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla kdeprintfax.
+
+%package kdialog-i18n
+Summary:	Internationalization and localization files for kdialog
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kdialoga
+Group:		X11/Applications
+Requires:	%{name}-kdialog = %{epoch}:%{version}-%{release}
+Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
+
+%description kdialog-i18n
+Internationalization and localization files for kdialog.
+
+%description kdialog-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla kdialoga.
+
+%package kicker-libs-i18n
+Summary:	Internationalization and localization files for kicker-libs
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kicker-libs
+Group:		X11/Applications
+Requires:	%{name}-kicker-libs = %{epoch}:%{version}-%{release}
+Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
+
+%description kicker-libs-i18n
+Internationalization and localization files for kicker-libs.
+
+%description kicker-libs-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla kicker-libs.
+
+%package kjobviewer-i18n
+Summary:	Internationalization and localization files for kjobviewer
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kjobviewera
+Group:		X11/Applications
+Requires:	%{name}-kjobviewer = %{epoch}:%{version}-%{release}
+Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
+
+%description kjobviewer-i18n
+Internationalization and localization files for kjobviewer.
+
+%description kjobviewer-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla kjobviewera.
+
+%package kpersonalizer-i18n
+Summary:	Internationalization and localization files for kpersonalizer
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kpersonalizera
+Group:		X11/Applications
+Requires:	%{name}-kpersonalizer = %{epoch}:%{version}-%{release}
+Requires:	%{name}-desktop-i18n = %{epoch}:%{version}-%{release}
+
+%description kpersonalizer-i18n
+Internationalization and localization files for kpersonalizer.
+
+%description kpersonalizer-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla kpersonalizera.
+
+%package ksystraycmd-i18n
+Summary:	Internationalization and localization files for ksystraycmd
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla ksystraycmd
+Group:		X11/Applications
+Requires:	%{name}-ksystraycmd = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kicker-i18n = %{epoch}:%{version}-%{release}
+
+%description ksystraycmd-i18n
+Internationalization and localization files for ksystraycmd.
+
+%description ksystraycmd-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla ksystraycmd.
+
+%package libkonq-i18n
+Summary:	Internationalization and localization files for libkonq
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla libkonq
+Group:		X11/Applications
+Requires:	%{name}-libkonq = %{epoch}:%{version}-%{release}
+Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
+
+%description libkonq-i18n
+Internationalization and localization files for libkonq.
+
+%description libkonq-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla libkonq.
+
+%package mailnews-i18n
+Summary:	Internationalization and localization files for mailnews
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla mailnews
+Group:		X11/Applications
+Requires:	%{name}-mailnews = %{epoch}:%{version}-%{release}
+Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
+
+%description mailnews-i18n
+Internationalization and localization files for mailnews.
+
+%description mailnews-i18n -l pl
+Pliki umiêdzynarodawiaj±ce dla mailnews.
 
 %prep
 %setup -q -n %{name}-%{_snap}
@@ -2077,6 +1292,8 @@ Pliki umiêdzynarodawiaj±ce dla konqueror.
 
 %build
 cp /usr/share/automake/config.sub admin
+
+export UNSERMAKE=/usr/share/unsermake/unsermake
 
 %{__make} -f admin/Makefile.common cvs
 
@@ -2179,7 +1396,6 @@ for f in $RPM_BUILD_ROOT%{_datadir}/locale/*/LC_MESSAGES/*.mo; do
 done
 %endif
 
-
 # <find_lang>
 > core.lang
 programs=" \
@@ -2275,6 +1491,236 @@ done
 
 cat kcmkonsole.lang	>> konsole.lang
 cat kioslave.lang	>> kinfocenter.lang
+
+%if %{with i18n}
+%find_lang kwin_b2_config		--with-kde
+%find_lang kwin_modernsys_config	--with-kde
+%find_lang kwin_quartz_config		--with-kde
+%find_lang kcmfileshare			--with-kde
+
+core="\
+	kdesud \
+	kcmaccessibility \
+	kcmprintmgr \
+	klegacyimport \
+	kpartapp \
+	kprinter \
+	kcmcolors \
+	kcmfonts \
+	kcmkded \
+	kcmlocale \
+	kcontrol \
+	kdeprint_part \
+	kio_man \
+	kio_settings \
+	kstyle_keramik_config \
+	drkonqi"
+
+for i in $core;
+do
+	%find_lang $i	--with-kde
+	cat $i.lang >> core.lang
+done
+
+desktop="kcmkwintheme \
+kcmkwm \
+kwin \
+krandr \
+privacy \
+kcmspellchecking \
+kcminput \
+kcmxinerama \
+display \
+ktip \
+kaccess \
+krdb \
+kreadconfig \
+ksplash \
+kstart \
+kwin_default_config \
+kcmarts \
+kcmbackground \
+kcmbell \
+kcmcomponentchooser \
+kcmemail \
+kcmenergy \
+kcmkeys \
+kcmkwindecoration \
+khotkeys \
+kdesktop \
+ksmserver \
+kwin_keramik_config \
+kcmmidi"
+
+for i in $desktop;
+do
+	%find_lang $i	--with-kde
+	cat $i.lang >> %{name}.lang
+done
+
+%find_lang ksplashthemes	--with-kde
+
+info="kcminfo \
+kcmioslaveinfo \
+kcmnic \
+kcmsamba \
+kcmusb \
+kcmview1394"
+
+for i in $info;
+do
+	%find_lang $i	--with-kde
+	cat $i.lang >> kinfocenter.lang
+done
+
+%find_lang kappfinder	--with-kde
+
+%find_lang katedefaultproject	--with-kde
+cat katedefaultproject.lang >> kate.lang
+
+%find_lang kdcop	--with-kde
+
+%find_lang kdeprintfax	--with-kde
+
+%find_lang kdialog	--with-kde
+
+%find_lang kfindpart	--with-kde
+cat kfindpart.lang >> kfind.lang
+
+
+%find_lang kfontinst	--with-kde
+cat kfontinst.lang >> kcmfontinst.lang
+%find_lang fontinst	--with-kde
+cat fontinst.lang >> kcmfontinst.lang
+
+kicker="kcmkclock \
+kcmkicker \
+lockout \
+ktaskbarapplet \
+libkicker \
+libkickermenu_kdeprint \
+libkickermenu_konsole \
+libkickermenu_prefmenu \
+libkickermenu_recentdocs \
+ksystemtrayapplet \
+childpanelextension \
+clockapplet \
+kmenuapplet \
+kminipagerapplet \
+krunapplet \
+devicesapplet \
+dockbarextension \
+kasbarextension \
+naughtyapplet \
+quicklauncher \
+taskbarextension"
+
+for i in $kicker;
+do
+	%find_lang $i	--with-kde
+	cat $i.lang >> kicker.lang
+done
+
+%find_lang libtaskbar	--with-kde
+%find_lang libtaskmanager	--with-kde
+cat libtaskmanager.lang >> libtaskbar.lang
+
+%find_lang kjobviewer	--with-kde
+
+%find_lang kpersonalizer	--with-kde
+
+%find_lang ksystraycmd	--with-kde
+
+%find_lang kwriteconfig	--with-kde
+cat kwriteconfig.lang >> kwrite.lang
+
+%find_lang libkonq	--with-kde
+
+mn="kio_imap4 \
+kio_pop3 \
+kio_nntp \
+kio_smtp"
+
+for i in $mn;
+do
+	%find_lang $i	--with-kde
+	cat $i.lang >> mailnews.lang
+done
+
+screen="kscreensaver \
+kcmscreensaver"
+
+for i in $screen;
+do
+	%find_lang $i	--with-kde
+	cat $i.lang >> screensaver.lang
+done
+
+
+kdm="kdmchooser \
+kdmconfig \
+kdmgreet"
+
+for i in $kdm;
+do
+	%find_lang $i	--with-kde
+	cat $i.lang >> kdm.lang
+done
+
+konqueror="appletproxy \
+nsplugin \
+kcmhtmlsearch \
+kcmsocks \
+kcmlayout \
+htmlsearch \
+extensionproxy \
+kfmclient \
+kio_devices \
+kcmcgi \
+kcmcrypto \
+kcmicons \
+kcmkio \
+kcmkonq \
+kcmkonqhtml \
+kcmkurifilt \
+kcmperformance \
+kfile_font \
+kio_finger \
+kio_fish \
+kio_floppy \
+kio_mac \
+kio_nfs \
+kio_print \
+kio_sftp \
+kio_smb \
+kio_smbro"
+
+for i in $konqueror;
+do
+	%find_lang $i	--with-kde
+	cat $i.lang >> konqueror.lang
+done
+
+%find_lang desktop_kdebase --with-kde
+mv desktop_kdebase.lang i18n.lang
+
+for i in $RPM_BUILD_ROOT%{_datadir}/locale/* ;
+do
+	echo $i
+	if [ -d $i ] ; then
+	z=`echo $i|sed -e "s,${RPM_BUILD_ROOT}%{_datadir}/locale/,,"`
+	if [ -f ${RPM_BUILD_ROOT}%{_datadir}/locale/$z/charset ] ; then
+	echo %lang\($z\) %{_datadir}/locale/$z/charset >> i18n.lang
+	fi
+	if [ -f ${RPM_BUILD_ROOT}%{_datadir}/locale/$z/entry.desktop ] ; then
+	echo %lang\($z\) %{_datadir}/locale/$z/entry.desktop >> i18n.lang
+	fi
+	if [ -f ${RPM_BUILD_ROOT}%{_datadir}/locale/$z/flag.png ] ; then
+	echo %lang\($z\) %{_datadir}/locale/$z/flag.png >> i18n.lang
+	fi
+	fi
+done
+%endif
 
 files="\
 	core \
@@ -2414,6 +1860,22 @@ fi
 %files screensavers-i18n -f screensaver.lang
 %files -n kdm-i18n -f kdm.lang
 %files -n konqueror-i18n -f konqueror.lang
+%files i18n -f i18n.lang
+%files -n kde-decoration-b2-i18n -f kwin_b2_config.lang
+%files -n kde-decoration-modernsys-i18n -f kwin_modernsys_config.lang
+%files -n kde-decoration-quartz-i18n -f kwin_quartz_config.lang
+%files common-filemanagement-i18n -f kcmfileshare.lang
+%files desktop-libs-i18n -f ksplashthemes.lang
+%files kappfinder-i18n -f kappfinder.lang
+%files kdcop-i18n -f kdcop.lang
+%files kdeprintfax-i18n -f kdeprintfax.lang
+%files kdialog-i18n -f kdialog.lang
+%files kicker-libs-i18n -f libtaskbar.lang
+%files kjobviewer-i18n -f kjobviewer.lang
+%files kpersonalizer-i18n -f kpersonalizer.lang
+%files ksystraycmd-i18n -f ksystraycmd.lang
+%files libkonq-i18n -f libkonq.lang
+%files mailnews-i18n -f mailnews.lang
 %endif
 
 %files devel
