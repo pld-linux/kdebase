@@ -1615,6 +1615,7 @@ fi
 %attr(0755,root,root) %{_bindir}/ktip
 %attr(0755,root,root) %{_bindir}/kwebdesktop
 %attr(0755,root,root) %{_bindir}/kwin
+%attr(0755,root,root) %{_bindir}/kwin_rules_dialog
 %attr(0755,root,root) %{_bindir}/kxkb
 %attr(0755,root,root) %{_bindir}/startkde
 %attr(0755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
@@ -1631,6 +1632,8 @@ fi
 %attr(0755,root,root) %{_libdir}/libkdeinit_ksmserver.so
 %{_libdir}/libkdeinit_kwin.la
 %attr(0755,root,root) %{_libdir}/libkdeinit_kwin.so
+%{_libdir}/libkdeinit_kwin_rules_dialog.la
+%attr(0755,root,root) %{_libdir}/libkdeinit_kwin_rules_dialog.so
 %{_libdir}/libkdeinit_kxkb.la
 %attr(0755,root,root) %{_libdir}/libkdeinit_kxkb.so
 %{_libdir}/kde3/cursorthumbnail.la
@@ -1705,6 +1708,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kwin_default_config.so
 %{_libdir}/kde3/kwin_keramik_config.la
 %attr(0755,root,root) %{_libdir}/kde3/kwin_keramik_config.so
+%{_libdir}/kde3/kwin_rules_dialog.la
+%attr(0755,root,root) %{_libdir}/kde3/kwin_rules_dialog.so
 %{_libdir}/kde3/kwin3_default.la
 %attr(0755,root,root) %{_libdir}/kde3/kwin3_default.so
 %{_libdir}/kde3/kwin3_keramik.la
@@ -2313,6 +2318,7 @@ fi
 %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/faces/root.face.icon
 %attr(0755,root,root) %{_bindir}/genkdmconf
 %attr(0755,root,root) %{_bindir}/kdm
+%attr(0755,root,root) %{_bindir}/kdmctl
 %attr(0755,root,root) %{_bindir}/kdm_config
 %attr(0755,root,root) %{_bindir}/kdm_greet
 %attr(0755,root,root) %{_bindir}/krootimage
