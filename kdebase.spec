@@ -300,13 +300,11 @@ done
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
-gzip AUTHORS README*
-
 %find_lang tmp.%{name} --with-kde --all-name
 grep -vE konqueror\|kdm tmp.%{name}.lang > %{name}.lang
 grep -E kdm tmp.%{name}.lang > kdm.lang
 %find_lang konqueror --with-kde
-%find_lang kdm --with-kde
+%find_lang kdm --with-kde --all-name
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -361,7 +359,7 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc *gz
+%doc AUTHORS README*
 %config %{_sysconfdir}/ksysguarddrc
 %attr(0755,root,root) %{_bindir}/[ades]*
 %attr(0755,root,root) %{_bindir}/conttest
