@@ -53,17 +53,6 @@
  clock_panelapplet_la_LIBADD = $(LIB_KDECORE) $(LIB_KDEUI)
  subdir = kicker/applets/clock
  mkinstalldirs = $(SHELL) $(top_srcdir)/admin/mkinstalldirs
---- Makefile.am~	Sat Oct 12 15:52:41 2002
-+++ Makefile.am	Sat Oct 12 15:52:41 2002
-@@ -15,7 +15,7 @@
- 
- EXTRA_DIST = $(lnk_DATA) $(pic_DATA)
- 
--clock_panelapplet_la_LDFLAGS = $(all_libraries) -version-info 1:0:0 -module -no-undefined
-+clock_panelapplet_la_LDFLAGS = $(all_libraries) -avoid-version -module -no-undefined
- clock_panelapplet_la_LIBADD = $(LIB_KDECORE) $(LIB_KDEUI)
- 
- srcdoc:
 --- kdebase-3.0.3/kicker/extensions/dockbar/Makefile.in~	Sat Oct 12 15:58:56 2002
 +++ kdebase-3.0.3/kicker/extensions/dockbar/Makefile.in	Sat Oct 12 15:58:56 2002
 @@ -293,7 +293,7 @@
@@ -97,34 +86,12 @@
  taskbar_panelextension_la_LIBADD = $(LIB_KDEUI) ../../taskmanager/libtaskmanager.la ../../taskbar/libtaskbar.la
  
  noinst_HEADERS = taskbarextension.h
---- Makefile.am~	Sat Oct 12 16:00:00 2002
-+++ Makefile.am	Sat Oct 12 16:00:00 2002
-@@ -4,7 +4,7 @@
- 
- taskbar_panelextension_la_SOURCES = taskbarextension.cpp
- taskbar_panelextension_la_METASOURCES = AUTO
--taskbar_panelextension_la_LDFLAGS = $(all_libraries) -version-info 1:0:0 -module -no-undefined
-+taskbar_panelextension_la_LDFLAGS = $(all_libraries) -avoid-version -module -no-undefined
- taskbar_panelextension_la_LIBADD = $(LIB_KDEUI) ../../taskmanager/libtaskmanager.la ../../taskbar/libtaskbar.la
- 
- noinst_HEADERS = taskbarextension.h
 --- kdebase-3.0.3/kicker/applets/taskbar/Makefile.in~	Sat Oct 12 16:01:36 2002
 +++ kdebase-3.0.3/kicker/applets/taskbar/Makefile.in	Sat Oct 12 16:01:36 2002
 @@ -294,7 +294,7 @@
  taskbar_panelapplet_la_SOURCES = taskbarapplet.cpp
  
  #>- taskbar_panelapplet_la_METASOURCES = USE_AUTOMOC
--taskbar_panelapplet_la_LDFLAGS = $(all_libraries) -version-info 1:0:0 -module -no-undefined
-+taskbar_panelapplet_la_LDFLAGS = $(all_libraries) -avoid-version -module -no-undefined
- taskbar_panelapplet_la_LIBADD = $(LIB_KDEUI)  ../../taskbar/libtaskbar.la
- 
- noinst_HEADERS = taskbarapplet.h
---- Makefile.am~	Sat Oct 12 16:01:28 2002
-+++ Makefile.am	Sat Oct 12 16:01:28 2002
-@@ -5,7 +5,7 @@
- taskbar_panelapplet_la_SOURCES = taskbarapplet.cpp
- 
- taskbar_panelapplet_la_METASOURCES = USE_AUTOMOC
 -taskbar_panelapplet_la_LDFLAGS = $(all_libraries) -version-info 1:0:0 -module -no-undefined
 +taskbar_panelapplet_la_LDFLAGS = $(all_libraries) -avoid-version -module -no-undefined
  taskbar_panelapplet_la_LIBADD = $(LIB_KDEUI)  ../../taskbar/libtaskbar.la
@@ -141,17 +108,6 @@
  systemtray_panelapplet_la_LIBADD = $(LIB_KDEUI) $(LIB_KSYCOCA)
  subdir = kicker/applets/systemtray
  mkinstalldirs = $(SHELL) $(top_srcdir)/admin/mkinstalldirs
---- Makefile.am~	Sat Oct 12 16:02:42 2002
-+++ Makefile.am	Sat Oct 12 16:02:42 2002
-@@ -13,7 +13,7 @@
- 
- EXTRA_DIST = $(lnk_DATA)
- 
--systemtray_panelapplet_la_LDFLAGS = $(all_libraries) -version-info 1:0:0 -module -no-undefined
-+systemtray_panelapplet_la_LDFLAGS = $(all_libraries) -avoid-version -module -no-undefined
- systemtray_panelapplet_la_LIBADD = $(LIB_KDEUI) $(LIB_KSYCOCA)
- 
- 
 --- kdebase-3.0.3/kicker/applets/swallow/Makefile.in~	Sat Oct 12 16:03:34 2002
 +++ kdebase-3.0.3/kicker/applets/swallow/Makefile.in	Sat Oct 12 16:03:34 2002
 @@ -291,7 +291,7 @@
@@ -163,17 +119,6 @@
  swallow_panelapplet_la_LIBADD = $(LIB_KDEUI) $(LIB_KFILE)
  
  #>- swallow_panelapplet_la_SOURCES = swallow.cpp prefwidgetbase.ui prefwidget.cpp
---- Makefile.am~	Sat Oct 12 16:03:26 2002
-+++ Makefile.am	Sat Oct 12 16:03:26 2002
-@@ -2,7 +2,7 @@
- 
- kde_module_LTLIBRARIES = swallow_panelapplet.la
- 
--swallow_panelapplet_la_LDFLAGS	= $(all_libraries) -version-info 1:0:0 -module -no-undefined
-+swallow_panelapplet_la_LDFLAGS	= $(all_libraries) -avoid-version -module -no-undefined
- swallow_panelapplet_la_LIBADD = $(LIB_KDEUI) $(LIB_KFILE)
- 
- swallow_panelapplet_la_SOURCES = swallow.cpp prefwidgetbase.ui prefwidget.cpp
 --- kdebase-3.0.3/kicker/applets/run/Makefile.in~	Sat Oct 12 16:04:20 2002
 +++ kdebase-3.0.3/kicker/applets/run/Makefile.in	Sat Oct 12 16:04:20 2002
 @@ -301,7 +301,7 @@
@@ -185,17 +130,6 @@
  run_panelapplet_la_LIBADD = $(LIB_KSYCOCA) $(LIB_KDEUI)
  subdir = kicker/applets/run
  mkinstalldirs = $(SHELL) $(top_srcdir)/admin/mkinstalldirs
---- Makefile.am~	Sat Oct 12 16:04:13 2002
-+++ Makefile.am	Sat Oct 12 16:04:13 2002
-@@ -12,7 +12,7 @@
- 
- EXTRA_DIST = $(lnk_DATA)
- 
--run_panelapplet_la_LDFLAGS = $(all_libraries) -version-info 1:0:0 -module -no-undefined
-+run_panelapplet_la_LDFLAGS = $(all_libraries) -avoid-version -module -no-undefined
- run_panelapplet_la_LIBADD = $(LIB_KSYCOCA) $(LIB_KDEUI)
- 
- messages:
 --- kdebase-3.0.3/kicker/applets/naughty/Makefile.in~	Sat Oct 12 16:05:00 2002
 +++ kdebase-3.0.3/kicker/applets/naughty/Makefile.in	Sat Oct 12 16:05:00 2002
 @@ -313,7 +313,7 @@
@@ -229,17 +163,6 @@
  minipager_panelapplet_la_LIBADD = $(LIB_KDEUI)
  subdir = kicker/applets/minipager
  mkinstalldirs = $(SHELL) $(top_srcdir)/admin/mkinstalldirs
---- Makefile.am~	Sat Oct 12 16:05:47 2002
-+++ Makefile.am	Sat Oct 12 16:05:47 2002
-@@ -14,7 +14,7 @@
- 
- EXTRA_DIST = $(lnk_DATA)
- 
--minipager_panelapplet_la_LDFLAGS = $(all_libraries) -version-info 1:0:0 -module -no-undefined
-+minipager_panelapplet_la_LDFLAGS = $(all_libraries) -avoid-version -module -no-undefined
- minipager_panelapplet_la_LIBADD = $(LIB_KDEUI)
- 
- 
 --- kdebase-3.0.3/kicker/applets/launcher/Makefile.in~	Sat Oct 12 16:06:49 2002
 +++ kdebase-3.0.3/kicker/applets/launcher/Makefile.in	Sat Oct 12 16:06:49 2002
 @@ -301,7 +301,7 @@
