@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# This script sets up KDE environment, but without KWM windowmanager
+#
+# You can use it to start KDE environment with other windowmanager
+
+KDEDIR=/usr/X11R6
+export KDEDIR
+
+wmconfig --output=kde --directories
+
+[ -x $KDEDIR/bin/kaudioserver ] && kaudioserver &
+[ -x $KDEDIR/bin/kwmsound ] && kwmsound &
+
+[ -x $KDEDIR/bin/kfm ] && kfm &
+[ -x $KDEDIR/bin/kcontrol ] && kcontrol -init &
+[ -x $KDEDIR/bin/krdb ] && krdb &
+
+[ -x $KDEDIR/bin/kbgndwm ] && kbgndwm &
+[ -x $KDEDIR/bin/krootwm ] && krootwm &
+[ -x $KDEDIR/bin/kpanel ] && kpanel &
+
