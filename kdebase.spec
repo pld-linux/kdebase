@@ -248,7 +248,7 @@ Przyk³adowe tapety s± tak¿e do³±czone
 export KDEDIR=%{_prefix}
 CXXFLAGS="$RPM_OPT_FLAGS -fno-rtti -fno-exceptions" \
 CFLAGS="$RPM_OPT_FLAGS -Wall" \
-./configure %{_target} \
+./configure %{_target_platform} \
 	--prefix=$KDEDIR \
  	--with-pam="yes"
 make KDEDIR=$KDEDIR
