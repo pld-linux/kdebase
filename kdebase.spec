@@ -11,7 +11,7 @@
 %bcond_without	ldap	# build without LDAP support
 #
 %define		_state		stable
-%define		_ver		3.2.1
+%define		_ver		3.2.2
 #%%define		_snap		040110
 
 Summary:	K Desktop Environment - core files
@@ -25,7 +25,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	4
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -48,7 +48,7 @@ Source13:	http://ep09.pld-linux.org/~adgor/kde/%{name}-konqsidebartng-PLD-entrie
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
 %if %{with i18n}
 Source14:	kde-i18n-%{name}-%{version}.tar.bz2
-# Source14-md5:	3f4269b3a5e2cb0a2d2abbee54d9103e
+# Source14-md5:	b1f89de8918aa9c1d690eb45aa18953f
 %endif
 # Patch0:		%{name}-3.2branch.diff
 Patch1:		%{name}-fontdir.patch
