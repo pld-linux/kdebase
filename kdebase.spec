@@ -10,7 +10,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.1.93
-%define		_snap		031105
+%define		_snap		031114
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -23,13 +23,13 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}.%{_snap}
-Release:	2
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	45260d6d63dbc35eebf3ea62bef4d413
+# Source0-md5:	cd2a13f21a32ffdfd9f21020ce36f8e7
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -873,8 +873,9 @@ Internet Explorer.
 
 %build
 
-for f in `find . -name *.desktop | grep -l '\[nb\]'` ; do
-	echo -e ',s/\[nb\]/[no]/\n,w' | ed $f
+# FIXME
+for f in `grep -lr '\[nb\]=' *` ; do
+	echo -e ',s/\[nb\]=/[no]=/\n,w' | ed $f 2>/dev/null
 done
 
 %{__make} -f admin/Makefile.common cvs
@@ -1440,8 +1441,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_bell.so
 %{_libdir}/kde3/kcm_componentchooser.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_componentchooser.so
-#%{_libdir}/kde3/kcm_display.la
-#%attr(0755,root,root) %{_libdir}/kde3/kcm_display.so
+%{_libdir}/kde3/kcm_display.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_display.so
 %{_libdir}/kde3/kcm_email.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_email.so
 %{_libdir}/kde3/kcm_energy.la
@@ -1550,7 +1551,7 @@ fi
 %{_datadir}/wallpapers/fulmine.jpg
 %{_datadir}/wallpapers/kde_box.png
 %{_datadir}/wallpapers/kde_passion.jpg
-%{_datadir}/wallpapers/kdm_bg.jpg
+#%{_datadir}/wallpapers/kdm_bg.jpg
 %{_datadir}/wallpapers/only_k.jpg
 %{_datadir}/wallpapers/seaofconero.jpg
 %{_datadir}/wallpapers/triplegears.jpg
@@ -1575,7 +1576,7 @@ fi
 %{_desktopdir}/kde/desktop.desktop
 %{_desktopdir}/kde/desktopbehavior.desktop
 %{_desktopdir}/kde/desktoppath.desktop
-#%{_desktopdir}/kde/display.desktop
+%{_desktopdir}/kde/display.desktop
 %{_desktopdir}/kde/email.desktop
 %{_desktopdir}/kde/energy.desktop
 %{_desktopdir}/kde/kcmaccess.desktop
