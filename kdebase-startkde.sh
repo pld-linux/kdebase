@@ -21,7 +21,7 @@ rm -f $HOME/.DCOPserver*
 rm -f $HOME/.dcop*
 
 # Background and cursor.
-xsetroot -cursor_name left_ptr -solid '#007777'
+xsetroot -cursor_name left_ptr -solid '#36648f'
 
 # Set KDE config directory. If $KDEHOME exist do nothing.
 if [ -n $KDEHOME ]; then
