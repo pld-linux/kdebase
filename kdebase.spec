@@ -1322,6 +1322,7 @@ export UNSERMAKE=/usr/share/unsermake/unsermake
 %configure \
 	--disable-rpath \
 	--enable-final \
+	--without-java \
 	--with-kdm-pam=kdm \
 	--with-pam=kdesktop \
 	--with-qt-libraries=%{_libdir} \
