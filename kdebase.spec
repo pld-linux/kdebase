@@ -5,10 +5,17 @@
 # * Fixing 48x48 pld applnk-pixmaps scaling (konqsidebar, kicker)
 # * Separating kicker, kwin, wtf
 #
+# Conditional build:
+# --without	alsa	Set this option in case you don't want alsa.
+#
 
 %define         _state          snapshots
 %define         _ver		3.2
 %define         _snap		030329
+
+%ifarch	sparc sparcv9 sparc64
+%define		_without_alsa	1
+%endif
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -67,6 +74,8 @@ Patch19:	%{name}-vroot.patch
 #Patch20:	%{name}-konsolepropfontwidth3.patch
 #
 Patch21:	%{name}-vcategories.patch 
+%{?_without_alsa:BuildConflicts:	alsa-driver-devel}
+%{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	arts-devel >= 1.1
