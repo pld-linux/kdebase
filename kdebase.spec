@@ -277,7 +277,7 @@ fi
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/[ades]*
 %attr(0755,root,root) %{_bindir}/conttest
-%attr(0755,root,root) %{_bindir}/k[acfitwx]*
+%attr(0755,root,root) %{_bindir}/k[acitwx]*
 %attr(0755,root,root) %{_bindir}/keditfiletype
 %attr(0755,root,root) %{_bindir}/kd[ce]*
 %attr(0755,root,root) %{_bindir}/konsole*
@@ -435,6 +435,7 @@ fi
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/keditbookmarks
 %attr(0755,root,root) %{_bindir}/konqueror
+%attr(0755,root,root) %{_bindir}/kfm*
 %attr(0755,root,root) %{_bindir}/nspluginscan
 %attr(0755,root,root) %{_bindir}/nspluginviewer
 
