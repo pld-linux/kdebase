@@ -27,7 +27,7 @@
  }
  
 --- kdebase-3.1/kcontrol/kdm/kdm-appear.cpp.orig	Mon Nov 18 14:14:28 2002
-+++ kdebase-3.1/kcontrol/kdm/kdm-appear.cpp	Fri Nov 22 01:04:37 2002
++++ kdebase-3.1/kcontrol/kdm/kdm-appear.cpp	Sat Nov 23 00:52:29 2002
 @@ -193,6 +193,7 @@
  
    guicombo = new KComboBox(false, hlp);
@@ -36,6 +36,15 @@
    label = new QLabel(guicombo, i18n("GUI s&tyle:"), hlp);
    connect(guicombo, SIGNAL(activated(int)), SLOT(changed()));
    hglay->addWidget(label, 0, 0);
+@@ -316,7 +317,7 @@
+ bool KDMAppearanceWidget::setLogo(QString logo)
+ {
+     QString flogo = logo.isEmpty() ?
+-                    locate("data", QString::fromLatin1("kdm/pics/kdelogo.png") ) :
++                    locate("data", QString::fromLatin1("kdm/pics/pldlogo.png") ) :
+                     logo;
+     QPixmap p(flogo);
+     if (p.isNull())
 @@ -447,7 +448,7 @@
    config->setGroup("X-*-Greeter");
  
@@ -123,7 +132,7 @@
  messages:
  	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
 --- kdebase-3.1/kdm/kfrontend/genkdmconf.c.orig	Mon Oct 28 10:55:24 2002
-+++ kdebase-3.1/kdm/kfrontend/genkdmconf.c	Thu Nov 21 03:41:28 2002
++++ kdebase-3.1/kdm/kfrontend/genkdmconf.c	Fri Nov 22 21:36:01 2002
 @@ -56,7 +56,7 @@
  
  #define as(ar) ((int)(sizeof(ar)/sizeof(ar[0])))
@@ -133,7 +142,18 @@
  
  #define RCVERMAJOR 2
  #define RCVERMINOR 0
-@@ -1816,18 +1816,18 @@
+@@ -745,9 +745,8 @@
+ "Program=\n"
+ "ReverseBlending=false\n"
+ "UseSHM=false\n"
+-"Wallpaper=default_blue.jpg\n"
+ "WallpaperList=\n"
+-"WallpaperMode=Scaled\n";
++"WallpaperMode=NoWallpaper\n";
+ 
+ static FILE *
+ Create (const char *fn, int mode)
+@@ -1816,18 +1815,18 @@
  "# this opens a security hole: a secured display lock can be circumvented\n"
  "# (unless you use KDE's built-in screen lock). Default is false\n" },
  { "AllowRootLogin",	0, 0, 
@@ -157,7 +177,7 @@
  { "DefaultSdMode",	0, 0, 
  "# The default choice for the shutdown condition/timing.\n"
  "# \"Schedule\" - shutdown after all sessions exit (possibly at once) (Default)\n"
-@@ -1842,7 +1842,7 @@
+@@ -1842,7 +1841,7 @@
  "# option!), i.e., KDM will behave exactly as before KDE 3.0.\n" }, 
  { "SessSaveFile",	0, 0, 
  "# Where (relatively to the user's home directory) to store the last\n"
@@ -166,7 +186,7 @@
  { "ServerAttempts",	0, 0, 
  "# How often to try to run the X-server. Running includes executing it and\n"
  "# waiting for it to come up. Default is 1\n" },
-@@ -1910,7 +1910,7 @@
+@@ -1910,7 +1909,7 @@
  "# - %r -> the operating system's version\n"
  "# - %m -> the machine (hardware) type\n"
  "# - %% -> a single %\n"
@@ -175,7 +195,7 @@
  { "GreetFont",		0, 0, 
  "# The font for the headline. Default is charter,24,bold\n" },
  { "StdFont",		0, 0, 
-@@ -2106,10 +2106,10 @@
+@@ -2106,10 +2105,10 @@
  { "UserAuthDir",	"", 0 },
  { "Chooser",		"", 0 },	/* XXX kill */
  { "AutoReLogin",	"true", 0 },
@@ -190,7 +210,7 @@
  { "DefaultSdMode",	"ForceNow", 0}, 
  { "InteractiveSd",	"false", 0}, 
  { "SessSaveFile",	"", 0 },	/* XXX .dmrc */
-@@ -2152,8 +2152,8 @@
+@@ -2152,8 +2151,8 @@
  { "ServerAttempts",	"", 0 },
  { "ServerTimeout",	"", 0 },
  { "AllowShutdown",	"All", 1 },
@@ -238,6 +258,17 @@
  { "GreetFont",		C_GreetFont,		0,	"charter,24,5,0,50,0" },
  { "AntiAliasing",	C_AntiAliasing | C_BOOL,0,	"false" },
  { "NumLock",		C_NumLock | C_ENUM, numlock,	"Keep" },
+--- kdebase-3.1/kdm/kfrontend/kdmconfig.cpp.orig	Mon Oct 28 10:55:24 2002
++++ kdebase-3.1/kdm/kfrontend/kdmconfig.cpp	Sat Nov 23 01:14:21 2002
+@@ -153,7 +153,7 @@
+ 
+     _logo = GetCfgQStr (C_LogoPixmap);
+     if( _logo.isEmpty())
+-	_logo = locate("data", QString::fromLatin1("kdm/pics/kdelogo.png") );
++	_logo = locate("data", QString::fromLatin1("kdm/pics/pldlogo.png") );
+ 
+     _showUsers = GetCfgInt (C_ShowUsers);
+     _users = GetCfgQStrList (C_SelectedUsers);
 --- kdebase-3.1/kdm/kfrontend/kgreeter.cpp.orig	Mon Oct 28 10:55:24 2002
 +++ kdebase-3.1/kdm/kfrontend/kgreeter.cpp	Wed Nov 20 22:43:56 2002
 @@ -256,7 +256,7 @@
