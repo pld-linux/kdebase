@@ -265,18 +265,33 @@ umask 022
 %postun	-n konqueror -p /sbin/ldconfig 
 
 %pre -n kdm
-GROUP=xdm; GID=55; %groupadd
-USER=xdm; UID=55; HOMEDIR=/dev/null; COMMENT="X Display Manager"; %useradd
+/usr/sbin/groupadd -g 55 -r -f xdm
+
+if [ -z "`id -u xdm 2>/dev/null`" ]; then
+	/usr/sbin/useradd -u 55 -r -d /dev/null -s /bin/false -c 'X Display Manager' -g xdm xdm 1>&2
+fi
 
 %post -n kdm
-NAME=kdm; %chkconfig_add
+/sbin/chkconfig --add kdm
+if [ -f /var/lock/subsys/kdm ]; then
+        /etc/rc.d/init.d/kdm restart >&2
+else
+        echo "Run \"/etc/rc.d/init.d/kdm start\" to start kdm." >&2
+fi
 
 %preun -n kdm
-NAME=kdm; %chkconfig_del
+if [ -f /var/lock/subsys/kdm ]; then
+	 /etc/rc.d/init.d/kdm stop >&2
+fi
+/sbin/chkconfig --del kdm
 
 %postun -n kdm
-USER=xdm; %userdel
-GROUP=xdm; %groupdel
+if [ "$1" = "0" ]; then
+	if [ -n "`id -u xdm 2>/dev/null`" ]; then
+		/usr/sbin/userdel xdm
+	fi
+	/usr/sbin/groupdel xdm
+fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
