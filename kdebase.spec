@@ -1311,12 +1311,14 @@ fi
 %{_datadir}/services/nntp.protocol
 
 %files -n kde-kio-pop3
+%defattr(644,root,root,755)
 %{_libdir}/kde3/kio_pop3.la
 %attr(0755,root,root) %{_libdir}/kde3/kio_pop3.so
 %{_datadir}/services/pop3.protocol
 %{_datadir}/services/pop3s.protocol
 
 %files -n kde-kio-smtp
+%defattr(644,root,root,755)
 %{_libdir}/kde3/kio_smtp.la
 %attr(0755,root,root) %{_libdir}/kde3/kio_smtp.so
 %{_datadir}/services/smtp.protocol
