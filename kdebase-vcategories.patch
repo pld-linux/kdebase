@@ -6,13 +6,6 @@
  
 -Categories=Qt;KDE;X-KDE-settings-system
 +Categories=Qt;KDE;X-KDE-settings-desktop
---- kdebase-030911/kfind/Kfind.desktop~	2003-08-31 15:36:31.000000000 +0200
-+++ kdebase-030911/kfind/Kfind.desktop	2003-09-11 10:33:29.000000000 +0200
-@@ -65,3 +65,4 @@
- Name[zh_TW]=尋找檔案
- Name[zu]=Thola Amafayela
- X-KDE-StartupNotify=true
-+Categories=Qt;KDE;Utility
 --- kdebase-030317/khelpcenter/Help.desktop~	Wed Jan 22 00:36:14 2003
 +++ kdebase-030317/khelpcenter/Help.desktop	Fri Mar 21 04:11:31 2003
 @@ -6,7 +6,7 @@
@@ -44,7 +37,7 @@
  GenericName[zh_CN]=个人文件
  GenericName[zh_TW]=個人檔案
  GenericName[zu]=Amafayela Omuntu siqu
-+Categories=Qt;KDE;Core;
++Categories=Qt;KDE;X-KDE-MenuRoot;
 +OnlyShowIn=KDE;
  
 --- kdebase-030317/konqueror/konquerorsu.desktop~	Fri Feb 28 00:41:58 2003
@@ -63,11 +56,11 @@
  X-KDE-AuthorizeAction=shell_access
 -Categories=Qt;KDE;System;TerminalEmulator;X-KDE-More
 +Categories=Qt;KDE;SystemSetup;TerminalEmulator
---- kdebase-030317/konqueror/konqbrowser.desktop~	Wed Jan 22 00:36:26 2003
-+++ kdebase-030317/konqueror/konqbrowser.desktop	Mon Mar 24 00:02:06 2003
-@@ -60,4 +60,4 @@
- Name[zh_CN]=Konqueror Web 浏览器
- Name[zh_TW]=Konqueror 網頁瀏覽器
- Name[zu]=Umcingi we-web we-Konqueror
+--- kdebase-040104/konqueror/konqbrowser.desktop.orig	2004-01-04 14:57:13.000000000 +0100
++++ kdebase-040104/konqueror/konqbrowser.desktop	2004-01-04 19:25:45.242699600 +0100
+@@ -75,4 +75,4 @@
+ GenericName[zh_CN]=网页浏览器
+ GenericName[zh_TW]=網頁瀏覽器
+ GenericName[zu]=Umcingi we-Web
 -Categories=Qt;KDE;Network
 +Categories=Qt;KDE;Network;X-WWW
