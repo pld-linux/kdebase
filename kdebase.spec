@@ -19,7 +19,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.98
-Release:	1.4
+Release:	1.5
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -951,7 +951,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README.pam
 # Must be here. kcheckpass needs it.
-%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdm
+%attr(0644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdm
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kdm
 
 #%files screensavers -f libkscreensaver.lang
