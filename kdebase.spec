@@ -287,7 +287,7 @@ Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 %description -n kde-splash-Default-KDE
 Default classic KDE splashscreen.
 
-%description -n kde-splashp-Default-KDE -l pl
+%description -n kde-splash-Default-KDE -l pl
 Domy¶lny klasyczny ekran startowy KDE.
 
 %package -n kde-splashplugin-Redmond
