@@ -1,6 +1,10 @@
 # TODO:
 # - make separate subpackages
 # - -avoid-version for kde3/* applets/extensions?
+#
+# Conditional build:
+# _with_pixmapsubdirs - leave different depth/resolution icons
+#
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
 Summary(ja):	KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ - ´ðËÜ¥Õ¥¡¥¤¥ë
@@ -12,7 +16,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.4
-Release:	8
+Release:	9
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -22,6 +26,7 @@ Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 Source2:	kdm.pamd
 Source3:	kdm.init
 Source4:	kdm.Xsession
+Source5:	%{name}-extra_icons.tar.bz2
 Source6:	%{name}-kscreensaver.pam
 Source7:	%{name}-kdm.Xservers
 Patch0:		%{name}-kdmrc.patch
@@ -349,23 +354,37 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/{Amusements,Editors,Help,Network/WWW,Uti
  	DESTDIR="$RPM_BUILD_ROOT" \
  	fontdir="%{_fontdir}/misc"
 
-# remove icons corresponding to used by applnk
-rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/apps/package_{applications,editors,edutainment,games{,_arcade,_board,_card,_strategy},graphics,multimedia,network,settings,system,toys,utilities,wordprocessing}.png
+# remove icons corresponding to ones used by applnk
+%{!?_with_pixmapsubdirs:rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/apps/package_{applications,editors,edutainment,games{,_arcade,_board,_card,_strategy},graphics,multimedia,network,settings,system,toys,utilities,wordprocessing}.png}
 
-# copy icons to toplevel %%{_pixmapsdir}
-cp -af $RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/{access,agent,bell,colors,cookie,date,designer,email,energy,energy_star,enhanced_browsing,filetypes,fonts,go,gvim,help_index,hwinfo,icons,input_devices_settings}.png \
+# rename to avoid conflict with netscape icon
+for i in $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/apps/netscape.png
+do
+	mv $i `echo $i | sed 's:/netscape:/netscape-plugins:'`
+done
+
+# create in toplevel %%{_pixmapsdir} links to icons
+for i in $RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/{access,agent,bell,colors,cookie,date,designer,email,energy,energy_star,enhanced_browsing,filetypes,fonts,go,gvim,help_index,hwinfo,icons,input_devices_settings}.png \
 	$RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/{kaddressbook,kappfinder,kate,kcmdevices,kcmfontinst,kcmkwm,kcmmemory,kcmmidi,kcmpartitions,kcmpci,kcmprocessor,kcmscsi,kcmsystem,kcontrol,kdmconfig,key_bindings}.png \
 	$RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/{keyboard,kfind,kfm,kfm_home,khelpcenter,klipper,kmenuedit,knotify,konqueror,konsole,kpager,kscreensaver,ksysguard,kthememgr,ktip,kwrite,licq,locale,looknfeel,mouse}.png \
-	$RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/{multimedia,password,personal,proxy,samba,style,stylesheet,usb,window_list}.png \
-	$RPM_BUILD_ROOT%{_pixmapsdir}	
-cp -af $RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/netscape.png \
-	$RPM_BUILD_ROOT%{_pixmapsdir}/netscape-plugins.png
+	$RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/{multimedia,netscape-plugins,password,personal,proxy,samba,style,stylesheet,usb,window_list}.png
+do
+%if %{?_with_pixmapsubdirs:1}%{!?_with_pixmapsubdirs:0}
+	ln -sf `echo $i | sed "s:^$RPM_BUILD_ROOT%{_pixmapsdir}/::"` $RPM_BUILD_ROOT%{_pixmapsdir}	
+%else
+	cp -af $i $RPM_BUILD_ROOT%{_pixmapsdir}
+%fi
+done
 
+bzcat -dc %{SOURCE5} | tar xf - -C $RPM_BUILD_ROOT%{_pixmapsdir}
+
+%if %{!?_with_pixmapsubdirs:1}%{?_with_pixmapsubdirs:0}
 rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{emacs,gimp,mozilla,netscape,opera,xedit,xemacs,xmag,xv}.png
 rm -rf $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{access,agent,bell,colors,cookie,date,designer,email,energy,energy_star,enhanced_browsing,filetypes,fonts,go,gvim,help_index,hwinfo,icons,input_devices_settings}.png \
 	$RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{kaddressbook,kappfinder,kate,kcmdevices,kcmfontinst,kcmkwm,kcmmemory,kcmmidi,kcmpartitions,kcmpci,kcmprocessor,kcmscsi,kcmsystem,kcontrol,kdmconfig,key_bindings}.png \
 	$RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{keyboard,kfind,kfm,kfm_home,khelpcenter,klipper,kmenuedit,knotify,konqueror,konsole,kpager,kscreensaver,ksysguard,kthememgr,ktip,kwrite,licq,locale,looknfeel,mouse}.png \
-	$RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{multimedia,password,personal,proxy,samba,style,stylesheet,usb,window_list}.png \
+	$RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{multimedia,netscape-plugins,password,personal,proxy,samba,style,stylesheet,usb,window_list}.png \
+%endif
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
@@ -702,9 +721,9 @@ fi
 %{_pixmapsdir}/[a-il-npr-uwx]*.png
 %{_pixmapsdir}/*/*/apps/k[acefhijlmnptwm]*.png
 %{_pixmapsdir}/k[acefhijlmnptwm]*.png
-#%{_pixmapsdir}/*/*/apps/konsole.png
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/*/*/apps/konsole.png}
 %{_pixmapsdir}/konsole.png
-#%{_pixmapsdir}/*/*/apps/ksysguard.png
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/*/*/apps/ksysguard.png}
 %{_pixmapsdir}/ksysguard.png
 %{_pixmapsdir}/*/*/apps/kdisk*
 %{_pixmapsdir}/*/*/apps/kdeprint*
@@ -762,7 +781,7 @@ fi
 %dir %{_datadir}/config/kdm
 %config(noreplace) %{_datadir}/config/kdm/kdmrc
 
-#%{_pixmapsdir}/*/*/apps/kdmconfig.png
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/*/*/apps/kdmconfig.png}
 %{_pixmapsdir}/kdmconfig.png
 
 %files -n konqueror -f konqueror.lang
@@ -802,7 +821,7 @@ fi
 %{_datadir}/servicetypes/konqaboutpage.desktop
 %{_datadir}/servicetypes/konqpopupmenuplugin.desktop
 
-#%{_pixmapsdir}/*/*/apps/konqueror.png
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/*/*/apps/konqueror.png}
 %{_pixmapsdir}/konqueror.png
 
 %files screensavers -f libkscreensaver.lang
@@ -811,7 +830,7 @@ fi
 %{_applnkdir}/Settings/KDE/LookNFeel/screensaver.desktop
 %{_applnkdir}/System/ScreenSavers/*
 
-#%{_pixmapsdir}/*/*/apps/kscreensaver.png
+%{?_with_pixmapsubdirs:%{_pixmapsdir}/*/*/apps/kscreensaver.png}
 %{_pixmapsdir}/kscreensaver.png
 
 %files -n kde-splash-default
