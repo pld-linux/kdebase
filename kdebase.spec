@@ -9,7 +9,7 @@ Summary(ru):	K Desktop Environment - базовые файлы
 Summary(uk):	K Desktop Environment - базов╕ файли
 Name:		kdebase
 Version:	3.0.3
-Release:	8
+Release:	9
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -58,6 +58,7 @@ Patch39:	%{name}-fix-mem-leak-kicker.patch
 Patch40:	%{name}-fix-mem-leak-konq-behaviour.patch
 Patch41:	%{name}-fix-mem-leak-konq-main.patch
 Patch42:	%{name}-fix-mem-leak-smbro.patch
+Patch43:	%{name}-kicker.patch
 %ifnarch sparc sparc64
 BuildRequires:	alsa-lib-devel
 %endif
@@ -320,6 +321,7 @@ Standardowy obrazek okna "Wyloguj" KDE.
 %patch40 -p1
 %patch41 -p1
 %patch42 -p1
+%patch43 -p1
 
 %build
 
@@ -662,9 +664,9 @@ fi
 %{_datadir}/autostart/*
 %{_datadir}/config/k[!d]*
 %{_datadir}/config/kdesktop*
-%dir %{_datadir}/l10n
-%dir %{_datadir}/l10n/C
-%dir %{_datadir}/l10n/??
+%dir %{_datadir}/locale/l10n
+%dir %{_datadir}/locale/l10n/C
+%dir %{_datadir}/locale/l10n/??
 #%{_datadir}/locale/en_US
 %{_datadir}/locale/l10n/*/entry.desktop
 %{_datadir}/locale/l10n/*/flag.png
