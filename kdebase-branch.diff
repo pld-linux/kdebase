@@ -1,42 +1,619 @@
-Common subdirectories: kdebase.orig/admin and kdebase/admin
-Common subdirectories: kdebase.orig/applnk and kdebase/applnk
-Common subdirectories: kdebase.orig/debian and kdebase/debian
-Common subdirectories: kdebase.orig/doc and kdebase/doc
-Common subdirectories: kdebase.orig/drkonqi and kdebase/drkonqi
-Common subdirectories: kdebase.orig/kappfinder and kdebase/kappfinder
-Common subdirectories: kdebase.orig/kate and kdebase/kate
-Common subdirectories: kdebase.orig/kcheckpass and kdebase/kcheckpass
-Common subdirectories: kdebase.orig/kcontrol and kdebase/kcontrol
-Common subdirectories: kdebase.orig/kdcop and kdebase/kdcop
-Common subdirectories: kdebase.orig/kdebugdialog and kdebase/kdebugdialog
-Common subdirectories: kdebase.orig/kdepasswd and kdebase/kdepasswd
-Common subdirectories: kdebase.orig/kdeprint and kdebase/kdeprint
-Common subdirectories: kdebase.orig/kdesktop and kdebase/kdesktop
-Common subdirectories: kdebase.orig/kdesu and kdebase/kdesu
-Common subdirectories: kdebase.orig/kdialog and kdebase/kdialog
-Common subdirectories: kdebase.orig/kdm and kdebase/kdm
-Common subdirectories: kdebase.orig/kfind and kdebase/kfind
-Common subdirectories: kdebase.orig/khelpcenter and kdebase/khelpcenter
-Common subdirectories: kdebase.orig/khotkeys and kdebase/khotkeys
-Common subdirectories: kdebase.orig/kicker and kdebase/kicker
-Common subdirectories: kdebase.orig/kioslave and kdebase/kioslave
-Common subdirectories: kdebase.orig/klipper and kdebase/klipper
-Common subdirectories: kdebase.orig/kmenuedit and kdebase/kmenuedit
-Common subdirectories: kdebase.orig/konqueror and kdebase/konqueror
-Common subdirectories: kdebase.orig/konsole and kdebase/konsole
-Common subdirectories: kdebase.orig/kpager and kdebase/kpager
-Common subdirectories: kdebase.orig/kpersonalizer and kdebase/kpersonalizer
-Common subdirectories: kdebase.orig/kreadconfig and kdebase/kreadconfig
-Common subdirectories: kdebase.orig/kscreensaver and kdebase/kscreensaver
-Common subdirectories: kdebase.orig/ksmserver and kdebase/ksmserver
-Common subdirectories: kdebase.orig/ksplashml and kdebase/ksplashml
-Common subdirectories: kdebase.orig/kstart and kdebase/kstart
-Common subdirectories: kdebase.orig/ksysguard and kdebase/ksysguard
-Common subdirectories: kdebase.orig/ksystraycmd and kdebase/ksystraycmd
-Common subdirectories: kdebase.orig/ktip and kdebase/ktip
-Common subdirectories: kdebase.orig/kwin and kdebase/kwin
-Common subdirectories: kdebase.orig/kxkb and kdebase/kxkb
-Common subdirectories: kdebase.orig/l10n and kdebase/l10n
-Common subdirectories: kdebase.orig/libkonq and kdebase/libkonq
-Common subdirectories: kdebase.orig/nsplugins and kdebase/nsplugins
-Common subdirectories: kdebase.orig/pics and kdebase/pics
+diff -urN -x CVS kdebase.orig/applnk/kde-settings-power.directory kdebase/applnk/kde-settings-power.directory
+--- kdebase.orig/applnk/kde-settings-power.directory	Sun May 30 15:59:36 2004
++++ kdebase/applnk/kde-settings-power.directory	Mon May 31 15:10:50 2004
+@@ -21,7 +21,7 @@
+ Name[fa]=کنترل برق
+ Name[fi]=Virranhallinta
+ Name[fo]=Orkustýring
+-Name[fr]=Indicateur de puissance
++Name[fr]=Contrôle de l'énergie
+ Name[ga]=Rialú Cumhachta
+ Name[gl]=Control da Enerxía
+ Name[he]=צריכת חשמל
+diff -urN -x CVS kdebase.orig/kappfinder/apps/Development/pose.desktop kdebase/kappfinder/apps/Development/pose.desktop
+--- kdebase.orig/kappfinder/apps/Development/pose.desktop	Sun May 30 15:59:46 2004
++++ kdebase/kappfinder/apps/Development/pose.desktop	Tue Jun  1 18:30:54 2004
+@@ -5,7 +5,7 @@
+ GenericName[ar]=محاكي بالم/لاسلكي
+ GenericName[az]=Palm/Wireless Emulyatoru
+ GenericName[bn]=পাম (Palm) / বেতার (Wireless) এমুলেটর
+-GenericName[bs]=Palm/Wireless emulator
++GenericName[bs]=Palm/Wireless simulator
+ GenericName[ca]=Emulador Palm/Wireless
+ GenericName[cs]=Emulátor Palm/Wireless
+ GenericName[cy]=Efelychydd Palm/Diwifren
+diff -urN -x CVS kdebase.orig/kcontrol/componentchooser/componentservices/kcm_terminal.desktop kdebase/kcontrol/componentchooser/componentservices/kcm_terminal.desktop
+--- kdebase.orig/kcontrol/componentchooser/componentservices/kcm_terminal.desktop	Sun May 30 16:00:18 2004
++++ kdebase/kcontrol/componentchooser/componentservices/kcm_terminal.desktop	Tue Jun  1 18:30:57 2004
+@@ -5,7 +5,7 @@
+ Name[bg]=Конзолна програма
+ Name[bn]=টার্মিনাল এমুলেটর
+ Name[br]=Kendarvanerezh termenell
+-Name[bs]=Emulator terminala
++Name[bs]=Simulator terminala
+ Name[ca]=Emulador de terminal
+ Name[cs]=Emulátor terminálu
+ Name[cy]=Efelychydd Terfynell
+@@ -68,7 +68,7 @@
+ Comment[ar]=هذه الخدمة تسمح لك بتهيئة برنامج سطر الأوامر الافتراضي. جميع تطبيقات كيدي التي ستحتاج الى الوصول الى تطبيق سطر الأوامر يجب أن تتبع هذا الضبط.
+ Comment[bg]=Избор на предпочитана конзолна програма. Всички програми от КДЕ, които се нуждаят от достъп до конзолата ще ползват този компонент.
+ Comment[bn]=এই সার্ভিসটির সাহায্যে আপনার ডিফল্ট টার্মিনাল এমুলেটর কনফিগার করতে পারেন। যে কোনো কে.ডি.ই. অ্যাপলিকেশনের টার্মিনাল এমুলেটর চালানোর প্রয়োজন হলে এই নির্বাচন মানা উচিত।
+-Comment[bs]=Ovaj servis vam omogućuje da podesite vaš podrazumjevani emulator terminala. Sve KDE aplikacije kojima je potreban pristup pozivaju emulator terminala bi trebale poštovati ovu postavku.
++Comment[bs]=Ovaj servis vam omogućuje da podesite vaš podrazumijevani simulator terminala. Sve KDE aplikacije kojima je potreban terminal bi trebale poštovati ovu postavku.
+ Comment[ca]=Aquest servei us permet configurar el vostre emulador de terminal per omissió. Totes les aplicacions KDE que precisin d'accés a una aplicació de client de correu tindria que reconèixer aquesta opció.
+ Comment[cs]=Tato služba umožňuje nastavit si výchozího emulátor terminálu. Všechny KDE aplikace, které spouští emulátor terminálu, by měly používat toto nastavení.
+ Comment[cy]=Mae'r gwasanaeth yma yn gadael i chi ffurfweddu eich efelychydd terfynell cyffredinol. Dylai pob rhaglen KDE sy'n cychwyn efelychydd terfynell ddefnyddio'r gosodiad yma.
+diff -urN -x CVS kdebase.orig/kcontrol/energy/energy.desktop kdebase/kcontrol/energy/energy.desktop
+--- kdebase.orig/kcontrol/energy/energy.desktop	Sun May 30 16:00:21 2004
++++ kdebase/kcontrol/energy/energy.desktop	Mon May 31 15:10:54 2004
+@@ -31,7 +31,7 @@
+ Name[eu]=Pantaila Energia Kontrola
+ Name[fa]=کنترل برق را نشان بده
+ Name[fi]=Näytön virranhallinta
+-Name[fr]=Contrôle de l'indicateur de puissance
++Name[fr]=Contrôle de l'énergie pour l'affichage
+ Name[gl]=Control de Enerxía da Pantalla
+ Name[he]=בקרת אנרגיה של התצוגה
+ Name[hi]=ऊर्जा नियंत्रक प्रदर्शक
+@@ -94,7 +94,7 @@
+ Comment[eu]=Pantaila energia kudeaketarako ezarpenak
+ Comment[fa]=تنظیمات مدیریت برق نمایشگر
+ Comment[fi]=Asetukset näytön virranhallinnalle
+-Comment[fr]=Paramètres pour l'affichage de la gestion d'énergie
++Comment[fr]=Paramètres de la gestion d'énergie pour l'affichage
+ Comment[gl]=Configuracións para a xestión de enerxía da pantalla
+ Comment[he]=שינוי הגדרות ניהול צריכת החשמל של התצוגה
+ Comment[hi]=ऊर्जा नियंत्रक प्रदर्शक हेतु विन्यास
+diff -urN -x CVS kdebase.orig/kcontrol/konq/desktoppath.desktop kdebase/kcontrol/konq/desktoppath.desktop
+--- kdebase.orig/kcontrol/konq/desktoppath.desktop	Sun May 30 16:00:33 2004
++++ kdebase/kcontrol/konq/desktoppath.desktop	Mon Jun  7 15:39:44 2004
+@@ -86,7 +86,7 @@
+ Comment[cs]=Změna umístění důležitých souborů
+ Comment[cy]=Newid lle mae ffeiliau pwysig yn cael eu cadw
+ Comment[da]=Ændr stedet hvor vigtige filer gemmes
+-Comment[de]=Das Verzeichnis für wichtige Dateien ändern
++Comment[de]=Den Ordner für wichtige Dateien ändern
+ Comment[el]=Αλλάξτε την τοποθεσία στην οποία αποθηκεύονται σημαντικά αρχεία
+ Comment[es]=Chambiar la ubicación de archivos importantes
+ Comment[et]=Oluliste failide asukoha muutmine
+diff -urN -x CVS kdebase.orig/kcontrol/konq/filepreviews.desktop kdebase/kcontrol/konq/filepreviews.desktop
+--- kdebase.orig/kcontrol/konq/filepreviews.desktop	Sun May 30 16:00:33 2004
++++ kdebase/kcontrol/konq/filepreviews.desktop	Tue Jun  1 18:30:58 2004
+@@ -65,7 +65,7 @@
+ Comment[ar]=يمكنك تهيئة طريقة عمل عرض كونكيورر والبيانات الأولية هنا
+ Comment[bg]=Настройки на режима на преглед на Konqueror като файлов браузър
+ Comment[bn]=কনকরার-এ প্রাক্-দর্শন এবং মেটা-ডেটা কিভাবে কাজ করবে তা এখানে কনফিগার করতে পারেন
+-Comment[bs]=Ovdje možete podesiti kako rade Pregledi i Meta-podaci u Konqueroru
++Comment[bs]=Ovdje možete podesiti kako rade Pregledi i meta-podaci u Konqueroru
+ Comment[ca]=Aquí podeu configurar com funcionaran les vistes prèvies i les meta-dades en el Konqueror
+ Comment[cs]=Zde je možné nastavit chování náhledů a metadat v Konqueroru
+ Comment[cy]=Gallwch ffurfweddu sut mae Rhagolygon & Meta-data Konqueror yn gweithio yma
+diff -urN -x CVS kdebase.orig/kcontrol/locale/language.desktop kdebase/kcontrol/locale/language.desktop
+--- kdebase.orig/kcontrol/locale/language.desktop	Sun May 30 16:00:36 2004
++++ kdebase/kcontrol/locale/language.desktop	Mon May 31 15:10:55 2004
+@@ -59,7 +59,7 @@
+ Name[sr]=Држава/регион и језик
+ Name[sr@Latn]=Država/region i jezik
+ Name[sv]=Land/region och språk
+-Name[ta]=நாடு/இடம் மற்றும் மொழி
++Name[ta]=நாடு மற்றும் மொழி
+ Name[tg]=Кишвар/Забон ва Минтақа
+ Name[th]=ประเทศและภาษา
+ Name[tr]=Ülke/Bölge ve Dil
+diff -urN -x CVS kdebase.orig/kdesktop/kdiconview.cc kdebase/kdesktop/kdiconview.cc
+--- kdebase.orig/kdesktop/kdiconview.cc	Thu Mar 25 16:04:10 2004
++++ kdebase/kdesktop/kdiconview.cc	Tue Jun  8 17:55:12 2004
+@@ -427,6 +427,20 @@
+     resize( kapp->desktop()->size() );
+     slotClear();
+     m_dirLister->openURL( url() );
++
++    // list all desktop dirs
++    m_mergeDirs.clear();
++    for ( QStringList::ConstIterator it = m_desktopDirs.begin() ; it != m_desktopDirs.end() ; ++it )
++    {
++        kdDebug(1204) << "KDIconView::desktopResized found merge dir " << *it << endl;
++        KURL u;
++        u.setPath( *it );
++        m_mergeDirs.append( u );
++        // And start listing this dir right now
++        kapp->allowURLAction("list", KURL(), u);
++        m_dirLister->openURL( u, true );
++    }
++    configureDevices();
+ }
+ 
+ void KDIconView::lineupIcons(QIconView::Arrangement align)
+diff -urN -x CVS kdebase.orig/kioslave/fish/fish.cpp kdebase/kioslave/fish/fish.cpp
+--- kdebase.orig/kioslave/fish/fish.cpp	Fri May 28 13:44:52 2004
++++ kdebase/kioslave/fish/fish.cpp	Mon Jun  7 11:26:09 2004
+@@ -227,7 +227,8 @@
+ };
+ 
+ fishProtocol::fishProtocol(const QCString &pool_socket, const QCString &app_socket)
+-  : SlaveBase("fish", pool_socket, app_socket), mimeBuffer(1024)
++  : SlaveBase("fish", pool_socket, app_socket), mimeBuffer(1024),
++    mimeTypeSent(false)
+ {
+     myDebug( << "fishProtocol::fishProtocol()" << endl);
+     if (sshPath == NULL) {
+@@ -456,6 +457,8 @@
+         if (outBufPos >= 0) FD_SET(childFd,&wfds);
+         rc = select(childFd+1, &rfds, &wfds, NULL, NULL);
+         if (rc < 0) {
++            if (errno == EINTR)
++                continue;
+             myDebug( << "select failed, rc: " << rc << ", error: " << strerror(errno) << endl);
+             return true;
+         }
+@@ -464,6 +467,8 @@
+             else rc = 0;
+             if (rc >= 0) outBufPos += rc;
+             else {
++                if (errno == EINTR)
++                    continue;
+                 myDebug( << "write failed, rc: " << rc << ", error: " << strerror(errno) << endl);
+                 outBufPos = -1;
+                 //return true;
+@@ -482,6 +487,8 @@
+                 if (noff > 0) memmove(buf,buf+offset+rc-noff,noff);
+                 offset = noff;
+             } else {
++                if (errno == EINTR)
++                    continue;
+                 myDebug( << "read failed, rc: " << rc << ", error: " << strerror(errno) << endl);
+                 return true;
+             }
+@@ -646,10 +653,9 @@
+  */
+ void fishProtocol::shutdownConnection(bool forced){
+     if (childPid) {
+-        kill(childPid,SIGTERM);
+-        wait(NULL);
++        kill(childPid,SIGTERM); // We may not have permission...
+         childPid = 0;
+-        close(childFd);
++        close(childFd); // ...in which case this should do the trick
+         childFd = -1;
+         if (!forced)
+         {
+@@ -963,10 +969,10 @@
+                 break;
+             }
+             recvLen = line.toInt(&isOk);
+-            if (recvLen == 0) mimeType("application/x-zerosize");
+             if (!isOk) {
+                 error(ERR_COULD_NOT_READ,url.prettyURL());
+                 shutdownConnection();
++                break;
+             }
+             break;
+         default : break;
+@@ -985,6 +991,12 @@
+                 rawRead = recvLen;
+                 t_start = t_last = time(NULL);
+                 dataRead = 0;
++                mimeTypeSent = false;
++                if (recvLen == 0)
++                {
++                    mimeType("application/x-zerosize");
++                    mimeTypeSent = true;
++                }
+             }
+             break;
+         case FISH_STOR:
+@@ -1010,6 +1022,7 @@
+             break;
+         case FISH_READ:
+             mimeType("inode/directory");
++            mimeTypeSent = true;
+             recvLen = 0;
+             finished();
+             break;
+@@ -1103,6 +1116,7 @@
+             rawRead = recvLen;
+             t_start = t_last = time(NULL);
+             dataRead = 0;
++            mimeTypeSent = false;
+         }
+     }
+ }
+@@ -1161,29 +1175,36 @@
+         if (rawRead > 0) {
+             myDebug( << "processedSize " << dataRead << ", len " << buflen << "/" << rawRead << endl);
+             int dataSize = (rawRead > buflen?buflen:rawRead);
+-            if (dataRead < (int)mimeBuffer.size()) {
+-                int mimeSize = (dataSize > (int)mimeBuffer.size()-dataRead?(int)mimeBuffer.size()-dataRead:dataSize);
++            if (!mimeTypeSent)
++            {
++                int mimeSize = QMIN(dataSize, (int)mimeBuffer.size()-dataRead);
+                 memcpy(mimeBuffer.data()+dataRead,buffer,mimeSize);
+-                if (dataSize >= mimeSize) {
+-                    if (rawRead+dataRead < (int)mimeBuffer.size())
+-                        mimeBuffer.resize(rawRead+dataRead);
+-                    sendmimeType(KMimeMagic::self()->findBufferFileType(mimeBuffer,url.path())->mimeType());
+-                    if (fishCommand != FISH_READ) {
+-                        data(mimeBuffer);
+-                        totalSize(rawRead+dataRead);
+-                    }
+-                    mimeBuffer.resize(1024);
+-                    if (dataSize > mimeSize) {
+-                        QByteArray rest(dataSize-mimeSize);
+-                        rest.duplicate(buffer+mimeSize,dataSize-mimeSize);
+-                        data(rest);
+-                     }
++                dataRead += mimeSize;
++                rawRead -= mimeSize;
++                buffer += mimeSize;
++                buflen -= mimeSize;
++                if (rawRead == 0) // End of data
++                    mimeBuffer.resize(dataRead);
++                if (dataRead < (int)mimeBuffer.size())
++                {
++                    myDebug( << "wait for more" << endl);
++                    break;
+                 }
+-            } else {
+-                QByteArray bdata;
+-                bdata.duplicate(buffer,dataSize);
+-                data(bdata);
++                sendmimeType(KMimeMagic::self()->findBufferFileType(mimeBuffer,url.path())->mimeType());
++                mimeTypeSent = true;
++                if (fishCommand != FISH_READ) {
++                    totalSize(dataRead + rawRead);
++                    data(mimeBuffer);
++                    processedSize(dataRead);
++                }
++                mimeBuffer.resize(1024);
++                continue; // Process rest of buffer/buflen
+             }
++
++            QByteArray bdata;
++            bdata.duplicate(buffer,dataSize);
++            data(bdata);
++            
+             dataRead += dataSize;
+             rawRead -= dataSize;
+             time_t t = time(NULL);
+@@ -1295,6 +1316,8 @@
+             if (outBufPos >= 0) FD_SET(childFd,&wfds);
+             rc = select(childFd+1, &rfds, &wfds, NULL, NULL);
+             if (rc < 0) {
++                if (errno == EINTR)
++                    continue;
+                 myDebug( << "select failed, rc: " << rc << ", error: " << strerror(errno) << endl);
+                 error(ERR_CONNECTION_BROKEN,connectionHost);
+                 shutdownConnection();
+@@ -1308,6 +1331,8 @@
+                 else rc = 0;
+                 if (rc >= 0) outBufPos += rc;
+                 else {
++                    if (errno == EINTR)
++                        continue;
+                     myDebug( << "write failed, rc: " << rc << ", error: " << strerror(errno) << endl);
+                     error(ERR_CONNECTION_BROKEN,connectionHost);
+                     shutdownConnection();
+@@ -1328,6 +1353,8 @@
+                     //myDebug( << "left " << noff << " bytes: " << QString::fromLatin1(buf,offset) << endl);
+                     offset = noff;
+                 } else {
++                    if (errno == EINTR)
++                        continue;
+                     myDebug( << "read failed, rc: " << rc << ", error: " << strerror(errno) << endl);
+                     error(ERR_CONNECTION_BROKEN,connectionHost);
+                     shutdownConnection();
+diff -urN -x CVS kdebase.orig/kioslave/fish/fish.h kdebase/kioslave/fish/fish.h
+--- kdebase.orig/kioslave/fish/fish.h	Sun Jul 27 22:42:07 2003
++++ kdebase/kioslave/fish/fish.h	Mon Jun  7 11:26:09 2004
+@@ -172,6 +172,8 @@
+   QByteArray rawData;
+   /** buffer for storing bytes used for MimeMagic */
+   QByteArray mimeBuffer;
++  /** whther the mimetype has been sent already */
++  bool mimeTypeSent;
+   /** number of bytes read so far */
+   int dataRead;
+   time_t t_last, t_start;
+diff -urN -x CVS kdebase.orig/konqueror/konq_factory.cc kdebase/konqueror/konq_factory.cc
+--- kdebase.orig/konqueror/konq_factory.cc	Sat Dec  6 19:28:26 2003
++++ kdebase/konqueror/konq_factory.cc	Tue Jun  8 01:10:55 2004
+@@ -24,6 +24,7 @@
+ #include "version.h"
+ 
+ #include <konq_settings.h>
++#include <konq_mainwindow.h>
+ #include <kdebug.h>
+ #include <kaboutdata.h>
+ #include <klocale.h>
+@@ -100,6 +101,9 @@
+   forceAutoEmbed |= !serviceName.isEmpty();
+   // Or if we have no associated app anyway, then embed.
+   forceAutoEmbed |= appOffers.isEmpty() && !offers.isEmpty();
++  // Or if the associated app is konqueror itself, then embed.
++  if ( !appOffers.isEmpty() )
++    forceAutoEmbed |= KonqMainWindow::isMimeTypeAssociatedWithSelf( serviceType, appOffers.first() );
+ 
+   if ( ! forceAutoEmbed )
+   {
+diff -urN -x CVS kdebase.orig/konqueror/konq_mainwindow.cc kdebase/konqueror/konq_mainwindow.cc
+--- kdebase.orig/konqueror/konq_mainwindow.cc	Tue May 11 16:36:33 2004
++++ kdebase/konqueror/konq_mainwindow.cc	Tue Jun  8 01:10:55 2004
+@@ -538,6 +538,11 @@
+   kdDebug(1202) << "trying openView for " << url << " (serviceType " << serviceType << ")" << endl;
+   if ( ( !serviceType.isEmpty() && serviceType != "application/octet-stream") || url.url() == "about:konqueror" || url.url() == "about:plugins")
+   {
++    KService::Ptr offer = KServiceTypeProfile::preferredService(serviceType, "Application");
++    // If the associated app is konqueror itself, then make sure we try to embed before bailing out.
++    if ( isMimeTypeAssociatedWithSelf( serviceType, offer ) )
++      req.forceAutoEmbed = true;
++
+     // Built-in view ?
+     if ( !openView( serviceType, url, view /* can be 0L */, req ) )
+     {
+@@ -545,13 +550,14 @@
+         // Are we following another view ? Then forget about this URL. Otherwise fire app.
+         if ( !req.followMode )
+         {
+-            if ( !url.isLocalFile() && KonqRun::isTextExecutable( serviceType ) )
+-                serviceType = "text/plain"; // view, don't execute
+             //kdDebug(1202) << "KonqMainWindow::openURL : we were not following. Fire app." << endl;
+             // We know the servicetype, let's try its preferred service
+-            KService::Ptr offer = KServiceTypeProfile::preferredService(serviceType, "Application");
+-            if ( isMimeTypeAssociatedWithSelf( serviceType, offer ) )
++            if ( isMimeTypeAssociatedWithSelf( serviceType, offer ) ) {
++                KMessageBox::error( this, i18n("There appears to be a configuration error. You have associated Konqueror with %1, but it cannot handle this file type.").arg(serviceType));
+                 return;
++            }
++            if ( !url.isLocalFile() && KonqRun::isTextExecutable( serviceType ) )
++                serviceType = "text/plain"; // view, don't execute
+             // Remote URL: save or open ?
+             bool open = url.isLocalFile();
+             if ( !open ) {
+@@ -2767,12 +2773,12 @@
+   s_pCompletion->setCompletionMode( m );
+   KConfig *config = KGlobal::config();
+   config->setGroup( "Settings" );
+-  
++
+   if (m_combo->completionMode() == KGlobalSettings::completionMode())
+     config->deleteEntry("CompletionMode");
+   else
+   config->writeEntry( "CompletionMode", (int)m_combo->completionMode() );
+-    
++
+   config->sync();
+ 
+   // tell the other windows too (only this instance currently)
+@@ -2967,8 +2973,8 @@
+ 
+       slotClipboardDataChanged();
+ 
+-    } 
+-    else if ( ev->type()==QEvent::FocusOut) 
++    }
++    else if ( ev->type()==QEvent::FocusOut)
+     {
+       //kdDebug(1202) << "ComboBox lost focus..." << endl;
+       if (!m_bLocationBarConnected)
+@@ -3122,7 +3128,7 @@
+ }
+ 
+ // called via DCOP from KonquerorIface
+-void KonqMainWindow::comboAction( int action, const QString& url, 
++void KonqMainWindow::comboAction( int action, const QString& url,
+ 																	const QCString& objId )
+ {
+     if (!s_lstViews) // this happens in "konqueror --silent"
+@@ -4906,14 +4912,11 @@
+ bool KonqMainWindow::isMimeTypeAssociatedWithSelf( const QString &mimeType, const KService::Ptr &offer )
+ {
+     // Prevention against user stupidity : if the associated app for this mimetype
+-    // is konqueror/kfmclient, then we'll loop forever. So we have to check what KRun
+-    // is going to do before calling it.
+-    if ( !offer || ( offer->desktopEntryName() != "konqueror" &&
+-                     !offer->exec().stripWhiteSpace().startsWith("kfmclient") ) )
+-        return false;
+-
+-    KMessageBox::error( this, i18n("There appears to be a configuration error. You have associated Konqueror with %1, but it can't handle this file type.").arg(mimeType));
+-    return true;
++    // is konqueror/kfmclient, then we'll loop forever. So we have to
++    // 1) force embedding first, if that works we're ok
++    // 2) check what KRun is going to do before calling it.
++    return ( offer && ( offer->desktopEntryName() == "konqueror" ||
++             offer->exec().stripWhiteSpace().startsWith( "kfmclient" ) ) );
+ }
+ 
+ // KonqFrameContainerBase implementation END
+diff -urN -x CVS kdebase.orig/konqueror/konq_mainwindow.h kdebase/konqueror/konq_mainwindow.h
+--- kdebase.orig/konqueror/konq_mainwindow.h	Tue May 11 16:36:33 2004
++++ kdebase/konqueror/konq_mainwindow.h	Tue Jun  8 01:10:56 2004
+@@ -287,8 +287,8 @@
+   KonqFrameBase* workingTab()const { return m_pWorkingTab; }
+   void setWorkingTab( KonqFrameBase* tab ) { m_pWorkingTab = tab; }
+ 
+-  bool isMimeTypeAssociatedWithSelf( const QString &mimeType );
+-  bool isMimeTypeAssociatedWithSelf( const QString &mimeType, const KService::Ptr &offer );
++  static bool isMimeTypeAssociatedWithSelf( const QString &mimeType );
++  static bool isMimeTypeAssociatedWithSelf( const QString &mimeType, const KService::Ptr &offer );
+ 
+   void resetWindow();
+ 
+diff -urN -x CVS kdebase.orig/konqueror/konq_run.cc kdebase/konqueror/konq_run.cc
+--- kdebase.orig/konqueror/konq_run.cc	Fri Feb  6 17:28:17 2004
++++ kdebase/konqueror/konq_run.cc	Tue Jun  8 01:10:56 2004
+@@ -82,6 +82,8 @@
+   if ( !m_suggestedFilename.isEmpty() )
+      tryEmbed = false;
+ #endif
++  if ( KonqMainWindow::isMimeTypeAssociatedWithSelf( mimeType ) )
++      m_req.forceAutoEmbed = true;
+ 
+   if ( tryEmbed )
+       m_bFinished = m_pMainWindow->openView( mimeType, m_strURL, m_pView, m_req );
+@@ -109,8 +111,10 @@
+   m_bFault = true;
+ 
+   if ( !m_bFinished && // only if we're going to open
+-       m_pMainWindow->isMimeTypeAssociatedWithSelf( mimeType ) )
++       KonqMainWindow::isMimeTypeAssociatedWithSelf( mimeType ) ) {
++    KMessageBox::error( m_pMainWindow, i18n( "There appears to be a configuration error. You have associated Konqueror with %1, but it cannot handle this file type." ).arg( mimeType ) );
+     m_bFinished = true;
++  }
+ 
+   if ( m_bFinished ) {
+     m_pMainWindow = 0L;
+diff -urN -x CVS kdebase.orig/konqueror/konquerorsu.desktop kdebase/konqueror/konquerorsu.desktop
+--- kdebase.orig/konqueror/konquerorsu.desktop	Sun May 30 16:01:30 2004
++++ kdebase/konqueror/konquerorsu.desktop	Sat Jun  5 20:46:03 2004
+@@ -1,7 +1,7 @@
+ [Desktop Entry]
+ Encoding=UTF-8
+ Type=Application
+-Exec=konqueror
++Exec=konqueror --profile filemanagement
+ DocPath=konqueror/index.html
+ Icon=kfm
+ X-KDE-SubstituteUID=true
+diff -urN -x CVS kdebase.orig/konqueror/listview/konq_detailedlistview.desktop kdebase/konqueror/listview/konq_detailedlistview.desktop
+--- kdebase.orig/konqueror/listview/konq_detailedlistview.desktop	Sun May 30 16:01:31 2004
++++ kdebase/konqueror/listview/konq_detailedlistview.desktop	Mon Jun  7 15:39:48 2004
+@@ -12,7 +12,7 @@
+ Name[cs]=Detailní pohled
+ Name[cy]=Golwg Rhestr Fanwl
+ Name[da]=Detaljeret listevisning
+-Name[de]=Detaillierte Verzeichnis-Ansicht
++Name[de]=Detaillierte Ordner-Ansicht
+ Name[el]=Προβολή Λεπτομερούς λίστας
+ Name[eo]=Detala listrigardo
+ Name[es]=Vista de lista detallada
+diff -urN -x CVS kdebase.orig/konqueror/sidebar/trees/init/history.desktop kdebase/konqueror/sidebar/trees/init/history.desktop
+--- kdebase.orig/konqueror/sidebar/trees/init/history.desktop	Sun May 30 16:01:33 2004
++++ kdebase/konqueror/sidebar/trees/init/history.desktop	Mon Jun  7 15:39:49 2004
+@@ -81,7 +81,7 @@
+ Comment[cs]=Toto je historie URL, které jste naposledy navštívili. Můžete si je různými způsoby setřídit.
+ Comment[cy]=Dyma hanes y safleoedd rydych wedi ymweld a nhw. Gallwch eu didoli mewn sawl ffordd.
+ Comment[da]=Dette er historikken for de URL'er du har besøgt for nyligt. Du kan sortere dem på mange måder.
+-Comment[de]=Dies ist ein Verzeichnis aller Adressen, die Sie in letzter Zeit besucht haben. Sie können sie auf vielerlei Weise sortieren.
++Comment[de]=Dies ist ein Ordner für alle Adressen, die Sie in letzter Zeit besucht haben. Sie können sie auf vielerlei Weise sortieren.
+ Comment[el]=Αυτό είναι το ιστορικό των URL που επισκεφθήκατε πρόσφατα. Μπορείτε να τα ταξινομήσετε με πολλούς τρόπους.
+ Comment[eo]=Jen la historio de la vizititaj URLoj. Vi povas ordigi ilin diversmaniere.
+ Comment[es]=Este es el historial con las URLs que ha visitado recientemente. Puede ordenarlas de diversos modos.
+diff -urN -x CVS kdebase.orig/konqueror/sidebar/trees/init/history_module.desktop kdebase/konqueror/sidebar/trees/init/history_module.desktop
+--- kdebase.orig/konqueror/sidebar/trees/init/history_module.desktop	Sun May 30 16:01:33 2004
++++ kdebase/konqueror/sidebar/trees/init/history_module.desktop	Mon Jun  7 15:39:49 2004
+@@ -81,7 +81,7 @@
+ Comment[cs]=Toto je historie URL, které jste naposledy navštívili. Můžete si je různými způsoby setřídit.
+ Comment[cy]=Dyma hanes y safleoedd rydych wedi ymweld a nhw. Gallwch eu didoli mewn sawl ffordd.
+ Comment[da]=Dette er historikken for de URL'er du har besøgt for nyligt. Du kan sortere dem på mange måder.
+-Comment[de]=Dies ist ein Verzeichnis aller Adressen, die Sie in letzter Zeit besucht haben. Sie können sie auf vielerlei Weise sortieren.
++Comment[de]=Dies ist ein Ordner für alle Adressen, die Sie in letzter Zeit besucht haben. Sie können sie auf vielerlei Weise sortieren.
+ Comment[el]=Αυτό είναι το ιστορικό των URL που επισκεφθήκατε πρόσφατα. Μπορείτε να τα ταξινομήσετε με πολλούς τρόπους.
+ Comment[eo]=Jen la historio de la vizititaj URLoj. Vi povas ordigi ilin diversmaniere.
+ Comment[es]=Este es el historial con las URLs que ha visitado recientemente. Puede ordenarlas de diversos modos.
+diff -urN -x CVS kdebase.orig/konqueror/sidebar/trees/init/root.desktop kdebase/konqueror/sidebar/trees/init/root.desktop
+--- kdebase.orig/konqueror/sidebar/trees/init/root.desktop	Sun May 30 16:01:33 2004
++++ kdebase/konqueror/sidebar/trees/init/root.desktop	Mon Jun  7 15:39:49 2004
+@@ -65,7 +65,7 @@
+ Comment[cs]=Toto je kořenový adresář souborového systému
+ Comment[cy]=Dyma wraidd y cysawd ffeiliau
+ Comment[da]=Dette er roden af filsystemet
+-Comment[de]=Dies ist das Wurzelverzeichnis Ihres Dateisystems
++Comment[de]=Dies ist der Basisordner Ihres Dateisystems
+ Comment[el]=Αυτή είναι η ρίζα του συστήματος αρχείων
+ Comment[eo]=Jen la radiko de la dosieraro
+ Comment[es]=Esta es la raíz del sistema de archivos
+diff -urN -x CVS kdebase.orig/konsole/konsole/TEWidget.cpp kdebase/konsole/konsole/TEWidget.cpp
+--- kdebase.orig/konsole/konsole/TEWidget.cpp	Sat May  1 20:56:07 2004
++++ kdebase/konsole/konsole/TEWidget.cpp	Tue Jun  1 14:36:57 2004
+@@ -379,6 +379,9 @@
+ 
+   setFocusPolicy( WheelFocus );
+ 
++  // im
++  setInputMethodEnabled(true);
++
+   // We're just a big pixmap, no need to have a background
+   // Speeds up redraws
+   setBackgroundMode(NoBackground);
+diff -urN -x CVS kdebase.orig/konsole/konsole/main.cpp kdebase/konsole/konsole/main.cpp
+--- kdebase.orig/konsole/konsole/main.cpp	Thu Apr 29 18:32:55 2004
++++ kdebase/konsole/konsole/main.cpp	Mon May 31 19:18:01 2004
+@@ -491,7 +491,7 @@
+   list->first();
+   while( list->current())
+   {
+-    if( list->current()->parentWidget() != NULL )
++    if( list->current()->parentWidget() != NULL || !list->current()->testWFlags( Qt::WDestructiveClose ) )
+     {
+         list->remove();
+         continue;
+@@ -502,8 +502,7 @@
+   QWidget * w;
+   while( (w=it.current()) != 0 ) {
+      ++it;
+-     if ( w->testWFlags( Qt::WDestructiveClose ) )
+-          delete w;
++     delete w;
+   }
+   delete list;
+ 
+diff -urN -x CVS kdebase.orig/konsole/konsolepart.desktop kdebase/konsole/konsolepart.desktop
+--- kdebase.orig/konsole/konsolepart.desktop	Sun May 30 16:01:39 2004
++++ kdebase/konsole/konsolepart.desktop	Tue Jun  1 18:31:02 2004
+@@ -18,7 +18,7 @@
+ Name[bg]=Конзолна програма
+ Name[bn]=টার্মিনাল এমুলেটর
+ Name[br]=Kendarvanerezh termenell
+-Name[bs]=Emulator terminala
++Name[bs]=Simulator terminala
+ Name[ca]=Emulador de terminal
+ Name[cs]=Emulátor terminálu
+ Name[cy]=Efelychydd Terfynell
+diff -urN -x CVS kdebase.orig/konsole/terminalemulator.desktop kdebase/konsole/terminalemulator.desktop
+--- kdebase.orig/konsole/terminalemulator.desktop	Sun May 30 16:01:39 2004
++++ kdebase/konsole/terminalemulator.desktop	Tue Jun  1 18:31:02 2004
+@@ -10,7 +10,7 @@
+ Name[bg]=Конзолна програма
+ Name[bn]=টার্মিনাল এমুলেটর
+ Name[br]=Kendarvanerezh termenell
+-Name[bs]=Emulator terminala
++Name[bs]=Simulator terminala
+ Name[ca]=Emulador de terminal
+ Name[cs]=Emulátor terminálu
+ Name[cy]=Efelychydd Terfynell
+diff -urN -x CVS kdebase.orig/kwin/client.cpp kdebase/kwin/client.cpp
+--- kdebase.orig/kwin/client.cpp	Fri May 28 13:42:07 2004
++++ kdebase/kwin/client.cpp	Mon Jun  7 16:59:40 2004
+@@ -486,7 +486,7 @@
+     {
+     if( isSpecialWindow() && !isOverride())
+         return false;
+-    if( isTransient() && !wantsTabFocus())
++    if( isTransient())
+         { // #66868 - let other xmms windows be minimized when the mainwindow is minimized
+         bool shown_mainwindow = false;
+         ClientList mainclients = mainClients();
+diff -urN -x CVS kdebase.orig/kwin/geometry.cpp kdebase/kwin/geometry.cpp
+--- kdebase.orig/kwin/geometry.cpp	Fri Apr 30 17:12:53 2004
++++ kdebase/kwin/geometry.cpp	Mon Jun  7 14:17:54 2004
+@@ -794,7 +794,7 @@
+             {
+             xSizeHint.flags |= PMinSize;
+             xSizeHint.min_width = xSizeHint.base_width;
+-                xSizeHint.min_height = xSizeHint.base_height;
++            xSizeHint.min_height = xSizeHint.base_height;
+             }
+         }
+     else
+@@ -803,6 +803,11 @@
+         xSizeHint.min_width = xSizeHint.min_height = 0;
+     if( ! ( xSizeHint.flags & PMaxSize ))
+         xSizeHint.max_width = xSizeHint.max_height = INT_MAX;
++    else
++        {
++        xSizeHint.max_width = QMAX( xSizeHint.max_width, 1 );
++        xSizeHint.max_height = QMAX( xSizeHint.max_height, 1 );
++        }
+     if( xSizeHint.flags & PResizeInc )
+         {
+         xSizeHint.width_inc = kMax( xSizeHint.width_inc, 1 );
