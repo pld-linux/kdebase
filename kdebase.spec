@@ -9,7 +9,7 @@ Summary(ru):	K Desktop Environment - базовые файлы
 Summary(uk):	K Desktop Environment - базов╕ файли
 Name:		kdebase
 Version:	3.0.3
-Release:	6
+Release:	7
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -616,7 +616,6 @@ fi
 %{_applnkdir}/Kfind.desktop
 %{_applnkdir}/.hidden/konqfilemgr.desktop
 %{_applnkdir}/Amusements/*.desktop
-%dir %{_applnkdir}/Settings
 %{_applnkdir}/Settings/KDE/Help
 %{_applnkdir}/Settings/KDE/Databases
 %{_applnkdir}/Settings/KDE/Information
@@ -641,31 +640,42 @@ fi
 #%{_applnkdir}/ksysguard
 
 %{_datadir}/apps/[cdn]*
-%{_datadir}/apps/k[abcfhijmtw]*
-%{_datadir}/apps/kd[cei]*
+%{_datadir}/apps/k[bfhijmtw]*
+%{_datadir}/apps/ka[dp]*
+%{_datadir}/apps/kate/*
+%{_datadir}/apps/kcm*
+%{_datadir}/apps/kconf_update/*
+%{_datadir}/apps/kcontrol
+%{_datadir}/apps/kd[ci]*
+%{_datadir}/apps/kde[sw]*
+%{_datadir}/apps/kdeprint[_f]*
+%{_datadir}/apps/kdeprint/*
 %{_datadir}/apps/konsole
 %{_datadir}/apps/kpersonalizer
 %dir %{_datadir}/apps/ksplash
 %{_datadir}/apps/ksysguard
 %{_datadir}/apps/klipper
 
-%{_datadir}/autostart
-%dir %{_datadir}/config
+%{_datadir}/autostart/*
 %{_datadir}/config/k[!d]*
 %{_datadir}/config/kdesktop*
+%dir %{_datadir}/l10n
+%dir %{_datadir}/l10n/C
+%dir %{_datadir}/l10n/??
 #%{_datadir}/locale/en_US
 %{_datadir}/locale/l10n/*/entry.desktop
 %{_datadir}/locale/l10n/*/flag.png
 %{_datadir}/locale/*/*.desktop
 %{_datadir}/locale/*/*.png
 %{_datadir}/locale/*/charset
-%{_datadir}/mimelnk
+%{_datadir}/mimelnk/application/*
+%{_datadir}/mimelnk/print
 %{_datadir}/services/[abfgimnpst]*
 %{_datadir}/services/k[afhsuwx]*
-%{_datadir}/services/kded
+%{_datadir}/services/kded/*
 %{_datadir}/services/kdeprint_part.desktop
 %{_datadir}/services/kons*
-%{_datadir}/sounds
+%{_datadir}/sounds/*
 %{_datadir}/templates
 %{_datadir}/wallpapers
 %{_datadir}/servicetypes/[fstu]*.desktop
