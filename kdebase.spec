@@ -1,6 +1,6 @@
 %define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		8.2
+%define		_rel		8.3
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -219,6 +219,7 @@ Wygaszacze ekranu desktopu KDE.
 Summary:	KDE splash screen
 Summary(pl):	Obrazek startowy KDE
 Group:		X11/Amusements
+Obsoletes:	kde-splash
 Provides:	kde-splash
 
 %description -n kde-splash-default
