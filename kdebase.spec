@@ -155,7 +155,7 @@ cat > $RPM_BUILD_ROOT%{_applnkdir}/Settings/KDE/.directory << EOF
 [Desktop Entry]
 Name=KDE
 Icon=package_settings
-X-KDE-BaseGroup=KDE
+X-KDE-BaseGroup=settings
 EOF
 
 # removing unneeded directories
