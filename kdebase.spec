@@ -29,7 +29,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.10
+Release:	0.11
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -869,11 +869,18 @@ bzip2 -dc %{SOURCE13} | tar xf - -C $RPM_BUILD_ROOT
 programs=" \
 	colors \
 	fonts \
+	kcmcolors \
+	kcmfonts \
+	kcmkded \
+	kcmlocale \
+	kcmprintmgr \
 	kcmstyle \
+	kcontrol \
 	kdeprint \
 	kdebugdialog \
 	kdesu \
 	khelpcenter \
+	krdb \
 	language"
 
 for i in $programs; do
@@ -889,10 +896,22 @@ programs=" \
 	desktop \
 	energy \
 	kcmaccess \
+	kcmarts \
+	kcmbackground \
+	kcmbell \
+	kcmcomponentchooser \
+	kcmemail \
+	kcmenergy \
 	kcmfontinst \
+	kcminput \
+	kcmkeys \
+	kcmkwindecoration \
+	kcmkwm \
 	kcmlaunch \
+	kcmlayout \
 	kcmnotify \
 	kcmsmserver \
+	kcmspellchecking \
 	keyboard \
 	keys \
 	kwindecoration \
@@ -909,8 +928,29 @@ done
 %find_lang kicker	--with-kde
 programs=" \
 	clock \
+	quicklauncher \
+	lockout \
+	clockapplet \
+	kminipagerapplet \
+	krunapplet \
+	ksystemtrayapplet \
+	ktaskbarapplet \
+	naughtyapplet \
+	childpanelextension \
+	dockbarextension \
+	kasbarextension \
+	taskbarextension \
+	kcmkclock \
+	kcmkicker \
 	kcmtaskbar \
-	panel"
+	panel \
+	libkicker \
+	libkickermenu_kdeprint \
+	libkickermenu_konsole \
+	libkickermenu_prefmenu \
+	libkickermenu_recentdocs \
+	libtaskbar \
+	libtaskmanager"
 
 for i in $programs; do
 	%find_lang $i --with-kde
@@ -927,7 +967,14 @@ programs="\
 	filemanager \
 	filetypes \
 	icons \
+	kcmcgi \
+	kcmcrypto \
 	kcmcss \
+	kcmicons \
+	kcmkio \
+	kcmkonq \
+	kcmkonqhtml \
+	kcmkurifilt \
 	khtml \
 	netpref \
 	proxy \
@@ -939,12 +986,36 @@ for i in $programs; do
 	cat $i.lang >> konqueror.lang
 done
 
+>common-filemanagement.lang
+programs=" \
+	kcmfileshare"
+
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> common-filemanagement.lang
+done
+
+%find_lang	kinfocenter	--with-kde
+programs=" \
+	kcminfo \
+	kcmioslaveinfo \
+	kcmnic \
+	kcmsamba \
+	kcmusb \
+	kioslave"
+
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> kinfocenter.lang
+done
+
 %find_lang	kate		--with-kde
 %find_lang	kcmkonsole	--with-kde
+%find_lang	kcmscreensaver	--with-kde
+%find_lang	kcmthemes	--with-kde
 %find_lang	kdm		--with-kde
+%find_lang	kdmconfig	--with-kde
 %find_lang	kfind		--with-kde
-%find_lang	kinfocenter	--with-kde
-%find_lang	kioslave	--with-kde
 %find_lang	klipper		--with-kde
 %find_lang	kmenuedit	--with-kde
 %find_lang	konsole		--with-kde
@@ -955,7 +1026,9 @@ done
 %find_lang	screensaver	--with-kde
 
 cat kcmkonsole.lang	>> konsole.lang
-cat kioslave.lang	>> kinfocenter.lang
+cat kcmscreensaver.lang	>> screensaver.lang
+cat kcmthemes.lang	>> kthememgr.lang
+cat kdmconfig.lang	>> kdm.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -1318,7 +1391,7 @@ fi
 %defattr(644,root,root,755)
 %{_datadir}/apps/ksplash/*
 
-%files common-filemanagement
+%files common-filemanagement -f common-filemanagement.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/filesharelist
 %attr(755,root,root) %{_bindir}/fileshareset
