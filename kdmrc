@@ -1,0 +1,45 @@
+# KDE Config File
+
+[Desktop0]
+BackgroundMode=VerticalGradient
+BlendBalance=100
+BlendMode=NoBlending
+ChangeInterval=60
+Color1=0,0,128
+Color2=0,255,255
+CurrentWallpaper=0
+LastChange=0
+MultiWallpaperMode=NoMulti
+Pattern=
+Program=
+ReverseBlending=false
+Wallpaper=
+WallpaperList=
+WallpaperMode=Tiled 
+
+[KDM]
+GreetString=Polish(ed) Linux Distribution (HOSTNAME)
+NoUsers=adm,apache,bin,bind,daemon,exim,falken,ftp,games,gdm,gopher,halt,httpd,ingres,kmem,lp,mail,mailnull,man,mta,news,nobody,nscd,operator,pop,postfix,reboot,rpc,rpcuser,sendmail,shutdown,sync,tty,uucp,xfs,xten,xdm
+ShowUsers=All
+SortUsers=true
+#ShutdownButton=All/ConsoleOnly/RootOnly/None
+ShutdownButton=ConsoleOnly
+FailFont=helvetica,10,5,0,75,0
+GreetFont=heveltica,12,5,0,75,0
+StdFont=helvetica,10,5,0,50,0
+SessionTypes=kde,gnome,failsafe,default
+GUIStyle=KDE
+LogoArea=KdmLogo
+EchoMode=OneStar
+Restart=/sbin/reboot
+Shutdown=/sbin/poweroff
+ConsoleMode=/sbin/init 3
+
+[Locale]
+Country=C
+Language=C
+
+[Lilo]
+#LiloCommand=/sbin/lilo
+#LiloMap=/boot/map
+#Lilo=false
