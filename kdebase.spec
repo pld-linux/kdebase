@@ -604,31 +604,31 @@ fi
 %attr(0755,root,root) %{_libdir}/libtaskbar.so.*.*.*
 %attr(0755,root,root) %{_libdir}/libtaskmanager.so.*.*.*
 
-%attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.la
+%{_libdir}/kde3/childpanel_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so
-%attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.la
+%{_libdir}/kde3/clock_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.la
+%{_libdir}/kde3/dockbar_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so
-%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.la
+%{_libdir}/kde3/kasbar_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so
-%attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.la
+%{_libdir}/kde3/launcher_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.la
+%{_libdir}/kde3/lockout_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.la
+%{_libdir}/kde3/minipager_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.la
+%{_libdir}/kde3/naughty_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.la
+%{_libdir}/kde3/run_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.la
+%{_libdir}/kde3/sysguard_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.la
+%{_libdir}/kde3/systemtray_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.la
+%{_libdir}/kde3/taskbar_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.la
+%{_libdir}/kde3/taskbar_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.so
 %attr(0755,root,root) %{_libdir}/kde3/i*.??
 %attr(0755,root,root) %{_libdir}/kde3/kcm_[!k]*.??
@@ -640,16 +640,16 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kickermenu_kdeprint.??
 %attr(0755,root,root) %{_libdir}/kde3/klipper_panelapplet.??
 %attr(0755,root,root) %{_libdir}/kde3/kwin*.??
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_[abcefilmptu]*.la
+%{_libdir}/kde3/libkcm_[abcefilmptu]*.la
 %attr(0755,root,root) %{_libdir}/kde3/libkcm_[abcefilmptu]*.so
-%attr(0755,root,root) %{_libdir}/kde3/libk[fsuw]*.la
+%{_libdir}/kde3/libk[fsuw]*.la
 %attr(0755,root,root) %{_libdir}/kde3/libk[fsuw]*.so
 
-%attr(0755,root,root) %{_libdir}/kde3/lib*kdeprint*.la
+%{_libdir}/kde3/lib*kdeprint*.la
 %attr(0755,root,root) %{_libdir}/kde3/lib*kdeprint*.so
-%attr(0755,root,root) %{_libdir}/kde3/libkhelp*.la
+%{_libdir}/kde3/libkhelp*.la
 %attr(0755,root,root) %{_libdir}/kde3/libkhelp*.so
-%attr(0755,root,root) %{_libdir}/kde3/gsthumbnail.la
+%{_libdir}/kde3/gsthumbnail.la
 %attr(0755,root,root) %{_libdir}/kde3/gsthumbnail.so
 %attr(0755,root,root) %{_libdir}/kde3/textthumbnail.??
 
@@ -817,7 +817,7 @@ fi
 %attr(755,root,root) %{_libdir}/libkonq*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libnsplugin.so.*.*.*
 
-%attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.la
+%{_libdir}/kde3/htmlthumbnail.la
 %attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.so
 
 %{_applnkdir}/Network/WWW/konq*.desktop
