@@ -1004,22 +1004,22 @@ cd kwin
 cd -
 %endif 
 
-%{__sed} -i -e 's/Categories=.*/Categories=Audio;Mixer;/ \
+%{__sed} -i -e 's/Categories=.*/Categories=Audio;Mixer;/' \
 	kappfinder/apps/Multimedia/alsamixergui.desktop
 
-%{__sed} -i -e 's/Categories=.*/Categories=Audio;Recorder;/ \
+%{__sed} -i -e 's/Categories=.*/Categories=Audio;Recorder;/' \
 	kappfinder/apps/Multimedia/rezound.desktop \
 	kappfinder/apps/Multimedia/sweep.desktop \
 	kappfinder/apps/Multimedia/audacity.desktop
 
-%{__sed} -i -e 's/Categories=.*/Categories=Office;PDA;/ \
+%{__sed} -i -e 's/Categories=.*/Categories=Office;PDA;/' \
 	kappfinder/apps/Utilities/xgnokii.desktop
 
-%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;TerminalEmulator;/ \
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;TerminalEmulator;/' \
 ./konsole/konsole-script.desktop \
 ./konsole/konsole.desktop
 
-%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Amusement;/ \
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Amusement;/' \
 	ksplashml/ksplash.desktop
 
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;System;Monitor;/' \
