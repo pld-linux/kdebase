@@ -330,6 +330,9 @@ for f in `find $RPM_BUILD_ROOT%{_applnkdir} -name '.directory' -o -name '*.dekst
 done
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
+mkdir konsole-doc
+cp konsole/README* konsole-doc/
+
 
 > %{name}.lang
 programs="appletproxy childpanelextension clockapplet cupsdconf desktop drkonqi extensionproxy filetypes fontinst htmlsearch kaccess kaddressbook kappfinder kasbarextension kate kcontrol kdcop kdebugdialog kdeprintfax kdesktop kdesktop_lock kdesu kdesud kfind kfindpart kfmclient kfmexec khelpcenter khotkeys kicker kjobviewer klegacyimport kless klipper klock kmcop kmenuedit kminipagerapplet knotify konsole kpager kpartapp kpersonalizer kpm kprinter kreadconfig krunapplet ksmserver ksplash kstart ksysguard ksystemtrayapplet ksystraycmd ktaskbarapplet ktip kxkb libkicker libkickermenu_kdeprint libtaskbar libtaskmanager lockout naughtyapplet nsplugin passwords ppdtranslations quicklauncher taskbarextension"
@@ -432,7 +435,7 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS README* konsole/README*
+%doc AUTHORS README* konsole-doc
 %config %{_sysconfdir}/ksysguarddrc
 %attr(0755,root,root) %{_bindir}/[ades]*
 %attr(0755,root,root) %{_bindir}/conttest
@@ -611,10 +614,13 @@ fi
 %{_pixmapsdir}/*/*/devices/*
 %{_pixmapsdir}/*/*/filesystems/*
 
-# TODO:	file /usr/share/fonts/misc/9x15.pcf.gz from install of kdebase-2.0.1-3
-# 	conflicts with file from package XFree86-fonts-4.0.1-2.
-# TODO:	there is a name conflict between cursor_large and cursor from XFree86.
+# Few docs:
+/usr/share/doc/kde/HTML/*/*/*
+
+# TODO:	file /usr/share/fonts/misc/9x15.pcf.gz from install of kdebase-3.0.3
+# 	conflicts with file from package XFree86-fonts-4.2.0.
 %{_fontdir}/misc/console8*.gz
+%{_fontdir}/misc/cursor_large*.gz
 #%{_fontdir}/misc/*.gz
 
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kscreensaver
