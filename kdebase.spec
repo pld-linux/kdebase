@@ -12,7 +12,7 @@
 #
 
 %define         _state          stable
-%define         _ver		3.1
+%define         _ver		3.1.1
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -25,7 +25,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	12
+Release:	0.1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -38,17 +38,19 @@ Source4:	kdm.Xsession
 Source6:	%{name}-kscreensaver.pam
 Source7:	%{name}-kdm.Xservers
 Source9:	%{name}-kdm_pldlogo.png
+Source10:	%{name}-kdm_pldwallpaper.png
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 Patch1:		%{name}-fix-mouse.cpp.patch
 Patch2:		%{name}-fontdir.patch
 Patch3:		%{name}-kcm_background.patch
-Patch4:		%{name}-kdm.daemon_output.patch
-Patch5:		%{name}-kdm_utmpx.patch
-Patch6:		%{name}-kdmconfig.patch
-Patch7:		%{name}-kicker.patch
-Patch8:		%{name}-konsole_all.patch
-Patch9:		%{name}-nsplugins_dirs.patch
-Patch10:	%{name}-startkde.patch
+Patch4:		%{name}-kcm_fonts.patch
+Patch5:		%{name}-kdm.daemon_output.patch
+Patch6:		%{name}-kdm_utmpx.patch
+Patch7:		%{name}-kdmconfig.patch
+Patch8:		%{name}-kicker.patch
+Patch9:		%{name}-konsole_all.patch
+Patch10:	%{name}-nsplugins_dirs.patch
+Patch11:	%{name}-startkde.patch
 %ifnarch sparc sparc64
 %{!?_without_alsa:BuildRequires: alsa-lib-devel}
 %endif
@@ -448,8 +450,7 @@ Internet Explorer.
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
-#%patch11 -p1
-#%patch12 -p1
+%patch11 -p1
 
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
@@ -486,6 +487,7 @@ install %{SOURCE3}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
 install %{SOURCE9}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldlogo.png
+install %{SOURCE10}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldwallpaper.png
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
