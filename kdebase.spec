@@ -47,8 +47,8 @@ Source12:	http://ep09.pld-linux.org/~adgor/kde/%{name}-splash-Default-PLD-0.2.ta
 Source13:	http://ep09.pld-linux.org/~adgor/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
 %if %{with i18n}
-Source14:	http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
-# Source14-md5:	30848effd6e53fb459a620a50f761b85
+Source14:	kde-i18n-%{name}-%{version}.tar.bz2
+# Source14-md5:	3f4269b3a5e2cb0a2d2abbee54d9103e
 %endif
 # Patch0:		%{name}-3.2branch.diff
 Patch1:		%{name}-fontdir.patch
