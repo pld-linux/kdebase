@@ -109,9 +109,9 @@
  
  messages:
  	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
---- kdebase-031010/kdm/kfrontend/genkdmconf.c.orig	2003-10-09 01:52:19.000000000 +0200
-+++ kdebase-031010/kdm/kfrontend/genkdmconf.c	2003-10-10 19:50:16.000000000 +0200
-@@ -65,7 +65,7 @@
+--- kdebase-031021/kdm/kfrontend/genkdmconf.c.orig	2003-10-19 23:32:58.000000000 +0200
++++ kdebase-031021/kdm/kfrontend/genkdmconf.c	2003-10-21 17:27:51.000000000 +0200
+@@ -66,7 +66,7 @@
  #define __stringify(x) #x
  #define stringify(x) __stringify(x)
  
@@ -120,7 +120,7 @@
  #define KDMDATA KDE_DATADIR "/kdm"
  
  #define RCVERMAJOR 2
-@@ -530,7 +530,7 @@
+@@ -531,7 +531,7 @@
  #endif
  
  #ifdef __linux__
@@ -129,7 +129,7 @@
  /* ###
  # define DEF_SERVER_LINES DEF_SERVER_LINE "\n" \
  			 ":1 local@tty2 reserve " XBINDIR "/X :1 vt8\n" \
-@@ -539,10 +539,8 @@
+@@ -540,10 +540,8 @@
  			 "#:4 local@tty5 reserve " XBINDIR "/X :4 vt11\n"
  */
  # define DEF_SERVER_LINES DEF_SERVER_LINE "\n" \
@@ -142,16 +142,35 @@
  #elif defined(__sun__)
  # define DEF_SERVER_LINE ":0 local@console " XBINDIR "/X"
  #elif defined(_AIX)
-@@ -801,7 +799,7 @@
+@@ -786,14 +784,15 @@
+ "esac\n"
+ "exec xmessage -center -buttons OK:0 -default OK \"Sorry, cannot execute $1. Check $DESKTOP_SESSION.desktop.\"\n";
+ 
++/* Keep in sync with bgdefaults.h & BGDialog::kdmdefaults() */
+ static const char def_background[] =
+ "[Desktop0]\n"
+-"BackgroundMode=Flat\n"
++"BackgroundMode=VerticalGradient\n"
+ "BlendBalance=100\n"
+ "BlendMode=NoBlending\n"
+ "ChangeInterval=60\n"
+-"Color1=0,0,200\n"
+-"Color2=192,192,192\n"
++"Color1=57,55,75\n"
++"Color2=66,82,143\n"
+ "CurrentWallpaper=0\n"
+ "LastChange=0\n"
+ "MinOptimizationDepth=1\n"
+@@ -802,7 +801,7 @@
  "Program=\n"
  "ReverseBlending=false\n"
  "UseSHM=false\n"
 -"Wallpaper=default_blue.jpg\n"
-+"Wallpaper=pldwallpaper.png\n"
++"Wallpaper=kdm_pld.png\n"
  "WallpaperList=\n"
  "WallpaperMode=Scaled\n";
  
-@@ -2021,18 +2019,20 @@
+@@ -2022,18 +2021,20 @@
  "# this opens a security hole: a secured display lock can be circumvented\n"
  "# (unless you use KDE's built-in screen lock). Default is false\n" },
  { "AllowRootLogin",	0, 0, 
@@ -177,7 +196,7 @@
  { "DefaultSdMode",	0, 0, 
  "# The default choice for the shutdown condition/timing.\n"
  "# \"Schedule\" - shutdown after all sessions exit (possibly at once) (Default)\n"
-@@ -2067,7 +2067,7 @@
+@@ -2068,7 +2069,7 @@
  "# it, you should \"chmod 600 kdmrc\" for obvious reasons. Default is \"\"\n" },
  { "SessionsDirs",	0, 0, 
  "# The directories containing session type definitions in .desktop format.\n"
@@ -186,7 +205,7 @@
  };
  
  static Ent entsGreeter[] = {
-@@ -2083,7 +2083,7 @@
+@@ -2084,7 +2085,7 @@
  "# \"Clock\" - a neat analog clock\n"
  "# \"None\" - nothing\n" },
  { "LogoPixmap",		0, 0, 
@@ -195,7 +214,7 @@
  { "GreeterPosFixed",	0, 0, 
  "# Normally, the greeter is centered on the screen. Use this, if you want\n"
  "# it to appear elsewhere on the screen. Default is false\n" },
-@@ -2104,13 +2104,13 @@
+@@ -2105,13 +2106,13 @@
  "# - %r -> the operating system's version\n"
  "# - %m -> the machine (hardware) type\n"
  "# - %% -> a single %\n"
@@ -212,7 +231,7 @@
  { "AntiAliasing",	0, 0,
  "# Whether the fonts shown in the greeter should be antialiased. Default is false\n" },
  { "NumLock",		0, 0,
-@@ -2147,7 +2147,7 @@
+@@ -2148,7 +2149,7 @@
  "# \"PreferUser\" - ... and the other way round\n" },
  { "FaceDir",		0, upd_facedir, 
  "# The directory containing the user images if FaceSource is not UserOnly.\n"
@@ -221,7 +240,7 @@
  { "PreselectUser",	0, 0, 
  "# Specify, if/which user should be preselected for log in.\n"
  "# Note, that enabling this feature can be considered a security hole,\n"
-@@ -2327,10 +2327,10 @@
+@@ -2328,10 +2329,10 @@
  { "SystemShell",	"/bin/bash", 0 },
  { "UserAuthDir",	"", 0 },
  { "AutoReLogin",	"true", 0 },
@@ -236,7 +255,7 @@
  { "DefaultSdMode",	"ForceNow", 0}, 
  { "InteractiveSd",	"false", 0}, 
  { "SessionsDirs",	"/etc/X11/sessions,/usr/share/xsessions", 0 },
-@@ -2374,8 +2374,8 @@
+@@ -2375,8 +2376,8 @@
  { "ServerAttempts",	"", 0 },
  { "ServerTimeout",	"", 0 },
  { "AllowShutdown",	"All", 1 },
