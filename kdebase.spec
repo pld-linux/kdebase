@@ -1,6 +1,6 @@
 %define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		8.3
+%define		_rel		9
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -386,7 +386,7 @@ fi
 %attr(0755,root,root) %{_bindir}/kde[!s]*
 %attr(0755,root,root) %{_bindir}/kdes[!u]*
 %attr(0755,root,root) %{_bindir}/kdesu
-%attr(6755,root,root) %{_bindir}/kdesud
+%attr(2755,root,nobody) %{_bindir}/kdesud
 %attr(0755,root,root) %{_bindir}/kfind
 %attr(0755,root,root) %{_bindir}/kpm
 %attr(0755,root,root) %{_bindir}/konsole
