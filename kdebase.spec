@@ -2,7 +2,10 @@
 # TODO: When GUIStyle variable in kdmrc is set to any existing kde style
 #       (including kdm "Default" style), then ColorSheme=Default doesn't
 #       appear properly.
-# 
+#       KDM logo & user pics should be stored in /etc/X11/kdm/pics
+#
+# _without_alsa - disable alsa
+#
 
 %define		_state		unstable
 %define		_kdever		kde-3.1-rc4
@@ -18,7 +21,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.1
-Release:	1
+Release:	2
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -31,16 +34,18 @@ Source4:	kdm.Xsession
 Source6:	%{name}-kscreensaver.pam
 Source7:	%{name}-kdm.Xservers
 Source8:	%{name}-kdm.findwm
+Source9:	%{name}-kdm_pldlogo.png
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 Patch1:		%{name}-fontdir.patch
 Patch2:		%{name}-glibc-2.2.2.patch
-Patch3:		%{name}-kdm.daemon_output.patch
-Patch4:		%{name}-kdmconfig.patch
-Patch5:		%{name}-kicker.patch
-Patch6:		%{name}-konsole_all.patch
-Patch7:		%{name}-nsplugins_dirs.patch
+Patch3:		%{name}-kcm_background.patch
+Patch4:		%{name}-kdm.daemon_output.patch
+Patch5:		%{name}-kdmconfig.patch
+Patch6:		%{name}-kicker.patch
+Patch7:		%{name}-konsole_all.patch
+Patch8:		%{name}-nsplugins_dirs.patch
 %ifnarch sparc sparc64
-BuildRequires:	alsa-lib-devel
+%{!?_without_alsa:BuildRequires: alsa-lib-devel}
 %endif
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
@@ -384,7 +389,6 @@ Summary(pl):	KDE Display Manager
 Group:		X11/Applications
 Requires:	%{name}-kcontrol = %{version}-%{release}
 Requires:	%{name}-pam = %{version}-%{release}
-Requires:	%{name}-wallpapers = %{version}-%{release}
 Requires:	sessreg
 Requires:	xinitrc
 Prereq:		/sbin/chkconfig
@@ -426,6 +430,7 @@ Internet Explorer.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 %build
 
@@ -440,7 +445,8 @@ export CPPFLAGS
 	--without-shadow \
 	--disable-shadow \
 	--with-xdmdir="%{_sysconfdir}/kdm" \
-	--enable-final
+	--enable-final \
+	--with%{?_without_alsa:out}-alsa
 
 %{__make}
 
@@ -448,7 +454,6 @@ export CPPFLAGS
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_applnkdir}/{Help,Network/WWW,Settings/KDE,System/Administration,Terminals} \
 	$RPM_BUILD_ROOT{/etc/{pam.d,security,rc.d/init.d},%{_libdir}/kde3/plugins/konqueror}
-install -d $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR="$RPM_BUILD_ROOT"
 
@@ -460,6 +465,7 @@ install %{SOURCE3}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
 install %{SOURCE8}	$RPM_BUILD_ROOT%{_bindir}/findwm
+install %{SOURCE9}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
