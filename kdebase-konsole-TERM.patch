@@ -1,7 +1,7 @@
-diff -urN kdebase-3.0beta2.orig/konsole/konsole/konsole.cpp kdebase-3.0beta2/konsole/konsole/konsole.cpp
---- kdebase-3.0beta2.orig/konsole/konsole/konsole.cpp	Sat Jan 26 17:04:54 2002
-+++ kdebase-3.0beta2/konsole/konsole/konsole.cpp	Sun Feb 17 21:21:29 2002
-@@ -1538,7 +1538,7 @@
+diff -urN kdebase-3.0.orig/konsole/konsole/konsole.cpp kdebase-3.0/konsole/konsole/konsole.cpp
+--- kdebase-3.0.orig/konsole/konsole/konsole.cpp	Fri Mar 22 20:39:30 2002
++++ kdebase-3.0/konsole/konsole/konsole.cpp	Thu Apr  4 19:51:27 2002
+@@ -1537,7 +1537,7 @@
  
  QString Konsole::newSession(KSimpleConfig *co, QString program, const QStrList &args, const QString &_term,const QString &_icon,const QString &_title)
  {
@@ -10,21 +10,21 @@ diff -urN kdebase-3.0beta2.orig/konsole/konsole/konsole.cpp kdebase-3.0beta2/kon
    QString icon = "openterm";
    QString key;
    QString sch = s_kconfigSchema;
-diff -urN kdebase-3.0beta2.orig/konsole/konsole/konsole_part.cpp kdebase-3.0beta2/konsole/konsole/konsole_part.cpp
---- kdebase-3.0beta2.orig/konsole/konsole/konsole_part.cpp	Sat Jan 26 17:04:54 2002
-+++ kdebase-3.0beta2/konsole/konsole/konsole_part.cpp	Sun Feb 17 21:21:29 2002
-@@ -165,7 +165,7 @@
+diff -urN kdebase-3.0.orig/konsole/konsole/konsole_part.cpp kdebase-3.0/konsole/konsole/konsole_part.cpp
+--- kdebase-3.0.orig/konsole/konsole/konsole_part.cpp	Fri Mar 22 20:39:30 2002
++++ kdebase-3.0/konsole/konsole/konsole_part.cpp	Thu Apr  4 19:51:33 2002
+@@ -163,7 +163,7 @@
+   te->setMinimumSize(150,70);    // allow resizing, cause resize in TEWidget
  
    setWidget(te);
-   // faking a KMainwindow - TESession assumes that (wrong design!)
--  se = new TESession((KMainWindow*)parentWidget,te,shell,eargs,"xterm");
-+  se = new TESession((KMainWindow*)parentWidget,te,shell,eargs,"xterm-color");
+-  se = new TESession(te,shell,eargs,"xterm");
++  se = new TESession(te,shell,eargs,"xterm-color");
    connect( se,SIGNAL(done(TESession*,int)),
             this,SLOT(doneSession(TESession*,int)) );
    connect( te,SIGNAL(configureRequest(TEWidget*,int,int,int)),
-diff -urN kdebase-3.0beta2.orig/konsole/konsole/main.cpp kdebase-3.0beta2/konsole/konsole/main.cpp
---- kdebase-3.0beta2.orig/konsole/konsole/main.cpp	Sat Jan 26 17:04:54 2002
-+++ kdebase-3.0beta2/konsole/konsole/main.cpp	Sun Feb 17 21:22:42 2002
+diff -urN kdebase-3.0.orig/konsole/konsole/main.cpp kdebase-3.0/konsole/konsole/main.cpp
+--- kdebase-3.0.orig/konsole/konsole/main.cpp	Mon Mar 18 18:46:57 2002
++++ kdebase-3.0/konsole/konsole/main.cpp	Thu Apr  4 19:51:43 2002
 @@ -36,7 +36,7 @@
     { "name <name>",  I18N_NOOP("Set window class"), 0 },
     { "ls",    I18N_NOOP("Start login shell"), 0 },
