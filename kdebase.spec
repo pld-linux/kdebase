@@ -8,9 +8,9 @@
 # * Proper descriptions
 #
 
-%define		_state		stable
+%define		_state		snapshots
 %define		_ver		3.2.0
-#%%define		_snap		040110
+%define		_snap		040128
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -22,14 +22,14 @@ Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
-Version:	%{_ver}
-Release:	0.1
+Version:	%{_ver}.%{_snap}
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
-# Source0-md5:	9d05be3ccd6cc0294d6153e5d4dfa63a
+Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}-%{_snap}.tar.bz2
+##%% Source0-md5:	9d05be3ccd6cc0294d6153e5d4dfa63a
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -63,7 +63,7 @@ Patch16:	kde-common-utmpx.patch
 Patch17:	%{name}-fileshareset.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
-BuildRequires:	arts-devel >= 1.2.0
+BuildRequires:	arts-devel >= 13:1.2.0
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -147,9 +147,9 @@ Summary(pt_BR):	Arquivos de inclusão para compilar aplicativos que usem bibliote
 Group:		X11/Development/Libraries
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kicker-libs = %{epoch}:%{version}-%{release}
-Requires:	%{name}-konqueror-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkonq = %{epoch}:%{version}-%{release}
+Requires:	%{name}-libkonqsidebarplugin = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libksgrd = %{epoch}:%{version}-%{release}
 Requires:	kdelibs-devel >= 9:%{version}
 
@@ -286,7 +286,6 @@ KDE blue-bend splashscreen.
 
 %description -n kde-splash-blue-bend -l pl
 Ekran startowy KDE blue-bend.
-
 
 %package -n kde-splashplugin-Redmond
 Summary:	ksplash plugin Redmond
@@ -591,20 +590,6 @@ KDE Menu Editor.
 %description kmenuedit -l pl
 Edytor menu KDE.
 
-%package konqueror-libs
-Summary:	konqueror shared libraries
-Summary(pl):	Biblioteki wspó³dzielone konquerora
-Group:		X11/Libraries
-Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= 9:%{version}
-Obsoletes:	konqueror < 9:3.1.92.031006
-
-%description konqueror-libs
-Shared libraries used by konqueror.
-
-%description konqueror-libs -l pl
-Biblioteki wspó³dzielone u¿ywane przez konquerora.
-
 %package konsole
 Summary:	KDE Terminal Emulator
 Summary(pl):	Emulator terminala dla KDE
@@ -760,6 +745,21 @@ Libraries containing functions used by konqueror and kicker.
 Biblioteki zawieraj±ce funkcje wykorzystywane przez konquerora i
 kickera.
 
+%package libkonqsidebarplugin
+Summary:	konqueror shared library
+Summary(pl):	Biblioteki wspó³dzielona konquerora
+Group:		X11/Libraries
+Requires(post,postun):	/sbin/ldconfig
+Requires:	kdelibs >= 9:%{version}
+Obsoletes:	konqueror < 9:3.1.92.031006
+Obsoletes:	%{name}-konqueror-libs
+
+%description libkonqsidebarplugin
+A shared library used by konqueror.
+
+%description libkonqsidebarplugin -l pl
+Biblioteka wspó³dzielona u¿ywana przez konquerora.
+
 %package libksgrd
 Summary:	ksgrd library
 Summary(pl):	Biblioteka ksgrd
@@ -832,10 +832,10 @@ Summary:	Konqueror - web browser and file manager
 Summary(pl):	Konqueror - przegl±darka WWW i zarz±dca plików
 Group:		X11/Applications
 Requires:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
-Requires:	%{name}-konqueror-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-konsole = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkickermain = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkonq = %{epoch}:%{version}-%{release}
+Requires:	%{name}-libkonqsidebarplugin = %{epoch}:%{version}-%{release}
 Requires:	%{name}-mailnews = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name}-konqueror
 Obsoletes:	%{name}-libkmultitabbar
@@ -849,7 +849,7 @@ Konqueror jest przegl±dark± WWW i zarz±dc± plików podobnym do MS
 Internet Explorer.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}-%{_snap}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -871,6 +871,9 @@ Internet Explorer.
 
 %build
 cp /usr/share/automake/config.sub admin
+
+echo "KDE_OPTIONS = nofinal" >> kdm/kfrontend/Makefile.am
+
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
@@ -1064,8 +1067,8 @@ cat kioslave.lang	>> kinfocenter.lang
 
 # apicdocs dir is independently installed
 for f in *.lang; do
-	if grep -q %{name}-apidocs $f; then
-		grep -v %{name}-apidocs $f > $f.tmp
+	if grep -q %{name}-%{_snap}-apidocs $f; then
+		grep -v %{name}-%{_snap}-apidocs $f > $f.tmp
 		mv $f.tmp $f
 	fi
 done
@@ -1144,9 +1147,6 @@ EOF
 %post	kicker-libs	-p /sbin/ldconfig
 %postun	kicker-libs	-p /sbin/ldconfig
 
-%post	konqueror-libs	-p /sbin/ldconfig
-%postun	konqueror-libs	-p /sbin/ldconfig
-
 %post	libkate		-p /sbin/ldconfig
 %postun	libkate		-p /sbin/ldconfig
 
@@ -1155,6 +1155,9 @@ EOF
 
 %post	libkonq		-p /sbin/ldconfig
 %postun	libkonq		-p /sbin/ldconfig
+
+%post	libkonqsidebarplugin	-p /sbin/ldconfig
+%postun	libkonqsidebarplugin	-p /sbin/ldconfig
 
 %post	libksgrd	-p /sbin/ldconfig
 %postun	libksgrd	-p /sbin/ldconfig
@@ -1192,7 +1195,7 @@ fi
 
 %files devel
 %defattr(644,root,root,755)
-%lang(en) %{_kdedocdir}/en/%{name}-apidocs
+%lang(en) %{_kdedocdir}/en/%{name}-%{_snap}-apidocs
 %{_includedir}/*.h
 %{_includedir}/kate
 %{_includedir}/ksgrd
@@ -1997,13 +2000,6 @@ fi
 %{_iconsdir}/*/*/apps/kmenu.png
 %{_iconsdir}/*/*/apps/kmenuedit.png
 
-%files konqueror-libs
-%defattr(644,root,root,755)
-%{_libdir}/libkonqsidebarplugin.la
-%attr(0755,root,root) %{_libdir}/libkonqsidebarplugin.so.*.*.*
-%{_libdir}/kde3/libnsplugin.la
-%attr(0755,root,root) %{_libdir}/kde3/libnsplugin.so
-
 %files konsole -f konsole_en.lang
 %defattr(644,root,root,755)
 %doc konsole/README*
@@ -2105,6 +2101,11 @@ fi
 %attr(0755,root,root) %{_libdir}/libkonq.so.*.*.*
 %{_libdir}/kde3/konq_sound.la
 %attr(0755,root,root) %{_libdir}/kde3/konq_sound.so
+
+%files libkonqsidebarplugin
+%defattr(644,root,root,755)
+%{_libdir}/libkonqsidebarplugin.la
+%attr(0755,root,root) %{_libdir}/libkonqsidebarplugin.so.*.*.*
 
 %files libksgrd
 %defattr(644,root,root,755)
@@ -2295,6 +2296,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/libkurisearchfilter.so
 %{_libdir}/kde3/liblocaldomainurifilter.la
 %attr(0755,root,root) %{_libdir}/kde3/liblocaldomainurifilter.so
+%{_libdir}/kde3/libnsplugin.la
+%attr(0755,root,root) %{_libdir}/kde3/libnsplugin.so
 %{_libdir}/kde3/sidebar_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/sidebar_panelextension.so
 %dir %{_libdir}/kde3/plugins/konqueror
