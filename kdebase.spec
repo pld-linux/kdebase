@@ -500,7 +500,6 @@ mv -f $ALD/{System/More/{konquerorsu,konsolesu}.desktop,System/Administration}
 mv -f $ALD/{System/ScreenSavers,.hidden}
 mv -f $ALD/{Utilities/More/*.desktop,Utilities}
 mv -f $ALD/{Settings/[!K]*,Settings/KDE}
-mv -f $ALD/{System/kinfocenter.desktop,Settings}
 mv -f $ALD/{Settingsmenu/*.desktop,Settings}
 
 cat > $ALD/Settings/KDE/.directory << EOF
@@ -816,7 +815,9 @@ fi
 %{_datadir}/templates
 %{_datadir}/wallpapers
 %{_applnkdir}/Home.desktop
-%{_applnkdir}/.hidden/[kms][!c]*
+%{_applnkdir}/.hidden/k[!co]*.desktop
+%{_applnkdir}/.hidden/kcmkxmlrpcd.desktop
+%{_applnkdir}/.hidden/[bcmpsv]*.desktop
 %{_applnkdir}/System/k[!o]*.desktop
 %{_applnkdir}/Utilities/k[!de]*.desktop
 %{_applnkdir}/Settings/[!K]*.desktop
@@ -1073,7 +1074,6 @@ fi
 %{_applnkdir}/.hidden/ScreenSavers
 %{_pixmapsdir}/*/*/apps/kscreensaver.png
 
-
 %files -n kdm -f kdm.lang
 %defattr(644,root,root,755)
 %dir %{_sysconfdir}/kdm
@@ -1229,7 +1229,9 @@ fi
 %{_datadir}/servicetypes/[!kt]*
 %{_datadir}/servicetypes/k[!a]*
 %{_applnkdir}/konqueror.desktop
-%{_applnkdir}/.hidden/f*
+%{_applnkdir}/.hidden/f*.desktop
+%{_applnkdir}/.hidden/kcmkonq.desktop
+%{_applnkdir}/.hidden/ko*.desktop
 %{_applnkdir}/Network/WWW/konq*.desktop
 %{_applnkdir}/Utilities/keditbookmarks.desktop
 %{_applnkdir}/Settings/KDE/Components/filetypes.desktop
