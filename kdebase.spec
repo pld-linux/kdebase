@@ -1,6 +1,9 @@
+# TODO:
+# - make separate subpackages
+
 %define		_ver		3.0.3
 #define		_sub_ver
-%define		_rel		0.1
+%define		_rel		1
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -74,9 +77,9 @@ BuildRequires:	libxml2-progs
 Prereq:		/sbin/ldconfig
 Prereq:		/usr/X11R6/bin/mkfontdir
 Requires:	applnk
-Requires:	konqueror >= %{version}
 Requires:	kdelibs >= %{version}
 Requires:	kde-splash
+Requires:	konqueror >= %{version}
 Obsoletes:	%{name}-kcontrol
 Obsoletes:	%{name}-khelpcenter
 Obsoletes:	%{name}-konsole
@@ -135,7 +138,7 @@ Summary(pl):	Pliki nag³ówkowe potrzebne do programowania
 Summary(pt_BR):	Arquivos de inclusão para compilar aplicativos que usem bibliotecas do kdebase
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}
-Requires:	qt-devel >= 3.0.3
+Requires:	qt-devel >= 3.0.5
 Requires:	kdelibs-devel >= %{version}
 
 %description devel
@@ -154,7 +157,7 @@ Summary:	Include static libraries to develop KDE applications
 Summary(pl):	Statyczne biblioteki KDE
 Summary(pt_BR):	Bibliotecas estáticas do kdebase
 Group:		X11/Development/Libraries
-Requires:	qt-devel >= 3.0.3
+Requires:	qt-devel >= 3.0.5
 Requires:	kdelibs-devel >= %{version}
 
 %description static
@@ -170,7 +173,7 @@ Bibliotecas estáticas do kdebase.
 Summary:	KDE Display Manager	
 Summary(pl):	KDE Display Manager
 Group:		X11/Applications
-Requires:	qt >= 3.0.3
+Requires:	qt >= 3.0.5
 Requires:	kdelibs >= %{version}
 Requires:	/usr/X11R6/bin/sessreg
 Prereq:		/sbin/chkconfig
@@ -189,7 +192,7 @@ Zamiennik XDM rodem z KDE.
 Summary:	Konqueror - web browser and file manager
 Summary(pl):	Konqueror - przegl±darka WWW i mened¿er plików
 Group:		X11/Applications
-Requires:	qt >= 3.0.3
+Requires:	qt >= 3.0.5
 Requires:	kdelibs >= %{version}
 Obsoletes:	kdebase-konqueror
 
@@ -205,7 +208,7 @@ Internet Explorer.
 Summary:	KDE screensavers
 Summary(pl):	Wygaszacze ekranu desktopu KDE
 Group:		X11/Applications
-Requires:	qt >= 3.0.3
+Requires:	qt >= 3.0.5
 Requires:	kdelibs >= %{version}
 Requires:	OpenGL
 
