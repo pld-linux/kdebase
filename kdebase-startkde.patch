@@ -1,11 +1,11 @@
 --- kdebase-3.1/startkde.orig	Mon Nov 25 01:45:51 2002
-+++ kdebase-3.1/startkde	Tue Nov 26 01:41:07 2002
++++ kdebase-3.1/startkde	Tue Nov 26 17:55:39 2002
 @@ -5,7 +5,7 @@
  
  # When the X server dies we get a SIGHUP from xinit. We must ignore it
  # because we still need to do some cleanup.
 -trap 'echo GOT SIGHUP' SIGHUP
-+#trap 'echo GOT SIGHUP' SIGHUP
++trap 'echo GOT HUP' HUP
  
  # Boot sequence:
  #
