@@ -66,6 +66,7 @@ Patch19:	%{name}-konsole-default-keytab.patch
 Patch20:	%{name}-kwin_shadow.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	arts-devel >= 1.2.0
+BuildRequires:	artsc-qt-devel
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -99,9 +100,6 @@ BuildRequires:	pam-devel
 %{?with_apidocs:BuildRequires:	qt-doc}
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	unsermake >= 040511
-BuildRequires:	pcre-devel
-BuildRequires:	artsc-qt-devel
-BuildRequires:	jack-audio-connector-kit-devel
 BuildConflicts: %{name}-konqueror-libs
 Conflicts:	kdelibs < 9:3.1.94.040110-1
 # TODO: sensors
