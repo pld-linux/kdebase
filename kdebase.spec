@@ -27,7 +27,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.2
+Release:	1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -1216,6 +1216,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kio_fish.so
 %{_libdir}/kde3/kio_floppy.la
 %attr(0755,root,root) %{_libdir}/kde3/kio_floppy.so
+%{_libdir}/kde3/kio_ldap.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_ldap.so
 %{_libdir}/kde3/kio_mac.la
 %attr(0755,root,root) %{_libdir}/kde3/kio_mac.so
 %{_libdir}/kde3/kio_nfs.la
@@ -1256,6 +1258,7 @@ fi
 %{_datadir}/services/fish.protocol
 %{_datadir}/services/floppy.protocol
 %{_datadir}/services/gzip.protocol
+%{_datadir}/services/ldap.protocol
 %{_datadir}/services/mac.protocol
 %{_datadir}/services/nfs.protocol
 %{_datadir}/services/print.protocol
