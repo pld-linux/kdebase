@@ -25,8 +25,8 @@ Epoch:		9
 License:	GPL
 Group:		X11/Applications
 Source0:	http://download.kde.org/%{_state}/3.3/src/%{name}-%{_ver}.tar.bz2
+# Source0-md5:	e8fc098ffb09fcc0a8fdc4446149a8e3
 #Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{version}-%{_snap}.tar.bz2
-# Source0-md5:	7ff957ba4608de5720a9b4fda6c78644
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -34,11 +34,11 @@ Source4:	%{name}-kdm.Xsession
 Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
 Source8:        %{name}-searchproviders.tar.bz2
-# Source8-md5:  c6d9045d9c99abce93232c7ab231fabb
+# Source8-md5:	c6d9045d9c99abce93232c7ab231fabb
 Source9:        %{name}-colorschemes.tar.bz2
-# Source9-md5:  3c76ae94cb5c23efafd2b93991fa4258
+# Source9-md5:	3c76ae94cb5c23efafd2b93991fa4258
 Source10:       %{name}-servicemenus.tar.bz2
-# Source10-md5: 5b113fe35bd3a46de31e451e285e86d3
+# Source10-md5:	5b113fe35bd3a46de31e451e285e86d3
 Source12:	http://ep09.pld-linux.org/~adgor/kde/%{name}-splash-Default-PLD-0.2.tar.bz2
 # Source12-md5:	24f9c6a4b711be36437639c410b400b2
 Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
