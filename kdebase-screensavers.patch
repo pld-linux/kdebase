@@ -47,3 +47,31 @@
  
  EXTRA_DIST = $(desktop_DATA)
  subdir = kscreensaver
+
+--- kdebase-3.1.1/kdesktop/lock/lockprocess.cc~	Mon Mar 31 20:27:29 2003
++++ kdebase-3.1.1/kdesktop/lock/lockprocess.cc	Mon Mar 31 23:10:55 2003
+@@ -85,22 +85,9 @@
+     mRootWidth = rootAttr.width;
+     mRootHeight = rootAttr.height;
+ 
+-    // Add non-KDE path
+     KGlobal::dirs()->addResourceType("scrsav",
+-                                    KGlobal::dirs()->kde_default("apps") +
+-                                    "System/ScreenSavers/");
+-
+-    // Add KDE specific screensaver path
+-    QString relPath="System/ScreenSavers/";
+-    KServiceGroup::Ptr servGroup = KServiceGroup::baseGroup( "screensavers" );
+-    if (servGroup)
+-    {
+-      relPath=servGroup->relPath();
+-      kdDebug(1204) << "relPath=" << relPath << endl;
+-    }
+-    KGlobal::dirs()->addResourceType("scrsav",
+-                                     KGlobal::dirs()->kde_default("apps") +
+-                                     relPath);
++                                     KGlobal::dirs()->kde_default("data") +
++                                     "kscreensaver/");
+ 
+     mLockOnce = false;
+ 
