@@ -12,6 +12,8 @@ Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/distribution/tar/generic/sr
 Source1:	%{name}-startkde.sh
 Source2:	kdm.pamd
 Source3:	kdm.init
+Source4:	kdm.Xsession
+Source5:	kdmrc
 Patch0:		%{name}-waitkdm.patch
 Patch1:		%{name}-konsole-TERM.patch
 Patch2:		%{name}-time.patch
@@ -162,7 +164,7 @@ Wygaszacze ekranu desktopu KDE.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
-%patch9 -p1
+#%patch9 -p1
 %patch10 -p1
 
 %build
@@ -197,6 +199,8 @@ install ktip/ktip.desktop		$RPM_BUILD_ROOT%{_applnkdir}/Amusements
 install %{SOURCE1}			$RPM_BUILD_ROOT%{_bindir}/startkde
 install %{SOURCE2}			$RPM_BUILD_ROOT%{_sysconfdir}/pam.d/kdm
 install %{SOURCE3}			$RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/kdm
+install %{SOURCE4}			$RPM_BUILD_ROOT%{_sysconfdir}/X11/kdm/Xsession
+install %{SOURCE5}			$RPM_BUILD_ROOT%{_datadir}/config/kdmrc
 
 # Make Control Center a subdirectory of Settings. Control Center applets can
 # not be mixed with normal programs or CC will die on startup.
