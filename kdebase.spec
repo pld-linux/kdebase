@@ -272,7 +272,7 @@ Biblioteki s³u¿±ce do zapytañ o has³o.
 Summary:	Default kicker sidebar
 Summary(pl):	Domy¶lny boczny pasek do menu KDE
 Group:		Themes
-Requires:	kdebase-desktop >= 9:3.2.90.040424-2
+Requires:	kdebase-desktop >= 9:%{version}
 Provides:	kde-kside
 
 %description -n kde-kside-default
