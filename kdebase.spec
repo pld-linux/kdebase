@@ -616,7 +616,7 @@ fi
 %{_applnkdir}/Kfind.desktop
 %{_applnkdir}/.hidden/konqfilemgr.desktop
 %{_applnkdir}/Amusements/*.desktop
-%{_applnkdir}/Editors/*.desktop
+%{_applnkdir}/Editors/k*.desktop
 %{_applnkdir}/Settings/KDE/Help
 %{_applnkdir}/Settings/KDE/Databases
 %{_applnkdir}/Settings/KDE/Information
