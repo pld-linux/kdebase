@@ -13,7 +13,7 @@
 
 %define         _state          unstable
 %define         _ver		3.1
-%define         _rcver		rc6
+%define         _rcver		rc7
 %define         _kdever		kde-%{_ver}-%{_rcver}
 
 Summary:	K Desktop Environment - core files
@@ -26,9 +26,9 @@ Summary(ru):	K Desktop Environment - базовые файлы
 Summary(uk):	K Desktop Environment - базов╕ файли
 Summary(zh_CN): KDE╨кпд
 Name:		kdebase
-Version:	%{_ver}%{_rcver}
-Release:	2
-Epoch:		7
+Version:	%{_ver}
+Release:	10
+Epoch:		8
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
@@ -52,6 +52,7 @@ Patch8:		%{name}-konsole_all.patch
 Patch9:		%{name}-nsplugins_dirs.patch
 Patch10:	%{name}-startkde.patch
 #Patch11:	%{name}-gtkrc.patch
+Patch12:	%{name}-vfolder.patch
 %ifnarch sparc sparc64
 %{!?_without_alsa:BuildRequires: alsa-lib-devel}
 %endif
@@ -449,12 +450,13 @@ Internet Explorer.
 %patch9 -p1
 %patch10 -p1
 #%patch11 -p1
+%patch12 -p1
 
 %build
 
+kde_appsdir="%{_applnkdir}"; export kde_appsdir
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
-kde_appsdir="%{_applnkdir}"; export kde_appsdir
 
 CPPFLAGS="-I%{_includedir}"
 export CPPFLAGS
