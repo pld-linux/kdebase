@@ -1,8 +1,0 @@
---- kdebase-030317/konsole/fonts/Makefile.am~	Fri Apr 28 22:08:08 2000
-+++ kdebase-030317/konsole/fonts/Makefile.am	Tue Mar 18 10:03:57 2003
-@@ -1,4 +1,4 @@
--fontdir = $(prefix)/share/fonts
-+fontdir = /usr/share/fonts/misc
- font_DATA =console8x16.pcf.gz console8x8.pcf.gz 9x15.pcf.gz
- 
- EXTRA_DIST = $(font_DATA)
