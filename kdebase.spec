@@ -57,7 +57,6 @@ Patch12:	%{name}-gtkrc.patch
 Patch13:        %{name}-kicker_nodesktop.patch
 Patch14:        %{name}-xfsreload.patch
 #
-Patch15:	%{name}-kdm_kgreeter.patch
 Patch16:	%{name}-screensavers.patch
 %{?_without_alsa:BuildConflicts:	alsa-driver-devel}
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
@@ -455,7 +454,6 @@ Internet Explorer.
 %patch12 -p1
 %patch13 -p1
 %patch14 -p1
-%patch15 -p1
 %patch16 -p1
 
 %build
