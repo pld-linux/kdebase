@@ -22,7 +22,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	5	
+Release:	5
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -821,6 +821,7 @@ Requires:	%{name}-konsole = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkickermain = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkonq = %{epoch}:%{version}-%{release}
 Requires:	%{name}-mailnews = %{epoch}:%{version}-%{release}
+%{?with_ldap:Requires:	openldap}
 Obsoletes:	%{name}-konqueror
 Obsoletes:	%{name}-libkmultitabbar
 
@@ -1291,6 +1292,7 @@ cp /usr/share/automake/config.sub admin
 	--enable-final \
 	--with-qt-libraries=%{_libdir} \
 	--with-kdm-pam=kdm \
+	%{!?with_ldap:--with-ldap=no} \
 	--with-pam=kdesktop
 
 %{__make}
