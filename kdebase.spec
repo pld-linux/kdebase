@@ -1068,12 +1068,18 @@ export UNSERMAKE=/usr/share/unsermake/unsermake
 	--with-qt-libraries=%{_libdir} \
 	%{!?with_ldap:--without-ldap}
 
+cd kwin/kcmkwin/kwinrules
+%{__make} ruleswidgetbase.h
+%{__make} ruleswidgetbase.cpp
+cd -
+
 %{__make}
 
 %{?with_apidocs:%{__make} apidox}
 
 %install
-rm -rf $RPM_BUILD_ROOT *.lang
+rm -rf $RPM_BUILD_ROOT 
+rm -rf *.lang
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
