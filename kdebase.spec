@@ -2,7 +2,7 @@ Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
 Version:	2.1
-Release:	7
+Release:	8
 Epoch:		6
 License:	GPL
 Group:		X11/Applications
@@ -163,8 +163,8 @@ Wygaszacze ekranu desktopu KDE.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
-%patch8 -p1
-#%patch9 -p1
+#%patch8 -p1
+%patch9 -p1
 %patch10 -p1
 
 %build
