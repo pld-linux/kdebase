@@ -456,10 +456,6 @@ fi
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/chooser
 %attr(0755,root,root) %{_bindir}/kdm*
-
-#%attr(0755,root,root) %{_libdir}/libKdmGreet.la
-#%attr(0755,root,root) %{_libdir}/libKdmGreet.so*
-
 %attr(0755,root,root) %{_libdir}/kde2/libkcm_kdm.la
 %attr(0755,root,root) %{_libdir}/kde2/libkcm_kdm.so*
 
