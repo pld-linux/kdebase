@@ -1,0 +1,10 @@
+--- kdebase-3.0.3/kcontrol/konsole/schemaeditor.cpp--	2002-08-24 09:07:41.000000000 +0200
++++ kdebase-3.0.3/kcontrol/konsole/schemaeditor.cpp	2002-08-24 09:08:00.000000000 +0200
+@@ -136,6 +136,7 @@ void SchemaEditor::setSchema(QString sch
+ 
+ SchemaEditor::~SchemaEditor()
+ {
++  delete spix;
+ }
+ 
+ 

@@ -1,0 +1,17 @@
+--- kdebase-3.0.3/kpersonalizer/keyecandypage.cpp--	2002-08-25 15:15:15.000000000 +0200
++++ kdebase-3.0.3/kpersonalizer/keyecandypage.cpp	2002-08-25 15:15:56.000000000 +0200
+@@ -119,6 +119,14 @@ KEyeCandyPage::KEyeCandyPage(QWidget *pa
+ }
+ 
+ KEyeCandyPage::~KEyeCandyPage(){
++  delete kwinconf;
++  delete kwineventconf;
++  delete kcmdisplayconfig;
++  delete kickerconf;
++  delete konquerorconf;
++  delete konqiconconf;
++  delete kdesktopconf;
++
+ }
+ /** enables/disables the QCheckListItems in the klv_features
+ according to the level the slider moved. */

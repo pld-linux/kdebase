@@ -1,0 +1,15 @@
+--- kdebase-3.0.3/klipper/toplevel.cpp--	2002-09-01 09:22:41.000000000 +0200
++++ kdebase-3.0.3/klipper/toplevel.cpp	2002-09-01 09:22:56.000000000 +0200
+@@ -502,10 +502,10 @@ void TopLevel::slotClearClipboard()
+ QString TopLevel::clipboardContents( bool *isSelection )
+ {
+     clip->setSelectionMode( true );
+-    QString clipContents = clip->text().stripWhiteSpace();
++    QString clipContents = clip->text();
+     if ( clipContents.isEmpty() ) {
+         clip->setSelectionMode( false );
+-        clipContents = clip->text().stripWhiteSpace();
++        clipContents = clip->text();
+     }
+ 
+     if ( isSelection )

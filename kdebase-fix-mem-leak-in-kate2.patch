@@ -1,0 +1,53 @@
+--- kdebase-3.0.3/kate/app/kateviewmanager.cpp--	2002-08-25 15:42:18.000000000 +0200
++++ kdebase-3.0.3/kate/app/kateviewmanager.cpp	2002-08-25 15:45:15.000000000 +0200
+@@ -1072,13 +1072,17 @@ void KateViewManager::saveAllDocsAtClose
+     }
+ 
+     if( !closeDocWithAllViews( v ) )
+-      return;
++      {
++	delete scfg;
++	return;
++      }
+ 
+     closeList.remove (closeList.at(0));
+     id++;
+   }
+ 
+   scfg->sync();
++  delete scfg;
+   kdDebug(13030)<<">>>> saveAllDocsAtCloseDown() DONE"<<endl;
+ }
+ 
+@@ -1126,6 +1130,7 @@ void KateViewManager::reopenDocuments(bo
+     }
+     if ( viewtofocus ) activateView( viewtofocus );
+   }
++  delete scfg;
+ 
+   kdDebug(13030)<<">>>> reopenDocuments() DONE"<<endl;
+ }
+@@ -1158,6 +1163,7 @@ void KateViewManager::saveViewSpaceConfi
+    }
+ 
+    scfg->sync();
++   delete scfg;
+    kdDebug(13030)<<">>>> saveViewSpaceConfig() DONE"<<endl;
+ }
+ 
+@@ -1216,6 +1222,7 @@ void KateViewManager::restoreViewConfig(
+    KSimpleConfig* scfg = new KSimpleConfig("katesessionrc", false);
+    // if group splitter0 does not exist, call reopenDocuments() and return
+    if ( ! scfg->hasGroup("splitter0") ) {
++     delete scfg;
+      //reopenDocuments();
+      return;
+    }
+@@ -1230,6 +1237,7 @@ void KateViewManager::restoreViewConfig(
+    KateViewSpace *vs = viewSpaceList.at( scfg->readNumEntry("activeviewspace") );
+    if ( vs ) // better be sure ;}
+      activateSpace( vs->currentView() );
++   delete scfg;
+ }
+ 
+ void KateViewManager::restoreSplitter( KSimpleConfig* config, QString group, QWidget* parent)

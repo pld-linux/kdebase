@@ -1,0 +1,12 @@
+--- kdebase-3.0.3/kcontrol/konsole/sessioneditor.cpp--	2002-08-24 09:37:39.000000000 +0200
++++ kdebase-3.0.3/kcontrol/konsole/sessioneditor.cpp	2002-08-24 09:38:33.000000000 +0200
+@@ -64,6 +64,9 @@ SessionEditor::SessionEditor(QWidget * p
+ 
+ SessionEditor::~SessionEditor()
+ {
++  keytabFilename.setAutoDelete(true);
++  schemaFilename.setAutoDelete(true);
++  sessionFilename.setAutoDelete(true);
+ }
+ 
+ void SessionEditor::loadAllKeytab()

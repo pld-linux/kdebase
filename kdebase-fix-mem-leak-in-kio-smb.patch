@@ -1,0 +1,9 @@
+--- kdebase-3.0.3/kioslave/smb/kio_smb_config.cpp--	2002-08-25 15:05:06.000000000 +0200
++++ kdebase-3.0.3/kioslave/smb/kio_smb_config.cpp	2002-08-25 15:05:22.000000000 +0200
+@@ -56,5 +56,5 @@ void SMBSlave::reparseConfiguration()
+      unsigned int num = ((a1 & 0x3F) << 10) | ((a2& 0x1F) << 5) | (a3 & 0x1F);
+      m_default_password[i] = QChar((uchar)((num - 17) ^ 173)); // restore
+   }
+-
++  delete cfg;
+ }

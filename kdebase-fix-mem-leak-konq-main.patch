@@ -1,0 +1,118 @@
+--- kdebase-3.0.3/kcontrol/konq/main.cpp--	2002-08-25 14:32:50.000000000 +0200
++++ kdebase-3.0.3/kcontrol/konq/main.cpp	2002-08-25 14:37:52.000000000 +0200
+@@ -56,22 +56,22 @@ KonqyModule::KonqyModule(QWidget *parent
+   if (qt_xdisplay())
+       konq_screen_number = DefaultScreen(qt_xdisplay());
+ 
+-  KConfig *config = new KConfig("konquerorrc", false, true);
++  m_pConfig = new KConfig("konquerorrc", false, true);
+ 
+   QVBoxLayout *layout = new QVBoxLayout(this);
+   tab = new QTabWidget(this);
+   layout->addWidget(tab);
+ 
+   QString groupName = "FMSettings";
+-  behaviour = new KBehaviourOptions(config, groupName, this);
++  behaviour = new KBehaviourOptions(m_pConfig, groupName, this);
+   tab->addTab(behaviour, i18n("&Behavior"));
+   connect(behaviour, SIGNAL(changed(bool)), this, SLOT(moduleChanged(bool)));
+ 
+-  font = new KonqFontOptions(config, groupName, false, this);
++  font = new KonqFontOptions(m_pConfig, groupName, false, this);
+   tab->addTab(font, i18n("A&ppearance"));
+   connect(font, SIGNAL(changed(bool)), this, SLOT(moduleChanged(bool)));
+ 
+-  trash = new KTrashOptions(config, "Trash", this);
++  trash = new KTrashOptions(m_pConfig, "Trash", this);
+   tab->addTab(trash, i18n("&Trash"));
+   connect(trash, SIGNAL(changed(bool)), this, SLOT(moduleChanged(bool)));
+ 
+@@ -80,6 +80,10 @@ KonqyModule::KonqyModule(QWidget *parent
+   connect(previews, SIGNAL(changed(bool)), this, SLOT(moduleChanged(bool)));
+ }
+ 
++KonqyModule::~KonqyModule()
++{
++  delete m_pConfig;
++}
+ 
+ void KonqyModule::load()
+ {
+@@ -152,17 +156,17 @@ KDesktopModule::KDesktopModule(QWidget *
+     else
+ 	configname.sprintf("kdesktop-screen-%drc", konq_screen_number);
+ 
+-  KConfig *config = new KConfig(configname, false, false);
++  m_pConfig = new KConfig(configname, false, false);
+ 
+   QVBoxLayout *layout = new QVBoxLayout(this);
+   tab = new QTabWidget(this);
+   layout->addWidget(tab);
+ 
+-  root = new KRootOptions(config, this);
++  root = new KRootOptions(m_pConfig, this);
+   tab->addTab(root, i18n("D&esktop"));
+   connect(root, SIGNAL(changed(bool)), this, SLOT(moduleChanged(bool)));
+ 
+-  font = new KonqFontOptions(config, "FMSettings", true, this);
++  font = new KonqFontOptions(m_pConfig, "FMSettings", true, this);
+   tab->addTab(font, i18n("A&ppearance"));
+   connect(font, SIGNAL(changed(bool)), this, SLOT(moduleChanged(bool)));
+ 
+@@ -177,6 +181,10 @@ KDesktopModule::KDesktopModule(QWidget *
+   //should we add Trash also here ?
+ }
+ 
++KDesktopModule::~KDesktopModule()
++{
++  delete m_pConfig;
++}
+ 
+ void KDesktopModule::load()
+ {
+--- kdebase-3.0.3/kcontrol/konq/main.h--	2002-08-25 14:33:00.000000000 +0200
++++ kdebase-3.0.3/kcontrol/konq/main.h	2002-08-25 14:38:19.000000000 +0200
+@@ -39,6 +39,7 @@ class KRootOptions;
+ class KTrashOptions;
+ class KDesktopConfig;
+ class KPreviewOptions;
++class KConfig;
+ 
+ class KonqyModule : public KCModule
+ {
+@@ -47,7 +48,7 @@ class KonqyModule : public KCModule
+ public:
+ 
+   KonqyModule(QWidget *parent, const char *name);
+-
++  ~KonqyModule();
+   void load();
+   void save();
+   void defaults();
+@@ -62,7 +63,7 @@ protected slots:
+ private:
+ 
+   QTabWidget   *tab;
+-
++  KConfig *m_pConfig;
+   KBehaviourOptions *behaviour;
+   KonqFontOptions   *font;
+   KTrashOptions  *trash;
+@@ -77,7 +78,7 @@ class KDesktopModule : public KCModule
+ public:
+ 
+   KDesktopModule(QWidget *parent, const char *name);
+-
++  ~KDesktopModule();
+   void load();
+   void save();
+   void defaults();
+@@ -97,7 +98,7 @@ protected slots:
+ private:
+ 
+   QTabWidget   *tab;
+-
++  KConfig *m_pConfig;
+   KBehaviourOptions *behaviour;
+   KonqFontOptions      *font;
+   KRootOptions      *root;

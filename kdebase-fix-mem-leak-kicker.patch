@@ -1,0 +1,11 @@
+--- kdebase-3.0.3/kicker/ui/browser_mnu.cpp--	2002-08-25 14:51:25.000000000 +0200
++++ kdebase-3.0.3/kicker/ui/browser_mnu.cpp	2002-08-25 14:51:35.000000000 +0200
+@@ -412,7 +412,7 @@ void PanelBrowserMenu::slotOpenTerminal(
+     KConfig * config = new KConfig("kdeglobals", false, true);
+     config->setGroup("General");
+     QString term = config->readEntry("TerminalApplication", "konsole");
+-
++    delete config;
+     chdir(path().local8Bit());
+ 
+     KProcess proc;

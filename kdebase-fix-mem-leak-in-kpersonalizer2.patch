@@ -1,0 +1,16 @@
+--- kdebase-3.0.3/kpersonalizer/kospage.cpp--	2002-08-25 15:19:21.000000000 +0200
++++ kdebase-3.0.3/kpersonalizer/kospage.cpp	2002-08-25 15:19:59.000000000 +0200
+@@ -54,6 +54,13 @@ KOSPage::KOSPage(QWidget *parent, const 
+ }
+ 
+ KOSPage::~KOSPage(){
++  delete cglobal;
++  delete claunch;
++  delete cwin; 
++  delete cdesktop;
++  delete ckcminput;
++  delete ckcmdisplay;
++  delete ckonqueror;
+ }
+ 
+ 

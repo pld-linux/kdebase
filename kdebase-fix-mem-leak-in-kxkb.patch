@@ -1,0 +1,53 @@
+--- kdebase-3.0.3/kxkb/extension.cpp--	2002-08-26 11:39:42.000000000 +0200
++++ kdebase-3.0.3/kxkb/extension.cpp	2002-08-26 11:40:29.000000000 +0200
+@@ -77,30 +77,34 @@ void XKBExtension::setLayout(const QStri
+   if (exe.isEmpty())
+     return;
+ 
+-  KProcess *p = new KProcess;
+-  *p << exe;
+-  *p << "-rules" << rule;
+-  *p << "-model" << model;
+-  *p << "-layout" << layout;
++  KProcess p;
++  p << exe;
++  p << "-rules" << rule;
++  p << "-model" << model;
++  p << "-layout" << layout;
+   if( variant && *variant )
+-    *p << "-variant" << variant;
++    p << "-variant" << variant;
+   if( resetOld )
+-    *p << "-option";
++    p << "-option";
+   if( !options.isEmpty() )
+-    *p << "-option" << options;
++    p << "-option" << options;
+ 
+-  p->start(KProcess::Block);
++  if (p.start(KProcess::Block) && p.normalExit() && (p.exitStatus() == 0))
++  {
+ 
+-  XkbLockGroup( dpy, XkbUseCoreKbd, group );
+-//   XkbStateRec rec;
+-//   XkbGetState( dpy, XkbUseCoreKbd, &rec );
+-//   qDebug( "keyboard state is: group: %d, lock %d", (int)rec.group, (int)rec.locked_group);
++    XkbLockGroup( dpy, XkbUseCoreKbd, group );
++    //   XkbStateRec rec;
++    //   XkbGetState( dpy, XkbUseCoreKbd, &rec );
++    //   qDebug( "keyboard state is: group: %d, lock %d", (int)rec.group, (int)rec.locked_group);
+ 
+ #if QT_VERSION < 230
+-  const char * enc = encoding.latin1();
+-  XChangeProperty( dpy, qt_xrootwin(), qt_input_encoding, XA_STRING, 8,
+-		   PropModeReplace, (unsigned char *)enc, strlen(enc) );
++    const char * enc = encoding.latin1();
++    XChangeProperty( dpy, qt_xrootwin(), qt_input_encoding, XA_STRING, 8,
++#else
++    // Avoiding 'unused variable' / 'meaningless statement' warning
++    encoding.isNull();		     
+ #endif
++  }
+ }
+ 
+ 
