@@ -24,8 +24,8 @@
          buttons << "Home.desktop";
 -        buttons << "Internet/konqbrowser.desktop";
 -        buttons << "Internet/KMail.desktop";
-+        buttons << "Network/WWW/konqbrowser.desktop";
-+        buttons << "Network/Mail/KMail.desktop";
++        buttons << "Network/konqbrowser.desktop";
++        buttons << "Network/KMail.desktop";
          buttons << "Editors/kwrite.desktop";
          buttons << "Office/kword.desktop";
 -        buttons << "Help.desktop";
@@ -42,8 +42,8 @@
  Home.desktop
 -Internet/konqbrowser.desktop
 -Internet/KMail.desktop
-+Network/WWW/konqbrowser.desktop
-+Network/Mail/KMail.desktop
++Network/konqbrowser.desktop
++Network/KMail.desktop
  Editors/kwrite.desktop
  Office/kword.desktop
 -Help.desktop
