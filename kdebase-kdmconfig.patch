@@ -1,23 +1,15 @@
---- kdebase-3.1/kcontrol/kdm/background.cpp.orig	Wed Sep 25 14:51:07 2002
-+++ kdebase-3.1/kcontrol/kdm/background.cpp	Fri Nov 22 15:45:54 2002
-@@ -40,6 +40,7 @@
- #include <ksimpleconfig.h>
- #include <kdialog.h>
- 
-+
- extern KSimpleConfig *config;
- 
- KBackground::KBackground(QWidget *parent, const char *name)
-@@ -54,7 +55,7 @@
+--- kdebase-3.1.3/kcontrol/kdm/background.cpp.orig	Wed Jul 30 14:48:56 2003
++++ kdebase-3.1.3/kcontrol/kdm/background.cpp	Wed Jul 30 14:50:03 2003
+@@ -54,7 +54,7 @@
  		" This is done by running some program (possibly xsetroot) in the script"
  		" specified in the Setup= option in kdmrc (usually Xsetup).") );
      config->setGroup( "X-*-Greeter" );
 -    m_simpleConf=new KSimpleConfig(config->readEntry( "BackgroundCfg",KDE_CONFDIR "/kdm/backgroundrc" ) );
 +    m_simpleConf=new KSimpleConfig(config->readEntry( "BackgroundCfg","/etc/X11/kdm/backgroundrc" ) );
      m_background = new Backgnd( this, m_simpleConf, false );
-     connect(m_background, SIGNAL(changed(bool)), SLOT(moduleChanged(bool)));
+     connect(m_background, SIGNAL(changed(bool)), SIGNAL(changed(bool)));
  
-@@ -111,7 +112,7 @@
+@@ -106,7 +106,7 @@
  {
      m_pCBEnable->setChecked( true );
      slotEnableChanged();
@@ -26,26 +18,26 @@
      emit changed(true);
  }
  
---- kdebase-3.1.1/kcontrol/kdm/kdm-appear.cpp~	Sun Mar  2 19:31:52 2003
-+++ kdebase-3.1.1/kcontrol/kdm/kdm-appear.cpp	Tue Mar  4 15:13:46 2003
-@@ -193,6 +193,7 @@
+--- kdebase-3.1.3/kcontrol/kdm/kdm-appear.cpp.orig	Wed Jul 30 14:50:18 2003
++++ kdebase-3.1.3/kcontrol/kdm/kdm-appear.cpp	Wed Jul 30 14:55:45 2003
+@@ -234,6 +234,7 @@
  
-   guicombo = new KComboBox(false, hlp);
-   guicombo->insertStringList(QStyleFactory::keys());
+   guicombo = new KBackedComboBox(hlp);
+   loadGuiStyles(guicombo);
 +  guicombo->insertItem("KDE");
    label = new QLabel(guicombo, i18n("GUI s&tyle:"), hlp);
    connect(guicombo, SIGNAL(activated(int)), SLOT(changed()));
    hglay->addWidget(label, 0, 0);
-@@ -318,7 +319,7 @@
+@@ -380,7 +381,7 @@
  bool KDMAppearanceWidget::setLogo(QString logo)
  {
      QString flogo = logo.isEmpty() ?
 -                    locate("data", QString::fromLatin1("kdm/pics/kdelogo.png") ) :
-+                    QString::fromLatin1("/etc/X11/kdm/pics/pldlogo.png") :
++		    QString::fromLatin1("/etc/X11/kdm/pics/pldlogo.png") :
                      logo;
      QPixmap p(flogo);
      if (p.isNull())
-@@ -335,7 +336,7 @@
+@@ -397,7 +398,7 @@
  {
      KImageIO::registerFormats();
      QString fileName = KFileDialog::getOpenFileName(
@@ -54,18 +46,18 @@
  	KImageIO::pattern());
      if (!fileName.isEmpty())
  	if (setLogo(fileName))
-@@ -392,9 +393,7 @@
+@@ -454,9 +455,7 @@
  
  	// we gotta check if it is a non-local file and make a tmp copy at the hd.
  	if(!url->isLocalFile()) {
 -	    pixurl = "file:" +
 -		     KGlobal::dirs()->resourceDirs("data").last() +
 -		     "kdm/pics/" + url->fileName();
-+	    pixurl = "file:/etc/X11/kdm/pics/" + url->fileName();
++            pixurl = "file:/etc/X11/kdm/pics/" + url->fileName();
  	    KIO::NetAccess::copy(*url, pixurl);
  	    istmp = true;
  	} else {
-@@ -449,10 +448,10 @@
+@@ -511,10 +510,10 @@
    config->setGroup("X-*-Greeter");
  
    // Read the greeting string
@@ -78,16 +70,7 @@
    if (logoArea == "Clock") {
      clockRadio->setChecked(true);
      slotAreaRadioClicked(KdmClock);
-@@ -468,7 +467,7 @@
-   setLogo( config->readEntry("LogoPixmap", ""));
- 
-   // Check the GUI type
--  guicombo->setCurrentItem (config->readEntry("GUIStyle", "Default"), true, 0);
-+  guicombo->setCurrentItem (config->readEntry("GUIStyle", "KDE"), true, 0);
- 
-   // Check the Color Scheme
-   colcombo->setCurrentItem (config->readEntry("ColorScheme", "Default"), true, 0);
-@@ -499,13 +498,13 @@
+@@ -561,9 +560,9 @@
  
  void KDMAppearanceWidget::defaults()
  {
@@ -100,13 +83,8 @@
    posCenterRadio->setChecked( true );
    slotPosRadioClicked( 0 );
    setLogo( "" );
--  guicombo->setCurrentItem (QString::fromLatin1("Default"), true, 0);
-+  guicombo->setCurrentItem (QString::fromLatin1("KDE"), true, 0);
- 
-   colcombo->setCurrentItem( QString::fromLatin1("Default"), true, 0 );
-   echocombo->setCurrentItem( 1 );
---- kdebase-3.1.1/kcontrol/kdm/kdm-font.cpp~	Sun Sep 15 23:08:39 2002
-+++ kdebase-3.1.1/kcontrol/kdm/kdm-font.cpp	Tue Mar  4 18:51:26 2003
+--- kdebase-3.1.3/kcontrol/kdm/kdm-font.cpp.orig	Wed Jul 30 14:55:54 2003
++++ kdebase-3.1.3/kcontrol/kdm/kdm-font.cpp	Wed Jul 30 14:56:26 2003
 @@ -112,8 +112,8 @@
  
  void KDMFontWidget::set_def()
@@ -118,8 +96,8 @@
    greetfont = QFont("charter", 24);
  }
  
---- kdebase-3.1/kcontrol/kdm/kdm-sess.cpp.orig	Sun Sep 15 23:08:39 2002
-+++ kdebase-3.1/kcontrol/kdm/kdm-sess.cpp	Thu Nov 21 23:18:34 2002
+--- kdebase-3.1.3/kcontrol/kdm/kdm-sess.cpp.orig	Wed Jul 30 14:56:38 2003
++++ kdebase-3.1.3/kcontrol/kdm/kdm-sess.cpp	Wed Jul 30 14:58:03 2003
 @@ -400,11 +400,6 @@
    sdlcombo->setCurrentItem(SdAll);
    sdrcombo->setCurrentItem(SdRoot);
@@ -132,8 +110,8 @@
  #if defined(__linux__) && defined(__i386__)
      lilo_check->setChecked(false);
      slotLiloCheckToggled(false);
---- kdebase-3.1/kcontrol/kdm/kdm-users.cpp.fixed	Fri Nov 29 03:55:12 2002
-+++ kdebase-3.1/kcontrol/kdm/kdm-users.cpp	Fri Nov 29 18:53:19 2002
+--- kdebase-3.1.3/kcontrol/kdm/kdm-users.cpp.orig	Wed Jul 30 14:58:12 2003
++++ kdebase-3.1.3/kcontrol/kdm/kdm-users.cpp	Wed Jul 30 14:59:05 2003
 @@ -66,7 +66,7 @@
  
      // We assume that $kde_datadir/kdm exists, but better check for pics/ and pics/users,
@@ -143,8 +121,8 @@
      m_notFirst = false;
      QDir testDir( m_userPixDir );
      if ( !testDir.exists() && !testDir.mkdir( testDir.absPath() )) {
---- kdebase-3.1/kcontrol/kdm/main.cpp.orig	Sun Oct 27 00:05:07 2002
-+++ kdebase-3.1/kcontrol/kdm/main.cpp	Thu Nov 21 02:51:19 2002
+--- kdebase-3.1.3/kcontrol/kdm/main.cpp.orig	Wed Jul 30 14:59:11 2003
++++ kdebase-3.1.3/kcontrol/kdm/main.cpp	Wed Jul 30 14:59:56 2003
 @@ -92,7 +92,7 @@
      usermap.insert( QString::fromLocal8Bit( ps->pw_name ), ps->pw_uid );
    endpwent();
@@ -154,45 +132,45 @@
  
    QVBoxLayout *top = new QVBoxLayout(this);
    tab = new QTabWidget(this);
---- kdebase-3.1/kdm/kfrontend/Makefile.am.orig	Sun Oct 27 00:05:49 2002
-+++ kdebase-3.1/kdm/kfrontend/Makefile.am	Wed Nov 20 23:26:39 2002
+--- kdebase-3.1.3/kdm/kfrontend/kdmconfig.cpp.orig	Wed Jul 30 15:03:15 2003
++++ kdebase-3.1.3/kdm/kfrontend/kdmconfig.cpp	Wed Jul 30 15:03:52 2003
+@@ -148,7 +148,7 @@
+ 
+     _logo = GetCfgQStr (C_LogoPixmap);
+     if( _logo.isEmpty())
+-	_logo = locate("data", QString::fromLatin1("kdm/pics/kdelogo.png") );
++       _logo = QString::fromLatin1("/etc/X11/kdm/pics/pldlogo.png");
+ 
+     _showUsers = GetCfgInt (C_ShowUsers);
+     _users = GetCfgQStrList (C_SelectedUsers);
+--- kdebase-3.1.3/kdm/kfrontend/Makefile.am.orig	Wed Jul 30 15:01:16 2003
++++ kdebase-3.1.3/kdm/kfrontend/Makefile.am	Wed Jul 30 15:02:10 2003
 @@ -30,8 +30,8 @@
  genkdmconf_LDADD = $(LIB_X11)
  
  install-data-local: genkdmconf
 -	@$(mkinstalldirs) $(DESTDIR)$(kde_confdir)/kdm
 -	@./genkdmconf --in $(DESTDIR)$(kde_confdir)/kdm
-+	@$(mkinstalldirs) $(DESTDIR)/etc/X11/kdm
-+	@./genkdmconf --no-old --in $(DESTDIR)/etc/X11/kdm
++       @$(mkinstalldirs) $(DESTDIR)/etc/X11/kdm
++       @./genkdmconf --no-old --in $(DESTDIR)/etc/X11/kdm
  
  messages:
  	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
---- kdebase-3.1/kdm/kfrontend/Makefile.in.orig	Mon Nov 18 22:22:07 2002
-+++ kdebase-3.1/kdm/kfrontend/Makefile.in	Wed Nov 20 23:47:04 2002
-@@ -786,8 +786,8 @@
+--- kdebase-3.1.3/kdm/kfrontend/Makefile.in.orig	Wed Jul 30 15:02:16 2003
++++ kdebase-3.1.3/kdm/kfrontend/Makefile.in	Wed Jul 30 15:03:08 2003
+@@ -982,8 +982,8 @@
  
  
  install-data-local: genkdmconf
 -	@$(mkinstalldirs) $(DESTDIR)$(kde_confdir)/kdm
 -	@./genkdmconf --in $(DESTDIR)$(kde_confdir)/kdm
-+	@$(mkinstalldirs) $(DESTDIR)/etc/X11/kdm
-+	@./genkdmconf --no-old --in $(DESTDIR)/etc/X11/kdm
++       @$(mkinstalldirs) $(DESTDIR)/etc/X11/kdm
++       @./genkdmconf --no-old --in $(DESTDIR)/etc/X11/kdm
  
  messages:
  	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
---- kdebase-3.1/kdm/kfrontend/kdmconfig.cpp.orig	Mon Oct 28 10:55:24 2002
-+++ kdebase-3.1/kdm/kfrontend/kdmconfig.cpp	Fri Nov 29 18:27:33 2002
-@@ -153,7 +153,7 @@
- 
-     _logo = GetCfgQStr (C_LogoPixmap);
-     if( _logo.isEmpty())
--	_logo = locate("data", QString::fromLatin1("kdm/pics/kdelogo.png") );
-+	_logo = QString::fromLatin1("/etc/X11/kdm/pics/pldlogo.png");
- 
-     _showUsers = GetCfgInt (C_ShowUsers);
-     _users = GetCfgQStrList (C_SelectedUsers);
---- kdebase-3.1/kdm/kfrontend/pics/Makefile.am.orig	Sun Feb 20 17:34:48 2000
-+++ kdebase-3.1/kdm/kfrontend/pics/Makefile.am	Fri Nov 29 18:38:41 2002
+--- kdebase-3.1.3/kdm/kfrontend/pics/Makefile.am.orig	Wed Jul 30 15:04:11 2003
++++ kdebase-3.1.3/kdm/kfrontend/pics/Makefile.am	Wed Jul 30 15:04:43 2003
 @@ -1,5 +1,5 @@
  
 -picsdir = $(kde_datadir)/kdm/pics
@@ -200,9 +178,9 @@
  pics_DATA = kdelogo.png kdeflower.png
  
  usersdir = $(picsdir)/users
---- kdebase-3.1/kdm/kfrontend/pics/Makefile.in.orig	Mon Nov 25 04:46:12 2002
-+++ kdebase-3.1/kdm/kfrontend/pics/Makefile.in	Fri Nov 29 18:38:16 2002
-@@ -286,7 +286,7 @@
+--- kdebase-3.1.3/kdm/kfrontend/pics/Makefile.in.orig	Wed Jul 30 15:04:50 2003
++++ kdebase-3.1.3/kdm/kfrontend/pics/Makefile.in	Wed Jul 30 15:05:11 2003
+@@ -422,7 +422,7 @@
  x_includes = @x_includes@
  x_libraries = @x_libraries@
  
@@ -211,14 +189,14 @@
  pics_DATA = kdelogo.png kdeflower.png
  
  usersdir = $(picsdir)/users
---- kdebase-3.1.2/kdm/kfrontend/genkdmconf.c.orig	2003-05-12 15:48:50.000000000 +0200
-+++ kdebase-3.1.2/kdm/kfrontend/genkdmconf.c	2003-05-16 17:15:36.000000000 +0200
+--- kdebase-3.1.3/kdm/kfrontend/genkdmconf.c.orig	Wed Jul 30 15:05:38 2003
++++ kdebase-3.1.3/kdm/kfrontend/genkdmconf.c	Wed Jul 30 15:12:57 2003
 @@ -56,7 +56,7 @@
  
  #define as(ar) ((int)(sizeof(ar)/sizeof(ar[0])))
  
 -#define KDMCONF KDE_CONFDIR "/kdm"
-+#define KDMCONF  "/etc/X11/kdm"
++#define KDMCONF "/etc/X11/kdm"
  
  #define RCVERMAJOR 2
  #define RCVERMINOR 0
@@ -269,33 +247,30 @@
  { "LogoArea",		0, upd_logoarea, 
  "# What should be shown righthand of the input lines:\n"
 -"# \"Logo\" - the image specified by LogoPixmap (Default)\n"
-+"# \"Logo\" - the image specified by LogoPixmap \n"
++"# \"Logo\" - the image specified by LogoPixmap\n"
  "# \"Clock\" - a neat analog clock\n"
 -"# \"None\" - nothing\n" },
-+"# \"None\" - nothing(Default)\n" },
++"# \"None\" - nothing (Default)\n" },
  { "LogoPixmap",		0, 0, 
 -"# The image to show when LogoArea=Logo. Default is kdelogo.png\n" },
 +"# The image to show when LogoArea=Logo. Default is pldlogo.png\n" },
  { "GreeterPosFixed",	0, 0, 
  "# Normally, the greeter is centered on the screen. Use this, if you want\n"
  "# it to appear elsewhere on the screen. Default is false\n" },
-@@ -1924,13 +1924,13 @@
+@@ -1924,11 +1924,11 @@
  "# - %r -> the operating system's version\n"
  "# - %m -> the machine (hardware) type\n"
  "# - %% -> a single %\n"
 -"# Default is \"Welcome to %s at %n\"\n" },
-+"# Default is \"Welcome to PLD Linux at %n\"\n" },
++"# Default is \"Welcome to PLD Linux at %s at %n\"\n" },
  { "GreetFont",		0, 0, 
  "# The font for the headline. Default is charter,24,bold\n" },
  { "StdFont",		0, 0, 
 -"# The normal font used in the greeter. Default is helvetica,12\n" },
 +"# The normal font used in the greeter. Default is helvetica,11\n" },
  { "FailFont",		0, 0, 
--"# The font used for the \"Login Failed\" message. Default is helvetica,12,bold\n" },
-+"# The font used for the \"Login Failed\" message. Default is helvetica,11,bold\n" },
+ "# The font used for the \"Login Failed\" message. Default is helvetica,12,bold\n" },
  { "AntiAliasing",	0, 0,
- "# Whether the fonts shown in the greeter should be antialiased. Default is false\n" },
- { "NumLock",		0, 0,
 @@ -2120,10 +2120,10 @@
  { "UserAuthDir",	"", 0 },
  { "Chooser",		"", 0 },	/* XXX kill */
@@ -304,10 +279,10 @@
 -{ "AllowNullPasswd",	"false", 1 },
 -{ "AllowShutdown",	"Root", 1 },
 -{ "AllowSdForceNow",	"Root", 0 },
-+{ "AllowRootLogin",	"true", 0 },
-+{ "AllowNullPasswd",	"true", 0 },
-+{ "AllowShutdown",	"All", 0 },
-+{ "AllowSdForceNow",	"All", 0 },
++{ "AllowRootLogin",    "true", 0 },
++{ "AllowNullPasswd",   "true", 0 },
++{ "AllowShutdown",     "All", 0 },
++{ "AllowSdForceNow",   "All", 0 },
  { "DefaultSdMode",	"ForceNow", 0}, 
  { "InteractiveSd",	"false", 0}, 
  { "SessSaveFile",	"", 0 },	/* XXX .dmrc */
@@ -316,7 +291,7 @@
  { "GUIStyle",		"Windows", 0 },
  { "ColorScheme",	"Pumpkin", 0 },
 -{ "LogoArea",		"None", 0 },
-+{ "LogoArea",		"Logo", 0 },
++{ "LogoArea",          "Logo", 0 },
  { "LogoPixmap",		"", 0 },
  { "GreeterPosFixed",	"true", 0 },
  { "GreeterPosX",	"200", 0 },
@@ -326,19 +301,19 @@
  { "AllowShutdown",	"All", 1 },
 -{ "AllowRootLogin",	"true", 1 },
 -{ "AllowNullPasswd",	"true", 1 },
-+{ "AllowRootLogin",	"true", 0 },
-+{ "AllowNullPasswd",	"true", 0 },
++{ "AllowRootLogin",    "true", 0 },
++{ "AllowNullPasswd",   "true", 0 },
  { "NoPassEnable",	"true", 0 },
  { "NoPassUsers",	"fred,ethel", 0 },
  };
---- kdebase-3.1.2/kdm/kfrontend/kdm_config.c.orig	2003-05-12 15:48:50.000000000 +0200
-+++ kdebase-3.1.2/kdm/kfrontend/kdm_config.c	2003-05-16 17:20:42.000000000 +0200
+--- kdebase-3.1.3/kdm/kfrontend/kdm_config.c.orig	Wed Jul 30 15:13:07 2003
++++ kdebase-3.1.3/kdm/kfrontend/kdm_config.c	Wed Jul 30 15:15:25 2003
 @@ -38,7 +38,7 @@
  #include <netdb.h>
  #include <grp.h>
  
 -#define KDMCONF KDE_CONFDIR "/kdm"
-+#define KDMCONF "/etc/X11/kdm"
++#define KDMCONF KDE_CONFDIR "/etc/X11/kdm"
  
  
  /*
@@ -351,11 +326,11 @@
 -{ "SessSaveFile",	C_sessSaveFile,		0,	".wmrc" },
 -{ "AllowShutdown",	C_allowShutdown | C_ENUM, sd_who, "All" },
 -{ "AllowSdForceNow",	C_allowNuke | C_ENUM, sd_who,	"All" },
-+{ "AllowNullPasswd",	C_allowNullPasswd | C_BOOL, 0,	"false" },
-+{ "AllowRootLogin",	C_allowRootLogin | C_BOOL, 0,	"false" },
-+{ "SessSaveFile",	C_sessSaveFile,		0,	".kdmrc" },
-+{ "AllowShutdown",	C_allowShutdown | C_ENUM, sd_who, "Root" },
-+{ "AllowSdForceNow",	C_allowNuke | C_ENUM, sd_who,	"Root" },
++{ "AllowNullPasswd",   C_allowNullPasswd | C_BOOL, 0,  "false" },
++{ "AllowRootLogin",    C_allowRootLogin | C_BOOL, 0,   "false" },
++{ "SessSaveFile",      C_sessSaveFile,         0,      ".kdmrc" },
++{ "AllowShutdown",     C_allowShutdown | C_ENUM, sd_who, "Root" },
++{ "AllowSdForceNow",   C_allowNuke | C_ENUM, sd_who,   "Root" },
  { "DefaultSdMode",	C_defSdMode | C_ENUM, sd_mode,	"Schedule" },
  { "InteractiveSd",	C_interactiveSd | C_BOOL, 0,	"true" },
  };
