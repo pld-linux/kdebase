@@ -4,7 +4,7 @@ Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Summary(pt_BR):	K Desktop Environment - arquivos básicos
 Name:		kdebase
 Version:	2.2.2
-Release:	9
+Release:	10
 Epoch:		6
 License:	GPL
 Group:		X11/Applications
@@ -514,7 +514,7 @@ fi
 %{_applnkdir}/KControl.desktop
 %{_applnkdir}/.hidden/konqfilemgr.desktop
 %{_applnkdir}/Amusements/*.desktop
-%dir %{_applnkdir}/Settings
+%dir %{_applnkdir}/Settings/KDE
 %{_applnkdir}/Settings/KDE/Help
 %{_applnkdir}/Settings/KDE/Databases
 %{_applnkdir}/Settings/KDE/Information
@@ -652,7 +652,6 @@ fi
 %{_applnkdir}/Network/WWW/konq*.desktop
 %{_applnkdir}/Network/WWW/keditbookmarks.desktop
 %{_applnkdir}/System/konq*.desktop
-%dir %{_applnkdir}/Settings/KDE
 %{_applnkdir}/Settings/KDE/.directory
 %{_applnkdir}/Settings/KDE/FileBrowsing
 %{_applnkdir}/Settings/KDE/WebBrowsing
