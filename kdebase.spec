@@ -295,8 +295,8 @@ fi
 
 %attr(0755,root,root) %{_libdir}/[ae]*.la
 %attr(0755,root,root) %{_libdir}/[ae]*.so*
-%attr(0755,root,root) %{_libdir}/k[dfhilmwx]*.la
-%attr(0755,root,root) %{_libdir}/k[dfhilmwx]*.so*
+%attr(0755,root,root) %{_libdir}/k[dhilmwx]*.la
+%attr(0755,root,root) %{_libdir}/k[dhilmwx]*.so*
 %attr(0755,root,root) %{_libdir}/kcminit.??
 %attr(0755,root,root) %{_libdir}/kcontrol.??
 %attr(0755,root,root) %{_libdir}/konsole.la
@@ -442,6 +442,7 @@ fi
 %attr(0755,root,root) %{_libdir}/keditbookmarks.la
 %attr(0755,root,root) %{_libdir}/keditbookmarks.so
 %attr(0755,root,root) %{_libdir}/kcmshell.??
+%attr(0755,root,root) %{_libdir}/kfm*.??
 %attr(0755,root,root) %{_libdir}/konqueror.la
 %attr(0755,root,root) %{_libdir}/konqueror.so*
 %attr(0755,root,root) %{_libdir}/libhtmlsearch.la
