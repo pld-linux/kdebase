@@ -1,10 +1,10 @@
---- kdebase-3.1.1/kcontrol/background/backgnd.cpp~	Tue Jan 14 00:38:06 2003
-+++ kdebase-3.1.1/kcontrol/background/backgnd.cpp	Tue Mar  4 11:08:51 2003
-@@ -626,6 +626,33 @@
+--- kdebase-030317/kcontrol/background/bgdialog.cpp~	Mon Mar 10 00:42:45 2003
++++ kdebase-030317/kcontrol/background/bgdialog.cpp	Tue Mar 18 18:11:54 2003
+@@ -238,6 +238,32 @@
+    emit changed(true);
  }
  
- 
-+void Backgnd::kdmdefaults()
++void BGDialog::kdmdefaults()
 +{
 +    m_pGlobals->setCommonBackground(_defCommon);
 +    m_pGlobals->setLimitCache(_defLimitCache);
@@ -30,19 +30,40 @@
 +    emit changed(true);
 +}
 +
-+
- void Backgnd::slotSelectDesk(int desk)
+ QString BGDialog::quickHelp() const
  {
-     if (desk == m_Desk)
---- kdebase-3.1/kcontrol/background/backgnd.h.orig	Sun Oct 27 00:04:51 2002
-+++ kdebase-3.1/kcontrol/background/backgnd.h	Fri Nov 22 15:40:37 2002
-@@ -74,7 +74,8 @@
+    return i18n("<h1>Background</h1> This module allows you to control the"
+--- kdebase-030317/kcontrol/background/bgdialog.h~	Thu Feb  6 00:35:39 2003
++++ kdebase-030317/kcontrol/background/bgdialog.h	Tue Mar 18 18:12:35 2003
+@@ -41,6 +41,7 @@
+    void load();
+    void save();
+    void defaults();
++   void kdmdefaults();
+ 
+    void makeReadOnly();
+                
+--- kdebase-030317/kcontrol/background/main.cpp~	Sat Jan 25 00:35:46 2003
++++ kdebase-030317/kcontrol/background/main.cpp	Tue Mar 18 18:13:25 2003
+@@ -100,6 +100,11 @@
+     m_base->defaults();
+ }
+ 
++void KBackground::kdmdefaults()
++{
++    m_base->kdmdefaults();
++}
++
+ void KBackground::slotChildChanged(bool different)
+ {
+    emit changed(different);
+--- kdebase-030317/kcontrol/background/main.h~	Sat Jan 25 00:35:46 2003
++++ kdebase-030317/kcontrol/background/main.h	Tue Mar 18 18:00:49 2003
+@@ -31,6 +31,7 @@
      virtual void load();
      virtual void save();
      virtual void defaults();
--
 +    virtual void kdmdefaults();
-+    
-     QString quickHelp() const;
-     void makeReadOnly();
  
+     QString quickHelp() const;
+     const KAboutData* aboutData() const;
