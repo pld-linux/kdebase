@@ -3,10 +3,10 @@
 %bcond_without	apidocs	# prepare API documentation
 %bcond_without	ldap	# build or not ldap ioslave
 %bcond_with	kwin_shadow	# experimental support for kwin shadows
-
+%bcond_with	cvs		# use cvs checkouts instead of tarballs
 %define		_state		snapshots
-%define		_ver		3.2.90
-%define		_snap		040519
+%define		_ver		3.2.91
+%define		_snap		040523
 %define		_packager	adgor
 
 %define		_minlibsevr	9:3.2.90.030519
@@ -26,10 +26,12 @@ Release:	3
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
-#Source0:	%{name}-%{_snap}.tar.bz2
-##%% Source0-md5:	f2daddee7c19b9ae8a267d6a385ce1a1
+%if ! %{with cvs}
+Source0:        ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
+# Source0-md5:  53b213398dc488af5de57b74c6b3bbf5
+%else
+Source0:        kdesource.tar.gz
+%endif
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -860,7 +862,11 @@ Konqueror shared libraries.
 Biblioteki wspó³dzielone konquerora.
 
 %prep
+%if %{with cvs}
+%setup -q -n %{name} -D
+%else
 %setup -q -n %{name}-%{_snap}
+%endif
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -2379,6 +2385,7 @@ fi
 %{_datadir}/apps/konqueror/tiles
 %{_datadir}/apps/konqueror/konqueror.rc
 %{_datadir}/apps/konqueror/konq-simplebrowser.rc
+%{_datadir}/mimelnk/application/x-smb-server.desktop
 # TODO
 %dir %{_datadir}/apps/plugin
 %{_datadir}/apps/plugin/nspluginpart.rc
