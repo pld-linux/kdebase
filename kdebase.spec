@@ -826,11 +826,8 @@ Zamiennik XDM rodem z KDE. Zarz±dza lokalnymi i zdalnymi ekranami X11.
 Summary:	Konqueror - web browser and file manager
 Summary(pl):	Konqueror - przegl±darka WWW i zarz±dca plików
 Group:		X11/Applications
-Requires:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
-Requires:	%{name}-konsole = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkickermain = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkonq = %{epoch}:%{version}-%{release}
-Requires:	%{name}-mailnews = %{epoch}:%{version}-%{release}
 %{?with_ldap:Requires:	openldap-libs}
 Obsoletes:	%{name}-konqueror
 Obsoletes:	%{name}-libkmultitabbar
