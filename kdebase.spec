@@ -646,7 +646,7 @@ fi
 %attr(0755,root,root) %{_bindir}/[ades]*
 %attr(0755,root,root) %{_bindir}/k[jtx]*
 %attr(0755,root,root) %{_bindir}/ka[!t]*
-%attr(0755,root,root) %{_bindir}/kcheckpass
+%attr(4755,root,root) %{_bindir}/kcheckpass
 %attr(0755,root,root) %{_bindir}/kdc*
 %attr(0755,root,root) %{_bindir}/kde[!ps]*
 %attr(0755,root,root) %{_bindir}/kdes[!u]*
