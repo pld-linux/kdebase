@@ -6,10 +6,10 @@
 %bcond_with	cvs		# use cvs checkouts instead of tarballs
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040524
+%define		_snap		040601
 %define		_packager	adgor
 
-%define		_minlibsevr	9:3.2.90.030524
+%define		_minlibsevr	9:3.2.90.030601
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -51,29 +51,27 @@ Source12:	http://ep09.pld-linux.org/~adgor/kde/%{name}-splash-Default-PLD-0.2.ta
 # Source12-md5:	24f9c6a4b711be36437639c410b400b2
 Source13:	http://ep09.pld-linux.org/~adgor/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
-Patch0:		%{name}-fontdir.patch
-Patch1:		%{name}-kcm_background.patch
-Patch2:		%{name}-kdm_utmpx.patch
-Patch3:		%{name}-kdmconfig.patch
-Patch4:		%{name}-kicker.patch
-Patch5:		%{name}-konsole_all.patch
-Patch6:		%{name}-nsplugins_dirs.patch
-Patch7:		%{name}-startkde.patch
-Patch8:		%{name}-kcm_fonts.patch
-Patch9:		%{name}-kdesukonsole.patch
-Patch10:	%{name}-vcategories.patch
-Patch11:	%{name}-screensavers.patch
-Patch12:	%{name}-prefmenu.patch
-Patch13:	%{name}-session.patch
-Patch14:	%{name}-bgdefaults.patch
-Patch15:	%{name}-vmenus.patch
-Patch16:	kde-common-utmpx.patch
-Patch17:	%{name}-fileshareset.patch
-Patch18:	%{name}-sasl-includes.patch
-Patch19:	%{name}-kio_settings.patch
-Patch20:	kde-common-QTDOCDIR.patch
-Patch21:	%{name}-konsole-default-keytab.patch
-Patch22:	%{name}-kwin_shadow.patch
+Patch0:		kde-common-PLD.patch
+Patch1:		%{name}-fontdir.patch
+Patch2:		%{name}-kcm_background.patch
+Patch3:		%{name}-kdm_utmpx.patch
+Patch4:		%{name}-kdmconfig.patch
+Patch5:		%{name}-kicker.patch
+Patch6:		%{name}-konsole_all.patch
+Patch7:		%{name}-nsplugins_dirs.patch
+Patch8:		%{name}-startkde.patch
+Patch9:		%{name}-kcm_fonts.patch
+Patch10:	%{name}-kdesukonsole.patch
+Patch11:	%{name}-vcategories.patch
+Patch12:	%{name}-screensavers.patch
+Patch13:	%{name}-prefmenu.patch
+Patch14:	%{name}-session.patch
+Patch15:	%{name}-bgdefaults.patch
+Patch16:	%{name}-vmenus.patch
+Patch17:	%{name}-sasl-includes.patch
+Patch18:	%{name}-kio_settings.patch
+Patch19:	%{name}-konsole-default-keytab.patch
+Patch20:	%{name}-kwin_shadow.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	arts-devel >= 1.2.0
 BuildRequires:	audiofile-devel
@@ -872,8 +870,8 @@ Biblioteki wspó³dzielone konquerora.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-#%patch4 -p1
-%patch5 -p1
+%patch4 -p1
+#%patch5 -p1
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
@@ -885,15 +883,12 @@ Biblioteki wspó³dzielone konquerora.
 %patch14 -p1
 %patch15 -p1
 %patch16 -p1
-%patch17 -p1
 %patch18 -p1
 %patch19 -p1
-%patch20 -p1
-%patch21 -p1
 
 %if %{with kwin_shadow}
 cd kwin
-%patch22 -p0 -b .shadows
+%patch20 -p0 -b .shadows
 cd -
 %endif 
 
@@ -923,8 +918,7 @@ export UNSERMAKE=/usr/share/unsermake/unsermake
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	kde_htmldir=%{_kdedocdir}
+	DESTDIR=$RPM_BUILD_ROOT
 
 install -d \
 	$RPM_BUILD_ROOT/etc/{X11/kdm/faces,pam.d,rc.d/init.d,security} \
@@ -949,9 +943,6 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts
 # Needed for pam support
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
-# For fileshare
-touch $RPM_BUILD_ROOT/etc/security/fileshare.conf
-
 # Copying default faces to kdm config dir
 cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/default1.png \
 	$RPM_BUILD_ROOT/etc/X11/kdm/faces/.default.face.icon
@@ -973,7 +964,7 @@ cd -
 
 # konqueror/dirtree no longer supported
 mv $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop \
-	$RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/services
+	$RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/remote
 
 # Some desktop appearance defaults
 cat > $RPM_BUILD_ROOT%{_datadir}/config/kdesktoprc << EOF
@@ -1099,25 +1090,6 @@ sed -i 's/.*apidocs.*//' *.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%post common-filemanagement
-cat << EOF
-
- *********************************************************
- *                                                       *
- * NOTE:                                                 *
- * If You want the directories sharing from the context  *
- * menu functionality, do as following:                  *
- * 1) Install sperl package,                             *
- * 2) Set SUID for fileshareset script.                  *
- *                                                       *
- * WARNING:                                              *
- * 1) That allows users to write to /etc/samba/smb.conf, *
- * 2) After all - using sperl is not safe.               * 
- *                                                       *
- *********************************************************
-
-EOF
 
 %post common-konsole
 /usr/bin/fontpostinst misc
@@ -1323,19 +1295,12 @@ fi
 
 %files common-filemanagement
 %defattr(644,root,root,755)
-%ghost /etc/security/fileshare.conf
-%attr(0755,root,root) %{_bindir}/filesharelist
-%attr(0755,root,root) %{_bindir}/fileshareset
-%{_libdir}/kde3/kcm_fileshare.la
-%attr(0755,root,root) %{_libdir}/kde3/kcm_fileshare.so
 %{_libdir}/kde3/djvuthumbnail.la
 %attr(0755,root,root) %{_libdir}/kde3/djvuthumbnail.so
 %{_libdir}/kde3/kio_thumbnail.la
 %attr(0755,root,root) %{_libdir}/kde3/kio_thumbnail.so
 %{_libdir}/kde3/fontthumbnail.la
 %attr(0755,root,root) %{_libdir}/kde3/fontthumbnail.so
-#%{_libdir}/kde3/gsthumbnail.la
-#%attr(0755,root,root) %{_libdir}/kde3/gsthumbnail.so
 %{_libdir}/kde3/htmlthumbnail.la
 %attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.so
 %{_libdir}/kde3/imagethumbnail.la
@@ -1348,7 +1313,6 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/textthumbnail.so
 %{_datadir}/services/djvuthumbnail.desktop
 %{_datadir}/services/fontthumbnail.desktop
-#%{_datadir}/services/gsthumbnail.desktop
 %{_datadir}/services/htmlthumbnail.desktop
 %{_datadir}/services/imagethumbnail.desktop
 %{_datadir}/services/konsolepart.desktop
@@ -1357,7 +1321,6 @@ fi
 %{_datadir}/services/thumbnail.protocol
 %{_datadir}/servicetypes/terminalemulator.desktop
 %{_datadir}/servicetypes/thumbcreator.desktop
-%{_desktopdir}/kde/fileshare.desktop
 
 %files common-konsole
 %defattr(644,root,root,755)
@@ -1512,7 +1475,6 @@ fi
 %attr(0755,root,root) %{_bindir}/ktip
 %attr(0755,root,root) %{_bindir}/kwebdesktop
 %attr(0755,root,root) %{_bindir}/kwin
-#%attr(0755,root,root) %{_bindir}/kwin_dialog_helper
 %attr(0755,root,root) %{_bindir}/kxkb
 %attr(0755,root,root) %{_bindir}/startkde
 %attr(0755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
@@ -1546,10 +1508,10 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_componentchooser.so
 %{_libdir}/kde3/kcm_display.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_display.so
-#%{_libdir}/kde3/kcm_email.la
-#%attr(0755,root,root) %{_libdir}/kde3/kcm_email.so
 %{_libdir}/kde3/kcm_energy.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_energy.so
+#%{_libdir}/kde3/kcm_fileshare.la
+#%attr(0755,root,root) %{_libdir}/kde3/kcm_fileshare.so
 %{_libdir}/kde3/kcm_input.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_input.so
 %{_libdir}/kde3/kcm_keyboard.la
@@ -1690,6 +1652,7 @@ fi
 %{_desktopdir}/kde/desktopbehavior.desktop
 %{_desktopdir}/kde/desktoppath.desktop
 %{_desktopdir}/kde/display.desktop
+#%{_desktopdir}/kde/fileshare.desktop
 %{_desktopdir}/kde/kcmaccess.desktop
 %{_desktopdir}/kde/kcmlaunch.desktop
 %{_desktopdir}/kde/kcmsmserver.desktop
@@ -1908,6 +1871,12 @@ fi
 %{_desktopdir}/kde/kmenuedit.desktop
 %{_iconsdir}/*/*/apps/kmenu.png
 %{_iconsdir}/*/*/apps/kmenuedit.png
+# thememgr is back?
+%attr(0755,root,root) %{_bindir}/kdeinstallktheme
+%{_libdir}/kde3/kcm_kthememanager.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_kthememanager.so
+%{_datadir}/mimelnk/application/x-ktheme.desktop
+%{_desktopdir}/kde/kthememanager.desktop
 
 %files desktop-libs
 %defattr(644,root,root,755)
@@ -2089,7 +2058,6 @@ fi
 %{_datadir}/applnk/.hidden/kcmkonsole.desktop
 %{_desktopdir}/kde/konsole*.desktop
 %{_iconsdir}/*/*/apps/konsole.png
-# TODO
 
 %files kpager -f kpager.lang
 %defattr(644,root,root,755)
@@ -2116,20 +2084,6 @@ fi
 %{_datadir}/mimelnk/application/x-ksysguard.desktop
 %{_desktopdir}/kde/ksysguard.desktop
 %{_iconsdir}/*/*/apps/ksysguard.png
-
-
-#%files kwmtheme -f kthememgr.lang
-#%defattr(644,root,root,755)
-#%attr(0755,root,root) %{_bindir}/kdeinstallktheme
-#%attr(0755,root,root) %{_bindir}/kwmtheme
-#%{_libdir}/kde3/kcm_themes.la
-#%attr(0755,root,root) %{_libdir}/kde3/kcm_themes.so
-#%{_libdir}/kde3/kwin_kwmtheme.la
-#%attr(0755,root,root) %{_libdir}/kde3/kwin_kwmtheme.so
-#%{_datadir}/apps/kthememgr
-#%{_datadir}/mimelnk/application/x-ktheme.desktop
-#%{_desktopdir}/kde/kthememgr.desktop
-#%{_iconsdir}/*/*/apps/kthememgr.png
 
 %files kwrite -f kwrite.lang
 %defattr(644,root,root,755)
