@@ -1,8 +1,9 @@
---- ./kdm/server.c.orig	Wed Mar 24 21:50:03 1999
-+++ ./kdm/server.c	Thu Mar 25 00:42:57 1999
-@@ -89,6 +90,11 @@
+diff -urN kdebase-2.2beta1.orig/kdm/backend/server.c kdebase-2.2beta1/kdm/backend/server.c
+--- kdebase-2.2beta1.orig/kdm/backend/server.c	Tue Jun 12 21:07:31 2001
++++ kdebase-2.2beta1/kdm/backend/server.c	Tue Jul 10 14:36:25 2001
+@@ -81,6 +81,11 @@
+     char	**argv;
      char	arg[1024];
-     char	**parseArgs ();
      int		pid;
 +    int         result = TRUE;
 +    int         i;
@@ -12,10 +13,10 @@
  
      Debug ("StartServer for %s\n", d->name);
      receivedUsr1 = 0;
-@@ -129,8 +135,44 @@
-     Debug ("Server Started %d\n", pid);
+@@ -121,8 +126,44 @@
+     Debug ("Server forked, pid %d\n", pid);
      d->serverPid = pid;
-     if (serverPause ((unsigned) d->openDelay, pid))
+     if (serverPause ((unsigned) d->serverTimeout, pid))
 -	return FALSE;
 -    return TRUE;
 +	result = FALSE;
@@ -58,4 +59,4 @@
 +    return result;
  }
  
- int StartServer (d)
+ int

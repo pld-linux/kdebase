@@ -1,5 +1,6 @@
---- kdebase/kdesktop/desktop.cc.arrange	Fri Feb  9 10:33:10 2001
-+++ kdebase/kdesktop/desktop.cc	Wed Feb 14 12:27:25 2001
+diff -urN kdebase-2.2beta1.orig/kdesktop/desktop.cc kdebase-2.2beta1/kdesktop/desktop.cc
+--- kdebase-2.2beta1.orig/kdesktop/desktop.cc	Sun Jun 10 23:37:39 2001
++++ kdebase-2.2beta1/kdesktop/desktop.cc	Tue Jul 10 15:01:50 2001
 @@ -23,6 +23,7 @@
  #include <sys/stat.h>
  #include <time.h>
@@ -16,15 +17,7 @@
  #include <qrect.h>
  #include <qdir.h>
  
-@@ -95,7 +97,6 @@
- 
-     DCOPObject( "KDesktopIface" )
- {
--
-   m_bAutoStart = auto_start;
-   m_bWaitForKded = wait_for_kded;
-   KGlobal::locale()->insertCatalogue("kdesktop");
-@@ -125,6 +126,9 @@
+@@ -126,6 +128,9 @@
             this, SLOT(slotClipboardDataChanged()) );
  
    setURL( desktopURL() ); // sets m_url and m_dotDirectoryPath
@@ -34,15 +27,7 @@
    assert( !m_url.isMalformed() );
  
    // Dont repaint on configuration changes during construction
-@@ -302,7 +306,6 @@
-    }
- 
-   connect(kapp, SIGNAL(appearanceChanged()), SLOT(slotConfigure()));
--
- }
- 
- // -----------------------------------------------------------------------------
-@@ -806,6 +809,12 @@
+@@ -865,6 +870,12 @@
      }
  
      kdDebug() << "KDesktop::slotCompleted " << m_bNeedSave << " " << m_bNeedRepaint << endl;
@@ -55,15 +40,16 @@
      if ( m_bNeedSave )
          slotSaveIconPositions();
      if ( m_bNeedRepaint )
---- kdebase/kdesktop/desktop.h.arrange	Fri Feb  9 10:33:10 2001
-+++ kdebase/kdesktop/desktop.h	Wed Feb 14 12:04:21 2001
-@@ -249,6 +249,9 @@
-   QString m_language;
- 
-   QStringList m_preview;
+diff -urN kdebase-2.2beta1.orig/kdesktop/desktop.h kdebase-2.2beta1/kdesktop/desktop.h
+--- kdebase-2.2beta1.orig/kdesktop/desktop.h	Sun Jun 10 23:37:39 2001
++++ kdebase-2.2beta1/kdesktop/desktop.h	Tue Jul 10 15:05:41 2001
+@@ -270,6 +270,9 @@
+   QStringList itemsAlwaysFirst;
+   bool set_vroot;
+   StartupId* startup_id;
 +
 +private:
-+  bool need_arrange;
++   bool need_arrange;
  };
  
  #endif
