@@ -848,16 +848,9 @@ fi
 %{_datadir}/templates
 %{_datadir}/wallpapers
 %{_applnkdir}/Home.desktop
-%{_applnkdir}/.hidden/k[!cio]*
-%{_applnkdir}/.hidden/[ms]*
-# compat
-%{_applnkdir}/.hidden/battery.desktop
-%{_applnkdir}/.hidden/bwarning.desktop
-%{_applnkdir}/.hidden/cwarning.desktop
+%{_applnkdir}/.hidden/[bcmspv]*.desktop
+%{_applnkdir}/.hidden/k[!cio]*.desktop
 %{_applnkdir}/.hidden/kcmkxmlrpcd.desktop
-%{_applnkdir}/.hidden/power.desktop
-%{_applnkdir}/.hidden/virtualdesktops.desktop
-#
 %{_applnkdir}/System/k[!o]*.desktop
 %{_applnkdir}/Utilities/k[!de]*.desktop
 %{_applnkdir}/Settings/kappfinder.desktop
@@ -1097,7 +1090,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so 
 %{_datadir}/apps/kicker
 %{_pixmapsdir}/*/*/apps/*kicker*
-%{_applnkdir}/.hidden/*kicker*
+%{_applnkdir}/.hidden/kicker*.desktop
 %{_applnkdir}/Settings/kcmkicker.desktop
 
 %files konsole -f konsole.lang
@@ -1319,11 +1312,9 @@ fi
 %{_datadir}/servicetypes/[!kt]*
 %{_datadir}/servicetypes/k[!a]*
 %{_applnkdir}/konqueror.desktop
-%{_applnkdir}/.hidden/f*
-%{_applnkdir}/.hidden/ko*
-# compat
+%{_applnkdir}/.hidden/file*.desktop
 %{_applnkdir}/.hidden/kcmkonq.desktop
-#
+%{_applnkdir}/.hidden/konq*.desktop
 %{_applnkdir}/Network/WWW/konq*.desktop
 %{_applnkdir}/Utilities/keditbookmarks.desktop
 %{_applnkdir}/Settings/KDE/Components/filetypes.desktop
