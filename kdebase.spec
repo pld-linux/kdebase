@@ -14,7 +14,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.1.92
-%define         _snap		030930
+%define         _snap		031006
 
 %ifarch	sparc sparcv9 sparc64
 %define		_without_alsa	1
@@ -31,13 +31,13 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}.%{_snap}
-Release:	2
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:        http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	d3a7ae59c7f8b5604463c24915c1cbce
+# Source0-md5:	815c1786127cf0c6215f4f99486a674b
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -158,8 +158,9 @@ Summary:	Include files to develop KDE applications
 Summary(pl):	Pliki nag³ówkowe potrzebne do programowania
 Summary(pt_BR):	Arquivos de inclusão para compilar aplicativos que usem bibliotecas do kdebase
 Group:		X11/Development/Libraries
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kicker = %{epoch}:%{version}-%{release}
+Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kicker-libs = %{epoch}:%{version}-%{release}
+Requires:	%{name}-konqueror-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-ksysguard = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
 Requires:	kdelibs-devel >= 9:%{version}
@@ -358,10 +359,11 @@ Podstawowe aplikacje ¶rodowiska KDE. Pakiet ten zawiera:
 Summary:	TODO
 Summary(pl):	TODO
 Group:		X11/Applications
-Requires(post,postun):	/sbin/ldconfig
 Requires:       kde-logoutpic
+Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
 Requires:	kicker
-Requires:	konqueror = %{epoch}:%{version}-%{release}
+# Commented out for testing
+#Requires:	konqueror = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name}
 Obsoletes:	%{name}-fonts
 Obsoletes:	%{name}-kcheckpass
@@ -384,6 +386,20 @@ Obsoletes:	kde-theme-keramik
 TODO.
 
 %description desktop -l pl
+TODO.
+
+%package desktop-libs
+Summary:	TODO
+Summary(pl):	TODO
+Group:		X11/Libraries
+Requires(post,postun):	/sbin/ldconfig
+Requires:	kdelibs = 9:%{version}
+Obsoletes:	%{name}-desktop < 9:3.1.92.031006
+
+%description desktop-libs
+TODO.
+
+%description desktop-libs -l pl
 TODO.
 
 %package infocenter
@@ -498,8 +514,8 @@ Summary:        KDE Panel - kicker
 Summary(pl):    Panel KDE - kicker
 Group:          X11/Applications
 Provides:	kicker
-Requires(post,postun):	/sbin/ldconfig
 Requires:	%{name}-kfind = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kicker-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kjobviewer = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kmenuedit = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkickermain = %{epoch}:%{version}-%{release}
@@ -511,6 +527,20 @@ KDE Panel - kicker.
 
 %description kicker -l pl
 Panel KDE - kicker.
+
+%package kicker-libs
+Summary:        TODO
+Summary(pl):    TODO
+Group:          X11/Libraries
+Requires(post,postun):	/sbin/ldconfig
+Requires:	%{name}-libkickermain = %{epoch}:%{version}-%{release}
+Obsoletes:	%{name}-kicker < 9:3.1.92.031006
+
+%description kicker-libs
+TODO.
+
+%description kicker-libs -l pl
+TODO.
 
 %package kjobviewer
 Summary:        Print Job Viewer
@@ -547,6 +577,20 @@ KDE Menu Editor.
 
 %description kmenuedit -l pl
 Edytor menu KDE.
+
+%package konqueror-libs
+Summary:        TODO
+Summary(pl):    TODO
+Group:          X11/Libraries
+Requires(post,postun):	/sbin/ldconfig
+Requires:	kdelibs >= 9:%{version}
+Obsoletes:	konqueror < 9:3.1.92.031006
+
+%description konqueror-libs
+TODO.
+
+%description konqueror-libs -l pl
+TODO.
 
 %package konsole
 Summary:	KDE Terminal Emulator
@@ -745,8 +789,8 @@ Zamiennik XDM rodem z KDE. Zarz±dza lokalnymi i zdalnymi ekranami X11.
 Summary:	Konqueror - web browser and file manager
 Summary(pl):	Konqueror - przegl±darka WWW i zarz±dca plików
 Group:		X11/Applications
-Requires(post,postun):	/sbin/ldconfig
 Requires:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
+Requires:	%{name}-konqueror-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-konsole = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkickermain = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkonq = %{epoch}:%{version}-%{release}
@@ -845,10 +889,13 @@ mv $ALD/Home.desktop			$RPM_BUILD_ROOT%{_desktopdir}/kde
 mv $ALD/Kfind.desktop			$RPM_BUILD_ROOT%{_desktopdir}/kde
 mv $ALD/System/kinfocenter.desktop	$RPM_BUILD_ROOT%{_desktopdir}/kde
 
-mv $RPM_BUILD_ROOT%{_desktopdir}/kde/print{ers,mgr}.desktop
-
 cp $ALD/default_kde-information.menu \
 	$RPM_BUILD_ROOT/etc/xdg/menus/kde-information.menu
+
+mv $RPM_BUILD_ROOT%{_desktopdir}/kde/print{ers,mgr}.desktop
+
+mv $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop \
+    $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/services
 
 > core.lang
 programs=" \
@@ -937,7 +984,7 @@ done
 %find_lang	konsole		--with-kde
 %find_lang	ksysguard	--with-kde
 %find_lang	kpager		--with-kde
-%find_lang	kthememgr	--with-kde
+#%find_lang	kthememgr	--with-kde
 %find_lang	kwrite		--with-kde
 %find_lang	screensaver	--with-kde
 
@@ -953,14 +1000,14 @@ rm -rf $RPM_BUILD_ROOT
 %postun common-konsole
 /usr/bin/fontpostinst misc
 
-%post	core 		-p /sbin/ldconfig
-%postun	core 		-p /sbin/ldconfig
+%post	desktop-libs	-p /sbin/ldconfig
+%postun	desktop-libs	-p /sbin/ldconfig
 
-%post	desktop		-p /sbin/ldconfig
-%postun	desktop		-p /sbin/ldconfig
+%post	kicker-libs	-p /sbin/ldconfig
+%postun	kicker-libs	-p /sbin/ldconfig
 
-%post	kicker		-p /sbin/ldconfig
-%postun	kicker		-p /sbin/ldconfig
+%post	konqueror-libs	-p /sbin/ldconfig
+%postun	konqueror-libs	-p /sbin/ldconfig
 
 %post	ksysguard	-p /sbin/ldconfig
 %postun	ksysguard	-p /sbin/ldconfig
@@ -993,9 +1040,6 @@ if [ "$1" = "0" ]; then
 	fi
 	/sbin/chkconfig --del kdm
 fi
-
-%post	-n konqueror	-p /sbin/ldconfig
-%postun	-n konqueror	-p /sbin/ldconfig
 
 %files devel
 %defattr(644,root,root,755)
@@ -1273,8 +1317,6 @@ fi
 %attr(0755,root,root) %{_bindir}/startkde
 %{_libdir}/krandrinithack.la
 %attr(0755,root,root) %{_libdir}/krandrinithack.so
-%{_libdir}/libkdecorations.la
-%attr(0755,root,root) %{_libdir}/libkdecorations.so.*.*.*
 %{_libdir}/libkdeinit_kaccess.la
 %attr(0755,root,root) %{_libdir}/libkdeinit_kaccess.so
 %{_libdir}/libkdeinit_kdesktop.la
@@ -1287,14 +1329,8 @@ fi
 %attr(0755,root,root) %{_libdir}/libkdeinit_kwin.so
 %{_libdir}/libkdeinit_kxkb.la
 %attr(0755,root,root) %{_libdir}/libkdeinit_kxkb.so
-%{_libdir}/libksplashthemes.la
-%attr(0755,root,root) %{_libdir}/libksplashthemes.so.*.*.*
-#%{_libdir}/libsensordisplays.la
-#%attr(0755,root,root) %{_libdir}/libsensordisplays.so.*.*.*
-#
 %{_libdir}/kde3/cursorthumbnail.la
 %attr(0755,root,root) %{_libdir}/kde3/cursorthumbnail.so
-#
 %{_libdir}/kde3/kaccess.la
 %attr(0755,root,root) %{_libdir}/kde3/kaccess.so
 %{_libdir}/kde3/kcm_access.la
@@ -1539,6 +1575,15 @@ fi
 %{_iconsdir}/*/*/apps/x.png
 %{_iconsdir}/*/*/apps/xv.png
 
+%files desktop-libs
+%defattr(644,root,root,755)
+%{_libdir}/libkdecorations.la
+%attr(0755,root,root) %{_libdir}/libkdecorations.so.*.*.*
+%{_libdir}/libksplashthemes.la
+%attr(0755,root,root) %{_libdir}/libksplashthemes.so.*.*.*
+#%{_libdir}/libsensordisplays.la
+#%attr(0755,root,root) %{_libdir}/libsensordisplays.so.*.*.*
+
 %files infocenter -f kinfocenter.lang
 %defattr(644,root,root,755)
 /etc/xdg/menus/kde-information.menu
@@ -1643,6 +1688,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_fontinst.so
 %{_libdir}/kde3/kio_fonts.la
 %attr(0755,root,root) %{_libdir}/kde3/kio_fonts.so
+#%{_datadir}/apps/konqsidebartng/virtual_folders/services/fonts.desktop
 %{_datadir}/mimelnk/fonts/folder.desktop
 %{_datadir}/mimelnk/fonts/system-folder.desktop
 %{_datadir}/services/fonts.protocol
@@ -1655,10 +1701,6 @@ fi
 %attr(0755,root,root) %{_bindir}/kicker
 %{_libdir}/libkdeinit_kicker.la
 %attr(0755,root,root) %{_libdir}/libkdeinit_kicker.so
-%{_libdir}/libtaskbar.la
-%attr(0755,root,root) %{_libdir}/libtaskbar.so.*.*.*
-%{_libdir}/libtaskmanager.la
-%attr(0755,root,root) %{_libdir}/libtaskmanager.so.*.*.*
 %{_libdir}/kde3/childpanel_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so*
 %{_libdir}/kde3/clock_panelapplet.la
@@ -1725,6 +1767,13 @@ fi
 %{_iconsdir}/*/*/apps/panel.png
 %{_iconsdir}/*/*/apps/panel_settings.png
 
+%files kicker-libs
+%defattr(644,root,root,755)
+%{_libdir}/libtaskbar.la
+%attr(0755,root,root) %{_libdir}/libtaskbar.so.*.*.*
+%{_libdir}/libtaskmanager.la
+%attr(0755,root,root) %{_libdir}/libtaskmanager.so.*.*.*
+
 %files kjobviewer
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kjobviewer
@@ -1761,6 +1810,13 @@ fi
 %{_desktopdir}/kde/kmenuedit.desktop
 %{_iconsdir}/*/*/apps/kmenu.png
 %{_iconsdir}/*/*/apps/kmenuedit.png
+
+%files konqueror-libs
+%defattr(644,root,root,755)
+%{_libdir}/libkonqsidebarplugin.la
+%attr(0755,root,root) %{_libdir}/libkonqsidebarplugin.so.*.*.*
+%{_libdir}/libnsplugin.la
+%attr(0755,root,root) %{_libdir}/libnsplugin.so.*.*.*
 
 %files konsole -f konsole.lang
 %defattr(644,root,root,755)
@@ -1941,10 +1997,6 @@ fi
 %attr(0755,root,root) %{_libdir}/libkdeinit_konqueror.so
 %{_libdir}/libkonq_sidebar_tree.la
 %attr(0755,root,root) %{_libdir}/libkonq_sidebar_tree.so
-%{_libdir}/libkonqsidebarplugin.la
-%attr(0755,root,root) %{_libdir}/libkonqsidebarplugin.so.*.*.*
-%{_libdir}/libnsplugin.la
-%attr(0755,root,root) %{_libdir}/libnsplugin.so.*.*.*
 %{_libdir}/kde3/appletproxy.la
 %attr(0755,root,root) %{_libdir}/kde3/appletproxy.so
 %{_libdir}/kde3/extensionproxy.la
@@ -2043,7 +2095,9 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/libkurisearchfilter.so
 %{_libdir}/kde3/liblocaldomainurifilter.la
 %attr(0755,root,root) %{_libdir}/kde3/liblocaldomainurifilter.so
-%attr(0755,root,root) %{_libdir}/kde3/plugins/konqueror
+%{_libdir}/kde3/sidebar_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/sidebar_panelextension.so
+%dir %{_libdir}/kde3/plugins/konqueror
 %{_datadir}/apps/kbookmark
 %{_datadir}/apps/kcmcss
 %{_datadir}/apps/keditbookmarks
@@ -2052,6 +2106,20 @@ fi
 %{_datadir}/apps/konqiconview
 %{_datadir}/apps/konqlistview
 %{_datadir}/apps/konqsidebartng
+#%dir %{_datadir}/apps/konqsidebartng
+#%{_datadir}/apps/konqsidebartng/add
+#%{_datadir}/apps/konqsidebartng/dirtree
+#%{_datadir}/apps/konqsidebartng/entries
+#%{_datadir}/apps/konqsidebartng/kicker_entries
+#%{_datadir}/apps/konqsidebartng/websidebar
+#%dir %{_datadir}/apps/konqsidebartng/virtual_folders
+#%{_datadir}/apps/konqsidebartng/virtual_folders/remote
+#%dir %{_datadir}/apps/konqsidebartng/virtual_folders/services
+#%{_datadir}/apps/konqsidebartng/virtual_folders/services/.directory
+#%{_datadir}/apps/konqsidebartng/virtual_folders/services/audiocd.desktop
+#%{_datadir}/apps/konqsidebartng/virtual_folders/services/devices.desktop
+#%{_datadir}/apps/konqsidebartng/virtual_folders/services/lisa.desktop
+#%{_datadir}/apps/konqsidebartng/virtual_folders/services/printsystem.desktop
 %{_datadir}/apps/konqueror
 %{_datadir}/autostart/konqy_preload.desktop
 %{_datadir}/config/konqsidebartng.rc
