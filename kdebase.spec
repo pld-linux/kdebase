@@ -2,7 +2,7 @@ Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
 Version:	2.0.1
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -24,6 +24,7 @@ BuildRequires:	zlib-devel
 BuildRequires:	pam-devel
 BuildRequires:	OpenGL-devel
 BuildRequires:	alsa-lib-devel
+BuildRequires:	openssl-devel
 Requires:	kdelibs = %{version}
 Requires:	qt >= 2.2.2
 Requires:	applnk
@@ -42,9 +43,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix 	/usr/X11R6
 %define		_fontdir 	/usr/share/fonts
-%define		_sharedir	%{_prefix}/share
-%define		_htmldir	%{_sharedir}/doc/kde/HTML
-%define		_pixmapsdir	%{_sharedir}/pixmaps
+%define		_htmldir	%{_docdir}/kde/HTML
 
 %description
 KDE specific files. Used by core KDE applications. Package includes:
