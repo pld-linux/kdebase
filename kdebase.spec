@@ -2,7 +2,6 @@
 # TODO:
 # * KDM: ColorSheme=Default in kdm doesn't appear properly while GUIStyle
 #   variable (including kdm "Default" style) is set to any existing kde style
-# * KDM: logo & user pics should be stored in /etc/X11/kdm/pics
 # * KDM: Replacing findwm with a better solution (it's in the way)
 # * KDM: "Shedule" and "TryNow" (DefaultSdMode option arguments) don't work
 # * Fixing 48x48 pld applnk-pixmaps scaling (konqsidebar, kicker)
@@ -29,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.1
-Release:	5
+Release:	6
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -466,7 +465,7 @@ install %{SOURCE6}	$RPM_BUILD_ROOT/etc/pam.d/kscreensaver
 install %{SOURCE3}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
-install %{SOURCE9}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
+install %{SOURCE9}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldlogo.png
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
@@ -991,6 +990,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_bindir}/kdm*
 %attr(0755,root,root) %{_bindir}/krootimage
 %attr(0755,root,root) %{_libdir}/kde3/kcm_kdm.??
+%attr(0754,root,root) /etc/rc.d/init.d/kdm
 %dir %{_sysconfdir}/kdm
 %config(noreplace) %{_sysconfdir}/kdm/kdmrc
 %config(noreplace) %{_sysconfdir}/kdm/backgroundrc
@@ -999,10 +999,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_sysconfdir}/kdm/Xsetup
 %attr(0755,root,root) %{_sysconfdir}/kdm/Xstartup
 %attr(0755,root,root) %{_sysconfdir}/kdm/Xwilling
-%attr(0754,root,root) /etc/rc.d/init.d/kdm
 %{_sysconfdir}/kdm/Xaccess
 %{_sysconfdir}/kdm/Xservers
-%{_datadir}/apps/kdm
+%{_sysconfdir}/kdm/pics
 %{_pixmapsdir}/*/*/apps/kdmconfig.png
 %{_applnkdir}/Settings/KDE/System/kdm.desktop
 
