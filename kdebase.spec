@@ -875,6 +875,8 @@ Summary:	User Account
 Summary(pl):	Konto u¿ytkownika
 Group:		X11/Applications
 Requires:	kdm >= 9:%{version}
+Obsoletes:	kdeutils-kdepasswd
+Obsoletes:	kdeutils-userinfo
 
 %description useraccount
 userinfo changes user account information. This module contains
