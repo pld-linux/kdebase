@@ -273,8 +273,8 @@ fi
 
 %attr(0755,root,root) %{_libdir}/[ae]*.la
 %attr(0755,root,root) %{_libdir}/[ae]*.so*
-%attr(0755,root,root) %{_libdir}/k[cdefhilmwx]*.la
-%attr(0755,root,root) %{_libdir}/k[cdefhilmwx]*.so*
+%attr(0755,root,root) %{_libdir}/k[cdfhilmwx]*.la
+%attr(0755,root,root) %{_libdir}/k[cdfhilmwx]*.so*
 %attr(0755,root,root) %{_libdir}/konsole.la
 %attr(0755,root,root) %{_libdir}/konsole.so*
 %attr(0755,root,root) %{_libdir}/lib[cdqt]*.la
@@ -307,7 +307,7 @@ fi
 %{_applnkdir}/KControl.desktop
 %{_applnkdir}/.hidden/konqfilemgr.desktop
 %{_applnkdir}/Amusements/*.desktop
-#%{_applnkdir}/Development/*.desktop
+%{_applnkdir}/Development/*.desktop
 %{_applnkdir}/Office/Editors/*.desktop
 %{_applnkdir}/Settings/KDE/.directory
 %{_applnkdir}/Settings/KDE/Help
@@ -416,6 +416,8 @@ fi
 %attr(0755,root,root) %{_bindir}/nspluginscan
 %attr(0755,root,root) %{_bindir}/nspluginviewer
 
+%attr(0755,root,root) %{_libdir}/keditbookmarks.la
+%attr(0755,root,root) %{_libdir}/keditbookmarks.so
 %attr(0755,root,root) %{_libdir}/konqueror.la
 %attr(0755,root,root) %{_libdir}/konqueror.so*
 %attr(0755,root,root) %{_libdir}/libhtmlsearch.la
@@ -431,12 +433,10 @@ fi
 
 %attr(0755,root,root) %{_libdir}/kde2/htmlthumbnail.la
 %attr(0755,root,root) %{_libdir}/kde2/htmlthumbnail.so*
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_konq.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_konq.so*
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_konqhtml.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_konqhtml.so*
-%attr(0755,root,root) %{_libdir}/kde2/libkonqtree.la
-%attr(0755,root,root) %{_libdir}/kde2/libkonqtree.so*
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_konq*.la
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_konq*.so*
+%attr(0755,root,root) %{_libdir}/kde2/libkonq*la
+%attr(0755,root,root) %{_libdir}/kde2/libkonq*so*
 
 %{_applnkdir}/Network/WWW/konq*.desktop
 %{_applnkdir}/Network/WWW/keditbookmarks.desktop
