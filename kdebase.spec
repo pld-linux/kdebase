@@ -39,13 +39,13 @@ Source4:	%{name}-kdm.Xsession
 Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-searchproviders.tar.bz2
-# Source8-md5:	fc8652f962e3e09563226ed511422e5f
+# Source8-md5:	c6d9045d9c99abce93232c7ab231fabb
 Source9:	%{name}-colorschemes.tar.bz2
-# Source9-md5:	af89fbee2e58eac2cdb2e4ab77d168a5
+# Source9-md5:	3c76ae94cb5c23efafd2b93991fa4258
 Source10:	%{name}-servicemenus.tar.bz2
-# Source10-md5:	c75c9cc23283ca7de61f2a1a6f1258a0
-Source11:	%{name}-konqsidebarext.tar.bz2
-# Source11-md5:	23ea11aaa85d78c0e39bdf5dd4f4ebda
+# Source10-md5:	5b113fe35bd3a46de31e451e285e86d3
+Source11:	%{name}-sidebarext.tar.bz2
+# Source11-md5:	a79489053e6720305d6d989411aaba56
 Source12:	http://ep09.pld-linux.org/~adgor/kde/%{name}-splash-Default-PLD-0.2.tar.bz2
 # Source12-md5:	24f9c6a4b711be36437639c410b400b2
 Source13:	http://ep09.pld-linux.org/~adgor/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
