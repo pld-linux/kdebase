@@ -2,7 +2,7 @@ Summary:     	K Desktop Environment - core files
 Summary(pl): 	K Desktop Environment - pliki ¶rodowiska
 Name:        	kdebase
 Version:     	1.1.1
-Release:     	3
+Release: 4
 Copyright:   	GPL
 Group:       	X11/KDE/Base
 Group(pl):      X11/KDE
@@ -13,7 +13,7 @@ Patch:		kdebase-DESTDIR.patch
 BuildRequires:	qt-devel >= 1.44
 BuildRequires:	kdelibs-devel = %{version}
 BuildRequires:	libjpeg-devel
-BuildRequires:	libpng-devel
+BuildRequires:	libpng >= 1.0.8
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	XFree86-devel
