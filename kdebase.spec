@@ -24,8 +24,8 @@ Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
+#Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
 # Source0-md5:	9d05be3ccd6cc0294d6153e5d4dfa63a
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
