@@ -2,10 +2,9 @@
 # TODO:
 # * KDM: ColorSheme=Default in kdm doesn't appear properly while GUIStyle
 #   variable (including kdm "Default" style) is set to any existing kde style
-# * KDM: Replacing findwm with a better solution (it's in the way)
 # * KDM: "Shedule" and "TryNow" (DefaultSdMode option arguments) don't work
+# * KDM: Replacing findwm with a better solution (it's in the way)
 # * Fixing 48x48 pld applnk-pixmaps scaling (konqsidebar, kicker)
-# * Cursor layout settings are avaliable per one session only 
 # * Sources renaming & renumerating 
 #
 # Conditional Builds:
@@ -28,7 +27,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.1
-Release:	6
+Release:	7
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -43,8 +42,8 @@ Source7:	%{name}-kdm.Xservers
 Source9:	%{name}-kdm_pldlogo.png
 Patch0:		%{name}-fix-kdm-users.cpp.patch
 Patch1:		%{name}-fix-mem-leak-in-kfind.patch
-Patch2:		%{name}-fontdir.patch
-Patch3:		%{name}-glibc-2.2.2.patch
+Patch2:		%{name}-fix-mouse.cpp.patch
+Patch3:		%{name}-fontdir.patch
 Patch4:		%{name}-kcm_background.patch
 Patch5:		%{name}-kdm.daemon_output.patch
 Patch6:		%{name}-kdmconfig.patch
