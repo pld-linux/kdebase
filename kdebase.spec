@@ -1,7 +1,10 @@
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos bАsicos
+Summary(ja):	KDE╔г╔╧╔╞╔х╔ц╔в╢д╤╜ - ╢Пкэ╔у╔║╔╓╔К
 Summary(pl):	K Desktop Environment - pliki ╤rodowiska
 Summary(pt_BR):	K Desktop Environment - arquivos bАsicos
+Summary(ru):	K Desktop Environment - базовые файлы
+Summary(uk):	K Desktop Environment - базов╕ файли
 Name:		kdebase
 Version:	2.2.2
 Release:	13
@@ -83,14 +86,38 @@ KDE specific files. Used by core KDE applications. Package includes:
 - krootwm - module used by KWM and KFM,
 - kaudio - audio server for KDE.
 
+%description -l ja
+KDE╔г╔╧╔╞╔х╔ц╔в╢д╤╜мя╓н╢Пкэ╔╒╔в╔Й╔╠║╪╔╥╔Г╔С║ё
+╟й╡╪╓н╓Х╓╕╓й╔я╔ц╔╠║╪╔╦╓╛фЧ╓ц╓ф╓╓╓ч╓╧║ё
+
 %description -l pl
 Pliki specyficzne dla ╤rodowiska KDE i wykorzystywane przez gЁСwne
 aplikacje KDE. Pakiet zawiera:
-- HierarchiЙ menu KDE,
+- hierarchiЙ menu KDE,
 - kappfinder - skrypt uЁawiaj╠cy uruchamianie niektСrych programСw
   spoza KDE
 - krootwm - moduЁ wykorzystywany przez kwm i kfm
 - kaudio - serwer d╪wiЙku dla KDE.
+
+%description -l ru
+Базовые программы для K Desktop Environment. Включены: kdm (замена
+xdm), kwin (оконный менеджер), konqueror (файловый менеджер,
+web-браузер, ftp-клиент, ...), konsole (замена xterm), kicker
+(запускалка программ и пейджер рабочего стола), kaudio (аудиосервер),
+kdehelp (программа для просмотра справочных файлов kde, файлов info и
+man), kthememgr (система для управления альтернативными пакетами тем)
+и другие компоненты KDE (kcheckpass, kikbd, kscreensaver, kcontrol,
+kfind, kfontmanager, kmenuedit, kappfinder).
+
+%description -l uk
+Базов╕ програми для K Desktop Environment. Включен╕: kdm (зам╕на xdm),
+kwin (в╕конный менеджер), konqueror (файловий менеджер, web-браузер,
+ftp-кл╕ент, ...), konsole (зам╕на xterm), kicker (запускалка програм
+та пейджер робочого столу), kaudio (ауд╕осервер), kdehelp (програма
+для перегляду файл╕в дов╕дки kde, файл╕в info та man), kthememgr
+(система для керування альтернативними пакетами тем) та ╕нш╕
+компоненти KDE (kcheckpass, kikbd, kscreensaver, kcontrol, kfind,
+kfontmanager, kmenuedit, kappfinder).
 
 %package devel
 Summary:	Include files to develop KDE applications
@@ -175,6 +202,8 @@ Internet Explorer.
 %package screensavers
 Summary:	KDE screensavers
 Summary(pl):	Wygaszacze ekranu desktopu KDE
+Summary(ru):	хранители экрана для KDE
+Summary(uk):	збер╕гач╕ екрану для KDE
 Group:		X11/Applications
 Requires:	qt >= 2.3.0
 Requires:	kdelibs >= %{version}
@@ -185,6 +214,12 @@ KDE screensavers.
 
 %description screensavers -l pl
 Wygaszacze ekranu desktopu KDE.
+
+%description screensavers -l ru
+Некоторые 3D хранители экрана для K Desktop Environment.
+
+%description screensavers -l uk
+Деяк╕ 3D збер╕гач╕ экрану для K Desktop Environment.
 
 %prep
 %setup  -q
