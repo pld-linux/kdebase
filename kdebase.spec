@@ -770,7 +770,7 @@ fi
 %attr(755,root,root) %{_libdir}/libtaskmanager.so
 %attr(755,root,root) %{_libdir}/libkonq*.so
 %attr(755,root,root) %{_libdir}/libnsplugin.so
-%attr(755,root,root) %{_libdir}/*.la
+%{_libdir}/*.la
 
 %files static
 %defattr(644,root,root,755)
@@ -812,7 +812,7 @@ fi
 %attr(755,root,root) %{_libdir}/konqueror.so
 %attr(755,root,root) %{_libdir}/kde3/kcm_konq*.??
 %attr(755,root,root) %{_libdir}/kde3/konq*.??
-%attr(755,root,root) %{_libdir}/kde3/libkcm_nsplugin.la
+%{_libdir}/kde3/libkcm_nsplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libkcm_nsplugin.so
 %attr(755,root,root) %{_libdir}/libkonq*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libnsplugin.so.*.*.*
