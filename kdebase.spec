@@ -3067,7 +3067,7 @@ fi
 %{_datadir}/applnk/.hidden/konqhtml.desktop
 %{_datadir}/applnk/.hidden/smb.desktop
 # Must be here!
-%{_applnkdir}/konqueror.desktop
+%{_datadir}/applnk/konqueror.desktop
 #
 %{_desktopdir}/kde/filebrowser.desktop
 %{_desktopdir}/kde/filetypes.desktop
