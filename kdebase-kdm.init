@@ -4,7 +4,7 @@
 #
 # Version:	@(#) /etc/rc.d/init.d/kdm 0.1
 #
-# description:	Starts and stops the KDE Display Manager at startup and
+# description:	Starts and stops the KDE Display Manager at startup and \
 #		shutdown..
 #
 # chkconfig:	5 95 5
