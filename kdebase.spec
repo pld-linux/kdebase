@@ -1351,7 +1351,6 @@ fi
 %files common-konsole
 %defattr(644,root,root,755)
 %{_fontdir}/console*.gz
-%{_fontdir}/9x15.pcf.gz
 %{_datadir}/apps/konsole
 %{_datadir}/mimelnk/application/x-konsole.desktop
 %{_pixmapsdir}/[!l]*/*/apps/bell.png
