@@ -1,0 +1,6 @@
+- Removed glibc-2.2.2.patch - it's outdated - feature it provides is obsoleted
+  by other solution
+- Added fix-mouse.cpp.patch - cursor layout settings are always kept now,
+  besides kcontrol no longer babling about session restart two times in case
+  You change two options (white cursor & large cursor) at one time.
+- Release 7
