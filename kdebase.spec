@@ -6,7 +6,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040513
+%define		_snap		040515
 %define		_packager	adgor
 
 Summary:	K Desktop Environment - core files
@@ -1627,6 +1627,7 @@ fi
 %{_datadir}/config/kdesktop_custom_menu1
 %{_datadir}/config/kdesktop_custom_menu2
 %{_datadir}/config/kxkb_groups
+%{_datadir}/config.kcfg/kwin.kcfg
 %{_datadir}/services/cursorthumbnail.desktop
 %{_datadir}/services/kaccess.desktop
 %{_datadir}/services/ksplash.desktop
@@ -2374,6 +2375,7 @@ fi
 %{_datadir}/config/konqsidebartng.rc
 %{_datadir}/config/kshorturifilterrc
 %{_datadir}/config/mountwatcher.desktop
+%{_datadir}/config.kcfg/konqueror.kcfg
 %{_datadir}/mimelnk/application/x-smb-server.desktop
 %{_datadir}/mimelnk/application/x-smb-workgroup.desktop
 %{_datadir}/mimelnk/kdedevice
