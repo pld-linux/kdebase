@@ -28,12 +28,12 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	1.1
+Release:	1.2
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# Source0-md5: 	d11514ebed619de18869d95e2d110951
+# Source0-md5:	d11514ebed619de18869d95e2d110951
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
 Source4:	%{name}-kdm.Xsession
@@ -47,7 +47,7 @@ Source11:	%{name}-kde-settings.menu
 Source12:	%{name}-imdb.desktop
 # generated from kde-i18n-%{version}.tar.bz2:
 Source13:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/%{version}/kde-i18n-%{name}-%{version}.tar.bz2
-# Source13-md5:	d6e41a97a945f6a1ace25af4c616e374
+# Source13-md5:	f9dd364233b2534ac780fb31b567bb32
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 #Patch1:		%{name}-fix-mouse.cpp.patch
 Patch2:		%{name}-fontdir.patch
@@ -395,7 +395,7 @@ Pliki wspólne dla konsole i konsolepart.
 Summary:	KDE Core Apps
 Summary(pl):	Podstawowe aplikacje KDE
 Group:		X11/Applications
-Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
+Requires:	kdelibs >= 8:%{version}-%{_kdelibsminrel}
 Obsoletes:	%{name} < 3.1.2
 Obsoletes:	%{name}-kcontrol
 Obsoletes:	%{name}-khelpcenter
@@ -433,7 +433,7 @@ Centrum informacji o systemie dla KDE.
 Summary:	Menu Updating Tool
 Summary(pl):	Narzêdzie do aktualizacji menu
 Group:		X11/Applications
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= 8:%{version}
 Obsoletes:	%{name} =< 3.1.1a-3
 
 %description kappfinder
@@ -476,7 +476,7 @@ Narzêdzie do faksowania dla KDE.
 Summary:	A KDE version of dialog
 Summary(pl):	Wersja KDE dialogu
 Group:		X11/Applications
-Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
+Requires:	kdelibs >= 8:%{version}-%{_kdelibsminrel}
 Obsoletes:	%{name} < 3.1.2
 
 %description kdialog
@@ -491,7 +491,7 @@ Summary:	KDE Find Tool
 Summary(pl):	Narzêdzie do wyszukiwania plików dla KDE
 Group:		X11/Applications
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= 8:%{version}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	kfind
 
@@ -569,7 +569,7 @@ Emulator terminala dla KDE.
 Summary:	Desktop Pager
 Summary(pl):	Prze³±cznik biurek
 Group:		X11/Applications
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= 8:%{version}
 Obsoletes:	%{name} =< 3.1.1a-3
 
 %description kpager
@@ -637,7 +637,7 @@ Edytor tekstu z pod¶wietlaniem sk³adni dla KDE.
 Summary:	KDE Write Daemon
 Summary(pl):	Demon zapisu KDE
 Group:		X11/Applications
-Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
+Requires:	kdelibs >= 8:%{version}-%{_kdelibsminrel}
 Obsoletes:	%{name} < 3.1.2
 
 %description kwrited
@@ -663,7 +663,7 @@ Biblioteki dla edytorów tekstu KDE.
 Summary:	Library containing multiple tab support
 Summary(pl):	Biblioteka zawieraj±ca obs³ugê kilku kart
 Group:		X11/Libraries
-Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
+Requires:	kdelibs >= 8:%{version}-%{_kdelibsminrel}
 Obsoletes:	%{name}-common-filemanagement < 3.1.2
 
 %description libkmultitabbar
@@ -676,7 +676,7 @@ Biblioteka zawieraj±ca obs³ugê kilku kart.
 Summary:	Konqueror library files
 Summary(pl):	Biblioteki wykorzystywane przez konquerora
 Group:		X11/Libraries
-Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
+Requires:	kdelibs >= 8:%{version}-%{_kdelibsminrel}
 Obsoletes:	konqueror < 3.1.2
 
 %description libkonq
@@ -689,7 +689,7 @@ Biblioteki zawieraj±ce funkcje wykorzystywane przez konquerora.
 Summary:	KDE Mail and News Services
 Summary(pl):	Obs³uga protoko³ów pocztowych i news dla KDE
 Group:		X11/Libraries
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= 8:%{version}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	%{name}-kioslave
 
@@ -864,6 +864,8 @@ for f in `find $ALD -name '.directory' -o -name '*.dekstop'` ; do
 	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
 	mv -f $f{.tmp,}
 done
+
+bzip2 -dc %{SOURCE13} | tar xf - -C $RPM_BUILD_ROOT
 
 > core.lang
 programs=" \
