@@ -9,7 +9,7 @@ Summary(ru):	K Desktop Environment - базовые файлы
 Summary(uk):	K Desktop Environment - базов╕ файли
 Name:		kdebase
 Version:	3.0.3
-Release:	4
+Release:	5
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -98,6 +98,7 @@ Prereq:		/usr/X11R6/bin/mkfontdir
 Requires:	applnk
 Requires:	kdelibs >= %{version}
 Requires:	kde-splash
+Requires:       kde-sdscreen
 Requires:	konqueror >= %{version}
 Obsoletes:	%{name}-kcontrol
 Obsoletes:	%{name}-khelpcenter
@@ -262,6 +263,19 @@ Default splash screen for KDE.
 
 %description -n kde-splash-default -l pl
 Standardowy obrazek startowy KDE.
+
+%package -n kde-sdscreen-default                                                
+Summary:        KDE "Logout" picture                                            
+Summary(pl):    Obrazek okna "Wyloguj" KDE                                      
+Group:          X11/Amusements                                                  
+Obsoletes:      kde-sdscreen                                                    
+Provides:       kde-sdscreen                                                    
+                                                                                
+%description -n kde-sdscreen-default                                            
+Default KDE "Logout" picture.                                                   
+                                                                                
+%description -n kde-sdscreen-default -l pl                                      
+Standardowy obrazek okna "Wyloguj" KDE. 
 
 %prep
 %setup -q
@@ -628,7 +642,6 @@ fi
 %dir %{_datadir}/apps/ksplash
 %{_datadir}/apps/ksysguard
 %{_datadir}/apps/klipper
-%{_datadir}/apps/ksmserver
 
 %{_datadir}/autostart
 %dir %{_datadir}/config
@@ -772,7 +785,6 @@ fi
 %files screensavers -f libkscreensaver.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/*.kss
-
 %{_applnkdir}/Settings/KDE/LookNFeel/screensaver.desktop
 %{_applnkdir}/System/ScreenSavers/*
 
@@ -781,3 +793,7 @@ fi
 %files -n kde-splash-default
 %defattr(644,root,root,755)
 %{_datadir}/apps/ksplash/*
+
+%files -n kde-sdscreen-default                                                  
+%defattr(644,root,root,755)                                                     
+%{_datadir}/apps/ksmserver/* 
