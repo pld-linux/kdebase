@@ -107,7 +107,7 @@ Group:		X11/Applications
 Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
 Requires:	qt >= 2.3.0
-Requires:	kdelibs = %{version}
+Requires:	kdelibs >= %{version}
 Obsoletes:	gdm
 Obsoletes:	xdm
 Obsoletes:	%{name}-kdm
@@ -126,7 +126,7 @@ Group:		X11/Applications
 Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
 Requires:	qt >= 2.3.0
-Requires:	kdelibs = %{version}
+Requires:	kdelibs >= %{version}
 Obsoletes:	kdebase-konqueror
 
 %description -n konqueror
@@ -144,7 +144,7 @@ Group:		X11/Applications
 Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
 Requires:	qt >= 2.3.0
-Requires:	kdelibs = %{version}
+Requires:	kdelibs >= %{version}
 Requires:	OpenGL
 
 %description screensavers
