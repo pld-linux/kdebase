@@ -447,7 +447,7 @@ for f in `find $RPM_BUILD_ROOT%{_datadir}/apps/kappfinder/apps -name '*.desktop'
 	mv -f $f{.tmp,}
 done
 
-mv -f $RPM_BUILD_ROOT%{_applnkdir}/{KControl.desktop,Settings/KDE}
+mv -f $RPM_BUILD_ROOT%{_applnkdir}/{KControl.desktop,Settings}
 mv -f $RPM_BUILD_ROOT%{_applnkdir}/{Kfind.desktop,Home.desktop,Utilities}
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
