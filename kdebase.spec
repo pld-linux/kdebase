@@ -34,11 +34,11 @@ Source3:	%{name}-kdm.init
 Source4:	%{name}-kdm.Xsession
 Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
-Source8:        %{name}-searchproviders.tar.bz2
+Source8:	%{name}-searchproviders.tar.bz2
 # Source8-md5:	ddf8cdd13fb42b5c07bbb8bf3577c23d
-Source9:        %{name}-colorschemes.tar.bz2
+Source9:	%{name}-colorschemes.tar.bz2
 # Source9-md5:	6a9cb98ac7ffcc6084c05a6885c75a25
-Source10:       %{name}-servicemenus.tar.bz2
+Source10:	%{name}-servicemenus.tar.bz2
 # Source10-md5:	5b113fe35bd3a46de31e451e285e86d3
 Source12:	http://ep09.pld-linux.org/~adgor/kde/%{name}-splash-Default-PLD-0.2.tar.bz2
 # Source12-md5:	24f9c6a4b711be36437639c410b400b2
