@@ -2,7 +2,7 @@ Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
 Version:	2.1
-Release:	4
+Release:	5
 Epoch:		6
 License:	GPL
 Group:		X11/Applications
@@ -185,7 +185,7 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,S
 install kwrite/kwrite.desktop		$RPM_BUILD_ROOT%{_applnkdir}/Office/Editors
 install konqueror/konqbrowser.desktop	$RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
 install konqueror/keditbookmarks/keditbookmarks.desktop \
-    $RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
+	$RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
 install ktip/ktip.desktop		$RPM_BUILD_ROOT%{_applnkdir}/Amusements
 install %{SOURCE1}			$RPM_BUILD_ROOT%{_bindir}/startkde
 install %{SOURCE2}			$RPM_BUILD_ROOT%{_sysconfdir}/pam.d/kdm
