@@ -21,7 +21,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	5
+Release:	5	
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -45,24 +45,25 @@ Source13:	http://ep09.pld-linux.org/~adgor/kde/%{name}-konqsidebartng-PLD-entrie
 Source14:       http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
 # Source14-md5:	30848effd6e53fb459a620a50f761b85
 %endif
-Patch0:		%{name}-fontdir.patch
-Patch1:		%{name}-kcm_background.patch
-Patch2:		%{name}-kdm_utmpx.patch
-Patch3:		%{name}-kdmconfig.patch
-Patch4:		%{name}-kicker.patch
-Patch5:		%{name}-konsole_all.patch
-Patch6:		%{name}-nsplugins_dirs.patch
-Patch7:		%{name}-startkde.patch
-Patch8:		%{name}-kcm_fonts.patch
-Patch9:		%{name}-kdesukonsole.patch
-Patch10:	%{name}-vcategories.patch
-Patch11:	%{name}-screensavers.patch
-Patch12:	%{name}-prefmenu.patch
-Patch13:	%{name}-session.patch
-Patch14:	%{name}-bgdefaults.patch
-Patch15:	%{name}-vmenus.patch
-Patch16:	kde-common-utmpx.patch
-Patch17:	%{name}-fileshareset.patch
+Patch0:		%{name}-3.2branch.diff
+Patch1:		%{name}-fontdir.patch
+Patch2:		%{name}-kcm_background.patch
+Patch3:		%{name}-kdm_utmpx.patch
+Patch4:		%{name}-kdmconfig.patch
+Patch5:		%{name}-kicker.patch
+Patch6:		%{name}-konsole_all.patch
+Patch7:		%{name}-nsplugins_dirs.patch
+Patch8:		%{name}-startkde.patch
+Patch9:		%{name}-kcm_fonts.patch
+Patch10:	%{name}-kdesukonsole.patch
+Patch11:	%{name}-vcategories.patch
+Patch12:	%{name}-screensavers.patch
+Patch13:	%{name}-prefmenu.patch
+Patch14:	%{name}-session.patch
+Patch15:	%{name}-bgdefaults.patch
+Patch16:	%{name}-vmenus.patch
+Patch17:	kde-common-utmpx.patch
+Patch18:	%{name}-fileshareset.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	audiofile-devel
@@ -1277,6 +1278,8 @@ Pliki umiêdzynarodawiaj±ce dla mailnews.
 %patch15 -p1
 %patch16 -p1
 %patch17 -p1
+%patch18 -p1
+
 
 %build
 cp /usr/share/automake/config.sub admin
