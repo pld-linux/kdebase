@@ -1,406 +1,1359 @@
---- kwin/kcmkwin/kwindecoration/kwindecoration.h.orig	2003-02-25 17:29:48.000000000 -0500
-+++ kwin/kcmkwin/kwindecoration/kwindecoration.h	2003-02-27 02:45:44.000000000 -0500
-@@ -85,6 +85,8 @@
- 		QCheckBox* cbUseCustomButtonPositions;
- 	//	QCheckBox* cbUseMiniWindows;
- 		QCheckBox* cbShowToolTips;
-+		QComboBox *shadowTypeComboBox;
-+		QLabel *shadowTypeLabel;
+? kdebase.kwin-kwin_shadow.patch
+? manage.cpp.k3c_conflict
+? dialog/Makefile
+? dialog/Makefile.in
+? dialog/kwin_dialog_helper
+Index: activation.cpp
+===================================================================
+RCS file: /home/kde/kdebase/kwin/activation.cpp,v
+retrieving revision 2.26
+diff -u -r2.26 activation.cpp
+--- activation.cpp	11 Mar 2004 13:15:04 -0000	2.26
++++ activation.cpp	18 Mar 2004 21:34:52 -0000
+@@ -203,7 +203,7 @@
  
- 		// Page 2
- 		ButtonDropSite* dropSite;
---- kwin/kcmkwin/kwindecoration/kwindecoration.cpp.orig	2003-02-27 02:45:19.000000000 -0500
-+++ kwin/kcmkwin/kwindecoration/kwindecoration.cpp	2003-02-27 02:45:44.000000000 -0500
-@@ -19,6 +19,7 @@
- #include <qlayout.h>
- #include <qwhatsthis.h>
- #include <qlistbox.h>
-+#include <qcombobox.h>
- #include <qgroupbox.h>
- #include <qcheckbox.h>
- #include <qtabwidget.h>
-@@ -82,6 +83,15 @@
- 			i18n(  "Enabling this checkbox will show window button tooltips. "
- 				   "If this checkbox is off, no window button tooltips will be shown."));
+ /*!
+   Informs the workspace about the active client, i.e. the client that
+-  has the focus (or None if no client has the focus). This functions
++  has the focus (or None if no client has the focus). This function
+   is called by the client itself that gets focus. It has no other
+   effect than fixing the focus chain and the return value of
+   activeClient(). And of course, to propagate the active client to the
+@@ -225,6 +225,13 @@
+         active_client->setActive( false );
+         }
+     active_client = c;
++    if (set_active_client_recursion == 1)
++        {
++        // Only unset next_active_client if activateClient() wasn't called by
++        // Client::setActive() to set the active window to null before
++        // activating another window.
++        next_active_client = NULL;
++        }
+     Q_ASSERT( c == NULL || c->isActive());
+     if( active_client != NULL )
+         last_active_client = active_client;
+@@ -316,6 +323,7 @@
+         }
+     if ( c->isShown( false ) ) 
+         {
++        next_active_client = c;
+         c->takeFocus( force, Allowed );
+         should_get_focus.append( c );
+         focus_chain.remove( c );
+@@ -325,6 +333,7 @@
+     else if ( c->isShade() && c->wantsInput()) 
+         {
+         // client cannot accept focus, but at least the window should be active (window menu, et. al. )
++        next_active_client = c;
+         c->setActive( true );
+         focusToNull();
+         }
+@@ -722,8 +731,38 @@
+     workspace()->setActiveClient( act ? this : NULL, Allowed );
  
-+	QHBox *shadowType = new QHBox(checkGroup);
-+	shadowTypeLabel = new QLabel(i18n("Type of shadow to draw under windows: "), shadowType);
-+	shadowTypeComboBox = new QComboBox(shadowType);
-+	shadowTypeComboBox->insertItem(i18n("None"));
-+	shadowTypeComboBox->insertItem(i18n("Windows"));
-+	shadowTypeComboBox->insertItem(i18n("Mac OS X"));
-+	QWhatsThis::add(shadowTypeComboBox,
-+			i18n("Setting this combo box to a value other than None will cause a drop shadow to be drawn under the active window."));
-+
- // Save this for later...
- //	cbUseMiniWindows = new QCheckBox( i18n( "Render mini &titlebars for all windows"), checkGroup );
- //	QWhatsThis::add( cbUseMiniWindows, i18n( "Note that this option is not available on all styles yet!" ) );
-@@ -134,6 +144,7 @@
- 	connect( cbUseCustomButtonPositions, SIGNAL(clicked()), SLOT(slotSelectionChanged()) );
- 	connect( cbUseCustomButtonPositions, SIGNAL(toggled(bool)), SLOT(slotEnableButtonTab(bool)) );
- 	connect( cbShowToolTips, SIGNAL(clicked()), SLOT(slotSelectionChanged()) );
-+	connect( shadowTypeComboBox, SIGNAL(activated(int)), SLOT(slotSelectionChanged()) );
- //	connect( cbUseMiniWindows, SIGNAL(clicked()), SLOT(slotSelectionChanged()) );
+     if ( active )
++        {
+         Notify::raise( Notify::Activate );
  
- 	// Allow kwin dcop signal to update our selection list
-@@ -322,6 +333,7 @@
- 	cbUseCustomButtonPositions->setChecked( conf->readBoolEntry("CustomButtonPositions", false));
- 	tabWidget->setTabEnabled( buttonPage, cbUseCustomButtonPositions->isChecked() );
- 	cbShowToolTips->setChecked( conf->readBoolEntry("ShowToolTips", true ));
-+	shadowTypeComboBox->setCurrentItem( conf->readNumEntry("ShadowType", 0) );
- //	cbUseMiniWindows->setChecked( conf->readBoolEntry("MiniWindowBorders", false));
++        if (options->shadowEnabled(true))
++            {
++            if (options->shadowEnabled(false))
++                {
++                // Wait for inactive shadow to expose occluded windows and give
++                // them a chance to redraw before painting the active shadow
++                removeShadow();
++                drawDelayedShadow();
++                if (this != workspace()->topClientOnDesktop(desktop()))
++                    drawOverlappingShadows();
++                }
++            else
++                drawShadow();
++            }
++        }
++    else
++        {
++        removeShadow();
++
++        if (options->shadowEnabled(false))
++            if (this == workspace()->topClientOnDesktop(desktop()))
++                {
++                if ((shadowAfterClient = workspace()->activeClient()))
++                connect(shadowAfterClient, SIGNAL(shadowDrawn()), SLOT(drawShadow()));
++                }
++            else
++                drawDelayedShadow();
++        }
++
+     if( !active )
+         cancelAutoRaise();
  
- 	// Find the corresponding decoration name to that of
-@@ -373,6 +385,7 @@
- 	conf->writeEntry("PluginLib", libName);
- 	conf->writeEntry("CustomButtonPositions", cbUseCustomButtonPositions->isChecked());
- 	conf->writeEntry("ShowToolTips", cbShowToolTips->isChecked());
-+	conf->writeEntry("ShadowType", shadowTypeComboBox->currentItem());
- //	conf->writeEntry("MiniWindowBorders", cbUseMiniWindows->isChecked());
+Index: client.cpp
+===================================================================
+RCS file: /home/kde/kdebase/kwin/client.cpp,v
+retrieving revision 1.415
+diff -u -r1.415 client.cpp
+--- client.cpp	5 Mar 2004 14:22:10 -0000	1.415
++++ client.cpp	18 Mar 2004 21:34:53 -0000
+@@ -11,9 +11,12 @@
  
- 	// Button settings
-@@ -431,6 +444,7 @@
- 	// Set the KDE defaults
- 	cbUseCustomButtonPositions->setChecked( false );
- 	cbShowToolTips->setChecked( true );
-+	shadowTypeComboBox->setCurrentItem(0);
- //	cbUseMiniWindows->setChecked( false);
- // Don't set default for now
- //	decorationListBox->setSelected( 
---- kwin/options.h.orig	2003-02-25 16:38:39.000000000 -0500
-+++ kwin/options.h	2003-02-28 04:25:36.000000000 -0500
-@@ -260,6 +260,13 @@
-     bool showGeometryTip();
+ #include "client.h"
  
-     /**
-+    * @returns 0 if no drop shadow should be drawn,
-+    *          1 if a Windows-styled drop shadow should be drawn,
-+    *          2 if a Mac OS X-styled drop shadow should be drawn.
-+    */
-+    int shadowType();
++#include <math.h>
 +
-+    /**
-     * @returns true if the style should use custom button positions
-     * @see #titleButtonsLeft
-     * @see #titleButtonsRight
---- kwin/options.cpp.orig	Fri Jan  3 05:44:43 2003
-+++ kwin/options.cpp	Fri Feb 28 20:32:33 2003
-@@ -31,6 +31,7 @@
-     bool animate_tooltips;
-     int electric_borders;
-     int electric_border_delay;
-+    int shadow_type;
- };
- };
+ #include <qapplication.h>
+ #include <qpainter.h>
+ #include <qdatetime.h>
++#include <qimage.h>
+ #include <kprocess.h>
+ #include <unistd.h>
+ #include <kstandarddirs.h>
+@@ -38,9 +41,25 @@
+ extern Atom qt_window_role;
+ extern Atom qt_sm_client_id;
  
-@@ -264,6 +265,9 @@
-     d->fade_tooltips = globalConfig.readBoolEntry("EffectFadeTooltip", false);
-     d->animate_tooltips = globalConfig.readBoolEntry("EffectAnimateTooltip", false);
- 
-+    // window border drop shadow
-+    d->shadow_type = config->readNumEntry("ShadowType", 0);
-+
-     emit resetClients();
- }
- 
-@@ -313,6 +317,11 @@
-     return MouseNothing;
- }
- 
-+int Options::shadowType()
-+{
-+    return d->shadow_type;
-+}
-+
- QString Options::titleButtonsLeft()
- {
-     return d->title_buttons_left;
---- kwin/client.h.orig	2003-02-28 04:21:38.000000000 -0500
-+++ kwin/client.h	2003-02-28 04:54:16.000000000 -0500
-@@ -223,7 +223,7 @@
-     void updateUserTime();
- 
-     const QPoint gravitate( bool invert ) const;
--    
-+
-     void NETMoveResize( int x_root, int y_root, NET::Direction direction );
- 
- public slots:
-@@ -285,6 +285,10 @@
- 
-     NETWinInfo * netWinInfo();
- 
-+protected slots:
-+    virtual void slotDrawShadow();
-+    virtual void slotRemoveShadow();
-+
- private:
-     QSize sizeForWindowSize( const QSize&, bool ignore_height = FALSE ) const;
-     void getWmNormalHints();
-@@ -358,6 +362,13 @@
-     WId wmClientLeaderWin;
-     void getWmClientLeader();
- 
-+    void drawMacOSXShadow();
-+    void drawWindowsShadow();
-+    void bottomShadow(QImage& dst);
-+    void rightShadow(QImage& dst);
-+    void leftShadow(QImage& dst);
-+    void restackShadows();
-+
-  public:
-     static QCString staticWindowRole(WId);
-     static QCString staticSessionId(WId);
-@@ -368,6 +379,13 @@
-  private:
-     ClientPrivate* d;
- 
-+    struct ShadowElements {
-+            QWidget *w1;
-+            QWidget *w2;
-+            QWidget *w3;
-+    };
-+    ShadowElements se;
-+    QTimer *shadowDelayTimer;
- };
- 
- inline WId Client::window() const
-@@ -417,7 +435,7 @@
- inline int Client::desktop() const
- {
-     return desk;
-- }
-+}
- 
- inline bool Client::isSticky() const
- {
---- kwin/client.cpp.orig	Tue Jan 14 00:39:47 2003
-+++ kwin/client.cpp	Fri Feb 28 21:22:13 2003
-@@ -42,6 +42,114 @@
- #define IconicState XIconicState
- #endif
- 
-+// These Mac OS X shadows by 'noonespecial':
-+//    http://www.kde-look.org/content/show.php?content=4922
-+const double macosx_top_right_corner[256] = {
-+    .992, .992, .992, .996, .996, .996, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,
-+    .972, .976, .980, .984, .988, .992, .996, .996, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,
-+    .937, .945, .952, .964, .968, .976, .984, .988, .992, .996, .996, .996, 1.00, 1.00, 1.00, 1.00,
-+    .878, .898, .913, .929, .941, .952, .964, .976, .980, .988, .992, .992, .996, 1.00, 1.00, 1.00,
-+    .811, .874, .901, .886, .909, .925, .945, .956, .968, .980, .988, .992, .992, .996, 1.00, 1.00,
-+    .741, .780, .811, .847, .874, .901, .925, .941, .956, .972, .980, .988, .992, .992, .996, 1.00,
-+    .686, .733, .776, .815, .847, .882, .909, .933, .949, .964, .976, .984, .992, .992, .996, 1.00,
-+    .654, .701, .749, .796, .831, .870, .898, .925, .945, .960, .972, .980, .988, .992, .996, 1.00,
-+    .639, .690, .737, .784, .827, .862, .894, .921, .941, .960, .972, .980, .988, .992, .996, 1.00,
-+    .643, .670, .733, .780, .819, .858, .894, .917, .941, .960, .972, .980, .988, .992, .996, 1.00,
-+    .643, .670, .733, .780, .819, .858, .890, .917, .941, .960, .972, .980, .988, .992, .996, 1.00,
-+    .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996,
-+    .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996,
-+    .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996,
-+    .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996,
-+    .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996 };
-+
-+const double macosx_bottom_right_corner[256] = {
-+    .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996,
-+    .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996,
-+    .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996,
-+    .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996,
-+    .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996,
-+    .643, .670, .733, .780, .819, .858, .890, .917, .941, .960, .972, .980, .988, .992, .996, 1.00,
-+    .643, .670, .733, .780, .819, .858, .894, .917, .941, .960, .972, .980, .988, .992, .996, 1.00,
-+    .639, .690, .737, .784, .827, .862, .894, .921, .941, .960, .972, .980, .988, .992, .996, 1.00,
-+    .654, .701, .749, .796, .831, .870, .898, .925, .945, .960, .972, .980, .988, .992, .996, 1.00,
-+    .686, .733, .776, .815, .847, .882, .909, .933, .949, .964, .976, .984, .992, .992, .996, 1.00,
-+    .741, .780, .811, .847, .874, .901, .925, .941, .956, .972, .980, .988, .992, .992, .996, 1.00,
-+    .811, .874, .901, .886, .909, .925, .945, .956, .968, .980, .988, .992, .992, .996, 1.00, 1.00,
-+    .878, .898, .913, .929, .941, .952, .964, .976, .980, .988, .992, .992, .996, 1.00, 1.00, 1.00,
-+    .937, .945, .952, .964, .968, .976, .984, .988, .992, .996, .996, .996, 1.00, 1.00, 1.00, 1.00,
-+    .972, .976, .980, .984, .988, .992, .996, .996, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,
-+    .992, .992, .992, .996, .996, .996, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00 };
-+
-+const double macosx_top_left_corner[256] = {
-+    1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, .996, .996, .996, .992, .992, .992,
-+    1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, .996, .996, .992, .988, .984, .980, .976, .972,
-+    1.00, 1.00, 1.00, 1.00, .996, .996, .996, .992, .988, .984, .976, .968, .964, .952, .945, .937,
-+    1.00, 1.00, 1.00, .996, .992, .992, .988, .980, .976, .964, .952, .941, .929, .913, .898, .878,
-+    1.00, 1.00, .996, .992, .992, .988, .980, .968, .956, .945, .925, .909, .886, .901, .874, .811,
-+    1.00, .996, .992, .992, .988, .980, .972, .956, .941, .925, .901, .874, .847, .811, .780, .741,
-+    1.00, .996, .992, .992, .984, .976, .964, .949, .933, .909, .882, .847, .815, .776, .733, .686,
-+    1.00, .996, .992, .988, .980, .972, .960, .945, .925, .898, .870, .831, .796, .749, .701, .654,
-+    1.00, .996, .992, .988, .980, .972, .960, .941, .921, .894, .862, .827, .784, .737, .690, .639,
-+    1.00, .996, .992, .988, .980, .972, .960, .941, .917, .894, .858, .819, .780, .733, .670, .643,
-+    1.00, .996, .992, .988, .980, .972, .960, .941, .917, .890, .858, .819, .780, .733, .670, .643,
-+    .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627,
-+    .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627,
-+    .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627,
-+    .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627,
-+    .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627 };
-+
-+const double macosx_bottom_left_corner[256] =	{
-+    .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627,
-+    .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627,
-+    .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627,
-+    .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627,
-+    .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627,
-+    1.00, .996, .992, .988, .980, .972, .960, .941, .917, .890, .858, .819, .780, .733, .670, .643,
-+    1.00, .996, .992, .988, .980, .972, .960, .941, .917, .894, .858, .819, .780, .733, .670, .643,
-+    1.00, .996, .992, .988, .980, .972, .960, .941, .921, .894, .862, .827, .784, .737, .690, .639,
-+    1.00, .996, .992, .988, .980, .972, .960, .945, .925, .898, .870, .831, .796, .749, .701, .654,
-+    1.00, .996, .992, .992, .984, .976, .964, .949, .933, .909, .882, .847, .815, .776, .733, .686,
-+    1.00, .996, .992, .992, .988, .980, .972, .956, .941, .925, .901, .874, .847, .811, .780, .741,
-+    1.00, 1.00, .996, .992, .992, .988, .980, .968, .956, .945, .925, .909, .886, .901, .874, .811,
-+    1.00, 1.00, 1.00, .996, .992, .992, .988, .980, .976, .964, .952, .941, .929, .913, .898, .878,
-+    1.00, 1.00, 1.00, 1.00, .996, .996, .996, .992, .988, .984, .976, .968, .964, .952, .945, .937,
-+    1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, .996, .996, .992, .988, .984, .980, .976, .972,
-+    1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, .996, .996, .996, .992, .992, .992 };
-+
-+static const double macosx_shadow_strip_right[16] = {
-+            .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996 };
-+
-+static const double macosx_shadow_strip_bottom[18] = {
-+.525, .576, .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996 };
-+
-+static const double macosx_shadow_strip_left[16] = {
-+        .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627 };
-+
-+
-+static const double win_top_right_corner[16] =
-+        { 0.949, 0.965, 0.980, 0.992,
-+        0.851, 0.890, 0.945, 0.980,
-+        0.706, 0.780, 0.890, 0.960,
-+        0.608, 0.706, 0.851, 0.949 };
-+
-+static const double win_bottom_right_corner[16] =
-+        { 0.608, 0.706, 0.851, 0.949,
-+        0.706, 0.780, 0.890, 0.960,
-+        0.851, 0.890, 0.945, 0.980,
-+        0.949, 0.965, 0.980, 0.992 };
-+
-+static const double win_bottom_left_corner[16] =
-+        { 0.949, 0.851, 0.706, 0.608,
-+        0.965, 0.890, 0.780, 0.706,
-+        0.980, 0.945, 0.890, 0.851,
-+        0.992, 0.980, 0.960, 0.949 };
-+
-+static const double win_shadow_strip[4] =
-+        { 0.565, 0.675, 0.835, 0.945 };
-+
 +// wait 200 ms before drawing shadow after move/resize
 +static const int SHADOW_DELAY = 200;
 +
- namespace KWinInternal {
+ namespace KWinInternal
+ {
  
- // NET WM Protocol handler class
-@@ -500,6 +608,14 @@
-         NET::WMIconGeometry
-         ;
++/* TODO: Remove this once X has real translucency.
++ *
++ * A list of the regions covered by all shadows and the Clients to which they
++ * belong. Used to redraw shadows when a window overlapping or underlying a
++ * shadow is moved, resized, or hidden.
++ */
++struct ShadowRegion
++    {
++    QRegion region;
++    Client *client;
++    };
++static QValueList<ShadowRegion> shadowRegions;
++
+ /*
+ 
+  Creating a client:
+@@ -96,6 +115,13 @@
+     autoRaiseTimer = 0;
+     shadeHoverTimer = 0;
  
 +    shadowDelayTimer = new QTimer(this);
-+    connect(shadowDelayTimer, SIGNAL(timeout()), this, SLOT(slotDrawShadow()));
++    opacityCache = &activeOpacityCache;
++    shadowAfterClient = NULL;
++    shadowWidget = NULL;
++    shadowMe = true;
++    connect(shadowDelayTimer, SIGNAL(timeout()), SLOT(drawShadow()));
 +
-+    // ShadowElement doesn't contain any shadows yet
-+    se.w1 = NULL;
-+    se.w2 = NULL;
-+    se.w3 = NULL;
+     // set the initial mapping state
+     mapping_state = WithdrawnState;
+     desk = 0; // no desktop yet
+@@ -137,7 +163,7 @@
+     max_mode = MaximizeRestore;
+ 
+     cmap = None;
+-    
 +
-     info = new WinInfo( this, qt_xdisplay(), win, qt_xrootwin(), properties );
+     frame_geometry = QRect( 0, 0, 100, 100 ); // so that decorations don't start with size being (0,0)
+     client_size = QSize( 100, 100 );
  
-     wwrap = new WindowWrapper( w, this );
-@@ -610,6 +726,7 @@
+@@ -171,6 +197,8 @@
+     {
+     if (moveResizeMode)
+        leaveMoveResize();
++    removeShadow();
++    drawIntersectingShadows();
+     setModal( false ); // otherwise its mainwindow wouldn't get focus
+     hidden = true; // so that it's not considered visible anymore (can't use hideClient(), it would set flags)
+     if( !on_shutdown )
+@@ -218,6 +246,8 @@
+     {
+     if (moveResizeMode)
+        leaveMoveResize();
++    removeShadow();
++    drawIntersectingShadows();
+     ++block_geometry;
+     setModal( false );
+     hidden = true; // so that it's not considered visible anymore
+@@ -272,6 +302,7 @@
+     if( do_show )
+         decoration->widget()->show();
+     updateFrameStrut();
++    updateOpacityCache();
+     }
  
- void Client::startMoveResize()
- {
-+    slotRemoveShadow();
-     moveResizeMode = true;
-     workspace()->setClientIsMoving(this);
-     grabMouse( cursor() );
-@@ -628,6 +745,8 @@
-     releaseMouse();
-     workspace()->setClientIsMoving(0);
-     moveResizeMode = false;
-+    if (isActive())
-+        shadowDelayTimer->start(SHADOW_DELAY, true);
- }
+ void Client::destroyDecoration()
+@@ -373,6 +404,12 @@
+         QResizeEvent e( s, oldsize );
+         QApplication::sendEvent( decoration->widget(), &e );
+         }
++    if (!moveResizeMode && options->shadowEnabled(isActive()))
++        {
++        // If the user is manually resizing, let Client::leaveMoveResize()
++        // decide when to redraw the shadow
++        updateOpacityCache();
++        }
+     }
  
- /*!
-@@ -1330,6 +1449,7 @@
-             if ( isTopMenu() && mainClient() != this )
-                 break; // in this case, we already do the raise
-             workspace()->raiseClient( this );
-+            restackShadows();
-             break;
-         case Below:
-         case BottomIf:
-@@ -1637,7 +1757,10 @@
-  */
- void Client::resizeEvent( QResizeEvent * e)
- {
-+    slotRemoveShadow();
-     QWidget::resizeEvent( e );
-+    if (isActive())
-+        shadowDelayTimer->start(SHADOW_DELAY, true);
- }
+ bool Client::noBorder() const
+@@ -410,11 +447,12 @@
+         XShapeCombineMask( qt_xdisplay(), frameId(), ShapeBounding, 0, 0,
+                            None, ShapeSet);
+     // workaround for #19644 - shaped windows shouldn't have decoration
+-    if( shape() && !noBorder()) 
++    if( shape() && !noBorder())
+         {
+         noborder = true;
+         updateDecoration( true );
+         }
++    updateOpacityCache();
+     }
  
+ void Client::setMask( const QRegion& reg, int mode )
+@@ -525,7 +563,7 @@
+         return;
  
-@@ -1911,6 +2034,8 @@
-  */
- void Client::shadeChange( bool )
- {
-+    slotRemoveShadow();
-+    shadowDelayTimer->start(SHADOW_DELAY, true);
- }
+     Notify::raise( Notify::UnMinimize );
+-    minimized = false;    
++    minimized = false;
+     info->setState( 0, NET::Hidden );
+     if( isOnCurrentDesktop())
+         {
+@@ -573,12 +611,12 @@
+     QPixmap pm = animationPixmap( minimize ? width() : icongeom.width() );
  
+     QRect before, after;
+-    if ( minimize ) 
++    if ( minimize )
+         {
+         before = QRect( x(), y(), width(), pm.height() );
+         after = QRect( icongeom.x(), icongeom.y(), icongeom.width(), pm.height() );
+         }
+-    else 
++    else
+         {
+         before = QRect( icongeom.x(), icongeom.y(), icongeom.width(), pm.height() );
+         after = QRect( x(), y(), width(), pm.height() );
+@@ -602,14 +640,14 @@
+     QPainter p ( workspace()->desktopWidget() );
+     bool need_to_clear = FALSE;
+     QPixmap pm3;
+-    do 
++    do
+         {
+         if (area2 != area)
+             {
+             pm = animationPixmap( area.width() );
+             pm2 = QPixmap::grabWindow( qt_xrootwin(), area.x(), area.y(), area.width(), area.height() );
+             p.drawPixmap( area.x(), area.y(), pm );
+-            if ( need_to_clear ) 
++            if ( need_to_clear )
+                 {
+                 p.drawPixmap( area2.x(), area2.y(), pm3 );
+                 need_to_clear = FALSE;
+@@ -625,11 +663,11 @@
+         area.setRight(before.right() + int(diff*rf));
+         area.setTop(before.top() + int(diff*tf));
+         area.setBottom(before.bottom() + int(diff*bf));
+-        if (area2 != area ) 
++        if (area2 != area )
+             {
+             if ( area2.intersects( area ) )
+                 p.drawPixmap( area2.x(), area2.y(), pm2 );
+-            else 
++            else
+                 { // no overlap, we can clear later to avoid flicker
+                 pm3 = pm2;
+                 need_to_clear = TRUE;
+@@ -696,7 +734,7 @@
  
-@@ -2155,17 +2280,211 @@
-  */
- bool Client::eventFilter( QObject *o, QEvent * e)
- {
--    if ( o != wwrap )
--        return FALSE;
--    switch ( e->type() ) {
--    case QEvent::Show:
--        windowWrapperShowEvent( (QShowEvent*)e );
--        break;
--    case QEvent::Hide:
--        windowWrapperHideEvent( (QHideEvent*)e );
--        break;
--    default:
--        break;
-+    if ( o == wwrap ) {
-+        switch ( e->type() ) {
-+        case QEvent::Show:
-+            windowWrapperShowEvent( (QShowEvent*)e );
-+            break;
-+        case QEvent::Hide:
-+            windowWrapperHideEvent( (QHideEvent*)e );
-+            break;
-+        default:
-+            break;
+     int as = options->animateShade? 10 : 1;
+ // TODO all this unmapping, resizing etc. feels too much duplicated from elsewhere
+-    if ( isShade()) 
++    if ( isShade())
+         { // shade_mode == ShadeNormal
+         int h = height();
+         shade_geometry_change = true;
+@@ -709,7 +747,7 @@
+ //        bool wasStaticContents = testWFlags( WStaticContents );
+ //        setWFlags( WStaticContents );
+         int step = QMAX( 4, QABS( h - s.height() ) / as )+1;
+-        do 
++        do
+             {
+             h -= step;
+             XResizeWindow( qt_xdisplay(), frameId(), s.width(), h );
+@@ -728,7 +766,7 @@
+                 workspace()->focusToNull();
+             }
+         }
+-    else 
++    else
+         {
+         int h = height();
+         shade_geometry_change = true;
+@@ -736,7 +774,7 @@
+ // FRAME       bool wasStaticContents = testWFlags( WStaticContents );
+ //        setWFlags( WStaticContents );
+         int step = QMAX( 4, QABS( h - s.height() ) / as )+1;
+-        do 
++        do
+             {
+             h += step;
+             XResizeWindow( qt_xdisplay(), frameId(), s.width(), h );
+@@ -754,6 +792,15 @@
+             setActive( TRUE );
+         XMapWindow( qt_xdisplay(), wrapperId());
+         XMapWindow( qt_xdisplay(), window());
++        if (options->shadowEnabled(false))
++            {
++            for (ClientList::ConstIterator it = transients().begin();
++                    it != transients().end(); ++it)
++                {
++                (*it)->removeShadow();
++                (*it)->drawDelayedShadow();
++                }
++            }
+         if ( isActive() )
+             workspace()->requestFocus( this );
+         }
+@@ -799,6 +846,585 @@
+         }
+     }
+ 
++void Client::setShadowed(bool shadowed)
++{
++    bool wasShadowed;
++
++    wasShadowed = isShadowed();
++    shadowMe = options->shadowEnabled(isActive()) ? shadowed : false;
++
++    if (shadowMe) {
++        if (!wasShadowed)
++            drawShadow();
++    }
++    else {
++        if (wasShadowed) {
++            removeShadow();
++
++            if (!activeOpacityCache.isNull())
++                activeOpacityCache.resize(0);
++            if (!inactiveOpacityCache.isNull())
++                inactiveOpacityCache.resize(0);
 +        }
 +    }
-+    else if (o == se.w1 || o == se.w2 || o == se.w3) {
-+        if (e->type() == QEvent::MouseButtonRelease) {
++}
++
++void Client::updateOpacityCache()
++{
++    if (!activeOpacityCache.isNull())
++        activeOpacityCache.resize(0);
++    if (!inactiveOpacityCache.isNull())
++        inactiveOpacityCache.resize(0);
++
++    if (!moveResizeMode) {
++        // If the user is manually resizing, let Client::finishMoveResize()
++        // decide when to redraw the shadow
++        removeShadow();
++        drawIntersectingShadows();
++        if (options->shadowEnabled(isActive()))
++            drawDelayedShadow();
++    }
++}
++
++/*!
++   Redraw shadows that were previously occluding or occluded by this window,
++   to avoid visual glitches.
++ */
++void Client::drawIntersectingShadows() {
++    //Client *reshadowClient;
++    QRegion region;
++    //QPtrList<Client> reshadowClients;
++    QValueList<Client *> reshadowClients;
++    QValueListIterator<ShadowRegion> it;
++    QValueListIterator<Client *> it2;
++
++    if (!options->shadowEnabled(false))
++        // No point in redrawing overlapping/overlapped shadows if only the
++        // active window has a shadow.
++        return;
++
++    region = shapeBoundingRegion;
++
++    // Generate list of Clients whose shadows need to be redrawn. That is,
++    // those that are currently intersecting or intersected by other windows or
++    // shadows.
++    for (it = shadowRegions.begin(); it != shadowRegions.end(); ++it)
++        if ((isOnAllDesktops() || (*it).client->isOnCurrentDesktop()) &&
++                !(*it).region.intersect(region).isEmpty())
++            reshadowClients.append((*it).client);
++
++    // Redraw shadows for each of the Clients in the list generated above
++    for (it2 = reshadowClients.begin(); it2 != reshadowClients.end();
++            ++it2) {
++        (*it2)->removeShadow();
++        (*it2)->drawDelayedShadow();
++    }
++}
++
++/*!
++   Redraw shadows that are above the current window in the stacking order.
++   Furthermore, redraw them in the same order as they come in the stacking order
++   from bottom to top.
++ */
++void Client::drawOverlappingShadows()
++{
++    Client *aClient;
++    QRegion region;
++    QValueList<Client *> reshadowClients;
++    ClientList stacking_order;
++    ClientList::ConstIterator it;
++    QValueListIterator<ShadowRegion> it2;
++    QValueListIterator<Client *> it3;
++
++    if (!options->shadowEnabled(false))
++        // No point in redrawing overlapping/overlapped shadows if only the
++        // active window has a shadow.
++        return;
++
++    region = shapeBoundingRegion;
++
++    stacking_order = workspace()->stackingOrder();
++    for (it = stacking_order.fromLast(); it != stacking_order.end(); --it) {
++        // Find the position of this window in the stacking order.
++        if ((*it) == this)
++            break;
++    }
++    ++it;
++    while (it != stacking_order.end()) {
++        if ((*it)->windowType() == NET::Dock) {
++            // This function is only interested in windows whose shadows don't
++            // have weird stacking rules.
++            ++it;
++            continue;
++        }
++
++        // Generate list of Clients whose shadows need to be redrawn. That is,
++        // those that are currently overlapping or overlapped by other windows
++        // or shadows. The list should be in order from bottom to top in the
++        // stacking order.
++        for (it2 = shadowRegions.begin(); it2 != shadowRegions.end(); ++it2) {
++            if ((*it2).client == (*it)) {
++                if ((isOnAllDesktops() || (*it2).client->isOnCurrentDesktop())
++                        && !(*it2).region.intersect(region).isEmpty())
++                    reshadowClients.append((*it2).client);
++            }
++        }
++        ++it;
++    }
++
++    // Redraw shadows for each of the Clients in the list generated above
++    for (it3 = reshadowClients.begin(); it3 != reshadowClients.end(); ++it3) {
++        (*it3)->removeShadow();
++        if (it3 == reshadowClients.begin()) {
++            (*it3)->drawShadowAfter(this);
++        }
++        else {
++            --it3;
++            aClient = (*it3);
++            ++it3;
++            (*it3)->drawShadowAfter(aClient);
++        }
++    }
++}
++
++/*!
++   Draw shadow after some time has elapsed, to give recently exposed windows a
++   chance to repaint before a shadow gradient is drawn over them.
++ */
++void Client::drawDelayedShadow()
++{
++    shadowDelayTimer->start(SHADOW_DELAY, true);
++}
++
++/*!
++   Draw shadow immediately after the specified Client's shadow finishes drawing.
++ */
++void Client::drawShadowAfter(Client *after)
++{
++    shadowAfterClient = after;
++    connect(after, SIGNAL(shadowDrawn()), SLOT(drawShadow()));
++}
++
++/*!
++   Draw a shadow under this window and XShape the shadow accordingly.
++ */
++void Client::drawShadow()
++{
++    Window shadows[2];
++    XRectangle *shapes;
++    int i, count, ordering;
++
++    // If we are waiting for another Client's shadow to be drawn, stop waiting now
++    if (shadowAfterClient != NULL) {
++        disconnect(shadowAfterClient, SIGNAL(shadowDrawn()), this, SLOT(drawShadow()));
++        shadowAfterClient = NULL;
++    }
++
++    if (!isOnCurrentDesktop())
++        return;
++
++    /* Store this window's ShapeBoundingRegion even if shadows aren't drawn for
++     * this type of window. Otherwise, drawIntersectingShadows() won't update
++     * properly when this window is moved/resized/hidden/closed.
++     */
++    shapes = XShapeGetRectangles(qt_xdisplay(), frameId(), ShapeBounding,
++            &count, &ordering);
++    if (!shapes)
++        // XShape extension not supported
++        shapeBoundingRegion = QRegion(x(), y(), width(), height());
++    else {
++        shapeBoundingRegion = QRegion();
++        for (i = 0; i < count; i++) {
++            // Translate XShaped window into a QRegion
++            QRegion shapeRectangle(shapes[i].x, shapes[i].y, shapes[i].width,
++                    shapes[i].height);
++            shapeBoundingRegion += shapeRectangle;
++        }
++        if (isShade())
++            // Since XResize() doesn't change a window's XShape regions, ensure that
++            // shapeBoundingRegion is not taller than the window's shaded height,
++            // or the bottom shadow will appear to be missing
++            shapeBoundingRegion &= QRegion(0, 0, width(), height());
++        shapeBoundingRegion.translate(x(), y());
++    }
++
++    if (!isShadowed() || hidden || isMinimized() ||
++            maximizeMode() == MaximizeFull ||
++            !options->shadowWindowType(windowType())) {
++        XFree(shapes);
++
++        // Tell whatever Clients are listening that this Client's shadow has been drawn.
++        // It hasn't, but there's no sense waiting for something that won't happen.
++        emit shadowDrawn();
++
++        return;
++    }
++
++    removeShadow();
++
++    QMemArray<QRgb> pixelData;
++    QPixmap shadowPixmap;
++    QRect shadow;
++    QRegion exposedRegion;
++    ShadowRegion shadowRegion;
++    int thickness, xOffset, yOffset;
++
++    thickness = options->shadowThickness(isActive());
++    xOffset = options->shadowXOffset(isActive());
++    yOffset = options->shadowYOffset(isActive());
++    opacityCache = active? &activeOpacityCache : &inactiveOpacityCache;
++
++    shadow.setRect(x() - thickness + xOffset, y() - thickness + yOffset,
++            width() + thickness * 2, height() + thickness * 2);
++    shadowPixmap.resize(shadow.size());
++
++    // Create a fake drop-down shadow effect via blended Xwindows
++    shadowWidget = new QWidget(0, 0, WStyle_Customize | WX11BypassWM);
++    shadowWidget->setGeometry(shadow);
++    XSelectInput(qt_xdisplay(), shadowWidget->winId(),
++            ButtonPressMask | ButtonReleaseMask | StructureNotifyMask);
++    shadowWidget->installEventFilter(this);
++
++    if (!shapes) {
++        // XShape extension not supported
++        exposedRegion = getExposedRegion(shapeBoundingRegion, shadow.x(),
++                shadow.y(), shadow.width(), shadow.height(), thickness,
++                xOffset, yOffset);
++        shadowRegion.region = exposedRegion;
++        shadowRegion.client = this;
++        shadowRegions.append(shadowRegion);
++
++        if (opacityCache->isNull())
++            imposeRegionShadow(shadowPixmap, shapeBoundingRegion,
++                    exposedRegion, thickness,
++                    options->shadowOpacity(isActive()));
++        else
++            imposeCachedShadow(shadowPixmap, exposedRegion);
++    }
++    else {
++        QMemArray<QRect> exposedRects;
++        QMemArray<QRect>::Iterator it, itEnd;
++        XRectangle *shadowShapes;
++
++        exposedRegion = getExposedRegion(shapeBoundingRegion, shadow.x(),
++                shadow.y(), shadow.width(), shadow.height(), thickness,
++                xOffset, yOffset);
++        shadowRegion.region = exposedRegion;
++        shadowRegion.client = this;
++        shadowRegions.append(shadowRegion);
++
++        // XShape the shadow
++        exposedRects = exposedRegion.rects();
++        i = 0;
++        itEnd = exposedRects.end();
++        shadowShapes = new XRectangle[exposedRects.count()];
++        for (it = exposedRects.begin(); it != itEnd; ++it) {
++            shadowShapes[i].x = (*it).x();
++            shadowShapes[i].y = (*it).y();
++            shadowShapes[i].width = (*it).width();
++            shadowShapes[i].height = (*it).height();
++            i++;
++        }
++        XShapeCombineRectangles(qt_xdisplay(), shadowWidget->winId(),
++                ShapeBounding, -x() + thickness - xOffset,
++                -y() + thickness - yOffset, shadowShapes, i, ShapeSet,
++                Unsorted);
++        delete [] shadowShapes;
++
++        if (opacityCache->isNull())
++            imposeRegionShadow(shadowPixmap, shapeBoundingRegion,
++                    exposedRegion, thickness,
++                    options->shadowOpacity(isActive()));
++        else
++            imposeCachedShadow(shadowPixmap, exposedRegion);
++    }
++
++    XFree(shapes);
++
++    // Set the background pixmap
++    //shadowPixmap.convertFromImage(shadowImage);
++    shadowWidget->setErasePixmap(shadowPixmap);
++
++    // Restack shadows under this window so that shadows drawn for a newly
++    // focused (but not raised) window don't overlap any windows above it.
++    if (isDock()) {
++        ClientList stacking_order = workspace()->stackingOrder();
++        for (ClientList::ConstIterator it = stacking_order.begin(); it != stacking_order.end(); ++it)
++            if ((*it)->isDesktop())
++                {
++                ++it;
++                shadows[0] = (*it)->frameId();
++                shadows[1] = shadowWidget->winId();
++                }
++    }
++    else {
++        shadows[0] = frameId();
++        if (shadowWidget != NULL)
++            shadows[1] = shadowWidget->winId();
++    }
++
++    XRestackWindows(qt_xdisplay(), shadows, 2);
++
++    // Don't use QWidget::show() so we don't confuse QEffects, thus causing
++    // broken focus.
++    XMapWindow(qt_xdisplay(), shadowWidget->winId());
++
++    // Tell whatever Clients are listening that this Client's shadow has been drawn.
++    emit shadowDrawn();
++}
++
++/*!
++   Remove shadow under this window.
++ */
++void Client::removeShadow()
++{
++    QValueList<ShadowRegion>::Iterator it;
++
++    shadowDelayTimer->stop();
++
++    if (shadowWidget != NULL) {
++        for (it = shadowRegions.begin(); it != shadowRegions.end(); ++it)
++            if ((*it).client == this) {
++                shadowRegions.remove(it);
++                break;
++            }
++        delete shadowWidget;
++        shadowWidget = NULL;
++    }
++}
++
++/*!
++   Calculate regions in which the shadow will be visible given the window's
++   origin, height and width and the shadow's thickness, and X- and Y-offsets.
++ */
++QRegion Client::getExposedRegion(QRegion occludedRegion, int x, int y, int w,
++        int h, int thickness, int xOffset, int yOffset)
++{
++    QRegion exposedRegion;
++
++    exposedRegion = QRegion(x, y, w, h);
++    exposedRegion -= occludedRegion;
++
++    if (thickness > 0) {
++        // Limit exposedRegion to include only where a shadow of the specified
++        // thickness will be drawn
++        QMemArray<QRect> occludedRects;
++        QMemArray<QRect>::Iterator it, itEnd;
++        QRegion shadowRegion;
++
++        occludedRects = occludedRegion.rects();
++        itEnd = occludedRects.end();
++        for (it = occludedRects.begin(); it != itEnd; ++it) {
++            // Expand each of the occluded region's shape rectangles to contain
++            // where a shadow of the specified thickness will be drawn. Create
++            // a new QRegion that contains the expanded occluded region
++            it->setTop(it->top() - thickness + yOffset);
++            it->setLeft(it->left() - thickness + xOffset);
++            it->setRight(it->right() + thickness + xOffset);
++            it->setBottom(it->bottom() + thickness + yOffset);
++            shadowRegion += QRegion(*it);
++        }
++        exposedRegion -= exposedRegion - shadowRegion;
++    }
++
++    return exposedRegion;
++}
++
++/*!
++   Draw shadow gradient around this window using cached opacity values.
++ */
++void Client::imposeCachedShadow(QPixmap &pixmap, QRegion exposed)
++{
++    QRgb pixel;
++    double opacity;
++    int red, green, blue, pixelRed, pixelGreen, pixelBlue;
++    int subW, subH, w, h, x, y, zeroX, zeroY;
++    QImage image;
++    QMemArray<QRect>::Iterator it, itEnd;
++    QMemArray<QRect> rectangles;
++    QPixmap subPixmap;
++    Window rootWindow;
++    int thickness, windowX, windowY, xOffset, yOffset;
++
++    rectangles = exposed.rects();
++    rootWindow = qt_xrootwin();
++    thickness = options->shadowThickness(isActive());
++    windowX = this->x();
++    windowY = this->y();
++    xOffset = options->shadowXOffset(isActive());
++    yOffset = options->shadowYOffset(isActive());
++    options->shadowColour(isActive()).rgb(&red, &green, &blue);
++    w = pixmap.width();
++    h = pixmap.height();
++
++    itEnd = rectangles.end();
++    for (it = rectangles.begin(); it != itEnd; ++it) {
++        subW = (*it).width();
++        subH = (*it).height();
++        subPixmap = QPixmap::grabWindow(rootWindow, (*it).x(), (*it).y(),
++                subW, subH);
++        zeroX = (*it).x() - windowX + thickness - xOffset;
++        zeroY = (*it).y() - windowY + thickness - yOffset;
++        image = subPixmap.convertToImage();
++
++        for (x = 0; x < subW; x++) {
++            for (y = 0; y < subH; y++) {
++                opacity = (*(opacityCache))[(zeroY + y) * w + zeroX + x];
++                pixel = image.pixel(x, y);
++                pixelRed = qRed(pixel);
++                pixelGreen = qGreen(pixel);
++                pixelBlue = qBlue(pixel);
++                image.setPixel(x, y,
++                        qRgb((int)(pixelRed + (red - pixelRed) * opacity),
++                            (int)(pixelGreen + (green - pixelGreen) * opacity),
++                            (int)(pixelBlue + (blue - pixelBlue) * opacity)));
++            }
++        }
++
++        subPixmap.convertFromImage(image);
++        bitBlt(&pixmap, zeroX, zeroY, &subPixmap);
++    }
++}
++
++/*!
++   Draw shadow around this window using calculated opacity values.
++ */
++void Client::imposeRegionShadow(QPixmap &pixmap, QRegion occluded,
++        QRegion exposed, int thickness, double maxOpacity)
++{
++    register int distance, intersectCount, i, j, x, y;
++    QRgb pixel;
++    double decay, factor, opacity;
++    int red, green, blue, pixelRed, pixelGreen, pixelBlue;
++    int halfMaxIntersects, lineIntersects, maxIntersects, maxY;
++    int irBottom, irLeft, irRight, irTop, yIncrement;
++    int subW, subH, w, h, zeroX, zeroY;
++    QImage image;
++    QMemArray<QRect>::Iterator it, itEnd;
++    QMemArray<QRect> rectangles;
++    QPixmap subPixmap;
++    Window rootWindow;
++    int windowX, windowY, xOffset, yOffset;
++
++    rectangles = exposed.rects();
++    rootWindow = qt_xrootwin();
++    windowX = this->x();
++    windowY = this->y();
++    xOffset = options->shadowXOffset(isActive());
++    yOffset = options->shadowYOffset(isActive());
++    options->shadowColour(isActive()).rgb(&red, &green, &blue);
++    maxIntersects = thickness * thickness * 4 + (thickness * 4) + 1;
++    halfMaxIntersects = maxIntersects / 2;
++    lineIntersects = thickness * 2 + 1;
++    factor = maxIntersects / maxOpacity;
++    decay = (lineIntersects / 0.0125 - factor) / pow((double)maxIntersects, 3.0);
++    w = pixmap.width();
++    h = pixmap.height();
++    xOffset = options->shadowXOffset(isActive());
++    yOffset = options->shadowYOffset(isActive());
++
++    opacityCache->resize(0);
++    opacityCache->resize(w * h);
++    occluded.translate(-windowX + thickness, -windowY + thickness);
++
++    itEnd = rectangles.end();
++    for (it = rectangles.begin(); it != itEnd; ++it) {
++        subW = (*it).width();
++        subH = (*it).height();
++        subPixmap = QPixmap::grabWindow(rootWindow, (*it).x(), (*it).y(),
++                subW, subH);
++        maxY = subH;
++        zeroX = (*it).x() - windowX + thickness - xOffset;
++        zeroY = (*it).y() - windowY + thickness - yOffset;
++        image = subPixmap.convertToImage();
++
++        intersectCount = 0;
++        opacity = -1;
++        y = 0;
++        yIncrement = 1;
++        for (x = 0; x < subW; x++) {
++            irLeft = zeroX + x - thickness;
++            irRight = zeroX + x + thickness;
++
++            while (y != maxY) {
++                // horizontal row about to leave the intersect region, not
++                // necessarily the top row
++                irTop = zeroY + y - thickness * yIncrement;
++                // horizontal row that just came into the intersect region,
++                // not necessarily the bottom row
++                irBottom = zeroY + y + thickness * yIncrement;
++
++                if (opacity == -1) {
++                    // If occluded pixels caused an intersect count to be
++                    // skipped, recount it
++                    intersectCount = 0;
++
++                    for (j = irTop; j != irBottom; j += yIncrement) {
++                        // irTop is not necessarily larger than irBottom and
++                        // yIncrement isn't necessarily positive
++                        for (i = irLeft; i <= irRight; i++) {
++                            if (occluded.contains(QPoint(i, j)))
++                                intersectCount++;
++                        }
++                    }
++                }
++                else {
++                    if (intersectCount < 0)
++                        intersectCount = 0;
++
++                    for (i = irLeft; i <= irRight; i++) {
++                        if (occluded.contains(QPoint(i, irBottom)))
++                            intersectCount++;
++                    }
++                }
++
++                distance = maxIntersects - intersectCount;
++                opacity = intersectCount / (factor + pow((double)distance, 3.0) * decay);
++
++                (*(opacityCache))[(zeroY + y) * w + zeroX + x] = opacity;
++                pixel = image.pixel(x, y);
++                pixelRed = qRed(pixel);
++                pixelGreen = qGreen(pixel);
++                pixelBlue = qBlue(pixel);
++                image.setPixel(x, y,
++                        qRgb((int)(pixelRed + (red - pixelRed) * opacity),
++                            (int)(pixelGreen + (green - pixelGreen) * opacity),
++                            (int)(pixelBlue + (blue - pixelBlue) * opacity)));
++
++                for (i = irLeft; i <= irRight; i++) {
++                    if (occluded.contains(QPoint(i, irTop)))
++                        intersectCount--;
++                }
++
++                y += yIncrement;
++            }
++            y -= yIncrement;
++
++            irTop += yIncrement;
++            for (j = irTop; j != irBottom; j += yIncrement) {
++                if (occluded.contains(QPoint(irLeft, j)))
++                    intersectCount--;
++            }
++            irRight++;
++            for (j = irTop; j != irBottom; j += yIncrement) {
++                if (occluded.contains(QPoint(irRight, j)))
++                    intersectCount++;
++            }
++
++            yIncrement *= -1;
++            if (yIncrement < 0)
++                // Scan Y-axis bottom-up for next X-coordinate iteration
++                maxY = -1;
++            else
++                // Scan Y-axis top-down for next X-coordinate iteration
++                maxY = subH;
++        }
++
++        subPixmap.convertFromImage(image);
++        bitBlt(&pixmap, zeroX, zeroY, &subPixmap);
++    }
++}
++
+ /*!
+   Sets the client window's mapping state. Possible values are
+   WithdrawnState, IconicState, NormalState.
+@@ -845,6 +1471,8 @@
+         XMapWindow( qt_xdisplay(), wrapper );
+         XMapWindow( qt_xdisplay(), client );
+         }
++    if (options->shadowEnabled(isActive()))
++        drawDelayedShadow();
+     }
+ 
+ /*!
+@@ -860,6 +1488,8 @@
+ // which won't be missed, so this shouldn't be a problem. The chance the real UnmapNotify
+ // will be missed is also very minimal, so I don't think it's needed to grab the server
+ // here.
++    removeShadow();
++    drawIntersectingShadows();
+     XSelectInput( qt_xdisplay(), wrapper, ClientWinMask ); // avoid getting UnmapNotify
+     XUnmapWindow( qt_xdisplay(), frame );
+     XUnmapWindow( qt_xdisplay(), wrapper );
+@@ -915,7 +1545,7 @@
+         sendClientMessage( window(), atoms->wm_protocols, atoms->wm_delete_window);
+         pingWindow();
+         }
+-    else 
++    else
+         {
+         // client will not react on wm_delete_window. We have not choice
+         // but destroy his connection to the XServer.
+@@ -1149,7 +1779,7 @@
+  */
+ void Client::showContextHelp()
+     {
+-    if ( Pcontexthelp ) 
++    if ( Pcontexthelp )
+         {
+         sendClientMessage(window(), atoms->wm_protocols, atoms->net_wm_context_help);
+         QWhatsThis::enterWhatsThisMode(); // SELI?
+@@ -1167,11 +1797,11 @@
+     {
+     QString s;
+ 
+-    if ( info->name() && info->name()[ 0 ] != '\0' ) 
++    if ( info->name() && info->name()[ 0 ] != '\0' )
+         s = QString::fromUtf8( info->name() );
+-    else 
++    else
+         s = KWin::readNameProperty( window(), XA_WM_NAME );
+-    if ( s != cap_normal ) 
++    if ( s != cap_normal )
+         {
+         bool reset_name = cap_normal.isEmpty();
+         for( unsigned int i = 0;
+@@ -1185,7 +1815,7 @@
+         if ( ( !isSpecialWindow() || isToolbar()) && workspace()->findClient( FetchNameInternalPredicate( this ))) 
+             {
+             int i = 2;
+-            do 
++            do
+                 {
+                 cap_suffix = " <" + QString::number(i) + ">";
+                 i++;
+@@ -1211,11 +1841,11 @@
+     {
+     QString s;
+ 
+-    if ( info->iconName() && info->iconName()[ 0 ] != '\0' ) 
++    if ( info->iconName() && info->iconName()[ 0 ] != '\0' )
+         s = QString::fromUtf8( info->iconName() );
+-    else 
++    else
+         s = KWin::readNameProperty( window(), XA_WM_ICON_NAME );
+-    if ( s != cap_iconic ) 
++    if ( s != cap_iconic )
+         {
+         cap_iconic = s;
+         if( !cap_suffix.isEmpty() && !cap_iconic.isEmpty()) // keep the same suffix in iconic name if it's set
+@@ -1251,7 +1881,7 @@
+     }
+ 
+ void Client::readIcons( Window win, QPixmap* icon, QPixmap* miniicon )
+-    {    
++    {
+     // get the icons, allow scaling
+     if( icon != NULL )
+         *icon = KWin::icon( win, 32, 32, TRUE, KWin::NETWM | KWin::WMHints );
+@@ -1353,15 +1983,15 @@
+ QCString Client::staticWmClientMachine(WId w)
+     {
+     QCString result = getStringProperty(w, XA_WM_CLIENT_MACHINE);
+-    if (result.isEmpty()) 
++    if (result.isEmpty())
+         {
+         result = "localhost";
+         }
+-    else 
++    else
+         {
+         // special name for the local machine (localhost)
+         char hostnamebuf[80];
+-        if (gethostname (hostnamebuf, sizeof hostnamebuf) >= 0) 
++        if (gethostname (hostnamebuf, sizeof hostnamebuf) >= 0)
+             {
+             hostnamebuf[sizeof(hostnamebuf)-1] = 0;
+             if (result == hostnamebuf)
+@@ -1390,7 +2020,7 @@
+                                  FALSE, XA_WINDOW, &type, &format,
+                                  &nitems, &extra, &data );
+     XSetErrorHandler(oldHandler);
+-    if (status  == Success ) 
++    if (status  == Success )
+         {
+         if (data && nitems > 0)
+             result = *((Window*) data);
+@@ -1569,7 +2199,7 @@
+         setCursor( arrowCursor );
+         return;
+         }
+-    switch ( m ) 
++    switch ( m )
+         {
+         case PositionTopLeft:
+         case PositionBottomRight:
+Index: client.h
+===================================================================
+RCS file: /home/kde/kdebase/kwin/client.h,v
+retrieving revision 1.144
+diff -u -r1.144 client.h
+--- client.h	5 Mar 2004 13:39:27 -0000	1.144
++++ client.h	18 Mar 2004 21:34:53 -0000
+@@ -195,6 +195,15 @@
+         void updateDecoration( bool check_workspace_pos, bool force = false );
+         void checkBorderSizes();
+ 
++    // drop shadow
++        bool isShadowed() const;
++        void setShadowed(bool shadowed);
++        Window shadowId() const;
++        // Aieee, a friend function! Unpleasant, yes, but it's needed by
++        // raiseClient() to redraw a window's shadow when it is active prior to
++        // being raised.
++        friend void Workspace::raiseClient(Client *);
++
+     // shape extensions
+         bool shape() const;
+         void updateShape();
+@@ -281,6 +290,7 @@
+ private slots:
+         void autoRaise();
+         void shadeHover();
++        void updateOpacityCache();
+ 
+     private:
+         friend class Bridge; // FRAME
+@@ -318,11 +328,27 @@
+         bool buttonReleaseEvent( Window w, int button, int state, int x, int y, int x_root, int y_root );
+         bool motionNotifyEvent( Window w, int state, int x, int y, int x_root, int y_root );
+ 
++    // drop shadows
++        void drawIntersectingShadows();
++        void drawOverlappingShadows();
++        QRegion getExposedRegion(QRegion occludedRegion, int x, int y,
++                int w, int h, int thickness, int xOffset, int yOffset);
++        void imposeCachedShadow(QPixmap &pixmap, QRegion exposed);
++        void imposeRegionShadow(QPixmap &pixmap, QRegion occluded,
++                QRegion exposed, int thickness, double maxOpacity = 0.75);
++
+         void processDecorationButtonPress( int button, int state, int x, int y, int x_root, int y_root );
+ 
+     private slots:
+         void pingTimeout();
+         void processKillerExited();
++        void drawShadow();
++        void drawShadowAfter(Client *after);
++        void drawDelayedShadow();
++        void removeShadow();
++
++    signals:
++        void shadowDrawn();
+ 
+     private:
+     // ICCCM 4.1.3.1, 4.1.4 , NETWM 2.5.1
+@@ -392,11 +418,11 @@
+         bool move_faked_activity;
+         Window move_resize_grab_window;
+         bool unrestrictedMoveResize;
+-        bool isMove() const 
++        bool isMove() const
+             {
+             return moveResizeMode && mode == PositionCenter;
+             }
+-        bool isResize() const 
++        bool isResize() const
+             {
+             return moveResizeMode && mode != PositionCenter;
+             }
+@@ -482,6 +508,16 @@
+         int block_geometry; // >0 - new geometry is remembered, but not actually set
+         bool shade_geometry_change;
+         int border_left, border_right, border_top, border_bottom;
++
++        Client* shadowAfterClient;
++        QWidget* shadowWidget;
++        QMemArray<double> activeOpacityCache;
++        QMemArray<double> inactiveOpacityCache;
++        QMemArray<double>* opacityCache;
++        QRegion shapeBoundingRegion;
++        QTimer* shadowDelayTimer;
++        bool shadowMe;
++
+         QRegion _mask;
+         friend struct FetchNameInternalPredicate;
+         void show() { assert( false ); } // SELI remove after Client is no longer QWidget
+@@ -814,6 +850,16 @@
+     plainResize( s.width(), s.height(), force );
+     }
+ 
++inline bool Client::isShadowed() const
++    {
++    return shadowMe;
++    }
++
++inline Window Client::shadowId() const
++    {
++    return shadowWidget != NULL ? shadowWidget->winId() : None;
++    }
++
+ inline void Client::resizeWithChecks( const QSize& s, ForceGeometry_t force )
+     {
+     resizeWithChecks( s.width(), s.height(), force );
+Index: events.cpp
+===================================================================
+RCS file: /home/kde/kdebase/kwin/events.cpp,v
+retrieving revision 1.64
+diff -u -r1.64 events.cpp
+--- events.cpp	11 Mar 2004 13:15:04 -0000	1.64
++++ events.cpp	18 Mar 2004 21:34:53 -0000
+@@ -176,20 +176,20 @@
+  */
+ bool Workspace::workspaceEvent( XEvent * e )
+     {
+-    if ( mouse_emulation && (e->type == ButtonPress || e->type == ButtonRelease ) ) 
++    if ( mouse_emulation && (e->type == ButtonPress || e->type == ButtonRelease ) )
+         {
+         mouse_emulation = FALSE;
+         XUngrabKeyboard( qt_xdisplay(), qt_x_time );
+         }
+ 
+-    if ( e->type == PropertyNotify || e->type == ClientMessage ) 
++    if ( e->type == PropertyNotify || e->type == ClientMessage )
+         {
+         if ( netCheck( e ) )
+             return TRUE;
+         }
+ 
+     // events that should be handled before Clients can get them
+-    switch (e->type) 
++    switch (e->type)
+         {
+         case ButtonPress:
+         case ButtonRelease:
+@@ -262,7 +262,7 @@
+             return true;
+         }
+ 
+-    switch (e->type) 
++    switch (e->type)
+         {
+         case CreateNotify:
+             if ( e->xcreatewindow.parent == root &&
+@@ -293,7 +293,7 @@
+                 if ( XCheckTypedWindowEvent (qt_xdisplay(), w,
+                                              ReparentNotify, &ev) )
+                     {
+-                    if ( ev.xreparent.parent != root ) 
++                    if ( ev.xreparent.parent != root )
+                         {
+                         XReparentWindow( qt_xdisplay(), w, root, 0, 0 );
+                         addSystemTrayWin( w );
+@@ -327,7 +327,7 @@
+             // e->xmaprequest.window is different from e->xany.window
+             // TODO this shouldn't be necessary now
+             Client* c = findClient( WindowMatchPredicate( e->xmaprequest.window ));
+-            if ( !c ) 
++            if ( !c )
+                 {
+ // don't check for the parent being the root window, this breaks when some app unmaps
+ // a window, changes something and immediately maps it back, without giving KWin
+@@ -340,7 +340,7 @@
+                 if ( addSystemTrayWin( e->xmaprequest.window ) )
+                     return TRUE;
+                 c = createClient( e->xmaprequest.window, false );
+-                if ( c != NULL && root != qt_xrootwin() ) 
++                if ( c != NULL && root != qt_xrootwin() )
+                     { // TODO what is this?
+                     // TODO may use QWidget::create
+                     XReparentWindow( qt_xdisplay(), c->frameId(), root, 0, 0 );
+@@ -349,7 +349,7 @@
+                     XMapRaised( qt_xdisplay(), e->xmaprequest.window );
+                 return true;
+                 }
+-            if ( c ) 
++            if ( c )
+                 {
+                 c->windowEvent( e );
+                 if ( !c->wantsTabFocus())
+@@ -388,7 +388,7 @@
+             }
+         case ConfigureRequest:
+             {
+-            if ( e->xconfigurerequest.parent == root ) 
++            if ( e->xconfigurerequest.parent == root )
+                 {
+                 XWindowChanges wc;
+                 unsigned int value_mask = 0;
+@@ -523,7 +523,7 @@
+         }
+ 
+ // TODO move all focus handling stuff to separate file?
+-    switch (e->type) 
++    switch (e->type)
+         {
+         case UnmapNotify:
+             unmapNotifyEvent( &e->xunmap );
+@@ -711,8 +711,8 @@
+         return;
+     destroyClient();
+     }
+-    
+-    
++
++
+ bool         blockAnimation = FALSE;
+ 
+ /*!
+@@ -812,7 +812,7 @@
+     {
+     if( e->window != window())
+         return; // ignore frame/wrapper
+-    switch ( e->atom ) 
++    switch ( e->atom )
+         {
+         case XA_WM_NORMAL_HINTS:
+             getWmNormalHints();
+@@ -848,10 +848,10 @@
+         return; // care only about entering the whole frame
+     if( e->mode == NotifyNormal ||
+          ( !options->focusPolicyIsReasonable() &&
+-             e->mode == NotifyUngrab ) ) 
++             e->mode == NotifyUngrab ) )
+         {
+ 
+-        if (options->shadeHover && isShade()) 
++        if (options->shadeHover && isShade())
+             {
+             delete shadeHoverTimer;
+             shadeHoverTimer = new QTimer( this );
+@@ -864,7 +864,7 @@
+ 
+         if ( options->autoRaise && !isDesktop() &&
+              !isDock() && !isTopMenu() && workspace()->focusChangeEnabled() &&
+-             workspace()->topClientOnDesktop( workspace()->currentDesktop()) != this ) 
++             workspace()->topClientOnDesktop( workspace()->currentDesktop()) != this )
+             {
+             delete autoRaiseTimer;
+             autoRaiseTimer = new QTimer( this );
+@@ -884,9 +884,9 @@
+     {
+     if( e->window != frameId())
+         return; // care only about leaving the whole frame
+-    if ( e->mode == NotifyNormal ) 
++    if ( e->mode == NotifyNormal )
+         {
+-        if ( !buttonDown ) 
++        if ( !buttonDown )
+             {
+             mode = PositionCenter;
+             setCursor( arrowCursor );
+@@ -899,7 +899,7 @@
+         // TODO this still sucks if a window appears above this one - it should lose the mouse
+         // if this window is another client, but not if it's a popup ... maybe after KDE3.1 :(
+         // (repeat after me 'AARGHL!')
+-        if ( !lostMouse && e->detail != NotifyInferior ) 
++        if ( !lostMouse && e->detail != NotifyInferior )
+             {
+             int d1, d2, d3, d4;
+             unsigned int d5;
+@@ -908,7 +908,7 @@
+                 || child == None )
+                 lostMouse = true; // really lost the mouse
+             }
+-        if ( lostMouse ) 
++        if ( lostMouse )
+             {
+             cancelAutoRaise();
+             delete shadeHoverTimer;
+@@ -928,7 +928,7 @@
+ #define XScrL KKeyNative::modXScrollLock()
+ void Client::grabButton( int modifier )
+     {
+-    unsigned int mods[ 8 ] = 
++    unsigned int mods[ 8 ] =
+         {
+         0, XCapL, XNumL, XNumL | XCapL,
+         XScrL, XScrL | XCapL,
+@@ -945,7 +945,7 @@
+ 
+ void Client::ungrabButton( int modifier )
+     {
+-    unsigned int mods[ 8 ] = 
++    unsigned int mods[ 8 ] =
+         {
+         0, XCapL, XNumL, XNumL | XCapL,
+         XScrL, XScrL | XCapL,
+@@ -1002,7 +1002,7 @@
+         return Button3;
+     return AnyButton;
+     }
+-    
++
+ int qtToX11State( Qt::ButtonState state )
+     {
+     int ret = 0;
+@@ -1027,6 +1027,217 @@
+ // for the decoration window cannot be (easily) intercepted as X11 events
+ bool Client::eventFilter( QObject* o, QEvent* e )
+     {
++    if (o == shadowWidget)
++        {
++        if (e->type() == QEvent::MouseButtonRelease)
++            {
 +            int buttonMask, buttonPressed, x, y, x_root, y_root;
 +            unsigned int mask;
 +            QMouseEvent *qe = (QMouseEvent *)e;
 +            Window inner_window, parent_window, pointer_window, root_window;
 +            XButtonEvent xe;
 +
-+            slotRemoveShadow();
-+            switch (qe->button()) {
-+            case Qt::MidButton:
-+                buttonMask = Button2Mask;
-+                buttonPressed = Button2;
-+                break;
-+            case Qt::RightButton:
-+                buttonMask = Button3Mask;
-+                buttonPressed = Button3;
-+                break;
-+            default:
-+                buttonMask = Button1Mask;
-+                buttonPressed = Button1;
-+                break;
-+            }
++            removeShadow();
++            switch (qe->button())
++                {
++                case Qt::MidButton:
++                    buttonMask = Button2Mask;
++                    buttonPressed = Button2;
++                    break;
++                case Qt::RightButton:
++                    buttonMask = Button3Mask;
++                    buttonPressed = Button3;
++                    break;
++                default:
++                    buttonMask = Button1Mask;
++                    buttonPressed = Button1;
++                    break;
++                }
 +
 +            // find the window under the cursor that should receive the
 +            // simulated events
@@ -408,7 +1361,8 @@
 +            XQueryPointer(qt_xdisplay(), root_window, &root_window,
 +                    &pointer_window, &x_root, &y_root, &x, &y, &mask);
 +
-+            if (pointer_window != None) {
++            if (pointer_window != None)
++                {
 +                // Save the child window immediately under the window
 +                // decoration, if any. This is so that we can send an event to
 +                // the immediate descendant of a window's window decoration,
@@ -418,7 +1372,8 @@
 +                        &pointer_window, &x_root, &y_root, &x, &y, &mask);
 +                inner_window = pointer_window;
 +
-+                while (pointer_window != None) {
++                while (pointer_window != None)
++                    {
 +                    // Recursively query for the child window under the pointer,
 +                    // using the returned child window as the parent window for
 +                    // the subsequent query. When no child window is left, we've
@@ -426,9 +1381,9 @@
 +                    parent_window = pointer_window;
 +                    XQueryPointer(qt_xdisplay(), parent_window, &root_window,
 +                            &pointer_window, &x_root, &y_root, &x, &y, &mask);
-+                }
++                    }
 +                pointer_window = parent_window;
-+            }
++                }
 +            else
 +                inner_window = None;
 +
@@ -445,11 +1400,12 @@
 +            xe.state = 0;
 +            xe.button = buttonPressed;
 +            xe.same_screen = True;
-+            if (inner_window != None && inner_window != pointer_window) {
++            if (inner_window != None && inner_window != pointer_window)
++                {
 +                xe.window = inner_window;
 +                XSendEvent(qt_xdisplay(), inner_window, True, ButtonPressMask,
 +                        (XEvent *)&xe);
-+            }
++                }
 +            xe.window = pointer_window;
 +            XSendEvent(qt_xdisplay(), pointer_window, True, ButtonPressMask,
 +                    (XEvent *)&xe);
@@ -467,31 +1423,35 @@
 +            xe.state = buttonMask;
 +            xe.button = buttonPressed;
 +            xe.same_screen = True;
-+            if (inner_window != None && inner_window != pointer_window) {
++            if (inner_window != None && inner_window != pointer_window)
++                {
 +                xe.window = inner_window;
 +                XSendEvent(qt_xdisplay(), inner_window, True, ButtonReleaseMask,
 +                        (XEvent *)&xe);
-+            }
++                }
 +            xe.window = pointer_window;
 +            XSendEvent(qt_xdisplay(), pointer_window, True, ButtonReleaseMask,
 +                    (XEvent *)&xe);
 +
-+            if (isActive())
-+                // if this window is still active after passing through the
-+                // mouse click, redraw the shadow
-+                shadowDelayTimer->start(SHADOW_DELAY, true);
++            drawDelayedShadow();
 +
-+            return TRUE;
-+        }
-+        else if (e->type() == QEvent::Wheel) {
++            return true;
++            }
++        else if (e->type() == QEvent::Wheel)
++            {
 +            int x, y, x_root, y_root;
-+            unsigned int mask;
++            unsigned int buttonMask, buttonPressed, mask;
 +            QWheelEvent *wheelEvent = (QWheelEvent *)e;
 +            Window inner_window, parent_window, pointer_window,
 +                root_window;
 +            XButtonEvent xe;
 +
-+            slotRemoveShadow();
++            removeShadow();
++
++            // state and button parameters passed to XSendEvent depend on the
++            // direction in which the mouse wheel was rolled
++            buttonMask = wheelEvent->delta() > 0 ? Button4Mask : Button5Mask;
++            buttonPressed = wheelEvent->delta() > 0 ? Button4 : Button5;
 +
 +            // find the window under the cursor that should receive the
 +            // simulated events
@@ -499,7 +1459,8 @@
 +            XQueryPointer(qt_xdisplay(), root_window, &root_window,
 +                    &pointer_window, &x_root, &y_root, &x, &y, &mask);
 +
-+            if (pointer_window != None) {
++            if (pointer_window != None)
++                {
 +                // Save the child window immediately under the window
 +                // decoration, if any. This is so that we can send an event to
 +                // the immediate descendant of a window's window decoration,
@@ -509,7 +1470,8 @@
 +                        &pointer_window, &x_root, &y_root, &x, &y, &mask);
 +                inner_window = pointer_window;
 +
-+                while (pointer_window != None) {
++                while (pointer_window != None)
++                    {
 +                    // Recursively query for the child window under the pointer,
 +                    // using the returned child window as the parent window for
 +                    // the subsequent query. When no child window is left, we've
@@ -517,9 +1479,9 @@
 +                    parent_window = pointer_window;
 +                    XQueryPointer(qt_xdisplay(), parent_window, &root_window,
 +                            &pointer_window, &x_root, &y_root, &x, &y, &mask);
-+                }
++                    }
 +                pointer_window = parent_window;
-+            }
++                }
 +            else
 +                inner_window = None;
 +
@@ -535,13 +1497,14 @@
 +            xe.y_root = y_root;
 +            xe.state = 0;
 +            xe.same_screen = True;
-+            if (inner_window != None && inner_window != pointer_window) {
-+                xe.button = Button2;
++            if (inner_window != None && inner_window != pointer_window)
++                {
++                xe.button = buttonPressed;
 +                xe.window = inner_window;
 +                XSendEvent(qt_xdisplay(), inner_window, True, ButtonPressMask,
 +                        (XEvent *)&xe);
-+            }
-+            xe.button = wheelEvent->delta() > 0 ? Button4 : Button5;
++                }
++            xe.button = buttonPressed;
 +            xe.window = pointer_window;
 +            XSendEvent(qt_xdisplay(), pointer_window, True, ButtonPressMask,
 +                    (XEvent *)&xe);
@@ -557,436 +1520,1728 @@
 +            xe.x_root = x_root;
 +            xe.y_root = y_root;
 +            xe.same_screen = True;
-+            if (inner_window != None && inner_window != pointer_window) {
++            if (inner_window != None && inner_window != pointer_window)
++                {
 +                xe.window = inner_window;
-+                xe.state = Button2Mask;
-+                xe.button = Button2;
++                xe.state = buttonMask;
++                xe.button = buttonPressed;
 +                XSendEvent(qt_xdisplay(), inner_window, True, ButtonReleaseMask,
 +                        (XEvent *)&xe);
-+            }
-+            xe.state = wheelEvent->delta() > 0 ? Button4Mask : Button5Mask;
-+            xe.button = wheelEvent->delta() > 0 ? Button4 : Button5;
++                }
++            xe.state = buttonMask;
++            xe.button = buttonPressed;
 +            xe.window = pointer_window;
 +            XSendEvent(qt_xdisplay(), pointer_window, True, ButtonReleaseMask,
 +                    (XEvent *)&xe);
-+            return TRUE;
++
++            drawDelayedShadow();
++
++            return true;
++            }
++        }
+     if( decoration == NULL
+         || o != decoration->widget())
+         return false;
+@@ -1058,6 +1269,7 @@
+         if( ev->size() != size())
+             return true;
+         }
++
+     return false;
+     }
+ 
+@@ -1090,7 +1302,7 @@
+             }
+ 
+         if ( isActive() && w == wrapperId()
+-             && ( options->clickRaise && !bModKeyHeld ) ) 
++             && ( options->clickRaise && !bModKeyHeld ) )
+             {
+             if ( button < 4 ) // exclude wheel
+                 autoRaise();
+@@ -1101,7 +1313,7 @@
+         if ( bModKeyHeld )
+             {
+             was_action = true;
+-            switch (button) 
++            switch (button)
+                 {
+                 case Button1:
+                     com = options->commandAll1();
+@@ -1119,7 +1331,7 @@
+             if( !isActive() && w == wrapperId())
+                 {
+                 was_action = true;
+-                switch (button) 
++                switch (button)
+                     {
+                     case Button1:
+                         com = options->commandWindow1();
+@@ -1232,7 +1444,7 @@
+     if ( (state & ( Button1Mask & Button2Mask & Button3Mask )) == 0 )
+         {
+         buttonDown = FALSE;
+-        if ( moveResizeMode ) 
++        if ( moveResizeMode )
+             {
+             finishMoveResize( false );
+             // mouse position is still relative to old Client position, adjust it
+@@ -1283,7 +1495,7 @@
+     {
+     if( w != frameId() && w != decorationId() && w != moveResizeGrabWindow())
+         return true; // care only about the whole frame
+-    if ( !buttonDown ) 
++    if ( !buttonDown )
+         {
+         Position newmode = mousePosition( QPoint( x, y ));
+         if( newmode != mode )
+@@ -1403,7 +1615,7 @@
+     {
+     if( direction == NET::Move )
+         performMouseCommand( Options::MouseMove, QPoint( x_root, y_root ));
+-    else if( direction >= NET::TopLeft && direction <= NET::Left ) 
++    else if( direction >= NET::TopLeft && direction <= NET::Left )
+         {
+         static const Position convert[] =
+             {
+Index: geometry.cpp
+===================================================================
+RCS file: /home/kde/kdebase/kwin/geometry.cpp,v
+retrieving revision 2.66
+diff -u -r2.66 geometry.cpp
+--- geometry.cpp	17 Mar 2004 02:57:23 -0000	2.66
++++ geometry.cpp	18 Mar 2004 21:34:53 -0000
+@@ -1399,6 +1399,15 @@
+         XMoveWindow( qt_xdisplay(), frameId(), x, y );
+         sendSyntheticConfigureNotify();
+         }
++    if (!moveResizeMode && options->shadowEnabled(isActive()))
++        {
++        // If the user is manually resizing, let Client::leaveMoveResize()
++        // decide when to redraw the shadow
++        removeShadow();
++        drawIntersectingShadows();
++        if (options->shadowEnabled(isActive()))
++            drawDelayedShadow();
 +        }
      }
  
-     return FALSE;
-@@ -2487,9 +2806,372 @@
-         autoRaiseTimer = 0;
+ 
+@@ -1727,6 +1736,7 @@
+         }
+     if ( maximizeMode() != MaximizeRestore )
+         resetMaximize();
++    removeShadow();
+     moveResizeMode = true;
+     workspace()->setClientIsMoving(this);
+     initialMoveResizeGeom = moveResizeGeom = geometry();
+@@ -1782,6 +1792,11 @@
+     moveResizeMode = false;
+     delete eater;
+     eater = 0;
++    if (options->shadowEnabled(isActive()))
++        {
++        drawIntersectingShadows();
++        updateOpacityCache();
++        }
      }
  
--    activeChange( active );
-+    if (active) {
-+        slotDrawShadow();
-+        activeChange(TRUE);
-+    }
-+    else {
-+        slotRemoveShadow();
-+        activeChange(FALSE);
-+    }
-+}
-+
-+
-+void Client::slotDrawShadow()
-+{
-+    slotRemoveShadow();
-+
-+    switch (options->shadowType()) {
-+        case 1:
-+            drawWindowsShadow();
-+            break;
-+        case 2:
-+            drawMacOSXShadow();
-+            break;
-+    }
- }
+ // This function checks if it actually makes sense to perform a restricted move/resize.
+Index: layers.cpp
+===================================================================
+RCS file: /home/kde/kdebase/kwin/layers.cpp,v
+retrieving revision 2.21
+diff -u -r2.21 layers.cpp
+--- layers.cpp	2 Mar 2004 17:28:37 -0000	2.21
++++ layers.cpp	18 Mar 2004 21:34:53 -0000
+@@ -127,37 +127,69 @@
+                                 // when passig pointers around.
  
-+void Client::slotRemoveShadow()
-+{
-+    shadowDelayTimer->stop();
+     // restack the windows according to the stacking order
+-    Window* new_stack = new Window[ stacking_order.count() + 2 ];
+-    int pos = 0;
++    NET::WindowType t;
++    Window shadow;
++    Window *dock_shadow_stack, *window_stack;
++    int i, numDocks, pos, topmenu_space_pos;
 +
-+    if (se.w1 != NULL) {
-+        delete se.w1;
-+        se.w1 = NULL;
-+    }
-+    if (se.w2 != NULL) {
-+        delete se.w2;
-+        se.w2 = NULL;
-+    }
-+    if (se.w3 != NULL) {
-+        delete se.w3;
-+        se.w3 = NULL;
-+    }
-+}
++    dock_shadow_stack = new Window[ stacking_order.count() * 2 ];
++    window_stack = new Window[ stacking_order.count() * 2 + 2 ];
++    i = 0;
++    pos = 0;
++    topmenu_space_pos = 1; // not 0, that's supportWindow !!!
 +
-+/*!
-+  Draw a Mac OS X styled shadow around the current window's border.
-+
-+  These Mac OS X shadows by 'noonespecial':
-+      http://www.kde-look.org/content/show.php?content=4922
-+ */
-+void Client::drawMacOSXShadow()
-+{
-+    int x2 = x()+width();
-+    int y2 = y()+height();
-+
-+    QRect shadow1(x2, y(), 16, height() + 8);       //right
-+    QRect shadow2(x(), y2, width(), 18);            //bottom
-+    QRect shadow3(x() - 16, y(), 16, height() + 8); //left
-+
-+    // Create a fake drop-down shadow effect via blended Xwindows
-+    se.w1 = new QWidget(this, 0, WStyle_Customize | WType_Popup | WX11BypassWM);
-+    se.w2 = new QWidget(this, 0, WStyle_Customize | WType_Popup | WX11BypassWM);
-+    se.w3 = new QWidget(this, 0, WStyle_Customize | WType_Popup | WX11BypassWM);
-+
-+    se.w1->setGeometry(shadow1);
-+    se.w2->setGeometry(shadow2);
-+    se.w3->setGeometry(shadow3);
-+
-+    XSelectInput(qt_xdisplay(), se.w1->winId(), ButtonPressMask | ButtonReleaseMask | StructureNotifyMask);
-+    XSelectInput(qt_xdisplay(), se.w2->winId(), ButtonPressMask | ButtonReleaseMask | StructureNotifyMask);
-+    XSelectInput(qt_xdisplay(), se.w3->winId(), ButtonPressMask | ButtonReleaseMask | StructureNotifyMask);
-+
-+    se.w1->installEventFilter(this);
-+    se.w2->installEventFilter(this);
-+    se.w3->installEventFilter(this);
-+
-+    // Some hocus-pocus here to create the drop-shadow.
-+    QPixmap pix_shadow1 = QPixmap::grabWindow(qt_xrootwin(),
-+            shadow1.x(), shadow1.y(), shadow1.width(), shadow1.height());
-+    QPixmap pix_shadow2 = QPixmap::grabWindow(qt_xrootwin(),
-+            shadow2.x(), shadow2.y(), shadow2.width(), shadow2.height());
-+    QPixmap pix_shadow3 = QPixmap::grabWindow(qt_xrootwin(),
-+            shadow3.x(), shadow3.y(), shadow3.width(), shadow3.height());
-+
-+    QImage img;
-+    img = pix_shadow1.convertToImage();
-+    rightShadow(img);
-+    pix_shadow1.convertFromImage(img);
-+    img = pix_shadow2.convertToImage();
-+    bottomShadow(img);
-+    pix_shadow2.convertFromImage(img);
-+    img = pix_shadow3.convertToImage();
-+    leftShadow(img);
-+    pix_shadow3.convertFromImage(img);
-+
-+    // Set the background pixmaps
-+    se.w1->setErasePixmap(pix_shadow1);
-+    se.w2->setErasePixmap(pix_shadow2);
-+    se.w3->setErasePixmap(pix_shadow3);
-+
-+    // Restack shadows under this window so that shadows drawn for a newly
-+    // focused (but not raised) window don't overlap any windows above it.
-+    restackShadows();
-+
-+    // Don't use QWidget::show() so we don't confuse QEffects, thus causing
-+    // broken focus.
-+    XMapWindow(qt_xdisplay(), se.w1->winId());
-+    XMapWindow(qt_xdisplay(), se.w2->winId());
-+    XMapWindow(qt_xdisplay(), se.w3->winId());
-+}
-+
-+void Client::drawWindowsShadow()
-+{
-+    se.w1 = new QWidget(this, 0, WStyle_Customize | WType_Popup | WX11BypassWM);
-+    se.w2 = new QWidget(this, 0, WStyle_Customize | WType_Popup | WX11BypassWM);
-+    int x2 = x()+width();
-+    int y2 = y()+height();
-+    QRect shadow1(x2, y() + 4, 4, height());
-+    QRect shadow2(x() + 4, y2, width() - 4, 4);
-+
-+    // Grab!
-+    QPixmap pix_shadow1 = QPixmap::grabWindow(qt_xrootwin(),
-+                    shadow1.x(), shadow1.y(), shadow1.width(), shadow1.height());
-+    QPixmap pix_shadow2 = QPixmap::grabWindow(qt_xrootwin(),
-+                    shadow2.x(), shadow2.y(), shadow2.width(), shadow2.height());
-+
-+    // Create a fake drop-down shadow effect via blended Xwindows
-+    se.w1->setGeometry(shadow1);
-+    se.w2->setGeometry(shadow2);
-+
-+    XSelectInput(qt_xdisplay(), se.w1->winId(), ButtonPressMask | ButtonReleaseMask | StructureNotifyMask);
-+    XSelectInput(qt_xdisplay(), se.w2->winId(), ButtonPressMask | ButtonReleaseMask | StructureNotifyMask);
-+
-+    se.w1->installEventFilter(this);
-+    se.w2->installEventFilter(this);
-+
-+    //proccess image...
-+    QImage img;
-+    img = pix_shadow1.convertToImage();
-+    rightShadow(img);
-+    pix_shadow1.convertFromImage(img);
-+    img = pix_shadow2.convertToImage();
-+    bottomShadow(img);
-+    pix_shadow2.convertFromImage(img);
-+
-+    // Set the background pixmaps
-+    se.w1->setErasePixmap(pix_shadow1);
-+    se.w2->setErasePixmap(pix_shadow2);
-+
-+    // Restack shadows under this window so that shadows drawn for a newly
-+    // focused (but not raised) window don't overlap any windows above it.
-+    restackShadows();
-+
-+    // Don't use QWidget::show() so we don't confuse QEffects, thus causing
-+    // broken focus.
-+    XMapWindow(qt_xdisplay(), se.w1->winId());
-+    XMapWindow(qt_xdisplay(), se.w2->winId());
-+}
-+
-+void Client::bottomShadow(QImage& dst)
-+{
-+    if (dst.depth() != 32)
-+        dst = dst.convertDepth(32);
-+
-+    int line = 0;
-+    double* corner = const_cast<double*>(win_bottom_left_corner);
-+
-+#ifdef WORDS_BIGENDIAN
-+    register unsigned char* data = dst.bits() + 1; // Skip alpha
-+#else
-+    register unsigned char* data = dst.bits();     // Skip alpha
-+#endif
-+
-+    if (options->shadowType() == 1) {
-+        // Windows shadows
-+        double strip_data = win_shadow_strip[0];
-+        int width = dst.width() - 4;
-+
-+        for(int y = 0; y < 4; y++)
-+        {
-+            // Bottom-left Corner
-+            for(register int x = 0; x < 4; x++) {
-+                *data++ = (unsigned char)((*data)*(*corner));
-+                *data++ = (unsigned char)((*data)*(*corner));
-+                *data++ = (unsigned char)((*data)*(*corner));
-+                data++; // skip alpha
-+                corner++;
+     // Stack all windows under the support window. The support window is
+     // not used for anything (besides the NETWM property), and it's not shown,
+     // but it was lowered after kwin startup. Stacking all clients below
+     // it ensures that no client will be ever shown above override-redirect
+     // windows (e.g. popups).
+-    new_stack[ pos++ ] = supportWindow->winId();
+-    int topmenu_space_pos = 1; // not 0, that's supportWindow !!!
++    window_stack[pos++] = supportWindow->winId();
+     for( ClientList::ConstIterator it = stacking_order.fromLast();
+          it != stacking_order.end();
+          --it )
+         {
+-        new_stack[ pos++ ] = (*it)->frameId();
+-        if( (*it)->isTopMenu())
+-            topmenu_space_pos = pos;
++        t = (*it)->windowType();
++        switch (t)
++            {
++            case NET::Dock:
++                window_stack[pos++] = (*it)->frameId();
++                if ((shadow = (*it)->shadowId()) != None)
++                    dock_shadow_stack[i++] = shadow;
++                break;
++            case NET::Desktop:
++                numDocks = i;
++                for (i = 0; i < numDocks; i++)
++                    // Shadows for dock windows go just above the desktop
++                    window_stack[pos++] = dock_shadow_stack[i];
++                window_stack[pos++] = (*it)->frameId();
++                break;
++            case NET::TopMenu:
++                topmenu_space_pos = pos;
++                // fall through
++            default:
++                window_stack[pos++] = (*it)->frameId();
++                if ((shadow = (*it)->shadowId()) != None)
++                    // If the current window also has a shadow, place it
++                    // immediately under the current window
++                    window_stack[pos++] = shadow;
 +            }
+         }
 +
-+            // Scanline
-+            for(register int x = 0; x < width; x++) {
-+                *data++ = (unsigned char)((*data)*strip_data);
-+                *data++ = (unsigned char)((*data)*strip_data);
-+                *data++ = (unsigned char)((*data)*strip_data);
-+                data++;
-+            }
-+
-+            strip_data = win_shadow_strip[++line];
-+        }
-+    }
-+    else {
-+        // Mac OS X shadows
-+        //int distance;
-+        double strip_data = macosx_shadow_strip_bottom[0];
-+        int width = dst.width();
-+        for(int y = 0; y < 16; y++)
-+        {
-+            for(register int x = 0; x < width; x++) {
-+                *data++ = (unsigned char)((*data)*strip_data);
-+                *data++ = (unsigned char)((*data)*strip_data);
-+                *data++ = (unsigned char)((*data)*strip_data);
-+                data++;
-+            }
-+            strip_data = macosx_shadow_strip_right[++line];
-+        }
-+        /*if (isActive()) {
-+            // Large shadows for active window
-+            double baseValue = 0.333;
-+            register double pixelValue;
-+            for (int y = 0; y < 24; y++) {
-+                for (register int x = 0; x < width; x++) {
-+                    // get distance between current pixel and left or right
-+                    // edge, whichever is closer
-+                    distance = width - x - 1;
-+                    distance = x < distance ? x : distance;
-+                    if (distance <= 20) {
-+                        pixelValue = baseValue * (20 - distance / 2) * 0.1;
-+                        if (pixelValue > 1.0)
-+                            pixelValue = 1.0;
-+                    }
-+                    else
-+                        pixelValue = baseValue;
-+
-+                    *data++ = (unsigned char)(*data * pixelValue);
-+                    *data++ = (unsigned char)(*data * pixelValue);
-+                    *data++ = (unsigned char)(*data * pixelValue);
-+                    data++; // skip alpha bit
-+                }
-+                if ((baseValue += 0.028) > 1.0)
-+                    baseValue = 1.0;
-+            }
-+        }
-+        else {
-+            // Small shadows for inactive window
-+        }*/
-+    }
-+ }
-+
-+void Client::rightShadow(QImage& dst)
-+{
-+    register int i;
-+
-+    if (dst.depth() != 32)
-+        dst = dst.convertDepth(32);
-+
-+    // blend top-right corner.
-+    int pixels = dst.width() * dst.height();
-+#ifdef WORDS_BIGENDIAN
-+    register unsigned char* data = dst.bits() + 1; // Skip alpha
-+#else
-+    register unsigned char* data = dst.bits();     // Skip alpha
-+#endif
-+    if (options->shadowType() == 1) // Windows shadows
-+    {
-+        for(i = 0; i < 16; i++) {
-+            *data++ = (unsigned char)((*data)*win_top_right_corner[i]);
-+            *data++ = (unsigned char)((*data)*win_top_right_corner[i]);
-+            *data++ = (unsigned char)((*data)*win_top_right_corner[i]);
-+            data++; // skip alpha
-+        }
-+
-+        pixels -= 32;   // tint right strip without rounded edges.
-+        register int c = 0;
-+        for(i = 0; i < pixels; i++) {
-+            *data++ = (unsigned char)((*data)*win_shadow_strip[c]);
-+            *data++ = (unsigned char)((*data)*win_shadow_strip[c]);
-+            *data++ = (unsigned char)((*data)*win_shadow_strip[c]);
-+            data++; // skip alpha
-+            c = ++c % 4;
-+        }
-+
-+        // tint bottom edge
-+        for(i = 0; i < 16; i++) {
-+            *data++ = (unsigned char)((*data)*win_bottom_right_corner[i]);
-+            *data++ = (unsigned char)((*data)*win_bottom_right_corner[i]);
-+            *data++ = (unsigned char)((*data)*win_bottom_right_corner[i]);
-+            data++; // skip alpha
-+        }
-+    }
-+    else // Mac OS X shadows
-+    {
-+        for(i = 0; i < 256 && i < pixels; i++) {
-+            *data++ = (unsigned char)((*data)*macosx_top_right_corner[i]);
-+            *data++ = (unsigned char)((*data)*macosx_top_right_corner[i]);
-+            *data++ = (unsigned char)((*data)*macosx_top_right_corner[i]);
-+            data++;  // skip alpha
-+        }
-+        pixels -= 512; // tint right strip without rounded edges.
-+        register int c = 0;
-+        for(i = 0; i < pixels; i++) {
-+            *data++ = (unsigned char)((*data)*macosx_shadow_strip_right[c]);
-+            *data++ = (unsigned char)((*data)*macosx_shadow_strip_right[c]);
-+            *data++ = (unsigned char)((*data)*macosx_shadow_strip_right[c]);
-+            data++; // skip alpha
-+            c = ++c % 16;
-+        }
-+        pixels += 256 - i;
-+        for(i = 0; i < 256 && i < pixels; i++) {
-+            *data++ = (unsigned char)((*data)*macosx_bottom_right_corner[i]);
-+            *data++ = (unsigned char)((*data)*macosx_bottom_right_corner[i]);
-+            *data++ = (unsigned char)((*data)*macosx_bottom_right_corner[i]);
-+            data++;  // skip alpha
-+        }
-+    }
-+}
-+
-+void Client::leftShadow(QImage& dst)
-+{
-+    register int i;
-+
-+    if (dst.depth() != 32)
-+        dst = dst.convertDepth(32);
-+    int pixels = dst.width() * dst.height();
-+#ifdef WORDS_BIGENDIAN
-+    register unsigned char* data = dst.bits() + 1; // Skip alpha
-+#else
-+    register unsigned char* data = dst.bits();     // Skip alpha
-+#endif
-+    for(i = 0; i < 256 && i < pixels; i++) {
-+        *data++ = (unsigned char)((*data)*macosx_top_left_corner[i]);
-+        *data++ = (unsigned char)((*data)*macosx_top_left_corner[i]);
-+        *data++ = (unsigned char)((*data)*macosx_top_left_corner[i]);
-+        data++; // skip alpha
-+    }
-+    pixels -= 512;
-+    register int c = 0;
-+    for(i = 0; i < pixels; i++) {
-+        *data++ = (unsigned char)((*data)*macosx_shadow_strip_left[c]);
-+        *data++ = (unsigned char)((*data)*macosx_shadow_strip_left[c]);
-+        *data++ = (unsigned char)((*data)*macosx_shadow_strip_left[c]);
-+        data++; // skip alpha
-+        c = ++c % 16;
-+    }
-+    pixels += 256 - i;
-+    for(i = 0; i < 256 && i < pixels; i++) {
-+        *data++ = (unsigned char)((*data)*macosx_bottom_left_corner[i]);
-+        *data++ = (unsigned char)((*data)*macosx_bottom_left_corner[i]);
-+        *data++ = (unsigned char)((*data)*macosx_bottom_left_corner[i]);
-+        data++; // skip alpha
-+    }
-+}
-+
-+void Client::restackShadows()
-+{
-+    Window shadows[4];
-+    int numToRestack = 1;
-+
-+    shadows[0] = winId();
-+    if (se.w1 != NULL)
-+        shadows[numToRestack++] = se.w1->winId();
-+    if (se.w2 != NULL)
-+        shadows[numToRestack++] = se.w2->winId();
-+    if (se.w3 != NULL)
-+        shadows[numToRestack++] = se.w3->winId();
-+
-+    XRestackWindows(qt_xdisplay(), shadows, numToRestack);
-+}
+     if( topmenu_space != NULL )
+         { // make sure the topmenu space is below all topmenus, if there are any
+         for( int i = pos;
+              i > topmenu_space_pos;
+              --i )
+-            new_stack[ i ] = new_stack[ i - 1 ];
+-        new_stack[ topmenu_space_pos ] = topmenu_space->winId();
++            window_stack[ i ] = window_stack[ i - 1 ];
++        window_stack[ topmenu_space_pos ] = topmenu_space->winId();
+         ++pos;
+         }
+     // TODO isn't it too inefficient to restart always all clients?
+     // TODO don't restack not visible windows?
+-    assert( new_stack[ 0 ] = supportWindow->winId());
+-    XRestackWindows(qt_xdisplay(), new_stack, pos);
+-    delete [] new_stack;
++    assert( window_stack[ 0 ] = supportWindow->winId());
++    XRestackWindows(qt_xdisplay(), window_stack, pos);
++    delete [] dock_shadow_stack;
++    delete [] window_stack;
  
- /*!
-   Sets the window's sticky property to b
-@@ -2694,6 +3376,7 @@
-     switch (command) {
-     case Options::MouseRaise:
-         workspace()->raiseClient( this );
-+        restackShadows();
-         break;
-     case Options::MouseLower:
-         workspace()->lowerClient( this );
-@@ -2709,12 +3392,15 @@
-     case Options::MouseToggleRaiseAndLower:
-         if ( workspace()->topClientOnDesktop() == this )
-             workspace()->lowerClient( this );
--        else
--            workspace()->raiseClient( this );
-+        else {
-+             workspace()->raiseClient( this );
-+             restackShadows();
-+        }     
-         break;
-     case Options::MouseActivateAndRaise:
-         workspace()->requestFocus( this );
-         workspace()->raiseClient( this );
-+	restackShadows();
-         break;
-     case Options::MouseActivateAndLower:
-         workspace()->requestFocus( this );
-@@ -2726,6 +3412,7 @@
-     case Options::MouseActivateRaiseAndPassClick:
-         workspace()->requestFocus( this );
-         workspace()->raiseClient( this );
-+        restackShadows();
-         replay = TRUE;
-         break;
-     case Options::MouseActivateAndPassClick:
-@@ -3251,6 +3938,7 @@
- void Client::autoRaise()
+     if ( propagate_new_clients )
+         {
+@@ -335,6 +367,11 @@
+ 
+     unconstrained_stacking_order.remove( c );
+     unconstrained_stacking_order.append( c );
++    if (options->shadowEnabled(c->isActive()))
++        {
++        c->removeShadow();
++        c->drawDelayedShadow();
++        }
+ 
+     if( !c->isSpecialWindow())
+         most_recently_raised = c;
+@@ -468,10 +505,10 @@
+ #endif
+         layer[ (*it)->layer() ].append( *it );
+         }
+-    ClientList stacking;    
++    ClientList stacking;
+     for( Layer lay = FirstLayer;
+          lay < NumLayers;
+-         ++lay )    
++         ++lay )
+         stacking += layer[ lay ];
+ #if 0
+     kdDebug() << "stacking2:" << endl;
+Index: manage.cpp
+===================================================================
+RCS file: /home/kde/kdebase/kwin/manage.cpp,v
+retrieving revision 2.38
+diff -u -r2.38 manage.cpp
+--- manage.cpp	11 Mar 2004 12:59:55 -0000	2.38
++++ manage.cpp	18 Mar 2004 21:34:53 -0000
+@@ -309,6 +309,7 @@
+         setSkipTaskbar( session->skipTaskbar, true );
+         setSkipPager( session->skipPager );
+         setShade( session->shaded ? ShadeNormal : ShadeNone );
++        setShadowed( session->shadowed );
+         if( session->maximized != MaximizeRestore )
+             {
+             maximize( (MaximizeMode) session->maximized );
+Index: options.cpp
+===================================================================
+RCS file: /home/kde/kdebase/kwin/options.cpp,v
+retrieving revision 1.97
+diff -u -r1.97 options.cpp
+--- options.cpp	23 Feb 2004 12:47:28 -0000	1.97
++++ options.cpp	18 Mar 2004 21:34:53 -0000
+@@ -76,13 +76,13 @@
+     gc->setGroup("Windows");
+     xineramaEnabled = gc->readBoolEntry ("XineramaEnabled", isVirtual ) &&
+                       isVirtual;
+-    if (xineramaEnabled) 
++    if (xineramaEnabled)
+         {
+         xineramaPlacementEnabled = gc->readBoolEntry ("XineramaPlacementEnabled", true);
+         xineramaMovementEnabled = gc->readBoolEntry ("XineramaMovementEnabled", true);
+         xineramaMaximizeEnabled = gc->readBoolEntry ("XineramaMaximizeEnabled", true);
+         }
+-    else 
++    else
+         {
+         xineramaPlacementEnabled = xineramaMovementEnabled = xineramaMaximizeEnabled = false;
+         }
+@@ -100,12 +100,12 @@
+     animateMinimize = config->readBoolEntry("AnimateMinimize", TRUE );
+     animateMinimizeSpeed = config->readNumEntry("AnimateMinimizeSpeed", 5 );
+ 
+-    if( focusPolicy == ClickToFocus ) 
++    if( focusPolicy == ClickToFocus )
+         {
+         autoRaise = false;
+         autoRaiseInterval = 0;
+         }
+-    else 
++    else
+         {
+         autoRaise = config->readBoolEntry("AutoRaise", FALSE );
+         autoRaiseInterval = config->readNumEntry("AutoRaiseInterval", 0 );
+@@ -154,6 +154,24 @@
+     CmdAll2 = mouseCommand(config->readEntry("CommandAll2","Toggle raise and lower"), false );
+     CmdAll3 = mouseCommand(config->readEntry("CommandAll3","Resize"), false );
+ 
++    // window drop shadows
++    config->setGroup("Style");
++    shadow_colour = config->readColorEntry("ShadowColour", &Qt::black);
++    shadow_docks = config->readBoolEntry("ShadowDocks", false);
++    shadow_overrides = config->readBoolEntry("ShadowOverrides", false);
++    shadow_topMenus = config->readBoolEntry("ShadowTopMenus", false);
++    shadow_inactive_colour = config->readColorEntry("InactiveShadowColour", &Qt::black);
++    shadow_inactive_enabled = config->readBoolEntry("InactiveShadowEnabled", false);
++    shadow_inactive_opacity = config->readDoubleNumEntry("InactiveShadowOpacity", 0.70);
++    shadow_inactive_thickness = config->readNumEntry("InactiveShadowThickness", 5);
++    shadow_inactive_x_offset = config->readNumEntry("InactiveShadowXOffset", 0);
++    shadow_inactive_y_offset = config->readNumEntry("InactiveShadowYOffset", 5);
++    shadow_enabled = config->readBoolEntry("ShadowEnabled", false);
++    shadow_opacity = config->readDoubleNumEntry("ShadowOpacity", 0.70);
++    shadow_thickness = config->readNumEntry("ShadowThickness", 10);
++    shadow_x_offset = config->readNumEntry("ShadowXOffset", 0);
++    shadow_y_offset = config->readNumEntry("ShadowYOffset", 10);
++
+     // Read button tooltip animation effect from kdeglobals
+     // Since we want to allow users to enable window decoration tooltips
+     // and not kstyle tooltips and vise-versa, we don't read the
+@@ -202,6 +220,8 @@
+         return HMaximizeOp;
+     else if (name == "Lower")
+         return LowerOp;
++    else if (name == "Shadow")
++        return ShadowOp;
+     return NoOp;
+     }
+ 
+@@ -232,6 +252,69 @@
+     return show_geometry_tip;
+     }
+ 
++QColor &Options::shadowColour(bool active)
++    {
++    return active ? shadow_colour : shadow_inactive_colour;
++    }
++
++bool Options::shadowWindowType(NET::WindowType t)
++    {
++    bool retval;
++
++    switch (t)
++        {
++        case NET::Dialog:
++        case NET::Normal:
++            retval = true;
++            break;
++        case NET::Desktop:
++        case NET::Menu:
++        case NET::Toolbar:
++            retval = false;
++            break;
++        case NET::Dock:
++            retval = shadow_docks;
++            break;
++        case NET::Override:
++            retval = shadow_overrides;
++            break;
++        case NET::TopMenu:
++            retval = shadow_topMenus;
++            break;
++        default:
++            retval = false;
++            break;
++        }
++
++    return retval;
++    }
++
++bool Options::shadowEnabled(bool active)
++    {
++    return active ? shadow_enabled :
++        (shadow_enabled && shadow_inactive_enabled);
++    }
++
++double Options::shadowOpacity(bool active)
++    {
++    return active ? shadow_opacity : shadow_inactive_opacity;
++    }
++
++int Options::shadowThickness(bool active)
++    {
++    return active ? shadow_thickness : shadow_inactive_thickness;
++    }
++
++int Options::shadowXOffset(bool active)
++    {
++    return active ? shadow_x_offset : shadow_inactive_x_offset;
++    }
++
++int Options::shadowYOffset(bool active)
++    {
++    return active ? shadow_y_offset : shadow_inactive_y_offset;
++    }
++
+ int Options::electricBorders()
+     {
+     return electric_borders;
+Index: options.h
+===================================================================
+RCS file: /home/kde/kdebase/kwin/options.h,v
+retrieving revision 1.61
+diff -u -r1.61 options.h
+--- options.h	15 Dec 2003 14:43:44 -0000	1.61
++++ options.h	18 Mar 2004 21:34:53 -0000
+@@ -21,7 +21,7 @@
+ namespace KWinInternal
  {
-     workspace()->raiseClient( this );
-+    restackShadows();
-     delete autoRaiseTimer;
-     autoRaiseTimer = 0;
+ 
+-class Options : public KDecorationOptions 
++class Options : public KDecorationOptions
+     {
+     public:
+ 
+@@ -189,7 +189,7 @@
+ 
+         WindowOperation operationTitlebarDblClick() { return OpTitlebarDblClick; }
+ 
+-        enum MouseCommand 
++        enum MouseCommand
+             {
+             MouseRaise, MouseLower, MouseOperationsMenu, MouseToggleRaiseAndLower,
+             MouseActivateAndRaise, MouseActivateAndLower, MouseActivate,
+@@ -226,6 +226,45 @@
+         */
+         bool showGeometryTip();
+ 
++        /**
++        * @returns A QColor representing the colour that window drop shadows should
++        *          be.
++        */
++        QColor &shadowColour(bool active=true);
++
++        /**
++        * @returns true if shadows should be drawn around windows of the
++        *          specified type
++        */
++        bool shadowWindowType(NET::WindowType t);
++
++        /**
++        * @returns true if window shadows should be drawn
++        */
++        bool shadowEnabled(bool active=true);
++
++        /**
++        * @returns Window shadow's opacity between 0.01 and 1.00.
++        */
++        double shadowOpacity(bool active=true);
++
++        /**
++        * @returns How thick a shadow should be to either side of of a window.
++        */
++        int shadowThickness(bool active=true);
++
++        /**
++        * @returns Number of pixels along the X-axis by which to offset window
++        *          shadows.
++        */
++        int shadowXOffset(bool active=true);
++
++        /**
++        * @returns Number of pixels along the Y-axis by which to offset window
++        *          shadows.
++        */
++        int shadowYOffset(bool active=true);
++
+         enum { ElectricDisabled = 0, ElectricMoveOnly = 1, ElectricAlways = 2 };
+         /**
+         * @returns true if electric borders are enabled. With electric borders
+@@ -265,6 +304,21 @@
+         bool show_geometry_tip;
+         bool topmenus;
+         bool desktop_topmenu;
++        QColor shadow_colour;
++        QColor shadow_inactive_colour;
++        bool shadow_docks;
++        bool shadow_overrides;
++        bool shadow_topMenus;
++        bool shadow_inactive_enabled;
++        bool shadow_enabled;
++        double shadow_inactive_opacity;
++        double shadow_opacity;
++        int shadow_inactive_thickness;
++        int shadow_thickness;
++        int shadow_inactive_x_offset;
++        int shadow_x_offset;
++        int shadow_inactive_y_offset;
++        int shadow_y_offset;
+     };
+ 
+ extern Options* options;
+Index: sm.cpp
+===================================================================
+RCS file: /home/kde/kdebase/kwin/sm.cpp,v
+retrieving revision 2.4
+diff -u -r2.4 sm.cpp
+--- sm.cpp	23 Feb 2004 12:47:28 -0000	2.4
++++ sm.cpp	18 Mar 2004 21:34:53 -0000
+@@ -72,7 +72,7 @@
+     config->setGroup("Session" );
+     int count =  0;
+     int active_client = -1;
+-    for (ClientList::Iterator it = clients.begin(); it != clients.end(); ++it) 
++    for (ClientList::Iterator it = clients.begin(); it != clients.end(); ++it)
+         {
+         Client* c = (*it);
+         QCString sessionId = c->sessionId();
+@@ -106,6 +106,7 @@
+             // the config entry is called "sticky" for back. comp. reasons
+             config->writeEntry( QString("sticky")+n, c->isOnAllDesktops() );
+             config->writeEntry( QString("shaded")+n, c->isShade() );
++            config->writeEntry( QString("shadowed")+n, c->isShadowed() );
+             // the config entry is called "staysOnTop" for back. comp. reasons
+             config->writeEntry( QString("staysOnTop")+n, c->keepAbove() );
+             config->writeEntry( QString("keepBelow")+n, c->keepBelow() );
+@@ -151,7 +152,7 @@
+     config->setGroup("Session" );
+     int count =  config->readNumEntry( "count" );
+     int active_client = config->readNumEntry( "active" );
+-    for ( int i = 1; i <= count; i++ ) 
++    for ( int i = 1; i <= count; i++ )
+         {
+         QString n = QString::number(i);
+         SessionInfo* info = new SessionInfo;
+@@ -171,6 +172,7 @@
+         info->minimized = config->readBoolEntry( QString("iconified")+n, FALSE );
+         info->onAllDesktops = config->readBoolEntry( QString("sticky")+n, FALSE );
+         info->shaded = config->readBoolEntry( QString("shaded")+n, FALSE );
++        info->shadowed = config->readBoolEntry( QString("shadowed")+n, TRUE );
+         info->keepAbove = config->readBoolEntry( QString("staysOnTop")+n, FALSE  );
+         info->keepBelow = config->readBoolEntry( QString("keepBelow")+n, FALSE  );
+         info->skipTaskbar = config->readBoolEntry( QString("skipTaskbar")+n, FALSE  );
+@@ -188,7 +190,7 @@
+     KConfig *config = KGlobal::config();
+     config->setGroup("FakeSession" );
+     int count =  config->readNumEntry( "count" );
+-    for ( int i = 1; i <= count; i++ ) 
++    for ( int i = 1; i <= count; i++ )
+         {
+         QString n = QString::number(i);
+         SessionInfo* info = new SessionInfo;
+@@ -206,6 +208,7 @@
+         info->minimized = config->readBoolEntry( QString("iconified")+n, FALSE );
+         info->onAllDesktops = config->readBoolEntry( QString("sticky")+n, FALSE );
+         info->shaded = config->readBoolEntry( QString("shaded")+n, FALSE );
++        info->shadowed = config->readBoolEntry( QString("shadowed")+n, TRUE );
+         info->keepAbove = config->readBoolEntry( QString("staysOnTop")+n, FALSE  );
+         info->keepBelow = config->readBoolEntry( QString("keepBelow")+n, FALSE  );
+         info->skipTaskbar = config->readBoolEntry( QString("skipTaskbar")+n, FALSE  );
+@@ -236,6 +239,7 @@
+     info->minimized = c->isMinimized();
+     info->onAllDesktops = c->isOnAllDesktops();
+     info->shaded = c->isShade();
++    info->shadowed = c->isShadowed();
+     info->keepAbove = c->keepAbove();
+     info->keepBelow = c->keepBelow();
+     info->skipTaskbar = c->skipTaskbar( true );
+@@ -251,7 +255,7 @@
+     KConfig *config = KGlobal::config();
+     config->setGroup("FakeSession" );
+     int count = 0;
+-    for ( SessionInfo* info = fakeSession.first(); info; info = fakeSession.next() ) 
++    for ( SessionInfo* info = fakeSession.first(); info; info = fakeSession.next() )
+         {
+         count++;
+         QString n = QString::number(count);
+@@ -268,6 +272,7 @@
+         config->writeEntry( QString("iconified")+n, info->minimized );
+         config->writeEntry( QString("onAllDesktops")+n, info->onAllDesktops );
+         config->writeEntry( QString("shaded")+n, info->shaded );
++        config->writeEntry( QString("shadowed")+n, info->shadowed );
+         config->writeEntry( QString("staysOnTop")+n, info->keepAbove );
+         config->writeEntry( QString("keepBelow")+n, info->keepBelow );
+         config->writeEntry( QString("skipTaskbar")+n, info->skipTaskbar );
+@@ -301,18 +306,18 @@
+     QCString resourceClass = c->resourceClass();
+ 
+     // First search ``session''
+-    if (! sessionId.isEmpty() ) 
++    if (! sessionId.isEmpty() )
+         {
+         // look for a real session managed client (algorithm suggested by ICCCM)
+         for (SessionInfo* info = session.first(); info && !realInfo; info = session.next() )
+-            if ( info->sessionId == sessionId && sessionInfoWindowTypeMatch( c, info )) 
++            if ( info->sessionId == sessionId && sessionInfoWindowTypeMatch( c, info ))
+             {
+-            if ( ! windowRole.isEmpty() ) 
++            if ( ! windowRole.isEmpty() )
+                 {
+                 if ( info->windowRole == windowRole )
+                     realInfo = session.take();
+                 }
+-            else 
++            else
+                 {
+                 if ( info->windowRole.isEmpty() &&
+                      info->resourceName == resourceName &&
+@@ -321,7 +326,7 @@
+                 }
+             }
+         }
+-    else 
++    else
+         {
+         // look for a sessioninfo with matching features.
+         for (SessionInfo* info = session.first(); info && !realInfo; info = session.next() )
+@@ -355,7 +360,7 @@
+ 
+ bool Workspace::sessionInfoWindowTypeMatch( Client* c, SessionInfo* info )
+     {
+-    if( info->windowType == -2 ) 
++    if( info->windowType == -2 )
+         { // undefined (not really part of NET::WindowType)
+         return !c->isSpecialWindow() || c->isOverride();
+         }
+@@ -384,7 +389,7 @@
+     }
+ #endif
+ 
+-static const char* const window_type_names[] = 
++static const char* const window_type_names[] =
+     {
+     "Unknown", "Normal" , "Desktop", "Dock", "Toolbar", "Menu", "Dialog",
+     "Override", "TopMenu", "Utility", "Splash"
+Index: sm.h
+===================================================================
+RCS file: /home/kde/kdebase/kwin/sm.h,v
+retrieving revision 2.4
+diff -u -r2.4 sm.h
+--- sm.h	6 Oct 2003 14:19:06 -0000	2.4
++++ sm.h	18 Mar 2004 21:34:53 -0000
+@@ -39,6 +39,7 @@
+     bool minimized;
+     bool onAllDesktops;
+     bool shaded;
++    bool shadowed;
+     bool keepAbove;
+     bool keepBelow;
+     bool skipTaskbar;
+Index: useractions.cpp
+===================================================================
+RCS file: /home/kde/kdebase/kwin/useractions.cpp,v
+retrieving revision 2.11
+diff -u -r2.11 useractions.cpp
+--- useractions.cpp	18 Mar 2004 13:18:41 -0000	2.11
++++ useractions.cpp	18 Mar 2004 21:34:54 -0000
+@@ -57,6 +57,7 @@
+         advanced_popup->insertItem( SmallIconSet( "down" ), i18n("Keep &Below Others"), Options::KeepBelowOp );
+         advanced_popup->insertItem( SmallIconSet( "window_fullscreen" ), i18n("&Fullscreen"), Options::FullScreenOp );
+         advanced_popup->insertItem( i18n("&No Border"), Options::NoBorderOp );
++        advanced_popup->insertItem( i18n("Shad&ow"), Options::ShadowOp );
+         advanced_popup->insertItem( SmallIconSet( "filesave" ), i18n("Sto&re Window Settings"), Options::ToggleStoreSettingsOp );
+ 
+         popup->insertItem(i18n("Ad&vanced"), advanced_popup );
+@@ -114,6 +115,8 @@
+     advanced_popup->setItemEnabled( Options::FullScreenOp, popup_client->userCanSetFullScreen() );
+     advanced_popup->setItemChecked( Options::NoBorderOp, popup_client->noBorder() );
+     advanced_popup->setItemEnabled( Options::NoBorderOp, popup_client->userCanSetNoBorder() );
++    advanced_popup->setItemEnabled( Options::ShadowOp, (options->shadowWindowType(popup_client->windowType()) && options->shadowEnabled(popup_client->isActive())) );
++    advanced_popup->setItemChecked( Options::ShadowOp, popup_client->isShadowed() );
+     popup->setItemEnabled( Options::MinimizeOp, popup_client->isMinimizable() );
+     advanced_popup->setItemChecked( Options::ToggleStoreSettingsOp, popup_client->storeSettings() );
+     popup->setItemEnabled( Options::CloseOp, popup_client->isCloseable() );
+@@ -152,7 +155,7 @@
+     desk_popup->insertSeparator( -1 );
+     int id;
+     const int BASE = 10;
+-    for ( int i = 1; i <= numberOfDesktops(); i++ ) 
++    for ( int i = 1; i <= numberOfDesktops(); i++ )
+         {
+         QString basic_name("%1  %2");
+         if (i<BASE)
+@@ -221,7 +224,7 @@
+     }
+ 
+ 
+-void Workspace::performWindowOperation( Client* c, Options::WindowOperation op ) 
++void Workspace::performWindowOperation( Client* c, Options::WindowOperation op )
+     {
+     if ( !c )
+         return;
+@@ -230,7 +233,7 @@
+         QCursor::setPos( c->geometry().center() );
+     if (op == Options::ResizeOp || op == Options::UnrestrictedResizeOp )
+         QCursor::setPos( c->geometry().bottomRight());
+-    switch ( op ) 
++    switch ( op )
+         {
+         case Options::MoveOp:
+             c->performMouseCommand( Options::MouseMove, QCursor::pos() );
+@@ -263,6 +266,9 @@
+         case Options::ShadeOp:
+             c->toggleShade();
+             break;
++        case Options::ShadowOp:
++            c->setShadowed( !c->isShadowed() );
++            break;
+         case Options::OnAllDesktopsOp:
+             c->setOnAllDesktops( !c->isOnAllDesktops() );
+             break;
+@@ -295,7 +301,7 @@
+ bool Client::performMouseCommand( Options::MouseCommand command, QPoint globalPos)
+     {
+     bool replay = FALSE;
+-    switch (command) 
++    switch (command)
+         {
+         case Options::MouseRaise:
+             workspace()->raiseClient( this );
+@@ -421,13 +427,13 @@
+ void Workspace::slotSwitchDesktopNext()
+     {
+     int d = currentDesktop() + 1;
+-     if ( d > numberOfDesktops() ) 
++     if ( d > numberOfDesktops() )
+         {
+-        if ( options->rollOverDesktops ) 
++        if ( options->rollOverDesktops )
+             {
+             d = 1;
+             }
+-        else 
++        else
+             {
+             return;
+             }
+@@ -439,7 +445,7 @@
+ void Workspace::slotSwitchDesktopPrevious()
+     {
+     int d = currentDesktop() - 1;
+-    if ( d <= 0 ) 
++    if ( d <= 0 )
+         {
+         if ( options->rollOverDesktops )
+           d = numberOfDesktops();
+@@ -458,7 +464,7 @@
+     if (layoutOrientation == Qt::Vertical)
+         {
+         dt += y;
+-        if ( dt >= numberOfDesktops() ) 
++        if ( dt >= numberOfDesktops() )
+             {
+             if ( options->rollOverDesktops )
+               dt -= numberOfDesktops();
+@@ -469,7 +475,7 @@
+     else
+         {
+         int d = (dt % x) + 1;
+-        if ( d >= x ) 
++        if ( d >= x )
+             {
+             if ( options->rollOverDesktops )
+               d -= x;
+@@ -490,7 +496,7 @@
+     if (layoutOrientation == Qt::Vertical)
+         {
+         dt -= y;
+-        if ( dt < 0 ) 
++        if ( dt < 0 )
+             {
+             if ( options->rollOverDesktops )
+               dt += numberOfDesktops();
+@@ -501,7 +507,7 @@
+     else
+         {
+         int d = (dt % x) - 1;
+-        if ( d < 0 ) 
++        if ( d < 0 )
+             {
+             if ( options->rollOverDesktops )
+               d += x;
+@@ -522,7 +528,7 @@
+     if (layoutOrientation == Qt::Horizontal)
+         {
+         dt -= x;
+-        if ( dt < 0 ) 
++        if ( dt < 0 )
+             {
+             if ( options->rollOverDesktops )
+               dt += numberOfDesktops();
+@@ -533,7 +539,7 @@
+     else
+         {
+         int d = (dt % y) - 1;
+-        if ( d < 0 ) 
++        if ( d < 0 )
+             {
+             if ( options->rollOverDesktops )
+               d += y;
+@@ -554,7 +560,7 @@
+     if (layoutOrientation == Qt::Horizontal)
+         {
+         dt += x;
+-        if ( dt >= numberOfDesktops() ) 
++        if ( dt >= numberOfDesktops() )
+             {
+             if ( options->rollOverDesktops )
+               dt -= numberOfDesktops();
+@@ -565,7 +571,7 @@
+     else
+         {
+         int d = (dt % y) + 1;
+-        if ( d >= y ) 
++        if ( d >= y )
+             {
+             if ( options->rollOverDesktops )
+               d -= y;
+@@ -743,7 +749,7 @@
+     {
+     if ( !popup_client )
+         return;
+-    if ( desk == 0 ) 
++    if ( desk == 0 )
+         { // the 'on_all_desktops' menu entry
+         popup_client->setOnAllDesktops( !popup_client->isOnAllDesktops());
+         return;
+Index: workspace.cpp
+===================================================================
+RCS file: /home/kde/kdebase/kwin/workspace.cpp,v
+retrieving revision 1.466
+diff -u -r1.466 workspace.cpp
+--- workspace.cpp	18 Mar 2004 13:18:41 -0000	1.466
++++ workspace.cpp	18 Mar 2004 21:34:54 -0000
+@@ -67,6 +67,7 @@
+     desktop_widget    (0),
+     active_client     (0),
+     last_active_client     (0),
++    next_active_client     (0),
+     most_recently_raised (0),
+     movingClient(0),
+     was_user_interaction (false),
+@@ -315,7 +316,7 @@
+         unsigned int i, nwins;
+         Window root_return, parent_return, *wins;
+         XQueryTree(qt_xdisplay(), root, &root_return, &parent_return, &wins, &nwins);
+-        for (i = 0; i < nwins; i++) 
++        for (i = 0; i < nwins; i++)
+             {
+             XWindowAttributes attr;
+             XGetWindowAttributes(qt_xdisplay(), wins[i], &attr);
+@@ -328,7 +329,7 @@
+                 if ( addSystemTrayWin( wins[i] ) )
+                     continue;
+                 Client* c = createClient( wins[i], true );
+-                if ( c != NULL && root != qt_xrootwin() ) 
++                if ( c != NULL && root != qt_xrootwin() )
+                     { // TODO what is this?
+                 // TODO may use QWidget:.create
+                     XReparentWindow( qt_xdisplay(), c->frameId(), root, 0, 0 );
+@@ -699,7 +700,7 @@
+     Colormap cmap = default_colormap;
+     if ( activeClient() && activeClient()->colormap() != None )
+         cmap = activeClient()->colormap();
+-    if ( cmap != installed_colormap ) 
++    if ( cmap != installed_colormap )
+         {
+         XInstallColormap(qt_xdisplay(), cmap );
+         installed_colormap = cmap;
+@@ -800,7 +801,7 @@
+     screenarea = NULL;
+     rootInfo->setNumberOfDesktops( number_of_desktops );
+     desktop_focus_chain.resize( n );
+-    for(int i = 1; i <= n; i++) 
++    for(int i = 1; i <= n; i++)
+         {
+         QString s = c.readEntry(QString("Name_%1").arg(i),
+                                 i18n("Desktop %1").arg(i));
+@@ -821,21 +822,21 @@
+     c.setGroup(groupname);
+ 
+     c.writeEntry("Number", number_of_desktops );
+-    for(int i = 1; i <= number_of_desktops; i++) 
++    for(int i = 1; i <= number_of_desktops; i++)
+         {
+         QString s = desktopName( i );
+         QString defaultvalue = i18n("Desktop %1").arg(i);
+-        if ( s.isEmpty() ) 
++        if ( s.isEmpty() )
+             {
+             s = defaultvalue;
+             rootInfo->setDesktopName( i, s.utf8().data() );
+             }
+ 
+-        if (s != defaultvalue) 
++        if (s != defaultvalue)
+             {
+             c.writeEntry( QString("Name_%1").arg(i), s );
+             }
+-        else 
++        else
+             {
+             QString currentvalue = c.readEntry(QString("Name_%1").arg(i));
+             if (currentvalue != defaultvalue)
+@@ -873,10 +874,10 @@
+  */
+ bool Workspace::isNotManaged( const QString& title )
+     {
+-    for ( QStringList::Iterator it = doNotManageList.begin(); it != doNotManageList.end(); ++it ) 
++    for ( QStringList::Iterator it = doNotManageList.begin(); it != doNotManageList.end(); ++it )
+         {
+         QRegExp r( (*it) );
+-        if (r.search(title) != -1) 
++        if (r.search(title) != -1)
+             {
+             doNotManageList.remove( it );
+             return TRUE;
+@@ -888,7 +889,7 @@
+ /*!
+   Refreshes all the client windows
+  */
+-void Workspace::refresh() 
++void Workspace::refresh()
+     {
+     QWidget w;
+     w.setGeometry( QApplication::desktop()->geometry() );
+@@ -925,7 +926,7 @@
+     Window obs_win;
+     XWindowChanges chngs;
+     int mask = CWSibling | CWStackMode;
+-    if( cached->count() > 0 ) 
++    if( cached->count() > 0 )
+         {
+         cached->remove( obs_win = cached->first());
+         chngs.x = c->x();
+@@ -934,7 +935,7 @@
+         chngs.height = c->height();
+         mask |= CWX | CWY | CWWidth | CWHeight;
+         }
+-    else 
++    else
+         {
+         XSetWindowAttributes a;
+         a.background_pixmap = None;
+@@ -955,7 +956,7 @@
+     max_cache_size = QMAX( max_cache_size, obscuring_windows.count() + 4 ) - 1;
+     for( QValueList<Window>::ConstIterator it = obscuring_windows.begin();
+          it != obscuring_windows.end();
+-         ++it ) 
++         ++it )
+         {
+         XUnmapWindow( qt_xdisplay(), *it );
+         if( cached->count() < max_cache_size )
+@@ -983,7 +984,7 @@
+ // TODO    Q_ASSERT( block_stacking_updates == 0 ); // make sure stacking_order is up to date
+     StackingUpdatesBlocker blocker( this );
+ 
+-    if (new_desktop != current_desktop) 
++    if (new_desktop != current_desktop)
+         {
+         /*
+           optimized Desktop switching: unmapping done from back to front
+@@ -1018,7 +1019,7 @@
+     --block_focus;
+     Client* c = 0;
+ 
+-    if ( options->focusPolicyIsReasonable()) 
++    if ( options->focusPolicyIsReasonable())
+         {
+         // Search in focus chain
+ 
+@@ -1028,9 +1029,9 @@
+             c = active_client; // the requestFocus below will fail, as the client is already active
+             }
+ 
+-        if ( !c ) 
++        if ( !c )
+             {
+-            for( ClientList::ConstIterator it = focus_chain.fromLast(); it != focus_chain.end(); --it) 
++            for( ClientList::ConstIterator it = focus_chain.fromLast(); it != focus_chain.end(); --it)
+                 {
+                 if ( (*it)->isShown( false ) && !(*it)->isOnAllDesktops() && (*it)->isOnCurrentDesktop()) 
+                     {
+@@ -1040,9 +1041,9 @@
+                 }
+             }
+ 
+-        if ( !c ) 
++        if ( !c )
+             {
+-            for( ClientList::ConstIterator it = focus_chain.fromLast(); it != focus_chain.end(); --it) 
++            for( ClientList::ConstIterator it = focus_chain.fromLast(); it != focus_chain.end(); --it)
+                 {
+                 if ( (*it)->isShown( false ) && (*it)->isOnCurrentDesktop()) 
+                     {
+@@ -1121,7 +1122,7 @@
+ 
+     // if increasing the number, do the resizing now,
+     // otherwise after the moving of windows to still existing desktops
+-    if( old_number_of_desktops < number_of_desktops ) 
++    if( old_number_of_desktops < number_of_desktops )
+         {
+         rootInfo->setNumberOfDesktops( number_of_desktops );
+         NETPoint* viewports = new NETPoint[ number_of_desktops ];
+@@ -1132,17 +1133,17 @@
+ 
+     // if the number of desktops decreased, move all
+     // windows that would be hidden to the last visible desktop
+-    if( old_number_of_desktops > number_of_desktops ) 
++    if( old_number_of_desktops > number_of_desktops )
+         {
+         for( ClientList::ConstIterator it = clients.begin();
+               it != clients.end();
+-              ++it) 
++              ++it)
+             {
+             if( !(*it)->isOnAllDesktops() && (*it)->desktop() > numberOfDesktops())
+                 sendClientToDesktop( *it, numberOfDesktops(), true );
+             }
+         }
+-    if( old_number_of_desktops > number_of_desktops ) 
++    if( old_number_of_desktops > number_of_desktops )
+         {
+         rootInfo->setNumberOfDesktops( number_of_desktops );
+         NETPoint* viewports = new NETPoint[ number_of_desktops ];
+@@ -1182,7 +1183,7 @@
+         else
+             restackClientUnderActive( c );
+         }
+-    else 
++    else
+         {
+         raiseClient( c );
+         focus_chain.remove( c );
+@@ -1288,7 +1289,7 @@
+     Window *cl = new Window[ systemTrayWins.count()];
+ 
+     int i = 0;
+-    for ( SystemTrayWindowList::ConstIterator it = systemTrayWins.begin(); it != systemTrayWins.end(); ++it ) 
++    for ( SystemTrayWindowList::ConstIterator it = systemTrayWins.begin(); it != systemTrayWins.end(); ++it )
+         {
+         cl[i++] =  (*it).win;
+         }
+@@ -1304,7 +1305,7 @@
+         return;
+     Window window = window_to_kill;
+     Client* client = NULL;
+-    for(;;) 
++    for(;;)
+         {
+         client = findClient( FrameIdMatchPredicate( window ));
+         if( client != NULL ) // found the client
+@@ -1337,12 +1338,12 @@
+ */
+ void Workspace::slotGrabWindow()
+     {
+-    if ( active_client ) 
++    if ( active_client )
+         {
+         QPixmap snapshot = QPixmap::grabWindow( active_client->frameId() );
+ 
+ 	//No XShape - no work.
+-        if( Shape::available()) 
++        if( Shape::available())
+             {
+ 	    //As the first step, get the mask from XShape.
+             int count, order;
+@@ -1352,7 +1353,7 @@
+ 	    //ShapeBounding - ShapeClipping is defined to be the border.
+ 	    //Since the border area is part of the window, we use bounding
+ 	    // to limit our work region
+-            if (rects) 
++            if (rects)
+                 {
+ 		//Create a QRegion from the rectangles describing the bounding mask.
+                 QRegion contents;
+@@ -1403,7 +1404,7 @@
+ void Workspace::slotMouseEmulation()
+     {
+ 
+-    if ( mouse_emulation ) 
++    if ( mouse_emulation )
+         {
+         XUngrabKeyboard(qt_xdisplay(), qt_x_time);
+         mouse_emulation = FALSE;
+@@ -1413,7 +1414,7 @@
+     if ( XGrabKeyboard(qt_xdisplay(),
+                        root, FALSE,
+                        GrabModeAsync, GrabModeAsync,
+-                       qt_x_time) == GrabSuccess ) 
++                       qt_x_time) == GrabSuccess )
+         {
+         mouse_emulation = TRUE;
+         mouse_emulation_state = 0;
+@@ -1435,7 +1436,7 @@
+     uint state;
+     Window w;
+     Client * c = 0;
+-    do 
++    do
+         {
+         w = child;
+         if (!c)
+@@ -1457,12 +1458,12 @@
+     if ( !w )
+         return state;
+     QWidget* widget = QWidget::find( w );
+-    if ( (!widget ||  widget->inherits("QToolButton") ) && !findClient( WindowMatchPredicate( w )) ) 
++    if ( (!widget ||  widget->inherits("QToolButton") ) && !findClient( WindowMatchPredicate( w )) )
+         {
+         int x, y;
+         Window xw;
+         XTranslateCoordinates( qt_xdisplay(), qt_xrootwin(), w, pos.x(), pos.y(), &x, &y, &xw );
+-        if ( type == EmuMove ) 
++        if ( type == EmuMove )
+             { // motion notify events
+             XMotionEvent e;
+             e.type = MotionNotify;
+@@ -1478,7 +1479,7 @@
+             e.is_hint = NotifyNormal;
+             XSendEvent( qt_xdisplay(), w, TRUE, ButtonMotionMask, (XEvent*)&e );
+             }
+-        else 
++        else
+             {
+             XButtonEvent e;
+             e.type = type == EmuRelease ? ButtonRelease : ButtonPress;
+@@ -1494,9 +1495,9 @@
+             e.button = button;
+             XSendEvent( qt_xdisplay(), w, TRUE, ButtonPressMask, (XEvent*)&e );
+ 
+-            if ( type == EmuPress ) 
++            if ( type == EmuPress )
+                 {
+-                switch ( button ) 
++                switch ( button )
+                     {
+                     case 2:
+                         state |= Button2Mask;
+@@ -1509,9 +1510,9 @@
+                         break;
+                     }
+                 }
+-            else 
++            else
+                 {
+-                switch ( button ) 
++                switch ( button )
+                     {
+                     case 2:
+                         state &= ~Button2Mask;
+@@ -1545,7 +1546,7 @@
+     int delta = is_control?1:is_alt?32:8;
+     QPoint pos = QCursor::pos();
+ 
+-    switch ( kc ) 
++    switch ( kc )
+         {
+         case XK_Left:
+         case XK_KP_Left:
+@@ -1590,16 +1591,16 @@
+         case XK_Return:
+         case XK_space:
+         case XK_KP_Enter:
+-        case XK_KP_Space: 
++        case XK_KP_Space:
+             {
+-            if ( !mouse_emulation_state ) 
++            if ( !mouse_emulation_state )
+                 {
+             // nothing was pressed, fake a LMB click
+                 mouse_emulation_window = getMouseEmulationWindow();
+                 mouse_emulation_state = sendFakedMouseEvent( pos, mouse_emulation_window, EmuPress, Button1, mouse_emulation_state );
+                 mouse_emulation_state = sendFakedMouseEvent( pos, mouse_emulation_window, EmuRelease, Button1, mouse_emulation_state );
+                 }
+-            else 
++            else
+                 { // release all
+                 if ( mouse_emulation_state & Button1Mask )
+                     mouse_emulation_state = sendFakedMouseEvent( pos, mouse_emulation_window, EmuRelease, Button1, mouse_emulation_state );
+@@ -1780,7 +1781,7 @@
+                 {
+                 case 1:
+                  slotSwitchDesktopLeft();
+-                 if (currentDesktop() != desk_before) 
++                 if (currentDesktop() != desk_before)
+                     {
+                     offset = r.width() / 5;
+                     QCursor::setPos(r.width() - offset, pos.y());
+@@ -1789,7 +1790,7 @@
+ 
+                case 2:
+                 slotSwitchDesktopRight();
+-                if (currentDesktop() != desk_before) 
++                if (currentDesktop() != desk_before)
+                     {
+                     offset = r.width() / 5;
+                     QCursor::setPos(offset, pos.y());
+@@ -1798,7 +1799,7 @@
+ 
+                case 3:
+                 slotSwitchDesktopUp();
+-                if (currentDesktop() != desk_before) 
++                if (currentDesktop() != desk_before)
+                     {
+                     offset = r.height() / 5;
+                     QCursor::setPos(pos.x(), r.height() - offset);
+@@ -1807,7 +1808,7 @@
+ 
+                case 4:
+                 slotSwitchDesktopDown();
+-                if (currentDesktop() != desk_before) 
++                if (currentDesktop() != desk_before)
+                     {
+                     offset = r.height() / 5;
+                     QCursor::setPos(pos.x(), offset);
+@@ -1817,7 +1818,7 @@
+             return;
+             }
+         }
+-    else 
++    else
+         {
+         electric_current_border = border;
+         electric_time_first = now;
+Index: workspace.h
+===================================================================
+RCS file: /home/kde/kdebase/kwin/workspace.h,v
+retrieving revision 1.167
+diff -u -r1.167 workspace.h
+--- workspace.h	18 Mar 2004 13:18:41 -0000	1.167
++++ workspace.h	18 Mar 2004 21:34:54 -0000
+@@ -422,6 +422,7 @@
+ 
+         Client* active_client;
+         Client* last_active_client;
++        Client* next_active_client; // will be active after active_client deactivates
+         Client* most_recently_raised; // used _only_ by raiseOrLowerClient()
+         Client* movingClient;
+ 
+@@ -572,7 +573,15 @@
+ 
+ inline Client* Workspace::activeClient() const
+     {
+-    return active_client;
++    // next_active_client is a kludge for drop shadows. If a window that is
++    // activated is not also raised (i.e. when focus follows mouse), then the
++    // newly activated window and its shadow won't cover visual artifacts that
++    // might exist in the inactive window's shadow. We work around this by
++    // (re)drawing the inactive window's shadow after the active window's shadow
++    // is drawn, but to do that the inactive window needs to know which window
++    // will become active next. next_active_client is a Client pointer for that
++    // purpose.
++    return next_active_client != NULL ? next_active_client : active_client;
+     }
+ 
+ inline Client* Workspace::mostRecentlyActivatedClient() const
+Index: kcmkwin/kwindecoration/kwindecoration.cpp
+===================================================================
+RCS file: /home/kde/kdebase/kwin/kcmkwin/kwindecoration/kwindecoration.cpp,v
+retrieving revision 1.53
+diff -u -r1.53 kwindecoration.cpp
+--- kcmkwin/kwindecoration/kwindecoration.cpp	24 Feb 2004 11:30:20 -0000	1.53
++++ kcmkwin/kwindecoration/kwindecoration.cpp	18 Mar 2004 21:34:54 -0000
+@@ -15,12 +15,12 @@
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation; either version 2 of the License, or
+     (at your option) any later version.
+-  
++
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+-  
++
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+@@ -28,6 +28,8 @@
+ */
+ 
+ #include <assert.h>
++#include <math.h>
++
+ #include <qdir.h>
+ #include <qfileinfo.h>
+ #include <qlayout.h>
+@@ -39,8 +41,10 @@
+ #include <qlabel.h>
+ #include <qfile.h>
+ #include <qslider.h>
++#include <qspinbox.h>
+ 
+ #include <kapplication.h>
++#include <kcolorbutton.h>
+ #include <kcombobox.h>
+ #include <kdebug.h>
+ #include <kdesktopfile.h>
+@@ -150,6 +154,164 @@
+ 		"drag items within the titlebar preview to re-position them.") );
+ 	buttonSource = new ButtonSource( buttonBox );
+ 
++	// Page 3 (Window Shadows)
++	QHBox *inactiveShadowColourHBox, *shadowColourHBox;
++	QHBox *inactiveShadowOpacityHBox, *shadowOpacityHBox;
++	QHBox *inactiveShadowXOffsetHBox, *shadowXOffsetHBox;
++	QHBox *inactiveShadowYOffsetHBox, *shadowYOffsetHBox;
++	QHBox *inactiveShadowThicknessHBox, *shadowThicknessHBox;
++	QLabel *inactiveShadowColourLabel, *shadowColourLabel;
++	QLabel *inactiveShadowOpacityLabel, *shadowOpacityLabel;
++	QLabel *inactiveShadowXOffsetLabel, *shadowXOffsetLabel;
++	QLabel *inactiveShadowYOffsetLabel, *shadowYOffsetLabel;
++	QLabel *inactiveShadowThicknessLabel, *shadowThicknessLabel;
++
++	shadowPage = new QVBox(tabWidget);
++	shadowPage->setSpacing(KDialog::spacingHint());
++	shadowPage->setMargin(KDialog::marginHint());
++
++	cbWindowShadow = new QCheckBox(
++			i18n("&Draw a drop shadow under windows"), shadowPage);
++	QWhatsThis::add(cbWindowShadow,
++			i18n("Enabling this checkbox will allow you to choose a kind of "
++				 "drop shadow to draw under each window."));
++
++	activeShadowSettings = new QGroupBox(1, Qt::Horizontal,
++			i18n("Active Window Shadow"), shadowPage);
++	inactiveShadowSettings = new QGroupBox(1, Qt::Horizontal,
++			i18n("Inactive Window Shadows"), shadowPage);
++	whichShadowSettings = new QGroupBox(3, Qt::Horizontal,
++			i18n("Draw Shadow Under Normal Windows And..."), shadowPage);
++
++	cbShadowDocks = new QCheckBox(i18n("Docks and &panels"),
++			whichShadowSettings);
++	connect(cbShadowDocks, SIGNAL(toggled(bool)),
++			SLOT(slotSelectionChanged()));
++	cbShadowOverrides = new QCheckBox(i18n("O&verride windows"),
++			whichShadowSettings);
++	connect(cbShadowOverrides, SIGNAL(toggled(bool)),
++			SLOT(slotSelectionChanged()));
++	cbShadowTopMenus = new QCheckBox(i18n("&Top menu"),
++			whichShadowSettings);
++	connect(cbShadowTopMenus, SIGNAL(toggled(bool)),
++			SLOT(slotSelectionChanged()));
++	cbInactiveShadow = new QCheckBox(
++			i18n("Draw shadow under &inactive windows"), inactiveShadowSettings);
++	connect(cbInactiveShadow, SIGNAL(toggled(bool)),
++			SLOT(slotSelectionChanged()));
++
++	shadowColourHBox = new QHBox(activeShadowSettings);
++	shadowColourHBox->setSpacing(KDialog::spacingHint());
++	shadowColourLabel = new QLabel(i18n("Colour:"), shadowColourHBox);
++	shadowColourButton = new KColorButton(shadowColourHBox);
++	connect(shadowColourButton, SIGNAL(changed(const QColor &)), SLOT(slotSelectionChanged()));
++
++	inactiveShadowColourHBox = new QHBox(inactiveShadowSettings);
++	inactiveShadowColourHBox->setSpacing(KDialog::spacingHint());
++	inactiveShadowColourLabel = new QLabel(i18n("Colour:"), inactiveShadowColourHBox);
++	inactiveShadowColourButton = new KColorButton(inactiveShadowColourHBox);
++	connect(inactiveShadowColourButton, SIGNAL(changed(const QColor &)), SLOT(slotSelectionChanged()));
++
++	shadowOpacityHBox = new QHBox(activeShadowSettings);
++	shadowOpacityHBox->setSpacing(KDialog::spacingHint());
++	shadowOpacityLabel = new QLabel(i18n("Maximum opacity:"), shadowOpacityHBox);
++	shadowOpacitySlider = new QSlider(1, 100, 10, 50, Qt::Horizontal,
++			shadowOpacityHBox);
++	shadowOpacitySlider->setTickmarks(QSlider::Below);
++	shadowOpacitySlider->setTickInterval(10);
++	shadowOpacitySpinBox = new QSpinBox(1, 100, 1, shadowOpacityHBox);
++	shadowOpacitySpinBox->setSuffix(" %");
++	connect(shadowOpacitySlider, SIGNAL(valueChanged(int)), shadowOpacitySpinBox,
++			SLOT(setValue(int)));
++	connect(shadowOpacitySpinBox, SIGNAL(valueChanged(int)), shadowOpacitySlider,
++			SLOT(setValue(int)));
++	connect(shadowOpacitySlider, SIGNAL(valueChanged(int)),
++			SLOT(slotSelectionChanged()));
++
++	inactiveShadowOpacityHBox = new QHBox(inactiveShadowSettings);
++	inactiveShadowOpacityHBox->setSpacing(KDialog::spacingHint());
++	inactiveShadowOpacityLabel = new QLabel(i18n("Maximum opacity:"),
++			inactiveShadowOpacityHBox);
++	inactiveShadowOpacitySlider = new QSlider(1, 100, 10, 50, Qt::Horizontal,
++			inactiveShadowOpacityHBox);
++	inactiveShadowOpacitySlider->setTickmarks(QSlider::Below);
++	inactiveShadowOpacitySlider->setTickInterval(10);
++	inactiveShadowOpacitySpinBox = new QSpinBox(1, 100, 1,
++			inactiveShadowOpacityHBox);
++	inactiveShadowOpacitySpinBox->setSuffix(" %");
++	connect(inactiveShadowOpacitySlider, SIGNAL(valueChanged(int)),
++			inactiveShadowOpacitySpinBox,
++			SLOT(setValue(int)));
++	connect(inactiveShadowOpacitySpinBox, SIGNAL(valueChanged(int)),
++			inactiveShadowOpacitySlider,
++			SLOT(setValue(int)));
++	connect(inactiveShadowOpacitySlider, SIGNAL(valueChanged(int)),
++			SLOT(slotSelectionChanged()));
++
++	shadowXOffsetHBox = new QHBox(activeShadowSettings);
++	shadowXOffsetHBox->setSpacing(KDialog::spacingHint());
++	shadowXOffsetLabel = new QLabel(
++			i18n("Offset rightward (may be negative):"),
++			shadowXOffsetHBox);
++	shadowXOffsetSpinBox = new QSpinBox(-1024, 1024, 1, shadowXOffsetHBox);
++	shadowXOffsetSpinBox->setSuffix(i18n(" pixels"));
++	connect(shadowXOffsetSpinBox, SIGNAL(valueChanged(int)),
++			SLOT(slotSelectionChanged()));
++
++	inactiveShadowXOffsetHBox = new QHBox(inactiveShadowSettings);
++	inactiveShadowXOffsetHBox->setSpacing(KDialog::spacingHint());
++	inactiveShadowXOffsetLabel = new QLabel(
++			i18n("Offset rightward (may be negative):"),
++			inactiveShadowXOffsetHBox);
++	inactiveShadowXOffsetSpinBox = new QSpinBox(-1024, 1024, 1,
++			inactiveShadowXOffsetHBox);
++	inactiveShadowXOffsetSpinBox->setSuffix(i18n(" pixels"));
++	connect(inactiveShadowXOffsetSpinBox, SIGNAL(valueChanged(int)),
++			SLOT(slotSelectionChanged()));
++
++	shadowYOffsetHBox = new QHBox(activeShadowSettings);
++	shadowYOffsetHBox->setSpacing(KDialog::spacingHint());
++	shadowYOffsetLabel = new QLabel(
++			i18n("Offset downward (may be negative):"),
++			shadowYOffsetHBox);
++	shadowYOffsetSpinBox = new QSpinBox(-1024, 1024, 1, shadowYOffsetHBox);
++	shadowYOffsetSpinBox->setSuffix(i18n(" pixels"));
++	connect(shadowYOffsetSpinBox, SIGNAL(valueChanged(int)),
++			SLOT(slotSelectionChanged()));
++
++	inactiveShadowYOffsetHBox = new QHBox(inactiveShadowSettings);
++	inactiveShadowYOffsetHBox->setSpacing(KDialog::spacingHint());
++	inactiveShadowYOffsetLabel = new QLabel(
++			i18n("Offset downward (may be negative):"),
++			inactiveShadowYOffsetHBox);
++	inactiveShadowYOffsetSpinBox = new QSpinBox(-1024, 1024, 1,
++			inactiveShadowYOffsetHBox);
++	inactiveShadowYOffsetSpinBox->setSuffix(i18n(" pixels"));
++	connect(inactiveShadowYOffsetSpinBox, SIGNAL(valueChanged(int)),
++			SLOT(slotSelectionChanged()));
++
++	shadowThicknessHBox = new QHBox(activeShadowSettings);
++	shadowThicknessHBox->setSpacing(KDialog::spacingHint());
++	shadowThicknessLabel = new QLabel(
++			i18n("Thickness to either side of window:"),
++			shadowThicknessHBox);
++	shadowThicknessSpinBox = new QSpinBox(1, 100, 1,
++			shadowThicknessHBox);
++	shadowThicknessSpinBox->setSuffix(i18n(" pixels"));
++	connect(shadowThicknessSpinBox, SIGNAL(valueChanged(int)),
++			SLOT(slotSelectionChanged()));
++
++	inactiveShadowThicknessHBox = new QHBox(inactiveShadowSettings);
++	inactiveShadowThicknessHBox->setSpacing(KDialog::spacingHint());
++	inactiveShadowThicknessLabel = new QLabel(
++			i18n("Thickness to either side of window:"),
++			inactiveShadowThicknessHBox);
++	inactiveShadowThicknessSpinBox = new QSpinBox(1, 100, 1,
++			inactiveShadowThicknessHBox);
++	inactiveShadowThicknessSpinBox->setSuffix(i18n(" pixels"));
++	connect(inactiveShadowThicknessSpinBox, SIGNAL(valueChanged(int)),
++			SLOT(slotSelectionChanged()));
++
+ 	// Load all installed decorations into memory
+ 	// Set up the decoration lists and other UI settings
+ 	findDecorations();
+@@ -159,6 +321,7 @@
+ 
+ 	tabWidget->insertTab( pluginPage, i18n("&Window Decoration") );
+ 	tabWidget->insertTab( buttonPage, i18n("&Buttons") );
++	tabWidget->insertTab( shadowPage, i18n("&Shadows") );
+ 
+ 	connect( dropSite, SIGNAL(buttonAdded(char)), buttonSource, SLOT(hideButton(char)) );
+ 	connect( dropSite, SIGNAL(buttonRemoved(char)), buttonSource, SLOT(showButton(char)) );
+@@ -170,7 +333,11 @@
+ 								SLOT(slotChangeDecoration(const QString&)) );
+ 	connect( cbUseCustomButtonPositions, SIGNAL(clicked()), SLOT(slotSelectionChanged()) );
+ 	connect(cbUseCustomButtonPositions, SIGNAL(toggled(bool)), buttonBox, SLOT(setEnabled(bool)));
++	connect(cbWindowShadow, SIGNAL(toggled(bool)), activeShadowSettings, SLOT(setEnabled(bool)));
++	connect(cbWindowShadow, SIGNAL(toggled(bool)), inactiveShadowSettings, SLOT(setEnabled(bool)));
++	connect(cbWindowShadow, SIGNAL(toggled(bool)), whichShadowSettings, SLOT(setEnabled(bool)));
+ 	connect( cbShowToolTips, SIGNAL(clicked()), SLOT(slotSelectionChanged()) );
++	connect( cbWindowShadow, SIGNAL(clicked()), SLOT(slotSelectionChanged()) );
+         connect( slBorder, SIGNAL( valueChanged( int )), SLOT( slotBorderChanged( int )));
+ //	connect( cbUseMiniWindows, SIGNAL(clicked()), SLOT(slotSelectionChanged()) );
+ 
+@@ -441,6 +608,40 @@
+ 
+ 	buttonSource->showAllButtons();
+ 
++	// Shadows tab
++	// ===========
++        bool shadowEnabled = conf->readBoolEntry("ShadowEnabled", false);
++	cbWindowShadow->setChecked(shadowEnabled);
++        activeShadowSettings->setEnabled(shadowEnabled);
++        inactiveShadowSettings->setEnabled(shadowEnabled);
++        whichShadowSettings->setEnabled(shadowEnabled);
++	shadowColourButton->setColor(
++			conf->readColorEntry("ShadowColour", &Qt::black));
++	shadowOpacitySlider->setValue(
++			(int)ceil(conf->readDoubleNumEntry("ShadowOpacity", 0.70) * 100));
++	shadowXOffsetSpinBox->setValue(conf->readNumEntry("ShadowXOffset", 0));
++	shadowYOffsetSpinBox->setValue(conf->readNumEntry("ShadowYOffset", 10));
++	cbShadowDocks->setChecked(
++			conf->readBoolEntry("ShadowDocks", false));
++	cbShadowOverrides->setChecked(
++			conf->readBoolEntry("ShadowOverrides", false));
++	cbShadowTopMenus->setChecked(
++			conf->readBoolEntry("ShadowTopMenus", false));
++	shadowThicknessSpinBox->setValue(
++			conf->readNumEntry("ShadowThickness", 10));
++	cbInactiveShadow->setChecked(
++			conf->readBoolEntry("InactiveShadowEnabled", false));
++	inactiveShadowColourButton->setColor(
++			conf->readColorEntry("InactiveShadowColour", &Qt::black));
++	inactiveShadowOpacitySlider->setValue(
++			(int)ceil(conf->readDoubleNumEntry("InactiveShadowOpacity", 0.70) * 100));
++	inactiveShadowXOffsetSpinBox->setValue(
++			conf->readNumEntry("InactiveShadowXOffset", 0));
++	inactiveShadowYOffsetSpinBox->setValue(
++			conf->readNumEntry("InactiveShadowYOffset", 5));
++	inactiveShadowThicknessSpinBox->setValue(
++			conf->readNumEntry("InactiveShadowThickness", 5));
++
+ 	// Step through the button lists, and hide the dnd button source items
+ 	unsigned int i;
+ 	for(i = 0; i < dropSite->buttonsLeft.length(); i++)
+@@ -479,6 +680,27 @@
+ 	conf->writeEntry("ButtonsOnRight", dropSite->buttonsRight );
+         conf->writeEntry("BorderSize", border_size );
+ 
++	// Shadow settings
++	conf->writeEntry("ShadowEnabled", cbWindowShadow->isChecked());
++	conf->writeEntry("ShadowColour", shadowColourButton->color());
++	conf->writeEntry("ShadowOpacity", shadowOpacitySlider->value() / 100.0);
++	conf->writeEntry("ShadowXOffset", shadowXOffsetSpinBox->value());
++	conf->writeEntry("ShadowYOffset", shadowYOffsetSpinBox->value());
++	conf->writeEntry("ShadowThickness", shadowThicknessSpinBox->value());
++	conf->writeEntry("ShadowDocks", cbShadowDocks->isChecked());
++	conf->writeEntry("ShadowOverrides", cbShadowOverrides->isChecked());
++	conf->writeEntry("ShadowTopMenus", cbShadowTopMenus->isChecked());
++	conf->writeEntry("InactiveShadowEnabled", cbInactiveShadow->isChecked());
++	conf->writeEntry("InactiveShadowColour", inactiveShadowColourButton->color());
++	conf->writeEntry("InactiveShadowOpacity",
++			inactiveShadowOpacitySlider->value() / 100.0);
++	conf->writeEntry("InactiveShadowXOffset",
++			inactiveShadowXOffsetSpinBox->value());
++	conf->writeEntry("InactiveShadowYOffset",
++			inactiveShadowYOffsetSpinBox->value());
++	conf->writeEntry("InactiveShadowThickness",
++			inactiveShadowThicknessSpinBox->value());
++
+ 	oldLibraryName = currentLibraryName;
+ 	currentLibraryName = libName;
+ 
+@@ -532,6 +754,7 @@
+ 	cbUseCustomButtonPositions->setChecked( false );
+ 	buttonBox->setEnabled( false );
+ 	cbShowToolTips->setChecked( true );
++	cbWindowShadow->setChecked( false );
+ //	cbUseMiniWindows->setChecked( false);
+ // Don't set default for now
+ //	decorationList->setSelected(
+@@ -552,6 +775,21 @@
+         border_size = BorderNormal;
+         checkSupportedBorderSizes();
+ 
++	shadowColourButton->setColor(Qt::black);
++	shadowOpacitySlider->setValue(70);
++	shadowXOffsetSpinBox->setValue(0);
++	shadowYOffsetSpinBox->setValue(10);
++	shadowThicknessSpinBox->setValue(10);
++	cbShadowDocks->setChecked(false);
++	cbShadowOverrides->setChecked(false);
++	cbShadowTopMenus->setChecked(false);
++	cbInactiveShadow->setChecked(false);
++	inactiveShadowColourButton->setColor(Qt::black);
++	inactiveShadowOpacitySlider->setValue(70);
++	inactiveShadowXOffsetSpinBox->setValue(0);
++	inactiveShadowYOffsetSpinBox->setValue(5);
++	inactiveShadowThicknessSpinBox->setValue(5);
++
+ 	// Set plugin defaults
+ 	emit pluginDefaults();
  }
+Index: kcmkwin/kwindecoration/kwindecoration.h
+===================================================================
+RCS file: /home/kde/kdebase/kwin/kcmkwin/kwindecoration/kwindecoration.h,v
+retrieving revision 1.20
+diff -u -r1.20 kwindecoration.h
+--- kcmkwin/kwindecoration/kwindecoration.h	24 Feb 2004 11:30:20 -0000	1.20
++++ kcmkwin/kwindecoration/kwindecoration.h	18 Mar 2004 21:34:54 -0000
+@@ -8,19 +8,19 @@
+ 	Supports new kwin configuration plugins, and titlebar button position
+ 	modification via dnd interface.
+ 
+-	Based on original "kwintheme" (Window Borders) 
++	Based on original "kwintheme" (Window Borders)
+ 	Copyright (C) 2001 Rik Hemsley (rikkus) <rik@kde.org>
+ 
+     This program is free software; you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation; either version 2 of the License, or
+     (at your option) any later version.
+-  
++
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+-  
++
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+@@ -130,6 +130,19 @@
+ 		ButtonSource* buttonSource;
+ 		QGroupBox* buttonBox;
+ 		QVBox*	 buttonPage;
++
++		// Page 3
++		QVBox *shadowPage;
++		KColorButton *inactiveShadowColourButton, *shadowColourButton;
++		QCheckBox *cbShadowDocks, *cbShadowOverrides, *cbShadowTopMenus;
++		QCheckBox *cbInactiveShadow, *cbWindowShadow;
++		QGroupBox *activeShadowSettings, *inactiveShadowSettings;
++		QGroupBox *whichShadowSettings;
++		QSlider *inactiveShadowOpacitySlider, *shadowOpacitySlider;
++		QSpinBox *inactiveShadowOpacitySpinBox, *shadowOpacitySpinBox;
++		QSpinBox *inactiveShadowXOffsetSpinBox, *shadowXOffsetSpinBox;
++		QSpinBox *inactiveShadowYOffsetSpinBox, *shadowYOffsetSpinBox;
++		QSpinBox *inactiveShadowThicknessSpinBox, *shadowThicknessSpinBox;
+ };
+ 
+ 
+Index: lib/kdecoration.h
+===================================================================
+RCS file: /home/kde/kdebase/kwin/lib/kdecoration.h,v
+retrieving revision 1.12
+diff -u -r1.12 kdecoration.h
+--- lib/kdecoration.h	6 Jan 2004 12:37:46 -0000	1.12
++++ lib/kdecoration.h	18 Mar 2004 21:34:54 -0000
+@@ -92,6 +92,7 @@
+         LowerOp,
+         FullScreenOp,
+         NoBorderOp,
++        ShadowOp,
+         NoOp
+         };
+     /**
+@@ -109,7 +110,7 @@
+ 	ColorHandle,     ///< The color for the resize handle
+ 	NUM_COLORS
+ 	};
+-    
++
+     /**
+      * These flags specify which settings changed when rereading settings.
+      * Each setting in class KDecorationOptions specifies its matching flag.
+@@ -123,7 +124,7 @@
+         SettingTooltips   = 1 << 4, ///< The tooltip setting was changed
+         SettingBorder     = 1 << 5  ///< The border size setting was changed
+         };
+-        
++
+     /**
+      * Border size. KDecorationOptions::preferredBorderSize() returns
+      * one of these values.
+@@ -229,7 +230,7 @@
+     * The changed flags for this setting is SettingTooltips.
+     */
+     bool showTooltips() const;
+-    
++
+     /**
+      * The preferred border size selected by the user, e.g. for accessibility
+      * reasons, or when using high resolution displays. It's up to the decoration
+@@ -284,9 +285,9 @@
+ 	 * Destroys the KDecoration.
+ 	 */
+ 	virtual ~KDecoration();
+-	
++
+ 	// requests from decoration
+-	
++
+ 	/**
+ 	 * Returns the KDecorationOptions object, which is used to access
+ 	 * configuration settings for the decoration.
+@@ -377,7 +378,7 @@
+ 	 * to support older code). For a description of all window types,
+ 	 * see the definition of the NET::WindowType type. Note that
+ 	 * some window types never have decorated windows.
+-	 * 
++	 *
+ 	 * An example of usage:
+ 	 * @code
+ 	 * const unsigned long supported_types = NET::NormalMask | NET::DesktopMask
+@@ -584,7 +585,7 @@
+ 	/**
+ 	 * This function is called to reset the decoration on settings changes.
+ 	 * It is usually invoked by calling KDecorationFactory::resetDecorations().
+-	 * 
++	 *
+ 	 * @param changed Specifies which settings were changed, given by the SettingXXX masks
+ 	 */
+         virtual void reset( unsigned long changed );
+@@ -596,7 +597,7 @@
+ 	 * the main widget of the decoration. The widget should be created
+ 	 * with parent specified by initialParentWidget() and flags
+ 	 * specified by initialWFlags().
+-	 */	
++	 */
+         void setMainWidget( QWidget* );
+ 	/**
+ 	 * Convenience functions that creates and sets a main widget as necessary.
+@@ -650,7 +651,7 @@
+ 	// requests from decoration
+ 
+ 	/**
+-	 * This function can be called by the decoration to request 
++	 * This function can be called by the decoration to request
+ 	 * closing of the decorated window. Note that closing the window
+ 	 * also involves destroying the decoration.
+          * IMPORTANT: This function may destroy the current decoration object,
+@@ -747,10 +748,10 @@
+     {
+     return geometry().width();
+     }
+-    
++
+ inline int KDecoration::height() const
+     {
+     return geometry().height();
+     }
+-    
++
+ #endif
