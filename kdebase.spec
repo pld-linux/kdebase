@@ -21,7 +21,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}.%{_snap}
-Release:	1
+Release:	2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -100,6 +100,7 @@ BuildRequires:	pam-devel
 %{?with_apidocs:BuildRequires:	qt-doc}
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	unsermake >= 040511
+BuildRequires:	xcursor-devel >= 1.1.0
 BuildConflicts: kdebase-konqueror-libs
 Conflicts:	kdelibs < 9:3.1.94.040110-1
 # TODO: sensors
@@ -527,10 +528,11 @@ Requires:	kde-kgreet
 Requires:	kde-kside
 Requires:	kde-logoutpic
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
-Requires:	konqueror = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kfind = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kjobviewer = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kpager = %{epoch}:%{version}-%{release}
+Requires:	konqueror = %{epoch}:%{version}-%{release}
+Requires:	xcursor >= 1.1.0
 Obsoletes:	kde-theme-keramik
 Obsoletes:	kdebase
 Obsoletes:	kdebase-fonts
