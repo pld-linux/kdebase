@@ -24,7 +24,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.%{_snap}.0.2
+Release:	0.%{_snap}.0.3
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -46,13 +46,15 @@ Patch3:		%{name}-kcm_background.patch
 Patch4:		%{name}-kdm.daemon_output.patch
 Patch5:		%{name}-kdm_utmpx.patch
 Patch6:		%{name}-kdmconfig.patch
-# temporary disabled
+# temporary disabled but still included
 Patch7:		%{name}-kicker.patch
+#
 Patch8:		%{name}-konsole_all.patch
 Patch9:		%{name}-nsplugins_dirs.patch
 Patch10:	%{name}-startkde.patch
 Patch11:        %{name}-kcm_fonts.patch
 Patch12:	%{name}-gtkrc.patch
+# fix it if You like it
 #Patch13:	%{name}-krdb.patch
 Patch14:	%{name}-pldcredits.patch
 Patch15:	%{name}-searchprov.patch
@@ -61,6 +63,7 @@ Patch16:	%{name}-kicker_nodesktop.patch
 Patch17:        %{name}-xfsreload.patch
 Patch18:	%{name}-kdesukonsole.patch
 Patch19:	%{name}-vroot.patch
+# not tested yet
 #Patch20:	%{name}-konsolepropfontwidth3.patch
 #
 %ifnarch sparc sparc64
@@ -464,13 +467,14 @@ Internet Explorer.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
-#Temporary disabled
+# temporary disabled
 #%patch7 -p1
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
 %patch11 -p1
-%patch12 -p1 
+%patch12 -p1
+# fix it if You like it 
 #%patch13 -p1
 %patch14 -p1
 %patch15 -p1
@@ -478,6 +482,7 @@ Internet Explorer.
 %patch17 -p1
 %patch18 -p1
 %patch19 -p1
+# not tested yet
 #%patch20 -p1
 
 %build
@@ -540,7 +545,7 @@ install -d $ALD/{Help,Settings/KDE}
 mv -f $ALD/{Help.desktop,Help}
 mv -f $ALD/{System/ScreenSavers,.hidden}
 mv -f $ALD/{Settings/[!K]*,Settings/KDE}
-#mv -f $ALD/{Settingsmenu/*.desktop,Settings}
+mv -f $ALD/Settingsmenu/[!K]*.desktop $RPM_BUILD_ROOT%{_desktopdir}
 
 cat > $ALD/Settings/KDE/.directory << EOF
 [Desktop Entry]
@@ -553,10 +558,10 @@ cat $ALD/Help/Help.desktop |sed 's/Help/KDE Help/' |sed 's/Pomoc/Pomoc KDE/' \
 	> Help.desktop.tmp
 mv Help.desktop.tmp $ALD/Help/Help.desktop
 
-for f in `find $ALD -name '.directory' -o -name '*.dekstop'` ; do
-	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
-	mv -f $f{.tmp,}
-done
+#for f in `find $ALD -name '.directory' -o -name '*.dekstop'` ; do
+#	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
+#	mv -f $f{.tmp,}
+#done
 
 > %{name}.lang
 
@@ -598,9 +603,6 @@ done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
 
 %post common-konsole
 cd %{_fontdir}
@@ -651,9 +653,6 @@ if [ "$1" = "0" ]; then
 	fi
 	/usr/sbin/groupdel xdm
 fi
-
-%post   -n konqueror -p /sbin/ldconfig
-%postun	-n konqueror -p /sbin/ldconfig
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
@@ -820,18 +819,12 @@ fi
 %{_applnkdir}/.hidden/kcmkxmlrpcd.desktop
 %{_applnkdir}/System/k[!o]*.desktop
 %{_applnkdir}/Utilities/k[!de]*.desktop
-#%{_applnkdir}/Settings/kappfinder.desktop
-#%{_applnkdir}/Settings/kmenuedit.desktop
-#%{_applnkdir}/Settings/kpersonalizer.desktop
-#%{_applnkdir}/Settings/printmgr.desktop
-#%{_applnkdir}/Settings/KDE/email.desktop
 %{_applnkdir}/Settings/KDE/Accessibility
 %{_applnkdir}/Settings/KDE/Components/[!f]*
 %{_applnkdir}/Settings/KDE/Components/filebrowser.desktop
 %{_applnkdir}/Settings/KDE/Desktop
 %{_applnkdir}/Settings/KDE/Information
 %dir %{_applnkdir}/Settings/KDE/LookNFeel
-#%{_applnkdir}/Settings/KDE/LookNFeel/.directory
 %{_applnkdir}/Settings/KDE/LookNFeel/[!s]*
 %{_applnkdir}/Settings/KDE/LookNFeel/s[!c]*
 %{_applnkdir}/Settings/KDE/Network/email.desktop
@@ -844,12 +837,17 @@ fi
 %{_applnkdir}/Settings/KDE/System/kcmfontinst.desktop
 #%{_applnkdir}/Settings/KDE/System/kcmhelpcenter.desktop
 %{_applnkdir}/Settings/KDE/WebBrowsing
-%{_applnkdir}/Settingsmenu/*
 %{_desktopdir}/kjobviewer.desktop
 %{_desktopdir}/klipper.desktop
 %{_desktopdir}/kpager.desktop
 %{_desktopdir}/ksysguard.desktop
 %{_desktopdir}/ktip.desktop
+# moved here
+%{_desktopdir}/kappfinder.desktop
+%{_desktopdir}/kmenuedit.desktop
+%{_desktopdir}/kpersonalizer.desktop
+%{_desktopdir}/printmgr.desktop
+#
 %{_pixmapsdir}/*/*/apps/a[!g]*
 %{_pixmapsdir}/*/*/apps/[dghilmnqrtuvwx]*
 %{_pixmapsdir}/*/*/apps/b[!e]*
@@ -938,7 +936,6 @@ fi
 %{_datadir}/servicetypes/terminalemulator.desktop
 %{_datadir}/servicetypes/thumbcreator.desktop
 %dir %{_applnkdir}/Settings/KDE/Network
-#%{_applnkdir}/Settings/KDE/Network/.directory
 %{_applnkdir}/Settings/KDE/Network/fileshare.desktop
 
 %files common-konsole
@@ -999,15 +996,15 @@ fi
 %attr(0755,root,root) %{_libdir}/kcontrol.so
 %{_datadir}/apps/kcontrol
 %{_applnkdir}/KControl.desktop
-%{_applnkdir}/Settings/KControl.desktop
-# At this time owned by kdelibs
+# no idea to do with
+#%{_applnkdir}/Settingsmenu/KControl.desktop
+# at this time owned by kdelibs
 #%dir %{_applnkdir}/Settings/KDE
+# should be owned by kdelibs
 %{_applnkdir}/Settings/KDE/.directory
-# At this time owned by kdelibs
+# at this time owned by kdelibs
 #%dir %{_applnkdir}/Settings/KDE/Components
-#%{_applnkdir}/Settings/KDE/Components/.directory
 %dir %{_applnkdir}/Settings/KDE/System
-#%{_applnkdir}/Settings/KDE/System/.directory
 %{_pixmapsdir}/*/*/apps/kcontrol.png
 %{_pixmapsdir}/*/*/apps/kcmsystem.png
 %lang(en) %dir %{_htmldir}/en/kcontrol
@@ -1073,7 +1070,7 @@ fi
 %{_datadir}/apps/kicker
 %{_pixmapsdir}/*/*/apps/*kicker*
 %{_applnkdir}/.hidden/kicker*.desktop
-%{_applnkdir}/Settings/kcmkicker.desktop
+%{_desktopdir}/kcmkicker.desktop
 
 %files konsole -f konsole.lang
 %defattr(644,root,root,755)
@@ -1098,7 +1095,6 @@ fi
 %{_libdir}/kwrite.la
 %attr(0755,root,root) %{_libdir}/kwrite.so
 %{_datadir}/apps/kwrite
-#%{_applnkdir}/Editors/kwrite.desktop
 %{_desktopdir}/kwrite.desktop
 %{_pixmapsdir}/*/*/apps/kwrite.png
 
@@ -1304,7 +1300,6 @@ fi
 %{_applnkdir}/Settings/KDE/Network/lanbrowser.desktop
 %{_applnkdir}/Settings/KDE/Network/proxy.desktop
 %dir %{_applnkdir}/Settings/KDE/Security
-#%{_applnkdir}/Settings/KDE/Security/.directory
 %{_applnkdir}/Settings/KDE/Security/crypto.desktop
 %{_applnkdir}/System/konq*.desktop
 %{_desktopdir}/kfmclient*.desktop
