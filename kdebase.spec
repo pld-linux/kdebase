@@ -1,24 +1,16 @@
 #
 # TODO:
 # * KDM: ColorSheme=Default works properly with GUIStyle=KDE only
-# * KDM: Replacing findwm with a better solution (it's in the way)
 # * Fixing 48x48 pld applnk-pixmaps scaling (konqsidebar, kicker)
 # * Adding %%doc to subpkgs
 # * Kicker dosn't work properly without kwin (taskbar, systray,
 #   other applets)
 # * Proper descriptions
 #
-# Conditional build:
-# _without_alsa		- without alsa support
-#
 
 %define         _state          snapshots
 %define         _ver		3.1.92
-%define         _snap		031014
-
-%ifarch	sparc sparcv9 sparc64
-%define		_without_alsa	1
-%endif
+%define         _snap		031024
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -37,12 +29,11 @@ License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:        http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	cc10d6307adf6a894806efa5e20ce9eb
+# Source0-md5:	82631291410fea285de2843753ef5658
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
 Source4:	%{name}-kdm.Xsession
-Source5:	%{name}-kdm.Xservers
 Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-ircpld.desktop
@@ -60,7 +51,7 @@ Patch6:		%{name}-kdmconfig.patch
 Patch7:		%{name}-kicker.patch
 Patch8:		%{name}-konsole_all.patch
 Patch9:		%{name}-nsplugins_dirs.patch
-#Patch10:	%{name}-startkde.patch
+Patch10:	%{name}-startkde.patch
 Patch11:        %{name}-kcm_fonts.patch
 # TODO
 Patch12:	%{name}-gtkrc.patch
@@ -75,8 +66,7 @@ Patch22:	%{name}-screensavers.patch
 Patch23:	%{name}-prefmenu.patch
 Patch24:	%{name}-fix-mouse_cpp_for_enable_final.patch
 Patch25:	%{name}-session.patch
-%{?_without_alsa:BuildConflicts:	alsa-driver-devel}
-%{!?_without_alsa:BuildRequires:	alsa-lib-devel}
+Patch26:	%{name}-bgdefaults.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	arts-devel >= 1.2.0
@@ -376,11 +366,9 @@ Summary:	TODO
 Summary(pl):	TODO
 Group:		X11/Applications
 Requires:       kde-logoutpic
-Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
 Requires:	kicker
-# Commented out for testing
-#Requires:	konqueror = %{epoch}:%{version}-%{release}
+Requires:	konqueror = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name}
 Obsoletes:	%{name}-fonts
 Obsoletes:	%{name}-kcheckpass
@@ -535,6 +523,7 @@ Requires:	%{name}-kfind = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kicker-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kjobviewer = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kmenuedit = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kpager = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkickermain = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkonq = %{epoch}:%{version}-%{release}
 Requires:	kde-kside
@@ -636,6 +625,20 @@ KDE Desktop Pager.
 %description kpager -l pl
 Prze³±cznik biurek dla KDE.
 
+%package kpersonalizer
+Summary:	KDE desktop settings wizard
+Summary(pl):	Kreator ustawieñ ¶rodowiska KDE
+Group:		X11/Applications
+Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
+Requires:	%{name}-klipper = %{epoch}:%{version}-%{release}
+Obsoletes:	%{name} < 9:3.1.92.031021
+
+%description kpersonalizer
+KDE desktop settings wizard.
+
+%description kpersonalizer -l pl
+Kreator ustawieñ srodowiska KDE.
+
 %package ksysguard
 Summary:	System Guard
 Summary(pl):	Stra¿nik systemu
@@ -696,8 +699,8 @@ Edytor tekstu z pod¶wietlaniem sk³adni dla KDE.
 Summary:	KDE Write Daemon
 Summary(pl):	Demon zapisu KDE
 Group:		X11/Applications
-#Requires:	konqueror?
-Requires:	kdelibs >= 9:%{version}
+# With functional reasons
+Requires:	kdebase-core = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name} < 8:3.2-0.030423.1
 
 %description kwrited
@@ -849,7 +852,7 @@ Internet Explorer.
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
-#%patch10 -p1
+%patch10 -p1
 %patch11 -p1
 # TODO
 #%patch12 -p1
@@ -864,6 +867,7 @@ Internet Explorer.
 %patch23 -p1
 #%patch24 -p1
 %patch25 -p1
+%patch26 -p1
 
 %build
 
@@ -875,8 +879,7 @@ done
 
 %configure \
 	--with-kdm-pam=kdm \
-	--with-pam=kdesktop \
-	--enable-final
+	--with-pam=kdesktop
 
 %{__make}
 
@@ -893,7 +896,6 @@ install -d \
 	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/faces \
 	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
 
-#mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers{,.orig}
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession{,.orig}
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
@@ -902,9 +904,8 @@ install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
 install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
 install %{SOURCE3}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
-#install %{SOURCE5}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
 install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
-install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/pldwallpaper.png
+install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
 install %{SOURCE8}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/ircpld.desktop
 install %{SOURCE9}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/specs.desktop
 install %{SOURCE10}	$RPM_BUILD_ROOT/etc/xdg/menus/kde-settings.menu
@@ -918,10 +919,26 @@ sed -i 's/\[KSplash Theme: Default\]/\[KSplash Theme: Default-KDE\]/' \
 bzip2 -dc %{SOURCE12} | tar xf -
 cd -
 
+# Copying default faces to kdm config dir
 cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/default1.png \
     $RPM_BUILD_ROOT%{_sysconfdir}/kdm/faces/.default.face.icon
 cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
     $RPM_BUILD_ROOT%{_sysconfdir}/kdm/faces/root.face.icon
+
+# Some desktop & kicker appearance defaults
+cat > $RPM_BUILD_ROOT%{_datadir}/config/kdesktoprc << EOF
+[FMSettings]
+NormalTextColor=255,255,255
+ShadowEnabled=true
+StandardFont=Helvetica,13,-1,5,75,0,0,0,0,0
+EOF
+
+cat > $RPM_BUILD_ROOT%{_datadir}/config/kickerrc << EOF
+[General]
+Alignment=1
+SizePercentage=50
+UseBackgroundTheme=false
+EOF
 
 ALD=$RPM_BUILD_ROOT%{_applnkdir}
 mv $ALD/Help.desktop			$RPM_BUILD_ROOT%{_desktopdir}/kde
@@ -1041,6 +1058,19 @@ rm -rf $RPM_BUILD_ROOT
 
 %postun common-konsole
 /usr/bin/fontpostinst misc
+
+%post core
+cat << EOF
+
+ ******************************************
+ *                                        *
+ * NOTE:                                  *
+ * Set sgid for kdesud daemon if You want *
+ * superuser password caching feature.    *
+ *                                        *
+ ******************************************
+
+EOF
 
 %post	desktop-libs	-p /sbin/ldconfig
 %postun	desktop-libs	-p /sbin/ldconfig
@@ -1274,6 +1304,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kio_settings.so
 %{_libdir}/kde3/kprinter.la
 %attr(0755,root,root) %{_libdir}/kde3/kprinter.so
+%{_libdir}/kde3/kstyle_keramik_config.la
+%attr(0755,root,root) %{_libdir}/kde3/kstyle_keramik_config.so
 %{_libdir}/kde3/libkdeprint_part.la
 %attr(0755,root,root) %{_libdir}/kde3/libkdeprint_part.so
 %{_libdir}/kde3/libkmanpart.la
@@ -1289,8 +1321,12 @@ fi
 %dir %{_datadir}/apps/kio_info
 %attr(0755,root,root) %{_datadir}/apps/kio_info/kde-info2html
 %{_datadir}/apps/kio_info/kde-info2html.conf
-%{_datadir}/locale/en_US/*
+# For apps they store files in servicemenus
+%dir %{_datadir}/apps/konqueror
+%dir %{_datadir}/apps/konqueror/servicemenus
+#
 %{_datadir}/locale/l10n
+%lang(en_US) %{_datadir}/locale/en_US/entry.desktop
 %{_datadir}/mimelnk/print
 %{_datadir}/services/info.protocol
 %{_datadir}/services/khelpcenter.desktop
@@ -1330,7 +1366,6 @@ fi
 # infocenter & konqueror need it:
 %{_iconsdir}/*/*/apps/samba.png
 %{_iconsdir}/*/*/apps/usb.png
-#
 
 %files desktop -f %{name}.lang
 %defattr(644,root,root,755)
@@ -1343,7 +1378,6 @@ fi
 %attr(0755,root,root) %{_bindir}/kdesktop_lock
 %attr(0755,root,root) %{_bindir}/kwin_killer_helper
 %attr(0755,root,root) %{_bindir}/khotkeys
-%attr(0755,root,root) %{_bindir}/kpersonalizer
 %attr(0755,root,root) %{_bindir}/krdb
 %attr(0755,root,root) %{_bindir}/kreadconfig
 %attr(0755,root,root) %{_bindir}/krandrtray
@@ -1353,7 +1387,7 @@ fi
 %attr(0755,root,root) %{_bindir}/ktip
 %attr(0755,root,root) %{_bindir}/kwebdesktop
 %attr(0755,root,root) %{_bindir}/kwin
-%attr(0755,root,root) %{_bindir}/kwin_dialog_helper
+#%attr(0755,root,root) %{_bindir}/kwin_dialog_helper
 %attr(0755,root,root) %{_bindir}/kxkb
 %attr(0755,root,root) %{_bindir}/startkde
 %{_libdir}/krandrinithack.la
@@ -1463,6 +1497,7 @@ fi
 %{_datadir}/autostart/kdesktop.desktop
 %{_datadir}/autostart/khotkeys.desktop
 %{_datadir}/autostart/ktip.desktop
+%{_datadir}/config/kdesktoprc
 %{_datadir}/config/kdesktop_custom_menu1
 %{_datadir}/config/kdesktop_custom_menu2
 %{_datadir}/config/kxkb_groups
@@ -1486,12 +1521,15 @@ fi
 %{_datadir}/wallpapers/Time-For-Lunch-2.jpg
 %{_datadir}/wallpapers/Totally-New-Product-1.jpg
 %{_datadir}/wallpapers/Won-Ton-Soup-3.jpg
+#%{_datadir}/wallpapers/Via_Garibaldi.jpg
 %{_datadir}/wallpapers/default_blue.jpg
 %{_datadir}/wallpapers/default_gears.jpg
+%{_datadir}/wallpapers/fulmine.jpg
 %{_datadir}/wallpapers/kde_box.png
 %{_datadir}/wallpapers/kde_passion.jpg
 %{_datadir}/wallpapers/kdm_bg.jpg
 %{_datadir}/wallpapers/only_k.jpg
+%{_datadir}/wallpapers/seaofconero.jpg
 %{_datadir}/wallpapers/triplegears.jpg
 %{_datadir}/xsessions/kde.desktop
 %{_applnkdir}/.hidden/battery.desktop
@@ -1507,33 +1545,32 @@ fi
 %{_applnkdir}/.hidden/socks.desktop
 %{_applnkdir}/.hidden/virtualdesktops.desktop
 %{_applnkdir}/.hidden/xinerama.desktop
-%{_desktopdir}/kde/kcmaccess.desktop
-%{_desktopdir}/kde/keyboard_layout.desktop
-%{_desktopdir}/kde/keys.desktop
+%{_desktopdir}/kde/arts.desktop
+%{_desktopdir}/kde/background.desktop
+%{_desktopdir}/kde/bell.desktop
 %{_desktopdir}/kde/componentchooser.desktop
-%{_desktopdir}/kde/kcmsmserver.desktop
-%{_desktopdir}/kde/spellchecking.desktop
 %{_desktopdir}/kde/desktop.desktop
 %{_desktopdir}/kde/desktopbehavior.desktop
-%{_desktopdir}/kde/kwinoptions.desktop
-%{_desktopdir}/kde/background.desktop
-%{_desktopdir}/kde/kcmlaunch.desktop
-%{_desktopdir}/kde/ksplashthememgr.desktop
-%{_desktopdir}/kde/kwindecoration.desktop
-%{_desktopdir}/kde/email.desktop
-%{_desktopdir}/kde/keyboard.desktop
-%{_desktopdir}/kde/mouse.desktop
-%{_desktopdir}/kde/energy.desktop
-%{_desktopdir}/kde/passwords.desktop
-%{_desktopdir}/kde/privacy.desktop
-%{_desktopdir}/kde/arts.desktop
-%{_desktopdir}/kde/bell.desktop
-%{_desktopdir}/kde/kcmnotify.desktop
 %{_desktopdir}/kde/desktoppath.desktop
-%{_desktopdir}/kde/kpersonalizer.desktop
-%{_desktopdir}/kde/ktip.desktop
+%{_desktopdir}/kde/email.desktop
+%{_desktopdir}/kde/energy.desktop
+%{_desktopdir}/kde/kcmaccess.desktop
+%{_desktopdir}/kde/kcmlaunch.desktop
+%{_desktopdir}/kde/kcmsmserver.desktop
+%{_desktopdir}/kde/kcmnotify.desktop
+%{_desktopdir}/kde/keyboard.desktop
+%{_desktopdir}/kde/keyboard_layout.desktop
+%{_desktopdir}/kde/keys.desktop
 %{_desktopdir}/kde/khotkeys.desktop
 %{_desktopdir}/kde/krandrtray.desktop
+%{_desktopdir}/kde/ksplashthememgr.desktop
+%{_desktopdir}/kde/ktip.desktop
+%{_desktopdir}/kde/kwindecoration.desktop
+%{_desktopdir}/kde/kwinoptions.desktop
+%{_desktopdir}/kde/mouse.desktop
+%{_desktopdir}/kde/passwords.desktop
+%{_desktopdir}/kde/privacy.desktop
+%{_desktopdir}/kde/spellchecking.desktop
 %{_iconsdir}/*/*/apps/access.png
 %{_iconsdir}/*/*/apps/acroread.png
 %{_iconsdir}/*/*/apps/alevt.png
@@ -1550,7 +1587,8 @@ fi
 %{_iconsdir}/*/*/apps/error.png
 %{_iconsdir}/*/*/apps/galeon.png
 %{_iconsdir}/*/*/apps/gimp.png
-%{_iconsdir}/*/*/apps/gnome
+%{_iconsdir}/*/*/apps/gnome_app.png
+%{_iconsdir}/*/*/apps/gnome_apps.png
 %{_iconsdir}/*/*/apps/gvim.png
 %{_iconsdir}/*/*/apps/gv.png
 %{_iconsdir}/*/*/apps/kcmkwm.png
@@ -1560,7 +1598,6 @@ fi
 %{_iconsdir}/*/*/apps/keyboard.png
 %{_iconsdir}/*/*/apps/khotkeys.png
 %{_iconsdir}/*/*/apps/knotify.png
-%{_iconsdir}/*/*/apps/kpersonalizer.png
 %{_iconsdir}/*/*/apps/ktip.png
 %{_iconsdir}/*/*/apps/kvirc.png
 %{_iconsdir}/*/*/apps/kwin.png
@@ -1569,8 +1606,9 @@ fi
 %{_iconsdir}/*/*/apps/linuxconf.png
 %{_iconsdir}/*/*/apps/lyx.png
 %{_iconsdir}/*/*/apps/mathematica.png
-%{_iconsdir}/*/*/apps/mozilla
 %{_iconsdir}/*/*/apps/mozilla.png
+%{_iconsdir}/*/*/apps/mozilla_m.png
+%{_iconsdir}/*/*/apps/mozilla_mail.png
 %{_iconsdir}/*/*/apps/nedit.png
 %{_iconsdir}/*/*/apps/netscape.png
 %{_iconsdir}/*/*/apps/opera.png
@@ -1697,7 +1735,6 @@ fi
 # konqueror needs it ?
 %{_iconsdir}/*/*/apps/kate.png
 
-
 %files kdcop
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kdcop
@@ -1732,6 +1769,7 @@ fi
 %{_libdir}/kde3/kio_fonts.la
 %attr(0755,root,root) %{_libdir}/kde3/kio_fonts.so
 #%{_datadir}/apps/konqsidebartng/virtual_folders/services/fonts.desktop
+%dir %{_datadir}/mimelnk/fonts
 %{_datadir}/mimelnk/fonts/folder.desktop
 %{_datadir}/mimelnk/fonts/system-folder.desktop
 %{_datadir}/services/fonts.protocol
@@ -1794,6 +1832,7 @@ fi
 %exclude %{_datadir}/apps/kicker/pics/kside*.png
 %{_datadir}/apps/naughtyapplet
 %{_datadir}/autostart/panel.desktop
+%{_datadir}/config/kickerrc
 %{_applnkdir}/.hidden/kicker_config.desktop
 %{_applnkdir}/.hidden/kicker_config_appearance.desktop
 %{_desktopdir}/kde/kcmtaskbar.desktop
@@ -1882,6 +1921,12 @@ fi
 %attr(0755,root,root) %{_bindir}/kpager
 %{_desktopdir}/kde/kpager.desktop
 %{_iconsdir}/*/*/apps/kpager.png
+
+%files kpersonalizer
+%defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/kpersonalizer
+%{_desktopdir}/kde/kpersonalizer.desktop
+%{_iconsdir}/*/*/apps/kpersonalizer.png
 
 %files ksysguard -f ksysguard.lang
 %defattr(644,root,root,755)
@@ -2017,7 +2062,7 @@ fi
 %{_libdir}/kde3/kcm_kdm.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_kdm.so
 %{_datadir}/apps/kdm
-%{_datadir}/wallpapers/pldwallpaper.png
+%{_datadir}/wallpapers/kdm_pld.png
 %{_desktopdir}/kde/kdm.desktop
 %{_iconsdir}/*/*/apps/kdmconfig.png
 
@@ -2168,7 +2213,14 @@ fi
 #%{_datadir}/apps/konqsidebartng/virtual_folders/services/devices.desktop
 #%{_datadir}/apps/konqsidebartng/virtual_folders/services/lisa.desktop
 #%{_datadir}/apps/konqsidebartng/virtual_folders/services/printsystem.desktop
-%{_datadir}/apps/konqueror
+%{_datadir}/apps/konqueror/about
+#%{_datadir}/apps/konqueror/dirtree
+%{_datadir}/apps/konqueror/icons
+%{_datadir}/apps/konqueror/pics
+%{_datadir}/apps/konqueror/profiles
+%{_datadir}/apps/konqueror/servicemenus/*
+%{_datadir}/apps/konqueror/tiles
+%{_datadir}/apps/konqueror/konqueror.rc
 %{_datadir}/autostart/konqy_preload.desktop
 %{_datadir}/config/konqsidebartng.rc
 %{_datadir}/config/kshorturifilterrc
