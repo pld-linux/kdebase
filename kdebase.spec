@@ -1369,5 +1369,5 @@ rm -rf $RPM_BUILD_ROOT
 - added -q an emoved -n %setup parameter,
 - Buildroot changed to /tmp/%%{name}-%%{version}-root,
 - added using %%{name} and %%{version} macros in Source,
-- added %lang macros for /usr/share/locale/*/LC_MESSAGES/ files,
+- added %lang macros for %{_datadir}/locale/*/LC_MESSAGES/ files,
 - "rm -rf $RPM_BUILD_ROOT" moved from %prep to %install.
