@@ -14,7 +14,7 @@
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040323
+%define		_snap		040325
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -870,6 +870,22 @@ Wygaszacze ekranu desktopu KDE.
 %description screensavers -l ru
 îÅËÏÔÏÒÙÅ 3D ÈÒÁÎÉÔÅÌÉ ÜËÒÁÎÁ ÄÌÑ K Desktop Environment.
 
+%package useraccount
+Summary:	User Account
+Summary(pl):	Konto u¿ytkownika
+Group:		X11/Applications
+Requires:	kdm >= 9:%{version}
+
+%description useraccount
+userinfo changes user account information. This module contains
+kdepasswd program functionality.
+
+%description useraccount -l pl
+userinfo zmienia informacje o koncie u¿ytkownika. Ten modu³ zawiera
+funkcjonalno¶æ programu kdepasswd.
+
+
+
 %package -n kdm
 Summary:	KDE Display Manager
 Summary(pl):	Zarz±dca ekranów KDE
@@ -1358,9 +1374,10 @@ Pliki umiêdzynarodawiaj±ce dla mailnews.
 %build
 cp /usr/share/automake/config.sub admin
 
-#export kde_htmldir=%{_kdedocdir}
-
 export UNSERMAKE=/usr/share/unsermake/unsermake
+
+# Sometimes i think They are insane
+rm kdepasswd/configure.in.in
 
 %{__make} -f admin/Makefile.common cvs
 
@@ -2930,6 +2947,16 @@ fi
 %{_datadir}/apps/kscreensaver
 %{_desktopdir}/kde/screensaver.desktop
 %{_iconsdir}/*/*/apps/kscreensaver.png
+
+%files useraccount
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kdepasswd
+%{_libdir}/kde3/kcm_useraccount.la
+%attr(755,root,root) %{_libdir}/kde3/kcm_useraccount.so
+%{_datadir}/apps/kdm/pics/users/*
+%{_datadir}/config.kcfg/kcm_useraccount.kcfg
+%{_datadir}/config.kcfg/kcm_useraccount_pass.kcfg
+%{_desktopdir}/kde/kcm_useraccount.desktop
 
 %files -n kdm -f kdm_en.lang
 %defattr(644,root,root,755)
