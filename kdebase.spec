@@ -949,7 +949,8 @@ fi
 %{_datadir}/services/info.protocol
 %{_datadir}/services/khelpcenter.desktop
 %{_datadir}/services/man.protocol
-%{_applnkdir}/Help/Help.desktop
+##%{_applnkdir}/Help/Help.desktop
+%{_desktopdir}/Help.desktop
 %{_pixmapsdir}/*/*/apps/khelpcenter.png
 
 %files kate -f kate.lang
