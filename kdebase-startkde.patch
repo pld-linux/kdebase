@@ -23,7 +23,7 @@ diff -urN kdebase-3.0beta2.orig/startkde kdebase-3.0beta2/startkde
  # especially necessary on slow machines, where starting KDE takes one or two
 @@ -39,70 +52,6 @@
  kdehome=$HOME/.kde
- test -n "$KDEHOME" && kdehome=$KDEHOME
+ test -n "$KDEHOME" && eval kdehome=$KDEHOME
  
 -# Activate the kde font directories.
 -#
@@ -92,11 +92,12 @@ diff -urN kdebase-3.0beta2.orig/startkde kdebase-3.0beta2/startkde
  # Link "tmp" resource to directory in /tmp
  # Creates a directory /tmp/kde-$USER and links $KDEHOME/tmp-$HOSTNAME to it.
  lnusertemp tmp >/dev/null
-@@ -142,7 +91,11 @@
+@@ -142,8 +91,11 @@
  # if no windowmanager is specified, ksmserver will ensure kwin is started.
  # [--restore] should be controlled by kdm
  # kwrapper is used to reduce startup time and memory usage
--kwrapper ksmserver --restore
+-kwrapper ksmserver --restore || \
+-  xmessage -geometry 500x100 "Couldn't start ksmserver. Check your installation."
 +if [ $# -eq 1 ]; then
 +	kwrapper ksmserver --windowmanager $1
 +else
