@@ -6,7 +6,7 @@
 #
 
 %define		_state		unstable
-%define		_kdever		kde-3.1-rc2
+%define		_kdever		kde-3.1-rc3
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos bАsicos
@@ -18,8 +18,8 @@ Summary(ru):	K Desktop Environment - базовые файлы
 Summary(uk):	K Desktop Environment - базов╕ файли
 Summary(zh_CN): KDE╨кпд
 Name:		kdebase
-Version:	3.0.98
-Release:	1.5
+Version:	3.0.99
+Release:	1
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
