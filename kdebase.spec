@@ -25,6 +25,9 @@ Patch3:		%{name}-utmp.patch
 Patch4:		%{name}-nsplugins_dirs.patch
 Patch5:		%{name}-hardcoded_paths.patch
 Patch6:		%{name}-kdm.daemon_output.patch
+Patch7:		%{name}-zh-langname.patch
+Patch8:		%{name}-kcontrol_samba.patch
+Patch9:		%{name}-kdesktop-segv.patch
 %ifnarch sparc sparc64
 BuildRequires:	alsa-lib-devel
 %endif
@@ -36,6 +39,7 @@ BuildRequires:	automake
 BuildRequires:	awk
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
+BuildRequires:	db3-devel
 BuildRequires:	findutils
 BuildRequires:	gettext-devel
 BuildRequires:	glut-devel
@@ -47,14 +51,13 @@ BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool
-BuildRequires:	libvorbis-devel
+BuildRequires:	libvorbis-devel >= 1:1.0
 BuildRequires:	libxml2-devel
 BuildRequires:	motif-devel
 BuildRequires:	openssl-devel
 BuildRequires:	pam-devel
 BuildRequires:	qt-devel >= 2.3.0
 BuildRequires:	zlib-devel
-BuildRequires:	db3-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
 Prereq:		/sbin/ldconfig
@@ -230,6 +233,9 @@ Wygaszacze ekranu desktopu KDE.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
+%patch8 -p1
+%patch9 -p1
 
 %build
 
@@ -309,8 +315,6 @@ done
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
-gzip AUTHORS README*
-
 %find_lang tmp.%{name} --with-kde --all-name
 grep -vE konqueror\|kdm tmp.%{name}.lang > %{name}.lang
 %find_lang konqueror --with-kde
@@ -368,7 +372,7 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc *gz
+%doc AUTHORS README*
 %config %{_sysconfdir}/ksysguarddrc
 %attr(0755,root,root) %{_bindir}/[ades]*
 %attr(0755,root,root) %{_bindir}/conttest
