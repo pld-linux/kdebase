@@ -30,8 +30,6 @@ BuildRequires:	XFree86-devel
 BuildRequires:	zlib-devel
 BuildRequires:	pam-devel
 BuildRequires:	OpenGL-devel
-BuildRequires:	glut-devel
-BuildRequires:	alsa-lib-devel
 BuildRequires:	openssl-devel
 BuildRequires:	lesstif-devel
 Prereq:		/sbin/ldconfig
