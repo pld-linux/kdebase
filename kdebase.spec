@@ -2,8 +2,6 @@
 # TODO:
 # * KDM: ColorSheme=Default works properly with GUIStyle=KDE only 
 # * KDM: Replacing findwm with a better solution (it's in the way)
-# * Fixing 48x48 pld applnk-pixmaps scaling (konqsidebar, kicker)
-# * Separating kicker, kwin, wtf
 #
 # Conditional build:
 # _without_alsa 	- disable alsa
@@ -30,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -45,6 +43,7 @@ Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-ircpld.desktop
 Source9:	%{name}-specs.desktop
 Source10:       %{name}-kdesktop.pam
+Source11:       %{name}-kde-settings.menu
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 Patch1:		%{name}-fix-mouse.cpp.patch
 Patch2:		%{name}-fontdir.patch
@@ -827,6 +826,7 @@ install %{SOURCE6}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldlogo.png
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldwallpaper.png
 install %{SOURCE8}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/ircpld.desktop
 install %{SOURCE9}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/specs.desktop
+install %{SOURCE11}     $RPM_BUILD_ROOT/etc/xdg/menus/kde-settings.menu
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
@@ -1117,6 +1117,9 @@ fi
 %{_datadir}/sounds
 %{_datadir}/templates
 %{_datadir}/wallpapers
+%{_applnkdir}/Settings/KDE/.directory
+%{_applnkdir}/Settings/KDE/Components/.directory
+%{_applnkdir}/Settings/KDE/System/.directory
 %{_applnkdir}/Home.desktop
 %{_applnkdir}/.hidden/[bcmspv]*.desktop
 %{_applnkdir}/.hidden/k[!cio]*.desktop
@@ -1347,6 +1350,7 @@ fi
 %files core -f core.lang
 %defattr(644,root,root,755)
 %lang(en) %dir %{_htmldir}/en/kcontrol
+%{_sysconfigdir}/xdg/menus/kde-settings.menu
 %lang(en) %{_htmldir}/en/kcontrol/common
 %lang(en) %{_htmldir}/en/kcontrol/helpindex.html
 %lang(en) %{_htmldir}/en/kcontrol/index.*
