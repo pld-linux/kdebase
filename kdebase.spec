@@ -1528,7 +1528,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kxkb.so
 %{_datadir}/apps/clockapplet
 %{_datadir}/apps/kcm_componentchooser/*
-%{_datadir}/apps/kcminput
+%dir %{_datadir}/apps/kcminput
+%{_datadir}/apps/kcminput/pics
 %{_datadir}/apps/kcmkeys
 %{_datadir}/apps/kcmlocale
 %{_datadir}/apps/kconf_update/*
