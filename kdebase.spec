@@ -141,7 +141,7 @@ KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ÍÑ¤Î´ðËÜ¥¢¥×¥ê¥±¡¼¥·¥ç¥ó¡£
 Pliki specyficzne dla ¶rodowiska KDE i wykorzystywane przez g³ówne
 aplikacje KDE. Pakiet zawiera:
 - Hierarchiê menu KDE,
-- kappfinder - skrypt u³awiaj±cy uruchamianie niektórych programów
+- kappfinder - skrypt u³atwiaj±cy uruchamianie niektórych programów
   spoza KDE
 - krootwm - modu³ wykorzystywany przez kwm i kfm
 - kaudio - serwer d¼wiêku dla KDE.
@@ -275,7 +275,7 @@ Przegl±darka plików pomocy dla KDE.
 
 %package kappfinder
 Summary:	Menu Updating Tool
-Summary(pl):	Narzedzie do aktualizacji menu.
+Summary(pl):	Narzêdzie do aktualizacji menu
 Group:		X11/Applications
 Requires:	kdelibs >= %{version}
 Obsoletes:	%{name} =< 3.1.1a-3
@@ -344,7 +344,6 @@ KDE Find Tool.
 %description kfind -l pl
 Narzêdzie do wyszukiwania plików dla KDE.
 
-
 %package konsole
 Summary:	KDE Terminal Emulator
 Summary(pl):	Emulator terminala dla KDE
@@ -368,6 +367,12 @@ Requires:	%{name}-helpcenter = %{version}-%{release}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	kwrite
 
+%description kwrite
+KDE text editor with syntax highlighting.
+
+%description kwrite -l pl
+Edytor tekstu z pod¶wietlaniem sk³adni dla KDE.
+
 %package kpager
 Summary:	Desktop Pager
 Summary(pl):	Prze³±cznik biurek
@@ -380,12 +385,6 @@ KDE Desktop Pager.
 
 %description kpager -l pl
 Prze³±cznik biurek dla KDE.
-
-%description kwrite
-KDE text editor with syntax highlighting.
-
-%description kwrite -l pl
-Edytor tekstu z pod¶wietlaniem sk³adni dla KDE.
 
 %package mailnews
 Summary:	KDE Mail and News Services
