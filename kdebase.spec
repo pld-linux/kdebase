@@ -29,7 +29,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	7.2
+Release:	7.3
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -893,7 +893,6 @@ fi
 %{_datadir}/config/kdesktop*
 %{_datadir}/config/klipperrc
 %{_datadir}/config/kwritedrc
-#%{_datadir}/locale/*
 %{_datadir}/services/kaccess.desktop
 %{_datadir}/services/kdeprint_part.desktop
 %{_datadir}/services/kwrited.desktop
@@ -901,6 +900,10 @@ fi
 %{_datadir}/sounds
 %{_datadir}/templates
 %{_datadir}/wallpapers
+# Needed to have locales in menu
+%{_datadir}/locale/*/entry.desktop
+%{_datadir}/locale/*/flag.png
+%{_datadir}/locale/*/charset
 %{_applnkdir}/Home.desktop
 %{_applnkdir}/.hidden/[bcmpsv]*.desktop
 %{_applnkdir}/.hidden/k[!co]*.desktop
