@@ -5,9 +5,9 @@
 %bcond_with	kwin_shadow	# experimental support for kwin shadows
 
 %define		_state		unstable
-%define		_ver		3.3.91
-
-%define		_minlibsevr	9:3.3.91
+%define		_ver		3.3.92
+%define         _snap           050210
+%define		_minlibsevr	9:3.3.92.050210
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -19,14 +19,15 @@ Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
-Version:	%{_ver}
+Version:       %{_ver}.%{_snap}
+#Version:	%{_ver}
 Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	079120d41e7d4f4453b3fb2398f4d4c9
-#Source0:	http://ftp.pld-linux.org/software/kde/%{name}-%{version}.tar.bz2
+Source0:	http://ftp.pld-linux.org/software/kde/%{name}-%{_snap}.tar.bz2
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{_ver}.tar.bz2
+#%% Source0-md5:	079120d41e7d4f4453b3fb2398f4d4c9
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -44,7 +45,7 @@ Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entrie
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-fontdir.patch
 Patch2:		%{name}-kcm_background.patch
-Patch3:		%{name}-kdm_utmpx.patch
+#Patch3:		%{name}-kdm_utmpx.patch
 Patch4:		%{name}-kdmconfig.patch
 Patch5:		%{name}-kicker.patch
 Patch6:		%{name}-konsole_all.patch
@@ -53,7 +54,7 @@ Patch8:		%{name}-startkde.patch
 Patch9:		%{name}-kcm_fonts.patch
 Patch10:	%{name}-kdesukonsole.patch
 Patch12:	%{name}-screensavers.patch
-Patch13:	%{name}-prefmenu.patch
+#Patch13:	%{name}-prefmenu.patch
 Patch14:	%{name}-session.patch
 Patch15:	%{name}-bgdefaults.patch
 Patch16:	%{name}-vmenus.patch
@@ -996,11 +997,12 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 - listê przestrzeni nazw (namespace)
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{_snap}
+#%setup -q
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
+#%patch3 -p1
 %patch4 -p1
 #%patch5 -p1
 %patch6 -p1
@@ -1009,7 +1011,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch9 -p1
 %patch10 -p1
 %patch12 -p1
-%patch13 -p1
+#%patch13 -p1
 %patch14 -p1
 %patch15 -p1
 %patch16 -p1
@@ -1263,11 +1265,13 @@ for i in $programs; do
 	cat $i.lang >> konqueror.lang
 done
 
+%find_lang kappfinder	--with-kde
 %find_lang kate		--with-kde
 %find_lang kcmkonsole	--with-kde
 %find_lang kdm		--with-kde
 %find_lang kfind	--with-kde
 %find_lang kcmfontinst	--with-kde
+%find_lang kdcop	--with-kde
 %find_lang kinfocenter	--with-kde
 %find_lang kioslave	--with-kde
 %find_lang klipper	--with-kde
@@ -1599,6 +1603,7 @@ fi
 %dir %{_datadir}/apps/konqueror
 %dir %{_datadir}/apps/konqueror/servicemenus
 #
+%{_datadir}/config.kcfg/khelpcenter.kcfg
 %{_datadir}/locale/l10n
 %lang(en_US) %{_datadir}/locale/en_US/entry.desktop
 %{_datadir}/mimelnk/print
@@ -1668,6 +1673,15 @@ fi
 %attr(0755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
 %attr(0755,root,root) %{_libdir}/kconf_update_bin/kicker-3.4-reverseLayout
 %attr(0755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
+# New
+%attr(0755,root,root) %{_bindir}/kbookmarkmerger
+%attr(0755,root,root) %{_bindir}/kcheckrunning
+%attr(0755,root,root) %{_bindir}/khc_docbookdig.pl
+%attr(0755,root,root) %{_bindir}/khc_htdig.pl
+%attr(0755,root,root) %{_bindir}/khc_htsearch.pl
+%attr(0755,root,root) %{_bindir}/khc_mansearch.pl
+%attr(0755,root,root) %{_bindir}/kompmgr
+#
 %{_libdir}/libkdeinit_kaccess.la
 %attr(0755,root,root) %{_libdir}/libkdeinit_kaccess.so
 %{_libdir}/libkdeinit_kdesktop.la
@@ -1835,8 +1849,10 @@ fi
 %{_datadir}/wallpapers/triplegears.jpg
 %{_datadir}/wallpapers/blue-bend.jpg
 %{_datadir}/wallpapers/Island-of-Elba.jpg
+%{_datadir}/wallpapers/*.svgz
 %{_datadir}/wallpapers/*.desktop
 %{_datadir}/xsessions/kde.desktop
+%{_datadir}/applnk/.hidden/.directory
 %{_datadir}/applnk/.hidden/battery.desktop
 %{_datadir}/applnk/.hidden/bwarning.desktop
 %{_datadir}/applnk/.hidden/cwarning.desktop
@@ -1847,6 +1863,7 @@ fi
 %{_datadir}/applnk/.hidden/kwinadvanced.desktop
 %{_datadir}/applnk/.hidden/kwinfocus.desktop
 %{_datadir}/applnk/.hidden/kwinmoving.desktop
+%{_datadir}/applnk/.hidden/kwintranslucency.desktop
 %{_datadir}/applnk/.hidden/passwords.desktop
 %{_datadir}/applnk/.hidden/power.desktop
 %{_datadir}/applnk/.hidden/randr.desktop
@@ -1966,6 +1983,7 @@ fi
 %{_iconsdir}/crystalsvg/*/apps/bluefish.png
 %{_iconsdir}/crystalsvg/*/apps/dia.png
 %{_iconsdir}/crystalsvg/*/apps/eclipse.png
+%{_iconsdir}/crystalsvg/*/apps/edu_*.png
 %{_iconsdir}/crystalsvg/*/apps/evolution.png
 %{_iconsdir}/crystalsvg/*/apps/firefox.png
 %{_iconsdir}/crystalsvg/*/apps/gabber.png
@@ -1981,6 +1999,7 @@ fi
 %{_iconsdir}/crystalsvg/*/apps/thunderbird.png
 %{_iconsdir}/crystalsvg/*/apps/wine.png
 %{_iconsdir}/crystalsvg/scalable/apps
+
 # kcontroledit
 %attr(0755,root,root) %{_bindir}/kcontroledit
 %{_libdir}/libkdeinit_kcontroledit.la
@@ -2056,9 +2075,9 @@ fi
 %{_datadir}/apps/kicker/wallpapers
 %{_datadir}/apps/naughtyapplet
 %{_datadir}/autostart/panel.desktop
-#%{_datadir}/config/kickerrc
 %{_datadir}/applnk/.hidden/kicker_config.desktop
 %{_datadir}/applnk/.hidden/kicker_config_appearance.desktop
+%{_datadir}/config.kcfg/taskbar.kcfg
 %{_desktopdir}/kde/kcmtaskbar.desktop
 %{_desktopdir}/kde/panel.desktop
 %{_desktopdir}/kde/panel_appearance.desktop
@@ -2087,6 +2106,7 @@ fi
 %attr(0755,root,root) %{_bindir}/kdeinstallktheme
 %{_libdir}/kde3/kcm_kthememanager.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_kthememanager.so
+%{_datadir}/apps/kthememanager
 %{_datadir}/mimelnk/application/x-ktheme.desktop
 %{_desktopdir}/kde/installktheme.desktop
 %{_desktopdir}/kde/kthememanager.desktop
@@ -2155,7 +2175,7 @@ fi
 # !!!
 %{_iconsdir}/*/*/apps/kthememgr.png
 
-%files kappfinder
+%files kappfinder -f kappfinder.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kappfinder
 %{_datadir}/apps/kappfinder
@@ -2171,14 +2191,15 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kate.so
 %{_libdir}/kde3/katedefaultprojectplugin.la
 %attr(0755,root,root) %{_libdir}/kde3/katedefaultprojectplugin.so
-%{_libdir}/kde3/katekttsdplugin.la
-%attr(0755,root,root) %{_libdir}/kde3/katekttsdplugin.so
+#%{_libdir}/kde3/katekttsdplugin.la
+#%attr(0755,root,root) %{_libdir}/kde3/katekttsdplugin.so
 %dir %{_datadir}/apps/kate
 %{_datadir}/apps/kate/[!s]*
 %dir %{_datadir}/apps/kate/scripts
 %{_datadir}/apps/kate/scripts/*.desktop
 %attr(0755,root,root) %{_datadir}/apps/kate/scripts/*.sh
 %{_datadir}/apps/katepart
+%{_datadir}/config/katerc
 %{_datadir}/mimelnk/application/x-kate-project.desktop
 %{_datadir}/services/katedefaultproject.desktop
 %{_datadir}/services/katekttsd.desktop
@@ -2189,7 +2210,7 @@ fi
 # konqueror needs it ?
 %{_iconsdir}/*/*/apps/kate.png
 
-%files kdcop
+%files kdcop -f kdcop.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kdcop
 %{_datadir}/apps/kdcop
@@ -2333,8 +2354,8 @@ fi
 %attr(0755,root,root) %{_libdir}/libkateinterfaces.so.*.*.*
 %{_libdir}/libkateutils.la
 %attr(0755,root,root) %{_libdir}/libkateutils.so.*.*.*
-%{_libdir}/kde3/libkatepartkttsdplugin.la
-%attr(0755,root,root) %{_libdir}/kde3/libkatepartkttsdplugin.so
+#%{_libdir}/kde3/libkatepartkttsdplugin.la
+#%attr(0755,root,root) %{_libdir}/kde3/libkatepartkttsdplugin.so
 
 %files libksgrd
 %defattr(644,root,root,755)
@@ -2379,7 +2400,7 @@ fi
 %attr(0755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xstartup
 %attr(0755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xwilling
 %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xaccess
-%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xservers
+#%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xservers
 %dir /etc/X11/kdm/faces
 %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/faces/.default.face.icon
 %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/faces/root.face.icon
