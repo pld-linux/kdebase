@@ -296,6 +296,7 @@ Summary:	KDE User Autentication
 Summary(pl):	Uwierzytelnianie u¿ytkowników dla KDE
 Group:		X11/Applications
 Obsoletes:	%{name} < 3.0.9-2.4
+Requires:	pam
 
 %description kcheckpass
 KDE User Autentication.
@@ -410,7 +411,8 @@ Summary(uk):	ÚÂÅÒ¦ÇÁÞ¦ ÅËÒÁÎÕ ÄÌÑ KDE
 Group:		X11/Applications
 Requires:	OpenGL
 Requires:	%{name} = %{version}-%{release}
-Requires:	%{name}-kcheckpass
+Requires:	%{name}-kcheckpass = %{version}-%{release}
+Requires:	%{name}-kcontrol = %{version}-%{release}
 
 %description screensavers
 KDE screensavers.
@@ -428,7 +430,6 @@ Group:		X11/Applications
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-kcontrol = %{version}-%{release}
-Requires:	%{name}-pam = %{version}-%{release}
 Requires:	sessreg
 Requires:	xinitrc
 Obsoletes:	gdm
@@ -1112,7 +1113,6 @@ fi
 %{_datadir}/apps/kscreensaver
 %{_applnkdir}/Settings/KDE/LookNFeel/screensaver.desktop
 %{_pixmapsdir}/*/*/apps/kscreensaver.png
-
 
 %files -n kdm -f kdm.lang
 %defattr(644,root,root,755)
