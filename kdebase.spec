@@ -14,7 +14,7 @@
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040401
+%define		_snap		040403
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -34,7 +34,7 @@ Group:		X11/Applications
 #Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}.tar.bz2
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
 Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	40180ee37fb4057958d1906392705af8
+# Source0-md5:	3f760c8f8787f71c9abfee8c4c9e99c8
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
