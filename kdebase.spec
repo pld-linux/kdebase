@@ -759,7 +759,7 @@ fi
 %attr(0755,root,root) %{_bindir}/kde[!ps]*
 %attr(2755,root,nobody) %{_bindir}/kdesktop
 %attr(2755,root,nobody) %{_bindir}/kdesud
-%attr(2755,root,nobody) %{_bindir}/kdialog
+%attr(0755,root,root) %{_bindir}/kdialog
 %attr(0755,root,root) %{_bindir}/khotkeys
 %attr(0755,root,root) %{_bindir}/kinfocenter
 %attr(0755,root,root) %{_bindir}/klipper
