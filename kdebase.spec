@@ -23,7 +23,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}.%{_snap}
-Release:	3
+Release:	4
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -68,6 +68,7 @@ Patch25:	%{name}-session.patch
 Patch26:	%{name}-bgdefaults.patch
 Patch27:	%{name}-vmenus.patch
 Patch28:	kde-general-utmpx.patch
+Patch29:	%{name}-nsplugin.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	arts-devel >= 1.2.0
@@ -868,6 +869,7 @@ Internet Explorer.
 %patch26 -p1
 %patch27 -p1
 %patch28 -p1
+%patch29 -p1
 
 %build
 for f in `find . -name \*.desktop -o -name \*rc | xargs grep -l '\[nb\]'` ; do
