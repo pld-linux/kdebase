@@ -79,17 +79,17 @@
    posCenterRadio->setChecked( true );
    slotPosRadioClicked( 0 );
    setLogo( "" );
---- kdebase-3.1.1/kcontrol/kdm/kdm-font.cpp~	Sun Sep 15 23:08:39 2002
-+++ kdebase-3.1.1/kcontrol/kdm/kdm-font.cpp	Tue Mar  4 18:51:26 2003
-@@ -112,8 +112,8 @@
+--- kdebase-030527/kcontrol/kdm/kdm-font.cpp~	2003-05-20 00:37:03.000000000 +0200
++++ kdebase-030527/kcontrol/kdm/kdm-font.cpp	2003-05-27 12:17:59.000000000 +0200
+@@ -110,8 +110,8 @@
  
  void KDMFontWidget::set_def()
  {
--  stdfont = QFont("helvetica", 12);
--  failfont = QFont("helvetica", 12, QFont::Bold);
+-  stdfont = QFont("helvetica", 10);
+-  failfont = QFont("helvetica", 10, QFont::Bold);
 +  stdfont = QFont("helvetica", 11);
 +  failfont = QFont("helvetica", 11, QFont::Bold);
-   greetfont = QFont("charter", 24);
+   greetfont = QFont("charter", 20);
  }
  
 --- kdebase-030418/kcontrol/kdm/kdm-sess.cpp~	2003-04-04 00:37:58.000000000 +0200
@@ -151,8 +151,8 @@
  
  messages:
  	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
---- kdebase-030515/kdm/kfrontend/genkdmconf.c~	2003-05-13 00:37:59.000000000 +0200
-+++ kdebase-030515/kdm/kfrontend/genkdmconf.c	2003-05-15 04:46:52.000000000 +0200
+--- kdebase-030527/kdm/kfrontend/genkdmconf.c~	2003-05-19 00:41:26.000000000 +0200
++++ kdebase-030527/kdm/kfrontend/genkdmconf.c	2003-05-27 12:35:11.000000000 +0200
 @@ -56,7 +56,7 @@
  
  #define as(ar) ((int)(sizeof(ar)/sizeof(ar[0])))
@@ -228,12 +228,12 @@
 -"# Default is \"Welcome to %s at %n\"\n" },
 +"# Default is \"Welcome to PLD Linux at %n\"\n" },
  { "GreetFont",		0, 0, 
- "# The font for the headline. Default is charter,24,bold\n" },
+ "# The font for the headline. Default is charter,20,bold\n" },
  { "StdFont",		0, 0, 
--"# The normal font used in the greeter. Default is helvetica,12\n" },
+-"# The normal font used in the greeter. Default is helvetica,10\n" },
 +"# The normal font used in the greeter. Default is helvetica,11\n" },
  { "FailFont",		0, 0, 
--"# The font used for the \"Login Failed\" message. Default is helvetica,12,bold\n" },
+-"# The font used for the \"Login Failed\" message. Default is helvetica,10,bold\n" },
 +"# The font used for the \"Login Failed\" message. Default is helvetica,11,bold\n" },
  { "AntiAliasing",	0, 0,
  "# Whether the fonts shown in the greeter should be antialiased. Default is false\n" },
@@ -282,8 +282,8 @@
  { "NoPassEnable",	"true", 0 },
  { "NoPassUsers",	"fred,ethel", 0 },
  };
---- kdebase-030515/kdm/kfrontend/kdm_config.c~	2003-05-13 00:37:59.000000000 +0200
-+++ kdebase-030515/kdm/kfrontend/kdm_config.c	2003-05-15 04:51:30.000000000 +0200
+--- kdebase-030527/kdm/kfrontend/kdm_config.c~	2003-05-19 00:41:26.000000000 +0200
++++ kdebase-030527/kdm/kfrontend/kdm_config.c	2003-05-27 12:40:41.000000000 +0200
 @@ -38,7 +38,7 @@
  #include <netdb.h>
  #include <grp.h>
@@ -310,24 +310,17 @@
  { "DefaultSdMode",	C_defSdMode | C_ENUM, sd_mode,	"Schedule" },
  { "InteractiveSd",	C_interactiveSd | C_BOOL, 0,	"true" },
  };
-@@ -511,15 +511,15 @@
- { "SessionTypes",	C_SessionTypes,		0,	"default,failsafe" },
- { "GUIStyle",		C_GUIStyle, 		0,	"" },
- { "ColorScheme",	C_ColorScheme,		0,	"" },
--{ "LogoArea",		C_LogoArea | C_ENUM, logoarea,	"Logo" },
-+{ "LogoArea",		C_LogoArea | C_ENUM, logoarea,	"None" },
- { "LogoPixmap",		C_LogoPixmap,		0,	"" },
- { "GreeterPosFixed",	C_GreeterPosFixed | C_BOOL, 0,	"false" },
+@@ -517,9 +517,9 @@
  { "GreeterPosX",	C_GreeterPosX,		0,	"0" },
  { "GreeterPosY",	C_GreeterPosY,		0,	"0" },
  { "GreeterScreen",	C_GreeterScreen,	0,	"0" },
--{ "StdFont",		C_StdFont,		0,	"helvetica,12,5,0,50,0" },
--{ "FailFont",		C_FailFont,		0,	"helvetica,12,5,0,75,0" },
+-{ "StdFont",		C_StdFont,		0,	"helvetica,10,5,0,50,0" },
+-{ "FailFont",		C_FailFont,		0,	"helvetica,10,5,0,75,0" },
 -{ "GreetString",	C_GreetString,		0,	"Welcome to %s at %n" },
 +{ "StdFont",		C_StdFont,		0,	"helvetica,11,5,0,50,0" },
 +{ "FailFont",		C_FailFont,		0,	"helvetica,11,5,0,75,0" },
 +{ "GreetString",	C_GreetString,		0,	"Welcome to PLD Linux at %n" },
- { "GreetFont",		C_GreetFont,		0,	"charter,24,5,0,50,0" },
+ { "GreetFont",		C_GreetFont,		0,	"charter,20,5,0,50,0" },
  { "AntiAliasing",	C_AntiAliasing | C_BOOL,0,	"false" },
  { "NumLock",		C_NumLock | C_ENUM, numlock,	"Keep" },
 --- kdebase-3.1/kdm/kfrontend/kdmconfig.cpp.orig	Mon Oct 28 10:55:24 2002
