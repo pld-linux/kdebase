@@ -5,7 +5,7 @@ Summary(pt_BR):	K Desktop Environment - arquivos básicos
 Name:		kdebase
 Version:	2.2.2
 Release:	12
-Epoch:		6
+Epoch:		7
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
@@ -456,7 +456,8 @@ fi
 %{_datadir}/services/k[afhsuwx]*
 %{_datadir}/services/kons*
 %{_datadir}/sounds
-%{_datadir}/templates
+%{_datadir}/templates/*.dessktop
+%{_datadir}/templates/.source/*
 %{_datadir}/wallpapers
 %{_datadir}/servicetypes/[fstu]*.desktop
 %{_datadir}/servicetypes/k[!o]*.desktop
