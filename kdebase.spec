@@ -35,7 +35,7 @@ Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-searchproviders.tar.bz2
 # Source8-md5:	c6d9045d9c99abce93232c7ab231fabb
 Source9:	%{name}-colorschemes.tar.bz2
-# Source9-md5:	3c76ae94cb5c23efafd2b93991fa4258
+# Source9-md5:	2102f4a5f78f66bb86e5ab81f9ec686d
 Source10:	%{name}-servicemenus.tar.bz2
 # Source10-md5:	5b113fe35bd3a46de31e451e285e86d3
 Source11:	%{name}-sidebarext.tar.bz2
