@@ -24,7 +24,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -54,6 +54,7 @@ Patch13:        %{name}-kicker_nodesktop.patch
 Patch14:        %{name}-xfsreload.patch
 #
 Patch15:	%{name}-kdm_kgreeter.patch
+Patch16:	%{name}-screensavers.patch
 
 %ifnarch sparc sparc64
 %{!?_without_alsa:BuildRequires: alsa-lib-devel}
@@ -452,6 +453,7 @@ Internet Explorer.
 %patch13 -p1
 %patch14 -p1
 %patch15 -p1
+%patch16 -p1
 
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
@@ -508,7 +510,6 @@ mv -f $ALD/{Internet/konqbrowser.desktop,Network/WWW}
 mv -f $ALD/{Internet/keditbookmarks.desktop,Utilities}
 mv -f $ALD/{System/konsole.desktop,Terminals}
 mv -f $ALD/{System/More/{konquerorsu,konsolesu}.desktop,System/Administration}
-mv -f $ALD/{System/ScreenSavers,.hidden}
 mv -f $ALD/{Utilities/More/*.desktop,Utilities}
 mv -f $ALD/{Settings/[!K]*,Settings/KDE}
 mv -f $ALD/{Settingsmenu/*.desktop,Settings}
@@ -1080,8 +1081,8 @@ fi
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kscreensaver
 %{_libdir}/kde3/kcm_screensaver.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_screensaver.so
+%{_datadir}/kscreensaver
 %{_applnkdir}/Settings/KDE/LookNFeel/screensaver.desktop
-%{_applnkdir}/.hidden/ScreenSavers
 %{_pixmapsdir}/*/*/apps/kscreensaver.png
 
 %files -n kdm -f kdm.lang
