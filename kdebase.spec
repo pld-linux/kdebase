@@ -2,7 +2,8 @@ Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
 Version:	2.1
-Release:	2
+Release:	4
+Epoch:		6
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -11,9 +12,13 @@ Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/distribution/tar/generic/sr
 Source1:	%{name}-startkde.sh
 Source2:	kdm.pamd
 Source3:	kdm.init
-Patch0:		%{name}-key.patch
-Patch1:		%{name}-waitkdm.patch
-Patch2:		%{name}-konsole-TERM.patch
+Patch0:		%{name}-waitkdm.patch
+Patch1:		%{name}-konsole-TERM.patch
+Patch2:		%{name}-time.patch
+Patch3:		%{name}-glibc-2.2.2.patch
+Patch4:		%{name}-kxmlrpcd-tcpsocket.patch
+Patch5:		%{name}-arrange.patch
+Patch6:		%{name}-utmp.patch
 BuildRequires:	grep
 BuildRequires:	qt-devel >= 2.2.2
 BuildRequires:	kdelibs-devel >= %{version}
@@ -29,6 +34,7 @@ BuildRequires:	glut-devel
 BuildRequires:	alsa-lib-devel
 BuildRequires:	openssl-devel
 BuildRequires:	lesstif-devel
+Prereq:		/sbin/ldconfig
 Requires:	kdelibs = %{version}
 Requires:	qt >= 2.2.2
 Requires:	applnk
@@ -53,13 +59,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 KDE specific files. Used by core KDE applications. Package includes:
 KDE menu hierarchy kappfinder - script installing some non-KDE apps in
 KDE menu krootwm - module used by KWM and KFM kaudio - audio server
-for KDE
+for KDE.
 
 %description -l pl
 Pliki specyficzne dla ¶rodowiska KDE i wykorzystywane przez g³ówne
 aplikacje KDE. Pakiet zawiera: Hierarchiê menu KDE kappfinder - skrypt
 u³awiaj±cy uruchamianie niektórych programów spoza KDE krootwm - modu³
-wykorzystywany przez kwm i kfm kaudio - serwer d¼wiêku dla KDE
+wykorzystywany przez kwm i kfm kaudio - serwer d¼wiêku dla KDE.
 
 %package devel
 Summary:	Include files to develop KDE applications.
@@ -78,8 +84,8 @@ Pakiet zawiera pliki nag³ówkowe niezbêdne do programowania aplikacji
 KDE.
 
 %package static
-Summary:	Include static libraries to develop KDE applications.
-Summary(pl):	Statyczne biblioteki KDE.
+Summary:	Include static libraries to develop KDE applications
+Summary(pl):	Statyczne biblioteki KDE
 Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
@@ -139,24 +145,29 @@ Requires:	qt >= 2.2.2
 Requires:	kdelibs = %{version}
 
 %description screensavers
-KDE screensavers
+KDE screensavers.
 
 %description screensavers -l pl
-Wygaszacze ekranu desktopu KDE
+Wygaszacze ekranu desktopu KDE.
 
 %prep
 %setup -q
-#pascalek %patch0 -p1
+%patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
-export CPPFLAGS="-I/usr/X11R6/include"
+CPPFLAGS="-I/usr/X11R6/include"
+export CPPFLAGS
 %configure \
- 	--with-pam=kdm \
+	--with-pam=kdm \
 	--without-shadow \
 	--disable-shadow \
 	--with-xdmdir="%{_sysconfdir}/X11/kdm" \
@@ -307,7 +318,6 @@ fi
 %{_applnkdir}/KControl.desktop
 %{_applnkdir}/.hidden/konqfilemgr.desktop
 %{_applnkdir}/Amusements/*.desktop
-%{_applnkdir}/Development/*.desktop
 %{_applnkdir}/Office/Editors/*.desktop
 %{_applnkdir}/Settings/KDE/.directory
 %{_applnkdir}/Settings/KDE/Help
