@@ -32,7 +32,6 @@ Obsoletes:	kdebase-konsole
 Obsoletes:	kdebase-screensaver
 Obsoletes:	kdebase-kicker
 Obsoletes:	kdebase-kioslave
-Obsoletes:	kdebase-konqueror
 Obsoletes:	kdebase-kwin
 Obsoletes:	kdebase-kxmlrpc
 Obsoletes:	kdebase-kdesktop
@@ -40,7 +39,6 @@ Obsoletes:	kdebase-kwrite
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix 		/usr/X11R6
-%define		_fontdir 		/usr/share/fonts
 
 %description
 KDE specific files. Used by core KDE applications. Package includes:
@@ -88,6 +86,23 @@ displays.
 %description -n kdm -l pl
 Zamiennik XDM rodem z KDE.
 
+%package -n konqueror
+Summary:	Konqueror - web browser and file manager
+Summary(pl):	Konqueror - przegl±darka WWW i mened¿er plików
+Group:		X11/Applications
+Group(de):	X11/Applikationen
+Group(pl):	X11/Aplikacje
+Requires:	qt >= 2.2.1-6
+Requires:	kdelibs = %{version}
+Obsoletes:	kdebase-konqueror
+
+%description -n konqueror
+Konqueror is a web browser and file manager similar to MS Internet Explorer.
+
+%description -n konqueror -l pl
+Konqueror jest przegl±dark± WWW i mene¿derem plików podobnym do MS Internet
+Explorer.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -110,7 +125,6 @@ rm -rf $RPM_BUILD_ROOT
 	RUN_KAPPFINDER="no" \
 	DESTDIR="$RPM_BUILD_ROOT" \
 	localedir="$RPM_BUILD_ROOT%{_datadir}/locale" \
-	fontdir="%{_fontdir}/misc" \
 	ac_xdmdir="%{_sysconfdir}/X11/kdm" \
 	install
 
@@ -125,26 +139,17 @@ install %{SOURCE2}			$RPM_BUILD_ROOT%{_sysconfdir}/pam.d/kdm
 install %{SOURCE3}			$RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/kdm
 touch $RPM_BUILD_ROOT%{_sysconfdir}/security/blacklist.kdm
 
-# this is included in XF4
-rm -f $RPM_BUILD_ROOT%{_fontdir}/misc/9x15.pcf.gz 
-
 # this is included in control-center
 rm -f $RPM_BUILD_ROOT%%{_applnk}/Settings/Peripherals/.directory
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
-/sbin/ldconfig
-cd %{_fontdir}/misc
-umask 022
-%{_bindir}/mkfontdir
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
-%postun
-/sbin/ldconfig
-cd %{_fontdir}/misc
-umask 022
-%{_bindir}/mkfontdir
+%post	-n konqueror -p /sbin/ldconfig 
+%postun	-n konqueror -p /sbin/ldconfig 
 
 %pre -n kdm
 /usr/sbin/groupadd -g 55 -r -f xdm
@@ -178,7 +183,7 @@ fi
 %files
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/[as]*
-%attr(0755,root,root) %{_bindir}/k[abcefhilmoprstvwx]*
+%attr(0755,root,root) %{_bindir}/k[abcefhilmprstvwx]*
 %attr(0755,root,root) %{_bindir}/conttest
 %attr(0755,root,root) %{_bindir}/kdebugdialog
 %attr(0755,root,root) %{_bindir}/kdeeject
@@ -186,21 +191,20 @@ fi
 %attr(0755,root,root) %{_bindir}/kdesu
 %attr(2750,root,root) %{_bindir}/kdesud
 %attr(0755,root,root) %{_bindir}/kdmdesktop
+%attr(0755,root,root) %{_bindir}/konsole
+%attr(0755,root,root) %{_bindir}/konsole_grantpty
 
 %attr(0755,root,root) %{_libdir}/a*
-%attr(0755,root,root) %{_libdir}/k[acdfhilowx]*
+%attr(0755,root,root) %{_libdir}/k[acdfhilwx]*
 %attr(0755,root,root) %{_libdir}/kmenuedit.*.*.*
 %attr(0755,root,root) %{_libdir}/libclockapplet.*.*.*
 %attr(0755,root,root) %{_libdir}/libkhelpcenter.*.*.*
 %attr(0755,root,root) %{_libdir}/libkminipagerapplet.*.*.*
-%attr(0755,root,root) %{_libdir}/libkonq.*.*.*
 %attr(0755,root,root) %{_libdir}/libkrunapplet.*.*.*
 %attr(0755,root,root) %{_libdir}/libk[stu]*.*.*.*
 %attr(0755,root,root) %{_libdir}/lib[qs]*.*.*.*
 %attr(0755,root,root) %{_libdir}/libkwindefault.*.*.*
-%attr(0755,root,root) %{_libdir}/libkonqdirtree.??
-%attr(0755,root,root) %{_libdir}/libkonqiconview.??
-%attr(0755,root,root) %{_libdir}/libkonqlistview.??
+%attr(0755,root,root) %{_libdir}/konsole.??
 %attr(0755,root,root) %{_libdir}/libkonsolepart.??
 %attr(0755,root,root) %{_libdir}/libkwinb2.??
 %attr(0755,root,root) %{_libdir}/libkwinkde1.??
@@ -211,11 +215,11 @@ fi
 %attr(0755,root,root) %{_libdir}/libkwinsystem.??
 %attr(0755,root,root) %{_libdir}/libkwritepart.??
 %attr(0755,root,root) %{_libdir}/libh*
-%attr(0755,root,root) %{_libdir}/libkc*
+%attr(0755,root,root) %{_libdir}/libkcm_[abcefhilmpsvx]*
+%attr(0755,root,root) %{_libdir}/libkcm_k[ehinuw]*
 
 %{_applnkdir}/*.desktop
 %{_applnkdir}/Office/Editors/*.desktop
-%{_applnkdir}/Network/WWW/*.desktop
 %{_applnkdir}/Amusements/*.desktop
 %{_applnkdir}/Settings/FileBrowsing
 %{_applnkdir}/Settings/Help
@@ -247,9 +251,6 @@ fi
 %{_datadir}/apps/kicker
 %{_datadir}/apps/kio_info
 %{_datadir}/apps/kmenuedit
-%{_datadir}/apps/konqiconview
-%{_datadir}/apps/konqlistview
-%{_datadir}/apps/konqueror
 %{_datadir}/apps/konsole
 %{_datadir}/apps/kscreensaver
 %{_datadir}/apps/ksplash
@@ -265,7 +266,6 @@ fi
 %{_docdir}/HTML/en/kicker
 %{_docdir}/HTML/en/klipper
 %{_docdir}/HTML/en/kmenuedit
-%{_docdir}/HTML/en/konqueror
 %{_docdir}/HTML/en/konsole
 %{_docdir}/HTML/en/kpager
 %{_docdir}/HTML/en/ksysguard
@@ -278,7 +278,6 @@ fi
 %{_pixmapsdir}/locolor/*x*/apps/*
 %{_pixmapsdir}/locolor/*x*/devices/*
 
-%{_fontdir}/misc/*gz
 %{_datadir}/config/*
 %{_datadir}/mimelnk/application/*
 %{_datadir}/services/*
@@ -295,8 +294,8 @@ fi
 %{_libdir}/kmenuedit.??
 %{_libdir}/libclockapplet.??
 %{_libdir}/libkhelpcenter.??
-%{_libdir}/libkminipagerapplet.??
 %{_libdir}/libkonq.??
+%{_libdir}/libkminipagerapplet.??
 %{_libdir}/libkrunapplet.??
 %{_libdir}/libk[stu]*.??
 %{_libdir}/libkwindefault.??
@@ -307,8 +306,24 @@ fi
 %doc %{_docdir}/HTML/en/kdm
 %attr(0755,xdm,xdm) %{_bindir}/chooser
 %attr(0755,xdm,xdm) %{_bindir}/kdm
+%attr(0755,root,root) %{_libdir}/libkcm_kdm.??
 %attr(0755,xdm,xdm) %{_sysconfdir}/X11/kdm
 %attr(0640,root,root) %config %verify(not size mtime md5) %{_sysconfdir}/pam.d/kdm
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/security/blacklist.kdm
 %attr(0754,root,root) %{_sysconfdir}/rc.d/init.d/kdm
 %{_datadir}/apps/kdm
+
+%files -n konqueror
+%defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/konqueror
+%attr(0755,root,root) %{_libdir}/libkonq.*.*.*
+%attr(0755,root,root) %{_libdir}/konqueror.??
+%attr(0755,root,root) %{_libdir}/libkcm_konq*
+%attr(0755,root,root) %{_libdir}/libkonqdirtree.??
+%attr(0755,root,root) %{_libdir}/libkonqiconview.??
+%attr(0755,root,root) %{_libdir}/libkonqlistview.??
+%{_applnkdir}/Network/WWW/*.desktop
+%{_datadir}/apps/konqiconview
+%{_datadir}/apps/konqlistview
+%{_datadir}/apps/konqueror
+%{_docdir}/HTML/en/konqueror
