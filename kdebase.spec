@@ -23,7 +23,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËĞÄ
 Name:		kdebase
 Version:	%{_ver}.%{_snap}
-Release:	1
+Release:	2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -803,7 +803,6 @@ Summary(pl):	Zarz±dca ekranów KDE
 Group:		X11/Applications
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
-Requires(pre):	user-xdm
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	pam
 Requires:	sessreg
