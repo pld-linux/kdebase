@@ -17,7 +17,6 @@
 %define		_without_alsa	1
 %endif
 
-
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
 Summary(ja):	KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ - ´ðËÜ¥Õ¥¡¥¤¥ë
@@ -29,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.11
+Release:	0.12
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -867,6 +866,7 @@ bzip2 -dc %{SOURCE13} | tar xf - -C $RPM_BUILD_ROOT
 
 > core.lang
 programs=" \
+	drkonqi \
 	kcmcolors \
 	kcmfonts \
 	kcmkded \
@@ -874,11 +874,14 @@ programs=" \
 	kcmprintmgr \
 	kcontrol \
 	kdeprint \
+	kdeprint_part \
 	kdebugdialog \
 	kdesu \
+	kdesud \
 	khelpcenter \
+	kio_man \
+	kprinter \
 	krdb"
-
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> core.lang
@@ -892,6 +895,7 @@ programs=" \
 	bell \
 	desktop \
 	energy \
+	kaccess \
 	kcmaccess \
 	kcmarts \
 	kcmbackground \
@@ -909,14 +913,24 @@ programs=" \
 	kcmnotify \
 	kcmsmserver \
 	kcmspellchecking \
+	kdcop \
+	kdesktop \
 	keyboard \
 	keys \
+	khotkeys \
+	kpersonalizer \
+	kreadconfig \
+	ksmserver \
+	ksplash \
+	kstart \
+	ktip \
+	kwin \
 	kwindecoration \
+	kxkb \
 	mouse \
 	passwords \
 	spellchecking \
 	windowmanagement"
-
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> %{name}.lang
@@ -924,31 +938,30 @@ done
 
 %find_lang kicker	--with-kde
 programs=" \
+	childpanelextension \
 	clock \
-	quicklauncher \
-	lockout \
 	clockapplet \
+	dockbarextension \
+	kasbarextension \
+	kcmkclock \
+	kcmkicker \
+	kcmtaskbar \
 	kminipagerapplet \
 	krunapplet \
 	ksystemtrayapplet \
 	ktaskbarapplet \
-	naughtyapplet \
-	childpanelextension \
-	dockbarextension \
-	kasbarextension \
-	taskbarextension \
-	kcmkclock \
-	kcmkicker \
-	kcmtaskbar \
-	panel \
 	libkicker \
 	libkickermenu_kdeprint \
 	libkickermenu_konsole \
 	libkickermenu_prefmenu \
 	libkickermenu_recentdocs \
 	libtaskbar \
-	libtaskmanager"
-
+	libtaskmanager \
+	lockout \
+	naughtyapplet \
+	panel \
+	quicklauncher \
+	taskbarextension"
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> kicker.lang
@@ -956,11 +969,13 @@ done
 
 %find_lang konqueror	--with-kde
 programs="\
+	appletproxy \
 	cache \
 	cookies \
 	crypto \
 	ebrowsing \
 	email \
+	extensionproxy \
 	filemanager \
 	filetypes \
 	icons \
@@ -972,12 +987,26 @@ programs="\
 	kcmkonq \
 	kcmkonqhtml \
 	kcmkurifilt \
+	kfmclient \
+	kfmexec \
 	khtml \
+	kio_devices \
+	kio_finger \
+	kio_fish \
+	kio_floppy \
+	kio_mac \
+	kio_nfs \
+	kio_print \
+	kio_sftp \
+	kio_smbro \
 	netpref \
+	nsplugin \
 	proxy \
 	smb \
 	useragent"
-
+# missing
+#	kio_about
+#	kio_ldap
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> konqueror.lang
@@ -986,7 +1015,6 @@ done
 >common-filemanagement.lang
 programs=" \
 	kcmfileshare"
-
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> common-filemanagement.lang
@@ -1000,32 +1028,69 @@ programs=" \
 	kcmsamba \
 	kcmusb \
 	kioslave"
-
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> kinfocenter.lang
 done
 
+%find_lang	kdm	--with-kde
+programs=" \
+	kdmchooser \
+	kdmconfig \
+	kdmgreet"
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> kdm.lang
+done
+
+>mailnews.lang
+programs=" \
+	kio_imap4 \
+	kio_nntp \
+	kio_pop3 \
+	kio_smtp"
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> mailnews.lang
+done
+
+%find_lang	kappfinder	--with-kde
 %find_lang	kate		--with-kde
 %find_lang	kcmkonsole	--with-kde
 %find_lang	kcmscreensaver	--with-kde
 %find_lang	kcmthemes	--with-kde
-%find_lang	kdm		--with-kde
-%find_lang	kdmconfig	--with-kde
+%find_lang	kdeprintfax	--with-kde
+%find_lang	kdialog		--with-kde
 %find_lang	kfind		--with-kde
+# used by both: kfind and konqueror (libkfindpart)
+%find_lang	kfindpart	--with-kde
+%find_lang	kjobviewer	--with-kde
 %find_lang	klipper		--with-kde
 %find_lang	kmenuedit	--with-kde
 %find_lang	konsole		--with-kde
-%find_lang	ksysguard	--with-kde
 %find_lang	kpager		--with-kde
+%find_lang	kscreensaver	--with-kde
+%find_lang	ksysguard	--with-kde
+%find_lang	ksystraycmd	--with-kde
 %find_lang	kthememgr	--with-kde
 %find_lang	kwrite		--with-kde
+%find_lang	libkonq		--with-kde
 %find_lang	screensaver	--with-kde
 
 cat kcmkonsole.lang	>> konsole.lang
 cat kcmscreensaver.lang	>> screensaver.lang
 cat kcmthemes.lang	>> kthememgr.lang
-cat kdmconfig.lang	>> kdm.lang
+cat kfindpart.lang	>> kfind.lang
+cat kfindpart.lang	>> konqueror.lang
+cat kscreensaver.lang	>> screensaver.lang
+
+# do not build
+#%find_lang	htmlsearch	--with-kde
+#%find_lang	kcmhtmlsearch	--with-kde
+#%find_lang	kcmsmartcard	--with-kde
+#%find_lang	kio_smb		--with-kde
+#%find_lang	klegacyimport	--with-kde
+#%find_lang	ppdtranslations	--with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -1108,7 +1173,6 @@ fi
 %attr(755,root,root) %{_bindir}/kwin
 %attr(755,root,root) %{_bindir}/kxkb
 %attr(755,root,root) %{_bindir}/startkde
-%attr(755,root,root) %{_bindir}/chooser
 # shared library (.la in -devel)
 %attr(755,root,root) %{_libdir}/libsensordisplays.so.*.*.*
 # KDE-style (lt_)dlopenable binaries
@@ -1544,7 +1608,7 @@ fi
 %{_pixmapsdir}/*/*/apps/kcmsound.png
 %{_pixmapsdir}/*/*/apps/kcmx.png
 
-%files kappfinder
+%files kappfinder -f kappfinder.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kappfinder
 %{_datadir}/apps/kappfinder
@@ -1561,7 +1625,7 @@ fi
 %{_applnkdir}/Editors/kate.desktop
 %{_pixmapsdir}/*/*/apps/kate.png
 
-%files kdeprintfax
+%files kdeprintfax -f kdeprintfax.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kdeprintfax
 %dir %{_datadir}/apps/kdeprintfax
@@ -1570,7 +1634,7 @@ fi
 %{_applnkdir}/Utilities/kdeprintfax.desktop
 %{_pixmapsdir}/*/*/apps/kdeprintfax.png
 
-%files kdialog
+%files kdialog -f kdialog.lang
 %defattr(644,root,root,755)
 %doc kdialog/{README,test}
 %attr(755,root,root) %{_bindir}/kdialog
@@ -1646,7 +1710,7 @@ fi
 %{_pixmapsdir}/*/*/apps/panel.png
 %{_pixmapsdir}/*/*/apps/panel_settings.png
 
-%files kjobviewer
+%files kjobviewer -f kjobviewer.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kjobviewer
 # KDE-style, (lt_)dlopenable binary
@@ -1718,7 +1782,7 @@ fi
 %{_datadir}/mimelnk/application/x-ksysguard.desktop
 %{_pixmapsdir}/*/*/apps/ksysguard.png
 
-%files ksystraycmd
+%files ksystraycmd -f ksystraycmd.lang
 %defattr(644,root,root,755)
 %doc ksystraycmd/README
 %attr(755,root,root) %{_bindir}/ksystraycmd
@@ -1796,7 +1860,7 @@ fi
 # shared library (.la in -devel)
 %attr(755,root,root) %{_libdir}/libkmultitabbar.so.*.*.*
 
-%files libkonq
+%files libkonq -f libkonq.lang
 %defattr(644,root,root,755)
 # shared library (.la in -devel)
 %attr(755,root,root) %{_libdir}/libkonq.so.*.*.*
@@ -1804,7 +1868,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/konq_sound.so
 %{_libdir}/kde3/konq_sound.la
 
-%files mailnews
+%files mailnews -f mailnews.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde3/kio_imap4.so
 %{_libdir}/kde3/kio_imap4.la
@@ -1848,6 +1912,7 @@ fi
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/Xaccess
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/Xservers
 %{_sysconfdir}/kdm/pics
+%attr(755,root,root) %{_bindir}/chooser
 %attr(755,root,root) %{_bindir}/kdm*
 %attr(755,root,root) %{_bindir}/krootimage
 %attr(755,root,root) %{_libdir}/kde3/kcm_kdm.so
