@@ -8,11 +8,12 @@
 # * Proper descriptions
 #
 # Conditional build:
-%bcond_with 	i18n	# build i18n packages per module 
+%bcond_with 	i18n	# build i18n packages per module
+%bcond_without  ldap    # build or not ldap ioslave
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040209
+%define		_snap		040210
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -51,6 +52,7 @@ Patch0:		%{name}-fontdir.patch
 Patch1:		%{name}-kcm_background.patch
 Patch2:		%{name}-kdm_utmpx.patch
 Patch3:		%{name}-kdmconfig.patch
+# TODO
 Patch4:		%{name}-kicker.patch
 Patch5:		%{name}-konsole_all.patch
 Patch6:		%{name}-nsplugins_dirs.patch
@@ -94,7 +96,7 @@ BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	motif-devel
 BuildRequires:	openssl-devel >= 0.9.7c
-BuildRequires:	openldap-devel
+%{?with_ldap:BuildRequires:	openldap-devel}
 BuildRequires:	pam-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	unsermake
@@ -241,6 +243,71 @@ KDE Window Decoration - Web.
 
 %description -n kde-decoration-web -l pl
 Dekoracja okna dla KDE - Web.
+
+%package -n kde-kio-imap4
+Summary:	KDE IMAP4 protocol service
+Summary(pl):	Obs³uga protoko³u IMAP4
+Group:		X11/Libraries
+Requires:	kdelibs >= 9:%{version}
+Conflicts:	kdebase-mailnews
+
+%description -n kde-kio-imap4
+KDE IMAP4 protocol service.
+
+%description -n kde-kio-imap4 -l pl
+Obs³uga protoko³u IMAP4.
+
+%package -n kde-kio-ldap
+Summary:	KDE LDAP protocol service
+Summary(pl):	Obs³uga protoko³u LDAP
+Group:		X11/Libraries
+Requires:	kdelibs >= 9:%{version}
+Conflicts:	konqueror < 9:3.2.90.040210
+
+%description -n kde-kio-ldap
+KDE LDAP protocol service.
+
+%description -n kde-kio-ldap -l pl
+Obs³uga protoko³u LDAP.
+
+%package -n kde-kio-nntp
+Summary:	KDE NNTP protocol service
+Summary(pl):	Obs³uga protoko³u NNTP
+Group:		X11/Libraries
+Requires:	kdelibs >= 9:%{version}
+Conflicts:	kdebase-mailnews
+
+%description -n kde-kio-nntp
+KDE NNTP protocol service.
+
+%description -n kde-kio-nntp -l pl
+Obs³uga protoko³u NNTP.
+
+%package -n kde-kio-pop3
+Summary:	KDE POP3 protocol service
+Summary(pl):	Obs³uga protoko³u POP3
+Group:		X11/Libraries
+Requires:	kdelibs >= 9:%{version}
+Conflicts:	kdebase-mailnews
+
+%description -n kde-kio-pop3
+KDE POP3 protocol service.
+
+%description -n kde-kio-pop3 -l pl
+Obs³uga protoko³u POP3.
+
+%package -n kde-kio-smtp
+Summary:	KDE SMTP protocol service
+Summary(pl):	Obs³uga protoko³u SMTP
+Group:		X11/Libraries
+Requires:	kdelibs >= 9:%{version}
+Conflicts:	kdebase-mailnews
+
+%description -n kde-kio-smtp
+KDE SMTP protocol service.
+
+%description -n kde-kio-smtp -l pl
+Obs³uga protoko³u SMTP.
 
 %package -n kde-kside-default
 Summary:	Default kicker sidebar
@@ -781,20 +848,6 @@ ksgrd library.
 %description libksgrd -l pl
 Biblioteka ksgrd.
 
-%package mailnews
-Summary:	KDE Mail and News Services
-Summary(pl):	Obs³uga protoko³ów pocztowych i news dla KDE
-Group:		X11/Libraries
-Requires:	kdelibs >= 9:%{version}
-Obsoletes:	%{name} < 8:3.0.9-2.4
-Obsoletes:	%{name}-kioslave
-
-%description mailnews
-KDE Mail and News Services.
-
-%description mailnews -l pl
-Obs³uga protoko³ów pocztowych i news dla KDE.
-
 %package screensavers
 Summary:	KDE screensavers
 Summary(pl):	Wygaszacze ekranu desktopu KDE
@@ -1275,7 +1328,7 @@ Pliki umiêdzynarodawiaj±ce dla mailnews.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
+#%patch4 -p1
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
@@ -1300,9 +1353,10 @@ export UNSERMAKE=/usr/share/unsermake/unsermake
 %configure \
 	--disable-rpath \
 	--enable-final \
-	--with-qt-libraries=%{_libdir} \
 	--with-kdm-pam=kdm \
-	--with-pam=kdesktop
+	--with-pam=kdesktop \
+	--with-qt-libraries=%{_libdir} \
+	%{!?with_ldap:--without-ldap}
 
 %{__make}
 
@@ -1932,6 +1986,39 @@ fi
 %{_libdir}/kde3/kwin3_web.la
 %attr(0755,root,root) %{_libdir}/kde3/kwin3_web.so
 %{_datadir}/apps/kwin/web.desktop
+
+%files -n kde-kio-imap4
+%defattr(644,root,root,755)
+%{_libdir}/kde3/kio_imap4.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_imap4.so
+%{_datadir}/services/imap4.protocol
+%{_datadir}/services/imaps.protocol
+
+%if %{with ldap}
+%files -n kde-kio-ldap
+%defattr(644,root,root,755)
+%{_libdir}/kde3/kio_ldap.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_ldap.so
+%{_datadir}/services/ldap.protocol
+%endif
+
+%files -n kde-kio-nntp
+%defattr(644,root,root,755)
+%{_libdir}/kde3/kio_nntp.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_nntp.so
+%{_datadir}/services/nntp.protocol
+
+%files -n kde-kio-pop3
+%{_libdir}/kde3/kio_pop3.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_pop3.so
+%{_datadir}/services/pop3.protocol
+%{_datadir}/services/pop3s.protocol
+
+%files -n kde-kio-smtp
+%{_libdir}/kde3/kio_smtp.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_smtp.so
+%{_datadir}/services/smtp.protocol
+%{_datadir}/services/smtps.protocol
 
 %files -n kde-kside-default
 %defattr(644,root,root,755)
@@ -2789,24 +2876,6 @@ fi
 #%{_libdir}/libsensordisplays.la
 #%attr(0755,root,root) %{_libdir}/libsensordisplays.so.*.*.*
 
-%files mailnews
-%defattr(644,root,root,755)
-%{_libdir}/kde3/kio_imap4.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_imap4.so
-%{_libdir}/kde3/kio_nntp.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_nntp.so
-%{_libdir}/kde3/kio_pop3.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_pop3.so
-%{_libdir}/kde3/kio_smtp.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_smtp.so
-%{_datadir}/services/imap4.protocol
-%{_datadir}/services/imaps.protocol
-%{_datadir}/services/nntp.protocol
-%{_datadir}/services/pop3.protocol
-%{_datadir}/services/pop3s.protocol
-%{_datadir}/services/smtp.protocol
-%{_datadir}/services/smtps.protocol
-
 %files screensavers -f screensaver_en.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/*.kss
@@ -2925,8 +2994,6 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kio_fish.so
 %{_libdir}/kde3/kio_floppy.la
 %attr(0755,root,root) %{_libdir}/kde3/kio_floppy.so
-%{_libdir}/kde3/kio_ldap.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_ldap.so
 %{_libdir}/kde3/kio_mac.la
 %attr(0755,root,root) %{_libdir}/kde3/kio_mac.so
 %{_libdir}/kde3/kio_nfs.la
@@ -3049,7 +3116,6 @@ fi
 %{_datadir}/services/kshorturifilter.desktop
 %{_datadir}/services/kuriikwsfilter.desktop
 %{_datadir}/services/kurisearchfilter.desktop
-%{_datadir}/services/ldap.protocol
 %{_datadir}/services/localdomainurifilter.desktop
 %{_datadir}/services/mac.protocol
 %{_datadir}/services/nfs.protocol
