@@ -13,7 +13,7 @@
 #
 
 %define		_state		unstable
-%define		_kdever		kde-3.1-rc4
+%define		_kdever		kde-3.1-rc5
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -26,7 +26,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.1
-Release:	2.3
+Release:	3
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -49,6 +49,7 @@ Patch6:		%{name}-kdmconfig.patch
 Patch7:		%{name}-kicker.patch
 Patch8:		%{name}-konsole_all.patch
 Patch9:		%{name}-nsplugins_dirs.patch
+Patch10:	%{name}-startkde.patch
 %ifnarch sparc sparc64
 %{!?_without_alsa:BuildRequires: alsa-lib-devel}
 %endif
@@ -424,6 +425,7 @@ Internet Explorer.
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
 
 %build
 
