@@ -13,7 +13,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.1.90
-%define         _snap		030618
+%define         _snap		030622
 
 %ifarch	sparc sparcv9 sparc64
 %define		_without_alsa	1
@@ -35,8 +35,9 @@ Epoch:		9
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
-Source0:        http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	a1d1e8ea3d10ea27b7dafddb036dfdb9
+#Source0:        http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
+Source0:        http://team.pld.org.pl/~djurban/kde/%{name}-%{_snap}.tar.bz2
+# Source0-md5:	fc2f7256966bbe15d9da8a6ef0b62136 
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
