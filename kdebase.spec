@@ -131,6 +131,7 @@ Obsoletes:	kde-theme-keramik
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
+%define		_prefix		/usr/X11R6
 %define		_fontdir	/usr/share/fonts/misc
 %define		_htmldir	/usr/share/doc/kde/HTML
 %define		_sysconfdir	/etc/X11
