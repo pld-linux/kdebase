@@ -17,7 +17,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.4
-Release:	11
+Release:	12
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -390,7 +390,7 @@ rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{access,agent,bell,colors,coo
 # resized
 rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{background,kcmsound,printmgr,cache,kcmx,kcmkicker,keditbookmarks}.png
 # moved to kdelibs
-rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/arts.png
+rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{arts,penguin}.png
 %endif
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
