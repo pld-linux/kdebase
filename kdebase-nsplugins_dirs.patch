@@ -1,22 +1,40 @@
-diff -urN kdebase-2.2beta1.orig/nsplugins/control/nsconfig.cpp kdebase-2.2beta1/nsplugins/control/nsconfig.cpp
---- kdebase-2.2beta1.orig/nsplugins/control/nsconfig.cpp	Mon May  7 11:11:53 2001
-+++ kdebase-2.2beta1/nsplugins/control/nsconfig.cpp	Thu Jul 12 13:38:30 2001
-@@ -251,6 +251,7 @@
-         paths = config->readListEntry( "scanPaths" );
-     else {
-         paths.append("$HOME/.netscape/plugins");
-+        paths.append("/usr/X11R6/lib/netscape/plugins");
-         paths.append("/usr/local/netscape/plugins");
-         paths.append("/opt/netscape/plugins");
-         paths.append("/opt/netscape/communicator/plugins");
-diff -urN kdebase-2.2beta1.orig/nsplugins/pluginscan.cpp kdebase-2.2beta1/nsplugins/pluginscan.cpp
---- kdebase-2.2beta1.orig/nsplugins/pluginscan.cpp	Thu Apr 26 17:24:22 2001
-+++ kdebase-2.2beta1/nsplugins/pluginscan.cpp	Thu Jul 12 13:38:08 2001
-@@ -303,6 +303,7 @@
+--- kdebase-3.0.9/nsplugins/pluginscan.cpp.orig	Sun Oct 27 00:07:48 2002
++++ kdebase-3.0.9/nsplugins/pluginscan.cpp	Wed Oct 30 07:14:12 2002
+@@ -435,16 +435,7 @@
+     // setup default paths
      if ( !config->hasKey("scanPaths") ) {
          QStringList paths;
-         paths.append("$HOME/.netscape/plugins");
-+        paths.append("/usr/X11R6/lib/netscape/plugins");
-         paths.append("/usr/local/netscape/plugins");
-         paths.append("/opt/netscape/plugins");
-         paths.append("/opt/netscape/communicator/plugins");
+-        paths.append("$HOME/.netscape/plugins");
+-        paths.append("/usr/local/netscape/plugins");
+-        paths.append("/opt/mozilla/plugins");
+-        paths.append("/opt/netscape/plugins");
+-        paths.append("/opt/netscape/communicator/plugins");
+-        paths.append("/usr/lib/netscape/plugins");
+-        paths.append("/usr/lib/netscape/plugins-libc5");
+-        paths.append("/usr/lib/netscape/plugins-libc6");
+-        paths.append("/usr/lib/mozilla/plugins");
+-        paths.append("$MOZILLA_HOME/plugins");
++        paths.append("/usr/X11R6/lib/kde3/plugins/konqueror");
+         config->writeEntry( "scanPaths", paths );
+     }
+ 
+--- kdebase-3.0.9/kcontrol/konqhtml/pluginopts.cpp.orig	Sun Oct 27 00:05:18 2002
++++ kdebase-3.0.9/kcontrol/konqhtml/pluginopts.cpp	Wed Oct 30 07:22:56 2002
+@@ -297,16 +297,7 @@
+     if ( config->hasKey( "scanPaths" ) )
+         paths = config->readListEntry( "scanPaths" );
+     else {
+-        paths.append("$HOME/.netscape/plugins");
+-        paths.append("/usr/local/netscape/plugins");
+-        paths.append("/opt/mozilla/plugins");
+-        paths.append("/opt/netscape/plugins");
+-        paths.append("/opt/netscape/communicator/plugins");
+-        paths.append("/usr/lib/netscape/plugins");
+-        paths.append("/usr/lib/netscape/plugins-libc5");
+-        paths.append("/usr/lib/netscape/plugins-libc6");
+-        paths.append("/usr/lib/mozilla/plugins");
+-        paths.append("$MOZILLA_HOME/plugins");
++        paths.append("/usr/X11R6/lib/kde3/plugins/konqueror");
+     }
+ 
+     // fill list
