@@ -10,7 +10,7 @@
 # Conditional build:
 %bcond_with 	i18n	# build i18n packages per module
 %bcond_without	apidocs	# prepare API documentation
-%bcond_without  ldap    # build or not ldap ioslave
+%bcond_without	ldap	# build or not ldap ioslave
 %bcond_with	kwin_shadow	# experimental support for kwin shadows
 #
 %define		_state		snapshots
@@ -56,7 +56,7 @@ Source12:	http://ep09.pld-linux.org/~adgor/kde/%{name}-splash-Default-PLD-0.2.ta
 # Source12-md5:	24f9c6a4b711be36437639c410b400b2
 Source13:	http://ep09.pld-linux.org/~adgor/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
-#Source14:       http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
+#Source14:	http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
 ##%% Source14-md5: 30848effd6e53fb459a620a50f761b85 
 Patch0:		%{name}-fontdir.patch
 Patch1:		%{name}-kcm_background.patch
@@ -92,11 +92,11 @@ BuildRequires:	awk
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
 BuildRequires:	db-devel
-%{?with_apidocs:BuildRequires:  doxygen}
+%{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	ed
 BuildRequires:	findutils
 BuildRequires:	gettext-devel
-%{?with_apidocs:BuildRequires:  graphviz}
+%{?with_apidocs:BuildRequires:	graphviz}
 BuildRequires:	grep
 BuildRequires:	jasper-devel
 BuildRequires:	kdelibs-devel >= 9:%{version}
@@ -115,7 +115,7 @@ BuildRequires:	motif-devel
 BuildRequires:	openssl-devel >= 0.9.7c
 %{?with_ldap:BuildRequires:	openldap-devel}
 BuildRequires:	pam-devel
-%{?with_apidocs:BuildRequires:  qt-doc}
+%{?with_apidocs:BuildRequires:	qt-doc}
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	unsermake
 BuildRequires:	xcursor-devel
@@ -378,10 +378,10 @@ Default classic KDE splashscreen.
 Domy¶lny klasyczny ekran startowy KDE.
 
 %package -n kde-splash-blue-bend
-Summary:        KDE blue-bend splashscreen
-Summary(pl):    Ekran startowy KDE blue-bend
-Group:          X11/Amusements
-Requires:       %{name}-desktop = %{epoch}:%{version}-%{release}
+Summary:	KDE blue-bend splashscreen
+Summary(pl):	Ekran startowy KDE blue-bend
+Group:		X11/Amusements
+Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
 %description -n kde-splash-blue-bend
 KDE blue-bend splashscreen.
@@ -1450,7 +1450,7 @@ install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
 %{__tar} xfj %{SOURCE8} -C $RPM_BUILD_ROOT%{_datadir}/services/searchproviders/
 %{__tar} xfj %{SOURCE9} -C $RPM_BUILD_ROOT%{_datadir}/apps/kdisplay/color-schemes/
 %{__tar} xfj %{SOURCE10} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/
-mv  $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts/* $RPM_BUILD_ROOT%{_bindir}
+mv $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts/* $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts
 
 # Needed for pam support
@@ -1515,7 +1515,7 @@ cd -
 %if %{with i18n}
 bzip2 -dc %{SOURCE14} | tar xf - -C $RPM_BUILD_ROOT
 for f in $RPM_BUILD_ROOT%{_datadir}/locale/*/LC_MESSAGES/*.mo; do
-        [ "`file $f | sed -e 's/.*,//' -e 's/message.*//'`" -le 1 ] && rm -f $f
+	[ "`file $f | sed -e 's/.*,//' -e 's/message.*//'`" -le 1 ] && rm -f $f
 done
 %endif
 
