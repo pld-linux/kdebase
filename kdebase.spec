@@ -76,7 +76,7 @@ Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
 Requires:	qt-devel >= 2.3.0
-Requires:	kdelibs-devel = %{version}
+Requires:	kdelibs-devel >= %{version}
 
 %description devel
 This package contains header files needed to develop KDE applications.
@@ -92,7 +92,7 @@ Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
 Requires:	qt-devel >= 2.3.0
-Requires:	kdelibs-devel = %{version}
+Requires:	kdelibs-devel >= %{version}
 
 %description static
 This package contains KDE static libraries.
