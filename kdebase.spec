@@ -1,6 +1,5 @@
 # TODO:
 # - make separate subpackages
-# - -avoid-version for kde3/* applets/extensions?
 #
 # Conditional build:
 # _with_pixmapsubdirs - leave different depth/resolution icons
@@ -17,7 +16,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.4
-Release:	13
+Release:	14
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -587,23 +586,23 @@ fi
 %attr(0755,root,root) %{_bindir}/kpersonalizer
 %attr(0755,root,root) %{_bindir}/kmenuedit
 
-%attr(0755,root,root) %{_libdir}/[ae]*.so*
-%attr(0755,root,root) %{_libdir}/k[dhijlmswx]*.so*
+%attr(0755,root,root) %{_libdir}/[ae]*.so
+%attr(0755,root,root) %{_libdir}/k[dhijlmswx]*.so
 %attr(0755,root,root) %{_libdir}/kaccess.so
 %attr(0755,root,root) %{_libdir}/kate.so
 %attr(0755,root,root) %{_libdir}/kcminit.so
 %attr(0755,root,root) %{_libdir}/kcmshell.so
 %attr(0755,root,root) %{_libdir}/kcontrol.so
-%attr(0755,root,root) %{_libdir}/konsole.so*
-%attr(0755,root,root) %{_libdir}/lib[cdqt]*.so*
-%attr(0755,root,root) %{_libdir}/libk[ahmrstw]*.so*
-%attr(0755,root,root) %{_libdir}/libkickermain.so.*.*.*
+%attr(0755,root,root) %{_libdir}/konsole.so
 %attr(0755,root,root) %{_libdir}/libkfindpart.so
-%attr(0755,root,root) %{_libdir}/libsensordisplays.so.*.*.*
 %attr(0755,root,root) %{_libdir}/libkonsolepart.so
+%attr(0755,root,root) %{_libdir}/libkateinterface.so.*.*.*
+%attr(0755,root,root) %{_libdir}/libkickermain.so.*.*.*
+%attr(0755,root,root) %{_libdir}/libksgrd.so.*.*.*
+%attr(0755,root,root) %{_libdir}/libsensordisplays.so.*.*.*
+%attr(0755,root,root) %{_libdir}/libtaskbar.so.*.*.*
+%attr(0755,root,root) %{_libdir}/libtaskmanager.so.*.*.*
 
-# We have to include *.so.1 sym-links, as ldconfig doesn't touch
-# %{_libdir}/kde3
 %attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so
 %attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.la
@@ -623,7 +622,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so*
+%attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.la
@@ -767,6 +766,7 @@ fi
 %attr(755,root,root) %{_libdir}/libksgrd.so
 %attr(755,root,root) %{_libdir}/libsensordisplays.so
 %attr(755,root,root) %{_libdir}/libtaskbar.so
+%attr(755,root,root) %{_libdir}/libtaskmanager.so
 %attr(755,root,root) %{_libdir}/libkonq*.so
 %attr(755,root,root) %{_libdir}/libnsplugin.so
 %attr(755,root,root) %{_libdir}/*.la
