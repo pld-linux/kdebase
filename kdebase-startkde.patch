@@ -16,7 +16,7 @@
 -    dcopserver_shutdown
 -    # shutdown will also make kwin quit, give it time to do so
 -    sleep 1
-+    if `/usr/bin/which kpersonalizer 2>/dev/null`; then
++    if test `/usr/bin/which kpersonalizer 2>/dev/null`; then
 +        # start only dcopserver, don't start whole kdeinit (takes too long)
 +	echo 'startkde: Running kpersonalizer...'  1>&2
 +	dcopserver
