@@ -312,6 +312,7 @@ Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
 Obsoletes:	%{name} < 3.2-0.030428.1
 Obsoletes:	%{name}-kcontrol
 Obsoletes:	%{name}-khelpcenter
+Obsoletes:      %{name}-helpcenter
 
 %description core
 KDE Core apps. This package contains:
