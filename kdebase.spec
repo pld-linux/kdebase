@@ -28,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.14
+Release:	0.20
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -1191,7 +1191,6 @@ fi
 %{_datadir}/sounds
 %{_datadir}/templates
 %{_datadir}/wallpapers
-%{_applnkdir}/Settings/KDE/Components/.directory
 %{_applnkdir}/Settings/KDE/System/.directory
 %{_applnkdir}/Home.desktop
 %{_applnkdir}/.hidden/[bcmspv]*.desktop
@@ -1507,6 +1506,8 @@ fi
 %{_datadir}/services/khelpcenter.desktop
 %{_datadir}/services/man.protocol
 %{_applnkdir}/Help/Help.desktop
+%dir %{_applnkdir}/Settings/KDE/Components
+%{_applnkdir}/Settings/KDE/Components/.directory
 %{_pixmapsdir}/*/*/apps/clock.png
 %{_pixmapsdir}/*/*/apps/colors.png
 %{_pixmapsdir}/*/*/apps/energy.png
