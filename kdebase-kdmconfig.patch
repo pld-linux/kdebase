@@ -52,17 +52,17 @@
    logoRadio->setChecked( true );
    slotAreaRadioClicked( KdmLogo );
    posCenterRadio->setChecked( true );
---- kdebase-030618/kcontrol/kdm/kdm-font.cpp~	2003-06-17 00:35:06.000000000 +0200
-+++ kdebase-030618/kcontrol/kdm/kdm-font.cpp	2003-06-18 12:03:33.000000000 +0200
+--- kdebase-040116/kcontrol/kdm/kdm-font.cpp.orig	2004-01-16 23:07:36.000000000 +0100
++++ kdebase-040116/kcontrol/kdm/kdm-font.cpp	2004-01-16 23:25:36.000000000 +0100
 @@ -87,8 +87,8 @@
  
  void KDMFontWidget::set_def()
  {
--  stdFontChooser->setFont(QFont("helvetica", 10));
--  failFontChooser->setFont(QFont("helvetica", 10, QFont::Bold));
+-  stdFontChooser->setFont(QFont("helvetica", 12));
+-  failFontChooser->setFont(QFont("helvetica", 12, QFont::Bold));
 +  stdFontChooser->setFont(QFont("helvetica", 11));
 +  failFontChooser->setFont(QFont("helvetica", 11, QFont::Bold));
-   greetingFontChooser->setFont(QFont("charter", 20));
+   greetingFontChooser->setFont(QFont("charter", 24));
  }
  
 --- kdebase-030418/kcontrol/kdm/kdm-sess.cpp~	2003-04-04 00:37:58.000000000 +0200
@@ -109,9 +109,9 @@
  
  messages:
  	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
---- kdebase-031021/kdm/kfrontend/genkdmconf.c.orig	2003-10-19 23:32:58.000000000 +0200
-+++ kdebase-031021/kdm/kfrontend/genkdmconf.c	2003-10-21 17:27:51.000000000 +0200
-@@ -66,7 +66,7 @@
+--- kdebase-040116/kdm/kfrontend/genkdmconf.c.orig	2004-01-16 23:07:51.000000000 +0100
++++ kdebase-040116/kdm/kfrontend/genkdmconf.c	2004-01-16 23:36:17.000000000 +0100
+@@ -64,7 +64,7 @@
  #define __stringify(x) #x
  #define stringify(x) __stringify(x)
  
@@ -120,7 +120,7 @@
  #define KDMDATA KDE_DATADIR "/kdm"
  
  #define RCVERMAJOR 2
-@@ -531,7 +531,7 @@
+@@ -532,7 +532,7 @@
  #endif
  
  #ifdef __linux__
@@ -129,7 +129,7 @@
  /* ###
  # define DEF_SERVER_LINES DEF_SERVER_LINE "\n" \
  			 ":1 local@tty2 reserve " XBINDIR "/X :1 vt8\n" \
-@@ -540,10 +540,8 @@
+@@ -541,10 +541,8 @@
  			 "#:4 local@tty5 reserve " XBINDIR "/X :4 vt11\n"
  */
  # define DEF_SERVER_LINES DEF_SERVER_LINE "\n" \
@@ -142,7 +142,7 @@
  #elif defined(__sun__)
  # define DEF_SERVER_LINE ":0 local@console " XBINDIR "/X"
  #elif defined(_AIX)
-@@ -786,14 +784,15 @@
+@@ -787,14 +785,15 @@
  "esac\n"
  "exec xmessage -center -buttons OK:0 -default OK \"Sorry, cannot execute $1. Check $DESKTOP_SESSION.desktop.\"\n";
  
@@ -161,7 +161,7 @@
  "CurrentWallpaper=0\n"
  "LastChange=0\n"
  "MinOptimizationDepth=1\n"
-@@ -802,7 +801,7 @@
+@@ -803,7 +802,7 @@
  "Program=\n"
  "ReverseBlending=false\n"
  "UseSHM=false\n"
@@ -170,7 +170,7 @@
  "WallpaperList=\n"
  "WallpaperMode=Scaled\n";
  
-@@ -2022,18 +2021,20 @@
+@@ -2034,18 +2033,20 @@
  "# this opens a security hole: a secured display lock can be circumvented\n"
  "# (unless you use KDE's built-in screen lock). Default is false\n" },
  { "AllowRootLogin",	0, 0, 
@@ -196,7 +196,7 @@
  { "DefaultSdMode",	0, 0, 
  "# The default choice for the shutdown condition/timing.\n"
  "# \"Schedule\" - shutdown after all sessions exit (possibly at once) (Default)\n"
-@@ -2068,7 +2069,7 @@
+@@ -2080,7 +2081,7 @@
  "# it, you should \"chmod 600 kdmrc\" for obvious reasons. Default is \"\"\n" },
  { "SessionsDirs",	0, 0, 
  "# The directories containing session type definitions in .desktop format.\n"
@@ -205,7 +205,7 @@
  };
  
  static Ent entsGreeter[] = {
-@@ -2084,7 +2085,7 @@
+@@ -2096,7 +2097,7 @@
  "# \"Clock\" - a neat analog clock\n"
  "# \"None\" - nothing\n" },
  { "LogoPixmap",		0, 0, 
@@ -214,24 +214,24 @@
  { "GreeterPosFixed",	0, 0, 
  "# Normally, the greeter is centered on the screen. Use this, if you want\n"
  "# it to appear elsewhere on the screen. Default is false\n" },
-@@ -2105,13 +2106,13 @@
+@@ -2117,13 +2118,13 @@
  "# - %r -> the operating system's version\n"
  "# - %m -> the machine (hardware) type\n"
  "# - %% -> a single %\n"
 -"# Default is \"Welcome to %s at %n\"\n" },
 +"# Default is \"Welcome to PLD Linux at %n\"\n" },
  { "GreetFont",		0, 0, 
- "# The font for the headline. Default is charter,20,bold\n" },
+ "# The font for the headline. Default is charter,24,bold\n" },
  { "StdFont",		0, 0, 
--"# The normal font used in the greeter. Default is helvetica,10\n" },
+-"# The normal font used in the greeter. Default is helvetica,12\n" },
 +"# The normal font used in the greeter. Default is helvetica,11\n" },
  { "FailFont",		0, 0, 
--"# The font used for the \"Login Failed\" message. Default is helvetica,10,bold\n" },
+-"# The font used for the \"Login Failed\" message. Default is helvetica,12,bold\n" },
 +"# The font used for the \"Login Failed\" message. Default is helvetica,11,bold\n" },
  { "AntiAliasing",	0, 0,
  "# Whether the fonts shown in the greeter should be antialiased. Default is false\n" },
  { "NumLock",		0, 0,
-@@ -2148,7 +2149,7 @@
+@@ -2160,7 +2161,7 @@
  "# \"PreferUser\" - ... and the other way round\n" },
  { "FaceDir",		0, upd_facedir, 
  "# The directory containing the user images if FaceSource is not UserOnly.\n"
@@ -240,7 +240,7 @@
  { "PreselectUser",	0, 0, 
  "# Specify, if/which user should be preselected for log in.\n"
  "# Note, that enabling this feature can be considered a security hole,\n"
-@@ -2328,10 +2329,10 @@
+@@ -2354,10 +2355,10 @@
  { "SystemShell",	"/bin/bash", 0 },
  { "UserAuthDir",	"", 0 },
  { "AutoReLogin",	"true", 0 },
@@ -255,7 +255,7 @@
  { "DefaultSdMode",	"ForceNow", 0}, 
  { "InteractiveSd",	"false", 0}, 
  { "SessionsDirs",	"/etc/X11/sessions,/usr/share/xsessions", 0 },
-@@ -2375,8 +2376,8 @@
+@@ -2406,8 +2407,8 @@
  { "ServerAttempts",	"", 0 },
  { "ServerTimeout",	"", 0 },
  { "AllowShutdown",	"All", 1 },
@@ -266,9 +266,9 @@
  { "NoPassEnable",	"true", 0 },
  { "NoPassUsers",	"fred,ethel", 0 },
  };
---- kdebase-031010/kdm/kfrontend/kdm_config.c.orig	2003-09-24 00:15:33.000000000 +0200
-+++ kdebase-031010/kdm/kfrontend/kdm_config.c	2003-10-10 19:53:31.000000000 +0200
-@@ -38,7 +38,7 @@
+--- kdebase-040116/kdm/kfrontend/kdm_config.c.orig	2004-01-16 23:07:51.000000000 +0100
++++ kdebase-040116/kdm/kfrontend/kdm_config.c	2004-01-16 23:31:56.000000000 +0100
+@@ -34,7 +34,7 @@
  #include <netdb.h>
  #include <grp.h>
  
@@ -277,7 +277,7 @@
  #define KDMDATA KDE_DATADIR "/kdm"
  
  
-@@ -499,13 +499,13 @@
+@@ -494,13 +494,13 @@
  { "AutoLoginUser",	C_autoUser,	(void *)PautoLoginX,	"" },
  { "AutoLoginPass",	C_autoPass,	(void *)PautoLoginX,	"" },
  { "AutoReLogin",	C_autoReLogin | C_BOOL,	0,	"false" },
@@ -296,20 +296,20 @@
  };
  
  Ent entsGreeter[] = {
-@@ -517,9 +517,9 @@
+@@ -512,9 +512,9 @@
  { "GreeterPosX",	C_GreeterPosX,		0,	"0" },
  { "GreeterPosY",	C_GreeterPosY,		0,	"0" },
  { "GreeterScreen",	C_GreeterScreen,	0,	"0" },
--{ "StdFont",		C_StdFont,		0,	"helvetica,10,5,0,50,0" },
--{ "FailFont",		C_FailFont,		0,	"helvetica,10,5,0,75,0" },
+-{ "StdFont",		C_StdFont,		0,	"helvetica,12,5,0,50,0" },
+-{ "FailFont",		C_FailFont,		0,	"helvetica,12,5,0,75,0" },
 -{ "GreetString",	C_GreetString,		0,	"Welcome to %s at %n" },
 +{ "StdFont",		C_StdFont,		0,	"helvetica,11,5,0,50,0" },
 +{ "FailFont",		C_FailFont,		0,	"helvetica,11,5,0,75,0" },
 +{ "GreetString",	C_GreetString,		0,	"Welcome to PLD Linux at %n" },
- { "GreetFont",		C_GreetFont,		0,	"charter,20,5,0,50,0" },
+ { "GreetFont",		C_GreetFont,		0,	"charter,24,5,0,50,0" },
  { "AntiAliasing",	C_AntiAliasing | C_BOOL,0,	"false" },
  { "NumLock",		C_NumLock | C_ENUM, numlock,	"Keep" },
-@@ -531,7 +531,7 @@
+@@ -526,7 +526,7 @@
  { "MaxShowUID",		C_MaxShowUID,		0,	"65535" },
  { "SortUsers",		C_SortUsers | C_BOOL,	0,	"true" },
  { "FaceSource",		C_FaceSource | C_ENUM, facesource, "AdminOnly" },
