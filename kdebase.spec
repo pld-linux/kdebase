@@ -1,9 +1,8 @@
 Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
-Version:	2.0.1
-Release:	3
-Epoch:		6
+Version:	2.1
+Release:	1
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -116,7 +115,7 @@ Internet Explorer.
 
 %prep
 %setup -q
-%patch0 -p1
+#pascalek %patch0 -p1
 %patch1 -p1
 %patch2 -p1
 
@@ -221,32 +220,37 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%attr(0755,root,root) %{_bindir}/[adns]*
+%attr(0755,root,root) %{_bindir}/[adens]*
 %attr(0755,root,root) %{_bindir}/conttest
 %attr(0755,root,root) %{_bindir}/k[abcefhilmprstvwx]*
-%attr(0755,root,root) %{_bindir}/kdcop
-%attr(0755,root,root) %{_bindir}/kdebugdialog
-%attr(0755,root,root) %{_bindir}/kdeeject
-%attr(0755,root,root) %{_bindir}/kdesktop
-%attr(0755,root,root) %{_bindir}/kdesu
-%attr(2750,root,root) %{_bindir}/kdesud
-%attr(0755,root,root) %{_bindir}/kdmdesktop
-%attr(0755,root,root) %{_bindir}/konsole
-%attr(0755,root,root) %{_bindir}/konsole_grantpty
+%attr(0755,root,root) %{_bindir}/kd[ce]*
+%attr(0755,root,root) %{_bindir}/konsole*
 
-%attr(0755,root,root) %{_libdir}/appletproxy.*
-%attr(0755,root,root) %{_libdir}/k[acdfhilmwx]*.la*
-%attr(0755,root,root) %{_libdir}/k[acdfhilmwx]*.so*
-%attr(0755,root,root) %{_libdir}/konsole.*
-%attr(0755,root,root) %{_libdir}/lib[chnqs]*.la*
-%attr(0755,root,root) %{_libdir}/lib[chnqs]*.so*
-%attr(0755,root,root) %{_libdir}/libkcm_[abcefhilmnpstvx]*.la*
-%attr(0755,root,root) %{_libdir}/libkcm_[abcefhilmnpstvx]*.so*
-%attr(0755,root,root) %{_libdir}/libkcm_k[ehinuw]*.la*
-%attr(0755,root,root) %{_libdir}/libkcm_k[ehinuw]*.so*
-%attr(0755,root,root) %{_libdir}/libk[hmrstuw]*.la*
-%attr(0755,root,root) %{_libdir}/libk[hmrstuw]*.so*
-%attr(0755,root,root) %{_libdir}/libkonsolepart.*
+%attr(0755,root,root) %{_libdir}/[ae]*.la*
+%attr(0755,root,root) %{_libdir}/[ae]*.so*
+%attr(0755,root,root) %{_libdir}/k[acdefhilmwx]*.la*
+%attr(0755,root,root) %{_libdir}/k[acdefhilmwx]*.so*
+%attr(0755,root,root) %{_libdir}/konsole.la
+%attr(0755,root,root) %{_libdir}/konsole.so*
+%attr(0755,root,root) %{_libdir}/lib[cdnqt]*.la*
+%attr(0755,root,root) %{_libdir}/lib[cdnqt]*.so*
+%attr(0755,root,root) %{_libdir}/libkasbarextension.la
+%attr(0755,root,root) %{_libdir}/libkasbarextension.so*
+%attr(0755,root,root) %{_libdir}/libkcm_[ilnx]*.la*
+%attr(0755,root,root) %{_libdir}/libkcm_[ilnx]*.so*
+%attr(0755,root,root) %{_libdir}/libk[hmrstw]*.la*
+%attr(0755,root,root) %{_libdir}/libk[hmrstw]*.so*
+%attr(0755,root,root) %{_libdir}/libkonsolepart.la
+%attr(0755,root,root) %{_libdir}/libkonsolepart.so*
+
+%attr(0755,root,root) %{_libdir}/kde2/[ikt]*.la*
+%attr(0755,root,root) %{_libdir}/kde2/[ikt]*.so*
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_[abcefilmpst]*.la*
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_[abcefilmpst]*.so*
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_k[ehinuw]*.la*
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_k[ehinuw]*.so*
+%attr(0755,root,root) %{_libdir}/kde2/libk[fsuw]*.la*
+%attr(0755,root,root) %{_libdir}/kde2/libk[fsuw]*.so*
 
 # NOTE:	There are many directories created by kappfinder. They should be
 #	ignored as such functionality is provided by applnk package and
@@ -254,7 +258,6 @@ fi
 %{_applnkdir}/Amusements/*.desktop
 %{_applnkdir}/Office/Editors/*.desktop
 %{_applnkdir}/Settings/KDE
-%{_applnkdir}/System/[!k]*.desktop
 %{_applnkdir}/System/k[!o]*.desktop
 %{_applnkdir}/System/kon[!q]*.desktop
 %{_applnkdir}/System/ScreenSavers/*.desktop
@@ -287,6 +290,8 @@ fi
 %{_datadir}/sounds
 %{_datadir}/templates
 %{_datadir}/wallpapers
+%{_datadir}/fonts
+%{_datadir}/servicetypes
 
 # TODO:	file /usr/share/fonts/misc/9x15.pcf.gz from install of kdebase-2.0.1-3
 # 	conflicts with file from package XFree86-fonts-4.0.1-2.
@@ -295,15 +300,18 @@ fi
 
 %files devel
 %defattr(644,root,root,755)
+%dir %{_includedir}/kwin
 %{_includedir}/*.h
+%{_includedir}/kwin/*.h
 %{_libdir}/*.a
 
 %files -f kdm.lang -n kdm
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/chooser
-%attr(0755,root,root) %{_bindir}/kdm
+%attr(0755,root,root) %{_bindir}/kdm*
 %attr(0755,root,root) %{_sysconfdir}/X11/kdm
-%attr(0755,root,root) %{_libdir}/libkcm_kdm.??
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_kdm.??
+%attr(0755,root,root) %{_libdir}/libKdmGreet.??
 %attr(0640,root,root) %config %verify(not size mtime md5) %{_sysconfdir}/pam.d/kdm
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/security/blacklist.kdm
 %attr(0754,root,root) %{_sysconfdir}/rc.d/init.d/kdm
@@ -314,9 +322,14 @@ fi
 %files -n konqueror -f konqueror.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/konqueror
-%attr(0755,root,root) %{_libdir}/libkonq*
 %attr(0755,root,root) %{_libdir}/konqueror.??
-%attr(0755,root,root) %{_libdir}/libkcm_konq*
+%attr(0755,root,root) %{_libdir}/libhtmlsearch.??
+%attr(0755,root,root) %{_libdir}/libkcm_htmlsearch.??
+%attr(0755,root,root) %{_libdir}/libkonq*
+%attr(0755,root,root) %{_libdir}/kde2/libkonq*
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_konq*
+%attr(0755,root,root) %{_libdir}/kde2/htmlthumbnail.*
+
 %{_pixmapsdir}/*/*/apps/konqueror.png
 %{_applnkdir}/Network/WWW/konq*.desktop
 %{_applnkdir}/System/konq*.desktop
