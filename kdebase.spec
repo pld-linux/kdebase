@@ -124,10 +124,23 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 KDE specific files. Used by core KDE applications. Package includes:
+
 - KDE menu hierarchy,
 - kappfinder - script installing some non-KDE apps in KDE menu,
 - krootwm - module used by KWM and KFM,
 - kaudio - audio server for KDE.
+
+%description -l es
+Aplicaciones básicas para KDE. Incluidos en este paquete:
+
+- kcontrol - herramienta de configuración,
+- kdm - substituto del xdm,
+- kfind - herramienta de búsqueda,
+- konqueror - administrador de archivos, browser, cliente ftp,
+- kmenuedit - herramienta para adicionar aplicación al panel,
+- kicker - paginador del área de trabajo,
+- konsole - substituto del xterm,
+- kwin - administrador de ventanas del kde.
 
 %description -l ja
 KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ÍÑ¤Î´ğËÜ¥¢¥×¥ê¥±¡¼¥·¥ç¥ó¡£
@@ -141,6 +154,18 @@ aplikacje KDE. Pakiet zawiera:
   spoza KDE
 - krootwm - modu³ wykorzystywany przez kwm i kfm
 - kaudio - serwer d¼wiêku dla KDE.
+
+%description -l pt_BR
+Aplicações básicas para o KDE. Incluídos neste pacote:
+
+- kcontrol - ferramenta de configuração,
+- kdm - substituto do xdm,
+- kfind - ferramenta de busca,
+- konqueror - gerenciador de arquivos, browser, cliente ftp,
+- kmenuedit - ferramenta para adicionar aplicação ao painel,
+- kicker - paginador da área de trabalho,
+- konsole - substituto do xterm,
+- kwin - gerenciador de janelas do kde.
 
 %description -l ru
 âÁÚÏ×ÙÅ ĞÒÏÇÒÁÍÍÙ ÄÌÑ K Desktop Environment. ÷ËÌÀŞÅÎÙ: kdm (ÚÁÍÅÎÁ
