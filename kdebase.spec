@@ -336,6 +336,7 @@ Pliki wspólne dla konsole i konsolepart.
 Summary:	KDE Core Apps
 Summary(pl):	Podstawowe aplikacje KDE
 Group:		X11/Applications
+Requires:	applnk >= 1.6.3
 Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
 Obsoletes:	%{name} < 3.2-0.030428.1
 Obsoletes:	%{name}-kcontrol
@@ -443,7 +444,6 @@ Narzêdzie do wyszukiwania plików dla KDE.
 Summary:        KDE Panel - kicker
 Summary(pl):    Panel KDE - kicker
 Group:          X11/Applications
-Requires:	applnk >= 1.6.2
 Requires:	%{name}-kmenuedit = %{version}-%{release}
 Requires:	%{name}-libkonq = %{version}-%{release}
 
