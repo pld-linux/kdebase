@@ -347,6 +347,7 @@ for f in `find $ALD -name '.directory' -o -name '*.dekstop'` ; do
 	mv -f $f{.tmp,}
 done
 
+rm -rf konsole-doc
 mkdir konsole-doc
 cp konsole/README* konsole-doc/
 
