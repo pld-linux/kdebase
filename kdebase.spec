@@ -241,7 +241,7 @@ Group:		X11/Amusements
 Requires:	%{name} = %{version}-%{release}
 
 %description -n kde-decoration-redmond
-KDE Window Decoration - Radmond.
+KDE Window Decoration - Redmond.
 
 %description -n kde-decoration-redmond -l pl
 Dekoracja okna dla KDE - Redmond.
@@ -303,7 +303,7 @@ Pliki wspólne dla konsole i konsolepart.
 
 %package core
 Summary:	KDE Core Apps
-Summary(pl):	Podstaqwowe aplikacje KDE
+Summary(pl):	Podstawowe aplikacje KDE
 Group:		X11/Applications
 Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
 Obsoletes:	%{name} < 3.2-0.030428.1
@@ -341,7 +341,7 @@ Centrum informacji o systemie dla KDE.
 
 %package kappfinder
 Summary:	Menu Updating Tool
-Summary(pl):	Narzedzie do aktualizacji menu.
+Summary(pl):	Narzêdzie do aktualizacji menu
 Group:		X11/Applications
 Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
 Obsoletes:	%{name} =< 3.2-0.030418.2
@@ -424,7 +424,7 @@ Panel KDE - kicker.
 
 %package kjobviewer
 Summary:        Print Job Viewer
-Summary(pl):    Podglad zadañ drukowania
+Summary(pl):    Podgl±d zadañ drukowania
 Group:          X11/Applications
 Requires:	%{name} = %{version}-%{release}
 
