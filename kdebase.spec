@@ -12,7 +12,7 @@ Summary(uk):	K Desktop Environment - базов╕ файли
 Summary(zh_CN): KDE╨кпд
 Name:		kdebase
 Version:	3.0.4
-Release:	6
+Release:	7
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
