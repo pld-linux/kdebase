@@ -24,7 +24,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.%{_snap}.0.3
+Release:	0.%{_snap}.0.4
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -38,6 +38,7 @@ Source9:	%{name}-kdm_pldlogo.png
 Source10:	%{name}-kdm_pldwallpaper.png
 Source11:	ircpld.desktop
 Source12:	specs.desktop
+Source13:	%{name}-vdirectories.tar.bz2
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 # obsoleted
 #Patch1:	%{name}-fix-mouse.cpp.patch
@@ -66,6 +67,7 @@ Patch19:	%{name}-vroot.patch
 # not tested yet
 #Patch20:	%{name}-konsolepropfontwidth3.patch
 #
+Patch21:	%{name}-vcategories.patch 
 %ifnarch sparc sparc64
 %{!?_without_alsa:BuildRequires: alsa-lib-devel}
 %endif
@@ -107,6 +109,7 @@ Requires(post,postun):	/sbin/ldconfig
 Requires:	applnk >= 1.5.16
 Requires:	kde-splash
 Requires:       kde-sdscreen
+Requires:       kdelibs >= 3.2-0.030317.0.3
 Requires:	konqueror = %{version}-%{release}
 Requires:	%{name}-pam = %{version}-%{release}
 #
@@ -122,11 +125,12 @@ Obsoletes:	%{name}-wallpapers
 #
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 %define		_fontdir	/usr/share/fonts/misc
 %define		_htmldir	/usr/share/doc/kde/HTML
 %define		_sysconfdir	/etc/X11
+%define		_vfinfodir	%{_datadir}/desktop-directories
 
+%define 	_noautoreqdep			libGL.so.1 libGLU.so.1
 %define		no_install_post_chrpath		1
 
 %description
@@ -484,6 +488,7 @@ Internet Explorer.
 %patch19 -p1
 # not tested yet
 #%patch20 -p1
+%patch21 -p1
 
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
@@ -539,24 +544,19 @@ cp $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop 
     $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/remote
 
 ALD=$RPM_BUILD_ROOT%{_applnkdir}
-
 install -d $ALD/{Help,Settings/KDE}
-
 mv -f $ALD/{Help.desktop,Help}
-mv -f $ALD/{System/ScreenSavers,.hidden}
 mv -f $ALD/{Settings/[!K]*,Settings/KDE}
 mv -f $ALD/Settingsmenu/[!K]*.desktop $RPM_BUILD_ROOT%{_desktopdir}
-
-cat > $ALD/Settings/KDE/.directory << EOF
-[Desktop Entry]
-Name=KDE
-Icon=kcontrol
-X-KDE-BaseGroup=settings
-EOF
+mv -f $ALD/{System/ScreenSavers,.hidden}
 
 cat $ALD/Help/Help.desktop |sed 's/Help/KDE Help/' |sed 's/Pomoc/Pomoc KDE/' \
 	> Help.desktop.tmp
 mv Help.desktop.tmp $ALD/Help/Help.desktop
+
+mv $RPM_BUILD_ROOT%{_vfinfodir}/kde-development.directory{,.bak}
+mv $RPM_BUILD_ROOT%{_vfinfodir}/kde-settings.directory{,.bak}
+bzip2 -dc %{SOURCE13} | tar xf - -C $RPM_BUILD_ROOT
 
 #for f in `find $ALD -name '.directory' -o -name '*.dekstop'` ; do
 #	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
@@ -802,8 +802,8 @@ fi
 %{_datadir}/config/klipperrc
 %{_datadir}/config/kwritedrc
 %{_datadir}/config/kxkb_groups
-# will be base for new PLD applnk?
-%{_datadir}/desktop-directories
+# should be base part for new PLD applnk?
+%{_vfinfodir}
 #
 %{_datadir}/locale/*
 %{_datadir}/services/kaccess.desktop
@@ -1001,7 +1001,6 @@ fi
 # at this time owned by kdelibs
 #%dir %{_applnkdir}/Settings/KDE
 # should be owned by kdelibs
-%{_applnkdir}/Settings/KDE/.directory
 # at this time owned by kdelibs
 #%dir %{_applnkdir}/Settings/KDE/Components
 %dir %{_applnkdir}/Settings/KDE/System
@@ -1124,7 +1123,6 @@ fi
 %attr(0644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdm
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kdm
 
-#%files screensavers -f libkscreensaver.lang
 %files screensavers -f screensaver.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/*.kss
