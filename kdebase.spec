@@ -107,7 +107,6 @@ Obsoletes:	%{name}-kwin
 Obsoletes:	%{name}-kxmlrpc
 Obsoletes:	%{name}-kdesktop
 Obsoletes:	%{name}-wallpapers
-Obsoletes:	kde-splash-keramik
 Obsoletes:	kde-theme-keramik
 #
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
