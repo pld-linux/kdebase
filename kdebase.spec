@@ -1,6 +1,6 @@
 %define		_ver		3.0
 #define		_sub_ver
-%define		_rel		3
+%define		_rel		4
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
@@ -603,7 +603,7 @@ fi
 %dir %{_includedir}/kwin
 %{_includedir}/*.h
 %{_includedir}/kwin/*.h
-%{_includedir}/kate/*.h
+%{_includedir}/kate
 %{_includedir}/ksgrd
 %attr(0755,root,root) %{_libdir}/libkickermain.so
 %attr(0755,root,root) %{_libdir}/libsensordisplays.so
