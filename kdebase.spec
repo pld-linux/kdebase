@@ -13,7 +13,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define         _snap		030509
+%define         _snap		030511
 %define		_kdelibsminrel	0.%{_snap}.1
 
 %ifarch	sparc sparcv9 sparc64
@@ -46,8 +46,7 @@ Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-ircpld.desktop
 Source9:	%{name}-specs.desktop
-Source10:	%{name}-kabc.desktop
-Source11:	%{name}-kde-settings.menu
+Source10:	%{name}-kde-settings.menu
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 Patch2:		%{name}-fontdir.patch
 Patch3:		%{name}-kcm_background.patch
@@ -103,10 +102,8 @@ BuildRequires:	pam-devel
 BuildRequires:	sed >= 4.0
 # TODO: sensors
 #BuildRequires:	sensors-devel
-BuildRequires:	qt-devel >= 3.1
 BuildRequires:	zlib-devel
 Requires(post,postun):	/sbin/ldconfig
-Requires:	applnk >= 1.6.1
 Requires:       kde-sdscreen
 Requires:	konqueror = %{version}-%{release}
 Obsoletes:	%{name}-fonts
@@ -415,6 +412,7 @@ Narzêdzie do wyszukiwania plików dla KDE.
 Summary:        KDE Panel - kicker
 Summary(pl):    Panel KDE - kicker
 Group:          X11/Applications
+Requires:	applnk >= 1.6.2
 Requires:	%{name}-kmenuedit = %{version}-%{release}
 Requires:	%{name}-libkonq = %{version}-%{release}
 
@@ -630,6 +628,7 @@ Summary(pl):	Zarz±dca ekranów KDE
 Group:		X11/Applications
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
+Requires(pre):	user-xdm
 Requires:	%{name}-core = %{version}-%{release}
 Requires:	pam
 Requires:	sessreg
@@ -719,7 +718,7 @@ cd ksplashml
 cd -
 
 install -d \
-	$RPM_BUILD_ROOT/etc/{X11/desktop/menus,pam.d,rc.d/init.d,security} \
+	$RPM_BUILD_ROOT/etc/{xdg/menus,pam.d,rc.d/init.d,security} \
 	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
 
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers{,.orig}
@@ -736,6 +735,7 @@ install %{SOURCE6}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldlogo.png
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldwallpaper.png
 install %{SOURCE8}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/ircpld.desktop
 install %{SOURCE9}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/specs.desktop
+install %{SOURCE10}	$RPM_BUILD_ROOT/etc/xdg/menus/kde-settings.menu
 
 cp $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop \
     $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/remote
@@ -746,8 +746,6 @@ mv $ALD/Help.desktop			$RPM_BUILD_ROOT%{_desktopdir}
 mv $ALD/Settingsmenu/*.desktop		$RPM_BUILD_ROOT%{_desktopdir}
 mv $ALD/System/kinfocenter.desktop	$RPM_BUILD_ROOT%{_desktopdir}
 
-install %{SOURCE10}	$ALD/KDE-Settings/Components/kabc.desktop
-install %{SOURCE11}	$RPM_BUILD_ROOT/etc/X11/desktop/menus/kde-settings.menu
 
 > core.lang
 programs=" \
@@ -872,12 +870,6 @@ umask 022
 %post	libkonq		-p /sbin/ldconfig
 %postun	libkonq		-p /sbin/ldconfig
 
-%pre -n kdm
-/usr/sbin/groupadd -g 55 -r -f xdm
-if [ -z "`id -u xdm 2>/dev/null`" ]; then
-	/usr/sbin/useradd -u 55 -r -d /dev/null -s /bin/false -c 'X Display Manager' -g xdm xdm 1>&2
-fi
-
 %post -n kdm
 /sbin/chkconfig --add kdm
 if [ -f /var/lock/subsys/kdm ]; then
@@ -896,14 +888,6 @@ if [ "$1" = "0" ]; then
 		/etc/rc.d/init.d/kdm stop >&2
 	fi
 	/sbin/chkconfig --del kdm
-fi
-
-%postun -n kdm
-if [ "$1" = "0" ]; then
-	if [ -n "`id -u xdm 2>/dev/null`" ]; then
-		/usr/sbin/userdel xdm
-	fi
-	/usr/sbin/groupdel xdm
 fi
 
 %post	-n konqueror	-p /sbin/ldconfig
@@ -1280,7 +1264,7 @@ fi
 %lang(en) %{_htmldir}/en/kcontrol/helpindex.html
 %lang(en) %{_htmldir}/en/kcontrol/index.*
 %lang(en) %{_htmldir}/en/kcontrol/screenshot.png
-%{_sysconfdir}/desktop/menus/kde-settings.menu
+/etc/xdg/menus/kde-settings.menu
 %attr(0755,root,root) %{_bindir}/drkonqi
 %attr(0755,root,root) %{_bindir}/kcminit
 %attr(0755,root,root) %{_bindir}/kcmshell
@@ -1355,9 +1339,6 @@ fi
 %{_applnkdir}/KControl.desktop
 #
 %{_applnkdir}/KDE-Settings/Accessibility/language.desktop
-# borrowed from kdelibs
-%{_applnkdir}/KDE-Settings/Components/kabc.desktop
-#
 %{_applnkdir}/KDE-Settings/Components/kcmkded.desktop
 %{_applnkdir}/KDE-Settings/LookNFeel/colors.desktop
 %{_applnkdir}/KDE-Settings/LookNFeel/fonts.desktop
