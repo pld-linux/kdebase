@@ -1,0 +1,2 @@
+- -desktop (kcm_input.so) needs libXcursor >= 1.1.0 (for XcursorLibraryPath())
+  so it won't work with XFree86 <= 4.4.0, needs X.org >= 6.7.0 or xlibs
