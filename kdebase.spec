@@ -1,6 +1,6 @@
 %define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		8
+%define		_rel		8.1
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -522,8 +522,12 @@ fi
 %dir %{_datadir}/config
 %{_datadir}/config/k[!d]*
 %{_datadir}/config/kdesktop*
-%{_datadir}/locale/en_US
-%{_datadir}/locale/l10n
+#%{_datadir}/locale/en_US
+%{_datadir}/locale/l10n/*/entry.desktop
+%{_datadir}/locale/l10n/*/flag.png
+%{_datadir}/locale/*/*.desktop
+%{_datadir}/locale/*/*.png
+%{_datadir}/locale/*/charset
 %{_datadir}/mimelnk
 %{_datadir}/services/[abfgimnpst]*
 %{_datadir}/services/k[afhsuwx]*
