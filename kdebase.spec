@@ -1086,7 +1086,8 @@ kmenuedit \
 ksysguard \
 kpager \
 kwrite \
-screensaver"
+screensaver \
+kcmfontinst"
 
 for i in $files; do
 	mv $i.lang $i\_en.lang
