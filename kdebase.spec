@@ -8,9 +8,9 @@
 #
 
 %define		_state		stable
-%define		_ver		3.1.3
+%define		_ver		3.1.4
 
-%define		_kdelibsminrel	1
+%define		_kdelibsminrel	0.1
 
 %ifarch	sparc sparcv9 sparc64
 %define		_without_alsa	1
@@ -28,12 +28,12 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	1.3
+Release:	0.10
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	d11514ebed619de18869d95e2d110951
+# Source0-md5:	e6859ad85b176e11ce997490786c124d
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
 Source4:	%{name}-kdm.Xsession
@@ -47,7 +47,7 @@ Source11:	%{name}-kde-settings.menu
 Source12:	%{name}-imdb.desktop
 # generated from kde-i18n-%{version}.tar.bz2:
 Source13:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/%{version}/kde-i18n-%{name}-%{version}.tar.bz2
-# Source13-md5:	f9dd364233b2534ac780fb31b567bb32
+# Source13-md5:	6810997339287b491f5b57abbf472baf
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 #Patch1:		%{name}-fix-mouse.cpp.patch
 Patch2:		%{name}-fontdir.patch
@@ -72,12 +72,11 @@ Patch18:	%{name}-screensavers.patch
 Patch19:	%{name}-prefmenu.patch
 Patch20:	%{name}-kdesktop_lock.patch
 Patch21:	%{name}-libtool-sanitize.patch
-Patch22:	post-3.1.3-%{name}-kdm.patch
 %{?_without_alsa:BuildConflicts:	alsa-driver-devel}
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
-BuildRequires:	XFree86-xrender-devel
+#BuildRequires:	XFree86-xrender-devel
 BuildRequires:	arts-devel >= 1.1
 BuildRequires:	arts-kde-devel
 BuildRequires:	audiofile-devel
@@ -86,7 +85,7 @@ BuildRequires:	automake >= 1.6
 BuildRequires:	awk
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
-BuildRequires:	db-devel
+BuildRequires:	db3-devel
 BuildRequires:	findutils
 BuildRequires:	gettext-devel
 BuildRequires:	grep
@@ -103,9 +102,9 @@ BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	motif-devel
 BuildRequires:	openldap-devel
-BuildRequires:	openssl-devel >= 0.9.7
+BuildRequires:	openssl-devel >= 0.9.6k
 BuildRequires:	pam-devel
-BuildRequires:	sed >= 4.0
+BuildRequires:	sed
 BuildRequires:	qt-devel >= 3.1
 BuildRequires:	zlib-devel
 BuildRequires:	fam-devel
@@ -132,6 +131,7 @@ Obsoletes:	kde-theme-keramik
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
+%define		_prefix		/usr/X11R6
 %define		_fontdir	/usr/share/fonts/misc
 %define		_htmldir	/usr/share/doc/kde/HTML
 %define		_sysconfdir	/etc/X11
@@ -381,7 +381,6 @@ Summary:	Common files for konsole and konsolepart
 Summary(pl):	Pliki wspólne dla konsole i konsolepart
 Group:		X11/Applications
 Requires(post,postun):	/usr/X11R6/bin/mkfontdir
-Requires(post,postun):	fontpostinst
 Requires:	%{_fontdir}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	%{name}-fonts
@@ -782,7 +781,6 @@ Internet Explorer.
 #%patch20
 # libtool cannot be refreshed, so patch it
 %patch21 -p1
-%patch22 -p1
 
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
@@ -794,7 +792,7 @@ export CPPFLAGS
 
 for plik in `find ./ -name *.desktop` ; do
 	echo $plik
-	sed -i -e "s/\[nb\]/\[no\]/g" $plik
+	perl -pi -e "s/\[nb\]/\[no\]/g" $plik
 done
 
 # bleh, this cannot be done (new libtool translates kicker.la to -lkicker, which fails)
@@ -804,20 +802,18 @@ done
 %configure \
 	--enable-final \
 	--with-kdm-pam=kdm \
-	--with-pam=kdesktop
+	--with-pam=kdesktop \
+	--without-java
 
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT/etc/{pam.d,rc.d/init.d,security,xdg/menus} \
+	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
 
 %{__make} -i install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-install -d \
-	$RPM_BUILD_ROOT/etc/{pam.d,rc.d/init.d,security} \
-	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror \
-	$RPM_BUILD_ROOT/etc/xdg/menus
 
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers{,.orig}
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession{,.orig}
@@ -968,10 +964,20 @@ rm -rf $RPM_BUILD_ROOT
 %postun	-p /sbin/ldconfig
 
 %post common-konsole
-fontpostinst misc
+cd %{_fontdir}
+umask 022
+/usr/X11R6/bin/mkfontdir
+if [ -x /usr/X11R6/bin/xftcache ]; then
+	/usr/X11R6/bin/xftcache .
+fi
 
 %postun common-konsole
-fontpostinst misc
+cd %{_fontdir}
+umask 022
+/usr/X11R6/bin/mkfontdir
+if [ -x /usr/X11R6/bin/xftcache ]; then
+	/usr/X11R6/bin/xftcache .
+fi
 
 %pre -n kdm
 /usr/sbin/groupadd -g 55 -r -f xdm
