@@ -23098,27 +23098,6 @@ diff -urN -x CVS kdebase.orig/konqueror/about/konq_aboutpage.desktop kdebase/kon
  Name[th]=หน้าเกี่ยวกับคอนเควอร์เรอร์
  Name[tr]=Konqueror Hakkında Sayfası
  Name[uk]=Сторінка "Про" для Konqueror
-diff -urN -x CVS kdebase.orig/konqueror/dirmetaview/Makefile.am kdebase/konqueror/dirmetaview/Makefile.am
---- kdebase.orig/konqueror/dirmetaview/Makefile.am	Wed Aug  9 19:10:36 2000
-+++ kdebase/konqueror/dirmetaview/Makefile.am	Thu Jan  1 01:00:00 1970
-@@ -1,17 +0,0 @@
--
--INCLUDES = -I$(top_srcdir)/libkonq -I$(top_srcdir)/konqueror $(all_includes)
--
--lib_LTLIBRARIES = libkonqdirmetaview.la
--
--servicedir = $(kde_servicesdir)
--service_DATA = konq_dirmetaview.desktop
--
--rcdir = $(kde_datadir)/konqueror
--rc_DATA = konq_dirmetaview.rc
--
--METASOURCES = AUTO
--
--libkonqdirmetaview_la_SOURCES = konq_dirmetaview.cc
--libkonqdirmetaview_la_LDFLAGS = $(all_libraries) $(KDE_PLUGIN)
--libkonqdirmetaview_la_LIBADD = $(top_builddir)/konqueror/libkonqueror.la
--
 diff -urN -x CVS kdebase.orig/konqueror/iconview/konq_iconview.cc kdebase/konqueror/iconview/konq_iconview.cc
 --- kdebase.orig/konqueror/iconview/konq_iconview.cc	Fri Dec 12 01:03:58 2003
 +++ kdebase/konqueror/iconview/konq_iconview.cc	Thu Feb  5 16:05:53 2004
