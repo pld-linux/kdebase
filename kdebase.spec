@@ -725,10 +725,10 @@ fi
 %attr(0755,root,root) %{_bindir}/kcheckpass
 %attr(0755,root,root) %{_bindir}/kdc*
 %attr(0755,root,root) %{_bindir}/kde[!ps]*
-%attr(2755,root,nobody) %{_bindir}/kdesktop
+%attr(0755,root,root) %{_bindir}/kdesktop
 %attr(0755,root,root) %{_bindir}/kdesktop_lock
-%attr(2755,root,nobody) %{_bindir}/kdesud
-%attr(2755,root,nobody) %{_bindir}/kdialog
+%attr(0755,root,root) %{_bindir}/kdesud
+%attr(0755,root,root) %{_bindir}/kdialog
 %attr(0755,root,root) %{_bindir}/khotkeys
 %attr(0755,root,root) %{_bindir}/kicker
 %attr(0755,root,root) %{_bindir}/kinfocenter
