@@ -63,7 +63,8 @@ Patch16:	%{name}-vmenus.patch
 Patch17:	%{name}-sasl-includes.patch
 Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
-Patch20:	%{name}-kwin_shadow.patch
+Patch20:	%{name}-seesar.patch
+Patch21:	%{name}-kwin_shadow.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
@@ -1004,9 +1005,10 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch16 -p1
 %patch18 -p1
 %patch19 -p1
+%patch20 -p1
 %if %{with kwin_shadow}
 cd kwin
-%patch20 -p0 -b .shadows
+%patch21 -p0 -b .shadows
 cd -
 %endif
 
