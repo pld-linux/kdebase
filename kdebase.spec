@@ -1,8 +1,6 @@
 #
 # TODO:
-# * KDM: ColorSheme=Default in kdm doesn't appear properly while GUIStyle
-#   variable (including kdm "Default" style) is set to any existing kde style
-# * KDM: "Shedule" and "TryNow" (DefaultSdMode option arguments) don't work
+# * KDM: ColorSheme=Default works properly with GUIStyle=KDE only 
 # * KDM: Replacing findwm with a better solution (it's in the way)
 # * Fixing 48x48 pld applnk-pixmaps scaling (konqsidebar, kicker)
 # * Sources renaming & renumerating 
