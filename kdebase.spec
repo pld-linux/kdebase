@@ -219,7 +219,7 @@ Bibliotecas estáticas do kdebase.
 
 %package -n kdm
 Summary:	KDE Display Manager
-Summary(pl):	KDE Display Manager
+Summary(pl):	Zarz±dca ekranów KDE
 Group:		X11/Applications
 Requires:	qt >= 3.0.5
 Requires:	kdelibs >= %{version}
@@ -235,11 +235,12 @@ It is KDE replacement for XDM. It manages local and remote X11
 displays.
 
 %description -n kdm -l pl
-Zamiennik XDM rodem z KDE.
+Zamiennik XDM rodem z KDE. Zarz±dza lokalnymi i zdalnymi ekranami
+X11.
 
 %package -n konqueror
 Summary:	Konqueror - web browser and file manager
-Summary(pl):	Konqueror - przegl±darka WWW i mened¿er plików
+Summary(pl):	Konqueror - przegl±darka WWW i zarz±dca plików
 Group:		X11/Applications
 Requires:	qt >= 3.0.5
 Requires:	kdelibs >= %{version}
@@ -250,7 +251,7 @@ Konqueror is a web browser and file manager similar to MS Internet
 Explorer.
 
 %description -n konqueror -l pl
-Konqueror jest przegl±dark± WWW i mene¿derem plików podobnym do MS
+Konqueror jest przegl±dark± WWW i zarz±dc± plików podobnym do MS
 Internet Explorer.
 
 %package screensavers
