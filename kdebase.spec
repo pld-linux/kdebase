@@ -53,6 +53,7 @@ BuildRequires:	openssl-devel
 BuildRequires:	pam-devel
 BuildRequires:	qt-devel >= 2.3.0
 BuildRequires:	zlib-devel
+BuildRequires:	db3-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
 Prereq:		/sbin/ldconfig
