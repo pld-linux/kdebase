@@ -3,7 +3,7 @@
 
 %define		_ver		3.0.3
 #define		_sub_ver
-%define		_rel		1.4
+%define		_rel		1.5
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -56,6 +56,7 @@ BuildRequires:	automake
 BuildRequires:	awk
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
+BuildRequires:	db3-devel
 BuildRequires:	findutils
 BuildRequires:	gettext-devel
 BuildRequires:	glut-devel
@@ -64,19 +65,18 @@ BuildRequires:	kdelibs-devel >= %{version}
 BuildRequires:	lame-libs-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
+BuildRequires:	libsmbclient-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool
 BuildRequires:	libvorbis-devel
 BuildRequires:	libxml2-devel
+BuildRequires:	libxml2-progs
 BuildRequires:	motif-devel
 BuildRequires:	openssl-devel
 BuildRequires:	pam-devel
 BuildRequires:	qt-devel >= 3.0.5
 BuildRequires:	zlib-devel
-BuildRequires:	db3-devel
-BuildRequires:	libsmbclient-devel
-BuildRequires:	libxml2-progs
 # TODO: sensors
 #BuildRequires:	sensors-devel
 Prereq:		/sbin/ldconfig
