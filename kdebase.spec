@@ -5,7 +5,7 @@
 %bcond_with	kwin_shadow	# experimental support for kwin shadows
 %bcond_with	cvs		# use cvs checkouts instead of tarballs
 %define		_state		snapshots
-%define		_ver		3.2.91
+%define		_ver		3.2.90
 %define		_snap		040523
 %define		_packager	adgor
 
@@ -2385,7 +2385,6 @@ fi
 %{_datadir}/apps/konqueror/tiles
 %{_datadir}/apps/konqueror/konqueror.rc
 %{_datadir}/apps/konqueror/konq-simplebrowser.rc
-%{_datadir}/mimelnk/application/x-smb-server.desktop
 # TODO
 %dir %{_datadir}/apps/plugin
 %{_datadir}/apps/plugin/nspluginpart.rc
