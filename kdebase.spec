@@ -4,7 +4,7 @@ Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Summary(pt_BR):	K Desktop Environment - arquivos básicos
 Name:		kdebase
 Version:	2.2.2
-Release:	1
+Release:	2
 Epoch:		6
 License:	GPL
 Group:		X11/Applications
@@ -15,17 +15,20 @@ Source1:	%{name}-startkde.sh
 Source2:	kdm.pamd
 Source3:	kdm.init
 Source4:	kdm.Xsession
-Source5:	kdmrc
 Source6:	%{name}-kscreensaver.pam
-Patch0:		%{name}-waitkdm.patch
+Source7:	%{name}-kdm.Xservers
+Patch0:		%{name}-kdmrc.patch
 Patch1:		%{name}-konsole-TERM.patch
 Patch2:		%{name}-glibc-2.2.2.patch
 Patch3:		%{name}-utmp.patch
 Patch4:		%{name}-nsplugins_dirs.patch
 Patch5:		%{name}-hardcoded_paths.patch
+Patch6:		%{name}-kdm.daemon_output.patch
 %ifnarch sparc sparc64 ppc
 BuildRequires:	alsa-lib-devel
 %endif
+BuildRequires:	OpenGL-devel
+BuildRequires:	XFree86-devel
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -44,12 +47,11 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool
 BuildRequires:	libvorbis-devel
+BuildRequires:	libxml2-devel
 BuildRequires:	motif-devel
-BuildRequires:	OpenGL-devel
 BuildRequires:	openssl-devel
 BuildRequires:	pam-devel
 BuildRequires:	qt-devel >= 2.3.0
-BuildRequires:	XFree86-devel
 BuildRequires:	zlib-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
@@ -110,7 +112,7 @@ Requires:	kdelibs-devel >= %{version}
 %description devel
 This package contains header files needed to develop KDE applications.
 
-%description -l es devel
+%description devel -l es
 This package includes the header files you will need to compile
 applications that use kdebase libraries.
 
@@ -118,7 +120,7 @@ applications that use kdebase libraries.
 Pakiet zawiera pliki nag³ówkowe niezbêdne do programowania aplikacji
 KDE.
 
-%description -l pt_BR devel
+%description devel -l pt_BR
 Este pacote contém os arquivos de inclusão que são necessários para
 compilar aplicativos que usem bibliotecas do kdebase.
 
@@ -206,12 +208,13 @@ Wygaszacze ekranu desktopu KDE.
 
 %prep
 %setup  -q
-%patch0 -p1
+# patch0 is applied in %%install
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 
@@ -243,6 +246,11 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,S
  	DESTDIR="$RPM_BUILD_ROOT" \
  	fontdir="%{_fontdir}/misc"
 
+# Patch kdmrc. It is generated so it can not be patched in %%prep.
+cd $RPM_BUILD_ROOT%{_datadir}/config/kdm
+patch -p0  < %{PATCH0}
+cd -
+
 ALD=$RPM_BUILD_ROOT%{_applnkdir}
 mv -f $ALD/{Internet/konqbrowser.desktop,Network/WWW}
 mv -f $ALD/{Internet/keditbookmarks.desktop,Network/WWW}
@@ -252,8 +260,19 @@ install %{SOURCE1}			$RPM_BUILD_ROOT%{_bindir}/startkde
 install %{SOURCE2}			$RPM_BUILD_ROOT/etc/pam.d/kdm
 install %{SOURCE6}			$RPM_BUILD_ROOT/etc/pam.d/kscreensaver
 install %{SOURCE3}			$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
+
+mv \
+	$RPM_BUILD_ROOT%{_datadir}/config/kdm/{Xaccess,Xreset,Xservers,Xsession,Xsetup,Xstartup,Xwilling} \
+	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/
+
+install %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
+
+# This file is referenced in several dozens places in code and
+# documentation. Maintaining patch wich changes all these places would
+# be a real PITA.
+ln -s ../../../%{_datadir}/config/kdm/kdmrc $RPM_BUILD_ROOT%{_sysconfdir}/kdm/kdmrc
+
 install %{SOURCE4}			$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
-install %{SOURCE5}			$RPM_BUILD_ROOT%{_datadir}/config/kdmrc
 
 # Make Control Center a subdirectory of Settings. Control Center applets can
 # not be mixed with normal programs or CC will die on startup.
@@ -502,14 +521,22 @@ fi
 %attr(0755,root,root) %{_libdir}/kde2/libkcm_kdm.so*
 
 %dir %{_sysconfdir}/kdm
-%attr(0755,root,root) %{_sysconfdir}/kdm/*
+%{_sysconfdir}/kdm/kdmrc
+%{_sysconfdir}/kdm/Xaccess
+%{_sysconfdir}/kdm/Xservers
+%attr(0755,root,root) %{_sysconfdir}/kdm/Xreset
+%attr(0755,root,root) %{_sysconfdir}/kdm/Xsession
+%attr(0755,root,root) %{_sysconfdir}/kdm/Xsetup
+%attr(0755,root,root) %{_sysconfdir}/kdm/Xstartup
+%attr(0755,root,root) %{_sysconfdir}/kdm/Xwilling
 %attr(0754,root,root) /etc/rc.d/init.d/kdm
 
 %{_applnkdir}/Settings/KDE/System/kdm.desktop
 
 %{_datadir}/apps/kdm
-%{_datadir}/config/kdmrc
-%{_datadir}/config/kdm
+%dir %{_datadir}/config/kdm
+%config(noreplace) %{_datadir}/config/kdm/kdmrc
+#%{_datadir}/config/kdm/README
 
 %{_pixmapsdir}/*/*/apps/kdmconfig.png
 
