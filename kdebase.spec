@@ -896,6 +896,14 @@ for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> %{name}.lang
 done
+cd $RPM_BUILD_ROOT
+for i in usr/X11R6/share/locale/{??,???,??_??}; do
+	echo "%lang($i) %{_datadir}/locale/$i/entry.desktop" >> %{name}.lang
+# these don't seem to be used
+#	echo "%lang($i) %{_datadir}/locale/$i/flag.png" >> %{name}.lang
+#	echo "%lang($i) %{_datadir}/locale/$i/charset" >> %{name}.lang
+done
+cd -
 
 %find_lang kicker	--with-kde
 programs="childpanelextension clock clockapplet dockbarextension \
