@@ -267,7 +267,7 @@ Summary(pl):	Biblioteki s³u¿±ce do zapytañ o has³o
 Group:		X11/Libraries
 Requires:	kdelibs >= %{_minlibsevr}
 Provides:	kde-kgreet
-Conflicts:	kdm =< 3.2.90.040503-1
+Conflicts:	kdm <= 3.2.90.040503-1
 
 %description -n kde-kgreet-classic
 Tools for asking for passwords in the classic, default look.
@@ -880,7 +880,9 @@ Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	pam
 Requires:	sessreg
 Requires:	xinitrc-ng >= 0.4
+Obsoletes:	X11-xdm
 Obsoletes:	gdm
+Obsoletes:	wdm
 Obsoletes:	xdm
 Obsoletes:	%{name}-kdm
 Obsoletes:	%{name}-pam
