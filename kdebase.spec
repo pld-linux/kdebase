@@ -12,9 +12,8 @@
 #
 
 %define         _state          snapshots
-%define         _ver		3.2
-%define         _snap		030613
-%define		_kdelibsminrel	0.%{_snap}.1
+%define         _ver		3.1.90
+%define         _snap		030618
 
 %ifarch	sparc sparcv9 sparc64
 %define		_without_alsa	1
@@ -30,14 +29,14 @@ Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
-Version:	%{_ver}
-Release:	0.%{_snap}.1
-Epoch:		8
+Version:	%{_ver}.%{_snap}
+Release:	1
+Epoch:		9
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:        http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	0a10237d1b4cbf8f819fe28bf50947bf
+# Source0-md5:	a1d1e8ea3d10ea27b7dafddb036dfdb9
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -73,8 +72,8 @@ Patch24:	%{name}-fix-mouse_cpp_for_enable_final.patch
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
-BuildRequires:	arts-devel >= 1.1
-BuildRequires:	arts-kde-devel
+BuildRequires:	arts-devel >= 1.2.0
+BuildRequires:	arts-kde-devel >= 9:%{version}
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -85,8 +84,8 @@ BuildRequires:	db-devel
 BuildRequires:	findutils
 BuildRequires:	gettext-devel
 BuildRequires:	grep
-BuildRequires:	kdelibs-devel >= %{version}-%{_kdelibsminrel}
-BuildRequires:	kdelibs-static >= %{version}-%{_kdelibsminrel}
+BuildRequires:	kdelibs-devel >= 9:%{version}
+BuildRequires:	kdelibs-static >= 9:%{version}
 BuildRequires:	lame-libs-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
@@ -177,7 +176,7 @@ Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-kicker = %{version}-%{release}
 Requires:	%{name}-ksysguard = %{version}-%{release}
 Requires:	%{name}-libkate = %{version}-%{release}
-Requires:	kdelibs-devel >= %{version}-%{_kdelibsminrel}
+Requires:	kdelibs-devel >= %{version}
 
 %description devel
 This package contains header files needed to develop KDE applications.
@@ -322,7 +321,7 @@ Summary:	Common files for konsole and konsolepart
 Summary(pl):	Pliki wspólne dla konsole i konsolepart
 Group:		X11/Applications
 Requires(post,postun):	/usr/X11R6/bin/mkfontdir
-Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
+Requires:	kdelibs >= %{version}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	%{name}-fonts
 
@@ -337,8 +336,8 @@ Summary:	KDE Core Apps
 Summary(pl):	Podstawowe aplikacje KDE
 Group:		X11/Applications
 Requires:	applnk >= 1.6.3
-Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
-Obsoletes:	%{name} < 3.2-0.030428.1
+Requires:	kdelibs >= %{version}
+Obsoletes:	%{name} < 8:3.2-0.030428.1
 Obsoletes:	%{name}-kcontrol
 Obsoletes:	%{name}-khelpcenter
 Obsoletes:      %{name}-helpcenter
@@ -375,8 +374,8 @@ Centrum informacji o systemie dla KDE.
 Summary:	Menu Updating Tool
 Summary(pl):	Narzêdzie do aktualizacji menu
 Group:		X11/Applications
-Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
-Obsoletes:	%{name} =< 3.2-0.030418.2
+Requires:	kdelibs >= %{version}
+Obsoletes:	%{name} =< 8:3.2-0.030418.2
 
 %description kappfinder
 Menu Updating Tool.
@@ -390,7 +389,6 @@ Summary(pl):	Zaawansowany edytor tekstu dla KDE
 Group:		X11/Applications/Editors
 Requires:	%{name}-common-filemanagement = %{version}-%{release}
 Requires:	%{name}-libkate = %{version}-%{release}
-
 Obsoletes:	kate
 
 %description kate
@@ -417,8 +415,8 @@ Narzêdzie do faksowania dla KDE.
 Summary:	A KDE version of dialog
 Summary(pl):	Wersja KDE dialogu
 Group:		X11/Applications
-Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
-Obsoletes:	%{name} < 3.2-0.030423.2
+Requires:	kdelibs >= %{version}
+Obsoletes:	%{name} < 8:3.2-0.030423.2
 
 %description kdialog
 Allows to display menu boxes from shell scripts.
@@ -507,8 +505,8 @@ Emulator terminala dla KDE.
 Summary:	Desktop Pager
 Summary(pl):	Prze³±cznik biurek
 Group:		X11/Applications
-Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
-Obsoletes:	%{name} =< 3.2-0.030418.2
+Requires:	kdelibs >= %{version}
+Obsoletes:	%{name} =< 8:3.2-0.030418.2
 
 %description kpager
 KDE Desktop Pager.
@@ -574,8 +572,8 @@ Edytor tekstu z pod¶wietlaniem sk³adni dla KDE.
 Summary:	KDE Write Daemon
 Summary(pl):	Demon zapisu KDE
 Group:		X11/Applications
-Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
-Obsoletes:	%{name} < 3.2-0.030423.1
+Requires:	kdelibs >= %{version}
+Obsoletes:	%{name} < 8:3.2-0.030423.1
 
 %description kwrited
 KDE Write Daemon.
@@ -588,9 +586,9 @@ Summary:	A libraries for KDE text editors
 Summary(pl):	Biblioteki dla edytorów tekstu KDE
 Group:		X11/Libraries
 #Requires:	%{name}-libkmultitabbar = %{version}-%{release}
-Obsoletes:	%{name}-kate < 3.2-0.030423.1
+Requires:	kdelibs >= %{version}
+Obsoletes:	%{name}-kate < 8:3.2-0.030423.1
 Obsoletes:	%{name}-libkmultitabbar
-Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
 
 %description libkate
 A libraries for KDE text editors.
@@ -602,8 +600,8 @@ Biblioteki dla edytorów tekstu KDE.
 Summary:	Library containing multiple tab support
 Summary(pl):	Biblioteka zawieraj±ca obs³ugê kilku kart
 Group:		X11/Libraries
-Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
-Obsoletes:	%{name}-common-filemanagement < 3.2-0.030428.1
+Requires:	kdelibs >= %{version}
+Obsoletes:	%{name}-common-filemanagement < 8:3.2-0.030428.1
 
 %description libkmultitabbar
 Library containing multiple tab support.
@@ -615,8 +613,8 @@ Biblioteka zawieraj±ca obs³ugê kilku kart.
 Summary:	Konqueror library files
 Summary(pl):	Biblioteki wykorzystywane przez konquerora
 Group:		X11/Libraries
-Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
-Obsoletes:	konqueror < 3.2-0.030423.2
+Requires:	kdelibs >= %{version}
+Obsoletes:	konqueror < 8:3.2-0.030423.2
 
 %description libkonq
 Libraries containing functions used by konqueror.
@@ -628,8 +626,8 @@ Biblioteki zawieraj±ce funkcje wykorzystywane przez konquerora.
 Summary:	KDE Mail and News Services
 Summary(pl):	Obs³uga protoko³ów pocztowych i news dla KDE
 Group:		X11/Libraries
-Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
-Obsoletes:	%{name} < 3.0.9-2.4
+Requires:	kdelibs >= %{version}
+Obsoletes:	%{name} < 8:3.0.9-2.4
 Obsoletes:	%{name}-kioslave
 
 %description mailnews
@@ -685,7 +683,6 @@ Group:		X11/Applications
 Requires:	%{name}-common-filemanagement = %{version}-%{release}
 Requires:	%{name}-konsole = %{version}-%{release}
 Requires:	%{name}-libkonq = %{version}-%{release}
-#Requires:	%{name}-libkmultitabbar = %{version}-%{release}
 Requires:	%{name}-mailnews = %{version}-%{release}
 Obsoletes:	%{name}-konqueror
 Obsoletes:	%{name}-libkmultitabbar
@@ -773,6 +770,8 @@ cp $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop 
 ALD=$RPM_BUILD_ROOT%{_applnkdir}
 mv $ALD/{Settings,KDE-Settings}
 mv $ALD/Help.desktop			$RPM_BUILD_ROOT%{_desktopdir}
+mv $ALD/Home.desktop			$RPM_BUILD_ROOT%{_desktopdir}
+mv $ALD/Kfind.desktop			$RPM_BUILD_ROOT%{_desktopdir}
 mv $ALD/Settingsmenu/*.desktop		$RPM_BUILD_ROOT%{_desktopdir}
 mv $ALD/System/kinfocenter.desktop	$RPM_BUILD_ROOT%{_desktopdir}
 
@@ -1082,7 +1081,6 @@ fi
 %{_applnkdir}/.hidden/power.desktop
 %{_applnkdir}/.hidden/socks.desktop
 %{_applnkdir}/.hidden/virtualdesktops.desktop
-%{_applnkdir}/Home.desktop
 %{_applnkdir}/KDE-Settings/Accessibility/kcmaccess.desktop
 %{_applnkdir}/KDE-Settings/Accessibility/keyboard_layout.desktop
 %{_applnkdir}/KDE-Settings/Accessibility/keys.desktop
@@ -1520,7 +1518,7 @@ fi
 %files kfind -f kfind.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kfind
-%{_applnkdir}/Kfind.desktop
+%{_desktopdir}/Kfind.desktop
 %{_icondir}/*/*/apps/kfind.png
 
 %files kicker -f kicker.lang
@@ -1986,8 +1984,9 @@ fi
 # hidden
 %{_applnkdir}/KDE-Settings/WebBrowsing
 %{_applnkdir}/System/konquerorsu.desktop
-#
 %{_applnkdir}/konqueror.desktop
+#
+%{_desktopdir}/Home.desktop
 %{_desktopdir}/kfmclient.desktop
 %{_desktopdir}/kfmclient_dir.desktop
 %{_desktopdir}/kfmclient_html.desktop
