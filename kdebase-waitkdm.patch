@@ -1,13 +1,5 @@
 --- ./kdm/server.c.orig	Wed Mar 24 21:50:03 1999
 +++ ./kdm/server.c	Thu Mar 25 00:42:57 1999
-@@ -81,6 +81,7 @@
- 
- extern void CleanUpChild();
- 
-+
- int StartServerOnce (d)
- struct display	*d;
- {
 @@ -89,6 +90,11 @@
      char	arg[1024];
      char	**parseArgs ();
