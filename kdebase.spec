@@ -4,7 +4,7 @@ Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Summary(pt_BR):	K Desktop Environment - arquivos básicos
 Name:		kdebase
 Version:	2.2.2
-Release:	2
+Release:	3
 Epoch:		6
 License:	GPL
 Group:		X11/Applications
@@ -497,9 +497,9 @@ fi
 %{_fontdir}/misc/console8*.gz
 #%{_fontdir}/misc/*.gz
 
-%attr(0640,root,root) %config %verify(not size mtime md5) /etc/pam.d/kscreensaver
+%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kscreensaver
 # Must be here. kcheckpass needs it.
-%attr(0640,root,root) %config %verify(not size mtime md5) /etc/pam.d/kdm
+%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdm
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kdm
 
 %files devel
