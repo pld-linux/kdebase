@@ -7,6 +7,9 @@
 	<Menu>
 		<Name>Information</Name>
 		<Directory>kde-information.directory</Directory>
+		<Include>
+			<Category>X-KDE-information</Category>
+		</Include>
 	</Menu>
 	<Menu>
 		<Name>Accessibility</Name>
