@@ -112,7 +112,7 @@ Requires(post,postun):	/sbin/ldconfig
 Requires:	applnk >= 1.5.16
 Requires:	kde-splash
 Requires:       kde-sdscreen
-Requires:	konqueror = %{version}-%{release}
+Requires:	konqueror = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name}-fonts
 Obsoletes:	%{name}-kcheckpass
 Obsoletes:	%{name}-kdesktop_lock
