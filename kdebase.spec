@@ -1,6 +1,6 @@
 %define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		4.6
+%define		_rel		4.7
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -74,7 +74,8 @@ BuildRequires:	libxml2-progs
 Prereq:		/sbin/ldconfig
 Prereq:		/usr/X11R6/bin/mkfontdir
 Requires:	applnk
-Requires:	konqueror
+Requires:	konqueror >= %{version}
+Requires:	kdelibs >= %{version}
 Obsoletes:	%{name}-kcontrol
 Obsoletes:	%{name}-khelpcenter
 Obsoletes:	%{name}-konsole
