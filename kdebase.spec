@@ -2,7 +2,7 @@ Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
 Version:	2.1
-Release:	6
+Release:	7
 Epoch:		6
 License:	GPL
 Group:		X11/Applications
@@ -20,7 +20,7 @@ Patch4:		%{name}-kxmlrpcd-tcpsocket.patch
 Patch5:		%{name}-arrange.patch
 Patch6:		%{name}-utmp.patch
 BuildRequires:	grep
-BuildRequires:	qt-devel >= 2.2.2
+BuildRequires:	qt-devel >= 2.3.0
 BuildRequires:	kdelibs-devel >= %{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
@@ -33,8 +33,6 @@ BuildRequires:	OpenGL-devel
 BuildRequires:	openssl-devel
 BuildRequires:	lesstif-devel
 Prereq:		/sbin/ldconfig
-Requires:	kdelibs = %{version}
-Requires:	qt >= 2.2.2
 Requires:	applnk
 Requires:	konqueror
 Obsoletes:	%{name}-kcontrol
@@ -72,7 +70,7 @@ Summary(pl):	Pliki nag³ówkowe potrzebne do programowania.
 Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
-Requires:	qt-devel >= 2.2.2
+Requires:	qt-devel >= 2.3.0
 Requires:	kdelibs-devel = %{version}
 
 %description devel
@@ -88,7 +86,7 @@ Summary(pl):	Statyczne biblioteki KDE
 Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
-Requires:	qt-devel >= 2.2.2
+Requires:	qt-devel >= 2.3.0
 Requires:	kdelibs-devel = %{version}
 
 %description static
@@ -103,7 +101,7 @@ Summary(pl):	KDE Display Manager
 Group:		X11/Applications
 Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
-Requires:	qt >= 2.2.2
+Requires:	qt >= 2.3.0
 Requires:	kdelibs = %{version}
 Obsoletes:	gdm
 Obsoletes:	xdm
@@ -122,7 +120,7 @@ Summary(pl):	Konqueror - przegl±darka WWW i mened¿er plików
 Group:		X11/Applications
 Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
-Requires:	qt >= 2.2.2
+Requires:	qt >= 2.3.0
 Requires:	kdelibs = %{version}
 Obsoletes:	kdebase-konqueror
 
@@ -140,7 +138,7 @@ Summary(pl):	Wygaszacze ekranu desktopu KDE
 Group:		X11/Applications
 Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
-Requires:	qt >= 2.2.2
+Requires:	qt >= 2.3.0
 Requires:	kdelibs = %{version}
 
 %description screensavers
@@ -297,8 +295,10 @@ fi
 
 %attr(0755,root,root) %{_libdir}/[ae]*.la
 %attr(0755,root,root) %{_libdir}/[ae]*.so*
-%attr(0755,root,root) %{_libdir}/k[cdfhilmwx]*.la
-%attr(0755,root,root) %{_libdir}/k[cdfhilmwx]*.so*
+%attr(0755,root,root) %{_libdir}/k[dfhilmwx]*.la
+%attr(0755,root,root) %{_libdir}/k[dfhilmwx]*.so*
+%attr(0755,root,root) %{_libdir}/kcminit.??
+%attr(0755,root,root) %{_libdir}/kcontrol.??
 %attr(0755,root,root) %{_libdir}/konsole.la
 %attr(0755,root,root) %{_libdir}/konsole.so*
 %attr(0755,root,root) %{_libdir}/lib[cdqt]*.la
@@ -440,6 +440,7 @@ fi
 
 %attr(0755,root,root) %{_libdir}/keditbookmarks.la
 %attr(0755,root,root) %{_libdir}/keditbookmarks.so
+%attr(0755,root,root) %{_libdir}/kcmshell.??
 %attr(0755,root,root) %{_libdir}/konqueror.la
 %attr(0755,root,root) %{_libdir}/konqueror.so*
 %attr(0755,root,root) %{_libdir}/libhtmlsearch.la
