@@ -28,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	3
+Release:	4
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -1497,7 +1497,7 @@ fi
 %attr(755,root,root) %{_bindir}/kcontrol
 %attr(755,root,root) %{_bindir}/kdebugdialog
 %attr(755,root,root) %{_bindir}/kdesu
-%attr(2755,root,nogroup) %{_bindir}/kdesud
+%attr(2755,root,nobody) %{_bindir}/kdesud
 %attr(755,root,root) %{_bindir}/khelpcenter
 %attr(755,root,root) %{_bindir}/kprinter
 # KDE-style (lt_)dlopenable binaries
