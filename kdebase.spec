@@ -14,7 +14,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.1.90
-%define         _snap		030724
+%define         _snap		030726
 
 %ifarch	sparc sparcv9 sparc64
 %define		_without_alsa	1
@@ -37,7 +37,7 @@ License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:        http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-#%% Source0-md5:	21cedd19f4332f090d5bae116234040f
+# Source0-md5:	ffafefbd923675c79bdb9ede7b878c79
 #Source0:        http://team.pld.org.pl/~djurban/kde/%{name}-%{_snap}.tar.bz2
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
@@ -59,7 +59,7 @@ Patch6:		%{name}-kdmconfig.patch
 Patch7:		%{name}-kicker.patch
 Patch8:		%{name}-konsole_all.patch
 Patch9:		%{name}-nsplugins_dirs.patch
-Patch10:	%{name}-startkde.patch
+#Patch10:	%{name}-startkde.patch
 Patch11:        %{name}-kcm_fonts.patch
 Patch12:	%{name}-gtkrc.patch
 #Patch14:	%{name}-pldcredits.patch
@@ -248,26 +248,23 @@ KDE Window Decoration - Web.
 %description -n kde-decoration-web -l pl
 Dekoracja okna dla KDE - Web.
 
-%package -n kde-sdscreen-default
+%package -n kde-logoutpic-default
 Summary:        KDE "Logout" picture
 Summary(pl):    Obrazek okna "Wyloguj" KDE
 Group:          X11/Amusements
-Provides:       kde-sdscreen
+Provides:       kde-logoutpic
 Requires:	%{name}-desktop
-Obsoletes:	kde-sdscreen-KDEGirl
-Obsoletes:      kde-sdscreen-keramik
 
-%description -n kde-sdscreen-default
+%description -n kde-logoutpic-default
 Default KDE "Logout" picture.
 
-%description -n kde-sdscreen-default -l pl
+%description -n kde-logoutpic-default -l pl
 Standardowy obrazek okna "Wyloguj" KDE.
 
 %package -n kde-splashplugin-Redmond
 Summary:	ksplash plugin Redmond
 Summary(pl):	Wtyczka ksplash Redmond
 Group:		X11/Amusements
-Provides:	ksplashplugin
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 Obsoletes:	kde-splashplugin-XpLike
 
@@ -281,7 +278,6 @@ Wtyczka ksplash Redmond.
 Summary:	ksplash plugin Standard
 Summary(pl):	Wtyczka ksplash Standard
 Group:		X11/Amusements
-Provides:	ksplashplugin
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
 %description -n kde-splashplugin-Standard
@@ -350,7 +346,7 @@ Summary:	TODO
 Summary(pl):	TODO
 Group:		X11/Applications
 Requires(post,postun):	/sbin/ldconfig
-Requires:       kde-sdscreen
+Requires:       kde-logoutpic
 Requires:	kicker
 Requires:	konqueror = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name}
@@ -366,6 +362,7 @@ Obsoletes:	%{name}-kxmlrpc
 Obsoletes:	%{name}-screensaver
 Obsoletes:	%{name}-static
 Obsoletes:	%{name}-wallpapers
+Obsoletes:	kde-sdscreen
 Obsoletes:	kde-splash
 Obsoletes:	kde-theme-keramik
 
@@ -747,7 +744,7 @@ Internet Explorer.
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
-%patch10 -p1
+#%patch10 -p1
 %patch11 -p1
 %patch12 -p1
 #%patch14 -p1
@@ -1052,7 +1049,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kwin_web.so
 %{_datadir}/apps/kwin/web.desktop
 
-%files -n kde-sdscreen-default
+%files -n kde-logoutpic-default
 %defattr(644,root,root,755)
 %{_datadir}/apps/ksmserver/pics/shutdownkonq.png
 
