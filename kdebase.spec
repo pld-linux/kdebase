@@ -6,7 +6,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040508
+%define		_snap		040513
 %define		_packager	adgor
 
 Summary:	K Desktop Environment - core files
@@ -103,7 +103,7 @@ BuildRequires:	openssl-devel >= 0.9.7c
 BuildRequires:	pam-devel
 %{?with_apidocs:BuildRequires:	qt-doc}
 BuildRequires:	rpmbuild(macros) >= 1.129
-BuildRequires:	unsermake
+BuildRequires:	unsermake >= 040511
 BuildConflicts: %{name}-konqueror-libs
 Conflicts:	kdelibs < 9:3.1.94.040110-1
 # TODO: sensors
@@ -890,9 +890,6 @@ cd -
 
 %{__tar} xfj %{SOURCE11} -C konqueror/sidebar/
 
-# Sometimes i think They are insane
-rm kdepasswd/configure.in.in
-
 %build
 cp /usr/share/automake/config.sub admin
 
@@ -919,17 +916,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_htmldir=%{_kdedocdir}
-
-# Workaround for doc caches (unsermake bug?)
-cd doc
-for i in `find . -name index.cache.bz2`; do
-	if [ -d `echo $RPM_BUILD_ROOT%{_kdedocdir}/en/$i |sed -e 's/\/index.cache.bz2//'` ]; then 
-		install -c -p -m 644 $i $RPM_BUILD_ROOT%{_kdedocdir}/en/$i
-	fi	
-done
-cd -
-install -c -p -m 644 doc/kcontrol/helpindex/index.cache.bz2 \
-	$RPM_BUILD_ROOT%{_kdedocdir}/en/kcontrol/helpindex.html/index.cache.bz2
 
 install -d \
 	$RPM_BUILD_ROOT/etc/{X11/kdm/faces,pam.d,rc.d/init.d,security} \
@@ -1010,7 +996,7 @@ for f in `grep -El 'X-KDE-settings|X-KDE-information' *`; do
 done
 cd -
 
-# <find_lang>
+# find_lang
 > core.lang
 programs=" \
 	colors \
@@ -1099,38 +1085,8 @@ done
 cat kcmkonsole.lang	>> konsole.lang
 cat kioslave.lang	>> kinfocenter.lang
 
-files="\
-	core \
-	kdebase \
-	konqueror \
-	konsole \
-	kinfocenter \
-	kate \
-	kdm \
-	kfind \
-	kioslave \
-	klipper \
-	ksysguard \
-	kpager \
-	kwrite \
-	screensaver \
-	kcmfontinst"
-
-for i in $files; do
-	echo "%defattr(644,root,root,755)" > ${i}_en.lang
-	grep en\/ ${i}.lang|grep -v apidocs >> ${i}_en.lang
-	grep -v apidocs ${i}.lang|grep -v en\/ > ${i}.lang.1
-	mv ${i}.lang.1 ${i}.lang
-done
-
-for i in $durne; do
-	echo $i >> control
-	grep -v en\/ $i|grep -v apidocs >> ${i}.1
-	if [ -f ${i}.1 ] ; then
-		mv ${i}.1 ${i}
-	fi
-done
-# </find_lang>
+# Omit apidocs entries
+sed -i 's/.*apidocs.*//' *.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -1403,7 +1359,7 @@ fi
 %{_iconsdir}/[!l]*/*/apps/bell.png
 %{_iconsdir}/*/*/apps/key_bindings.png
 
-%files core -f core_en.lang
+%files core -f core.lang
 %defattr(644,root,root,755)
 %lang(en) %dir %{_kdedocdir}/en/kcontrol
 %lang(en) %{_kdedocdir}/en/kcontrol/common
@@ -1527,7 +1483,7 @@ fi
 %{_iconsdir}/*/*/apps/samba.png
 %{_iconsdir}/*/*/apps/usb.png
 
-%files desktop -f %{name}_en.lang
+%files desktop -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS README README.pam
 %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdesktop
@@ -1947,7 +1903,7 @@ fi
 %{_libdir}/libtaskmanager.la
 %attr(0755,root,root) %{_libdir}/libtaskmanager.so.*.*.*
 
-%files infocenter -f kinfocenter_en.lang
+%files infocenter -f kinfocenter.lang
 %defattr(644,root,root,755)
 /etc/xdg/menus/kde-information.menu
 %attr(0755,root,root) %{_bindir}/kinfocenter
@@ -2002,7 +1958,7 @@ fi
 %{_desktopdir}/kde/kappfinder.desktop
 %{_iconsdir}/*/*/apps/kappfinder.png
 
-%files kate -f kate_en.lang
+%files kate -f kate.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kate
 %{_libdir}/libkdeinit_kate.la
@@ -2044,13 +2000,13 @@ fi
 %doc kdialog/{README,test}
 %attr(0755,root,root) %{_bindir}/kdialog
 
-%files kfind -f kfind_en.lang
+%files kfind -f kfind.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kfind
 %{_desktopdir}/kde/Kfind.desktop
 %{_iconsdir}/*/*/apps/kfind.png
 
-%files kfontinst -f kcmfontinst_en.lang
+%files kfontinst -f kcmfontinst.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kfontinst
 %attr(0755,root,root) %{_bindir}/kfontview
@@ -2086,7 +2042,7 @@ fi
 %{_desktopdir}/kde/kjobviewer.desktop
 %{_iconsdir}/*/*/apps/kjobviewer.png
 
-%files klipper -f klipper_en.lang
+%files klipper -f klipper.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/klipper
 %{_libdir}/libkdeinit_klipper.la
@@ -2100,7 +2056,7 @@ fi
 %{_desktopdir}/kde/klipper.desktop
 %{_iconsdir}/*/*/apps/klipper.png
 
-%files konsole -f konsole_en.lang
+%files konsole -f konsole.lang
 %defattr(644,root,root,755)
 %doc konsole/README*
 %attr(0755,root,root) %{_bindir}/konsole
@@ -2117,7 +2073,7 @@ fi
 %{_iconsdir}/*/*/apps/konsole.png
 # TODO
 
-%files kpager -f kpager_en.lang
+%files kpager -f kpager.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kpager
 %{_desktopdir}/kde/kpager.desktop
@@ -2130,7 +2086,7 @@ fi
 %{_desktopdir}/kde/kpersonalizer.desktop
 %{_iconsdir}/*/*/apps/kpersonalizer.png
 
-%files ksysguard -f ksysguard_en.lang
+%files ksysguard -f ksysguard.lang
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not size mtime md5) /etc/ksysguarddrc
 %attr(0755,root,root) %{_bindir}/kpm
@@ -2144,7 +2100,7 @@ fi
 %{_iconsdir}/*/*/apps/ksysguard.png
 
 
-#%files kwmtheme -f kthememgr_en.lang
+#%files kwmtheme -f kthememgr.lang
 #%defattr(644,root,root,755)
 #%attr(0755,root,root) %{_bindir}/kdeinstallktheme
 #%attr(0755,root,root) %{_bindir}/kwmtheme
@@ -2157,7 +2113,7 @@ fi
 #%{_desktopdir}/kde/kthememgr.desktop
 #%{_iconsdir}/*/*/apps/kthememgr.png
 
-%files kwrite -f kwrite_en.lang
+%files kwrite -f kwrite.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kwrite
 %attr(0755,root,root) %{_bindir}/kwriteconfig
@@ -2195,7 +2151,7 @@ fi
 #%{_libdir}/libsensordisplays.la
 #%attr(0755,root,root) %{_libdir}/libsensordisplays.so.*.*.*
 
-%files screensavers -f screensaver_en.lang
+%files screensavers -f screensaver.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/*.kss
 %{_libdir}/kde3/kcm_screensaver.la
@@ -2216,7 +2172,7 @@ fi
 %{_desktopdir}/kde/kcm_useraccount.desktop
 %{_desktopdir}/kde/kdepasswd.desktop
 
-%files -n kdm -f kdm_en.lang
+%files -n kdm -f kdm.lang
 %defattr(644,root,root,755)
 %doc README.pam kdm/{ChangeLog,README,TODO}
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdm
@@ -2247,7 +2203,7 @@ fi
 %{_desktopdir}/kde/kdm.desktop
 %{_iconsdir}/*/*/apps/kdmconfig.png
 
-%files -n konqueror -f konqueror_en.lang
+%files -n konqueror -f konqueror.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/appletproxy
 %attr(0755,root,root) %{_bindir}/extensionproxy
@@ -2418,6 +2374,7 @@ fi
 %{_datadir}/config/konqsidebartng.rc
 %{_datadir}/config/kshorturifilterrc
 %{_datadir}/config/mountwatcher.desktop
+%{_datadir}/mimelnk/application/x-smb-server.desktop
 %{_datadir}/mimelnk/application/x-smb-workgroup.desktop
 %{_datadir}/mimelnk/kdedevice
 %{_datadir}/services/searchproviders
