@@ -29,12 +29,19 @@ case "$1" in
 		touch /var/lock/subsys/kdm
 	else
 		msg_already_running "KDE Display Manager"
+		exit 1
 	fi
 	;;
   stop)
-	msg_stopping "KDE Display Manager"
-	killproc kdm
-	rm -f /var/lock/subsys/kdm
+	# Check if the service is already running?
+	if [ -f /var/lock/subsys/kdm ]; then
+		msg_stopping "KDE Display Manager"
+		killproc kdm
+		rm -f /var/lock/subsys/kdm
+	else
+		msg_not_running "KDE Display Manager"
+		exit 1
+	fi
 	;;
   status)
 	status kdm

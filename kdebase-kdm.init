@@ -2,7 +2,7 @@
 #
 # kdm:		Starts the KDE Display Manager
 #
-# Version:      @(#) /etc/rc.d/init.d/kdm 0.1
+# Version:	@(#) /etc/rc.d/init.d/kdm 0.1
 #
 # description:	Starts and stops the KDE Display Manager at startup and
 #		shutdown..
@@ -16,7 +16,7 @@
 
 # Get service config
 if [ -f /etc/sysconfig/kdm ] ; then
-        . /etc/sysconfig/kdm
+	. /etc/sysconfig/kdm
 fi
 
 # See how we were called.
@@ -29,12 +29,19 @@ case "$1" in
 		touch /var/lock/subsys/kdm
 	else
 		msg_already_running "KDE Display Manager"
+		exit 1
 	fi
 	;;
   stop)
-	msg_stopping "KDE Display Manager"
-	killproc kdm
-	rm -f /var/lock/subsys/kdm
+	# Check if the service is already running?
+	if [ -f /var/lock/subsys/kdm ]; then
+		msg_stopping "KDE Display Manager"
+		killproc kdm
+		rm -f /var/lock/subsys/kdm
+	else
+		msg_already_running "KDE Display Manager"
+		exit 1
+	fi
 	;;
   status)
 	status kdm
@@ -44,7 +51,7 @@ case "$1" in
 	$0 start
 	;;
   *)
-	echo "Usage: $0 {start|stop|status|restart|reload}"
+	msg_usage "$0 {start|stop|restart|reload|status}"
 	exit 1
 esac
 
