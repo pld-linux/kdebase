@@ -31,24 +31,6 @@
  
 --- kdebase-3.1/konsole/konsole/konsole.cpp.orig	Sat Nov 23 19:06:02 2002
 +++ kdebase-3.1/konsole/konsole/konsole.cpp	Fri Nov 29 03:40:43 2002
-@@ -161,7 +161,7 @@
-  "13",  // medium
-  "15",  // large
-  "20", // huge
-- "-misc-console-medium-r-normal--16-160-72-72-c-160-iso10646-1", // "Linux"
-+ "console8x16", // "Linux"
-  "-misc-fixed-medium-r-normal--15-140-75-75-c-90-iso10646-1",    // "Unicode"
-  };
- #define TOPFONT (sizeof(fonts)/sizeof(char*))
-@@ -1068,7 +1068,7 @@
- 
-       // Options that should be applied to all sessions /////////////
-       // (1) set menu items and Konsole members
--      QFont tmpFont("fixed");
-+      QFont tmpFont( KGlobalSettings::fixedFont() );
-       tmpFont.setFixedPitch(true);
-       tmpFont.setStyleHint(QFont::TypeWriter);
-       defaultFont = config->readFontEntry("defaultfont", &tmpFont);
 @@ -1864,7 +1864,7 @@
  
  QString Konsole::newSession(KSimpleConfig *co, QString program, const QStrList &args, const QString &_term,const QString &_icon,const QString &_title, const QString &_cwd)
@@ -60,15 +42,6 @@
    QString sch = s_kconfigSchema;
 --- kdebase-3.0.99/konsole/konsole/konsole_part.cpp.orig	Sun Oct 27 00:06:56 2002
 +++ kdebase-3.0.99/konsole/konsole/konsole_part.cpp	Wed Nov 20 11:10:03 2002
-@@ -130,7 +130,7 @@
-  "13",  // medium
-  "15",  // large
-  "20", // huge
-- "-misc-console-medium-r-normal--16-160-72-72-c-160-iso10646-1", // "Linux"
-+ "console8x16", // "Linux"
-  "-misc-fixed-medium-r-normal--15-140-75-75-c-90-iso10646-1",    // "Unicode"
-  };
- 
 @@ -167,7 +167,7 @@
    te->setMinimumSize(150,70);    // allow resizing, cause resize in TEWidget
  
