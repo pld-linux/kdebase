@@ -35,8 +35,8 @@ Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 Source1:	%{name}-kcheckpass.pam
 Source2:	%{name}-kdm.pam
-Source3:	kdm.init
-Source4:	kdm.Xsession
+Source3:	%{name}-kdm.init
+Source4:	%{name}-kdm.Xsession
 Source5:	%{name}-kdm.Xservers
 Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
