@@ -12,7 +12,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.4
-Release:	5
+Release:	6
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -338,7 +338,7 @@ export CPPFLAGS
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_applnkdir}/{Amusements,Help,Network/WWW,Office/Editors,Settings/KDE,System/Administration,Terminals} \
+install -d $RPM_BUILD_ROOT%{_applnkdir}/{Amusements,Editors,Help,Network/WWW,Utilities,Settings/KDE,System/Administration,Terminals} \
 	$RPM_BUILD_ROOT/etc/{pam.d,security,rc.d/init.d,X11/kdm}
 
 %{__make} install \
@@ -356,7 +356,6 @@ ALD=$RPM_BUILD_ROOT%{_applnkdir}
 mv -f $ALD/{Internet/konqbrowser.desktop,Network/WWW}
 mv -f $ALD/{Internet/keditbookmarks.desktop,Network/WWW}
 mv -f $ALD/{Toys/ktip.desktop,Amusements}
-mv -f $ALD/{Editors/{kate,kwrite}.desktop,Office/Editors}
 mv -f $ALD/{System/konsole.desktop,Terminals}
 mv -f $ALD/{System/{konquerorsu,konsolesu}.desktop,System/Administration}
 mv -f $ALD/{System/{kappfinder,kmenuedit,kpersonalizer}.desktop,Utilities}
@@ -617,6 +616,7 @@ fi
 %{_applnkdir}/Kfind.desktop
 %{_applnkdir}/.hidden/konqfilemgr.desktop
 %{_applnkdir}/Amusements/*.desktop
+%{_applnkdir}/Editors/*.desktop
 %{_applnkdir}/Settings/KDE/Help
 %{_applnkdir}/Settings/KDE/Databases
 %{_applnkdir}/Settings/KDE/Information
@@ -637,7 +637,6 @@ fi
 %{_applnkdir}/System/Administration/konsolesu.desktop
 %{_applnkdir}/Terminals/*.desktop
 %{_applnkdir}/Utilities/[!o]*.desktop
-%{_applnkdir}/Office/Editors/*.desktop
 # No idea what it is for...
 #%{_applnkdir}/ksysguard
 
