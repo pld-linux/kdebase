@@ -256,7 +256,7 @@ Summary(pl):	Biblioteki s³u¿±ce do zapytañ o has³o
 Group:		X11/Libraries
 Requires:	kdelibs >= 9:%{version}
 Provides:	kde-kgreet
-Conflicts:	kdm =< 3.2.90.040503-1
+Conflicts:	kdm =< 3.2.2-2
 
 %description -n kde-kgreet-classic
 KDE greeter libraries.
