@@ -471,7 +471,7 @@ Obsoletes:	%{name}-desktop < 9:3.1.91.030911
 Graphic DCOP browser/client.
 
 %description kdcop -l pl
-Graficzna przegladarka/klient DCOP.
+Graficzna przegl±darka/klient DCOP.
 
 %package kdialog
 Summary:	A KDE version of dialog
@@ -637,7 +637,7 @@ Obsoletes:	%{name} < 9:3.1.92.031021
 KDE desktop settings wizard.
 
 %description kpersonalizer -l pl
-Kreator ustawieñ srodowiska KDE.
+Kreator ustawieñ ¶rodowiska KDE.
 
 %package ksysguard
 Summary:	System Guard
