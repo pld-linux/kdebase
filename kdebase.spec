@@ -263,7 +263,8 @@ fi
 %attr(0755,root,root) %{_bindir}/khtmlindex
 %attr(0755,root,root) %{_bindir}/klegacyimport
 %attr(0755,root,root) %{_bindir}/klipper
-%attr(0755,root,root) %{_bindir}/ks[mpty]*
+%attr(0755,root,root) %{_bindir}/ks[mty]*
+%attr(0755,root,root) %{_bindir}/ksplash
 %attr(0755,root,root) %{_bindir}/krdb
 %attr(0755,root,root) %{_bindir}/kreadconfig
 %attr(0755,root,root) %{_bindir}/kpager
@@ -307,6 +308,7 @@ fi
 %{_applnkdir}/Amusements/*.desktop
 %{_applnkdir}/Development/*.desktop
 %{_applnkdir}/Office/Editors/*.desktop
+%{_applnkdir}/Settings/KDE/.directory
 %{_applnkdir}/Settings/KDE/Help
 %{_applnkdir}/Settings/KDE/Information
 %{_applnkdir}/Settings/KDE/LookNFeel/background.desktop
