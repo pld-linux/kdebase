@@ -224,7 +224,7 @@ Provides:	kde-splash
 %description -n kde-splash-default
 Default splash screen for KDE.
 
-%description -m kde-splash-default -l pl
+%description -n kde-splash-default -l pl
 Standardowy obrazek startowy KDE.
 
 %prep
