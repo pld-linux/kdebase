@@ -113,7 +113,7 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements}
 install kwrite/kwrite.desktop		$RPM_BUILD_ROOT%{_applnkdir}/Office/Editors
 install konqueror/konqbrowser.desktop	$RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
 install ktip/ktip.desktop		$RPM_BUILD_ROOT%{_applnkdir}/Amusements
-install %{SOURCE0}			$RPM_BUILD_ROOT%{_bindir}
+install %{SOURCE1}			$RPM_BUILD_ROOT%{_bindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
