@@ -1,14 +1,5 @@
---- kdmrc.orig	Sat Dec  1 18:39:40 2001
-+++ kdmrc	Sat Dec  1 20:14:10 2001
-@@ -38,7 +38,7 @@
- 
- # XXX do this on a per-display basis: should be [X-*-Desktop]
- # HELPME: I need help with kbackgroundrenderer!  -- ossi@kde.org
--[Desktop0]
-+[X-*-Desktop]
- BackgroundMode=VerticalGradient
- BlendBalance=100
- BlendMode=NoBlending
+--- kdmrc.orig	Sun Dec  2 14:27:01 2001
++++ kdmrc	Sun Dec  2 14:42:36 2001
 @@ -64,7 +64,7 @@
  # Default is /usr/X11R6/share/config/kdm/Xservers
  # XXX i'm planning to absorb this file into kdmrc, but i'm not sure how to
@@ -18,13 +9,7 @@
  # Where KDM should store its PID. Default is /var/run/xdm.pid - this
  # is an intentional conflict with "plain" XDM.
  #PidFile=/var/run/kdm.pid
-@@ -89,12 +89,12 @@
- #Port=177
- # File with the private keys of X-terminals. Required for XDM authentication.
- # Default is /usr/X11R6/share/config/kdm/kdmkeys
--#KeyFile=
-+KeyFile=/etc/X11/kdm/kdmkeys
- # XDMCP access control file in the usual xdm-Xaccess format.
+@@ -94,7 +94,7 @@
  # Default is /usr/X11R6/share/config/kdm/Xaccess
  # XXX i'm planning to absorb this file into kdmrc, but i'm not sure how to
  # do this best.
@@ -33,7 +18,7 @@
  # Number of seconds to wait for display to respond after the user has
  # selected a host from the chooser. Default is 15.
  #ChoiceTimeout=10
-@@ -107,11 +107,11 @@
+@@ -107,7 +107,7 @@
  # The program which is invoked to dynamically generate replies to XDMCP
  # BroadcastQuery requests.
  # By default no program is invoked and "Willing to manage" is sent.
@@ -42,11 +27,6 @@
  
  [Shutdown]
  # The command to run to halt the system. Default is /sbin/halt
--HaltCmd=/sbin/poweroff
-+#HaltCmd=/sbin/poweroff
- # The command to run to reboot the system. Default is /sbin/reboot
- RebootCmd=/sbin/reboot
- # Offer LiLo boot options in shutdown dialog. Default is false
 @@ -175,20 +175,20 @@
  # A program to run before the greeter is shown. You should start kdmdesktop
  # there. Also, xconsole can be started by this script.
@@ -81,17 +61,25 @@
  # Command FiFo options.
  # XXX these options will probably change ...
  # Default is false
-@@ -258,7 +258,7 @@
- # - %m -> the machine (hardware) type
+@@ -232,7 +232,7 @@
+ # Session types the users can select. It is advisable to have "default" and
+ # "failsafe" listed herein, which is also the default.
+ # Note, that the meaning of this value is entirely up to your Session program.
+-SessionTypes=default,kde,failsafe
++SessionTypes=default,kde,gnome,failsafe
+ # Widget Style of the greeter:
+ # KDE, Windows, Platinum, Motif, Motif+, CDE, SGI; Default is KDE
+ #GUIStyle=Windows
+@@ -259,6 +259,7 @@
  # - %% -> a single %
  # Default is "Welcome to %s at %n"
--GreetString=Polish(ed) Linux Distribution (%n)
-+GreetString=Polish(ed) Linux Distribution on %n
+ #GreetString=K Desktop Environment (%n)
++GreetString=Welcome to PLD GNU/Linux at %n
  # The font for the headline. Default is charter,24,bold
- GreetFont=heveltica,12,5,0,75,0
+ #GreetFont=charter,24,5,0,50,0
  # The normal font used in the greeter. Default is helvetica,12
-@@ -280,7 +280,7 @@
- NoUsers=adm,apache,bin,bind,daemon,exim,falken,ftp,games,gdm,gopher,halt,httpd,ingres,kmem,lp,mail,mailnull,man,mta,news,nobody,nscd,operator,pop,postfix,reboot,rpc,rpcuser,sendmail,shutdown,sync,tty,uucp,xfs,xten,xdm
+@@ -280,7 +281,7 @@
+ NoUsers=adm,alias,amanda,apache,bin,bind,daemon,exim,falken,ftp,games,gdm,gopher,halt,httpd,ident,ingres,kmem,lp,mail,mailnull,man,mta,mysql,named,news,nfsnobody,nobody,nscd,ntp,operator,pcap,pop,postfix,postgres,qmaild,qmaill,qmailp,qmailq,qmailr,qmails,radvd,reboot,rpc,rpcuser,rpm,sendmail,shutdown,squid,sympa,sync,tty,uucp,xfs,xten
  # Special case of NoUsers: users with a UID less than this number (except root)
  # will not be shown as well. Default is 0
 -#MinShowUID=1000
@@ -99,3 +87,33 @@
  # Complement to MinShowUID: users with a UID greater than this number will
  # not be shown as well. Default is 65535
  #MaxShowUID=29999
+@@ -309,7 +310,7 @@
+ # "None" - no "Shutdown..." button is shown at all
+ # "Root" - the root password must be entered to shut down
+ # "All" - everybody can shut down the machine (Default)
+-AllowShutdown=Root
++AllowShutdown=None
+ # Hold the X-server grabbed the whole time the greeter is visible.
+ # This may be more secure, but will disable any background. Default is false
+ #GrabServer=true
+@@ -323,9 +324,9 @@
+ # How long to wait for a local X-server to come up. Default is 15
+ #ServerTimeout=
+ # See above.
+-AllowRootLogin=true
++AllowRootLogin=false
+ # See above.
+-AllowNullPasswd=true
++AllowNullPasswd=false
+ # Enable password-less logins on this display. USE WITH EXTREME CARE!
+ # Default is false
+ #NoPassEnable=true
+@@ -334,7 +335,7 @@
+ 
+ [X-:*-Greeter]
+ # See above.
+-AllowShutdown=All
++AllowShutdown=Root
+ # Complain, if local X-authorization cannot be created. Default is true
+ # XXX this is a dummy currently
+ #AuthComplain=false
