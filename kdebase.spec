@@ -7,12 +7,14 @@
 #
 # Conditional Builds:
 #
-# _with_db		- use it if You have db package installed
+# _with_db3		- use it if You have db package installed
 # _without_alsa 	- disable alsa
 #
 
-%define		_state		unstable
-%define		_kdever		kde-3.1-rc5
+%define         _state          unstable
+%define         _ver		3.1
+%define         _rcver		rc6
+%define         _kdever		kde-%{_ver}-%{_rcver}
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -24,8 +26,8 @@ Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
-Version:	3.1
-Release:	9
+Version:	%{_ver}%{_rcver}
+Release:	1
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -38,18 +40,17 @@ Source4:	kdm.Xsession
 Source6:	%{name}-kscreensaver.pam
 Source7:	%{name}-kdm.Xservers
 Source9:	%{name}-kdm_pldlogo.png
-Patch0:		%{name}-fix-kdm-users.cpp.patch
-Patch1:		%{name}-fix-mem-leak-in-kfind.patch
-Patch2:		%{name}-fix-mouse.cpp.patch
-Patch3:		%{name}-fontdir.patch
-Patch4:		%{name}-kcm_background.patch
-Patch5:		%{name}-kdm.daemon_output.patch
-Patch6:		%{name}-kdm_utmpx.patch
-Patch7:		%{name}-kdmconfig.patch
-Patch8:		%{name}-kicker.patch
-Patch9:		%{name}-konsole_all.patch
-Patch10:	%{name}-nsplugins_dirs.patch
-Patch11:	%{name}-startkde.patch
+Patch0:		%{name}-fix-mem-leak-in-kfind.patch
+Patch1:		%{name}-fix-mouse.cpp.patch
+Patch2:		%{name}-fontdir.patch
+Patch3:		%{name}-kcm_background.patch
+Patch4:		%{name}-kdm.daemon_output.patch
+Patch5:		%{name}-kdm_utmpx.patch
+Patch6:		%{name}-kdmconfig.patch
+Patch7:		%{name}-kicker.patch
+Patch8:		%{name}-konsole_all.patch
+Patch9:		%{name}-nsplugins_dirs.patch
+Patch10:	%{name}-startkde.patch
 %ifnarch sparc sparc64
 %{!?_without_alsa:BuildRequires: alsa-lib-devel}
 %endif
@@ -63,10 +64,10 @@ BuildRequires:	automake
 BuildRequires:	awk
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
-%if %{?_with_db:1}%{!?_with_db:0}
-BuildRequires:	db-devel
-%else
+%if %{?_with_db3:1}%{!?_with_db3:0}
 BuildRequires:	db3-devel
+%else
+BuildRequires:	db-devel
 %endif
 BuildRequires:	findutils
 BuildRequires:	gettext-devel
@@ -292,6 +293,21 @@ KDE Control Center
 %description kcontrol -l pl
 Narzêdzie do konfigurowania aplikacji KDE
 
+%package kdeprintfax
+Summary:	KDE Fax Tool
+Summary(pl):	Narzêdzie do faksowania dla KDE
+Group:		X11/Applications
+Requires:	%{name}-helpcenter = %{version}-%{release}
+Requires:	kdelibs >= %{version}
+Requires:	/usr/bin/fax
+Obsoletes:	%{name} <= 3.1-9
+
+%description kdeprintfax
+KDE Fax Tool
+
+%description kdeprintfax -l pl
+Narzêdzie do faksowania dla KDE
+
 %package kfind
 Summary:	KDE Find Tool
 Summary(pl):	Narzêdzie do wyszukiwania plików dla KDE
@@ -306,6 +322,7 @@ KDE Find Tool
 
 %description kfind -l pl
 Narzêdzie do wyszukiwania plików dla KDE
+
 
 %package konsole
 Summary:	KDE Terminal Emulator
@@ -430,7 +447,6 @@ Internet Explorer.
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
-%patch11 -p1
 
 %build
 
@@ -614,7 +630,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_bindir}/ka[!t]*
 %attr(0755,root,root) %{_bindir}/kcheckpass
 %attr(0755,root,root) %{_bindir}/kdc*
-%attr(0755,root,root) %{_bindir}/kde[!s]*
+%attr(0755,root,root) %{_bindir}/kde[!ps]*
 %attr(0755,root,root) %{_bindir}/kdes[!u]*
 %attr(2755,root,nobody) %{_bindir}/kdesud
 %attr(2755,root,nobody) %{_bindir}/kdialog
@@ -641,21 +657,23 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_libdir}/kw[!r]*
 %attr(0755,root,root) %{_libdir}/kwrited.??
 
-%attr(0755,root,root) %{_libdir}/lib[cdqt]*.*
-%attr(0755,root,root) %{_libdir}/libk[hrstw]*.*
-%attr(0755,root,root) %{_libdir}/libkickermain.la
+%{_libdir}/libkickermain.la
 %attr(0755,root,root) %{_libdir}/libkickermain.so.*
-%attr(0755,root,root) %{_libdir}/libsensordisplays.la
+%{_libdir}/libksgrd.la
+%attr(0755,root,root) %{_libdir}/libksgrd.so.*
+%{_libdir}/libsensordisplays.la
 %attr(0755,root,root) %{_libdir}/libsensordisplays.so.*
+%{_libdir}/libtask*.la
+%attr(0755,root,root) %{_libdir}/libtask*.so.*
 
-%attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so.*
-%attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.so.*
-%attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so.*
-%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so.*                                   
+%{_libdir}/kde3/childpanel_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so
+%{_libdir}/kde3/clock_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.so
+%{_libdir}/kde3/dockbar_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so
+%{_libdir}/kde3/kasbar_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so                                   
 
 %attr(0755,root,root) %{_libdir}/kde3/kcm_access.??
 %attr(0755,root,root) %{_libdir}/kde3/kcm_arts.??
@@ -698,25 +716,27 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_libdir}/kde3/kickermenu_recentdocs.??                                                  
 %attr(0755,root,root) %{_libdir}/kde3/klipper_panelapplet.??
 %attr(0755,root,root) %{_libdir}/kde3/kwin*.??
-%attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so.*
-%attr(0755,root,root) %{_libdir}/kde3/libkdeprint_part.??
-%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so.*
-%attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so.*
-%attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.so.*
-%attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.so.*
-%attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so.*
-%attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so.*
-%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.so.*
-%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.so.*
+
+%{_libdir}/kde3/launcher_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so
+%{_libdir}/kde3/libkdeprint_part.la
+%attr(0755,root,root) %{_libdir}/kde3/libkdeprint_part.so
+%{_libdir}/kde3/lockout_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so
+%{_libdir}/kde3/minipager_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so
+%{_libdir}/kde3/naughty_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.so
+%{_libdir}/kde3/run_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.so
+%{_libdir}/kde3/sysguard_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
+%{_libdir}/kde3/systemtray_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so
+%{_libdir}/kde3/taskbar_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.so
+%{_libdir}/kde3/taskbar_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.so
 
 %dir %{_datadir}/apps/ksmserver
 %dir %{_datadir}/apps/ksplash
@@ -728,7 +748,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kdcop
 %{_datadir}/apps/kdeprint/*
 %{_datadir}/apps/kdeprint_part
-%{_datadir}/apps/kdeprintfax
 %{_datadir}/apps/kdesktop
 %{_datadir}/apps/kdewizard
 %{_datadir}/apps/kdisplay
@@ -755,7 +774,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_applnkdir}/Home.desktop
 %{_applnkdir}/.hidden/[kms][!c]*
 %{_applnkdir}/System/k[!o]*.desktop
-%{_applnkdir}/Utilities/k[!e]*.desktop
+%{_applnkdir}/Utilities/k[!de]*.desktop
 %{_applnkdir}/Settings/[!K]*.desktop
 %{_applnkdir}/Settings/KDE/email.desktop
 %{_applnkdir}/Settings/KDE/Accessibility
@@ -792,7 +811,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_pixmapsdir}/*/*/apps/key[!_]*
 %{_pixmapsdir}/*/*/apps/ksysguard.png
 %{_pixmapsdir}/*/*/apps/kdisk*
-%{_pixmapsdir}/*/*/apps/kdeprint*
 %{_pixmapsdir}/*/*/apps/kwin.png
 %{_pixmapsdir}/*/*/apps/opera*
 %{_pixmapsdir}/*/*/apps/p[!er]*
@@ -813,20 +831,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/kate
 %{_includedir}/ksgrd
 %attr(0755,root,root) %{_libdir}/libkickermain.so
+%attr(0755,root,root) %{_libdir}/libkmultitabbar.so
+%attr(0755,root,root) %{_libdir}/libkonq.so
+%attr(0755,root,root) %{_libdir}/libkonqsidebarplugin.so
+%attr(0755,root,root) %{_libdir}/libksgrd.so
+%attr(0755,root,root) %{_libdir}/libnsplugin.so
 %attr(0755,root,root) %{_libdir}/libsensordisplays.so
-%attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so
-%attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so
-%attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so
-%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.so
+%attr(0755,root,root) %{_libdir}/libtask*.so
 
 %files static
 %defattr(644,root,root,755)
@@ -844,14 +855,15 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/filesharelist
 %attr(0755,root,root) %{_bindir}/fileshareset
-%attr(0755,root,root) %{_libdir}/libkmultitabbar.*
-%attr(0755,root,root) %{_libdir}/libkonsolepart.??
+%{_libdir}/libkmultitabbar.la
+%attr(0755,root,root) %{_libdir}/libkmultitabbar.so.*
 %attr(0755,root,root) %{_libdir}/kde3/kcm_fileshare.??
 %attr(0755,root,root) %{_libdir}/kde3/kio_thumbnail.??
 %attr(0755,root,root) %{_libdir}/kde3/fontthumbnail.??
 %attr(0755,root,root) %{_libdir}/kde3/gsthumbnail.??
 %attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.??
 %attr(0755,root,root) %{_libdir}/kde3/imagethumbnail.??
+%attr(0755,root,root) %{_libdir}/kde3/libkonsolepart.??
 %attr(0755,root,root) %{_libdir}/kde3/picturethumbnail.?? 
 %attr(0755,root,root) %{_libdir}/kde3/textthumbnail.??
 %{_datadir}/services/konsolepart.desktop
@@ -925,6 +937,14 @@ rm -rf $RPM_BUILD_ROOT
 %lang(en) %{_htmldir}/en/kcontrol/common
 %lang(en) %{_htmldir}/en/kcontrol/index.*
 %lang(en) %{_htmldir}/en/kcontrol/screenshot.png
+
+%files kdeprintfax
+%attr(0755,root,root) %{_bindir}/kdeprintfax
+%dir %{_datadir}/apps/kdeprintfax
+%attr(0755,root,root) %{_datadir}/apps/kdeprintfax/anytops
+%{_datadir}/apps/kdeprintfax/[!a]*
+%{_applnkdir}/Utilities/kdeprintfax.desktop
+%{_pixmapsdir}/*/*/apps/kdeprintfax.png
 
 %files kfind -f kfind.lang
 %defattr(644,root,root,755)
@@ -1023,10 +1043,15 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_libdir}/kfm*.??
 %attr(0755,root,root) %{_libdir}/konqueror.??
 %attr(0755,root,root) %{_libdir}/libkfindpart.??
-%attr(0755,root,root) %{_libdir}/libkonq*.la
-%attr(0755,root,root) %{_libdir}/libkonq*.so*
-%attr(0755,root,root) %{_libdir}/libnsplugin.la
-%attr(0755,root,root) %{_libdir}/libnsplugin.so*
+
+%{_libdir}/libkonq.la
+%attr(0755,root,root) %{_libdir}/libkonq.so.*
+%{_libdir}/libkonq_sidebar_tree.la
+%attr(0755,root,root) %{_libdir}/libkonq_sidebar_tree.so
+%{_libdir}/libkonqsidebarplugin.la
+%attr(0755,root,root) %{_libdir}/libkonqsidebarplugin.so.*
+%{_libdir}/libnsplugin.la
+%attr(0755,root,root) %{_libdir}/libnsplugin.so.*
 
 %attr(0755,root,root) %{_libdir}/kde3/kfile_font.??     
 %attr(0755,root,root) %{_libdir}/kde3/libkmanpart.??
