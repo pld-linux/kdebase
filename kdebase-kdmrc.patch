@@ -74,7 +74,7 @@
  # - %% -> a single %
  # Default is "Welcome to %s at %n"
  #GreetString=K Desktop Environment (%n)
-+GreetString=Welcome to PLD GNU/Linux at %n
++GreetString=Welcome to PLD Linux Distribution at %n
  # The font for the headline. Default is charter,24,bold
  #GreetFont=charter,24,5,0,50,0
  # The normal font used in the greeter. Default is helvetica,12
