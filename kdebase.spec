@@ -256,10 +256,10 @@ Group:          Themes
 Provides:	kde-kside
 Requires:       kdebase-kicker = %{epoch}:%{version}-%{release}
 
-%description -n kde-kside-%{_theme}
+%description -n kde-kside-default
 Default kicker sidebar.
 
-%description -n kde-kside-%{_theme} -l pl
+%description -n kde-kside-default -l pl
 Domy¶lny boczny pasek do menu KDE.
 
 %package -n kde-logoutpic-default
