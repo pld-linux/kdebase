@@ -43,7 +43,7 @@
 @@ -514,7 +514,7 @@
    b_framevis = config->readBoolEntry("has frame",false);
    b_histEnabled = config->readBoolEntry("historyenabled",true);
-   n_bell = QMIN(config->readUnsignedNumEntry("bellmode",TEWidget::BELLSYSTEM),2);
+   n_bell = QMIN(config->readUnsignedNumEntry("bellmode",TEWidget::BELLSYSTEM),3);
 -  n_font = QMIN(config->readUnsignedNumEntry("font",3),TOPFONT);
 +  n_font = QMIN(config->readUnsignedNumEntry("font",6),TOPFONT);
    n_keytab=config->readNumEntry("keytab",0); // act. the keytab for this session
