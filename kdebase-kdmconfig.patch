@@ -151,8 +151,8 @@
  
  messages:
  	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
---- kdebase-030418/kdm/kfrontend/genkdmconf.c~	2003-03-08 00:46:01.000000000 +0100
-+++ kdebase-030418/kdm/kfrontend/genkdmconf.c	2003-04-19 19:56:53.000000000 +0200
+--- kdebase-030515/kdm/kfrontend/genkdmconf.c~	2003-05-13 00:37:59.000000000 +0200
++++ kdebase-030515/kdm/kfrontend/genkdmconf.c	2003-05-15 04:46:52.000000000 +0200
 @@ -56,7 +56,7 @@
  
  #define as(ar) ((int)(sizeof(ar)/sizeof(ar[0])))
@@ -206,19 +206,12 @@
  { "ServerAttempts",	0, 0, 
  "# How often to try to run the X-server. Running includes executing it and\n"
  "# waiting for it to come up. Default is 1\n" },
-@@ -1882,17 +1884,17 @@
- { "GUIStyle",		0, upd_guistyle, 
- "# Widget Style of the greeter:\n"
- "# Default, Windows, Platinum, Motif, MotifPlus, CDE, SGI, and any styles you\n"
--"# may have installed, e.g., HighColor; Default is \"Default\"\n" },
-+"# may have installed, e.g., HighColor; Default is \"KDE\"\n" },
- { "ColorScheme",		0, 0, 
- "# Widget Colors of the greeter:\n"
- "# Default, and any color schemes you may have installed. Default is \"Default\"\n" },
+@@ -1887,11 +1889,11 @@
+ "# currently is quite greyish. Default is \"\"\n" },
  { "LogoArea",		0, upd_logoarea, 
  "# What should be shown righthand of the input lines:\n"
 -"# \"Logo\" - the image specified by LogoPixmap (Default)\n"
-+"# \"Logo\" - the image specified by LogoPixmap \n"
++"# \"Logo\" - the image specified by LogoPixmap\n"
  "# \"Clock\" - a neat analog clock\n"
 -"# \"None\" - nothing\n" },
 +"# \"None\" - nothing (Default)\n" },
@@ -228,7 +221,7 @@
  { "GreeterPosFixed",	0, 0, 
  "# Normally, the greeter is centered on the screen. Use this, if you want\n"
  "# it to appear elsewhere on the screen. Default is false\n" },
-@@ -1913,13 +1915,13 @@
+@@ -1912,13 +1914,13 @@
  "# - %r -> the operating system's version\n"
  "# - %m -> the machine (hardware) type\n"
  "# - %% -> a single %\n"
@@ -245,7 +238,16 @@
  { "AntiAliasing",	0, 0,
  "# Whether the fonts shown in the greeter should be antialiased. Default is false\n" },
  { "NumLock",		0, 0,
-@@ -2126,10 +2128,10 @@
+@@ -1949,7 +1951,7 @@
+ "# If true, they are sorted alphabetically. Default is true\n" },
+ { "FaceSource",		0, 0, 
+ "# Specify, where the users' pictures should be taken from.\n"
+-"# \"AdminOnly\" - from $KDEDIR/share/apps/kdm/pics/users/$USER.png (Default)\n"
++"# \"AdminOnly\" - from /etc/X11/kdm/pics/users/$USER.png (Default)\n"
+ "# \"UserOnly\" - from the user's $HOME/.face\n"
+ "# \"PreferAdmin\" - prefer $USER.png; fallback on $HOME/.face\n"
+ "# \"PreferUser\" - ... and the other way round\n" },
+@@ -2125,10 +2127,10 @@
  { "SystemShell",	"/bin/bash", 0 },
  { "UserAuthDir",	"", 0 },
  { "AutoReLogin",	"true", 0 },
@@ -260,7 +262,7 @@
  { "DefaultSdMode",	"ForceNow", 0}, 
  { "InteractiveSd",	"false", 0}, 
  { "SessSaveFile",	"", 0 },	/* XXX .dmrc */
-@@ -2139,7 +2141,7 @@
+@@ -2138,7 +2140,7 @@
  { "SessionTypes",	"default,kde,failsafe", 1 },
  { "GUIStyle",		"Windows", 0 },
  { "ColorScheme",	"Pumpkin", 0 },
@@ -269,7 +271,7 @@
  { "LogoPixmap",		"", 0 },
  { "GreeterPosFixed",	"true", 0 },
  { "GreeterPosX",	"200", 0 },
-@@ -2172,8 +2174,8 @@
+@@ -2171,8 +2173,8 @@
  { "ServerAttempts",	"", 0 },
  { "ServerTimeout",	"", 0 },
  { "AllowShutdown",	"All", 1 },
@@ -280,8 +282,8 @@
  { "NoPassEnable",	"true", 0 },
  { "NoPassUsers",	"fred,ethel", 0 },
  };
---- kdebase-3.1.1/kdm/kfrontend/kdm_config.c~	Thu Dec  5 21:40:21 2002
-+++ kdebase-3.1.1/kdm/kfrontend/kdm_config.c	Tue Mar  4 15:10:48 2003
+--- kdebase-030515/kdm/kfrontend/kdm_config.c~	2003-05-13 00:37:59.000000000 +0200
++++ kdebase-030515/kdm/kfrontend/kdm_config.c	2003-05-15 04:51:30.000000000 +0200
 @@ -38,7 +38,7 @@
  #include <netdb.h>
  #include <grp.h>
@@ -291,9 +293,9 @@
  
  
  /*
-@@ -519,11 +519,11 @@
+@@ -498,11 +498,11 @@
+ { "AutoLoginPass",	C_autoPass,	(void *)PautoLoginX,	"" },
  { "AutoLoginSession",	C_autoString,	(void *)PautoLoginX,	"" },
- { "AutoLogin1st",	C_autoLogin1st | C_BOOL, 0,	"true" },
  { "AutoReLogin",	C_autoReLogin | C_BOOL,	0,	"false" },
 -{ "AllowNullPasswd",	C_allowNullPasswd | C_BOOL, 0,	"true" },
 -{ "AllowRootLogin",	C_allowRootLogin | C_BOOL, 0,	"true" },
@@ -308,10 +310,10 @@
  { "DefaultSdMode",	C_defSdMode | C_ENUM, sd_mode,	"Schedule" },
  { "InteractiveSd",	C_interactiveSd | C_BOOL, 0,	"true" },
  };
-@@ -532,15 +532,15 @@
+@@ -511,15 +511,15 @@
  { "SessionTypes",	C_SessionTypes,		0,	"default,failsafe" },
- { "GUIStyle",		C_GUIStyle, 		0,	"KDE" },
- { "ColorScheme",	C_ColorScheme,		0,	"Default" },
+ { "GUIStyle",		C_GUIStyle, 		0,	"" },
+ { "ColorScheme",	C_ColorScheme,		0,	"" },
 -{ "LogoArea",		C_LogoArea | C_ENUM, logoarea,	"Logo" },
 +{ "LogoArea",		C_LogoArea | C_ENUM, logoarea,	"None" },
  { "LogoPixmap",		C_LogoPixmap,		0,	"" },
