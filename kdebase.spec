@@ -27,7 +27,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.1
-Release:	8
+Release:	9
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -46,11 +46,12 @@ Patch2:		%{name}-fix-mouse.cpp.patch
 Patch3:		%{name}-fontdir.patch
 Patch4:		%{name}-kcm_background.patch
 Patch5:		%{name}-kdm.daemon_output.patch
-Patch6:		%{name}-kdmconfig.patch
-Patch7:		%{name}-kicker.patch
-Patch8:		%{name}-konsole_all.patch
-Patch9:		%{name}-nsplugins_dirs.patch
-Patch10:	%{name}-startkde.patch
+Patch6:		%{name}-kdm_utmpx.patch
+Patch7:		%{name}-kdmconfig.patch
+Patch8:		%{name}-kicker.patch
+Patch9:		%{name}-konsole_all.patch
+Patch10:	%{name}-nsplugins_dirs.patch
+Patch11:	%{name}-startkde.patch
 %ifnarch sparc sparc64
 %{!?_without_alsa:BuildRequires: alsa-lib-devel}
 %endif
@@ -431,6 +432,7 @@ Internet Explorer.
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
+%patch11 -p1
 
 %build
 
@@ -452,12 +454,14 @@ export CPPFLAGS
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_applnkdir}/{Help,Network/WWW,Settings/KDE,System/Administration,Terminals} \
-	$RPM_BUILD_ROOT{/etc/{pam.d,security,rc.d/init.d},%{_libdir}/kde3/plugins/konqueror}
 
 %{__make} install DESTDIR="$RPM_BUILD_ROOT"
 
-rm -f $RPM_BUILD_ROOT%{_sysconfdir}/kdm/X{servers,session}
+install -d $RPM_BUILD_ROOT/etc/{pam.d,rc.d/init.d,security} \
+    $RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
+
+mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers{,.orig}
+mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession{,.orig}
 
 install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
 install %{SOURCE6}	$RPM_BUILD_ROOT/etc/pam.d/kscreensaver
@@ -472,6 +476,9 @@ cp $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop 
     $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/remote
 
 ALD=$RPM_BUILD_ROOT%{_applnkdir}
+
+install -d $ALD/{Help,Network/WWW,Settings/KDE,System/Administration,Terminals}
+
 mv -f $ALD/{Help.desktop,Help}
 mv -f $ALD/{Internet/konqbrowser.desktop,Network/WWW}
 mv -f $ALD/{Internet/keditbookmarks.desktop,Utilities}
@@ -492,8 +499,7 @@ EOF
 
 cat $ALD/Help/Help.desktop |sed 's/Help/KDE Help/' |sed 's/Pomoc/Pomoc KDE/' \
 	> Help.desktop.tmp
-cat Help.desktop.tmp > $ALD/Help/Help.desktop
-rm -f Help.desktop.tmp     
+mv Help.desktop.tmp $ALD/Help/Help.desktop
 
 for f in `find $ALD -name '.directory' -o -name '*.dekstop'` ; do
 	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
