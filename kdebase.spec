@@ -15,6 +15,7 @@ Source3:	kdm.init
 Patch0:		%{name}-key.patch
 Patch1:		%{name}-waitkdm.patch
 Patch2:		%{name}-konsole-TERM.patch
+BuildRequires:	grep
 BuildRequires:	qt-devel >= 2.2.2
 BuildRequires:	kdelibs-devel >= %{version}
 BuildRequires:	libjpeg-devel
@@ -164,31 +165,10 @@ rm -rf $RPM_BUILD_ROOT%{_applnkdir}/{Editors,Toys}
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/security/blacklist.kdm
 
-%find_lang kcontrol --with-kde
-%find_lang kdebugdialog --with-kde
-%find_lang kdesu --with-kde
-%find_lang kdm --with-kde
-%find_lang khelpcenter --with-kde
-%find_lang kicker --with-kde
-%find_lang klipper --with-kde
-%find_lang kmenuedit --with-kde
+%find_lang tmp.%{name} --with-kde --all-name
+grep -vE konqueror\|kdm tmp.%{name}.lang > %{name}.lang
 %find_lang konqueror --with-kde
-%find_lang konsole --with-kde
-%find_lang kpager --with-kde
-%find_lang ksysguard --with-kde
-%find_lang kwrite --with-kde
-
-cat kcontrol.lang \
-	kdebugdialog.lang \
-	kdesu.lang \
-	khelpcenter.lang \
-	kicker.lang \
-	klipper.lang \
-	kmenuedit.lang \
-	konsole.lang \
-	kpager.lang \
-	ksysguard.lang \
-	kwrite.lang > %{name}.lang
+%find_lang kdm --with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -282,7 +262,9 @@ fi
 #%{_applnkdir}/System/ko[!n]*.desktop
 %{_applnkdir}/System/kon[!q]*.desktop
 %{_applnkdir}/System/ScreenSavers/*.desktop
-%{_applnkdir}/Utilities/*.desktop
+%{_applnkdir}/Utilities/klipper.desktop
+%{_applnkdir}/Utilities/kpager.desktop
+%{_applnkdir}/Utilities/passwd.desktop
 %{_applnkdir}/Help.desktop
 %{_applnkdir}/Home.desktop
 %{_applnkdir}/KControl.desktop
