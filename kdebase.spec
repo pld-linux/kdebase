@@ -311,15 +311,12 @@ grep -E kdm tmp.%{name}.lang > kdm.lang
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
-/sbin/ldconfig
-
+%post -p /sbin/ldconfig
 cd %{_fontdir}/misc
 umask 022
 %{_bindir}/mkfontdir
 
-%postun
-/sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 cd %{_fontdir}/misc
 umask 022
