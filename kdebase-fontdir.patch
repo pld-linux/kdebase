@@ -6,14 +6,3 @@
  font_DATA =console8x16.pcf.gz console8x8.pcf.gz 9x15.pcf.gz
  
  EXTRA_DIST = $(font_DATA)
---- kdebase-030317/konsole/fonts/Makefile.in~	Mon Mar 17 00:39:18 2003
-+++ kdebase-030317/konsole/fonts/Makefile.in	Tue Mar 18 10:10:00 2003
-@@ -291,7 +291,7 @@
- x_libraries = @x_libraries@
- xdg_appsdir = @xdg_appsdir@
- xdg_directorydir = @xdg_directorydir@
--fontdir = $(prefix)/share/fonts
-+fontdir = /usr/share/fonts/misc
- font_DATA = console8x16.pcf.gz console8x8.pcf.gz 9x15.pcf.gz
- 
- EXTRA_DIST = $(font_DATA)
