@@ -685,7 +685,8 @@ fi
 %attr(0755,root,root) %{_bindir}/ka[!t]*
 %attr(0755,root,root) %{_bindir}/kdc*
 %attr(0755,root,root) %{_bindir}/kde[!ps]*
-%attr(0755,root,root) %{_bindir}/kdes[!u]*
+%attr(0755,root,root) %{_bindir}/kdes[!ku]*
+%attr(2755,root,nobody) %{_bindir}/kdesktop
 %attr(2755,root,nobody) %{_bindir}/kdesud
 %attr(2755,root,nobody) %{_bindir}/kdialog
 %attr(0755,root,root) %{_bindir}/khotkeys
