@@ -10,7 +10,7 @@ Vendor:      	The KDE Team
 Source0:      	ftp://ftp.kde.org/pub/kde/unstable/distribution/2.0Beta4/tar/src/%{name}-%{version}.tar.bz2
 Source1:     	kdeenv
 Patch0:		kdebase-DESTDIR.patch
-BuildRequires:	qt >= 2.2.0_beta2
+BuildRequires:	qt >= 2.2.0
 BuildRequires:	kdelibs-devel >= %{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng >= 1.0.8
@@ -21,7 +21,7 @@ BuildRequires:	zlib-devel
 BuildRequires:	pam-devel
 BuildRequires:	OpenGL-devel
 Requires:	kdelibs = %{version}
-Requires:	qt >= 2.2.0_beta2
+Requires:	qt >= 2.2.0
 BuildRoot:   	/tmp/%{name}-%{version}-root
 
 %define		_prefix 		/usr/X11R6
