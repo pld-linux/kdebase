@@ -1,6 +1,6 @@
---- kdebase-3.1.1/kcontrol/konsole/sessioneditor.cpp~	Sun Sep 15 23:08:43 2002
-+++ kdebase-3.1.1/kcontrol/konsole/sessioneditor.cpp	Tue Mar 11 23:27:59 2003
-@@ -206,7 +206,7 @@
+--- kdebase-030317/kcontrol/konsole/sessioneditor.cpp~	Sun Mar 16 00:35:44 2003
++++ kdebase-030317/kcontrol/konsole/sessioneditor.cpp	Tue Mar 18 10:16:38 2003
+@@ -201,7 +201,7 @@
          i = co->readUnsignedNumEntry("Font",(unsigned int)-1);
          fontCombo->setCurrentItem(i+1);
  
@@ -9,8 +9,8 @@
          termLine->setText(str);
  
          str = co->readEntry("KeyTab","");
---- kdebase-3.1.1/konsole/konsole.desktop~	Mon Nov 18 14:15:13 2002
-+++ kdebase-3.1.1/konsole/konsole.desktop	Tue Mar 11 17:28:19 2003
+--- kdebase-030317/konsole/konsole.desktop~	Mon Mar  3 00:44:51 2003
++++ kdebase-030317/konsole/konsole.desktop	Tue Mar 18 10:17:30 2003
 @@ -1,7 +1,7 @@
  [Desktop Entry]
  Encoding=UTF-8
@@ -20,9 +20,9 @@
  Icon=konsole
  DocPath=konsole/index.html
  Terminal=0
---- kdebase-3.1.1/konsole/konsole/konsole.cpp~	Sun Mar  2 19:39:20 2003
-+++ kdebase-3.1.1/konsole/konsole/konsole.cpp	Tue Mar 11 22:58:32 2003
-@@ -1077,7 +1077,7 @@
+--- kdebase-030317/konsole/konsole/konsole.cpp~	Mon Mar 17 00:36:08 2003
++++ kdebase-030317/konsole/konsole/konsole.cpp	Tue Mar 18 10:19:01 2003
+@@ -1113,7 +1113,7 @@
     {
        n_defaultKeytab=KeyTrans::find(config->readEntry("keytab","default"))->numb(); // act. the keytab for this session
        b_fullscreen = config->readBoolEntry("Fullscreen",false);
@@ -31,7 +31,7 @@
        n_scroll   = QMIN(config->readUnsignedNumEntry("scrollbar",TEWidget::SCRRIGHT),2);
        n_bell = QMIN(config->readUnsignedNumEntry("bellmode",TEWidget::BELLSYSTEM),2);
  
-@@ -1879,7 +1879,7 @@
+@@ -1957,7 +1957,7 @@
  
  QString Konsole::newSession(KSimpleConfig *co, QString program, const QStrList &args, const QString &_term,const QString &_icon,const QString &_title, const QString &_cwd)
  {
@@ -40,18 +40,9 @@
    QString icon = "openterm";
    QString key;
    QString sch = s_kconfigSchema;
---- kdebase-3.1.1/konsole/konsole/konsole_part.cpp~	Sun Mar  2 19:39:21 2003
-+++ kdebase-3.1.1/konsole/konsole/konsole_part.cpp	Wed Mar 12 01:10:27 2003
-@@ -167,7 +167,7 @@
-   te->setMinimumSize(150,70);    // allow resizing, cause resize in TEWidget
- 
-   setWidget(te);
--  se = new TESession(te,shell,eargs,"xterm");
-+  se = new TESession(te,shell,eargs,"xterm-color");
-   connect( se,SIGNAL(done(TESession*)),
-            this,SLOT(doneSession(TESession*)) );
-   connect( se,SIGNAL(openURLRequest(const QString &)),
-@@ -475,7 +475,7 @@
+--- kdebase-030317/konsole/konsole/konsole_part.cpp~	Wed Feb 12 02:47:09 2003
++++ kdebase-030317/konsole/konsole/konsole_part.cpp	Tue Mar 18 10:20:47 2003
+@@ -463,7 +463,7 @@
    b_framevis = config->readBoolEntry("has frame",false);
    b_histEnabled = config->readBoolEntry("historyenabled",true);
    n_bell = QMIN(config->readUnsignedNumEntry("bellmode",TEWidget::BELLSYSTEM),2);
@@ -60,8 +51,17 @@
    n_keytab=config->readNumEntry("keytab",0); // act. the keytab for this session
    n_scroll = QMIN(config->readUnsignedNumEntry("scrollbar",TEWidget::SCRRIGHT),2);
    m_histSize = config->readNumEntry("history",DEFAULT_HISTORY_SIZE);
---- kdebase-3.1.1/konsole/konsole/main.cpp~	Sun Mar  2 19:39:22 2003
-+++ kdebase-3.1.1/konsole/konsole/main.cpp	Tue Mar 11 23:25:51 2003
+@@ -947,7 +947,7 @@
+                                 const QStrList& args )
+ {
+   if ( se ) delete se;
+-  se = new TESession(te, program, args, "xterm");
++  se = new TESession(te, program, args, "xterm-color");
+   connect( se,SIGNAL(done(TESession*)),
+            this,SLOT(doneSession(TESession*)) );
+   connect( se,SIGNAL(openURLRequest(const QString &)),
+--- kdebase-030317/konsole/konsole/main.cpp~	Tue Feb 18 00:40:31 2003
++++ kdebase-030317/konsole/konsole/main.cpp	Tue Mar 18 10:21:19 2003
 @@ -40,7 +40,7 @@
     { "name <name>",     I18N_NOOP("Set window class"), 0 },
     { "ls",              I18N_NOOP("Start login shell"), 0 },
