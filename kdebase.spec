@@ -39,6 +39,11 @@ Patch5:		%{name}-hardcoded_paths.patch
 Patch6:		%{name}-kdm.daemon_output.patch
 Patch7:		%{name}-startkde.patch
 Patch8:		%{name}-dont_merge_old_kdmrc.patch
+Patch9:         %{name}-konsole-defaultfonts.patch
+Patch10:        %{name}-konsoleF1.patch
+Patch11:        %{name}-konsole.patch
+Patch12:        %{name}-linebreaks.patch
+Patch13:        %{name}-ptsname.patch
 %ifnarch sparc sparc64
 BuildRequires:	alsa-lib-devel
 %endif
@@ -242,6 +247,11 @@ Standardowy obrazek startowy KDE.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
+%patch10 -p1
+%patch11 -p0
+%patch12 -p1
+%patch13 -p1
 
 %build
 
