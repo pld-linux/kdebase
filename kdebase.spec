@@ -22,7 +22,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	5
+Release:	5.1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -65,6 +65,7 @@ Patch15:	%{name}-bgdefaults.patch
 Patch16:	%{name}-vmenus.patch
 Patch17:	kde-common-utmpx.patch
 Patch18:	%{name}-fileshareset.patch
+Patch19:	%{name}-kio_settings.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	audiofile-devel
@@ -1281,7 +1282,7 @@ Pliki umiêdzynarodawiaj±ce dla mailnews.
 %patch16 -p1
 %patch17 -p1
 %patch18 -p1
-
+%patch19 -p1
 
 %build
 cp %{_datadir}/automake/config.sub admin
@@ -1368,7 +1369,7 @@ UseBackgroundTheme=false
 EOF
 
 # Some order with desktop files
-mv $RPM_BUILD_ROOT%{_applnkdir}/System/kinfocenter.desktop \
+mv $RPM_BUILD_ROOT%{_datadir}/applnk/System/kinfocenter.desktop \
 	$RPM_BUILD_ROOT%{_desktopdir}/kde
 
 mv $RPM_BUILD_ROOT%{_desktopdir}/kde/print{ers,mgr}.desktop
