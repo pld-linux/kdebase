@@ -20,7 +20,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËĞÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	3
+Release:	4
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -516,6 +516,7 @@ Obsoletes:	kdebase-kmenuedit
 Obsoletes:	kdebase-konqueror
 Obsoletes:	kdebase-ksystraycmd
 Obsoletes:	kdebase-kwin
+Obsoletes:	kdebase-kwin_plugin
 Obsoletes:	kdebase-kwmtheme
 Obsoletes:	kdebase-kxmlrpc
 Obsoletes:	kdebase-screensaver
