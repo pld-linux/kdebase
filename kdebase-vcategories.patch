@@ -6,8 +6,8 @@
  
 -Categories=Qt;KDE;X-KDE-settings-system
 +Categories=Qt;KDE;X-KDE-settings-desktop
---- kdebase-030317/khelpcenter/Help.desktop~	Wed Jan 22 00:36:14 2003
-+++ kdebase-030317/khelpcenter/Help.desktop	Fri Mar 21 04:11:31 2003
+--- kdebase-040110/khelpcenter/Help.desktop.orig	2004-01-10 14:42:58.000000000 +0100
++++ kdebase-040110/khelpcenter/Help.desktop	2004-01-10 15:00:25.000000000 +0100
 @@ -6,7 +6,7 @@
  Type=Application
  Terminal=0
@@ -17,7 +17,7 @@
  Name[af]=Hulp
  Name[az]=Yardım
  Name[be]=Дапамога
-@@ -42,7 +42,7 @@
+@@ -45,7 +45,7 @@
  Name[nn]=Hjelp
  Name[nso]=Thuso
  Name[oc]=Ajuda
@@ -26,20 +26,13 @@
  Name[pt]=Ajuda
  Name[pt_BR]=Ajuda
  Name[ro]=Ajutor
-@@ -64,3 +64,4 @@
+@@ -70,5 +70,4 @@
+ Name[zh_CN]=帮助
  Name[zh_TW]=求助
  Name[zu]=Usizo
- 
-+Categories=Qt;KDE;X-Help
---- kdebase-030618/konqueror/Home.desktop~	2003-06-01 00:34:16.000000000 +0200
-+++ kdebase-030618/konqueror/Home.desktop	2003-06-18 12:08:39.000000000 +0200
-@@ -120,4 +120,6 @@
- GenericName[zh_CN]=个人文件
- GenericName[zh_TW]=個人檔案
- GenericName[zu]=Amafayela Omuntu siqu
-+Categories=Qt;KDE;X-KDE-MenuRoot;
-+OnlyShowIn=KDE;
- 
+-Categories=Qt;KDE;Core;
+-OnlyShowIn=KDE;
++Categories=Qt;KDE;X-Help;
 --- kdebase-030317/konqueror/konquerorsu.desktop~	Fri Feb 28 00:41:58 2003
 +++ kdebase-030317/konqueror/konquerorsu.desktop	Wed Mar 19 19:06:14 2003
 @@ -56,4 +56,4 @@
