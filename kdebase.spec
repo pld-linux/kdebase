@@ -14,7 +14,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.1.92
-%define         _snap		031006
+%define         _snap		031014
 
 %ifarch	sparc sparcv9 sparc64
 %define		_without_alsa	1
@@ -31,13 +31,13 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}.%{_snap}
-Release:	2
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:        http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	815c1786127cf0c6215f4f99486a674b
+# Source0-md5:	cc10d6307adf6a894806efa5e20ce9eb
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -163,8 +163,9 @@ Group:		X11/Development/Libraries
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kicker-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-konqueror-libs = %{epoch}:%{version}-%{release}
-Requires:	%{name}-ksysguard = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
+Requires:	%{name}-libkonq = %{epoch}:%{version}-%{release}
+Requires:	%{name}-libksgrd = %{epoch}:%{version}-%{release}
 Requires:	kdelibs-devel >= 9:%{version}
 
 %description devel
@@ -641,6 +642,7 @@ Summary(pl):	Stra¿nik systemu
 Group:		X11/Applications
 Requires(post,postun):	/sbin/ldconfig
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
+Requires:	%{name}-libksgrd = %{epoch}:%{version}-%{release}
 
 %description ksysguard
 KDE System Guard.
@@ -747,6 +749,20 @@ Libraries containing functions used by konqueror.
 %description libkonq -l pl
 Biblioteki zawieraj±ce funkcje wykorzystywane przez konquerora.
 
+%package libksgrd
+Summary:	ksgrd library
+Summary(pl):	Biblioteka ksgrd
+Group:		X11/Libraries
+Requires(post,postun):	/sbin/ldconfig
+Requires:	kdelibs >= 9:%{version}
+Obsoletes:	ksysguard < 9:3.1.92.031012
+
+%description libksgrd
+ksgrd library.
+
+%description libksgrd -l pl
+Biblioteka ksgrd.
+
 %package mailnews
 Summary:	KDE Mail and News Services
 Summary(pl):	Obs³uga protoko³ów pocztowych i news dla KDE
@@ -846,7 +862,7 @@ Internet Explorer.
 %patch21 -p1
 %patch22 -p1
 %patch23 -p1
-%patch24 -p1
+#%patch24 -p1
 %patch25 -p1
 
 %build
@@ -943,6 +959,7 @@ programs=" \
 	background \
 	bell \
 	desktop \
+	desktopbehavior \
 	energy \
 	kcmaccess \
 	kcmlaunch \
@@ -967,7 +984,8 @@ done
 programs=" \
 	clock \
 	kcmtaskbar \
-	panel"
+	panel \
+	panelappearance"
 
 for i in $programs; do
 	%find_lang $i --with-kde
@@ -1033,9 +1051,6 @@ rm -rf $RPM_BUILD_ROOT
 %post	konqueror-libs	-p /sbin/ldconfig
 %postun	konqueror-libs	-p /sbin/ldconfig
 
-%post	ksysguard	-p /sbin/ldconfig
-%postun	ksysguard	-p /sbin/ldconfig
-
 %post	libkate		-p /sbin/ldconfig
 %postun	libkate		-p /sbin/ldconfig
 
@@ -1044,6 +1059,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %post	libkonq		-p /sbin/ldconfig
 %postun	libkonq		-p /sbin/ldconfig
+
+%post	libksgrd	-p /sbin/ldconfig
+%postun	libksgrd	-p /sbin/ldconfig
 
 %post -n kdm
 /sbin/chkconfig --add kdm
@@ -1067,12 +1085,11 @@ fi
 
 %files devel
 %defattr(644,root,root,755)
-%dir %{_includedir}/kwin
 %{_includedir}/*.h
-%{_includedir}/kwin/*.h
 %{_includedir}/kate
 %{_includedir}/ksgrd
 %{_includedir}/ksplash
+%{_includedir}/kwin
 %{_libdir}/libkateinterfaces.so
 %{_libdir}/libkateutils.so
 %{_libdir}/libkdecorations.so
@@ -1191,17 +1208,12 @@ fi
 %{_datadir}/servicetypes/terminalemulator.desktop
 %{_datadir}/servicetypes/thumbcreator.desktop
 %{_desktopdir}/kde/fileshare.desktop
-# konqueror needs it
-%{_iconsdir}/*/*/apps/kate.png
-#
 
 %files common-konsole
 %defattr(644,root,root,755)
 %{_fontsdir}/misc/console*.gz
 %{_datadir}/apps/konsole
 %{_datadir}/mimelnk/application/x-konsole.desktop
-#%{_iconsdir}/crystalsvg/*/actions/opentermblue.png
-#%{_iconsdir}/crystalsvg/*/actions/opentermred.png
 %{_iconsdir}/[!l]*/*/apps/bell.png
 %{_iconsdir}/*/*/apps/key_bindings.png
 
@@ -1341,6 +1353,7 @@ fi
 %attr(0755,root,root) %{_bindir}/ktip
 %attr(0755,root,root) %{_bindir}/kwebdesktop
 %attr(0755,root,root) %{_bindir}/kwin
+%attr(0755,root,root) %{_bindir}/kwin_dialog_helper
 %attr(0755,root,root) %{_bindir}/kxkb
 %attr(0755,root,root) %{_bindir}/startkde
 %{_libdir}/krandrinithack.la
@@ -1421,8 +1434,6 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kwin_keramik_config.so
 %{_libdir}/kde3/kwin3_default.la
 %attr(0755,root,root) %{_libdir}/kde3/kwin3_default.so
-#%{_libdir}/kde3/kwin3_test.la
-#%attr(0755,root,root) %{_libdir}/kde3/kwin3_test.so
 %{_libdir}/kde3/kwin3_keramik.la
 %attr(0755,root,root) %{_libdir}/kde3/kwin3_keramik.so
 %{_libdir}/kde3/kxkb.la
@@ -1447,7 +1458,6 @@ fi
 %dir %{_datadir}/apps/kwin
 %{_datadir}/apps/kwin/eventsrc
 %{_datadir}/apps/kwin/keramik.desktop
-#%{_datadir}/apps/kwin/test.desktop
 %dir %{_datadir}/apps/kwin/pics
 %{_datadir}/apps/kwin/pics/*
 %{_datadir}/autostart/kdesktop.desktop
@@ -1609,8 +1619,6 @@ fi
 %attr(0755,root,root) %{_libdir}/libkdecorations.so.*.*.*
 %{_libdir}/libksplashthemes.la
 %attr(0755,root,root) %{_libdir}/libksplashthemes.so.*.*.*
-#%{_libdir}/libsensordisplays.la
-#%attr(0755,root,root) %{_libdir}/libsensordisplays.so.*.*.*
 
 %files infocenter -f kinfocenter.lang
 %defattr(644,root,root,755)
@@ -1676,12 +1684,19 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kate.so
 %{_libdir}/kde3/katedefaultprojectplugin.la
 %attr(0755,root,root) %{_libdir}/kde3/katedefaultprojectplugin.so
-%{_datadir}/apps/kate
+%dir %{_datadir}/apps/kate
+%{_datadir}/apps/kate/[!s]*
+%dir %{_datadir}/apps/kate/scripts
+%{_datadir}/apps/kate/scripts/*.desktop
+%attr(0755,root,root) %{_datadir}/apps/kate/scripts/*.sh
 %{_datadir}/services/katedefaultproject.desktop
 %{_datadir}/servicetypes/kateinitplugin.desktop
 %{_datadir}/servicetypes/kateplugin.desktop
 %{_datadir}/servicetypes/kateprojectplugin.desktop
 %{_desktopdir}/kde/kate.desktop
+# konqueror needs it ?
+%{_iconsdir}/*/*/apps/kate.png
+
 
 %files kdcop
 %defattr(644,root,root,755)
@@ -1874,8 +1889,6 @@ fi
 %attr(0755,root,root) %{_bindir}/kpm
 %attr(0755,root,root) %{_bindir}/ksysguard
 %attr(0755,root,root) %{_bindir}/ksysguardd
-%{_libdir}/libksgrd.la
-%attr(0755,root,root) %{_libdir}/libksgrd.so.*.*.*
 %{_libdir}/kde3/sysguard_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
 %{_datadir}/apps/ksysguard
@@ -1942,6 +1955,13 @@ fi
 %attr(0755,root,root) %{_libdir}/libkonq.so.*.*.*
 %{_libdir}/kde3/konq_sound.la
 %attr(0755,root,root) %{_libdir}/kde3/konq_sound.so
+
+%files libksgrd
+%defattr(644,root,root,755)
+%{_libdir}/libksgrd.la
+%attr(0755,root,root) %{_libdir}/libksgrd.so.*.*.*
+#%{_libdir}/libsensordisplays.la
+#%attr(0755,root,root) %{_libdir}/libsensordisplays.so.*.*.*
 
 %files mailnews
 %defattr(644,root,root,755)
