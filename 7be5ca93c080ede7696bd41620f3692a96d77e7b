@@ -1,0 +1,4 @@
+- 031126
+- Added fileshareset.patch by Radek Zieliñski
+- Added konqsidebar PLD specific entries (Source13)
+- Removed nsplugin.patch (already aplied)
