@@ -28,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	2
+Release:	3
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -915,13 +915,28 @@ done
 
 > core.lang
 programs="drkonqi kcmcolors kcmfonts kcmkded kcmlocale kcmprintmgr \
-	  kcontrol kdeprint kdeprint_part kdebugdialog kdesu kdesud \
+	  kdeprint kdeprint_part kdebugdialog kdesu kdesud \
 	  khelpcenter kio_man kprinter 	krdb"
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> core.lang
 done
 %find_lang kcmstyle; cat kcmstyle.lang >> core.lang
+%find_lang kcontrol; cat kcontrol.lang >> core.lang
+BDIR=$PWD
+cd $RPM_BUILD_ROOT
+for i in usr/share/doc/kde/HTML/*; do
+	l=`basename $i`
+	if [ -d $i/kcontrol ]; then
+		echo "%lang($l) %dir /$i/kcontrol" >> $BDIR/core.lang
+		for j in `ls $i/kcontrol | \
+grep -v '^arts\|^background\|^bell\|^cache\|^clock\|^cookies\|^crypto\|^desktop\|^ebrowsing\|^email\|^energy\|^filemanager\|^filetypes\|^icons\|^kcmaccess\|^kcmcss\|^kcmfontinst\|^kcmkonsole\|^kcmlaunch\|^kcmnotify\|^kcmsmserver\|^kcmtaskbar\|^keyboard\|^keys\|^khtml\|^kwindecoration\|^mouse\|^netpref\|^panel\|^passwords\|^proxy\|^screensaver\|^smb\|^spellchecking\|^useragent\|^windowmanagement'`
+		do
+			echo "%lang($l) /$i/kcontrol/$j" >> $BDIR/core.lang
+		done
+	fi
+done
+cd -
 
 > %{name}.lang
 programs="arts background bell desktop energy fontinst kaccess kcmaccess \
@@ -939,10 +954,10 @@ done
 cd $RPM_BUILD_ROOT
 for i in usr/X11R6/share/locale/{??,???,??_??}; do
 	l=`basename $i`
-	echo "%lang($l) %{_datadir}/locale/$i/entry.desktop" >> %{name}.lang
+	echo "%lang($l) /$i/entry.desktop" >> $BDIR/%{name}.lang
 # these don't seem to be used
-#	echo "%lang($l) %{_datadir}/locale/$i/flag.png" >> %{name}.lang
-#	echo "%lang($l) %{_datadir}/locale/$i/charset" >> %{name}.lang
+#	echo "%lang($l) /$i/flag.png" >> $BDIR/%{name}.lang
+#	echo "%lang($l) /$i/charset" >> $BDIR/%{name}.lang
 done
 cd -
 
@@ -1482,7 +1497,7 @@ fi
 %attr(755,root,root) %{_bindir}/kcontrol
 %attr(755,root,root) %{_bindir}/kdebugdialog
 %attr(755,root,root) %{_bindir}/kdesu
-%attr(755,root,root) %{_bindir}/kdesud
+%attr(2755,root,nogroup) %{_bindir}/kdesud
 %attr(755,root,root) %{_bindir}/khelpcenter
 %attr(755,root,root) %{_bindir}/kprinter
 # KDE-style (lt_)dlopenable binaries
