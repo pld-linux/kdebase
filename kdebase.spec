@@ -29,7 +29,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	6
+Release:	5.1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -566,23 +566,23 @@ programs=" \
 	childpanelextension clock clockapplet colors desktop desktop_kdebase \
 	energy fonts fontinst helpindex.html htmlsearch \
 	icons kaccess kasbarextension kcmaccess kcmbackground \
-	kcmbell kcmcgi kcmarts kcmcolors kcmcomponentchooser kcmcrypto kcmemail kcmenergy \
+	kcmbell kcmcgi kcmarts kcmcolors kcmcomponentchooser kcmcrypto kcmkdb kcmemail kcmenergy \
 	kcmfileshare kcmfontinst kcmfonts kcmhtmlsearch kcmicons kcminfo kcminput kcmioslaveinfo kcmkclock kcmkded \
 	kcmkeys kcmkicker kcmkio kcmkurifilt kcmkwindecoration kcmkwintheme kcmkwm kcmlayout kcmlaunch kcmlocale \
 	kcmmidi kcmnic kcmnotify kcmprintmgr kcmsamba kcmsmartcard kcmspellchecking kcmsocks kcmsmserver kcmstyle \
-	kcmtaskbar kcmthemes kcmusb kdcop kdeprint_part kdebugdialog \
+	kcmtaskbar kcmthemes kcmusb kcmwidgetsettings kdcop kdeprint_part kdebugdialog \
 	kdeprint kdesktop kdesu kdesud kdialog keyboard \
 	keys khotkeys kicker kinfocenter \
-	kioslave klipper kfontviewpart kmenuedit kminipagerapplet \
+	kioslave kjobviewer klegacyimport klipper kfontviewpart kmenuedit kminipagerapplet \
 	kpersonalizer kpm kprinter \
-	krdb kreadconfig krunapplet \
+	krdb kreadconfig kpartapp krunapplet \
 	ksmserver ksplash kstart ksysguard ksystemtrayapplet ksystraycmd ktaskbarapplet kthememgr ktip \
 	kwin kwin_b2_config kwin_default_config \
 	kwin_icewm_config kwin_keramik_config kwin_modernsys_config \
 	kwin_quartz_config kwindecoration kxkb language \
 	libkicker libkickermenu_kdeprint libkickermenu_konsole libkickermenu_prefmenu libkickermenu_recentdocs \
 	libtaskbar libtaskmanager lockout mouse naughtyapplet \
-	panel passwords smb \
+	panel passwords quicklauncher smb \
 	spellchecking taskbarextension windowmanagement"
 
 for i in $programs; do
@@ -632,9 +632,12 @@ cat kcmkonsole.lang >> konsole.lang
 %find_lang	kio_man		--with-kde
 cat kio_man.lang >> khelpcenter.lang
 
+%find_lang	kdeprintfax	--with-kde
+%find_lang	klprfax		--with-kde
+cat klprfax.lang >> kdeprintfax.lang
+
 %find_lang	kappfinder	--with-kde
 %find_lang	kate		--with-kde
-%find_lang	kdeprintfax	--with-kde
 %find_lang	kfind		--with-kde
 %find_lang	kpager		--with-kde
 %find_lang	kwrite		--with-kde
