@@ -1,12 +1,15 @@
---- kdebase-031029/kcontrol/konqhtml/pluginopts.cpp.orig	2003-10-29 01:07:19.000000000 +0100
-+++ kdebase-031029/kcontrol/konqhtml/pluginopts.cpp	2003-10-29 22:27:57.000000000 +0100
-@@ -376,18 +376,7 @@
+--- kdebase-031029/kcontrol/konqhtml/pluginopts.cpp.org	2004-04-21 23:04:05.804653872 +0200
++++ kdebase-031029/kcontrol/konqhtml/pluginopts.cpp	2004-04-21 23:04:56.912884240 +0200
+@@ -352,21 +352,7 @@
      if ( config->hasKey( "scanPaths" ) )
          paths = config->readListEntry( "scanPaths" );
-     else {
+     else {//keep sync with kdebase/nsplugins/pluginscan
 -        paths.append("$HOME/.netscape/plugins");
+-        paths.append("/usr/lib64/browser-plugins");
+-        paths.append("/usr/lib/browser-plugins");
 -        paths.append("/usr/local/netscape/plugins");
 -        paths.append("/opt/mozilla/plugins");
+-	paths.append("/opt/mozilla/lib/plugins");
 -        paths.append("/opt/netscape/plugins");
 -        paths.append("/opt/netscape/communicator/plugins");
 -        paths.append("/usr/lib/netscape/plugins");
@@ -16,7 +19,7 @@
 -        paths.append("/usr/lib64/netscape/plugins");
 -        paths.append("/usr/lib64/mozilla/plugins");	
 -        paths.append("$MOZILLA_HOME/plugins");
-+        paths.append("/usr/ilb/kde3/plugins/konqueror");
++	paths.append("/usr/ilb/kde3/plugins/konqueror");
      }
  
      // fill list
