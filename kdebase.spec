@@ -10,7 +10,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.1.93
-%define		_snap		031114
+%define		_snap		031126
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -23,13 +23,13 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}.%{_snap}
-Release:	4
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	cd2a13f21a32ffdfd9f21020ce36f8e7
+# Source0-md5:	4efbe651c59b4930abc3480663289031
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -41,6 +41,8 @@ Source9:	%{name}-specs.desktop
 Source11:	%{name}-QtCurve.kcsrc
 Source12:	http://www.kernel.pl/~adgor/kde/%{name}-splash-Default-PLD-0.2.tar.bz2
 # Source12-md5:	24f9c6a4b711be36437639c410b400b2
+Source13:	http://www.kernel.pl/~adgor/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
+# Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
 #Patch0:	%{name}-fix-mem-leak-in-kfind.patch
 Patch2:		%{name}-fontdir.patch
 Patch3:		%{name}-kcm_background.patch
@@ -68,7 +70,7 @@ Patch25:	%{name}-session.patch
 Patch26:	%{name}-bgdefaults.patch
 Patch27:	%{name}-vmenus.patch
 Patch28:	kde-general-utmpx.patch
-Patch29:	%{name}-nsplugin.patch
+Patch29:	%{name}-fileshareset.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	arts-devel >= 1.2.0
@@ -898,10 +900,10 @@ install -d \
 	$RPM_BUILD_ROOT/etc/{X11/kdm/faces,pam.d,rc.d/init.d,security} \
 	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
 
+# Backup generated Xsession file (we have own one)
 mv $RPM_BUILD_ROOT/etc/X11/kdm/Xsession{,.orig}
 
-touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
-
+# Install miscleanous PLD files
 install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
 install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
 install %{SOURCE3}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
@@ -912,6 +914,18 @@ install %{SOURCE8}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/ircpld.de
 install %{SOURCE9}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/specs.desktop
 install %{SOURCE11}	$RPM_BUILD_ROOT%{_datadir}/apps/kdisplay/color-schemes/QtCurve.kcsrc
 
+# Needed for pam support
+touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
+
+# For fileshare
+touch $RPM_BUILD_ROOT/etc/security/fileshare.conf
+
+# Copying default faces to kdm config dir
+cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/default1.png \
+	$RPM_BUILD_ROOT/etc/X11/kdm/faces/.default.face.icon
+cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
+	$RPM_BUILD_ROOT/etc/X11/kdm/faces/root.face.icon
+
 # Make PLD splashscreen as default
 cd $RPM_BUILD_ROOT%{_datadir}/apps/ksplash/Themes
 mv Default Default-KDE
@@ -920,13 +934,16 @@ echo ',s/\[KSplash Theme: Default\]/[KSplash Theme: Default-KDE]/\n,w' |\
 bzip2 -dc %{SOURCE12} | tar xf -
 cd -
 
-# Copying default faces to kdm config dir
-cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/default1.png \
-	$RPM_BUILD_ROOT/etc/X11/kdm/faces/.default.face.icon
-cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
-	$RPM_BUILD_ROOT/etc/X11/kdm/faces/root.face.icon
+# konqsidebartng PLD entries
+cd $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders
+bzip2 -dc %{SOURCE13} | tar xf -
+cd -
 
-# Some desktop & kicker appearance defaults
+# konqueror/dirtree no longer supported
+mv $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop \
+	$RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/services
+
+# Some desktop appearance defaults
 cat > $RPM_BUILD_ROOT%{_datadir}/config/kdesktoprc << EOF
 [FMSettings]
 NormalTextColor=255,255,255
@@ -934,6 +951,7 @@ ShadowEnabled=true
 StandardFont=Helvetica,13,-1,5,75,0,0,0,0,0
 EOF
 
+# Some kicker appearance defaults
 cat > $RPM_BUILD_ROOT%{_datadir}/config/kickerrc << EOF
 [General]
 Alignment=1
@@ -941,6 +959,7 @@ SizePercentage=50
 UseBackgroundTheme=false
 EOF
 
+# Some order with desktop files
 ALD=$RPM_BUILD_ROOT%{_applnkdir}
 mv $ALD/Help.desktop			$RPM_BUILD_ROOT%{_desktopdir}/kde
 mv $ALD/Home.desktop			$RPM_BUILD_ROOT%{_desktopdir}/kde
@@ -949,9 +968,7 @@ mv $ALD/System/kinfocenter.desktop	$RPM_BUILD_ROOT%{_desktopdir}/kde
 
 mv $RPM_BUILD_ROOT%{_desktopdir}/kde/print{ers,mgr}.desktop
 
-mv $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop \
-   $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/services
-
+# <find_lang>
 > core.lang
 programs=" \
 	colors \
@@ -1047,15 +1064,36 @@ done
 cat kcmkonsole.lang	>> konsole.lang
 cat kioslave.lang	>> kinfocenter.lang
 
+# apicdocs dir is independently installed
 for f in *.lang; do
 	if grep -q %{name}-%{_snap}-apidocs $f; then
 		grep -v %{name}-%{_snap}-apidocs $f > $f.tmp
 		mv $f.tmp $f
 	fi
 done
+# </find_lang>
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post common-filemanagement
+cat << EOF
+
+ *********************************************************
+ *                                                       *
+ * NOTE:                                                 *
+ * If You want the catalogs sharing from the context     *
+ * menu functionality, do as following:                  *
+ * 1) Install sperl package,                             *
+ * 2) Set SUID for fileshareset script.                  *
+ *                                                       *
+ * WARNING:                                              *
+ * 1) That allows users to write to /etc/samba/smb.conf, *
+ * 2) After all - using sperl is not safe.               * 
+ *                                                       *
+ *********************************************************
+
+EOF
 
 %post common-konsole
 /usr/bin/fontpostinst misc
@@ -1220,6 +1258,7 @@ fi
 
 %files common-filemanagement
 %defattr(644,root,root,755)
+%ghost /etc/security/fileshare.conf
 %attr(0755,root,root) %{_bindir}/filesharelist
 %attr(0755,root,root) %{_bindir}/fileshareset
 %{_libdir}/kde3/kcm_fileshare.la
@@ -1610,7 +1649,7 @@ fi
 %{_iconsdir}/*/*/apps/error.png
 %{_iconsdir}/*/*/apps/galeon.png
 %{_iconsdir}/*/*/apps/gimp.png
-%{_iconsdir}/*/*/apps/gnome_app.png
+#%{_iconsdir}/*/*/apps/gnome_app.png
 %{_iconsdir}/*/*/apps/gnome_apps.png
 %{_iconsdir}/*/*/apps/gvim.png
 %{_iconsdir}/*/*/apps/gv.png
@@ -1642,6 +1681,7 @@ fi
 %{_iconsdir}/*/*/apps/pybliographic.png
 %{_iconsdir}/*/*/apps/pysol.png
 %{_iconsdir}/*/*/apps/qtella.png
+%{_iconsdir}/*/*/apps/randr.png
 %{_iconsdir}/*/*/apps/realplayer.png
 %{_iconsdir}/*/*/apps/remote.png
 %{_iconsdir}/*/*/apps/soffice.png
