@@ -31,7 +31,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}.%{_snap}
-Release:	1
+Release:	2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -49,6 +49,8 @@ Source8:	%{name}-ircpld.desktop
 Source9:	%{name}-specs.desktop
 Source10:	%{name}-kde-settings.menu
 Source11:	%{name}-QtCurve.kcsrc
+Source12:	http://www.kernel.pl/~adgor/kde/%{name}-splash-Default-PLD.tar.bz2
+# Source12-md5:	d816105692259ada34b755c555a435fd
 #Patch0:	%{name}-fix-mem-leak-in-kfind.patch
 Patch2:		%{name}-fontdir.patch
 Patch3:		%{name}-kcm_background.patch
@@ -267,6 +269,7 @@ Summary:        KDE "Logout" picture
 Summary(pl):    Obrazek okna "Wyloguj" KDE
 Group:          X11/Amusements
 Provides:       kde-logoutpic
+Obsoletes:	kde-logoutpic-PLD
 Requires:	%{name}-desktop
 
 %description -n kde-logoutpic-default
@@ -274,6 +277,18 @@ Default KDE "Logout" picture.
 
 %description -n kde-logoutpic-default -l pl
 Standardowy obrazek okna "Wyloguj" KDE.
+
+%package -n kde-splash-Default-KDE
+Summary:	Default clasic KDE splashscreen
+Summary(pl):	Domy¶lny klasyczny ekran startowy KDE
+Group:		X11/Amusements
+Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
+
+%description -n kde-splash-Default-KDE
+Default classic KDE splashscreen.
+
+%description -n kde-splashp-Default-KDE -l pl
+Domy¶lny klasyczny ekran startowy KDE.
 
 %package -n kde-splashplugin-Redmond
 Summary:	ksplash plugin Redmond
@@ -360,6 +375,7 @@ Summary:	TODO
 Summary(pl):	TODO
 Group:		X11/Applications
 Requires:       kde-logoutpic
+Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
 Requires:	kicker
 # Commented out for testing
@@ -835,9 +851,8 @@ Internet Explorer.
 
 %build
 
-for plik in `find ./ -name *.desktop` ; do
-	echo $plik
-	sed -i -e "s/\[nb\]/\[no\]/g" $plik
+for f in `find . -name *.desktop` ; do
+	sed -i 's/\[nb\]/\[no\]/g' $f
 done
 
 %{__make} -f admin/Makefile.common cvs
@@ -879,6 +894,14 @@ install %{SOURCE9}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/specs.des
 install %{SOURCE10}	$RPM_BUILD_ROOT/etc/xdg/menus/kde-settings.menu
 install %{SOURCE11}	$RPM_BUILD_ROOT%{_datadir}/apps/kdisplay/color-schemes/QtCurve.kcsrc
 
+# Make PLD splashscreen as default
+cd $RPM_BUILD_ROOT%{_datadir}/apps/ksplash/Themes
+mv Default Default-KDE
+sed -i 's/\[KSplash Theme: Default\]/\[KSplash Theme: Default-KDE\]/' \
+    Default-KDE/Theme.rc
+bzip2 -dc %{SOURCE12} | tar xf -
+cd -
+
 cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/default1.png \
     $RPM_BUILD_ROOT%{_sysconfdir}/kdm/faces/.default.face.icon
 cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
@@ -891,7 +914,7 @@ mv $ALD/Kfind.desktop			$RPM_BUILD_ROOT%{_desktopdir}/kde
 mv $ALD/System/kinfocenter.desktop	$RPM_BUILD_ROOT%{_desktopdir}/kde
 
 cp $ALD/default_kde-information.menu \
-	$RPM_BUILD_ROOT/etc/xdg/menus/kde-information.menu
+    $RPM_BUILD_ROOT/etc/xdg/menus/kde-information.menu
 
 mv $RPM_BUILD_ROOT%{_desktopdir}/kde/print{ers,mgr}.desktop
 
@@ -1112,6 +1135,10 @@ fi
 %files -n kde-logoutpic-default
 %defattr(644,root,root,755)
 %{_datadir}/apps/ksmserver/pics/shutdownkonq.png
+
+%files -n kde-splash-Default-KDE
+%defattr(644,root,root,755)
+%{_datadir}/apps/ksplash/Themes/Default-KDE
 
 %files -n kde-splashplugin-Redmond
 %defattr(644,root,root,755)
@@ -1829,7 +1856,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_konsole.so
 %{_libdir}/kde3/konsole.la
 %attr(0755,root,root) %{_libdir}/kde3/konsole.so
-%{_datadir}/config/konsolerc
+#%{_datadir}/config/konsolerc
 %{_datadir}/services/konsole-script.desktop
 %{_applnkdir}/.hidden/kcmkonsole.desktop
 %{_desktopdir}/kde/konsole*.desktop
