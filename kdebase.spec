@@ -28,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.2
+Release:	0.3
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -846,6 +846,7 @@ mv -f $ALD/{System/More/{konquerorsu,konsolesu}.desktop,System/Administration}
 mv -f $ALD/{Utilities/More/*.desktop,Utilities}
 mv -f $ALD/{Settings/[!K]*,Settings/KDE}
 mv -f $ALD/{Settingsmenu/*.desktop,Settings}
+install kcontrol/kcontrol/KControl.desktop $ALD/Settings/kcontrol.desktop
 
 cat > $ALD/Settings/KDE/.directory << EOF
 [Desktop Entry]
@@ -863,7 +864,7 @@ for f in `find $ALD -name '.directory' -o -name '*.dekstop'` ; do
 done
 
 bzip2 -dc %{SOURCE13} | tar xf - -C $RPM_BUILD_ROOT
-mv $RPM_BUILD_ROOT%{_prefix}/X11R6/share/locale/* $RPM_BUILD_ROOT%{_datadir}/locale
+mv $RPM_BUILD_ROOT%{_prefix}/share/locale/* $RPM_BUILD_ROOT%{_datadir}/locale
 
 > core.lang
 programs=" \
@@ -1496,6 +1497,7 @@ fi
 %{_datadir}/services/khelpcenter.desktop
 %{_datadir}/services/man.protocol
 %{_applnkdir}/Help/Help.desktop
+%{_applnkdir}/Settings/kcontrol.desktop
 %{_pixmapsdir}/*/*/apps/colors.png
 %{_pixmapsdir}/*/*/apps/energy.png
 %{_pixmapsdir}/*/*/apps/fonts.png
