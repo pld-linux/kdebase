@@ -18,7 +18,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	4
+Release:	5
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -967,6 +967,16 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %{__tar} xfj %{SOURCE11} -C konqueror/sidebar/
 %{__sed} -i -e "s,trees web_module,trees web_module infobar speedbar,g" \
 	konqueror/sidebar/Makefile.am
+
+for f in `find . -name *.desktop | xargs grep -l '^Terminal=[01]'`; do
+	%{__sed} -i -e 's/^Terminal=1/Terminal=true/' \
+		-e 's/^Terminal=0/Terminal=false/' $f
+done
+for f in `find . -name *.desktop | xargs grep -l '^Type=Application'`; do
+	if ! grep '^Encoding=' $f >/dev/null; then
+		%{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' $f
+	fi
+done
 
 %build
 cp %{_datadir}/automake/config.sub admin
