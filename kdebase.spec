@@ -1760,7 +1760,7 @@ cat << EOF
  *********************************************************
  *                                                       *
  * NOTE:                                                 *
- * If You want the catalogs sharing from the context     *
+ * If You want the directories sharing from the context  *
  * menu functionality, do as following:                  *
  * 1) Install sperl package,                             *
  * 2) Set SUID for fileshareset script.                  *
