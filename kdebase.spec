@@ -13,7 +13,7 @@
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040217
+%define		_snap		040225
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
