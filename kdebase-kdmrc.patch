@@ -1,24 +1,24 @@
---- kdmrc.orig	Sun Dec  2 14:27:01 2001
-+++ kdmrc	Sun Dec  2 14:42:36 2001
-@@ -64,7 +64,7 @@
- # Default is /usr/X11R6/share/config/kdm/Xservers
+--- kdmrc.orig	Sun Feb 17 15:55:33 2002
++++ kdmrc	Sun Feb 17 16:14:08 2002
+@@ -69,7 +69,7 @@
+ # Default is ":0 local@tty1 /usr/X11R6/bin/X vt7"
  # XXX i'm planning to absorb this file into kdmrc, but i'm not sure how to
  # do this best.
--#Xservers=
+-Xservers=/usr/X11R6/share/config/kdm/Xservers
 +Xservers=/etc/X11/kdm/Xservers
- # Where KDM should store its PID. Default is /var/run/xdm.pid - this
- # is an intentional conflict with "plain" XDM.
- #PidFile=/var/run/kdm.pid
-@@ -94,7 +94,7 @@
+ # Where KDM should store its PID. Default is "" (don't store)
+ PidFile=/var/run/kdm.pid
+ # Whether KDM should lock the pid file to prevent having multiple KDM
+@@ -103,7 +103,7 @@
  # Default is /usr/X11R6/share/config/kdm/Xaccess
  # XXX i'm planning to absorb this file into kdmrc, but i'm not sure how to
  # do this best.
--#Xaccess=
+-Xaccess=/usr/X11R6/share/config/kdm/Xaccess
 +Xaccess=/etc/X11/kdm/Xaccess
  # Number of seconds to wait for display to respond after the user has
  # selected a host from the chooser. Default is 15.
  #ChoiceTimeout=10
-@@ -107,7 +107,7 @@
+@@ -116,7 +116,7 @@
  # The program which is invoked to dynamically generate replies to XDMCP
  # BroadcastQuery requests.
  # By default no program is invoked and "Willing to manage" is sent.
@@ -27,93 +27,86 @@
  
  [Shutdown]
  # The command to run to halt the system. Default is /sbin/halt
-@@ -175,20 +175,20 @@
+@@ -191,20 +191,20 @@
  # A program to run before the greeter is shown. You should start kdmdesktop
  # there. Also, xconsole can be started by this script.
- # Default is /usr/X11R6/share/config/kdm/Xsetup
--#Setup=
+ # Default is ""
+-Setup=/usr/X11R6/share/config/kdm/Xsetup
 +Setup=/etc/X11/kdm/Xsetup
  # A program to run before a user session starts. You should invoke sessreg
  # there and optionally change the ownership of the console, etc.
- # Default is /usr/X11R6/share/config/kdm/Xstartup
--#Startup=
+ # Default is ""
+-Startup=/usr/X11R6/share/config/kdm/Xstartup
 +Startup=/etc/X11/kdm/Xstartup
  # A program to run after a user session exits. You should invoke sessreg
  # there and optionally change the ownership of the console, etc.
- # Default is /usr/X11R6/share/config/kdm/Xreset
--#Reset=
+ # Default is ""
+-Reset=/usr/X11R6/share/config/kdm/Xreset
 +Reset=/etc/X11/kdm/Xreset
  # The program which is run as the user which logs in. It is supposed to
- # interpret the session argument and start an appropriate session according
- # to it. See SessionTypes.
- # Default is /usr/X11R6/share/config/kdm/Xsession
--#Session=
+ # interpret the session argument (see SessionTypes) and start an appropriate
+ # session according to it.
+ # Default is /usr/X11R6/bin/xterm -ls -T
+-Session=/usr/X11R6/share/config/kdm/Xsession
 +Session=/etc/X11/kdm/Xsession
  # The program to run if Session fails.
  # Default is /usr/X11R6/bin/xterm
  #FailsafeClient=
-@@ -218,7 +218,7 @@
- AllowNullPasswd=false
+@@ -255,14 +255,14 @@
+ #DefaultSdMode=ForceNow
  # Where (relatively to the user's home directory) to store the last
  # selected session. Default is .wmrc
--#SessSaveFile=.wmrc
+-#SessSaveFile=
 +SessSaveFile=.kdmrc
- # Command FiFo options.
- # XXX these options will probably change ...
- # Default is false
-@@ -232,7 +232,7 @@
+ 
+ # Greeter config for all displays
+ [X-*-Greeter]
  # Session types the users can select. It is advisable to have "default" and
  # "failsafe" listed herein, which is also the default.
  # Note, that the meaning of this value is entirely up to your Session program.
 -SessionTypes=default,kde,failsafe
 +SessionTypes=default,kde,gnome,failsafe
  # Widget Style of the greeter:
- # KDE, Windows, Platinum, Motif, Motif+, CDE, SGI; Default is KDE
- #GUIStyle=Windows
-@@ -259,6 +259,7 @@
+ # Default, Windows, Platinum, Motif, MotifPlus, CDE, SGI, and any styles you
+ # may have installed, e.g., HighColor; Default is "Default"
+@@ -282,7 +282,7 @@
+ # - %m -> the machine (hardware) type
  # - %% -> a single %
  # Default is "Welcome to %s at %n"
- #GreetString=K Desktop Environment (%n)
-+GreetString=Welcome to PLD Linux Distribution at %n
+-#GreetString=K Desktop Environment (%n)
++GreetString=Welcome to PLD Linux at %n
  # The font for the headline. Default is charter,24,bold
  #GreetFont=charter,24,5,0,50,0
  # The normal font used in the greeter. Default is helvetica,12
-@@ -280,7 +281,7 @@
- NoUsers=adm,alias,amanda,apache,bin,bind,daemon,exim,falken,ftp,games,gdm,gopher,halt,httpd,ident,ingres,kmem,lp,mail,mailnull,man,mta,mysql,named,news,nfsnobody,nobody,nscd,ntp,operator,pcap,pop,postfix,postgres,qmaild,qmaill,qmailp,qmailq,qmailr,qmails,radvd,reboot,rpc,rpcuser,rpm,sendmail,shutdown,squid,sympa,sync,tty,uucp,xfs,xten
- # Special case of NoUsers: users with a UID less than this number (except root)
- # will not be shown as well. Default is 0
+@@ -317,7 +317,7 @@
+ HiddenUsers=adm,alias,amanda,apache,bin,bind,daemon,exim,falken,ftp,games,gdm,gopher,halt,httpd,ident,ingres,kmem,lp,mail,mailnull,man,mta,mysql,named,news,nfsnobody,nobody,nscd,ntp,operator,pcap,pop,postfix,postgres,qmaild,qmaill,qmailp,qmailq,qmailr,qmails,radvd,reboot,rpc,rpcuser,rpm,sendmail,shutdown,squid,sympa,sync,tty,uucp,xfs,xten
+ # Special case of HiddenUsers: users with a UID less than this number
+ # (except root) will not be shown as well. Default is 0
 -#MinShowUID=1000
-+MinShowUID=100
++MinShowUID=500
  # Complement to MinShowUID: users with a UID greater than this number will
  # not be shown as well. Default is 65535
  #MaxShowUID=29999
-@@ -309,7 +310,7 @@
- # "None" - no "Shutdown..." button is shown at all
- # "Root" - the root password must be entered to shut down
- # "All" - everybody can shut down the machine (Default)
--AllowShutdown=Root
-+AllowShutdown=None
- # Hold the X-server grabbed the whole time the greeter is visible.
- # This may be more secure, but will disable any background. Default is false
- #GrabServer=true
-@@ -323,9 +324,9 @@
+@@ -349,11 +349,11 @@
  # How long to wait for a local X-server to come up. Default is 15
  #ServerTimeout=
- # See above.
+ # See above
+-AllowShutdown=All
++AllowShutdown=None
+ # See above
 -AllowRootLogin=true
 +AllowRootLogin=false
- # See above.
+ # See above
 -AllowNullPasswd=true
 +AllowNullPasswd=false
  # Enable password-less logins on this display. USE WITH EXTREME CARE!
  # Default is false
  #NoPassEnable=true
-@@ -334,7 +335,7 @@
- 
- [X-:*-Greeter]
- # See above.
--AllowShutdown=All
+@@ -377,6 +377,7 @@
+ # active ServerLayout section of XF86Config. -1 means to use the upper-left
+ # screen. Default is 0
+ #GreeterScreen=-1
 +AllowShutdown=Root
- # Complain, if local X-authorization cannot be created. Default is true
- # XXX this is a dummy currently
- #AuthComplain=false
+ 
+ # Core config for 1st local display
+ [X-:0-Core]
