@@ -1079,6 +1079,10 @@ export UNSERMAKE=/usr/share/unsermake/unsermake
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
+	%if "%{_lib}" == "lib64"
+	--enable-libsuffix=64 \
+	%endif
+	--%{?debug:en}%{!?debug:dis}able-debug%{?debug:=full} \
 	--disable-rpath \
 	--enable-final \
 	--without-java \
