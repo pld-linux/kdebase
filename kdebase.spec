@@ -14,7 +14,7 @@
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040325
+%define		_snap		040327
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -72,6 +72,7 @@ Patch17:	%{name}-fileshareset.patch
 Patch18:	%{name}-sasl-includes.patch
 Patch19:	%{name}-kio_settings.patch
 Patch20:	kde-common-QTDOCDIR.patch
+Patch21:	%{name}-konsole-default-keytab.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	arts-devel >= 1.2.0
@@ -886,8 +887,6 @@ kdepasswd program functionality.
 userinfo zmienia informacje o koncie u¿ytkownika. Ten modu³ zawiera
 funkcjonalno¶æ programu kdepasswd.
 
-
-
 %package -n kdm
 Summary:	KDE Display Manager
 Summary(pl):	Zarz±dca ekranów KDE
@@ -1372,6 +1371,7 @@ Pliki umiêdzynarodawiaj±ce dla mailnews.
 %patch18 -p1
 %patch19 -p1
 %patch20 -p1
+%patch21 -p1
 
 %build
 cp /usr/share/automake/config.sub admin
