@@ -1,8 +1,8 @@
 Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
-Version:	2.1
-Release:	8
+Version:	2.1.1
+Release:	1
 Epoch:		6
 License:	GPL
 Group:		X11/Applications
@@ -21,10 +21,6 @@ Patch3:		%{name}-glibc-2.2.2.patch
 Patch4:		%{name}-kxmlrpcd-tcpsocket.patch
 Patch5:		%{name}-arrange.patch
 Patch6:		%{name}-utmp.patch
-Patch7:		%{name}-allow-to-change-user-agent.patch
-Patch8:		%{name}-disable_fonts_for_nonkde_apps.patch
-Patch9:		%{name}-kcontrol.patch
-Patch10:	%{name}-konq_history_security_patch.diff
 BuildRequires:	grep
 BuildRequires:	qt-devel >= 2.3.0
 BuildRequires:	kdelibs-devel >= %{version}
@@ -162,10 +158,6 @@ Wygaszacze ekranu desktopu KDE.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
-%patch7 -p1
-#%patch8 -p1
-%patch9 -p1
-%patch10 -p1
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
