@@ -1,6 +1,6 @@
 
 %define		_state		unstable
-à%define		_kdever		kde-3.1-rc1
+%define		_kdever		kde-3.1-rc1
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
