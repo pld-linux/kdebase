@@ -9,7 +9,7 @@ Summary(ru):	K Desktop Environment - базовые файлы
 Summary(uk):	K Desktop Environment - базов╕ файли
 Name:		kdebase
 Version:	3.0.3
-Release:	5
+Release:	6
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -337,7 +337,7 @@ export CPPFLAGS
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,Settings/KDE} \
+install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,Terminals,System/Administration,Settings/KDE} \
 	$RPM_BUILD_ROOT/etc/{pam.d,security,rc.d/init.d,X11/kdm}
 
 %{__make} install \
@@ -355,6 +355,11 @@ ALD=$RPM_BUILD_ROOT%{_applnkdir}
 mv -f $ALD/{Internet/konqbrowser.desktop,Network/WWW}
 mv -f $ALD/{Internet/keditbookmarks.desktop,Network/WWW}
 mv -f $ALD/{Toys/ktip.desktop,Amusements}
+mv -f $ALD/{Editors/{kate,kwrite}.desktop,Office/Editors}
+mv -f $ALD/{System/konsole.desktop,Terminals}
+mv -f $ALD/{System/{konquerorsu,konsolesu}.desktop,System/Administration}
+mv -f $ALD/{System/{kappfinder,kmenuedit,kpersonalizer}.desktop,Utilities}
+
 
 install %{SOURCE2}			$RPM_BUILD_ROOT/etc/pam.d/kdm
 install %{SOURCE6}			$RPM_BUILD_ROOT/etc/pam.d/kscreensaver
@@ -628,9 +633,10 @@ fi
 %{_applnkdir}/Settings/KDE/System/[!k]*
 %{_applnkdir}/Settings/KDE/System/.directory
 %{_applnkdir}/System/k[!o]*.desktop
-%{_applnkdir}/System/kon[!q]*.desktop
-%{_applnkdir}/Utilities/*.desktop
-%{_applnkdir}/Editors/*.desktop
+%{_applnkdir}/System/Administration/konsolesu.desktop
+%{_applnkdir}/Terminals/*.desktop
+%{_applnkdir}/Utilities/[!o]*.desktop
+%{_applnkdir}/Office/Editors/*.desktop
 # No idea what it is for...
 #%{_applnkdir}/ksysguard
 
@@ -766,7 +772,7 @@ fi
 
 %{_applnkdir}/Network/WWW/konq*.desktop
 %{_applnkdir}/Network/WWW/keditbookmarks.desktop
-%{_applnkdir}/System/konq*.desktop
+%{_applnkdir}/System/Administration/konq*.desktop
 %dir %{_applnkdir}/Settings/KDE
 %{_applnkdir}/Settings/KDE/.directory
 %{_applnkdir}/Settings/KDE/FileBrowsing
