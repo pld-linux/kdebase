@@ -1843,69 +1843,37 @@ fi
 
 %if %{with i18n}
 %files core-i18n -f core.lang
-%defattr(644,root,root,755)
 %files desktop-i18n -f kdebase.lang
-%defattr(644,root,root,755)
 %files infocenter-i18n -f kinfocenter.lang
-%defattr(644,root,root,755)
 %files kate-i18n -f kate.lang
-%defattr(644,root,root,755)
 %files kfind-i18n -f kfind.lang
-%defattr(644,root,root,755)
 %files kfontinst-i18n -f kcmfontinst.lang
-%defattr(644,root,root,755)
 %files kicker-i18n -f kicker.lang
-%defattr(644,root,root,755)
 %files klipper-i18n -f klipper.lang
-%defattr(644,root,root,755)
 %files kmenuedit-i18n -f kmenuedit.lang
-%defattr(644,root,root,755)
 %files konsole-i18n -f konsole.lang
-%defattr(644,root,root,755)
 %files kpager-i18n -f kpager.lang
-%defattr(644,root,root,755)
 %files ksysguard-i18n -f ksysguard.lang
-%defattr(644,root,root,755)
 %files kwrite-i18n -f kwrite.lang
-%defattr(644,root,root,755)
 %files screensavers-i18n -f screensaver.lang
-%defattr(644,root,root,755)
 %files -n kdm-i18n -f kdm.lang
-%defattr(644,root,root,755)
 %files -n konqueror-i18n -f konqueror.lang
-%defattr(644,root,root,755)
 %files i18n -f i18n.lang
-%defattr(644,root,root,755)
 %files -n kde-decoration-b2-i18n -f kwin_b2_config.lang
-%defattr(644,root,root,755)
 %files -n kde-decoration-modernsys-i18n -f kwin_modernsys_config.lang
-%defattr(644,root,root,755)
 %files -n kde-decoration-quartz-i18n -f kwin_quartz_config.lang
-%defattr(644,root,root,755)
 %files common-filemanagement-i18n -f kcmfileshare.lang
-%defattr(644,root,root,755)
 %files desktop-libs-i18n -f ksplashthemes.lang
-%defattr(644,root,root,755)
 %files kappfinder-i18n -f kappfinder.lang
-%defattr(644,root,root,755)
 %files kdcop-i18n -f kdcop.lang
-%defattr(644,root,root,755)
 %files kdeprintfax-i18n -f kdeprintfax.lang
-%defattr(644,root,root,755)
 %files kdialog-i18n -f kdialog.lang
-%defattr(644,root,root,755)
 %files kicker-libs-i18n -f libtaskbar.lang
-%defattr(644,root,root,755)
 %files kjobviewer-i18n -f kjobviewer.lang
-%defattr(644,root,root,755)
 %files kpersonalizer-i18n -f kpersonalizer.lang
-%defattr(644,root,root,755)
 %files ksystraycmd-i18n -f ksystraycmd.lang
-%defattr(644,root,root,755)
 %files libkonq-i18n -f libkonq.lang
-%defattr(644,root,root,755)
 %files mailnews-i18n -f mailnews.lang
-%defattr(644,root,root,755)
 %endif
 
 %files devel
@@ -2337,19 +2305,19 @@ fi
 %{_datadir}/wallpapers/blue-bend.jpg
 %{_datadir}/wallpapers/Island-of-Elba.jpg
 %{_datadir}/xsessions/kde.desktop
-%{_applnkdir}/.hidden/battery.desktop
-%{_applnkdir}/.hidden/bwarning.desktop
-%{_applnkdir}/.hidden/cwarning.desktop
-%{_applnkdir}/.hidden/kcmkxmlrpcd.desktop
-%{_applnkdir}/.hidden/kwinactions.desktop
-%{_applnkdir}/.hidden/kwinadvanced.desktop
-%{_applnkdir}/.hidden/kwinfocus.desktop
-%{_applnkdir}/.hidden/kwinmoving.desktop
-%{_applnkdir}/.hidden/power.desktop
-%{_applnkdir}/.hidden/randr.desktop
-%{_applnkdir}/.hidden/socks.desktop
-%{_applnkdir}/.hidden/virtualdesktops.desktop
-%{_applnkdir}/.hidden/xinerama.desktop
+%{_datadir}/applnk/.hidden/battery.desktop
+%{_datadir}/applnk/.hidden/bwarning.desktop
+%{_datadir}/applnk/.hidden/cwarning.desktop
+%{_datadir}/applnk/.hidden/kcmkxmlrpcd.desktop
+%{_datadir}/applnk/.hidden/kwinactions.desktop
+%{_datadir}/applnk/.hidden/kwinadvanced.desktop
+%{_datadir}/applnk/.hidden/kwinfocus.desktop
+%{_datadir}/applnk/.hidden/kwinmoving.desktop
+%{_datadir}/applnk/.hidden/power.desktop
+%{_datadir}/applnk/.hidden/randr.desktop
+%{_datadir}/applnk/.hidden/socks.desktop
+%{_datadir}/applnk/.hidden/virtualdesktops.desktop
+%{_datadir}/applnk/.hidden/xinerama.desktop
 %{_desktopdir}/kde/arts.desktop
 %{_desktopdir}/kde/background.desktop
 %{_desktopdir}/kde/bell.desktop
@@ -2649,8 +2617,8 @@ fi
 %{_datadir}/apps/naughtyapplet
 %{_datadir}/autostart/panel.desktop
 %{_datadir}/config/kickerrc
-%{_applnkdir}/.hidden/kicker_config.desktop
-%{_applnkdir}/.hidden/kicker_config_appearance.desktop
+%{_datadir}/applnk/.hidden/kicker_config.desktop
+%{_datadir}/applnk/.hidden/kicker_config_appearance.desktop
 %{_desktopdir}/kde/kcmtaskbar.desktop
 %{_desktopdir}/kde/panel.desktop
 %{_desktopdir}/kde/panel_appearance.desktop
@@ -2721,7 +2689,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/konsole.so
 #%{_datadir}/config/konsolerc
 %{_datadir}/services/konsole-script.desktop
-%{_applnkdir}/.hidden/kcmkonsole.desktop
+%{_datadir}/applnk/.hidden/kcmkonsole.desktop
 %{_desktopdir}/kde/konsole*.desktop
 %{_iconsdir}/*/*/apps/konsole.png
 
@@ -3090,14 +3058,14 @@ fi
 %{_datadir}/servicetypes/konqpopupmenuplugin.desktop
 %{_datadir}/servicetypes/searchprovider.desktop
 %{_datadir}/servicetypes/uasprovider.desktop
-%{_applnkdir}/.hidden/fileappearance.desktop
-%{_applnkdir}/.hidden/filebehavior.desktop
-%{_applnkdir}/.hidden/filepreviews.desktop
-%{_applnkdir}/.hidden/kcmkonq.desktop
-%{_applnkdir}/.hidden/kcmkonqyperformance.desktop
-%{_applnkdir}/.hidden/konqfilemgr.desktop
-%{_applnkdir}/.hidden/konqhtml.desktop
-%{_applnkdir}/.hidden/smb.desktop
+%{_datadir}/applnk/.hidden/fileappearance.desktop
+%{_datadir}/applnk/.hidden/filebehavior.desktop
+%{_datadir}/applnk/.hidden/filepreviews.desktop
+%{_datadir}/applnk/.hidden/kcmkonq.desktop
+%{_datadir}/applnk/.hidden/kcmkonqyperformance.desktop
+%{_datadir}/applnk/.hidden/konqfilemgr.desktop
+%{_datadir}/applnk/.hidden/konqhtml.desktop
+%{_datadir}/applnk/.hidden/smb.desktop
 # Must be here!
 %{_applnkdir}/konqueror.desktop
 #
