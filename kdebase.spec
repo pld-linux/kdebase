@@ -24,13 +24,11 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.5
+Release:	1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# generated from kde-i18n
-#Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 Source2:	kdm.pamd
 Source3:	kdm.init
 Source4:	kdm.Xsession
@@ -51,7 +49,11 @@ Patch9:		%{name}-konsole_all.patch
 Patch10:	%{name}-nsplugins_dirs.patch
 Patch11:	%{name}-startkde.patch
 Patch12:	%{name}-gtkrc.patch
-Patch13:	%{name}-kdm_kgreeter.patch
+# From rh
+Patch13:        %{name}-kicker_nodesktop.patch
+Patch14:        %{name}-xfsreload.patch
+Patch15:	%{name}-kdm_kgreeter.patch
+
 %ifnarch sparc sparc64
 %{!?_without_alsa:BuildRequires: alsa-lib-devel}
 %endif
@@ -447,11 +449,21 @@ Internet Explorer.
 %patch11 -p1
 %patch12 -p1
 %patch13 -p1
+%patch14 -p1
+%patch15 -p1
 
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
+
+for plik in `find ./ -name *.desktop` ; do
+        if [ -d $plik ]; then
+	echo $plik
+	sed -ie "s/[nb]/[no]/g" $plik			        
+	fi
+done
+				
 
 CPPFLAGS="-I%{_includedir}"
 export CPPFLAGS
