@@ -373,17 +373,23 @@ do
 	ln -sf `echo $i | sed "s:^$RPM_BUILD_ROOT%{_pixmapsdir}/::"` $RPM_BUILD_ROOT%{_pixmapsdir}	
 %else
 	cp -af $i $RPM_BUILD_ROOT%{_pixmapsdir}
-%fi
+%endif
 done
 
-bzcat -dc %{SOURCE5} | tar xf - -C $RPM_BUILD_ROOT%{_pixmapsdir}
+bzip2 -dc %{SOURCE5} | tar xf - -C $RPM_BUILD_ROOT%{_pixmapsdir}
 
 %if %{!?_with_pixmapsubdirs:1}%{?_with_pixmapsubdirs:0}
+# we have own
 rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{emacs,gimp,mozilla,netscape,opera,xedit,xemacs,xmag,xv}.png
-rm -rf $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{access,agent,bell,colors,cookie,date,designer,email,energy,energy_star,enhanced_browsing,filetypes,fonts,go,gvim,help_index,hwinfo,icons,input_devices_settings}.png \
+# moved
+rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{access,agent,bell,colors,cookie,date,designer,email,energy,energy_star,enhanced_browsing,filetypes,fonts,go,gvim,help_index,hwinfo,icons,input_devices_settings}.png \
 	$RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{kaddressbook,kappfinder,kate,kcmdevices,kcmfontinst,kcmkwm,kcmmemory,kcmmidi,kcmpartitions,kcmpci,kcmprocessor,kcmscsi,kcmsystem,kcontrol,kdmconfig,key_bindings}.png \
 	$RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{keyboard,kfind,kfm,kfm_home,khelpcenter,klipper,kmenuedit,knotify,konqueror,konsole,kpager,kscreensaver,ksysguard,kthememgr,ktip,kwrite,licq,locale,looknfeel,mouse}.png \
 	$RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{multimedia,netscape-plugins,password,personal,proxy,samba,style,stylesheet,usb,window_list}.png \
+# resized
+rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{background,kcmsound,printmgr,cache,kcmx,kcmkicker,keditbookmarks}.png
+# moved to kdelibs
+rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/arts.png
 %endif
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
