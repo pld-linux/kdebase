@@ -7,3 +7,4 @@ Name=PLD fast specs changelog access
 Query=http://cvs.pld-linux.org/SPECS/\\{@}.spec
 ServiceTypes=SearchProvider
 Type=Service
+# vi: encoding=utf-8

@@ -7,3 +7,4 @@ Name=PLD FAQ search
 Query=http://irc.pld.org.pl/?sub=search&regexp=\\{@}
 ServiceTypes=SearchProvider
 Type=Service
+# vi: encoding=utf-8
