@@ -984,6 +984,7 @@ programs=" \
 	keyboard \
 	keys \
 	ksplashml \
+	kwin \
 	kwindecoration \
 	kxkb \
 	mouse \
@@ -1020,6 +1021,7 @@ programs="\
 	icons \
 	kcmcss \
 	khtml \
+	libkonq \
 	netpref \
 	proxy \
 	smb \
@@ -1042,7 +1044,6 @@ done
 %find_lang	konsole		--with-kde
 %find_lang	ksysguard	--with-kde
 %find_lang	kpager		--with-kde
-#%find_lang	kthememgr	--with-kde
 %find_lang	kwrite		--with-kde
 %find_lang	screensaver	--with-kde
 
@@ -1260,6 +1261,7 @@ fi
 %files core -f core.lang
 %defattr(644,root,root,755)
 %lang(en) %dir %{_kdedocdir}/en/%{name}-%{_snap}-apidocs
+%lang(en) %{_kdedocdir}/en/%{name}-%{_snap}-apidocs/common
 %lang(en) %dir %{_kdedocdir}/en/kcontrol
 %lang(en) %{_kdedocdir}/en/kcontrol/common
 %lang(en) %{_kdedocdir}/en/kcontrol/helpindex.html
