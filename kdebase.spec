@@ -9,7 +9,10 @@
 # * Cursor layout settings are avaliable per one session only 
 # * Sources renaming & renumerating 
 #
-# _without_alsa - disable alsa
+# Conditional Builds:
+#
+# _with_db		- use it if You have db package installed
+# _without_alsa 	- disable alsa
 #
 
 %define		_state		unstable
@@ -26,7 +29,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËĞÄ
 Name:		kdebase
 Version:	3.1
-Release:	3
+Release:	4
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -63,7 +66,11 @@ BuildRequires:	automake
 BuildRequires:	awk
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
+%if %{?_with_db:1}%{!?_with_db:0}
 BuildRequires:	db-devel
+%else
+BuildRequires:	db3-devel
+%endif
 BuildRequires:	findutils
 BuildRequires:	gettext-devel
 BuildRequires:	glut-devel
