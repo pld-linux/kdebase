@@ -5,6 +5,7 @@
 #
 # Conditional build:
 %bcond_without 	i18n	# don't build i18n packages per module 
+%bcond_without	ldap	# build without openldap support.
 #
 %define		_state		stable
 %define		_ver		3.2.0
@@ -89,7 +90,7 @@ BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	motif-devel
 BuildRequires:	openssl-devel >= 0.9.7c
-BuildRequires:	openldap-devel
+%{?with_ldap:	BuildRequires:	openldap-devel}
 BuildRequires:	pam-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	xcursor-devel
@@ -2923,8 +2924,10 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/kio_fish.so
 %{_libdir}/kde3/kio_floppy.la
 %attr(755,root,root) %{_libdir}/kde3/kio_floppy.so
+%if %{with ldap}
 %{_libdir}/kde3/kio_ldap.la
 %attr(755,root,root) %{_libdir}/kde3/kio_ldap.so
+%endif
 %{_libdir}/kde3/kio_mac.la
 %attr(755,root,root) %{_libdir}/kde3/kio_mac.so
 %{_libdir}/kde3/kio_nfs.la
@@ -3038,7 +3041,7 @@ fi
 %{_datadir}/services/kshorturifilter.desktop
 %{_datadir}/services/kuriikwsfilter.desktop
 %{_datadir}/services/kurisearchfilter.desktop
-%{_datadir}/services/ldap.protocol
+%{?with_ldap:	%{_datadir}/services/ldap.protocol}
 %{_datadir}/services/localdomainurifilter.desktop
 %{_datadir}/services/mac.protocol
 %{_datadir}/services/nfs.protocol
