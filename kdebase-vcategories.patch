@@ -1,3 +1,11 @@
+--- kdebase-040210/kcontrol/kcontrol/KControl.desktop.orig	2004-02-10 12:25:51.000000000 +0100
++++ kdebase-040210/kcontrol/kcontrol/KControl.desktop	2004-02-11 02:03:26.000000000 +0100
+@@ -76,4 +76,4 @@
+ Name[zu]=Indawo Yokulawula
+ 
+ X-DCOP-ServiceType=Unique
+-Categories=Qt;KDE;Core
++Categories=Qt;KDE;Settings;
 --- kdebase-030905/kcontrol/konq/desktoppath.desktop~	2003-09-05 20:16:55.000000000 +0200
 +++ kdebase-030905/kcontrol/konq/desktoppath.desktop	2003-09-06 11:01:58.000000000 +0200
 @@ -145,4 +145,4 @@
