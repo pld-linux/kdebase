@@ -22,6 +22,8 @@ Patch4:		%{name}-kxmlrpcd-tcpsocket.patch
 Patch5:		%{name}-arrange.patch
 Patch6:		%{name}-utmp.patch
 BuildRequires:	grep
+BuildRequires:	libtool
+BuildRequires:	autoconf
 BuildRequires:	qt-devel >= 2.3.0
 BuildRequires:	kdelibs-devel >= %{version}
 BuildRequires:	libjpeg-devel
@@ -33,7 +35,7 @@ BuildRequires:	zlib-devel
 BuildRequires:	pam-devel
 BuildRequires:	OpenGL-devel
 BuildRequires:	openssl-devel
-BuildRequires:	lesstif-devel
+BuildRequires:	motif-devel
 Prereq:		/sbin/ldconfig
 Requires:	applnk
 Requires:	konqueror
@@ -162,6 +164,9 @@ Wygaszacze ekranu desktopu KDE.
 %patch6 -p1
 
 %build
+libtoolize --copy --force
+aclocal
+autoconf
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
