@@ -48,7 +48,7 @@ Source11:	%{name}-kde-settings.menu
 Source12:	%{name}-imdb.desktop
 # generated from kde-i18n-%{version}.tar.bz2:
 Source13:	kde-i18n-%{name}-%{version}.tar.bz2
-# Source13-md5:	e3ba104f952765ff0fa768f7a88ccdb8
+# Source13-md5:	bfbe2ffdbf4b8dd726752312a3844292
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 #Patch1:		%{name}-fix-mouse.cpp.patch
 Patch2:		%{name}-fontdir.patch
@@ -962,7 +962,7 @@ done
 programs="appletproxy cache cookies crypto ebrowsing email extensionproxy \
 	  filemanager filetypes icons kcmcgi kcmcrypto kcmcss kcmicons \
 	  kcmkio kcmkonq kcmkonqhtml kcmkurifilt kcmsocks kfile_font \
-	  kfmclient kfmexec khtml kio_devices kio_finger kio_fish \
+	  kfmclient kioexec khtml kio_devices kio_finger kio_fish \
 	  kio_floppy kio_mac kio_nfs kio_print kio_sftp kio_smbro netpref \
 	  nsplugin proxy smb useragent"
 # missing
