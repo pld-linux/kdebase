@@ -26,7 +26,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	1
+Release:	0.5
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -71,10 +71,7 @@ Patch16:        %{name}-xfsreload.patch
 Patch17:	%{name}-kdesukonsole.patch
 Patch18:	%{name}-vroot.patch
 Patch19:	%{name}-konsolepropfontwidth3.patch
-#taken from kde-look
 Patch20:        %{name}-kcm_fonts.patch
-#
-
 Patch21:	%{name}-gtkrc.patch
 
 %ifnarch sparc sparc64
