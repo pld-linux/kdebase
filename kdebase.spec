@@ -286,9 +286,9 @@ fi
 
 %files -f kdm.lang -n kdm
 %defattr(644,root,root,755)
-%attr(0755,xdm,xdm) %{_bindir}/chooser
-%attr(0755,xdm,xdm) %{_bindir}/kdm
-%attr(0755,xdm,xdm) %{_sysconfdir}/X11/kdm
+%attr(0755,root,root) %{_bindir}/chooser
+%attr(0755,root,root) %{_bindir}/kdm
+%attr(0755,root,root) %{_sysconfdir}/X11/kdm
 %attr(0755,root,root) %{_libdir}/libkcm_kdm.??
 %attr(0640,root,root) %config %verify(not size mtime md5) %{_sysconfdir}/pam.d/kdm
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/security/blacklist.kdm
