@@ -1,35 +1,23 @@
-%define		_sub_ver	beta2
+%define		_ver		3.0
+#define		_sub_ver
+%define		_rel		1
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Summary(pt_BR):	K Desktop Environment - arquivos básicos
 Name:		kdebase
-Version:	3.0
-Release:	0.%{_sub_ver}.2
+%{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
+%{!?_sub_ver:	%define	_version	%{_ver}}
+Version:	%{_version}
+%{?_sub_ver:	%define	_release	0.%{_sub_ver}.%{_rel}}
+%{!?_sub_ver:	%define	_release	%{_rel}}
+Release:	%{_release}
 Epoch:		6
 License:	GPL
 Group:		X11/Applications
-Group(cs):	X11/Aplikace
-Group(da):	X11/Programmer
-Group(de):	X11/Applikationen
-Group(es):	X11/Aplicaciones
-Group(fr):	X11/Applications
-Group(id):	X11/Aplikasi
-Group(is):	X11/Forrit
-Group(it):	X11/Applicazioni
-Group(ja):	X11/¥¢¥×¥ê¥±¡¼¥·¥ç¥ó
-Group(no):	X11/Applikasjoner
-Group(pl):	X11/Aplikacje
-Group(pt_BR):	X11/Aplicações
-Group(pt):	X11/Aplicações
-Group(ru):	X11/ðÒÉÌÏÖÅÎÉÑ
-Group(sl):	X11/Programi
-Group(sv):	X11/Tillämpningar
-Group(uk):	X11/ðÒÉËÌÁÄÎ¦ ðÒÏÇÒÁÍÉ
 %{!?_sub_ver:	%define	_ftpdir	stable}
-%{?_sub_ver:	%define	_ftpdir	unstable/kde-%{version}-%{_sub_ver}}
-Source0:	ftp://ftp.kde.org/pub/kde/%{_ftpdir}/src/%{name}-%{version}%{_sub_ver}.tar.bz2
-#Source1:	%{name}-startkde.sh
+%{?_sub_ver:	%define	_ftpdir	unstable/kde-%{version}%{_sub_ver}}
+Source0:	ftp://ftp.kde.org/pub/kde/%{_ftpdir}/%{version}/src/%{name}-%{version}.tar.bz2
 Source2:	kdm.pamd
 Source3:	kdm.init
 Source4:	kdm.Xsession
@@ -48,6 +36,7 @@ BuildRequires:	alsa-lib-devel
 %endif
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
+BuildRequires:	arts-kde-devel
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -120,22 +109,6 @@ Summary(es):	Header files for compiling applications that use kdebase libraries
 Summary(pl):	Pliki nag³ówkowe potrzebne do programowania
 Summary(pt_BR):	Arquivos de inclusão para compilar aplicativos que usem bibliotecas do kdebase
 Group:		X11/Development/Libraries
-Group(cs):	X11/Vývojové prostøedky/Knihovny
-Group(da):	X11/Udvikling/Biblioteker
-Group(de):	X11/Entwicklung/Bibliotheken
-Group(es):	X11/Desarrollo/Bibliotecas
-Group(fr):	X11/Development/Librairies
-Group(is):	X11/Þróunartól/Aðgerðasöfn
-Group(it):	X11/Sviluppo/Librerie
-Group(ja):	X11/³«È¯/¥é¥¤¥Ö¥é¥ê
-Group(no):	X11/Applikasjoner/Biblioteker
-Group(pl):	X11/Programowanie/Biblioteki
-Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
-Group(pt):	X11/Desenvolvimento/Bibliotecas
-Group(ru):	X11/òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
-Group(sl):	X11/Razvoj/Knji¾nice
-Group(sv):	X11/Utveckling/Bibliotek
-Group(uk):	X11/òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	%{name} = %{version}
 Requires:	qt-devel >= 2.3.0
 Requires:	kdelibs-devel >= %{version}
@@ -292,7 +265,7 @@ KDE screensavers.
 Wygaszacze ekranu desktopu KDE.
 
 %prep
-%setup -q -n "%{name}-%{version}%{_sub_ver}"
+%setup -q
 # patch0 is applied in %%install
 %patch1 -p1
 %patch2 -p1
@@ -304,27 +277,9 @@ Wygaszacze ekranu desktopu KDE.
 
 %build
 
-# workaround -- don't allow to regenerate Makefile.xx
-find -name Makefile.am -exec touch {} \;
-find -name Makefile.in -exec touch {} \;
-
-kde_htmldir="%{_htmldir}"; export kde_htmldir
-kde_icondir="%{_pixmapsdir}"; export kde_icondir
-
-%{__make} -f Makefile.cvs
-CPPFLAGS="-I%{_includedir}"
-export CPPFLAGS
-%configure \
-	--with-pam=kdm \
-	--without-ldap \
-	--without-shadow \
-	--disable-shadow \
-	--with-xdmdir="%{_sysconfdir}/kdm" \
-	--enable-final
-
-%{__make}
 
 %install
+cd %{name}-%{version}
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,Settings/KDE} \
 	$RPM_BUILD_ROOT/etc/{pam.d,security,rc.d/init.d,X11/kdm}
@@ -343,7 +298,6 @@ mv -f $ALD/{Internet/konqbrowser.desktop,Network/WWW}
 mv -f $ALD/{Internet/keditbookmarks.desktop,Network/WWW}
 mv -f $ALD/{Toys/ktip.desktop,Amusements}
 
-install %{SOURCE1}			$RPM_BUILD_ROOT%{_bindir}/startkde
 install %{SOURCE2}			$RPM_BUILD_ROOT/etc/pam.d/kdm
 install %{SOURCE6}			$RPM_BUILD_ROOT/etc/pam.d/kscreensaver
 install %{SOURCE3}			$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
@@ -459,7 +413,6 @@ fi
 %attr(6755,root,root) %{_bindir}/konsole_grantpty
 %attr(0755,root,root) %{_bindir}/khelpcenter
 %attr(0755,root,root) %{_bindir}/khotkeys
-%attr(0755,root,root) %{_bindir}/klegacyimport
 %attr(0755,root,root) %{_bindir}/klipper
 %attr(0755,root,root) %{_bindir}/ks[mty]*
 %attr(0755,root,root) %{_bindir}/ksplash
@@ -474,53 +427,56 @@ fi
 %attr(0755,root,root) %{_libdir}/[ae]*.so*
 %attr(0755,root,root) %{_libdir}/k[dhijlmswx]*.la
 %attr(0755,root,root) %{_libdir}/k[dhijlmswx]*.so*
+%attr(0755,root,root) %{_libdir}/kaccess.??
 %attr(0755,root,root) %{_libdir}/kate.??
+%attr(0755,root,root) %{_libdir}/kcminit.??
+%attr(0755,root,root) %{_libdir}/kcmshell.??
+%attr(0755,root,root) %{_libdir}/kcontrol.??
 %attr(0755,root,root) %{_libdir}/konsole.la
 %attr(0755,root,root) %{_libdir}/konsole.so*
 %attr(0755,root,root) %{_libdir}/lib[cdqt]*.la
 %attr(0755,root,root) %{_libdir}/lib[cdqt]*.so*
 %attr(0755,root,root) %{_libdir}/libk[ahmrstw]*.la
 %attr(0755,root,root) %{_libdir}/libk[ahmrstw]*.so*
-#%attr(0755,root,root) %{_libdir}/libkcm_[ilx]*.la*
-#%attr(0755,root,root) %{_libdir}/libkcm_[ilx]*.so*
-#%attr(0755,root,root) %{_libdir}/libkcm_[ku]*.la
-#%attr(0755,root,root) %{_libdir}/libkcm_[ku]*.so
-%attr(0755,root,root) %{_libdir}/libkicker.la
-%attr(0755,root,root) %{_libdir}/libkicker.so.*.*.*
-%attr(0755,root,root) %{_libdir}/liblockoutapplet.la
-%attr(0755,root,root) %{_libdir}/liblockoutapplet.so.*.*.*
+%attr(0755,root,root) %{_libdir}/libkickermain.la
+%attr(0755,root,root) %{_libdir}/libkickermain.so.*.*.*
+%attr(0755,root,root) %{_libdir}/libkfindpart.??
+%attr(0755,root,root) %{_libdir}/libsensordisplays.la
+%attr(0755,root,root) %{_libdir}/libsensordisplays.so.*.*.*
 %attr(0755,root,root) %{_libdir}/libkonsolepart.la
 %attr(0755,root,root) %{_libdir}/libkonsolepart.so*
-%attr(0755,root,root) %{_libdir}/libnaughtyapplet.la
-%attr(0755,root,root) %{_libdir}/libnaughtyapplet.so*
 
+%attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so.*.*.*
+%attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.so.*.*.*
+%attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so.*.*.*
+%attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so.*.*.*
+%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so.*.*.*
+%attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so.*.*.*
+%attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.so.*.*.*
+%attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.so.*.*.*
+%attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so.*.*.*
+%attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so.*.*.*
 %attr(0755,root,root) %{_libdir}/kde3/[ikt]*.la
 %attr(0755,root,root) %{_libdir}/kde3/[ikt]*.so*
 %attr(0755,root,root) %{_libdir}/kde3/libkcm_[abcefilmptu]*.la
 %attr(0755,root,root) %{_libdir}/kde3/libkcm_[abcefilmptu]*.so*
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_k[ehinuw]*.la
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_k[ehinuw]*.so*
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_nic.la
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_nic.so*
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_s[amt]*.la
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_s[amt]*.so*
 %attr(0755,root,root) %{_libdir}/kde3/libk[fsuw]*.la*
 %attr(0755,root,root) %{_libdir}/kde3/libk[fsuw]*.so*
 
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_socks.la
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_socks.so
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_konsole.la
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_konsole.so
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_spellchecking.la
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_spellchecking.so
-%attr(0755,root,root) %{_libdir}/kde3/libkded*.la
-%attr(0755,root,root) %{_libdir}/kde3/libkded*.so*
 %attr(0755,root,root) %{_libdir}/kde3/lib*kdeprint*.la
 %attr(0755,root,root) %{_libdir}/kde3/lib*kdeprint*.so*
 %attr(0755,root,root) %{_libdir}/kde3/libkhelp*.la
 %attr(0755,root,root) %{_libdir}/kde3/libkhelp*.so*
-%attr(0755,root,root) %{_libdir}/kde3/libklipperapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/libklipperapplet.so*
 %attr(0755,root,root) %{_libdir}/kde3/gsthumbnail.la
 %attr(0755,root,root) %{_libdir}/kde3/gsthumbnail.so*
 
@@ -547,7 +503,6 @@ fi
 %{_applnkdir}/Settings/KDE/PowerControl
 %{_applnkdir}/Settings/KDE/Sound
 %dir %{_applnkdir}/Settings/KDE/System
-#%{_applnkdir}/Settings/KDE/System/k[!d]*
 %{_applnkdir}/Settings/KDE/System/[!k]*
 %{_applnkdir}/Settings/KDE/System/.directory
 %{_applnkdir}/System/k[!o]*.desktop
@@ -563,10 +518,11 @@ fi
 %{_datadir}/apps/konsole
 %{_datadir}/apps/kpersonalizer
 %{_datadir}/apps/ks[py]*
+%{_datadir}/apps/klipper
+%{_datadir}/apps/ksmserver
 
 %{_datadir}/autostart
 %dir %{_datadir}/config
-#%{_datadir}/config/[!k]*
 %{_datadir}/config/k[!d]*
 %{_datadir}/config/kdesktop*
 %{_datadir}/locale
@@ -580,7 +536,6 @@ fi
 %{_datadir}/templates
 %{_datadir}/wallpapers
 %{_datadir}/servicetypes/[fstu]*.desktop
-#%{_datadir}/servicetypes/k[!o]*.desktop
 
 %{_pixmapsdir}/*/*/apps/[abcdefghilmnprstuwx]*
 %{_pixmapsdir}/*/*/apps/k[acefhijlmnptwm]*
@@ -588,6 +543,7 @@ fi
 %{_pixmapsdir}/*/*/apps/ksysguard.png
 %{_pixmapsdir}/*/*/apps/kdisk*
 %{_pixmapsdir}/*/*/apps/kdeprint*
+%{_pixmapsdir}/*/*/apps/opera*
 
 %{_pixmapsdir}/*/*/actions/*
 %{_pixmapsdir}/*/*/devices/*
@@ -611,8 +567,18 @@ fi
 %{_includedir}/kwin/*.h
 %{_includedir}/kate/*.h
 %{_includedir}/ksgrd
-%{_libdir}/libkicker.so
-%{_libdir}/liblockoutapplet.so
+%attr(0755,root,root) %{_libdir}/libkickermain.so
+%attr(0755,root,root) %{_libdir}/libsensordisplays.so
+%attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so
+%attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so
+%attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so
 
 %files static
 %defattr(644,root,root,755)
@@ -622,8 +588,6 @@ fi
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/chooser
 %attr(0755,root,root) %{_bindir}/kdm*
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_kdm.la
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_kdm.so*
 
 %dir %{_sysconfdir}/kdm
 %{_sysconfdir}/kdm/kdmrc
@@ -641,7 +605,6 @@ fi
 %{_datadir}/apps/kdm
 %dir %{_datadir}/config/kdm
 %config(noreplace) %{_datadir}/config/kdm/kdmrc
-#%{_datadir}/config/kdm/README
 
 %{_pixmapsdir}/*/*/apps/kdmconfig.png
 
@@ -667,11 +630,6 @@ fi
 
 %attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.la
 %attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.so*
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_konq*.la
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_konq*.so*
-%attr(0755,root,root) %{_libdir}/kde3/libkonq*la
-%attr(0755,root,root) %{_libdir}/kde3/libkonq*so.*
-%attr(0755,root,root) %{_libdir}/kde3/libkonq*.so
 
 %{_applnkdir}/Network/WWW/konq*.desktop
 %{_applnkdir}/Network/WWW/keditbookmarks.desktop
@@ -696,12 +654,7 @@ fi
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/*.kss
 
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_screensaver.la
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_screensaver.so*
-
 %{_applnkdir}/Settings/KDE/LookNFeel/screensaver.desktop
 %{_applnkdir}/System/ScreenSavers/*
-
-#%{_datadir}/apps/kscreensaver
 
 %{_pixmapsdir}/*/*/apps/kscreensaver.png
