@@ -8,7 +8,7 @@
 #
 
 %define         _state          stable
-%define         _ver		3.1.2
+%define         _ver		3.1.3
 
 %define         _kdelibsminrel  1
 
@@ -28,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	2
+Release:	0.1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -46,7 +46,7 @@ Source10:       %{name}-kdesktop.pam
 Source11:       %{name}-kde-settings.menu
 Source12:       %{name}-imdb.desktop
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
-Patch1:		%{name}-fix-mouse.cpp.patch
+#Patch1:		%{name}-fix-mouse.cpp.patch
 Patch2:		%{name}-fontdir.patch
 Patch3:		%{name}-kcm_background.patch
 Patch4:		%{name}-kdm.daemon_output.patch
@@ -406,7 +406,7 @@ Summary:        KDE Core Apps
 Summary(pl):    Podstawowe aplikacje KDE
 Group:          X11/Applications
 Requires:       kdelibs >= %{version}-%{_kdelibsminrel}
-Obsoletes:      %{name} < 3.1.2-1
+Obsoletes:      %{name} < 3.1.2
 Obsoletes:      %{name}-kcontrol
 Obsoletes:      %{name}-khelpcenter
 Obsoletes:      %{name}-helpcenter
@@ -487,7 +487,7 @@ Summary:        A KDE version of dialog
 Summary(pl):    Wersja KDE dialogu
 Group:          X11/Applications
 Requires:       kdelibs >= %{version}-%{_kdelibsminrel}
-Obsoletes:      %{name} < 3.1.2-1
+Obsoletes:      %{name} < 3.1.2
 
 %description kdialog
 Allows to display menu boxes from shell scripts.
@@ -648,7 +648,7 @@ Summary:        KDE Write Daemon
 Summary(pl):    Demon zapisu KDE
 Group:          X11/Applications
 Requires:       kdelibs >= %{version}-%{_kdelibsminrel}
-Obsoletes:      %{name} < 3.1.2-1
+Obsoletes:      %{name} < 3.1.2
 
 %description kwrited
 KDE Write Daemon.
@@ -661,7 +661,7 @@ Summary:        A libraries for KDE text editors
 Summary(pl):    Biblioteki dla edytorów tekstu KDE
 Group:          X11/Libraries
 Requires:       %{name}-libkmultitabbar = %{epoch}:%{version}-%{release}
-Obsoletes:      %{name}-kate < 3.1.2-1
+Obsoletes:      %{name}-kate < 3.1.2
 
 %description libkate
 A libraries for KDE text editors.
@@ -674,7 +674,7 @@ Summary:        Library containing multiple tab support
 Summary(pl):    Biblioteka zawieraj±ca obs³ugê kilku kart
 Group:          X11/Libraries
 Requires:       kdelibs >= %{version}-%{_kdelibsminrel}
-Obsoletes:      %{name}-common-filemanagement < 3.1.2-1
+Obsoletes:      %{name}-common-filemanagement < 3.1.2
 
 %description libkmultitabbar
 Library containing multiple tab support.
@@ -687,7 +687,7 @@ Summary:        Konqueror library files
 Summary(pl):    Biblioteki wykorzystywane przez konquerora
 Group:          X11/Libraries
 Requires:       kdelibs >= %{version}-%{_kdelibsminrel}
-Obsoletes:      konqueror < 3.1.2-1
+Obsoletes:      konqueror < 3.1.2
 
 %description libkonq
 Libraries containing functions used by konqueror.
@@ -769,21 +769,21 @@ Internet Explorer.
 %prep
 %setup -q -a10
 %patch0 -p1
-%patch1 -p1
+#%patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
-%patch8 -p1
+#%patch8 -p1
 %patch9 -p1
-%patch10 -p1
-%patch11 -p1
+#%patch10 -p1
+#%patch11 -p1
 %patch12 -p1 
 %patch13 -p1
 #%%patch14 -p1
-%patch16 -p1
+#%patch16 -p1
 %patch17 -p1
 %patch18 -p1
 %patch19 -p1
@@ -836,7 +836,8 @@ install %{SOURCE12}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/imdb.des
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
-cp $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop \
+#cp $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/smb-network.desktop \
+cp kioslave/smb/smb-network.desktop \
     $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/remote
 
 ALD=$RPM_BUILD_ROOT%{_applnkdir}
