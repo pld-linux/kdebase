@@ -14,13 +14,6 @@
  
 -Categories=Qt;KDE;X-KDE-settings-system
 +Categories=Qt;KDE;X-KDE-settings-desktop;
---- kdebase/kdepasswd/kcm/kcm_useraccount.desktop.orig	2004-03-25 23:46:49.000000000 +0100
-+++ kdebase/kdepasswd/kcm/kcm_useraccount.desktop	2004-03-27 12:59:17.844442808 +0100
-@@ -30,3 +30,4 @@
- Comment[pt_BR]=Informações do usuário tais como senha, nome e e-mail
- Comment[sv]=Användarinformation som lösenord, namn och e-post
- Comment[tr]=Parola, isim ve e-posta gibi kullanıcı bilgisi
-+Categories=Qt;KDE;X-KDE-settings-security;
 --- kdebase-040110/khelpcenter/Help.desktop.orig	2004-01-10 14:42:58.000000000 +0100
 +++ kdebase-040110/khelpcenter/Help.desktop	2004-01-10 15:00:25.000000000 +0100
 @@ -6,7 +6,7 @@
