@@ -28,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.%{_snap}.1
+Release:	0.%{_snap}.1.1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -519,10 +519,19 @@ done
 	
 %{__make}
 
+cd ksplashml
+%{__make}
+cd ..
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
+
+cd ksplashml
+%{__make} install DESTDIR=$RPM_BUILD_ROOT
+cd ..
+
 
 install -d $RPM_BUILD_ROOT/etc/{X11/desktop/menus,pam.d,rc.d/init.d,security} \
     $RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
@@ -693,10 +702,10 @@ fi
 %attr(0755,root,root) %{_libdir}/kwrited.so
 %{_libdir}/libksgrd.la
 %attr(0755,root,root) %{_libdir}/libksgrd.so.*
-#%{_libdir}/libksplashthemes.la
-#%attr(0755,root,root) %{_libdir}/libksplashthemes.so.*
-#%{_libdir}/libsensordisplays.la
-#%attr(0755,root,root) %{_libdir}/libsensordisplays.so.*
+%{_libdir}/libksplashthemes.la
+%attr(0755,root,root) %{_libdir}/libksplashthemes.so.*
+##%{_libdir}/libsensordisplays.la
+##%attr(0755,root,root) %{_libdir}/libsensordisplays.so.*
 %{_libdir}/libtask*.la
 %attr(0755,root,root) %{_libdir}/libtask*.so.*
 %{_libdir}/kde3/kcm_access.la
@@ -775,8 +784,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kwin*.so
 %{_libdir}/kde3/libkdeprint_part.la
 %attr(0755,root,root) %{_libdir}/kde3/libkdeprint_part.so
-#%{_libdir}/kde3/libksplashdefault.la
-#%attr(0755,root,root) %{_libdir}/kde3/libksplashdefault.so*
+%{_libdir}/kde3/libksplashdefault.la
+%attr(0755,root,root) %{_libdir}/kde3/libksplashdefault.so*
 %{_libdir}/kde3/sysguard_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
 %dir %{_datadir}/apps/ksmserver
@@ -806,7 +815,7 @@ fi
 %{_datadir}/locale/*
 %{_datadir}/services/kaccess.desktop
 %{_datadir}/services/kdeprint_part.desktop
-#%{_datadir}/services/ksplash*.desktop
+%{_datadir}/services/ksplash*.desktop
 %{_datadir}/services/kwrited.desktop
 %{_datadir}/services/kxkb.desktop
 %{_datadir}/sounds
@@ -882,15 +891,15 @@ fi
 %{_includedir}/kwin/*.h
 %{_includedir}/kate
 %{_includedir}/ksgrd
-#%{_includedir}/ksplash
+%{_includedir}/ksplash
 %{_libdir}/libkickermain.so
 %{_libdir}/libkmultitabbar.so
 %{_libdir}/libkonq.so
 %{_libdir}/libkonqsidebarplugin.so
 %{_libdir}/libksgrd.so
-#%{_libdir}/libksplashthemes.so
+%{_libdir}/libksplashthemes.so
 %{_libdir}/libnsplugin.so
-#%{_libdir}/libsensordisplays.so
+##%{_libdir}/libsensordisplays.so
 %{_libdir}/libtask*.so
 
 #%files static
