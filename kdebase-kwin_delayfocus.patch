@@ -1,0 +1,298 @@
+--- kdebase-3.2.2-orig/kwin/client.cpp	2004-04-04 03:43:37.000000000 -0400
++++ kdebase-3.2.2-kdf/kwin/client.cpp	2004-05-09 01:45:40.919741048 -0400
+@@ -94,6 +94,7 @@
+ // SELI do all as initialization
+     {
+     autoRaiseTimer = 0;
++    delayFocusTimer = 0; 
+     shadeHoverTimer = 0;
+ 
+     // set the initial mapping state
+@@ -775,6 +776,19 @@
+     shadeHoverTimer = 0;
+     }
+ 
++void Client::delayFocus()
++    {
++    workspace()->requestFocus( this );
++    cancelDelayFocus();
++    }
++    
++    
++void Client::cancelDelayFocus()
++    {
++    delete delayFocusTimer;
++    delayFocusTimer = 0;
++    }
++    
+ void Client::toggleShade()
+     {
+     // if the mode is ShadeHover or ShadeActive, cancel shade too
+--- kdebase-3.2.2-orig/kwin/client.h	2004-04-04 03:43:37.000000000 -0400
++++ kdebase-3.2.2-kdf/kwin/client.h	2004-05-09 01:45:40.919741048 -0400
+@@ -278,7 +278,9 @@
+         void toggleShade();
+         void showContextHelp();
+         void autoRaise();
++        void delayFocus();
+         void cancelAutoRaise();
++        void cancelDelayFocus();
+         void shadeHover();
+         void destroyClient();
+ 
+@@ -461,6 +463,7 @@
+         int workarea_diff_x, workarea_diff_y;
+         WinInfo* info;
+         QTimer* autoRaiseTimer;
++        QTimer* delayFocusTimer; 
+         QTimer* shadeHoverTimer;
+         Colormap cmap;
+         QCString resource_name;
+--- kdebase-3.2.2-orig/kwin/events.cpp	2004-04-04 03:43:37.000000000 -0400
++++ kdebase-3.2.2-kdf/kwin/events.cpp	2004-05-09 01:45:40.918741200 -0400
+@@ -873,7 +873,15 @@
+         if ( options->focusPolicy !=  Options::FocusStrictlyUnderMouse && ( isDesktop() || isDock() || isTopMenu() ) )
+             return;
+ 
++       if ( options->delayFocus ) {
++            delete delayFocusTimer;
++            delayFocusTimer = new QTimer( this );
++            connect( delayFocusTimer, SIGNAL( timeout() ), this, SLOT( delayFocus() ) );
++            delayFocusTimer->start( options->delayFocusInterval, TRUE  );
++       } else {
++    
+         workspace()->requestFocus( this );
++       }
+         return;
+         }
+     }
+@@ -909,6 +917,7 @@
+         if ( lostMouse ) 
+             {
+             cancelAutoRaise();
++            cancelDelayFocus();
+             delete shadeHoverTimer;
+             shadeHoverTimer = 0;
+             if ( shade_mode == ShadeHover && !moveResizeMode && !buttonDown )
+--- kdebase-3.2.2-orig/kwin/kcmkdebase-3.2.2-orig/kwin/kwinoptions/windows.cpp	2004-01-17 07:48:27.000000000 -0500
++++ kdebase-3.2.2-kdf/kwin/kcmkdebase-3.2.2-orig/kwin/kwinoptions/windows.cpp	2004-05-09 01:45:41.170702896 -0400
+@@ -57,6 +57,8 @@
+ #define KWIN_GEOMETRY		   "GeometryTip"
+ #define KWIN_AUTORAISE_INTERVAL    "AutoRaiseInterval"
+ #define KWIN_AUTORAISE             "AutoRaise"
++#define KWIN_DELAYFOCUS_INTERVAL   "DelayFocusInterval"
++#define KWIN_DELAYFOCUS            "DelayFocus"
+ #define KWIN_CLICKRAISE            "ClickRaise"
+ #define KWIN_ANIMSHADE             "AnimateShade"
+ #define KWIN_MOVE_RESIZE_MAXIMIZED "MoveResizeMaximizedWindows"
+@@ -162,6 +164,19 @@
+     autoRaise->setSuffix(i18n(" msec"));
+     fLay->addWidget(autoRaise);
+ 
++    connect(focusCombo, SIGNAL(activated(int)), this, SLOT(setDelayFocusEnabled()) );
++    
++    delayFocusOn = new QCheckBox(i18n("Delay focus"), fcsBox);
++    fLay->addWidget(delayFocusOn);
++    connect(delayFocusOn,SIGNAL(toggled(bool)), this, SLOT(delayFocusOnTog(bool)));
++
++    delayFocus = new KIntNumInput(500, fcsBox);
++    delayFocus->setLabel(i18n("Dela&y:"), Qt::AlignVCenter|Qt::AlignLeft);
++    delayFocus->setRange(0, 3000, 100, true);
++    delayFocus->setSteps(100,100);
++    delayFocus->setSuffix(i18n(" msec"));
++    fLay->addWidget(delayFocus);
++    
+     clickRaiseOn = new QCheckBox(i18n("C&lick raise active window"), fcsBox);
+     connect(clickRaiseOn,SIGNAL(toggled(bool)), this, SLOT(clickRaiseOnTog(bool)));
+     fLay->addWidget(clickRaiseOn);
+@@ -233,6 +248,7 @@
+     connect(focusCombo, SIGNAL(activated(int)), SLOT(changed()));
+     connect(fcsBox, SIGNAL(clicked(int)), SLOT(changed()));
+     connect(autoRaise, SIGNAL(valueChanged(int)), SLOT(changed()));
++    connect(delayFocus, SIGNAL(valueChanged(int)), SLOT(changed()));
+     connect(kdeMode, SIGNAL(clicked()), SLOT(changed()));
+     connect(cdeMode, SIGNAL(clicked()), SLOT(changed()));
+     connect(traverseAll, SIGNAL(clicked()), SLOT(changed()));
+@@ -261,16 +277,31 @@
+     autoRaise->setValue(tb);
+ }
+ 
++void KFocusConfig::setDelayFocusInterval(int tb)
++{
++    delayFocus->setValue(tb);
++}
++
+ int KFocusConfig::getAutoRaiseInterval()
+ {
+     return autoRaise->value();
+ }
+ 
++int KFocusConfig::getDelayFocusInterval()
++{
++    return delayFocus->value();
++}
++
+ void KFocusConfig::setAutoRaise(bool on)
+ {
+     autoRaiseOn->setChecked(on);
+ }
+ 
++void KFocusConfig::setDelayFocus(bool on)
++{
++    delayFocusOn->setChecked(on);
++}
++
+ void KFocusConfig::setClickRaise(bool on)
+ {
+     clickRaiseOn->setChecked(on);
+@@ -291,6 +322,25 @@
+     }
+ }
+ 
++ void KFocusConfig::setDelayFocusEnabled()
++ {
++     // the delayed focus related widgets are: delayFocus
++     if ( focusCombo->currentItem() != CLICK_TO_FOCUS )
++     {
++         delayFocusOn->setEnabled(true);
++         delayFocusOnTog(delayFocusOn->isChecked());
++     }
++     else
++     {
++         delayFocusOn->setEnabled(false);
++         delayFocusOnTog(false);
++     }
++ }
++
++ void KFocusConfig::delayFocusOnTog(bool a) {
++     delayFocus->setEnabled(a);
++ }
++
+ 
+ void KFocusConfig::autoRaiseOnTog(bool a) {
+     autoRaise->setEnabled(a);
+@@ -343,11 +393,17 @@
+     int k = config->readNumEntry(KWIN_AUTORAISE_INTERVAL,0);
+     setAutoRaiseInterval(k);
+ 
++    k = config->readNumEntry(KWIN_DELAYFOCUS_INTERVAL,750);
++    setDelayFocusInterval(k);
++    
+     key = config->readEntry(KWIN_AUTORAISE);
+     setAutoRaise(key == "on");
++    key = config->readEntry(KWIN_DELAYFOCUS);
++    setDelayFocus(key == "on");
+     key = config->readEntry(KWIN_CLICKRAISE);
+     setClickRaise(key != "off");
+     setAutoRaiseEnabled();      // this will disable/hide the auto raise delay widget if focus==click
++    setDelayFocusEnabled();
+ 
+     key = config->readEntry(KWIN_ALTTABMODE, "KDE");
+     setAltTabMode(key == "KDE");
+@@ -384,11 +440,20 @@
+     if (v <0) v = 0;
+     config->writeEntry(KWIN_AUTORAISE_INTERVAL,v);
+ 
++    v = getDelayFocusInterval();
++    if (v <0) v = 0;
++    config->writeEntry(KWIN_DELAYFOCUS_INTERVAL,v);
++    
+     if (autoRaiseOn->isChecked())
+         config->writeEntry(KWIN_AUTORAISE, "on");
+     else
+         config->writeEntry(KWIN_AUTORAISE, "off");
+ 
++    if (delayFocusOn->isChecked())
++        config->writeEntry(KWIN_DELAYFOCUS, "on");
++    else
++        config->writeEntry(KWIN_DELAYFOCUS, "off");
++
+     if (clickRaiseOn->isChecked())
+         config->writeEntry(KWIN_CLICKRAISE, "on");
+     else
+@@ -422,8 +487,10 @@
+ void KFocusConfig::defaults()
+ {
+     setAutoRaiseInterval(0);
++    setDelayFocusInterval(0);
+     setFocus(CLICK_TO_FOCUS);
+     setAutoRaise(false);
++    setDelayFocus(false);
+     setClickRaise(true);
+     setAltTabMode(true);
+     setTraverseAll( false );
+--- kdebase-3.2.2-orig/kwin/kcmkdebase-3.2.2-orig/kwin/kwinoptions/windows.h	2003-11-30 04:43:16.000000000 -0500
++++ kdebase-3.2.2-kdf/kwin/kcmkdebase-3.2.2-orig/kwin/kwinoptions/windows.h	2004-05-09 01:45:41.170702896 -0400
+@@ -77,8 +77,10 @@
+   void defaults();
+ 
+ private slots:
++  void setDelayFocusEnabled();
+   void setAutoRaiseEnabled();
+   void autoRaiseOnTog(bool);//CT 23Oct1998
++  void delayFocusOnTog(bool);
+   void clickRaiseOnTog(bool);
+ 	void changed() { emit KCModule::changed(true); }
+ 
+@@ -87,10 +89,13 @@
+ 
+   int getFocus( void );
+   int getAutoRaiseInterval( void );
++  int getDelayFocusInterval( void );
+ 
+   void setFocus(int);
+   void setAutoRaiseInterval(int);
+   void setAutoRaise(bool);
++  void setDelayFocusInterval(int);
++  void setDelayFocus(bool);
+   void setClickRaise(bool);
+   void setAltTabMode(bool);
+   void setTraverseAll(bool);
+@@ -100,8 +105,10 @@
+   QButtonGroup *fcsBox;
+   QComboBox *focusCombo;
+   QCheckBox *autoRaiseOn;
++  QCheckBox *delayFocusOn;
+   QCheckBox *clickRaiseOn;
+   KIntNumInput *autoRaise;
++  KIntNumInput *delayFocus;
+ 
+   QButtonGroup *kbdBox;
+   QRadioButton *kdeMode;
+--- kdebase-3.2.2-orig/kwin/options.cpp	2004-04-04 03:43:38.000000000 -0400
++++ kdebase-3.2.2-kdf/kwin/options.cpp	2004-05-09 01:45:40.918741200 -0400
+@@ -107,11 +107,15 @@
+         {
+         autoRaise = false;
+         autoRaiseInterval = 0;
++        delayFocus = false;
++        delayFocusInterval = 0;
+         }
+     else 
+         {
+         autoRaise = config->readBoolEntry("AutoRaise", FALSE );
+         autoRaiseInterval = config->readNumEntry("AutoRaiseInterval", 0 );
++        delayFocus = config->readBoolEntry("DelayFocus", FALSE );
++        delayFocusInterval = config->readNumEntry("DelayFocusInterval", 0 );
+         }
+ 
+     shadeHover = config->readBoolEntry("ShadeHover", FALSE );
+--- kdebase-3.2.2-orig/kwin/options.h	2004-04-04 03:43:38.000000000 -0400
++++ kdebase-3.2.2-kdf/kwin/options.h	2004-05-09 01:45:40.918741200 -0400
+@@ -84,6 +84,16 @@
+         int autoRaiseInterval;
+ 
+         /**
++           whether delay focus is enabled or not.
++         */
++        bool delayFocus;
++
++        /**
++           delayed focus interval
++         */
++        int delayFocusInterval;
++
++        /**
+            Whether shade hover is enabled or not
+          */
+         bool shadeHover;
