@@ -29,7 +29,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	8
+Release:	9
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -102,8 +102,8 @@ Requires(post,postun):	/sbin/ldconfig
 Requires:	applnk >= 1.5.11
 Requires:	kde-splash
 Requires:	kde-sdscreen
-Requires:	%{name}-pam = %{epoch}%{version}-%{release}
-Requires:	konqueror = %{epoch}%{version}-%{release}
+Requires:	%{name}-pam = %{epoch}:%{version}-%{release}
+Requires:	konqueror = %{epoch}:%{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	%{name}-fonts
 Obsoletes:	%{name}-kcheckpass
