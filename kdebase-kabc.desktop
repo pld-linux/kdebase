@@ -3,7 +3,7 @@ Encoding=UTF-8
 Exec=kcmshell kabc
 Icon=kaddressbook
 Type=Application
-Terminal=0
+Terminal=false
 
 X-KDE-ModuleType=Library
 X-KDE-Library=kabc
