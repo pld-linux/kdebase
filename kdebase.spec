@@ -1,6 +1,6 @@
 %define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		6
+%define		_rel		7
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -76,6 +76,7 @@ Prereq:		/usr/X11R6/bin/mkfontdir
 Requires:	applnk
 Requires:	konqueror >= %{version}
 Requires:	kdelibs >= %{version}
+Requires:	kde-splash
 Obsoletes:	%{name}-kcontrol
 Obsoletes:	%{name}-khelpcenter
 Obsoletes:	%{name}-konsole
@@ -213,6 +214,18 @@ KDE screensavers.
 
 %description screensavers -l pl
 Wygaszacze ekranu desktopu KDE.
+
+%package -n kde-splash-default
+Summary:	KDE splash screen
+Summary(pl):	Obrazek startowy KDE
+Group:		X11/Amusements
+Provides:	kde-splash
+
+%description -n kde-splash-default
+Default splash screen for KDE.
+
+%description -m kde-splash-default -l pl
+Standardowy obrazek startowy KDE.
 
 %prep
 %setup -q
@@ -500,7 +513,8 @@ fi
 %{_datadir}/apps/kd[cei]*
 %{_datadir}/apps/konsole
 %{_datadir}/apps/kpersonalizer
-%{_datadir}/apps/ks[py]*
+%dir %{_datadir}/apps/ksplash
+%{_datadir}/apps/ksysguard
 %{_datadir}/apps/klipper
 %{_datadir}/apps/ksmserver
 
@@ -636,7 +650,6 @@ fi
 
 %{_pixmapsdir}/*/*/apps/konqueror.png
 
-
 %files screensavers
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/*.kss
@@ -645,3 +658,7 @@ fi
 %{_applnkdir}/System/ScreenSavers/*
 
 %{_pixmapsdir}/*/*/apps/kscreensaver.png
+
+%files -n kde-splash-default
+%defattr(644,root,root,755)
+%dir %{_datadir}/apps/ksplash
