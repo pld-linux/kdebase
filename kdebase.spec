@@ -293,8 +293,9 @@ gzip AUTHORS README*
 
 %find_lang tmp.%{name} --with-kde --all-name
 grep -vE konqueror\|kdm tmp.%{name}.lang > %{name}.lang
+grep -E kdm tmp.%{name}.lang > kdm.lang
 %find_lang konqueror --with-kde
-%find_lang kdm --with-kde
+#%find_lang kdm --with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -496,6 +497,7 @@ fi
 %dir %{_datadir}/config
 %{_datadir}/config/k[!d]*
 %{_datadir}/config/kdesktop*
+%{_datadir}/locale/en_US
 %{_datadir}/locale/l10n
 %{_datadir}/mimelnk
 %{_datadir}/services/[abfgimnpst]*
