@@ -1354,7 +1354,7 @@ fi
 %files core -f core.lang
 %defattr(644,root,root,755)
 %lang(en) %dir %{_htmldir}/en/kcontrol
-%{_sysconfigdir}/xdg/menus/kde-settings.menu
+/etc/xdg/menus/kde-settings.menu
 %lang(en) %{_htmldir}/en/kcontrol/common
 %lang(en) %{_htmldir}/en/kcontrol/helpindex.html
 %lang(en) %{_htmldir}/en/kcontrol/index.*
