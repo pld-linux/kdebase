@@ -1,8 +1,0 @@
-[Desktop Entry]
-Charset=
-Hidden=false
-Keys=imdb
-Name=IMDB
-Query=http://www.imdb.com/Find?select=All&for=\\{@}
-ServiceTypes=SearchProvider
-Type=Service
