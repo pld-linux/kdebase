@@ -41,6 +41,7 @@ BuildRequires:	cdparanoia-III-devel
 BuildRequires:	lame-libs-devel
 BuildRequires:	glut-devel
 BuildRequires:	cups-devel
+BuildRequires:	gettext-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
 Prereq:		/sbin/ldconfig
