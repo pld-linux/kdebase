@@ -1071,11 +1071,25 @@ for f in *.lang; do
 done
 # </find_lang>
 
-files="core kdebase kicker konqueror konsole kinfocenter kate kdm kfind kioslave klipper kmenuedit 
-ksysguard kpager kwrite screensaver"
+files="core \
+kdebase \
+kicker \
+konqueror \
+konsole \
+kinfocenter \
+kate \
+kdm \
+kfind \
+kioslave \
+klipper \
+kmenuedit \
+ksysguard \
+kpager \
+kwrite \
+screensaver"
 
 for i in $files; do
-	mv $i.lang $i_en.lang
+	mv $i.lang $i\_en.lang
 done
 
 %if %{with i18n}
