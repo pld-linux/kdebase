@@ -34,22 +34,6 @@ else
     echo $KDEHOME
 fi
 
-# Add user fonts. Fonts in $OVERRIDE_FONT_DIR will be added first.
-OVERRIDE_FONT_DIR="$KDEHOME/share/fonts/override"
-FONT_DIR="$KDEHOME/share/fonts"
-
-if [ -d $OVERRIDE_FONT_DIR ]; then
-    mkfontdir $OVERRIDE_FONT_DIR
-    xset +fp $OVERRIDE_FONT_DIR
-fi
-
-if [ -d $FONT_DIR ]; then
-    mkfontdir $FONT_DIR
-    xset fp+ $FONT_DIR
-fi
-
-xset fp rehash
-
 # Link "tmp" resource to directory in /tmp
 # Creates a directory /tmp/kde-$USER and links $KDEHOME/tmp-$HOSTNAME to it.
 lnusertemp tmp >/dev/null
