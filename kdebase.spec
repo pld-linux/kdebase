@@ -11,10 +11,12 @@
 %bcond_with 	i18n	# build i18n packages per module
 %bcond_without	apidocs	# prepare API documentation
 %bcond_without  ldap    # build or not ldap ioslave
+%bcond_with	kwin_shadow	# experimental support for kwin shadows
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
 %define		_snap		040414
+
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -48,6 +50,8 @@ Source9:	%{name}-colorschemes.tar.bz2
 # Source9-md5:	e1a282460b9e028ff07e2c699f8cadf3
 Source10:	%{name}-servicemenus.tar.bz2
 # Source10-md5:	c75c9cc23283ca7de61f2a1a6f1258a0
+Source11:	%{name}-konqsidebarext.tar.bz2
+# Source11-md5:	23ea11aaa85d78c0e39bdf5dd4f4ebda
 Source12:	http://ep09.pld-linux.org/~adgor/kde/%{name}-splash-Default-PLD-0.2.tar.bz2
 # Source12-md5:	24f9c6a4b711be36437639c410b400b2
 Source13:	http://ep09.pld-linux.org/~adgor/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
@@ -77,6 +81,7 @@ Patch19:	%{name}-kio_settings.patch
 Patch20:	kde-common-QTDOCDIR.patch
 Patch21:	%{name}-konsole-default-keytab.patch
 Patch22:	%{name}-konsole-default_shell.patch
+Patch23:	%{name}-kwin_shadow.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	arts-devel >= 1.2.0
@@ -1379,6 +1384,14 @@ Pliki umiêdzynarodawiaj±ce dla mailnews.
 %patch20 -p1
 %patch21 -p1
 %patch22 -p1
+
+%if %{with kwin_shadow}
+cd kwin
+%patch23 -p0 -b .shadows
+cd -
+%endif 
+
+%{__tar} xfj %{SOURCE11} -C konqueror/sidebar/
 
 # Sometimes i think They are insane
 rm kdepasswd/configure.in.in
@@ -2789,7 +2802,7 @@ fi
 %{_desktopdir}/kde/panel.desktop
 %{_desktopdir}/kde/panel_appearance.desktop
 %{_desktopdir}/kde/clock.desktop
-#%{_desktopdir}/kde/kcmkicker.desktop
+%{_desktopdir}/kde/kcmkicker.desktop
 %{_iconsdir}/*/*/apps/clock.png
 %{_iconsdir}/*/*/apps/date.png
 %{_iconsdir}/*/*/apps/go.png
@@ -2971,6 +2984,7 @@ fi
 %{_datadir}/config.kcfg/kcm_useraccount.kcfg
 %{_datadir}/config.kcfg/kcm_useraccount_pass.kcfg
 %{_desktopdir}/kde/kcm_useraccount.desktop
+%{_desktopdir}/kde/kdepasswd.desktop
 
 %files -n kdm -f kdm_en.lang
 %defattr(644,root,root,755)
@@ -3117,10 +3131,10 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/konq_sound.so
 %{_libdir}/kde3/konqueror.la
 %attr(0755,root,root) %{_libdir}/kde3/konqueror.so
-%{_libdir}/kde3/konqsidebar_tree.la
-%attr(0755,root,root) %{_libdir}/kde3/konqsidebar_tree.so
-%{_libdir}/kde3/konqsidebar_web.la
-%attr(0755,root,root) %{_libdir}/kde3/konqsidebar_web.so
+##%{_libdir}/kde3/konqsidebar_tree.la
+##%attr(0755,root,root) %{_libdir}/kde3/konqsidebar_tree.so
+##%{_libdir}/kde3/konqsidebar_web.la
+##%attr(0755,root,root) %{_libdir}/kde3/konqsidebar_web.so
 %{_libdir}/kde3/libkfindpart.la
 %attr(0755,root,root) %{_libdir}/kde3/libkfindpart.so
 %{_libdir}/kde3/libkshorturifilter.la
@@ -3135,6 +3149,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/libnsplugin.so
 %{_libdir}/kde3/sidebar_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/sidebar_panelextension.so
+%{_libdir}/kde3/konqsidebar_*.la
+%attr(0755,root,root) %{_libdir}/kde3/konqsidebar_*.so
 %dir %{_libdir}/kde3/plugins/konqueror
 %{_datadir}/apps/kbookmark
 %{_datadir}/apps/kcmcss
