@@ -113,7 +113,7 @@ BuildRequires:	zlib-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
 Requires(post,postun):	/sbin/ldconfig
-Requires:	applnk >= 1.5.17
+Requires:	applnk > 1.5.17
 Requires:	kde-splash
 Requires:       kde-sdscreen
 Requires:       kdelibs >= 3.2-0.030317.0.3
