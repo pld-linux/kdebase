@@ -96,7 +96,7 @@ BuildRequires:	openssl-devel >= 0.9.7c
 %{?with_ldap:BuildRequires:	openldap-devel}
 BuildRequires:	pam-devel
 %{?with_apidocs:BuildRequires:	qt-doc}
-BuildRequires:	rpmbuild(macros) >= 1.129
+BuildRequires:	rpmbuild(macros) >= 1.176
 BuildRequires:	unsermake >= 040511
 BuildRequires:	xcursor-devel >= 1.1.0
 BuildConflicts: kdebase-konqueror-libs
@@ -1311,8 +1311,7 @@ rm -rf $RPM_BUILD_ROOT
 %post -n kdm
 /sbin/chkconfig --add kdm
 if [ -f /var/lock/subsys/kdm ]; then
-cat << EOF
-
+	%banner kdm -e << EOF
  ***************************************************
  *                                                 *
  * NOTE:                                           *
@@ -1328,7 +1327,8 @@ cat << EOF
 
 EOF
 else
-	echo "Run \"/etc/rc.d/init.d/kdm start\" to start kdm." >&2
+	%banner kdm -e << EOF
+Run \"/etc/rc.d/init.d/kdm start\" to start kdm.
 fi
 
 %preun -n kdm
