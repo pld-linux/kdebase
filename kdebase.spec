@@ -4,6 +4,7 @@
 # * KDM: Replacing findwm with a better solution (it's in the way)
 # * Fixing 48x48 pld applnk-pixmaps scaling (konqsidebar, kicker)
 # * Sources renaming & renumerating 
+# * Separating kicker, kwin, wtf
 #
 # Conditional Builds:
 #
@@ -25,7 +26,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	11
+Release:	12
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -651,14 +652,18 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_bindir}/ksplash
 %attr(0755,root,root) %{_bindir}/kw[!r]*
 %attr(0755,root,root) %{_bindir}/kwrited
-
-%attr(0755,root,root) %{_libdir}/[ae]*.*
-%attr(0755,root,root) %{_libdir}/k[dhijlmsx]*.*
-%attr(0755,root,root) %{_libdir}/kaccess.??
-%attr(0755,root,root) %{_libdir}/kprinter.??
-%attr(0755,root,root) %{_libdir}/kw[!r]*
-%attr(0755,root,root) %{_libdir}/kwrited.??
-
+%{_libdir}/[ae]*.la
+%attr(0755,root,root) %{_libdir}/[ae]*.so
+%{_libdir}/k[dhijlmsx]*.la
+%attr(0755,root,root) %{_libdir}/k[dhijlmsx]*.so
+%{_libdir}/kaccess.la
+%attr(0755,root,root) %{_libdir}/kaccess.so
+%{_libdir}/kprinter.la
+%attr(0755,root,root) %{_libdir}/kprinter.so
+%{_libdir}/kw[!r]*.la
+%attr(0755,root,root) %{_libdir}/kw[!r]*.so
+%{_libdir}/kwrited.la
+%attr(0755,root,root) %{_libdir}/kwrited.so
 %{_libdir}/libkickermain.la
 %attr(0755,root,root) %{_libdir}/libkickermain.so.*
 %{_libdir}/libksgrd.la
@@ -667,7 +672,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_libdir}/libsensordisplays.so.*
 %{_libdir}/libtask*.la
 %attr(0755,root,root) %{_libdir}/libtask*.so.*
-
 %{_libdir}/kde3/childpanel_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so
 %{_libdir}/kde3/clock_panelapplet.la
@@ -676,49 +680,86 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so
 %{_libdir}/kde3/kasbar_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so                                   
-
-%attr(0755,root,root) %{_libdir}/kde3/kcm_access.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_arts.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_background.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_bell.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_clock.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_colors.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_componentchooser.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_email.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_energy.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_fontinst.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_helpcenter.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_icons.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_info.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_input.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_ioslaveinfo.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_keyboard.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_keys.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_khotkeys.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_kicker.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_knotify.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_kwindecoration.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_kwinoptions.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_launch.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_locale.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_nic.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_passwords.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_printmgr.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_samba.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_smserver.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_spellchecking.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_style.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_taskbar.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_themes.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_usb.??
-
-%attr(0755,root,root) %{_libdir}/kde3/kickermenu_kdeprint.??                                                    
-%attr(0755,root,root) %{_libdir}/kde3/kickermenu_konsole.??                                                     
-%attr(0755,root,root) %{_libdir}/kde3/kickermenu_prefmenu.??                                                    
-%attr(0755,root,root) %{_libdir}/kde3/kickermenu_recentdocs.??                                                  
-%attr(0755,root,root) %{_libdir}/kde3/klipper_panelapplet.??
-%attr(0755,root,root) %{_libdir}/kde3/kwin*.??
-
+%{_libdir}/kde3/kcm_access.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_access.so
+%{_libdir}/kde3/kcm_arts.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_arts.so
+%{_libdir}/kde3/kcm_background.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_background.so
+%{_libdir}/kde3/kcm_bell.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_bell.so
+%{_libdir}/kde3/kcm_clock.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_clock.so
+%{_libdir}/kde3/kcm_colors.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_colors.so
+%{_libdir}/kde3/kcm_componentchooser.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_componentchooser.so
+%{_libdir}/kde3/kcm_email.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_email.so
+%{_libdir}/kde3/kcm_energy.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_energy.so
+%{_libdir}/kde3/kcm_fontinst.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_fontinst.so
+%{_libdir}/kde3/kcm_helpcenter.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_helpcenter.so
+%{_libdir}/kde3/kcm_icons.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_icons.so
+%{_libdir}/kde3/kcm_info.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_info.so
+%{_libdir}/kde3/kcm_input.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_input.so
+%{_libdir}/kde3/kcm_ioslaveinfo.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_ioslaveinfo.so
+%{_libdir}/kde3/kcm_keyboard.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_keyboard.so
+%{_libdir}/kde3/kcm_keys.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_keys.so
+%{_libdir}/kde3/kcm_khotkeys.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_khotkeys.so
+%{_libdir}/kde3/kcm_kicker.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_kicker.so
+%{_libdir}/kde3/kcm_knotify.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_knotify.so
+%{_libdir}/kde3/kcm_kwindecoration.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_kwindecoration.so
+%{_libdir}/kde3/kcm_kwinoptions.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_kwinoptions.so
+%{_libdir}/kde3/kcm_launch.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_launch.so
+%{_libdir}/kde3/kcm_locale.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_locale.so
+%{_libdir}/kde3/kcm_nic.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_nic.so
+%{_libdir}/kde3/kcm_passwords.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_passwords.so
+%{_libdir}/kde3/kcm_printmgr.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_printmgr.so
+%{_libdir}/kde3/kcm_samba.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_samba.so
+%{_libdir}/kde3/kcm_smserver.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_smserver.so
+%{_libdir}/kde3/kcm_spellchecking.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_spellchecking.so
+%{_libdir}/kde3/kcm_style.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_style.so
+%{_libdir}/kde3/kcm_taskbar.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_taskbar.so
+%{_libdir}/kde3/kcm_themes.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_themes.so
+%{_libdir}/kde3/kcm_usb.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_usb.so
+%{_libdir}/kde3/kickermenu_kdeprint.la
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_kdeprint.so                                                  
+%{_libdir}/kde3/kickermenu_konsole.la
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_konsole.so                                                   
+%{_libdir}/kde3/kickermenu_prefmenu.la
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_prefmenu.so                                                  
+%{_libdir}/kde3/kickermenu_recentdocs.la
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_recentdocs.so                                                
+%{_libdir}/kde3/klipper_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/klipper_panelapplet.so
+%{_libdir}/kde3/kwin*.la
+%attr(0755,root,root) %{_libdir}/kde3/kwin*.so
 %{_libdir}/kde3/launcher_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so
 %{_libdir}/kde3/libkdeprint_part.la
@@ -739,7 +780,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.so
 %{_libdir}/kde3/taskbar_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.so
-
 %dir %{_datadir}/apps/ksmserver
 %dir %{_datadir}/apps/ksplash
 %{_datadir}/apps/?[!acdefhosw]*
@@ -756,23 +796,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/ksysguard
 %{_datadir}/apps/kwin
 %{_datadir}/apps/naughtyapplet
-
 %{_datadir}/autostart/*
 %{_datadir}/config/kdesktop*
 %{_datadir}/config/klipperrc
 %{_datadir}/config/kwritedrc
-
 %{_datadir}/locale/*
-
 %{_datadir}/services/kaccess.desktop
 %{_datadir}/services/kdeprint_part.desktop
 %{_datadir}/services/kwrited.desktop
 %{_datadir}/services/kxkb.desktop
-
 %{_datadir}/sounds
 %{_datadir}/templates
 %{_datadir}/wallpapers
-
 %{_applnkdir}/Home.desktop
 %{_applnkdir}/.hidden/[kms][!c]*
 %{_applnkdir}/System/k[!o]*.desktop
@@ -798,7 +833,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_applnkdir}/Settings/KDE/System/kcmfontinst.desktop
 %{_applnkdir}/Settings/KDE/System/kcmhelpcenter.desktop
 %{_applnkdir}/Settings/KDE/WebBrowsing
-
 %{_pixmapsdir}/*/*/apps/a[!g]*
 %{_pixmapsdir}/*/*/apps/[dghilmnqrtuvwx]*
 %{_pixmapsdir}/*/*/apps/b[!e]*
@@ -821,7 +855,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_pixmapsdir}/*/*/apps/s[!t]*.png
 %{_pixmapsdir}/*/*/apps/staroffice.png
 %{_pixmapsdir}/*/*/apps/style.png
-#%{_pixmapsdir}/*/*/actions/*
 %{_pixmapsdir}/*/*/devices/print_[!c]*
 %{_pixmapsdir}/*/*/filesystems/*
 
@@ -832,14 +865,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/kwin/*.h
 %{_includedir}/kate
 %{_includedir}/ksgrd
-%attr(0755,root,root) %{_libdir}/libkickermain.so
-%attr(0755,root,root) %{_libdir}/libkmultitabbar.so
-%attr(0755,root,root) %{_libdir}/libkonq.so
-%attr(0755,root,root) %{_libdir}/libkonqsidebarplugin.so
-%attr(0755,root,root) %{_libdir}/libksgrd.so
-%attr(0755,root,root) %{_libdir}/libnsplugin.so
-%attr(0755,root,root) %{_libdir}/libsensordisplays.so
-%attr(0755,root,root) %{_libdir}/libtask*.so
+%{_libdir}/libkickermain.so
+%{_libdir}/libkmultitabbar.so
+%{_libdir}/libkonq.so
+%{_libdir}/libkonqsidebarplugin.so
+%{_libdir}/libksgrd.so
+%{_libdir}/libnsplugin.so
+%{_libdir}/libsensordisplays.so
+%{_libdir}/libtask*.so
 
 %files static
 %defattr(644,root,root,755)
@@ -859,15 +892,24 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_bindir}/fileshareset
 %{_libdir}/libkmultitabbar.la
 %attr(0755,root,root) %{_libdir}/libkmultitabbar.so.*
-%attr(0755,root,root) %{_libdir}/kde3/kcm_fileshare.??
-%attr(0755,root,root) %{_libdir}/kde3/kio_thumbnail.??
-%attr(0755,root,root) %{_libdir}/kde3/fontthumbnail.??
-%attr(0755,root,root) %{_libdir}/kde3/gsthumbnail.??
-%attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.??
-%attr(0755,root,root) %{_libdir}/kde3/imagethumbnail.??
-%attr(0755,root,root) %{_libdir}/kde3/libkonsolepart.??
-%attr(0755,root,root) %{_libdir}/kde3/picturethumbnail.?? 
-%attr(0755,root,root) %{_libdir}/kde3/textthumbnail.??
+%{_libdir}/kde3/kcm_fileshare.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_fileshare.so
+%{_libdir}/kde3/kio_thumbnail.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_thumbnail.so
+%{_libdir}/kde3/fontthumbnail.la
+%attr(0755,root,root) %{_libdir}/kde3/fontthumbnail.so
+%{_libdir}/kde3/gsthumbnail.la
+%attr(0755,root,root) %{_libdir}/kde3/gsthumbnail.so
+%{_libdir}/kde3/htmlthumbnail.la
+%attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.so
+%{_libdir}/kde3/imagethumbnail.la
+%attr(0755,root,root) %{_libdir}/kde3/imagethumbnail.so
+%{_libdir}/kde3/libkonsolepart.la
+%attr(0755,root,root) %{_libdir}/kde3/libkonsolepart.so
+%{_libdir}/kde3/picturethumbnail.la
+%attr(0755,root,root) %{_libdir}/kde3/picturethumbnail.so
+%{_libdir}/kde3/textthumbnail.la
+%attr(0755,root,root) %{_libdir}/kde3/textthumbnail.so
 %{_datadir}/services/konsolepart.desktop
 %{_datadir}/services/fontthumbnail.desktop
 %{_datadir}/services/gsthumbnail.desktop
@@ -892,9 +934,12 @@ rm -rf $RPM_BUILD_ROOT
 %files helpcenter -f khelpcenter.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/khelpcenter
-%attr(0755,root,root) %{_libdir}/kde3/kio_info.??
-%attr(0755,root,root) %{_libdir}/kde3/kio_man.??
-%attr(0755,root,root) %{_libdir}/kde3/khelpcenter.??
+%{_libdir}/kde3/kio_info.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_info.so
+%{_libdir}/kde3/kio_man.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_man.so
+%{_libdir}/kde3/khelpcenter.la
+%attr(0755,root,root) %{_libdir}/kde3/khelpcenter.so
 %{_datadir}/apps/khelpcenter
 %{_datadir}/services/info.protocol
 %{_datadir}/services/khelpcenter.desktop
@@ -905,8 +950,10 @@ rm -rf $RPM_BUILD_ROOT
 %files kate -f kate.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kate
-%attr(0755,root,root) %{_libdir}/kate.??
-%attr(0755,root,root) %{_libdir}/libkateinterfaces.??
+%{_libdir}/kate.la
+%attr(0755,root,root) %{_libdir}/kate.so
+%{_libdir}/libkateinterfaces.la
+%attr(0755,root,root) %{_libdir}/libkateinterfaces.so
 %{_datadir}/apps/kate
 %{_datadir}/servicetypes/kateplugin.desktop
 %{_applnkdir}/Editors/kate.desktop
@@ -917,10 +964,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_bindir}/kcminit
 %attr(0755,root,root) %{_bindir}/kcmshell
 %attr(0755,root,root) %{_bindir}/kcontrol
-%attr(0755,root,root) %{_libdir}/kcminit.??
-%attr(0755,root,root) %{_libdir}/kcmshell.??
-%attr(0755,root,root) %{_libdir}/kcontrol.??
 %attr(0755,root,root) %{_bindir}/kdesu
+%{_libdir}/kcminit.la
+%attr(0755,root,root) %{_libdir}/kcminit.so
+%{_libdir}/kcmshell.la
+%attr(0755,root,root) %{_libdir}/kcmshell.so
+%{_libdir}/kcontrol.la
+%attr(0755,root,root) %{_libdir}/kcontrol.so
 %{_datadir}/apps/kcontrol
 %{_applnkdir}/KControl.desktop
 %{_applnkdir}/Settings/KControl.desktop
@@ -934,7 +984,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_applnkdir}/Settings/KDE/System/.directory
 %{_pixmapsdir}/*/*/apps/kcontrol.png
 %{_pixmapsdir}/*/*/apps/kcmsystem.png
-
 %lang(en) %dir %{_htmldir}/en/kcontrol
 %lang(en) %{_htmldir}/en/kcontrol/common
 %lang(en) %{_htmldir}/en/kcontrol/index.*
@@ -959,8 +1008,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc konsole/README*
 %attr(0755,root,root) %{_bindir}/konsole
 %attr(6755,root,root) %{_bindir}/konsole_grantpty
-%attr(0755,root,root) %{_libdir}/konsole.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_konsole.??
+%{_libdir}/konsole.la
+%attr(0755,root,root) %{_libdir}/konsole.so
+%{_libdir}/kde3/kcm_konsole.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_konsole.so
 %{_datadir}/config/konsolerc
 %dir %{_applnkdir}/.hidden
 %{_applnkdir}/.hidden/kcmkonsole.desktop
@@ -972,17 +1023,23 @@ rm -rf $RPM_BUILD_ROOT
 %files kwrite -f kwrite.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kwrite
-%attr(0755,root,root) %{_libdir}/kwrite.??
+%{_libdir}/kwrite.la
+%attr(0755,root,root) %{_libdir}/kwrite.so
 %{_datadir}/apps/kwrite
 %{_applnkdir}/Editors/kwrite.desktop
 %{_pixmapsdir}/*/*/apps/kwrite.png
 
 %files mailnews
 %defattr(644,root,root,755)
-%attr(0755,root,root) %{_libdir}/kde3/kio_imap4.??
-%attr(0755,root,root) %{_libdir}/kde3/kio_nntp.??
-%attr(0755,root,root) %{_libdir}/kde3/kio_pop3.??
-%attr(0755,root,root) %{_libdir}/kde3/kio_smtp.??
+%{_libdir}/kde3/kio_imap4.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_imap4.so
+%{_libdir}/kde3/kio_nntp.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_nntp.so
+%{_libdir}/kde3/kio_pop3.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_pop3.so
+%{_libdir}/kde3/kio_smtp.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_smtp.so
+
 %{_datadir}/services/imap4.protocol
 %{_datadir}/services/imaps.protocol
 %{_datadir}/services/nntp.protocol
@@ -1003,7 +1060,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/*.kss
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kscreensaver
-%attr(0755,root,root) %{_libdir}/kde3/kcm_screensaver.??
+%{_libdir}/kde3/kcm_screensaver.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_screensaver.so
 %{_applnkdir}/Settings/KDE/LookNFeel/screensaver.desktop
 %{_applnkdir}/.hidden/ScreenSavers
 %{_pixmapsdir}/*/*/apps/kscreensaver.png
@@ -1011,12 +1069,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n kdm -f kdm.lang
 %defattr(644,root,root,755)
-%attr(0755,root,root) %{_bindir}/chooser
-%attr(0755,root,root) %{_bindir}/kdm*
-%attr(0755,root,root) %{_bindir}/krootimage
-%attr(0755,root,root) %{_libdir}/kde3/kcm_kdm.??
-%attr(0754,root,root) /etc/rc.d/init.d/kdm
 %dir %{_sysconfdir}/kdm
+%attr(0754,root,root) /etc/rc.d/init.d/kdm
 %config(noreplace) %{_sysconfdir}/kdm/kdmrc
 %config(noreplace) %{_sysconfdir}/kdm/backgroundrc
 %attr(0755,root,root) %{_sysconfdir}/kdm/Xreset
@@ -1027,8 +1081,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/kdm/Xaccess
 %{_sysconfdir}/kdm/Xservers
 %{_sysconfdir}/kdm/pics
-%{_pixmapsdir}/*/*/apps/kdmconfig.png
+%attr(0755,root,root) %{_bindir}/chooser
+%attr(0755,root,root) %{_bindir}/kdm*
+%attr(0755,root,root) %{_bindir}/krootimage
+%{_libdir}/kde3/kcm_kdm.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_kdm.so
 %{_applnkdir}/Settings/KDE/System/kdm.desktop
+%{_pixmapsdir}/*/*/apps/kdmconfig.png
 
 %files -n konqueror -f konqueror.lang
 %defattr(644,root,root,755)
@@ -1040,12 +1099,14 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_bindir}/klocaldomainurifilterhelper
 %attr(0755,root,root) %{_bindir}/nspluginscan
 %attr(0755,root,root) %{_bindir}/nspluginviewer
-
-%attr(0755,root,root) %{_libdir}/keditbookmarks.??
-%attr(0755,root,root) %{_libdir}/kfm*.??
-%attr(0755,root,root) %{_libdir}/konqueror.??
-%attr(0755,root,root) %{_libdir}/libkfindpart.??
-
+%{_libdir}/keditbookmarks.la
+%attr(0755,root,root) %{_libdir}/keditbookmarks.so
+%{_libdir}/kfm*.la
+%attr(0755,root,root) %{_libdir}/kfm*.so
+%{_libdir}/konqueror.la
+%attr(0755,root,root) %{_libdir}/konqueror.so
+%{_libdir}/libkfindpart.la
+%attr(0755,root,root) %{_libdir}/libkfindpart.so
 %{_libdir}/libkonq.la
 %attr(0755,root,root) %{_libdir}/libkonq.so.*
 %{_libdir}/libkonq_sidebar_tree.la
@@ -1054,46 +1115,73 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_libdir}/libkonqsidebarplugin.so.*
 %{_libdir}/libnsplugin.la
 %attr(0755,root,root) %{_libdir}/libnsplugin.so.*
-
-%attr(0755,root,root) %{_libdir}/kde3/kfile_font.??     
-%attr(0755,root,root) %{_libdir}/kde3/libkmanpart.??
-%attr(0755,root,root) %{_libdir}/kde3/libkshorturifilter.??
-%attr(0755,root,root) %{_libdir}/kde3/libkuriikwsfilter.??
-%attr(0755,root,root) %{_libdir}/kde3/libkurisearchfilter.??
-%attr(0755,root,root) %{_libdir}/kde3/liblocaldomainurifilter.??
-
-%attr(0755,root,root) %{_libdir}/kde3/kcm_cgi.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_crypto.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_css.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_filetypes.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_fonts.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_history.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_kded.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_kio.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_konqhtml.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_konq.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_kurifilt.??
-
-%attr(0755,root,root) %{_libdir}/kde3/kio_about.??
-%attr(0755,root,root) %{_libdir}/kde3/kio_cgi.??
-%attr(0755,root,root) %{_libdir}/kde3/kio_devices.??
-%attr(0755,root,root) %{_libdir}/kde3/kio_filter.??
-%attr(0755,root,root) %{_libdir}/kde3/kio_finger.??
-%attr(0755,root,root) %{_libdir}/kde3/kio_fish.??
-%attr(0755,root,root) %{_libdir}/kde3/kio_floppy.??
-%attr(0755,root,root) %{_libdir}/kde3/kio_mac.??
-%attr(0755,root,root) %{_libdir}/kde3/kio_nfs.??
-%attr(0755,root,root) %{_libdir}/kde3/kio_print.??
-%attr(0755,root,root) %{_libdir}/kde3/kio_sftp.??
-%attr(0755,root,root) %{_libdir}/kde3/kio_smb.??
-%attr(0755,root,root) %{_libdir}/kde3/kio_tar.??
-%attr(0755,root,root) %{_libdir}/kde3/kio_zip.??
-
-%attr(0755,root,root) %{_libdir}/kde3/kded_*.??
-%attr(0755,root,root) %{_libdir}/kde3/konq*.??
-
-%attr(0755,root,root) %{_libdir}/kde3/plugins/konqueror
-
+%dir %{_libdir}/kde3/plugins/konqueror
+%{_libdir}/kde3/kfile_font.la     
+%attr(0755,root,root) %{_libdir}/kde3/kfile_font.so     
+%{_libdir}/kde3/libkmanpart.la
+%attr(0755,root,root) %{_libdir}/kde3/libkmanpart.so
+%{_libdir}/kde3/libkshorturifilter.la
+%attr(0755,root,root) %{_libdir}/kde3/libkshorturifilter.so
+%{_libdir}/kde3/libkuriikwsfilter.la
+%attr(0755,root,root) %{_libdir}/kde3/libkuriikwsfilter.so
+%{_libdir}/kde3/libkurisearchfilter.la
+%attr(0755,root,root) %{_libdir}/kde3/libkurisearchfilter.so
+%{_libdir}/kde3/liblocaldomainurifilter.la
+%attr(0755,root,root) %{_libdir}/kde3/liblocaldomainurifilter.so
+%{_libdir}/kde3/kcm_cgi.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_cgi.so
+%{_libdir}/kde3/kcm_crypto.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_crypto.so
+%{_libdir}/kde3/kcm_css.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_css.so
+%{_libdir}/kde3/kcm_filetypes.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_filetypes.so
+%{_libdir}/kde3/kcm_fonts.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_fonts.so
+%{_libdir}/kde3/kcm_history.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_history.so
+%{_libdir}/kde3/kcm_kded.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_kded.so
+%{_libdir}/kde3/kcm_kio.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_kio.so
+%{_libdir}/kde3/kcm_konqhtml.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_konqhtml.so
+%{_libdir}/kde3/kcm_konq.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_konq.so
+%{_libdir}/kde3/kcm_kurifilt.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_kurifilt.so
+%{_libdir}/kde3/kio_about.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_about.so
+%{_libdir}/kde3/kio_cgi.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_cgi.so
+%{_libdir}/kde3/kio_devices.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_devices.so
+%{_libdir}/kde3/kio_filter.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_filter.so
+%{_libdir}/kde3/kio_finger.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_finger.so
+%{_libdir}/kde3/kio_fish.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_fish.so
+%{_libdir}/kde3/kio_floppy.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_floppy.so
+%{_libdir}/kde3/kio_mac.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_mac.so
+%{_libdir}/kde3/kio_nfs.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_nfs.so
+%{_libdir}/kde3/kio_print.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_print.so
+%{_libdir}/kde3/kio_sftp.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_sftp.so
+%{_libdir}/kde3/kio_smb.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_smb.so
+%{_libdir}/kde3/kio_tar.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_tar.so
+%{_libdir}/kde3/kio_zip.la
+%attr(0755,root,root) %{_libdir}/kde3/kio_zip.so
+%{_libdir}/kde3/kded_*.la
+%attr(0755,root,root) %{_libdir}/kde3/kded_*.so
+%{_libdir}/kde3/konq*.la
+%attr(0755,root,root) %{_libdir}/kde3/konq*.so
 %{_datadir}/apps/kcmcss
 %{_datadir}/apps/keditbookmarks
 %{_datadir}/apps/kfindpart
@@ -1104,11 +1192,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/mimelnk/application/*
 %{_datadir}/mimelnk/print
 %{_datadir}/mimelnk/kdedevice
-
 %{_datadir}/services/kded/*
 %{_datadir}/services/searchproviders
 %{_datadir}/services/useragentstrings
-
 %{_datadir}/services/about.protocol
 %{_datadir}/services/bzip2.protocol
 %{_datadir}/services/bzip.protocol
@@ -1125,7 +1211,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/smb.protocol
 %{_datadir}/services/tar.protocol
 %{_datadir}/services/zip.protocol
-
 %{_datadir}/services/kfile_font.desktop
 %{_datadir}/services/kfindpart.desktop
 %{_datadir}/services/kmanpart.desktop
@@ -1134,10 +1219,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kuriikwsfilter.desktop
 %{_datadir}/services/kurisearchfilter.desktop
 %{_datadir}/services/localdomainurifilter.desktop
-
 %{_datadir}/servicetypes/[!kt]*
 %{_datadir}/servicetypes/k[!a]*
-
 %{_applnkdir}/konqueror.desktop
 %{_applnkdir}/.hidden/f*
 %{_applnkdir}/Network/WWW/konq*.desktop
@@ -1152,7 +1235,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_applnkdir}/Settings/KDE/Security/crypto.desktop
 %{_applnkdir}/System/konq*.desktop
 %{_applnkdir}/System/Administration/konq*.desktop
-
 %{_pixmapsdir}/*/*/apps/agent.png
 %{_pixmapsdir}/*/*/apps/cache.png
 %{_pixmapsdir}/*/*/apps/cookie.png
