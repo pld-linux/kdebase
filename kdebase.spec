@@ -11,7 +11,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define         _snap		030329
+%define         _snap		030403
 
 %ifarch	sparc sparcv9 sparc64
 %define		_without_alsa	1
@@ -28,12 +28,12 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.%{_snap}.3
+Release:	0.%{_snap}.1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
-Source0:        http://team.pld.org.pl/~djurban/kde/%{name}-%{_snap}.tar.bz2
+Source0:        http://team.pld.org.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
 Source2:	kdm.pamd
 Source3:	kdm.init
 Source4:	kdm.Xsession
@@ -44,9 +44,9 @@ Source10:	%{name}-kdm_pldwallpaper.png
 Source11:	ircpld.desktop
 Source12:	specs.desktop
 Source13:	kabc.desktop
-Source14:	kde-settings-kde.directory
-Source15:	kde-settings-desktop.directory
-Source16:	kde-settings-security.directory
+Source14:	kde-settings.menu
+Source15:	kde-settings.directory
+#
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 # obsoleted
 #Patch1:	%{name}-fix-mouse.cpp.patch
@@ -523,7 +523,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT/etc/{pam.d,rc.d/init.d,security} \
+install -d $RPM_BUILD_ROOT/etc/{X11/desktop/menus,pam.d,rc.d/init.d,security} \
     $RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
@@ -553,7 +553,11 @@ mv -f $ALD/Settingsmenu/[!K]*.desktop $RPM_BUILD_ROOT%{_desktopdir}
 mv -f $ALD/System/kinfocenter.desktop $RPM_BUILD_ROOT%{_desktopdir}
 
 install %{SOURCE13} $ALD/Settings/KDE/Components
-install %{SOURCE14} %{SOURCE15} %{SOURCE16} $RPM_BUILD_ROOT%{_vfinfodir}
+install %{SOURCE14} $RPM_BUILD_ROOT/etc/X11/desktop/menus
+
+mv $RPM_BUILD_ROOT%{_vfinfodir}/kde-settings.directory{,.orig}
+install %{SOURCE15} $RPM_BUILD_ROOT%{_vfinfodir}
+
 
 > %{name}.lang
 
@@ -688,8 +692,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kwrited.so
 %{_libdir}/libksgrd.la
 %attr(0755,root,root) %{_libdir}/libksgrd.so.*
-%{_libdir}/libksplashthemes.la
-%attr(0755,root,root) %{_libdir}/libksplashthemes.so.*
+#%{_libdir}/libksplashthemes.la
+#%attr(0755,root,root) %{_libdir}/libksplashthemes.so.*
 #%{_libdir}/libsensordisplays.la
 #%attr(0755,root,root) %{_libdir}/libsensordisplays.so.*
 %{_libdir}/libtask*.la
@@ -770,8 +774,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kwin*.so
 %{_libdir}/kde3/libkdeprint_part.la
 %attr(0755,root,root) %{_libdir}/kde3/libkdeprint_part.so
-%{_libdir}/kde3/libksplashdefault.la
-%attr(0755,root,root) %{_libdir}/kde3/libksplashdefault.so*
+#%{_libdir}/kde3/libksplashdefault.la
+#%attr(0755,root,root) %{_libdir}/kde3/libksplashdefault.so*
 %{_libdir}/kde3/sysguard_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
 %dir %{_datadir}/apps/ksmserver
@@ -801,7 +805,7 @@ fi
 %{_datadir}/locale/*
 %{_datadir}/services/kaccess.desktop
 %{_datadir}/services/kdeprint_part.desktop
-%{_datadir}/services/ksplash*.desktop
+#%{_datadir}/services/ksplash*.desktop
 %{_datadir}/services/kwrited.desktop
 %{_datadir}/services/kxkb.desktop
 %{_datadir}/sounds
@@ -841,6 +845,7 @@ fi
 %{_desktopdir}/kpersonalizer.desktop
 %{_desktopdir}/printmgr.desktop
 #
+%{_vfinfodir}/kde-information.directory
 %{_vfinfodir}/kde-settings-[ailpw]*.directory
 %{_vfinfodir}/kde-settings-desktop.directory
 %{_vfinfodir}/kde-settings-sound.directory
@@ -876,13 +881,13 @@ fi
 %{_includedir}/kwin/*.h
 %{_includedir}/kate
 %{_includedir}/ksgrd
-%{_includedir}/ksplash
+#%{_includedir}/ksplash
 %{_libdir}/libkickermain.so
 %{_libdir}/libkmultitabbar.so
 %{_libdir}/libkonq.so
 %{_libdir}/libkonqsidebarplugin.so
 %{_libdir}/libksgrd.so
-%{_libdir}/libksplashthemes.so
+#%{_libdir}/libksplashthemes.so
 %{_libdir}/libnsplugin.so
 #%{_libdir}/libsensordisplays.so
 %{_libdir}/libtask*.so
@@ -983,6 +988,7 @@ fi
 
 %files kcontrol
 %defattr(644,root,root,755)
+/etc/X11/desktop/menus/kde-settings.menu
 %attr(0755,root,root) %{_bindir}/kcminit
 %attr(0755,root,root) %{_bindir}/kcmshell
 %attr(0755,root,root) %{_bindir}/kcontrol
@@ -1000,8 +1006,8 @@ fi
 %dir %{_applnkdir}/Settings/KDE
 %dir %{_applnkdir}/Settings/KDE/Components
 %dir %{_applnkdir}/Settings/KDE/System
+%{_vfinfodir}/kde-settings.directory
 %{_vfinfodir}/kde-settings-components.directory
-%{_vfinfodir}/kde-settings-kde.directory
 %{_vfinfodir}/kde-settings-system.directory
 %{_pixmapsdir}/*/*/apps/kcontrol.png
 %{_pixmapsdir}/*/*/apps/kcmsystem.png
