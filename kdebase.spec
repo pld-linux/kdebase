@@ -1648,9 +1648,9 @@ fi
 %{_iconsdir}/*/*/apps/gnome_apps.png
 %{_iconsdir}/*/*/apps/gvim.png
 %{_iconsdir}/*/*/apps/gv.png
-%{_iconsdir}/*/*/apps/kcmkwm.png
 %{_iconsdir}/*/*/apps/kcmdf.png
 %{_iconsdir}/*/*/apps/kcmfontinst.png
+%{_iconsdir}/*/*/apps/kcmkwm.png
 %{_iconsdir}/*/*/apps/kcmmidi.png
 %{_iconsdir}/*/*/apps/kdisknav.png
 %{_iconsdir}/*/*/apps/keyboard_layout.png
@@ -1754,7 +1754,7 @@ fi
 %{_desktopdir}/kde/smbstatus.desktop
 %{_desktopdir}/kde/sound.desktop
 %{_desktopdir}/kde/xserver.desktop
-#%%{_desktopdir}/kde/kinfocenter.desktop
+%{_desktopdir}/kde/kinfocenter.desktop
 %{_iconsdir}/*/*/apps/hwinfo.png
 %{_iconsdir}/*/*/apps/kcmdevices.png
 %{_iconsdir}/*/*/apps/kcmmemory.png
@@ -1907,7 +1907,7 @@ fi
 %{_desktopdir}/kde/panel.desktop
 %{_desktopdir}/kde/panel_appearance.desktop
 %{_desktopdir}/kde/clock.desktop
-%{_desktopdir}/kde/kcmkicker.desktop
+#%{_desktopdir}/kde/kcmkicker.desktop
 %{_iconsdir}/*/*/apps/clock.png
 %{_iconsdir}/*/*/apps/date.png
 %{_iconsdir}/*/*/apps/go.png
