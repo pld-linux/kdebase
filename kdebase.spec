@@ -74,6 +74,7 @@ Patch19:	%{name}-kio_settings.patch
 Patch20:	%{name}-vt-numbers-fix.patch
 Patch21:	%{name}-konsole-default-keytab.patch
 Patch22:	kde-common-QTDOCDIR.patch
+Patch23:	%{name}-freetype218.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	audiofile-devel
@@ -83,7 +84,6 @@ BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
 BuildRequires:	db-devel
 BuildRequires:	ed
-BuildRequires:	freetype-devel <= 2.1.7
 BuildRequires:	gettext-devel
 BuildRequires:	jasper-devel
 BuildRequires:	kdelibs-devel >= 9:%{version}
@@ -835,6 +835,7 @@ Dokumentacja API.
 %patch20 -p1
 %patch21 -p1
 %patch22 -p1
+%patch23 -p1
 
 %build
 cp %{_datadir}/automake/config.sub admin
