@@ -26,6 +26,7 @@ BuildRequires:	OpenGL-devel
 BuildRequires:	alsa-lib-devel
 Requires:	kdelibs = %{version}
 Requires:	qt >= 2.2.2
+Requires:	applnk
 Obsoletes:	%{name}-kcontrol
 Obsoletes:	%{name}-khelpcenter
 Obsoletes:	%{name}-konsole
@@ -240,21 +241,24 @@ fi
 %attr(0755,root,root) %{_libdir}/libk[hmrstuw]*.so*
 %attr(0755,root,root) %{_libdir}/libkonsolepart.*
 
-#These files are actually located in applnk package
-#%config(noreplace) %{_applnkdir}/.directory
-#%config(noreplace) %{_applnkdir}/*/.directory
-#%config(noreplace) %{_applnkdir}/*/*/.directory
-#%config(noreplace) %{_applnkdir}/*/*/*/.directory
-
+%dir %{_applnkdir}/Settings/FileBrowsing
+%dir %{_applnkdir}/Settings/WebBrowsing
 %{_applnkdir}/*.desktop
-%{_applnkdir}/[AEOTU]*/*.desktop
+%{_applnkdir}/[AU]*/*.desktop
 %{_applnkdir}/Office/Editors/*.desktop
-%{_applnkdir}/Settings/FileBrowsing/filetypes.desktop
-%{_applnkdir}/Settings/[HINP]*/*.desktop
-%{_applnkdir}/Settings/LookNFeel/*.desktop
-%{_applnkdir}/Settings/LookNFeel/*/*.desktop
-%{_applnkdir}/Settings/Sound/*.desktop
-%{_applnkdir}/Settings/System/clock.desktop
+%{_applnkdir}/Settings/Help
+%{_applnkdir}/Settings/Information
+%{_applnkdir}/Settings/Network
+%{_applnkdir}/Settings/LookNFeel
+%{_applnkdir}/Settings/Personalization
+%{_applnkdir}/Settings/PowerControl
+%{_applnkdir}/Settings/Sound
+%{_applnkdir}/Settings/System
+%{_applnkdir}/Settings/Peripherals/*.desktop
+%{_applnkdir}/Settings/FileBrowsing/f*.desktop
+%{_applnkdir}/Settings/FileBrowsing/.directory
+%{_applnkdir}/Settings/WebBrowsing/[cepu]*.desktop
+%{_applnkdir}/Settings/WebBrowsing/.directory
 %{_applnkdir}/System/Arrange.desktop
 %{_applnkdir}/System/k[aflms]*.desktop
 %{_applnkdir}/System/konsole*.desktop
@@ -306,7 +310,8 @@ fi
 %attr(0755,root,root) %{_libdir}/konqueror.??
 %attr(0755,root,root) %{_libdir}/libkcm_konq*
 %{_pixmapsdir}/*/*/apps/konqueror.png
-%{_applnkdir}/*/konq*.desktop
-%{_applnkdir}/*/*/konq*.desktop
+%{_applnkdir}/Network/WWW/konq*.desktop
+%{_applnkdir}/System/konq*.desktop
 %{_applnkdir}/Settings/FileBrowsing/kcmkonq.desktop
+%{_applnkdir}/Settings/WebBrowsing/konq*.desktop
 %{_datadir}/apps/konq*
