@@ -240,10 +240,10 @@ find -name Makefile.in -exec touch {} \;
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
-%{__make} -f Makefile.cvs
+#%{__make} -f Makefile.cvs
 CPPFLAGS="-I%{_includedir}"
 export CPPFLAGS
-%configure \
+%configure2_13 \
 	--with-pam=kdm \
 	--without-shadow \
 	--disable-shadow \
