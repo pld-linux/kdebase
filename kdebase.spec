@@ -28,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.%{_snap}.2
+Release:	0.%{_snap}.3
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -1128,7 +1128,7 @@ fi
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kscreensaver
 %{_libdir}/kde3/kcm_screensaver.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_screensaver.so
-%{_datadir}/apps/screensavers
+%{_datadir}/apps/kscreensaver
 %{_applnkdir}/Settings/KDE/LookNFeel/screensaver.desktop
 %{_pixmapsdir}/*/*/apps/kscreensaver.png
 
