@@ -23,11 +23,15 @@ rm -f $HOME/.dcop*
 # Background and cursor.
 xsetroot -cursor_name left_ptr -solid '#007777'
 
-# Set KDE config directory.
-if [ -n $CONFIG_DIR ] && [ ! -e $HOME/.kde ] && [ -d $HOME/$CONFIG_DIR ]; then
+# Set KDE config directory. If $KDEHOME exist do nothing.
+if [ -n $KDEHOME ]; then
+    echo $KDEHOME
+elif [ -n $CONFIG_DIR ] && [ ! -e $HOME/.kde ] && [ -d $HOME/$CONFIG_DIR ]; then
     export KDEHOME="$HOME/$CONFIG_DIR/kde"
+    echo $KDEHOME
 else
     export KDEHOME="$HOME/.kde"
+    echo $KDEHOME
 fi
 
 # Add user fonts. Fonts in $OVERRIDE_FONT_DIR will be added first.
