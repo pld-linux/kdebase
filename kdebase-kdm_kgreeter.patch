@@ -1,16 +1,6 @@
---- kdebase-3.1.2/kdm/kfrontend/kgreeter.cpp.orig	2003-05-12 15:48:50.000000000 +0200
-+++ kdebase-3.1.2/kdm/kfrontend/kgreeter.cpp	2003-05-17 13:18:55.000000000 +0200
-@@ -114,8 +114,7 @@
-   , capslocked( -1 )
-   , loginfailed( false )
- {
--    user_pic_dir = KGlobal::dirs()->resourceDirs( "data" ).last() +
--				      QString::fromLatin1("kdm/pics/users/");	/* XXX standardize */
-+    user_pic_dir = QString::fromLatin1("/etc/X11/kdm/pics/users/");	/* XXX standardize */
- 
-     QGridLayout* main_grid = new QGridLayout( winFrame, 4, 2, 10 );
-     QBoxLayout* hbox1 = new QHBoxLayout( 10 );
-@@ -273,7 +272,7 @@
+--- kdebase-3.1.1a/kdm/kfrontend/kgreeter.cpp~	Mon Apr  7 23:43:25 2003
++++ kdebase-3.1.1a/kdm/kfrontend/kgreeter.cpp	Wed Apr  9 16:25:58 2003
+@@ -277,7 +277,7 @@
  
      UpdateLock();
  
@@ -19,3 +9,43 @@
      stsfile->setGroup( "PrevUser" );
      enam = QString::fromLocal8Bit( dname );
      if (kdmcfg->_preselUser != PRESEL_PREV)
+@@ -323,7 +323,7 @@
+     QImage p;
+     if (kdmcfg->_faceSource != FACE_USER_ONLY &&
+ 	kdmcfg->_faceSource != FACE_PREFER_USER)
+-	p = QPixmap( locate( "user_pic", username + ".png" ) );
++	p = QPixmap( "/etc/X11/kdm/pics/users/" + username + ".png" );
+     if (p.isNull() && kdmcfg->_faceSource != FACE_ADMIN_ONLY) {
+ 	// XXX remove seteuid-voodoo when we run as nobody
+ 	seteuid( ps->pw_uid );
+@@ -331,7 +331,7 @@
+ 	seteuid( 0 );
+     }
+     if (p.isNull() && kdmcfg->_faceSource != FACE_USER_ONLY)
+-	p = QPixmap( locate( "user_pic", username + ".png" ) );
++	p = QPixmap( "/etc/X11/kdm/pics/users/" + username + ".png" );
+     if (p.isNull())
+ 	p = default_pix;
+     else
+@@ -349,8 +349,7 @@
+ void
+ KGreeter::insertUsers( UserListView *listview )
+ {
+-    QImage default_pix(
+-	locate( "user_pic", QString::fromLatin1("default.png") ) );
++    QImage default_pix( "/etc/X11/kdm/pics/users/default.png" );
+     if (default_pix.isNull())
+ 	LogError("Can't open default pixmap \"default.png\"\n");
+     default_pix = default_pix.smoothScale( 48, 48, QImage::ScaleMin );
+@@ -827,11 +826,6 @@
+ 
+     app.setFont( kdmcfg->_normalFont );
+ 
+-    KGlobal::dirs()->addResourceType( "user_pic",
+-				      KStandardDirs::kde_default("data") +
+-				      QString::fromLatin1("kdm/pics/users/") );
+-
+-
+ #ifdef HAVE_XKBSETPERCLIENTCONTROLS
+     //
+     //  Activate the correct mapping for modifiers in XKB extension as
