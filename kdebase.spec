@@ -8,11 +8,19 @@ Release:	8
 Epoch:		6
 License:	GPL
 Group:		X11/Applications
+Group(cs):	X11/Aplikace
+Group(da):	X11/Programmer
 Group(de):	X11/Applikationen
 Group(es):	X11/Aplicaciones
+Group(fr):	X11/Applications
+Group(it):	X11/Applicazioni
+Group(ja):	X11/¥¢¥×¥ê¥±¡¼¥·¥ç¥ó
+Group(no):	X11/Applikasjoner
 Group(pl):	X11/Aplikacje
 Group(pt_BR):	X11/Aplicações
 Group(pt):	X11/Aplicações
+Group(ru):	X11/ðÒÉÌÏÖÅÎÉÑ
+Group(sv):	X11/Tillämpningar
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
 Source1:	%{name}-startkde.sh
 Source2:	kdm.pamd
@@ -104,12 +112,19 @@ Summary(es):	Header files for compiling applications that use kdebase libraries
 Summary(pl):	Pliki nag³ówkowe potrzebne do programowania
 Summary(pt_BR):	Arquivos de inclusão para compilar aplicativos que usem bibliotecas do kdebase
 Group:		X11/Development/Libraries
-Group(de):	X11/Entwicklung/Libraries
+Group(cs):	X11/Vývojové prostøedky/Knihovny
+Group(da):	X11/Udvikling/Biblioteker
+Group(de):	X11/Entwicklung/Bibliotheken
 Group(es):	X11/Desarrollo/Bibliotecas
 Group(fr):	X11/Development/Librairies
+Group(it):	X11/Sviluppo/Librerie
+Group(ja):	X11/³«È¯/¥é¥¤¥Ö¥é¥ê
+Group(no):	X11/Applikasjoner/Biblioteker
 Group(pl):	X11/Programowanie/Biblioteki
 Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
+Group(pt):	X11/Desenvolvimento/Bibliotecas
 Group(ru):	X11/òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(sv):	X11/Utveckling/Bibliotek
 Group(uk):	X11/òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	%{name}-%{version}
 Requires:	qt-devel >= 2.3.0
@@ -136,12 +151,19 @@ Summary(es):	kdebase static library files
 Summary(pl):	Statyczne biblioteki KDE
 Summary(pt_BR):	Bibliotecas estáticas do kdebase
 Group:		X11/Development/Libraries
-Group(de):	X11/Entwicklung/Libraries
+Group(cs):	X11/Vývojové prostøedky/Knihovny
+Group(da):	X11/Udvikling/Biblioteker
+Group(de):	X11/Entwicklung/Bibliotheken
 Group(es):	X11/Desarrollo/Bibliotecas
 Group(fr):	X11/Development/Librairies
+Group(it):	X11/Sviluppo/Librerie
+Group(ja):	X11/³«È¯/¥é¥¤¥Ö¥é¥ê
+Group(no):	X11/Applikasjoner/Biblioteker
 Group(pl):	X11/Programowanie/Biblioteki
 Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
+Group(pt):	X11/Desenvolvimento/Bibliotecas
 Group(ru):	X11/òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(sv):	X11/Utveckling/Bibliotek
 Group(uk):	X11/òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	qt-devel >= 2.3.0
 Requires:	kdelibs-devel >= %{version}
@@ -162,11 +184,19 @@ Bibliotecas estáticas do kdebase.
 Summary:	KDE Display Manager	
 Summary(pl):	KDE Display Manager
 Group:		X11/Applications
+Group(cs):	X11/Aplikace
+Group(da):	X11/Programmer
 Group(de):	X11/Applikationen
 Group(es):	X11/Aplicaciones
+Group(fr):	X11/Applications
+Group(it):	X11/Applicazioni
+Group(ja):	X11/¥¢¥×¥ê¥±¡¼¥·¥ç¥ó
+Group(no):	X11/Applikasjoner
 Group(pl):	X11/Aplikacje
 Group(pt_BR):	X11/Aplicações
 Group(pt):	X11/Aplicações
+Group(ru):	X11/ðÒÉÌÏÖÅÎÉÑ
+Group(sv):	X11/Tillämpningar
 Requires:	qt >= 2.3.0
 Requires:	kdelibs >= %{version}
 Prereq:		/sbin/chkconfig
@@ -185,11 +215,19 @@ Zamiennik XDM rodem z KDE.
 Summary:	Konqueror - web browser and file manager
 Summary(pl):	Konqueror - przegl±darka WWW i mened¿er plików
 Group:		X11/Applications
+Group(cs):	X11/Aplikace
+Group(da):	X11/Programmer
 Group(de):	X11/Applikationen
 Group(es):	X11/Aplicaciones
+Group(fr):	X11/Applications
+Group(it):	X11/Applicazioni
+Group(ja):	X11/¥¢¥×¥ê¥±¡¼¥·¥ç¥ó
+Group(no):	X11/Applikasjoner
 Group(pl):	X11/Aplikacje
 Group(pt_BR):	X11/Aplicações
 Group(pt):	X11/Aplicações
+Group(ru):	X11/ðÒÉÌÏÖÅÎÉÑ
+Group(sv):	X11/Tillämpningar
 Requires:	qt >= 2.3.0
 Requires:	kdelibs >= %{version}
 Obsoletes:	kdebase-konqueror
@@ -206,11 +244,19 @@ Internet Explorer.
 Summary:	KDE screensavers
 Summary(pl):	Wygaszacze ekranu desktopu KDE
 Group:		X11/Applications
+Group(cs):	X11/Aplikace
+Group(da):	X11/Programmer
 Group(de):	X11/Applikationen
 Group(es):	X11/Aplicaciones
+Group(fr):	X11/Applications
+Group(it):	X11/Applicazioni
+Group(ja):	X11/¥¢¥×¥ê¥±¡¼¥·¥ç¥ó
+Group(no):	X11/Applikasjoner
 Group(pl):	X11/Aplikacje
 Group(pt_BR):	X11/Aplicações
 Group(pt):	X11/Aplicações
+Group(ru):	X11/ðÒÉÌÏÖÅÎÉÑ
+Group(sv):	X11/Tillämpningar
 Requires:	qt >= 2.3.0
 Requires:	kdelibs >= %{version}
 Requires:	OpenGL
