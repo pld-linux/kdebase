@@ -30,7 +30,7 @@
    QPoint pos = QPoint((ev->x()-tLx-bX+(font_w/2))/font_w,(ev->y()-tLy-bY)/font_h);
  
 --- kdebase-3.1/konsole/konsole/konsole.cpp.orig	Sat Nov 23 19:06:02 2002
-+++ kdebase-3.1/konsole/konsole/konsole.cpp	Fri Nov 29 02:45:53 2002
++++ kdebase-3.1/konsole/konsole/konsole.cpp	Fri Nov 29 03:40:43 2002
 @@ -161,7 +161,7 @@
   "13",  // medium
   "15",  // large
@@ -40,15 +40,6 @@
   "-misc-fixed-medium-r-normal--15-140-75-75-c-90-iso10646-1",    // "Unicode"
   };
  #define TOPFONT (sizeof(fonts)/sizeof(char*))
-@@ -589,7 +589,7 @@
-      m_options->insertTearOffHandle();
- 
-    //help menu
--   m_help->insertSeparator(1);
-+   m_help->insertSeparator();
-    m_help->insertItem(SmallIcon( "idea" ), i18n("&Tip of the Day"),
-             this, SLOT(showTip()), 0, -1, 2);
- 
 @@ -1068,7 +1068,7 @@
  
        // Options that should be applied to all sessions /////////////
