@@ -45,7 +45,7 @@ Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entrie
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-fontdir.patch
 Patch2:		%{name}-kcm_background.patch
-#Patch3:		%{name}-kdm_utmpx.patch
+Patch3:		%{name}-kdm_utmpx.patch
 Patch4:		%{name}-kdmconfig.patch
 Patch5:		%{name}-kicker.patch
 Patch6:		%{name}-konsole_all.patch
@@ -54,7 +54,7 @@ Patch8:		%{name}-startkde.patch
 Patch9:		%{name}-kcm_fonts.patch
 Patch10:	%{name}-kdesukonsole.patch
 Patch12:	%{name}-screensavers.patch
-#Patch13:	%{name}-prefmenu.patch
+Patch13:	%{name}-prefmenu.patch
 Patch14:	%{name}-session.patch
 Patch15:	%{name}-bgdefaults.patch
 Patch16:	%{name}-vmenus.patch
@@ -1002,7 +1002,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-#%patch3 -p1
+%patch3 -p1
 %patch4 -p1
 #%patch5 -p1
 %patch6 -p1
@@ -1011,7 +1011,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch9 -p1
 %patch10 -p1
 %patch12 -p1
-#%patch13 -p1
+%patch13 -p1
 %patch14 -p1
 %patch15 -p1
 %patch16 -p1
@@ -1923,6 +1923,9 @@ fi
 %{_iconsdir}/*/*/apps/keyboard_layout.png
 %{_iconsdir}/*/*/apps/keyboard.png
 %{_iconsdir}/*/*/apps/khotkeys.png
+# New (to konqueror?)
+#%{_iconsdir}/*/*/apps/knetattach.png
+#
 %{_iconsdir}/*/*/apps/knotify.png
 %{_iconsdir}/*/*/apps/ksplash.png
 %{_iconsdir}/*/*/apps/ktip.png
