@@ -5,6 +5,7 @@
 # Conditional build:
 # _with_pixmapsubdirs - leave different depth/resolution icons
 #
+%define		_with_pixmapsubdirs	1
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
 Summary(ja):	KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ - ´ðËÜ¥Õ¥¡¥¤¥ë
@@ -16,7 +17,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.4
-Release:	10
+Release:	11
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -370,7 +371,7 @@ for i in $RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/{access,agent,bell,col
 	$RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/{multimedia,netscape-plugins,password,personal,proxy,samba,style,stylesheet,usb,window_list}.png
 do
 %if %{?_with_pixmapsubdirs:1}%{!?_with_pixmapsubdirs:0}
-	ln -sf `echo $i | sed "s:^$RPM_BUILD_ROOT%{_pixmapsdir}/::"` $RPM_BUILD_ROOT%{_pixmapsdir}	
+	ln -sf `echo $i | sed "s:^$RPM_BUILD_ROOT%{_pixmapsdir}/::"` $RPM_BUILD_ROOT%{_pixmapsdir}
 %else
 	cp -af $i $RPM_BUILD_ROOT%{_pixmapsdir}
 %endif
