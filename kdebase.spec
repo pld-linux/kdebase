@@ -1141,6 +1141,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/servicetypes/[!kt]*
 %{_datadir}/servicetypes/k[!a]*
 
+%{_applnkdir}/konqueror.desktop
 %{_applnkdir}/.hidden/f*
 %{_applnkdir}/Network/WWW/konq*.desktop
 %{_applnkdir}/Utilities/keditbookmarks.desktop
