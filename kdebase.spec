@@ -59,6 +59,7 @@ Patch17:	%{name}-sasl-includes.patch
 Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
 Patch20:	%{name}-gcc4-konq_mainwindow.patch
+Patch21:	%{name}-seesar.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	OpenEXR-devel
 BuildRequires:	audiofile-devel
@@ -1017,6 +1018,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch16 -p1
 %patch18 -p1
 %patch19 -p1
+%patch21 -p1
 
 %{__sed} -i -e 's/Categories=.*/Categories=Audio;Mixer;/' \
 	kappfinder/apps/Multimedia/alsamixergui.desktop
