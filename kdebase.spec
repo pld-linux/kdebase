@@ -8,10 +8,11 @@
 # * Proper descriptions
 #
 
-%define		_state		stable
-%define		_ver		3.2.0
-#%%define		_snap		040110
-%bcond_without 	i18n # dont build i18n per module 
+%bcond_with 	i18n # dont build i18n per module 
+
+%define		_state		snapshots
+%define		_ver		3.2.90
+%define		_snap		040206
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -23,14 +24,14 @@ Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
-Version:	%{_ver}
-Release:	0.2
+Version:	%{_ver}.%{_snap}
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
-# Source0-md5:	9d05be3ccd6cc0294d6153e5d4dfa63a
+Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}-%{_snap}.tar.bz2
+##%% Source0-md5:	9d05be3ccd6cc0294d6153e5d4dfa63a
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -44,10 +45,8 @@ Source12:	http://ep09.pld-linux.org/~adgor/kde/%{name}-splash-Default-PLD-0.2.ta
 # Source12-md5:	24f9c6a4b711be36437639c410b400b2
 Source13:	http://ep09.pld-linux.org/~adgor/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
-%if %{with i18n}
-Source14:       http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
-# Source14-md5: 30848effd6e53fb459a620a50f761b85 
-%endif
+#Source14:       http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
+##%% Source14-md5: 30848effd6e53fb459a620a50f761b85 
 Patch0:		%{name}-fontdir.patch
 Patch1:		%{name}-kcm_background.patch
 Patch2:		%{name}-kdm_utmpx.patch
@@ -99,6 +98,7 @@ BuildRequires:	openldap-devel
 BuildRequires:	pam-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	xcursor-devel
+BuildConflicts: %{name}-konqueror-libs
 Conflicts:	kdelibs < 9:3.1.94.040110-1
 # TODO: sensors
 #BuildRequires:	sensors-devel
@@ -152,7 +152,7 @@ Summary(pt_BR):	Arquivos de inclusão para compilar aplicativos que usem bibliote
 Group:		X11/Development/Libraries
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kicker-libs = %{epoch}:%{version}-%{release}
-Requires:	%{name}-konqueror-libs = %{epoch}:%{version}-%{release}
+Requires:	%{name}-libkonqsidebarplugin = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkonq = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libksgrd = %{epoch}:%{version}-%{release}
@@ -596,20 +596,6 @@ KDE Menu Editor.
 %description kmenuedit -l pl
 Edytor menu KDE.
 
-%package konqueror-libs
-Summary:	konqueror shared libraries
-Summary(pl):	Biblioteki wspó³dzielone konquerora
-Group:		X11/Libraries
-Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= 9:%{version}
-Obsoletes:	konqueror < 9:3.1.92.031006
-
-%description konqueror-libs
-Shared libraries used by konqueror.
-
-%description konqueror-libs -l pl
-Biblioteki wspó³dzielone u¿ywane przez konquerora.
-
 %package konsole
 Summary:	KDE Terminal Emulator
 Summary(pl):	Emulator terminala dla KDE
@@ -765,6 +751,21 @@ Libraries containing functions used by konqueror and kicker.
 Biblioteki zawieraj±ce funkcje wykorzystywane przez konquerora i
 kickera.
 
+%package libkonqsidebarplugin
+Summary:	konqueror shared library
+Summary(pl):	Biblioteki wspó³dzielona konquerora
+Group:		X11/Libraries
+Requires(post,postun):	/sbin/ldconfig
+Requires:	kdelibs >= 9:%{version}
+Obsoletes:	konqueror < 9:3.1.92.031006
+Obsoletes:	%{name}-konqueror-libs
+
+%description libkonqsidebarplugin
+A shared library used by konqueror.
+
+%description libkonqsidebarplugin -l pl
+Biblioteka wspó³dzielona u¿ywana przez konquerora.
+
 %package libksgrd
 Summary:	ksgrd library
 Summary(pl):	Biblioteka ksgrd
@@ -837,11 +838,11 @@ Summary:	Konqueror - web browser and file manager
 Summary(pl):	Konqueror - przegl±darka WWW i zarz±dca plików
 Group:		X11/Applications
 Requires:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
-Requires:	%{name}-konqueror-libs = %{epoch}:%{version}-%{release}
-Requires:	%{name}-konsole = %{epoch}:%{version}-%{release}
+#Requires:	%{name}-konsole = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkickermain = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkonq = %{epoch}:%{version}-%{release}
-Requires:	%{name}-mailnews = %{epoch}:%{version}-%{release}
+Requires:	%{name}-libkonqsidebarplugin = %{epoch}:%{version}-%{release}
+#Requires:	%{name}-mailnews = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name}-konqueror
 Obsoletes:	%{name}-libkmultitabbar
 
@@ -2054,7 +2055,7 @@ Internationalization and localization files for konqueror.
 Pliki umiêdzynarodawiaj±ce dla konqueror.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}-%{_snap}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -2076,6 +2077,7 @@ Pliki umiêdzynarodawiaj±ce dla konqueror.
 
 %build
 cp /usr/share/automake/config.sub admin
+
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
@@ -2274,28 +2276,29 @@ done
 cat kcmkonsole.lang	>> konsole.lang
 cat kioslave.lang	>> kinfocenter.lang
 
-files="core \
-kdebase \
-kicker \
-konqueror \
-konsole \
-kinfocenter \
-kate \
-kdm \
-kfind \
-kioslave \
-klipper \
-kmenuedit \
-ksysguard \
-kpager \
-kwrite \
-screensaver \
-kcmfontinst"
+files="\
+	core \
+	kdebase \
+	kicker \
+	konqueror \
+	konsole \
+	kinfocenter \
+	kate \
+	kdm \
+	kfind \
+	kioslave \
+	klipper \
+	kmenuedit \
+	ksysguard \
+	kpager \
+	kwrite \
+	screensaver \
+	kcmfontinst"
 
 for i in $files; do
 	echo "%defattr(644,root,root,755)" > ${i}_en.lang
 	grep en\/ ${i}.lang|grep -v apidocs >> ${i}_en.lang
-	grep -v apidocs $i.lang|grep -v en\/ > ${i}.lang.1
+	grep -v apidocs ${i}.lang|grep -v en\/ > ${i}.lang.1
 	mv ${i}.lang.1 ${i}.lang
 done
 
@@ -2348,9 +2351,6 @@ EOF
 %post	kicker-libs	-p /sbin/ldconfig
 %postun	kicker-libs	-p /sbin/ldconfig
 
-%post	konqueror-libs	-p /sbin/ldconfig
-%postun	konqueror-libs	-p /sbin/ldconfig
-
 %post	libkate		-p /sbin/ldconfig
 %postun	libkate		-p /sbin/ldconfig
 
@@ -2359,6 +2359,9 @@ EOF
 
 %post	libkonq		-p /sbin/ldconfig
 %postun	libkonq		-p /sbin/ldconfig
+
+%post	libkonqsidebarplugin	-p /sbin/ldconfig
+%postun	libkonqsidebarplugin	-p /sbin/ldconfig
 
 %post	libksgrd	-p /sbin/ldconfig
 %postun	libksgrd	-p /sbin/ldconfig
@@ -2415,7 +2418,7 @@ fi
 
 %files devel
 %defattr(644,root,root,755)
-%lang(en) %{_kdedocdir}/en/%{name}-apidocs
+%lang(en) %{_kdedocdir}/en/%{name}-%{_snap}-apidocs
 %{_includedir}/*.h
 %{_includedir}/kate
 %{_includedir}/ksgrd
@@ -3220,13 +3223,6 @@ fi
 %{_iconsdir}/*/*/apps/kmenu.png
 %{_iconsdir}/*/*/apps/kmenuedit.png
 
-%files konqueror-libs
-%defattr(644,root,root,755)
-%{_libdir}/libkonqsidebarplugin.la
-%attr(0755,root,root) %{_libdir}/libkonqsidebarplugin.so.*.*.*
-%{_libdir}/kde3/libnsplugin.la
-%attr(0755,root,root) %{_libdir}/kde3/libnsplugin.so
-
 %files konsole -f konsole_en.lang
 %defattr(644,root,root,755)
 %doc konsole/README*
@@ -3326,8 +3322,11 @@ fi
 %defattr(644,root,root,755)
 %{_libdir}/libkonq.la
 %attr(0755,root,root) %{_libdir}/libkonq.so.*.*.*
-%{_libdir}/kde3/konq_sound.la
-%attr(0755,root,root) %{_libdir}/kde3/konq_sound.so
+
+%files libkonqsidebarplugin
+%defattr(644,root,root,755)
+%{_libdir}/libkonqsidebarplugin.la
+%attr(0755,root,root) %{_libdir}/libkonqsidebarplugin.so.*.*.*
 
 %files libksgrd
 %defattr(644,root,root,755)
@@ -3418,8 +3417,8 @@ fi
 %attr(0755,root,root) %{_libdir}/libkdeinit_kfmclient.so
 %{_libdir}/libkdeinit_konqueror.la
 %attr(0755,root,root) %{_libdir}/libkdeinit_konqueror.so
-%{_libdir}/libkonq_sidebar_tree.la
-%attr(0755,root,root) %{_libdir}/libkonq_sidebar_tree.so
+#%{_libdir}/libkonq_sidebar_tree.la
+#%attr(0755,root,root) %{_libdir}/libkonq_sidebar_tree.so
 %{_libdir}/kde3/appletproxy.la
 %attr(0755,root,root) %{_libdir}/kde3/appletproxy.so
 %{_libdir}/kde3/extensionproxy.la
@@ -3492,6 +3491,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/konq_iconview.so
 %{_libdir}/kde3/konq_listview.la
 %attr(0755,root,root) %{_libdir}/kde3/konq_listview.so
+%{_libdir}/kde3/konq_remoteencoding.la
+%attr(0755,root,root) %{_libdir}/kde3/konq_remoteencoding.so
 %{_libdir}/kde3/konq_shellcmdplugin.la
 %attr(0755,root,root) %{_libdir}/kde3/konq_shellcmdplugin.so
 %{_libdir}/kde3/konq_sidebar.la
@@ -3502,6 +3503,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/konq_sidebartree_dirtree.so
 %{_libdir}/kde3/konq_sidebartree_history.la
 %attr(0755,root,root) %{_libdir}/kde3/konq_sidebartree_history.so
+%{_libdir}/kde3/konq_sound.la
+%attr(0755,root,root) %{_libdir}/kde3/konq_sound.so
 %{_libdir}/kde3/konqueror.la
 %attr(0755,root,root) %{_libdir}/kde3/konqueror.so
 %{_libdir}/kde3/konqsidebar_tree.la
@@ -3518,6 +3521,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/libkurisearchfilter.so
 %{_libdir}/kde3/liblocaldomainurifilter.la
 %attr(0755,root,root) %{_libdir}/kde3/liblocaldomainurifilter.so
+%{_libdir}/kde3/libnsplugin.la
+%attr(0755,root,root) %{_libdir}/kde3/libnsplugin.so
 %{_libdir}/kde3/sidebar_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/sidebar_panelextension.so
 %dir %{_libdir}/kde3/plugins/konqueror
@@ -3551,6 +3556,9 @@ fi
 %{_datadir}/apps/konqueror/servicemenus/*
 %{_datadir}/apps/konqueror/tiles
 %{_datadir}/apps/konqueror/konqueror.rc
+# TODO
+%dir %{_datadir}/apps/plugin
+%{_datadir}/apps/plugin/nspluginpart.rc
 %{_datadir}/autostart/konqy_preload.desktop
 %{_datadir}/config/konqsidebartng.rc
 %{_datadir}/config/kshorturifilterrc
