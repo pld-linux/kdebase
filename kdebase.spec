@@ -22,7 +22,7 @@ BuildPrereq:	pam-devel
 BuildPrereq:	Mesa-devel
 Requires:    	qt >= 1.44
 Requires:	kdelibs = %{version}
-BuildRoot:   	/tmp/%{name}-%{version}-root
+BuildRoot:	/tmp/%{name}-%{version}-root
 
 %define _prefix	/usr/X11R6
 
