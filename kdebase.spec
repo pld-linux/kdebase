@@ -94,6 +94,7 @@ BuildRequires:	openldap-devel
 BuildRequires:	pam-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	xcursor-devel
+BuildConflicts:	%{name}-konqueror-libs
 Conflicts:	kdelibs < 9:3.1.94.040110-1
 # TODO: sensors
 #BuildRequires:	sensors-devel
@@ -2196,8 +2197,6 @@ fi
 %attr(0755,root,root) %{_libdir}/libkdeinit_kfmclient.so
 %{_libdir}/libkdeinit_konqueror.la
 %attr(0755,root,root) %{_libdir}/libkdeinit_konqueror.so
-%{_libdir}/libkonq_sidebar_tree.la
-%attr(0755,root,root) %{_libdir}/libkonq_sidebar_tree.so
 %{_libdir}/kde3/appletproxy.la
 %attr(0755,root,root) %{_libdir}/kde3/appletproxy.so
 %{_libdir}/kde3/extensionproxy.la
@@ -2288,6 +2287,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/konqsidebar_web.so
 %{_libdir}/kde3/libkfindpart.la
 %attr(0755,root,root) %{_libdir}/kde3/libkfindpart.so
+#%{_libdir}/kde3/libkonq_sidebar_tree.la
+#%attr(0755,root,root) %{_libdir}/kde3/libkonq_sidebar_tree.so
 %{_libdir}/kde3/libkshorturifilter.la
 %attr(0755,root,root) %{_libdir}/kde3/libkshorturifilter.so
 %{_libdir}/kde3/libkuriikwsfilter.la
@@ -2331,6 +2332,9 @@ fi
 %{_datadir}/apps/konqueror/servicemenus/*
 %{_datadir}/apps/konqueror/tiles
 %{_datadir}/apps/konqueror/konqueror.rc
+# Grr...
+%dir %{_datadir}/apps/plugin
+%{_datadir}/apps/plugin/nspluginpart.rc
 %{_datadir}/autostart/konqy_preload.desktop
 %{_datadir}/config/konqsidebartng.rc
 %{_datadir}/config/kshorturifilterrc
