@@ -75,6 +75,7 @@ Patch20:	%{name}-konsole-default-keytab.patch
 Patch21:	kde-common-QTDOCDIR.patch
 Patch22:	%{name}-svgsupport.patch
 Patch23:	%{name}-kwin_delayfocus.patch
+BuildRequires:	unsermake >= 040511
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	audiofile-devel
