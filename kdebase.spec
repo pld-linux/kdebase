@@ -2257,7 +2257,6 @@ fi
 %{_datadir}/apps/kcmkeys
 %{_datadir}/apps/kcmlocale
 %{_datadir}/apps/kconf_update/*
-%{_datadir}/apps/kdcop
 %{_datadir}/apps/kdesktop
 %{_datadir}/apps/kdewizard
 %{_datadir}/apps/kdisplay/app-defaults
@@ -2522,6 +2521,7 @@ fi
 %files kdcop
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kdcop
+%{_datadir}/apps/kdcop
 
 %files kdeprintfax
 %defattr(644,root,root,755)
