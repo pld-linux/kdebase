@@ -9,17 +9,6 @@
          termLine->setText(str);
  
          str = co->readEntry("KeyTab","");
---- kdebase-030317/konsole/konsole.desktop~	Mon Mar  3 00:44:51 2003
-+++ kdebase-030317/konsole/konsole.desktop	Tue Mar 18 10:17:30 2003
-@@ -1,7 +1,7 @@
- [Desktop Entry]
- Encoding=UTF-8
- Type=Application
--Exec=konsole
-+Exec=konsole --ls
- Icon=konsole
- DocPath=konsole/index.html
- Terminal=0
 --- kdebase-030518/konsole/konsole/konsole.cpp~	2003-05-06 00:34:51.000000000 +0200
 +++ kdebase-030518/konsole/konsole/konsole.cpp	2003-05-21 20:22:44.000000000 +0200
 @@ -832,7 +832,7 @@
