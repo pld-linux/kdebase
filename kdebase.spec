@@ -922,7 +922,7 @@ cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
 # Make PLD splashscreen as default
 cd $RPM_BUILD_ROOT%{_datadir}/apps/ksplash/Themes
 mv Default Default-KDE
-echo ',s/\[KSplash Theme: Default\]/[KSplash Theme: Default-KDE]/\n,w' |\
+echo -e ',s/\[KSplash Theme: Default\]/[KSplash Theme: Default-KDE]/\n,w' |\
 	ed Default-KDE/Theme.rc
 bzip2 -dc %{SOURCE12} | tar xf -
 cd -
