@@ -12,7 +12,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.4
-Release:	4
+Release:	5
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -566,11 +566,11 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so
 %attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so
+%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so*
 %attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so*
 %attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.la
@@ -578,7 +578,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
+%attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so*
 %attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.la
@@ -717,19 +717,6 @@ fi
 %{_includedir}/ksgrd
 %attr(0755,root,root) %{_libdir}/libkickermain.so
 %attr(0755,root,root) %{_libdir}/libsensordisplays.so
-%attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so
-%attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so
-%attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so
-%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.so
-%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.so
 
 %files static
 %defattr(644,root,root,755)
