@@ -6,8 +6,8 @@
 
 %define		_state		unstable
 %define		_ver		3.3.92
-%define         _snap           050210
-%define		_minlibsevr	9:3.3.92.050210
+%define         _snap           050217
+%define		_minlibsevr	9:3.3.92.050217
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos bАsicos
@@ -19,7 +19,7 @@ Summary(ru):	K Desktop Environment - базовые файлы
 Summary(uk):	K Desktop Environment - базов╕ файли
 Summary(zh_CN):	KDE╨кпд
 Name:		kdebase
-Version:       %{_ver}.%{_snap}
+Version:	%{_ver}.%{_snap}
 #Version:	%{_ver}
 Release:	1
 Epoch:		9
@@ -1832,6 +1832,7 @@ fi
 %{_datadir}/wallpapers/Chicken-Songs-2.jpg
 %{_datadir}/wallpapers/Circuit.jpg
 %{_datadir}/wallpapers/Foggy1.jpg
+%{_datadir}/wallpapers/KDE34.png
 %{_datadir}/wallpapers/Marble01.jpg
 %{_datadir}/wallpapers/No-Ones-Laughing-3.jpg
 %{_datadir}/wallpapers/Paper01.jpg
@@ -1924,7 +1925,7 @@ fi
 %{_iconsdir}/*/*/apps/keyboard.png
 %{_iconsdir}/*/*/apps/khotkeys.png
 # New (to konqueror?)
-#%{_iconsdir}/*/*/apps/knetattach.png
+%{_iconsdir}/*/*/apps/knetattach.png
 #
 %{_iconsdir}/*/*/apps/knotify.png
 %{_iconsdir}/*/*/apps/ksplash.png
