@@ -283,6 +283,7 @@ Summary:	KDE User Autentication
 Summary(pl):	Uwierzytelnianie u¿ytkowników dla KDE
 Group:		X11/Applications
 Obsoletes:	%{name} < 3.0.9-2.4
+Requires:	pam
 
 %description kcheckpass
 KDE User Autentication.
@@ -396,6 +397,7 @@ Summary(uk):	ÚÂÅÒ¦ÇÁÞ¦ ÅËÒÁÎÕ ÄÌÑ KDE
 Group:		X11/Applications
 Requires:	OpenGL
 Requires:	%{name}-kcheckpass = %{version}-%{release}
+Requires:	%{name}-kcontrol = %{version}-%{release}
 
 %description screensavers
 KDE screensavers.
@@ -413,7 +415,7 @@ Group:		X11/Applications
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-kcontrol = %{version}-%{release}
-Requires:	%{name}-pam = %{version}-%{release}
+Requires:	pam
 Requires:	sessreg
 Requires:	xinitrc
 Obsoletes:	gdm
@@ -512,8 +514,7 @@ install -d \
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers{,.orig}
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession{,.orig}
 
-touch $RPM_BUILD_ROOT/etc/security/blacklist.kcheckpass
-touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
+touch $RPM_BUILD_ROOT/etc/security/blacklist.k{checkpass,dm}
 
 install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kcheckpass
 install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
