@@ -1,33 +1,3 @@
---- kdebase-3.0.8/konsole/konsole/konsole.cpp.orig	Sun Sep 15 23:08:53 2002
-+++ kdebase-3.0.8/konsole/konsole/konsole.cpp	Tue Oct 15 02:19:58 2002
-@@ -792,8 +792,7 @@
-                          SLOT( slotSaveSessionsProfile() ), m_shortcuts, "save_sessions_profile" );
- 
-   //help menu
--  m_help->setAccel(QKeySequence(),m_help->idAt(0));
--
-+  
-   m_closeSession = new KAction(i18n("C&lose Session"), "fileclose", 0, this,
-                                SLOT(closeCurrentSession()), m_shortcuts, "close_session");
-   m_quit = new KAction(i18n("&Quit"), "exit", 0, this, SLOT( close() ), m_shortcuts, "quit");
-@@ -1068,7 +1067,7 @@
- 
-       // Options that should be applied to all sessions /////////////
-       // (1) set menu items and Konsole members
--      QFont tmpFont("fixed");
-+      QFont tmpFont( KGlobalSettings::fixedFont() );
-       defaultFont = config->readFontEntry("defaultfont", &tmpFont);
-       setFont(QMIN(config->readUnsignedNumEntry("font",3),TOPFONT));
- 
-@@ -1856,7 +1855,7 @@
- 
- QString Konsole::newSession(KSimpleConfig *co, QString program, const QStrList &args, const QString &_term,const QString &_icon,const QString &_title, const QString &_cwd)
- {
--  QString emu = "xterm";
-+  QString emu = "xterm-color";
-   QString icon = "openterm";
-   QString key;
-   QString sch = s_kconfigSchema;
 --- kdebase-3.0.8/konsole/konsole/main.cpp.orig	Sun Sep 15 23:08:53 2002
 +++ kdebase-3.0.8/konsole/konsole/main.cpp	Tue Oct 15 02:26:19 2002
 @@ -40,7 +40,7 @@
@@ -39,17 +9,6 @@
     { "xwin",            I18N_NOOP("ignored"), 0 },
     { "noclose",         I18N_NOOP("Do not close Konsole when command exits"), 0 },
     { "nohist",          I18N_NOOP("Do not save lines in history"), 0 },
---- kdebase-3.0.8/konsole/konsole/konsole_part.cpp.orig	Sun Sep 15 23:08:53 2002
-+++ kdebase-3.0.8/konsole/konsole/konsole_part.cpp	Tue Oct 15 02:29:30 2002
-@@ -165,7 +165,7 @@
-   te->setMinimumSize(150,70);    // allow resizing, cause resize in TEWidget
- 
-   setWidget(te);
--  se = new TESession(te,shell,eargs,"xterm");
-+  se = new TESession(te,shell,eargs,"xterm-color");
-   connect( se,SIGNAL(done(TESession*)),
-            this,SLOT(doneSession(TESession*)) );
-   connect( se,SIGNAL(openURLRequest(const QString &)),
 --- kdebase-3.0.8/konsole/konsole/TEPty.cpp.orig	Sun Sep 15 23:08:53 2002
 +++ kdebase-3.0.8/konsole/konsole/TEPty.cpp	Tue Oct 15 02:36:30 2002
 @@ -70,6 +70,7 @@
@@ -70,3 +29,25 @@
  
    QPoint pos = QPoint((ev->x()-tLx-bX+(font_w/2))/font_w,(ev->y()-tLy-bY)/font_h);
  
+--- kdebase-3.1/konsole/konsole/konsole.cpp.orig	Sat Nov 23 19:06:02 2002
++++ kdebase-3.1/konsole/konsole/konsole.cpp	Fri Nov 29 03:40:43 2002
+@@ -1864,7 +1864,7 @@
+ 
+ QString Konsole::newSession(KSimpleConfig *co, QString program, const QStrList &args, const QString &_term,const QString &_icon,const QString &_title, const QString &_cwd)
+ {
+-  QString emu = "xterm";
++  QString emu = "xterm-color";
+   QString icon = "openterm";
+   QString key;
+   QString sch = s_kconfigSchema;
+--- kdebase-3.0.99/konsole/konsole/konsole_part.cpp.orig	Sun Oct 27 00:06:56 2002
++++ kdebase-3.0.99/konsole/konsole/konsole_part.cpp	Wed Nov 20 11:10:03 2002
+@@ -167,7 +167,7 @@
+   te->setMinimumSize(150,70);    // allow resizing, cause resize in TEWidget
+ 
+   setWidget(te);
+-  se = new TESession(te,shell,eargs,"xterm");
++  se = new TESession(te,shell,eargs,"xterm-color");
+   connect( se,SIGNAL(done(TESession*)),
+            this,SLOT(doneSession(TESession*)) );
+   connect( se,SIGNAL(openURLRequest(const QString &)),
