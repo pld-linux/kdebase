@@ -85,7 +85,6 @@ Requires:	%{name}-kcontrol
 Requires:	%{name}-pam
 Requires:	%{name}-wallpapers
 #
-Obsoletes:	%{name}-kcontrol
 Obsoletes:	%{name}-khelpcenter
 Obsoletes:	%{name}-konsole
 Obsoletes:	%{name}-screensaver
@@ -232,7 +231,7 @@ Summary(pl):	Centrum Sterowania KDE
 Group:		X11/Applications
 Requires:	kdelibs >= %{version}
 Requires:	qt >= 3.1
-Obsoletes:	%{name} < 3.0.9-2
+Obsoletes:	%{name} < 3.0.9-2.2
 
 %description kcontrol
 KDE Control Center
@@ -716,7 +715,8 @@ fi
 %dir %{_datadir}/apps/ksmserver
 %dir %{_datadir}/apps/ksplash
 %{_datadir}/apps/?[!cefos]*
-%{_datadir}/apps/?c[!o]*
+%{_datadir}/apps/?c[!mo]*
+%{_datadir}/apps/?cm[!c]*
 %{_datadir}/apps/kconf_update/*
 %{_datadir}/apps/ksysguard
 %{_datadir}/autostart/*
@@ -822,12 +822,6 @@ fi
 %{_applnkdir}/Settings/KDE/.directory
 %{_pixmapsdir}/*/*/apps/kcontrol.png
 
-%files -n kfind
-%defattr(644,root,root,755)
-%attr(0755,root,root) %{_bindir}/kfind
-%{_applnkdir}/Kfind.desktop
-%{_pixmapsdir}/*/*/apps/kfind.png
-
 %files mailnews
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_libdir}/kde3/kio_imap4.??
@@ -886,6 +880,12 @@ fi
 %{_datadir}/config/kdm/kdmrc
 %{_pixmapsdir}/*/*/apps/kdmconfig.png
 %{_applnkdir}/Settings/KDE/System/kdm.desktop
+
+%files -n kfind
+%defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/kfind
+%{_applnkdir}/Kfind.desktop
+%{_pixmapsdir}/*/*/apps/kfind.png
 
 %files -n konqueror -f konqueror.lang
 %defattr(644,root,root,755)
@@ -951,6 +951,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/lib*     
 %attr(0755,root,root) %{_libdir}/kde3/plugins/konqueror
 
+%{_datadir}/apps/kcmcss
 %{_datadir}/apps/keditbookmarks
 %{_datadir}/apps/kfindpart
 %{_datadir}/apps/konq*
