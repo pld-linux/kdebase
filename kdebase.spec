@@ -72,6 +72,7 @@ Patch18:	%{name}-screensavers.patch
 Patch19:	%{name}-prefmenu.patch
 Patch20:	%{name}-kdesktop_lock.patch
 Patch21:	%{name}-libtool-sanitize.patch
+Patch22:	%{name}-kcmcgi_desktop.patch
 %{?_without_alsa:BuildConflicts:	alsa-driver-devel}
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	OpenGL-devel
@@ -781,6 +782,7 @@ Internet Explorer.
 #%patch20
 # libtool cannot be refreshed, so patch it
 %patch21 -p1
+%patch22 -p1
 
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
