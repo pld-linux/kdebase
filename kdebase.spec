@@ -11,7 +11,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define         _snap		030403
+%define         _snap		030406
 
 %ifarch	sparc sparcv9 sparc64
 %define		_without_alsa	1
@@ -129,6 +129,7 @@ Obsoletes:	%{name}-kwin
 Obsoletes:	%{name}-kxmlrpc
 Obsoletes:	%{name}-kdesktop
 Obsoletes:	%{name}-wallpapers
+Obsoletes:	kde-theme-keramik
 #
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
