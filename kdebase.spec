@@ -732,8 +732,8 @@ Summary(pl):	Biblioteki wykorzystywane przez konquerora
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	kdelibs >= 9:%{version}
+Obsoletes:	kdebase-konqueror-libs
 Obsoletes:	konqueror < 8:3.2-0.030423.2
-Obsoletes:	konqueror-libs
 
 %description libkonq
 Libraries containing functions used by konqueror and kicker.
