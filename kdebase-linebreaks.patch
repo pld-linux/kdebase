@@ -1,0 +1,10 @@
+--- kdebase/konsole/konsole/TEWidget.cpp.linebreak	Sun Nov 11 00:49:52 2001
++++ kdebase/konsole/konsole/TEWidget.cpp	Sun Nov 11 14:54:34 2001
+@@ -721,6 +721,7 @@
+ 
+   line_selection_mode = FALSE;
+   word_selection_mode = FALSE;
++  preserve_line_breaks = TRUE;
+ 
+ //printf("press top left [%d,%d] by=%d\n",tLx,tLy, bY);
+   if ( ev->button() == LeftButton)
