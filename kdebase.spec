@@ -19,7 +19,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.98
-Release:	1.3
+Release:	1.4
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -87,7 +87,6 @@ Requires:	%{name}-wallpapers = %{version}-%{release}
 #
 Obsoletes:	%{name}-fonts
 Obsoletes:	%{name}-khelpcenter
-Obsoletes:	%{name}-konsole
 Obsoletes:	%{name}-screensaver
 Obsoletes:	%{name}-kicker
 Obsoletes:	%{name}-kioslave
@@ -95,7 +94,6 @@ Obsoletes:	%{name}-konqueror
 Obsoletes:	%{name}-kwin
 Obsoletes:	%{name}-kxmlrpc
 Obsoletes:	%{name}-kdesktop
-Obsoletes:	%{name}-kwrite
 #
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
