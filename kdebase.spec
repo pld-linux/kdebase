@@ -7,7 +7,7 @@
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040501
+%define		_snap		040503
 %define		_packager	adgor
 
 Summary:	K Desktop Environment - core files
@@ -2300,7 +2300,6 @@ fi
 %attr(755,root,root) %{_datadir}/apps/kconf_update/*.pl
 %attr(755,root,root) %{_datadir}/apps/kconf_update/*.sh
 %{_datadir}/apps/kconf_update/*.upd
-%{_datadir}/apps/kdcop
 %{_datadir}/apps/kdesktop
 %{_datadir}/apps/kdewizard
 #%{_datadir}/apps/kdisplay/app-defaults
@@ -2663,6 +2662,7 @@ fi
 %dir %{_datadir}/apps/kate/scripts
 %{_datadir}/apps/kate/scripts/*.desktop
 %attr(0755,root,root) %{_datadir}/apps/kate/scripts/*.sh
+%{_datadir}/mimelnk/application/x-kate-project.desktop
 %{_datadir}/services/katedefaultproject.desktop
 %{_datadir}/servicetypes/kateinitplugin.desktop
 %{_datadir}/servicetypes/kateplugin.desktop
@@ -2674,6 +2674,7 @@ fi
 %files kdcop
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kdcop
+%{_datadir}/apps/kdcop
 
 %files kdeprintfax
 %defattr(644,root,root,755)
