@@ -1,58 +1,47 @@
---- kdebase/kioslave/settings/kio_settings.cc.orig	2004-02-19 12:52:34.000000000 +0100
-+++ kdebase/kioslave/settings/kio_settings.cc	2004-04-02 20:01:53.496036792 +0200
-@@ -89,8 +89,8 @@
- 	QString nextPart="";;
- 	QStringList rest;
- 	kdDebug()<<"Trying harder to find group "<<relPath<<endl;
--	if (relPath.startsWith("Settings/")) {
--		alreadyFound="Settings/";
-+	if (relPath.startsWith("KDE-Settings/")) {
-+		alreadyFound="KDE-Settings/";
- 		rest=QStringList::split("/",relPath.right(relPath.length()-9));
- 		kdDebug()<<"Supported root Settings detected"<<endl;
- 		for (int i=0;i<rest.count();i++)
-@@ -148,7 +148,7 @@
- 	switch( m_runMode )
- 	{
- 		case( SettingsMode ):
--			if (!relPath.startsWith("/Settings")) relPath="Settings"+relPath;
-+			if (!relPath.startsWith("/KDE-Settings")) relPath="KDE-Settings"+relPath;
- 			else relPath=relPath.right(relPath.length()-1);
- 			break;
+--- kdebase-040519/kioslave/settings/kio_settings.cc.orig	2004-05-19 01:55:33.000000000 +0200
++++ kdebase-040519/kioslave/settings/kio_settings.cc	2004-05-19 23:47:15.910694936 +0200
+@@ -120,7 +120,7 @@
+ KServiceGroup::Ptr SettingsProtocol::findGroup(const QString &relPath)
+ {
+ 	QString nextPart;
+-	QString alreadyFound("Settings/");
++	QString alreadyFound("KDE-Settings/");
+ 	QStringList rest = QStringList::split('/', relPath);
  
-@@ -172,7 +172,7 @@
- 	switch( m_runMode )
- 	{
- 		case( SettingsMode ):
--			createDirEntry(entry, i18n("Settings"), url.url(), "inode/directory",grp->icon());
-+			createDirEntry(entry, i18n("KDE-Settings"), url.url(), "inode/directory",grp->icon());
- 			break;
+ 	kdDebug() << "Trying harder to find group " << relPath << endl;
+@@ -183,7 +183,7 @@
+ 	servicePath.remove(0, 1); // remove starting '/'
  
- 		case( ProgramsMode ):
-@@ -199,7 +199,7 @@
- 	switch( m_runMode )
- 	{
- 		case( SettingsMode ):
--			if (!relPath.startsWith("/Settings")) relPath="Settings"+relPath;
-+			if (!relPath.startsWith("/KDE-Settings")) relPath="KDE-Settings"+relPath;
- 			else relPath=relPath.right(relPath.length()-1);
- 			break;
+ 	if ( m_runMode == SettingsMode)
+-		servicePath = "Settings/" + servicePath;
++		servicePath = "KDE-Settings/" + servicePath;
  
-@@ -250,7 +250,7 @@
-                     QString relPath=g->relPath();
+ 	KServiceGroup::Ptr grp = KServiceGroup::group(servicePath);
  
- 		    // Do not display the "Settings" menu group in Programs Mode.
--		    if( (m_runMode == ProgramsMode) && relPath.startsWith( "Settings" ) )
-+		    if( (m_runMode == ProgramsMode) && relPath.startsWith( "KDE-Settings" ) )
- 		    {
- 			kdDebug() << "SettingsProtocol: SKIPPING entry programs:/" << relPath << endl;
- 			continue;
-@@ -259,7 +259,7 @@
- 		    switch( m_runMode )
- 		    {
- 			case( SettingsMode ):
--			    relPath=relPath.right(relPath.length()-9); //Settings/ ==9
-+			    relPath=relPath.right(relPath.length()-13); //KDE-Settings/ ==13
- 			    kdDebug() << "SettingsProtocol: adding entry settings:/" << relPath << endl;
- 			    createDirEntry(entry, groupCaption, "settings:/"+relPath, "inode/directory",g->icon());
- 			    break;
+@@ -212,7 +212,7 @@
+ 	groupPath.remove(0, 1); // remove starting '/'
+ 
+ 	if ( m_runMode == SettingsMode)
+-		groupPath.prepend("Settings/");
++		groupPath.prepend("KDE-Settings/");
+ 
+ 	KServiceGroup::Ptr grp = KServiceGroup::group(groupPath);
+ 
+@@ -249,7 +249,7 @@
+ 			QString relPath = g->relPath();
+ 
+ 			// Do not display the "Settings" menu group in Programs Mode.
+-			if( (m_runMode == ProgramsMode) && relPath.startsWith( "Settings" ) )
++			if( (m_runMode == ProgramsMode) && relPath.startsWith( "KDE-Settings" ) )
+ 			{
+ 				kdDebug() << "SettingsProtocol: SKIPPING entry programs:/" << relPath << endl;
+ 				continue;
+@@ -258,7 +258,7 @@
+ 			switch( m_runMode )
+ 			{
+ 			  case( SettingsMode ):
+-				relPath.remove(0, 9); // length("Settings/") ==9
++				relPath.remove(0, 13); // length("KDE-Settings/") ==13
+ 				kdDebug() << "SettingsProtocol: adding entry settings:/" << relPath << endl;
+ 				createDirEntry(entry, groupCaption, "settings:/"+relPath, "inode/directory",g->icon());
+ 				break;

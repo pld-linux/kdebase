@@ -1,29 +1,28 @@
---- kdebase/konsole/konsole/default.keytab.h.orig	2003-03-26 16:22:26.000000000 +0100
-+++ kdebase/konsole/konsole/default.keytab.h	2004-03-30 19:27:49.612032936 +0200
-@@ -43,7 +43,7 @@
-   "\n"
-   "# Backspace and Delete codes are preserving CTRL-H.\n"
-   "\n"
+--- kdebase-040531/konsole/konsole/default.keytab.h.orig	2004-05-31 18:25:21.000000000 +0200
++++ kdebase-040531/konsole/konsole/default.keytab.h	2004-05-31 18:39:11.481231816 +0200
+@@ -8,7 +8,7 @@
+   "key Return-Shift-NewLine : \"\\r\"\n"
+   "key Return-Shift+NewLine : \"\\r\\n\"\n"
+   "key Return+Shift         : \"\\EOM\"\n"
 -  "key Backspace      : \"\\x7f\"\n"
 +  "key Backspace      : \"\\x08\"\n"
-   "\n"
-   "# Arrow keys in VT52 mode\n"
-   "\n"
-@@ -71,13 +71,13 @@
-   "\n"
+   "key Up   -Shift-Ansi : \"\\EA\"\n"
+   "key Down -Shift-Ansi : \"\\EB\"\n"
+   "key Right-Shift-Ansi : \"\\EC\"\n"
+@@ -25,12 +25,12 @@
+   "key Enter-NewLine : \"\\r\"\n"
    "key Home  -Shift-AppCuKeys : \"\\E[H\"  \n"
    "key End   -Shift-AppCuKeys : \"\\E[F\"  \n"
 -  "key Home  +Shift-AppCuKeys : \"\\E[2H\"  \n"
 -  "key End   +Shift-AppCuKeys : \"\\E[2F\"  \n"
 +  "key Home  +Shift-AppCuKeys : \"\\E[1;2H\"  \n"
 +  "key End   +Shift-AppCuKeys : \"\\E[1;2F\"  \n"
-   "\n"
    "key Home  -Shift+AppCuKeys : \"\\EOH\"  \n"
    "key End   -Shift+AppCuKeys : \"\\EOF\"  \n"
 -  "key Home  +Shift+AppCuKeys : \"\\EO2H\"  \n"
 -  "key End   +Shift+AppCuKeys : \"\\EO2F\"  \n"
 +  "key Home  +Shift+AppCuKeys : \"\\E[1;2H\"  \n"
 +  "key End   +Shift+AppCuKeys : \"\\E[1;2F\"  \n"
-   "\n"
    "key Insert-Shift : \"\\E[2~\"  \n"
    "key Delete-Shift : \"\\E[3~\"  \n"
+   "key Prior -Shift : \"\\E[5~\"  \n"

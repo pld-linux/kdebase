@@ -65,17 +65,17 @@
    greetingFontChooser->setFont(QFont("charter", 24));
  }
  
---- kdebase-030418/kcontrol/kdm/kdm-sess.cpp~	2003-04-04 00:37:58.000000000 +0200
-+++ kdebase-030418/kcontrol/kdm/kdm-sess.cpp	2003-04-19 19:26:08.000000000 +0200
-@@ -364,7 +364,7 @@
-   QString str;
- 
-   config->setGroup("X-:*-Core");
--  readSD(sdlcombo, "All");
-+  readSD(sdlcombo, "Root");
- 
-   config->setGroup("X-*-Core");
-   readSD(sdrcombo, "Root");
+#--- kdebase-030418/kcontrol/kdm/kdm-sess.cpp~	2003-04-04 00:37:58.000000000 +0200
+#+++ kdebase-030418/kcontrol/kdm/kdm-sess.cpp	2003-04-19 19:26:08.000000000 +0200
+#@@ -364,7 +364,7 @@
+#   QString str;
+# 
+#   config->setGroup("X-:*-Core");
+#-  readSD(sdlcombo, "All");
+#+  readSD(sdlcombo, "Root");
+# 
+#   config->setGroup("X-*-Core");
+#   readSD(sdrcombo, "Root");
 --- kdebase-030924/kcontrol/kdm/kdm-users.cpp~	2003-09-23 21:46:11.000000000 +0200
 +++ kdebase-030924/kcontrol/kdm/kdm-users.cpp	2003-09-24 16:39:25.000000000 +0200
 @@ -65,7 +65,7 @@
@@ -109,18 +109,9 @@
  
  messages:
  	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
---- kdebase-040116/kdm/kfrontend/genkdmconf.c.orig	2004-01-16 23:07:51.000000000 +0100
-+++ kdebase-040116/kdm/kfrontend/genkdmconf.c	2004-01-16 23:36:17.000000000 +0100
-@@ -64,7 +64,7 @@
- #define __stringify(x) #x
- #define stringify(x) __stringify(x)
- 
--#define KDMCONF KDE_CONFDIR "/kdm"
-+#define KDMCONF "/etc/X11/kdm"
- #define KDMDATA KDE_DATADIR "/kdm"
- 
- #define RCVERMAJOR 2
-@@ -787,14 +785,15 @@
+--- kdebase/kdm/kfrontend/genkdmconf.c.orig	2004-03-23 14:55:38.000000000 +0100
++++ kdebase/kdm/kfrontend/genkdmconf.c	2004-03-25 21:55:08.236691776 +0100
+@@ -793,14 +791,15 @@
  "esac\n"
  "exec xmessage -center -buttons OK:0 -default OK \"Sorry, cannot execute $1. Check $DESKTOP_SESSION.desktop.\"\n";
  
@@ -139,7 +130,7 @@
  "CurrentWallpaper=0\n"
  "LastChange=0\n"
  "MinOptimizationDepth=1\n"
-@@ -803,7 +802,7 @@
+@@ -809,7 +808,7 @@
  "Program=\n"
  "ReverseBlending=false\n"
  "UseSHM=false\n"
@@ -148,162 +139,187 @@
  "WallpaperList=\n"
  "WallpaperMode=Scaled\n";
  
-@@ -2034,18 +2033,20 @@
- "# this opens a security hole: a secured display lock can be circumvented\n"
- "# (unless you use KDE's built-in screen lock). Default is false\n" },
- { "AllowRootLogin",	0, 0, 
--"# Allow root logins? Default is true\n" },
-+"# Allow root logins? Default is false\n" },
- { "AllowNullPasswd",	0, 0, 
--"# Allow to log in, when user has set an empty password? Default is true\n" },
-+"# Allow to log in, when user has set an empty password? Default is false\n" },
- { "AllowShutdown",	0, 0, 
- "# Who is allowed to shut down the system. This applies both to the\n"
--"# greeter and to the command FiFo. Default is All\n"
-+"# greeter and to the command FiFo.\n"
- "# \"None\" - no \"Shutdown...\" button is shown at all\n"
- "# \"Root\" - the root password must be entered to shut down\n"
--"# \"All\" - everybody can shut down the machine (Default)\n" },
-+"# \"All\" - everybody can shut down the machine\n"
-+"# Default value is \"Root\". For local displays we set this option to \"All\"\n"  
-+"# (see the \"[X-:*-Core]\" section below).\n" },
- { "AllowSdForceNow",	0, 0, 
- "# Who is allowed to abort all still running sessions when shutting down.\n"
--"# Same options as for AllowShutdown. Default is All\n" },
-+"# Same options as for AllowShutdown. Default is Root\n" },
- { "DefaultSdMode",	0, 0, 
- "# The default choice for the shutdown condition/timing.\n"
- "# \"Schedule\" - shutdown after all sessions exit (possibly at once) (Default)\n"
-@@ -2080,7 +2081,7 @@
- "# it, you should \"chmod 600 kdmrc\" for obvious reasons. Default is \"\"\n" },
- { "SessionsDirs",	0, 0, 
- "# The directories containing session type definitions in .desktop format.\n"
--"# Default is " KDMDATA "/sessions\n" },
-+"# Default is /usr/share/xsessions \n" },
- };
- 
- static Ent entsGreeter[] = {
-@@ -2096,7 +2097,7 @@
- "# \"Clock\" - a neat analog clock\n"
- "# \"None\" - nothing\n" },
- { "LogoPixmap",		0, 0, 
--"# The image to show when LogoArea=Logo. Default is kdelogo.png\n" },
-+"# The image to show when LogoArea=Logo. Default is pldlogo.png\n" },
- { "GreeterPosFixed",	0, 0, 
- "# Normally, the greeter is centered on the screen. Use this, if you want\n"
- "# it to appear elsewhere on the screen. Default is false\n" },
-@@ -2117,13 +2118,13 @@
- "# - %r -> the operating system's version\n"
- "# - %m -> the machine (hardware) type\n"
- "# - %% -> a single %\n"
--"# Default is \"Welcome to %s at %n\"\n" },
-+"# Default is \"Welcome to PLD Linux at %n\"\n" },
- { "GreetFont",		0, 0, 
- "# The font for the headline. Default is charter,24,bold\n" },
- { "StdFont",		0, 0, 
--"# The normal font used in the greeter. Default is helvetica,12\n" },
-+"# The normal font used in the greeter. Default is helvetica,11\n" },
- { "FailFont",		0, 0, 
--"# The font used for the \"Login Failed\" message. Default is helvetica,12,bold\n" },
-+"# The font used for the \"Login Failed\" message. Default is helvetica,11,bold\n" },
- { "AntiAliasing",	0, 0,
- "# Whether the fonts shown in the greeter should be antialiased. Default is false\n" },
- { "NumLock",		0, 0,
-@@ -2160,7 +2161,7 @@
- "# \"PreferUser\" - ... and the other way round\n" },
- { "FaceDir",		0, upd_facedir, 
- "# The directory containing the user images if FaceSource is not UserOnly.\n"
--"# Default is " KDE_DATADIR "/kdm/faces\n" },
-+"# Default is " KDMCONF "/faces\n" },
- { "PreselectUser",	0, 0, 
- "# Specify, if/which user should be preselected for log in.\n"
- "# Note, that enabling this feature can be considered a security hole,\n"
-@@ -2354,10 +2355,10 @@
- { "SystemShell",	"/bin/bash", 0 },
- { "UserAuthDir",	"", 0 },
- { "AutoReLogin",	"true", 0 },
--{ "AllowRootLogin",	"false", 1 },
--{ "AllowNullPasswd",	"false", 1 },
--{ "AllowShutdown",	"Root", 1 },
--{ "AllowSdForceNow",	"Root", 0 },
-+{ "AllowRootLogin",	"true", 0 },
-+{ "AllowNullPasswd",	"true", 0 },
-+{ "AllowShutdown",	"All", 0 },
-+{ "AllowSdForceNow",	"All", 0 },
- { "DefaultSdMode",	"ForceNow", 0}, 
- { "InteractiveSd",	"false", 0}, 
- { "SessionsDirs",	"/etc/X11/sessions,/usr/share/xsessions", 0 },
-@@ -2406,8 +2407,8 @@
- { "ServerAttempts",	"", 0 },
- { "ServerTimeout",	"", 0 },
- { "AllowShutdown",	"All", 1 },
--{ "AllowRootLogin",	"true", 1 },
--{ "AllowNullPasswd",	"true", 1 },
-+{ "AllowRootLogin",	"true", 0 },
-+{ "AllowNullPasswd",	"true", 0 },
- { "NoPassEnable",	"true", 0 },
- { "NoPassUsers",	"fred,ethel", 0 },
- };
---- kdebase-040116/kdm/kfrontend/kdm_config.c.orig	2004-01-16 23:07:51.000000000 +0100
-+++ kdebase-040116/kdm/kfrontend/kdm_config.c	2004-01-16 23:31:56.000000000 +0100
-@@ -34,7 +34,7 @@
- #include <netdb.h>
- #include <grp.h>
+--- kdebase-040724/kdm/kfrontend/config.def.orig	2004-07-24 12:50:04.000000000 +0200
++++ kdebase-040724/kdm/kfrontend/config.def	2004-07-24 13:09:38.487484896 +0200
+@@ -3,7 +3,7 @@
+ #define RCVERMAJOR 2
+ #define RCVERMINOR 2
  
 -#define KDMCONF KDE_CONFDIR "/kdm"
 +#define KDMCONF "/etc/X11/kdm"
  #define KDMDATA KDE_DATADIR "/kdm"
  
+ #ifdef _AIX
+@@ -35,7 +35,7 @@
+ #endif
  
-@@ -494,13 +494,13 @@
- { "AutoLoginUser",	C_autoUser,	(void *)PautoLoginX,	"" },
- { "AutoLoginPass",	C_autoPass,	(void *)PautoLoginX,	"" },
- { "AutoReLogin",	C_autoReLogin | C_BOOL,	0,	"false" },
--{ "AllowNullPasswd",	C_allowNullPasswd | C_BOOL, 0,	"true" },
--{ "AllowRootLogin",	C_allowRootLogin | C_BOOL, 0,	"true" },
--{ "AllowShutdown",	C_allowShutdown | C_ENUM, sd_who, "All" },
--{ "AllowSdForceNow",	C_allowNuke | C_ENUM, sd_who,	"All" },
-+{ "AllowNullPasswd",	C_allowNullPasswd | C_BOOL, 0,	"false" },
-+{ "AllowRootLogin",	C_allowRootLogin | C_BOOL, 0,	"false" },
-+{ "AllowShutdown",	C_allowShutdown | C_ENUM, sd_who, "Root" },
-+{ "AllowSdForceNow",	C_allowNuke | C_ENUM, sd_who,	"Root" },
- { "DefaultSdMode",	C_defSdMode | C_ENUM, sd_mode,	"Schedule" },
- { "InteractiveSd",	C_interactiveSd | C_BOOL, 0,	"true" },
--{ "SessionsDirs",	C_sessionsDirs,		0,	KDMDATA "/sessions" },
-+{ "SessionsDirs",	C_sessionsDirs,		0,	"/usr/share/xsessions" },
- };
+ #ifdef __linux__
+-# define DEF_SERVER_LINE ":0 local@tty1 " XBINDIR "/X -nolisten tcp"
++# define DEF_SERVER_LINE ":0 local@tty1 " XBINDIR "/X -nolisten tcp vt9"
+ /* ###
+ # define DEF_SERVER_LINES DEF_SERVER_LINE "\n" \
+ 			 ":1 local@tty2 reserve " XBINDIR "/X -nolisten tcp :1\n" \
+@@ -1062,7 +1062,7 @@
  
- Ent entsGreeter[] = {
-@@ -512,9 +512,9 @@
- { "GreeterPosX",	C_GreeterPosX,		0,	"0" },
- { "GreeterPosY",	C_GreeterPosY,		0,	"0" },
- { "GreeterScreen",	C_GreeterScreen,	0,	"0" },
--{ "StdFont",		C_StdFont,		0,	"helvetica,12,5,0,50,0" },
--{ "FailFont",		C_FailFont,		0,	"helvetica,12,5,0,75,0" },
--{ "GreetString",	C_GreetString,		0,	"Welcome to %s at %n" },
-+{ "StdFont",		C_StdFont,		0,	"helvetica,11,5,0,50,0" },
-+{ "FailFont",		C_FailFont,		0,	"helvetica,11,5,0,75,0" },
-+{ "GreetString",	C_GreetString,		0,	"Welcome to PLD Linux at %n" },
- { "GreetFont",		C_GreetFont,		0,	"charter,24,5,0,50,0" },
- { "AntiAliasing",	C_AntiAliasing | C_BOOL,0,	"false" },
- { "NumLock",		C_NumLock | C_ENUM, numlock,	"Keep" },
-@@ -526,7 +526,7 @@
- { "MaxShowUID",		C_MaxShowUID,		0,	"65535" },
- { "SortUsers",		C_SortUsers | C_BOOL,	0,	"true" },
- { "FaceSource",		C_FaceSource | C_ENUM, facesource, "AdminOnly" },
--{ "FaceDir",		C_FaceDir,		0,	KDMDATA "/faces" },
-+{ "FaceDir",		C_FaceDir,		0,	KDMCONF "/faces" },
- { "PreselectUser",	C_PreselectUser | C_ENUM, preseluser, "None" },
- { "DefaultUser",	C_DefaultUser,		0,	"" },
- { "FocusPasswd",	C_FocusPasswd | C_BOOL, 0,	"false" },
---- kdebase-3.1/kdm/kfrontend/kdmconfig.cpp.orig	Mon Oct 28 10:55:24 2002
-+++ kdebase-3.1/kdm/kfrontend/kdmconfig.cpp	Fri Nov 29 18:27:33 2002
-@@ -153,7 +153,7 @@
+ Key: Willing
+ Type: string
+-Default: ""
++Default: KDMCONF "/Xwilling"
+ User: core
+ # will be overwritten
+ Instance: #
+@@ -1430,7 +1430,7 @@
  
-     _logo = GetCfgQStr (C_LogoPixmap);
-     if( _logo.isEmpty())
--	_logo = locate("data", QString::fromLatin1("kdm/pics/kdelogo.png") );
-+	_logo = locate("data", QString::fromLatin1("kdm/pics/pldlogo.png") );
+ Key: Setup
+ Type: string
+-Default: ""
++Default: KDMCONF "/Xsetup"
+ User: core
+ # will be overwritten
+ Instance: #*/""
+@@ -1450,7 +1450,7 @@
  
-     _showUsers = GetCfgInt (C_ShowUsers);
-     _users = GetCfgQStrList (C_SelectedUsers);
+ Key: Startup
+ Type: string
+-Default: ""
++Default: KDMCONF "/Xstartup"
+ User: core
+ # will be overwritten
+ Instance: #*/""
+@@ -1468,7 +1468,7 @@
+ 
+ Key: Reset
+ Type: string
+-Default: ""
++Default: KDMCONF "/Xreset"
+ User: core
+ # will be overwritten
+ Instance: #*/""
+@@ -1486,7 +1486,7 @@
+ 
+ Key: Session
+ Type: string
+-Default: XBINDIR "/xterm -ls -T"
++Default: KDMCONF "/Xsession"
+ #Merge: xdm - incompatible!
+ User: core
+ # will be overwritten
+@@ -1593,11 +1593,11 @@
+ 
+ Key: AllowRootLogin
+ Type: bool
+-Default: true
++Default: false
+ User: core
+ User: greeter(showRoot)
+ # sensible?
+-Instance: */false
++Instance: */true
+ Instance: :*/true
+ Merge: xdm
+ Comment:
+@@ -1608,10 +1608,10 @@
+ 
+ Key: AllowNullPasswd
+ Type: bool
+-Default: true
++Default: false
+ User: core
+ # sensible?
+-Instance: */false
++Instance: */true
+ Instance: :*/true
+ Merge: xdm
+ Comment:
+@@ -1742,10 +1742,10 @@
+ 
+ Key: SessionsDirs
+ Type: list
+-Default: KDMDATA "/sessions"
++Default: "/usr/share/xsessions"
+ User: core
+ User: greeter-c
+-Instance: #*/"/etc/X11/sessions,/usr/share/xsessions"
++Instance: #*/"/etc/X11/sessions"
+ Comment:
+  The directories containing session type definitions in .desktop format.
+ Description:
+@@ -1754,7 +1754,7 @@
+ 
+ Key: ClientLogFile
+ Type: string
+-Default: ".xsession-errors"
++Default: ""
+ User: core
+ Instance: */".xsession-errors-%s"
+ Instance: :0/".xsession-errors"
+@@ -1804,9 +1804,9 @@
+  None/LOGO_NONE: nothing
+  Logo/LOGO_LOGO: the image specified by <option>LogoPixmap</option>
+  Clock/LOGO_CLOCK: a neat analog clock
+-Default: Clock
++Default: Logo
+ User: greeter
+-Instance: */Logo
++Instance: */Clock
+ Comment:
+  What should be shown in the greeter's logo are:
+ Description:
+@@ -1816,7 +1816,7 @@
+ 
+ Key: LogoPixmap
+ Type: string
+-Default: ""
++Default: KDMDATA "/pics/pldlogo.png"
+ User: greeter(logo)
+ Instance: */KDMDATA "pics/kdelogo.png"
+ Comment:
+@@ -1851,7 +1851,7 @@
+ 
+ Key: GreetString
+ Type: string
+-Default: "Welcome to %s at %n"
++Default: "Welcome to PLD Linux at %n"
+ User: greeter
+ Instance: #*/"K Desktop Environment (%n)"
+ Comment:
+@@ -1912,8 +1912,8 @@
+ 
+ Key: StdFont
+ Type: string
+-Default: "helvetica,12,5,0,50,0"
+-CDefault: "helvetica,12"
++Default: "helvetica,11,5,0,50,0"
++CDefault: "helvetica,11"
+ User: greeter(normalFont):font
+ Instance: #*/"helvetica,10,5,0,50,0"
+ Comment: &
+@@ -1922,8 +1922,8 @@
+ 
+ Key: FailFont
+ Type: string
+-Default: "helvetica,12,5,0,75,0"
+-CDefault: "helvetica,12,bold"
++Default: "helvetica,11,5,0,75,0"
++CDefault: "helvetica,11,bold"
+ User: greeter:font
+ Instance: #*/"helvetica,10,5,0,75,0"
+ Comment: &
+@@ -2033,7 +2033,7 @@
+ 
+ Key: MinShowUID
+ Type: int
+-Default: 0
++Default: 500
+ User: greeter(lowUserId)
+ # will be overwritten
+ Instance: #*/
+@@ -2094,7 +2094,7 @@
+ 
+ Key: FaceDir
+ Type: string
+-Default: *KDMDATA "/faces"
++Default: *KDMCONF "/faces"
+ User: greeter
+ Instance: #*/"/usr/share/faces"
+ Update: upd_facedir

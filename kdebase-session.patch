@@ -1,6 +1,6 @@
---- kdebase-030924/kdm/kfrontend/sessions/Makefile.am~	2003-09-23 21:46:24.000000000 +0200
-+++ kdebase-030924/kdm/kfrontend/sessions/Makefile.am	2003-09-24 18:26:09.000000000 +0200
-@@ -1,48 +1,3 @@
+--- kdebase-3.2.0/kdm/kfrontend/sessions/Makefile.am.orig	2004-01-28 09:13:08.000000000 +0100
++++ kdebase-3.2.0/kdm/kfrontend/sessions/Makefile.am	2004-01-28 09:19:46.000000000 +0100
+@@ -1,49 +1,3 @@
 -sessionsdir = $(kde_datadir)/kdm/sessions
 -sessions_DATA = \
 -    kde.desktop gnome.desktop \
@@ -46,7 +46,8 @@
 -    waimea.desktop \
 -    wm2.desktop \
 -    wmaker.desktop \
--    xfce.desktop
+-    xfce.desktop \
+-    xfce4.desktop
 -
 +sessionsdir = /usr/share/xsessions
 +sessions_DATA = kde.desktop

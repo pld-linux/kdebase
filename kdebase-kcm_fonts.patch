@@ -1,6 +1,15 @@
---- kdebase-031014/kcontrol/fonts/fonts.cpp.orig	2003-09-13 11:22:09.000000000 +0200
-+++ kdebase-031014/kcontrol/fonts/fonts.cpp	2003-10-19 15:15:37.000000000 +0200
-@@ -234,19 +234,17 @@
+--- kdebase/kcontrol/fonts/fonts.cpp.orig	2004-04-12 21:31:49.000000000 +0200
++++ kdebase/kcontrol/fonts/fonts.cpp	2004-04-14 20:22:46.254385696 +0200
+@@ -361,7 +361,7 @@
+ 
+ void FontAASettings::defaults()
+ {
+-  excludeRange->setChecked(true);
++  excludeRange->setChecked(false);
+   excludeFrom->setValue(8.0);
+   excludeTo->setValue(15.0);
+   useSubPixel->setChecked(false);
+@@ -455,19 +455,17 @@
  
    // Keep in sync with kdelibs/kdecore/kglobalsettings.cpp
  
@@ -26,16 +35,7 @@
 +  f3.setPointSize(13);
  
 -  defaultFontList << f0 << f1 << f2 << f0 << f3 << f4 << f0;
-+  defaultFontList << f0 << f1 << f0 << f0 << f2 << f0 << f3;
++	defaultFontList << f0 << f1 << f0 << f0 << f2 << f0 << f3;
  
    QValueList<bool> fixedList;
  
-@@ -417,7 +415,7 @@
-   useAA = false;
-   cbAA->setChecked(useAA);
- 
--  aaExcludeRange->setChecked(true);
-+  aaExcludeRange->setChecked(false);
-   aaExcludeFrom->setValue(8.0);
-   aaExcludeTo->setValue(15.0);
-   aaUseSubPixel->setChecked(false);
