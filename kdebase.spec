@@ -865,7 +865,7 @@ cat $ALD/Help.desktop | sed -e 's/Help/KDE Help/' -e 's/Pomoc/Pomoc KDE/' \
 	> $ALD/Help/Help.desktop
 
 echo -n ',s/\(^NoDisplay=\)/#\\1/\n,w' | \
-	ed %{_applnkdir}/Settings/KDE/Information/.directory
+	ed $ALD/Settings/KDE/Information/.directory
 
 for f in `find $ALD -name '.directory' -o -name '*.dekstop'` ; do
 	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
