@@ -4,6 +4,7 @@
 #
 %define		_state		stable
 %define		_ver		3.2.3
+%define		qtver		6:3.3.2-5
 #%%define		_snap		040110
 
 Summary:	K Desktop Environment - core files
@@ -17,7 +18,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËĞÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	2
+Release:	3
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
