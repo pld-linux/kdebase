@@ -17,7 +17,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.1
-Release:	3
+Release:	3.2
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -34,7 +34,7 @@ Patch0:		%{name}-kdmrc.patch
 Patch1:		%{name}-fix-mem-leak-in-kfind.patch
 Patch2:		%{name}-dont_merge_old_kdmrc.patch
 Patch3:		%{name}-glibc-2.2.2.patch
-
+Patch4:		%{name}-startkde.patch
 Patch5:		%{name}-kdm.daemon_output.patch
 Patch6:		%{name}-kicker.patch
 Patch7:		%{name}-konsole_all.patch
@@ -423,7 +423,7 @@ Edytor tekstu z pod¶wietlaniem sk³adni dla KDE
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-
+%patch4 -p1
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
