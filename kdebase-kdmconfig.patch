@@ -139,9 +139,9 @@
  "WallpaperList=\n"
  "WallpaperMode=Scaled\n";
  
---- kdebase-040519/kdm/kfrontend/config.def.orig	2004-05-20 17:33:29.000000000 +0200
-+++ kdebase-040519/kdm/kfrontend/config.def	2004-05-20 20:12:32.064058504 +0200
-@@ -2,7 +2,7 @@
+--- kdebase-040724/kdm/kfrontend/config.def.orig	2004-07-24 12:50:04.000000000 +0200
++++ kdebase-040724/kdm/kfrontend/config.def	2004-07-24 13:09:38.487484896 +0200
+@@ -3,7 +3,7 @@
  #define RCVERMAJOR 2
  #define RCVERMINOR 2
  
@@ -150,29 +150,16 @@
  #define KDMDATA KDE_DATADIR "/kdm"
  
  #ifdef _AIX
-@@ -34,7 +34,7 @@
+@@ -35,7 +35,7 @@
  #endif
  
  #ifdef __linux__
--# define DEF_SERVER_LINE ":0 local@tty1 " XBINDIR "/X -nolisten tcp vt7"
+-# define DEF_SERVER_LINE ":0 local@tty1 " XBINDIR "/X -nolisten tcp"
 +# define DEF_SERVER_LINE ":0 local@tty1 " XBINDIR "/X -nolisten tcp vt9"
  /* ###
  # define DEF_SERVER_LINES DEF_SERVER_LINE "\n" \
- 			 ":1 local@tty2 reserve " XBINDIR "/X -nolisten tcp :1 vt8\n" \
-@@ -43,10 +43,8 @@
- 			 "#:4 local@tty5 reserve " XBINDIR "/X -nolisten tcp :4 vt11\n"
- */
- # define DEF_SERVER_LINES DEF_SERVER_LINE "\n" \
--			 "#:1 local@tty2 reserve " XBINDIR "/X -nolisten tcp :1 vt8\n" \
--			 "#:2 local@tty3 reserve " XBINDIR "/X -nolisten tcp :2 vt9\n" \
--			 "#:3 local@tty4 reserve " XBINDIR "/X -nolisten tcp :3 vt10\n" \
--			 "#:4 local@tty5 reserve " XBINDIR "/X -nolisten tcp :4 vt11\n"
-+			 "#:1 local@tty2 reserve " XBINDIR "/X -nolisten tcp :1 vt10\n" \
-+			 "#:2 local@tty3 reserve " XBINDIR "/X -nolisten tcp :2 vt11\n"
- #elif defined(__sun__)
- # define DEF_SERVER_LINE ":0 local@console " XBINDIR "/X -nolisten tcp"
- #elif defined(_AIX)
-@@ -369,7 +367,7 @@
+ 			 ":1 local@tty2 reserve " XBINDIR "/X -nolisten tcp :1\n" \
+@@ -1062,7 +1062,7 @@
  
  Key: Willing
  Type: string
@@ -181,7 +168,7 @@
  User: core
  # will be overwritten
  Instance: #
-@@ -614,7 +612,7 @@
+@@ -1430,7 +1430,7 @@
  
  Key: Setup
  Type: string
@@ -190,7 +177,7 @@
  User: core
  # will be overwritten
  Instance: #*/""
-@@ -626,7 +624,7 @@
+@@ -1450,7 +1450,7 @@
  
  Key: Startup
  Type: string
@@ -199,7 +186,7 @@
  User: core
  # will be overwritten
  Instance: #*/""
-@@ -638,7 +636,7 @@
+@@ -1468,7 +1468,7 @@
  
  Key: Reset
  Type: string
@@ -208,7 +195,7 @@
  User: core
  # will be overwritten
  Instance: #*/""
-@@ -650,7 +648,7 @@
+@@ -1486,7 +1486,7 @@
  
  Key: Session
  Type: string
@@ -217,7 +204,7 @@
  #Merge: xdm - incompatible!
  User: core
  # will be overwritten
-@@ -721,11 +719,11 @@
+@@ -1593,11 +1593,11 @@
  
  Key: AllowRootLogin
  Type: bool
@@ -231,7 +218,7 @@
  Instance: :*/true
  Merge: xdm
  Comment:
-@@ -733,10 +731,10 @@
+@@ -1608,10 +1608,10 @@
  
  Key: AllowNullPasswd
  Type: bool
@@ -244,7 +231,7 @@
  Instance: :*/true
  Merge: xdm
  Comment:
-@@ -845,16 +843,16 @@
+@@ -1742,10 +1742,10 @@
  
  Key: SessionsDirs
  Type: list
@@ -256,6 +243,8 @@
 +Instance: #*/"/etc/X11/sessions"
  Comment:
   The directories containing session type definitions in .desktop format.
+ Description:
+@@ -1754,7 +1754,7 @@
  
  Key: ClientLogFile
  Type: string
@@ -264,9 +253,9 @@
  User: core
  Instance: */".xsession-errors-%s"
  Instance: :0/".xsession-errors"
-@@ -889,17 +887,17 @@
+@@ -1804,9 +1804,9 @@
   None/LOGO_NONE: nothing
-  Logo/LOGO_LOGO: the image specified by LogoPixmap
+  Logo/LOGO_LOGO: the image specified by <option>LogoPixmap</option>
   Clock/LOGO_CLOCK: a neat analog clock
 -Default: Clock
 +Default: Logo
@@ -274,19 +263,18 @@
 -Instance: */Logo
 +Instance: */Clock
  Comment:
-  What should be shown righthand of the input lines:
+  What should be shown in the greeter's logo are:
+ Description:
+@@ -1816,7 +1816,7 @@
  
  Key: LogoPixmap
  Type: string
 -Default: ""
 +Default: KDMDATA "/pics/pldlogo.png"
  User: greeter(logo)
--Instance: */KDMDATA "pics/kdelogo.png"
-+Instance: */KDMDATA "/pics/kdelogo.png"
+ Instance: */KDMDATA "pics/kdelogo.png"
  Comment:
-  The image to show when LogoArea=Logo.
- 
-@@ -939,7 +937,7 @@
+@@ -1851,7 +1851,7 @@
  
  Key: GreetString
  Type: string
@@ -295,7 +283,7 @@
  User: greeter
  Instance: #*/"K Desktop Environment (%n)"
  Comment:
-@@ -963,8 +961,8 @@
+@@ -1912,8 +1912,8 @@
  
  Key: StdFont
  Type: string
@@ -305,8 +293,8 @@
 +CDefault: "helvetica,11"
  User: greeter(normalFont):font
  Instance: #*/"helvetica,10,5,0,50,0"
- Comment:
-@@ -972,8 +970,8 @@
+ Comment: &
+@@ -1922,8 +1922,8 @@
  
  Key: FailFont
  Type: string
@@ -316,8 +304,8 @@
 +CDefault: "helvetica,11,bold"
  User: greeter:font
  Instance: #*/"helvetica,10,5,0,75,0"
- Comment:
-@@ -1056,7 +1054,7 @@
+ Comment: &
+@@ -2033,7 +2033,7 @@
  
  Key: MinShowUID
  Type: int
@@ -326,7 +314,7 @@
  User: greeter(lowUserId)
  # will be overwritten
  Instance: #*/
-@@ -1099,7 +1097,7 @@
+@@ -2094,7 +2094,7 @@
  
  Key: FaceDir
  Type: string
