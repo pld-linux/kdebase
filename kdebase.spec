@@ -5,6 +5,7 @@
 #
 # Conditional build:
 # _without_alsa 	- disable alsa
+# _without_ldap         - without LDAP support
 #
 
 %define		_state		stable
@@ -101,7 +102,7 @@ BuildRequires:	libvorbis-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	motif-devel
-BuildRequires:	openldap-devel
+%{!?_without_ldap:BuildRequires:	openldap-devel}
 BuildRequires:	openssl-devel >= 0.9.6k
 BuildRequires:	pam-devel
 BuildRequires:	qt-devel >= 3.1
@@ -1861,8 +1862,10 @@ fi
 %{_libdir}/kde3/kio_fish.la
 %attr(755,root,root) %{_libdir}/kde3/kio_floppy.so
 %{_libdir}/kde3/kio_floppy.la
+%if %{?_without_ldap:0}%{!?_without_ldap:1}
 %attr(755,root,root) %{_libdir}/kde3/kio_ldap.so
 %{_libdir}/kde3/kio_ldap.la
+%endif
 %attr(755,root,root) %{_libdir}/kde3/kio_mac.so
 %{_libdir}/kde3/kio_mac.la
 %attr(755,root,root) %{_libdir}/kde3/kio_nfs.so
@@ -1947,7 +1950,7 @@ fi
 %{_datadir}/services/kshorturifilter.desktop
 %{_datadir}/services/kuriikwsfilter.desktop
 %{_datadir}/services/kurisearchfilter.desktop
-%{_datadir}/services/ldap.protocol
+%{!?_without_ldap:%{_datadir}/services/ldap.protocol}
 %{_datadir}/services/localdomainurifilter.desktop
 %{_datadir}/services/mac.protocol
 %{_datadir}/services/nfs.protocol
