@@ -1,6 +1,6 @@
 %define		_ver		3.0.1
 #define		_sub_ver
-%define		_rel		1
+%define		_rel		2
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
