@@ -1,5 +1,5 @@
---- kdebase-040213/kioslave/settings/kio_settings.cc.orig	2003-11-11 03:00:16.000000000 +0100
-+++ kdebase-040213/kioslave/settings/kio_settings.cc	2004-02-13 15:35:14.000000000 +0100
+--- kdebase/kioslave/settings/kio_settings.cc.orig	2004-02-19 12:52:34.000000000 +0100
++++ kdebase/kioslave/settings/kio_settings.cc	2004-04-02 20:01:53.496036792 +0200
 @@ -89,8 +89,8 @@
  	QString nextPart="";;
  	QStringList rest;
@@ -47,3 +47,12 @@
  		    {
  			kdDebug() << "SettingsProtocol: SKIPPING entry programs:/" << relPath << endl;
  			continue;
+@@ -259,7 +259,7 @@
+ 		    switch( m_runMode )
+ 		    {
+ 			case( SettingsMode ):
+-			    relPath=relPath.right(relPath.length()-9); //Settings/ ==9
++			    relPath=relPath.right(relPath.length()-13); //Settings/ ==13
+ 			    kdDebug() << "SettingsProtocol: adding entry settings:/" << relPath << endl;
+ 			    createDirEntry(entry, groupCaption, "settings:/"+relPath, "inode/directory",g->icon());
+ 			    break;
