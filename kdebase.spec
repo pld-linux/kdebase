@@ -1,9 +1,13 @@
 #
 # TODO:
-# * ColorSheme=Default in kdm doesn't appear properly while GUIStyle variable
-#   (including kdm "Default" style) is set to any existing kde style
-# * KDM logo & user pics should be stored in /etc/X11/kdm/pics
-# * Replacing findwm with a better solution (it's in the way)
+# * KDM: ColorSheme=Default in kdm doesn't appear properly while GUIStyle
+#   variable (including kdm "Default" style) is set to any existing kde style
+# * KDM: logo & user pics should be stored in /etc/X11/kdm/pics
+# * KDM: Replacing findwm with a better solution (it's in the way)
+# * KDM: "Shedule" and "TryNow" (DefaultSdMode option arguments) don't work
+# * Fixing 48x48 pld applnk-pixmaps scaling (konqsidebar, kicker)
+# * Cursor layout settings are avaliable per one session only 
+# * Sources renaming & renumerating 
 #
 # _without_alsa - disable alsa
 #
@@ -22,7 +26,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.1
-Release:	2.2
+Release:	2.3
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -34,7 +38,6 @@ Source3:	kdm.init
 Source4:	kdm.Xsession
 Source6:	%{name}-kscreensaver.pam
 Source7:	%{name}-kdm.Xservers
-Source8:	%{name}-kdm.findwm
 Source9:	%{name}-kdm_pldlogo.png
 Patch0:		%{name}-fix-kdm-users.cpp.patch
 Patch1:		%{name}-fix-mem-leak-in-kfind.patch
@@ -455,7 +458,6 @@ install %{SOURCE6}	$RPM_BUILD_ROOT/etc/pam.d/kscreensaver
 install %{SOURCE3}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
-install %{SOURCE8}	$RPM_BUILD_ROOT%{_bindir}/findwm
 install %{SOURCE9}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
@@ -985,7 +987,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n kdm -f kdm.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/chooser
-%attr(0755,root,root) %{_bindir}/findwm
 %attr(0755,root,root) %{_bindir}/kdm*
 %attr(0755,root,root) %{_bindir}/krootimage
 %attr(0755,root,root) %{_libdir}/kde3/kcm_kdm.??
