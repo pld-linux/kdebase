@@ -36,6 +36,7 @@ Prereq:		/sbin/ldconfig
 Requires:	kdelibs = %{version}
 Requires:	qt >= 2.2.2
 Requires:	applnk
+Requires:	konqueror
 Obsoletes:	%{name}-kcontrol
 Obsoletes:	%{name}-khelpcenter
 Obsoletes:	%{name}-konsole
