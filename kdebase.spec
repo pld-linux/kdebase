@@ -1313,7 +1313,7 @@ rm -rf $RPM_BUILD_ROOT
 %post -n kdm
 /sbin/chkconfig --add kdm
 if [ -f /var/lock/subsys/kdm ]; then
-	%banner kdm -e << EOF
+	%banner kdm -e <<EOF
  ***************************************************
  *                                                 *
  * NOTE:                                           *
@@ -1329,7 +1329,7 @@ if [ -f /var/lock/subsys/kdm ]; then
 
 EOF
 else
-	%banner kdm -e << EOF
+	%banner kdm -e <<EOF
 Run \"/etc/rc.d/init.d/kdm start\" to start kdm.
 fi
 
