@@ -105,6 +105,7 @@ Obsoletes:	%{name}-kwin
 Obsoletes:	%{name}-kxmlrpc
 Obsoletes:	%{name}-kdesktop
 Obsoletes:	%{name}-wallpapers
+Obsoletes:	kdeartwork
 #
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
