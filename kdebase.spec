@@ -1447,7 +1447,7 @@ fi
 #%attr(0755,root,root) %{_bindir}/kwin_dialog_helper
 %attr(0755,root,root) %{_bindir}/kxkb
 %attr(0755,root,root) %{_bindir}/startkde
-%{_libdir}/kconf_update_bin/khotkeys_update
+%attr(0755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
 %{_libdir}/krandrinithack.la
 %attr(0755,root,root) %{_libdir}/krandrinithack.so
 %{_libdir}/libkdeinit_kaccess.la
