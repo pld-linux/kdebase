@@ -3,7 +3,7 @@
 
 %define		_ver		3.0.3
 #define		_sub_ver
-%define		_rel		1.3
+%define		_rel		1.4
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -319,7 +319,7 @@ done
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
 > %{name}.lang
-programs="appletproxy childpanelextension clockapplet cupsdconf desktop drkonqi extensionproxy filetypes fontinst htmlsearch kaccess kaddressbook kappfinder kasbarextension kate kcontrol kdcop kdebugdialog kdeprintfax kdesktop kdesu kdesud kfind kfindpart kfmclient kfmexec khelpcenter khotkeys kicker kjobviewer klegacyimport kless klipper klock kmcop kmenuedit kminipagerapplet knotify konsole kpager kpartapp kpersonalizer kpm kprinter kreadconfig krunapplet ksmserver ksplash kstart ksysguard ksystemtrayapplet ksystraycmd ktaskbarapplet ktip kxkb libkicker libkickermenu_kdeprint libtaskbar libtaskmanager lockout naughtyapplet nsplugin passwords ppdtranslations taskbarextension"
+programs="appletproxy childpanelextension clockapplet cupsdconf desktop drkonqi extensionproxy filetypes fontinst htmlsearch kaccess kaddressbook kappfinder kasbarextension kate kcontrol kdcop kdebugdialog kdeprintfax kdesktop kdesktop_lock kdesu kdesud kfind kfindpart kfmclient kfmexec khelpcenter khotkeys kicker kjobviewer klegacyimport kless klipper klock kmcop kmenuedit kminipagerapplet knotify konsole kpager kpartapp kpersonalizer kpm kprinter kreadconfig krunapplet ksmserver ksplash kstart ksysguard ksystemtrayapplet ksystraycmd ktaskbarapplet ktip kxkb libkicker libkickermenu_kdeprint libtaskbar libtaskmanager lockout naughtyapplet nsplugin passwords ppdtranslations quicklauncher taskbarextension"
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> %{name}.lang
@@ -333,7 +333,7 @@ for i in $programs; do
 done
 
 %find_lang kwin --with-kde
-programs="kwin_b2_config kwin_default_config kwin_icewm_config kwin_modernsys_config kwin_quartz_config"
+programs="kwin_b2_config kwin_default_config kwin_icewm_config kwin_modernsys_config kwin_quartz_config libkwinb2_config libkwindefault_config libkwinmodernsys_config libkwinquartz_config "
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> kwin.lang
@@ -453,6 +453,8 @@ fi
 %attr(0755,root,root) %{_libdir}/k[dhijlmswx]*.la
 %attr(0755,root,root) %{_libdir}/k[dhijlmswx]*.so*
 %attr(0755,root,root) %{_libdir}/kaccess.??
+%attr(0755,root,root) %{_libdir}/kate.la
+%attr(0755,root,root) %{_libdir}/kate.so
 %attr(0755,root,root) %{_libdir}/kcminit.??
 %attr(0755,root,root) %{_libdir}/kcmshell.??
 %attr(0755,root,root) %{_libdir}/kcontrol.??
