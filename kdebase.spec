@@ -12,7 +12,7 @@
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040206
+%define		_snap		040209
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -1474,20 +1474,20 @@ for i in $programs; do
 	cat $i.lang >> konqueror.lang
 done
 
-%find_lang	kate		--with-kde
-%find_lang	kcmkonsole	--with-kde
-%find_lang	kdm		--with-kde
-%find_lang	kfind		--with-kde
-%find_lang	kcmfontinst	--with-kde
-%find_lang	kinfocenter	--with-kde
-%find_lang	kioslave	--with-kde
-%find_lang	klipper		--with-kde
-%find_lang	kmenuedit	--with-kde
-%find_lang	konsole		--with-kde
-%find_lang	ksysguard	--with-kde
-%find_lang	kpager		--with-kde
-%find_lang	kwrite		--with-kde
-%find_lang	screensaver	--with-kde
+%find_lang kate		--with-kde
+%find_lang kcmkonsole	--with-kde
+%find_lang kdm		--with-kde
+%find_lang kfind	--with-kde
+%find_lang kcmfontinst	--with-kde
+%find_lang kinfocenter	--with-kde
+%find_lang kioslave	--with-kde
+%find_lang klipper	--with-kde
+%find_lang kmenuedit	--with-kde
+%find_lang konsole	--with-kde
+%find_lang ksysguard	--with-kde
+%find_lang kpager	--with-kde
+%find_lang kwrite	--with-kde
+%find_lang screensaver	--with-kde
 
 cat kcmkonsole.lang	>> konsole.lang
 cat kioslave.lang	>> kinfocenter.lang
@@ -1516,208 +1516,194 @@ core="\
 	kstyle_keramik_config \
 	drkonqi"
 
-for i in $core;
-do
-	%find_lang $i	--with-kde
+for i in $core; do
+	%find_lang $i --with-kde
 	cat $i.lang >> core.lang
 done
 
-desktop="kcmkwintheme \
-kcmkwm \
-kwin \
-krandr \
-privacy \
-kcmspellchecking \
-kcminput \
-kcmxinerama \
-display \
-ktip \
-kaccess \
-krdb \
-kreadconfig \
-ksplash \
-kstart \
-kwin_default_config \
-kcmarts \
-kcmbackground \
-kcmbell \
-kcmcomponentchooser \
-kcmemail \
-kcmenergy \
-kcmkeys \
-kcmkwindecoration \
-khotkeys \
-kdesktop \
-ksmserver \
-kwin_keramik_config \
-kcmmidi"
+desktop="\
+	kcmkwintheme \
+	kcmkwm \
+	kwin \
+	krandr \
+	privacy \
+	kcmspellchecking \
+	kcminput \
+	kcmxinerama \
+	display \
+	ktip \
+	kaccess \
+	krdb \
+	kreadconfig \
+	ksplash \
+	kstart \
+	kwin_default_config \
+	kcmarts \
+	kcmbackground \
+	kcmbell \
+	kcmcomponentchooser \
+	kcmemail \
+	kcmenergy \
+	kcmkeys \
+	kcmkwindecoration \
+	khotkeys \
+	kdesktop \
+	ksmserver \
+	kwin_keramik_config \
+	kcmmidi"
 
-for i in $desktop;
-do
-	%find_lang $i	--with-kde
+for i in $desktop; do
+	%find_lang $i --with-kde
 	cat $i.lang >> %{name}.lang
 done
 
-%find_lang ksplashthemes	--with-kde
+%find_lang	ksplashthemes	--with-kde
 
-info="kcminfo \
-kcmioslaveinfo \
-kcmnic \
-kcmsamba \
-kcmusb \
-kcmview1394"
+info="\
+	kcminfo \
+	kcmioslaveinfo \
+	kcmnic \
+	kcmsamba \
+	kcmusb \
+	kcmview1394"
 
-for i in $info;
-do
-	%find_lang $i	--with-kde
+for i in $info; do
+	%find_lang $i --with-kde
 	cat $i.lang >> kinfocenter.lang
 done
 
-%find_lang kappfinder	--with-kde
-
+%find_lang kappfinder		--with-kde
 %find_lang katedefaultproject	--with-kde
 cat katedefaultproject.lang >> kate.lang
-
-%find_lang kdcop	--with-kde
-
-%find_lang kdeprintfax	--with-kde
-
-%find_lang kdialog	--with-kde
-
-%find_lang kfindpart	--with-kde
+%find_lang kdcop		--with-kde
+%find_lang kdeprintfax		--with-kde
+%find_lang kdialog		--with-kde
+%find_lang kfindpart		--with-kde
 cat kfindpart.lang >> kfind.lang
-
-
-%find_lang kfontinst	--with-kde
+%find_lang kfontinst		--with-kde
 cat kfontinst.lang >> kcmfontinst.lang
-%find_lang fontinst	--with-kde
+%find_lang fontinst		--with-kde
 cat fontinst.lang >> kcmfontinst.lang
 
-kicker="kcmkclock \
-kcmkicker \
-lockout \
-ktaskbarapplet \
-libkicker \
-libkickermenu_kdeprint \
-libkickermenu_konsole \
-libkickermenu_prefmenu \
-libkickermenu_recentdocs \
-ksystemtrayapplet \
-childpanelextension \
-clockapplet \
-kmenuapplet \
-kminipagerapplet \
-krunapplet \
-devicesapplet \
-dockbarextension \
-kasbarextension \
-naughtyapplet \
-quicklauncher \
-taskbarextension"
+kicker="\
+	kcmkclock \
+	kcmkicker \
+	lockout \
+	ktaskbarapplet \
+	libkicker \
+	libkickermenu_kdeprint \
+	libkickermenu_konsole \
+	libkickermenu_prefmenu \
+	libkickermenu_recentdocs \
+	ksystemtrayapplet \
+	childpanelextension \
+	clockapplet \
+	kmenuapplet \
+	kminipagerapplet \
+	krunapplet \
+	devicesapplet \
+	dockbarextension \
+	kasbarextension \
+	naughtyapplet \
+	quicklauncher \
+	taskbarextension"
 
-for i in $kicker;
-do
-	%find_lang $i	--with-kde
+for i in $kicker; do
+	%find_lang $i --with-kde
 	cat $i.lang >> kicker.lang
 done
 
-%find_lang libtaskbar	--with-kde
+%find_lang libtaskbar		--with-kde
 %find_lang libtaskmanager	--with-kde
 cat libtaskmanager.lang >> libtaskbar.lang
-
-%find_lang kjobviewer	--with-kde
-
+%find_lang kjobviewer		--with-kde
 %find_lang kpersonalizer	--with-kde
-
-%find_lang ksystraycmd	--with-kde
-
-%find_lang kwriteconfig	--with-kde
+%find_lang ksystraycmd		--with-kde
+%find_lang kwriteconfig		--with-kde
 cat kwriteconfig.lang >> kwrite.lang
+%find_lang libkonq		--with-kde
 
-%find_lang libkonq	--with-kde
+mn="\
+	kio_imap4 \
+	kio_pop3 \
+	kio_nntp \
+	kio_smtp"
 
-mn="kio_imap4 \
-kio_pop3 \
-kio_nntp \
-kio_smtp"
-
-for i in $mn;
-do
-	%find_lang $i	--with-kde
+for i in $mn; do
+	%find_lang $i --with-kde
 	cat $i.lang >> mailnews.lang
 done
 
-screen="kscreensaver \
-kcmscreensaver"
+screen="\
+	kscreensaver \
+	kcmscreensaver"
 
-for i in $screen;
-do
-	%find_lang $i	--with-kde
+for i in $screen; do
+	%find_lang $i --with-kde
 	cat $i.lang >> screensaver.lang
 done
 
 
-kdm="kdmchooser \
-kdmconfig \
-kdmgreet"
+kdm="\
+	kdmchooser \
+	kdmconfig \
+	kdmgreet"
 
-for i in $kdm;
-do
-	%find_lang $i	--with-kde
+for i in $kdm; do
+	%find_lang $i --with-kde
 	cat $i.lang >> kdm.lang
 done
 
-konqueror="appletproxy \
-nsplugin \
-kcmhtmlsearch \
-kcmsocks \
-kcmlayout \
-htmlsearch \
-extensionproxy \
-kfmclient \
-kio_devices \
-kcmcgi \
-kcmcrypto \
-kcmicons \
-kcmkio \
-kcmkonq \
-kcmkonqhtml \
-kcmkurifilt \
-kcmperformance \
-kfile_font \
-kio_finger \
-kio_fish \
-kio_floppy \
-kio_mac \
-kio_nfs \
-kio_print \
-kio_sftp \
-kio_smb \
-kio_smbro"
+konqueror="\
+	appletproxy \
+	nsplugin \
+	kcmhtmlsearch \
+	kcmsocks \
+	kcmlayout \
+	htmlsearch \
+	extensionproxy \
+	kfmclient \
+	kio_devices \
+	kcmcgi \
+	kcmcrypto \
+	kcmicons \
+	kcmkio \
+	kcmkonq \
+	kcmkonqhtml \
+	kcmkurifilt \
+	kcmperformance \
+	kfile_font \
+	kio_finger \
+	kio_fish \
+	kio_floppy \
+	kio_mac \
+	kio_nfs \
+	kio_print \
+	kio_sftp \
+	kio_smb \
+	kio_smbro"
 
-for i in $konqueror;
-do
-	%find_lang $i	--with-kde
+for i in $konqueror; do
+	%find_lang $i --with-kde
 	cat $i.lang >> konqueror.lang
 done
 
-%find_lang desktop_kdebase --with-kde
+%find_lang	desktop_kdebase	--with-kde
 mv desktop_kdebase.lang i18n.lang
 
-for i in $RPM_BUILD_ROOT%{_datadir}/locale/* ;
-do
+for i in $RPM_BUILD_ROOT%{_datadir}/locale/*; do
 	echo $i
 	if [ -d $i ] ; then
-	z=`echo $i|sed -e "s,${RPM_BUILD_ROOT}%{_datadir}/locale/,,"`
-	if [ -f ${RPM_BUILD_ROOT}%{_datadir}/locale/$z/charset ] ; then
-	echo %lang\($z\) %{_datadir}/locale/$z/charset >> i18n.lang
-	fi
-	if [ -f ${RPM_BUILD_ROOT}%{_datadir}/locale/$z/entry.desktop ] ; then
-	echo %lang\($z\) %{_datadir}/locale/$z/entry.desktop >> i18n.lang
-	fi
-	if [ -f ${RPM_BUILD_ROOT}%{_datadir}/locale/$z/flag.png ] ; then
-	echo %lang\($z\) %{_datadir}/locale/$z/flag.png >> i18n.lang
-	fi
+		z=`echo $i|sed -e "s,${RPM_BUILD_ROOT}%{_datadir}/locale/,,"`
+		if [ -f ${RPM_BUILD_ROOT}%{_datadir}/locale/$z/charset ] ; then
+			echo %lang\($z\) %{_datadir}/locale/$z/charset >> i18n.lang
+		fi
+		if [ -f ${RPM_BUILD_ROOT}%{_datadir}/locale/$z/entry.desktop ] ; then
+			echo %lang\($z\) %{_datadir}/locale/$z/entry.desktop >> i18n.lang
+		fi
+		if [ -f ${RPM_BUILD_ROOT}%{_datadir}/locale/$z/flag.png ] ; then
+			echo %lang\($z\) %{_datadir}/locale/$z/flag.png >> i18n.lang
+		fi
 	fi
 done
 %endif
@@ -1748,8 +1734,7 @@ for i in $files; do
 	mv ${i}.lang.1 ${i}.lang
 done
 
-for i in $durne; 
-do
+for i in $durne; do
 	echo $i >> control
 	grep -v en\/ $i|grep -v apidocs >> ${i}.1
 	if [ -f ${i}.1 ] ; then
