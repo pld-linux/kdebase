@@ -1066,7 +1066,7 @@ Pliki umiêdzynarodawiaj±ce dla konquerora.
 Summary:	Internationalization and localization files for kde-decoration-b2
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kde-decoration-b2
 Group:		X11/Applications
-Requires:	%{name}-kde-decoration-b2 = %{epoch}:%{version}-%{release}
+Requires:	kde-decoration-b2 = %{epoch}:%{version}-%{release}
 Requires:	%{name}-desktop-i18n = %{epoch}:%{version}-%{release}
 
 %description -n kde-decoration-b2-i18n
@@ -1080,7 +1080,7 @@ Summary:	Internationalization and localization files for kde-decoration-modernsy
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kde-decoration-modernsys
 Group:		X11/Applications
 Requires:	%{name}-desktop-i18n = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kde-decoration-modernsys = %{epoch}:%{version}-%{release}
+Requires:	kde-decoration-modernsys = %{epoch}:%{version}-%{release}
 
 %description -n kde-decoration-modernsys-i18n
 Internationalization and localization files for kde-decoration-modernsys.
@@ -1093,7 +1093,7 @@ Summary:	Internationalization and localization files for kde-decoration-quartz
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kde-decoration-quartz
 Group:		X11/Applications
 Requires:	%{name}-desktop-i18n = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kde-decoration-quartz = %{epoch}:%{version}-%{release}
+Requires:	kde-decoration-quartz = %{epoch}:%{version}-%{release}
 
 %description -n kde-decoration-quartz-i18n
 Internationalization and localization files for kde-decoration-quartz.
