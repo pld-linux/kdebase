@@ -2349,7 +2349,6 @@ fi
 %{_iconsdir}/*/*/apps/gvim.png
 %{_iconsdir}/*/*/apps/gv.png
 %{_iconsdir}/*/*/apps/kcmdf.png
-%{_iconsdir}/*/*/apps/kcmfontinst.png
 %{_iconsdir}/*/*/apps/kcmkwm.png
 %{_iconsdir}/*/*/apps/kcmmidi.png
 %{_iconsdir}/*/*/apps/kdisknav.png
