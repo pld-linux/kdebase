@@ -15,7 +15,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.9
-Release:	2.1
+Release:	2.2
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -81,6 +81,7 @@ Requires:       kde-sdscreen
 Requires:	kfind = %{version}
 Requires:	konqueror >= %{version}
 Requires:	%{name}-fonts
+Requires:	%{name}-kcontrol
 Requires:	%{name}-pam
 Requires:	%{name}-wallpapers
 #
@@ -225,12 +226,27 @@ KDE Font Set
 %description fonts -l pl
 Zestaw czcionek dla KDE
 
+%package kcontrol
+Summary:	KDE Control Center
+Summary(pl):	Centrum Sterowania KDE
+Group:		X11/Applications
+Requires:	kdelibs >= %{version}
+Requires:	qt >= 3.1
+Obsoletes:	%{name} < 3.0.9-2
+
+%description kcontrol
+KDE Control Center
+
+%description kcontrol -l pl
+Narzêdzie do konfigurowania aplikacji KDE
+
+
 %package mailnews
 Summary:	KDE Mail and News Services
 Summary(pl):	Obs³uga protoko³ów pocztowych i news dla KDE
 Group:		X11/Libraries
-Requires:	qt >= 3.1
 Requires:	kdelibs >= %{version}
+Requires:	qt >= 3.1
 Obsoletes:	%{name} < 3.0.9-2
 Obsoletes:	%{name}-kioslave
 
@@ -251,76 +267,6 @@ KDE User Autentication
 
 %description pam -l pl
 Autentykacja u¿ytkownika dla KDE
-
-%package -n kdm
-Summary:	KDE Display Manager
-Summary(pl):	KDE Display Manager
-Group:		X11/Applications
-Requires:	%{name}-pam
-Requires:	%{name}-wallpapers
-Requires:	kdelibs >= %{version}
-Requires:	qt >= 3.1
-Requires:	sessreg
-Requires:	xinitrc
-Prereq:		/sbin/chkconfig
-Obsoletes:	gdm
-Obsoletes:	xdm
-Obsoletes:	%{name}-kdm
-
-%description -n kdm
-It is KDE replacement for XDM. It manages local and remote X11
-displays.
-
-%description -n kdm -l pl
-Zamiennik XDM rodem z KDE.
-
-%package -n kfind
-Summary:	KDE Find Tool
-Summary(pl):	Narzêdzie do wyszukiwania plików dla KDE
-Group:		X11/Applications
-Requires:	qt >= 3.1
-Requires:	kdelibs >= %{version}
-Obsoletes:	%{name} < 3.0.9-2
-
-%description -n kfind
-KDE Find Tool
-
-%description -n kfind -l pl
-Narzêdzie do wyszukiwania plików dla KDE
-
-
-%package -n konqueror
-Summary:	Konqueror - web browser and file manager
-Summary(pl):	Konqueror - przegl±darka WWW i mened¿er plików
-Group:		X11/Applications
-Requires:	kdelibs >= %{version}
-Requires:	konsole = %{version}
-Requires:	qt >= 3.1
-Obsoletes:	kdebase-konqueror
-
-%description -n konqueror
-Konqueror is a web browser and file manager similar to MS Internet
-Explorer.
-
-%description -n konqueror -l pl
-Konqueror jest przegl±dark± WWW i mene¿derem plików podobnym do MS
-Internet Explorer.
-
-%package -n konsole
-Summary:	KDE Terminal Emulator
-Summary(pl):	Emulator terminala dla KDE
-Group:		X11/Applications
-Requires:	kdelibs >= %{version}
-Requires:	%{name}-fonts
-Requires:	qt >= 3.1
-Obsoletes:	%{name}-konsole
-Obsoletes:	%{name} < 3.0.9-2
-
-%description -n konsole
-KDE Terminal Emulator
-
-%description -n konsole -l pl
-Emulator terminala dla KDE
 
 %package screensavers
 Summary:	KDE screensavers
@@ -353,6 +299,77 @@ KDE Wallpapers
 
 %description wallpapers -l pl
 Tapety pulpitu dla KDE.
+
+%package -n kdm
+Summary:	KDE Display Manager
+Summary(pl):	KDE Display Manager
+Group:		X11/Applications
+Requires:	%{name}-kcontrol
+Requires:	%{name}-pam
+Requires:	%{name}-wallpapers
+Requires:	kdelibs >= %{version}
+Requires:	qt >= 3.1
+Requires:	sessreg
+Requires:	xinitrc
+Prereq:		/sbin/chkconfig
+Obsoletes:	gdm
+Obsoletes:	xdm
+Obsoletes:	%{name}-kdm
+
+%description -n kdm
+It is KDE replacement for XDM. It manages local and remote X11
+displays.
+
+%description -n kdm -l pl
+Zamiennik XDM rodem z KDE.
+
+%package -n kfind
+Summary:	KDE Find Tool
+Summary(pl):	Narzêdzie do wyszukiwania plików dla KDE
+Group:		X11/Applications
+Requires:	qt >= 3.1
+Requires:	kdelibs >= %{version}
+Obsoletes:	%{name} < 3.0.9-2
+
+%description -n kfind
+KDE Find Tool
+
+%description -n kfind -l pl
+Narzêdzie do wyszukiwania plików dla KDE
+
+%package -n konqueror
+Summary:	Konqueror - web browser and file manager
+Summary(pl):	Konqueror - przegl±darka WWW i mened¿er plików
+Group:		X11/Applications
+Requires:	kdelibs >= %{version}
+Requires:	konsole = %{version}
+Requires:	qt >= 3.1
+Obsoletes:	kdebase-konqueror
+
+%description -n konqueror
+Konqueror is a web browser and file manager similar to MS Internet
+Explorer.
+
+%description -n konqueror -l pl
+Konqueror jest przegl±dark± WWW i mene¿derem plików podobnym do MS
+Internet Explorer.
+
+%package -n konsole
+Summary:	KDE Terminal Emulator
+Summary(pl):	Emulator terminala dla KDE
+Group:		X11/Applications
+Requires:	%{name}-fonts
+Requires:	%{name}-kcontrol
+Requires:	kdelibs >= %{version}
+Requires:	qt >= 3.1
+Obsoletes:	%{name}-konsole
+Obsoletes:	%{name} < 3.0.9-2
+
+%description -n konsole
+KDE Terminal Emulator
+
+%description -n konsole -l pl
+Emulator terminala dla KDE
 
 %prep
 %setup -q
@@ -497,8 +514,17 @@ done
 #cat kwin.lang >> %{name}.lang
 #cat kio.lang >> %{name}.lang
 
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
+%post
+/sbin/ldconfig
+if [ -x %{_bindir}/findwm ]; then
+	%{_bindir}/findwm
+fi
+
+%postun
+/sbin/ldconfig
+if [ -x %{_bindir}/findwm ]; then
+	%{_bindir}/findwm
+fi
 
 %post fonts
 cd %{_fontdir}/misc
@@ -564,10 +590,8 @@ fi
 %doc AUTHORS README
 %config %{_sysconfdir}/ksysguarddrc
 %attr(0755,root,root) %{_bindir}/[ades]*
-%attr(0755,root,root) %{_bindir}/filesharelist
-%attr(0755,root,root) %{_bindir}/fileshareset
 %attr(0755,root,root) %{_bindir}/k[aijltwx]*
-%attr(0755,root,root) %{_bindir}/kc*
+%attr(0755,root,root) %{_bindir}/kcheckpass
 %attr(0755,root,root) %{_bindir}/kdc*
 %attr(0755,root,root) %{_bindir}/kde[!s]*
 %attr(0755,root,root) %{_bindir}/kdes[!u]*
@@ -593,9 +617,6 @@ fi
 %attr(0755,root,root) %{_libdir}/kaccess.??
 %attr(0755,root,root) %{_libdir}/kate.la
 %attr(0755,root,root) %{_libdir}/kate.so
-%attr(0755,root,root) %{_libdir}/kcminit.??
-%attr(0755,root,root) %{_libdir}/kcmshell.??
-%attr(0755,root,root) %{_libdir}/kcontrol.??
 %attr(0755,root,root) %{_libdir}/kprinter.la
 %attr(0755,root,root) %{_libdir}/kprinter.so*
 %attr(0755,root,root) %{_libdir}/lib[cdqt]*.la
@@ -620,11 +641,43 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/i*.??
 %attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so.*                                   
-%attr(0755,root,root) %{_libdir}/kde3/kcm_[!k]*.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_kded.la                                                               
-%attr(0755,root,root) %{_libdir}/kde3/kcm_kded.so          
-%attr(0755,root,root) %{_libdir}/kde3/kcm_k[ehinuw]*.??
-%attr(0755,root,root) %{_libdir}/kde3/kcm_konsole.??
+
+%attr(0755,root,root) %{_libdir}/kde3/kcm_access.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_arts.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_background.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_bell.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_clock.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_colors.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_componentchooser.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_energy.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_fontinst.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_helpcenter.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_icons.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_info.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_input.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_ioslaveinfo.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_kded.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_keyboard.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_keys.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_khotkeys.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_kicker.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_kio.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_knotify.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_kwindecoration.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_kwinoptions.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_launch.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_locale.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_nic.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_passwords.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_printmgr.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_samba.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_smserver.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_spellchecking.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_style.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_taskbar.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_themes.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_usb.??
+
 %attr(0755,root,root) %{_libdir}/kde3/kded_*.??
 %attr(0755,root,root) %{_libdir}/kde3/kfile_font.la                                                             
 %attr(0755,root,root) %{_libdir}/kde3/kfile_font.so     
@@ -662,20 +715,48 @@ fi
 
 %dir %{_datadir}/apps/ksmserver
 %dir %{_datadir}/apps/ksplash
-%{_datadir}/apps/?[!efos]*
+%{_datadir}/apps/?[!cefos]*
+%{_datadir}/apps/?c[!o]*
+%{_datadir}/apps/kconf_update/*
 %{_datadir}/apps/ksysguard
 %{_datadir}/autostart/*
-%{_datadir}/config/k[!do]*
-%{_datadir}/config/kd[!m]*
+%{_datadir}/config/kdesktop*
+%{_datadir}/config/klipperrc
+%{_datadir}/config/kwritedrc
 %{_datadir}/locale/*
-%{_datadir}/mimelnk/application/*
-%{_datadir}/mimelnk/print
-%{_datadir}/mimelnk/kdedevice
 %{_datadir}/sounds
 %{_datadir}/templates
 
+%{_applnkdir}/Home.desktop
+%{_applnkdir}/.hidden/[kms][!c]*
+%{_applnkdir}/Editors/*.desktop
+%{_applnkdir}/Help/Help.desktop
+%{_applnkdir}/System/k[!o]*.desktop
+%{_applnkdir}/Utilities/k[!e]*.desktop
+%{_applnkdir}/Settings/*.desktop
+%{_applnkdir}/Settings/KDE/email.desktop
+%{_applnkdir}/Settings/KDE/Accessibility
+%{_applnkdir}/Settings/KDE/Components/[!f]*
+%{_applnkdir}/Settings/KDE/Components/filebrowser.desktop
+%{_applnkdir}/Settings/KDE/Desktop
+%{_applnkdir}/Settings/KDE/Information
+%dir %{_applnkdir}/Settings/KDE/LookNFeel
+%{_applnkdir}/Settings/KDE/LookNFeel/.directory
+%{_applnkdir}/Settings/KDE/LookNFeel/[!s]*
+%{_applnkdir}/Settings/KDE/LookNFeel/s[!c]*
+%{_applnkdir}/Settings/KDE/Peripherals
+%{_applnkdir}/Settings/KDE/Personalization
+%{_applnkdir}/Settings/KDE/PowerControl
+%{_applnkdir}/Settings/KDE/Security/passwords.desktop
+%{_applnkdir}/Settings/KDE/Sound
+%{_applnkdir}/Settings/KDE/System/.directory
+%{_applnkdir}/Settings/KDE/System/[!k]*
+%{_applnkdir}/Settings/KDE/System/kcm*
+%{_applnkdir}/Settings/KDE/WebBrowsing
+
 %{_pixmapsdir}/[!l]*/*/apps/[abcdefghilmnpqrstuvwx]*
-%{_pixmapsdir}/[!l]*/*/apps/k[acehijlmnptvwmx]*
+%{_pixmapsdir}/[!l]*/*/apps/k[aehijlmnptvwmx]*
+%{_pixmapsdir}/[!l]*/*/apps/kc[!o]*
 %{_pixmapsdir}/*/*/apps/ksysguard.png
 %{_pixmapsdir}/*/*/apps/kdisk*
 %{_pixmapsdir}/*/*/apps/kdeprint*
@@ -683,40 +764,6 @@ fi
 #%{_pixmapsdir}/*/*/actions/*
 %{_pixmapsdir}/*/*/devices/print_[!c]*
 %{_pixmapsdir}/*/*/filesystems/*
-
-%{_applnkdir}/Home.desktop
-%{_applnkdir}/KControl.desktop
-%{_applnkdir}/.hidden
-%{_applnkdir}/Editors/*.desktop
-%{_applnkdir}/Help/Help.desktop
-%{_applnkdir}/System/k[!o]*.desktop
-%{_applnkdir}/Utilities/k[!e]*.desktop
-
-%{_applnkdir}/Settings/*.desktop
-%dir %{_applnkdir}/Settings/KDE
-%{_applnkdir}/Settings/KDE/.directory
-%{_applnkdir}/Settings/KDE/email.desktop
-%{_applnkdir}/Settings/KDE/Accessibility
-%{_applnkdir}/Settings/KDE/Components/.directory
-%{_applnkdir}/Settings/KDE/Components/f*
-%{_applnkdir}/Settings/KDE/Components/[!f]*
-%{_applnkdir}/Settings/KDE/Desktop
-%{_applnkdir}/Settings/KDE/Information
-%dir %{_applnkdir}/Settings/KDE/LookNFeel
-%{_applnkdir}/Settings/KDE/LookNFeel/.directory
-%{_applnkdir}/Settings/KDE/LookNFeel/[!s]*
-%{_applnkdir}/Settings/KDE/LookNFeel/s[!c]*
-%{_applnkdir}/Settings/KDE/Network
-%{_applnkdir}/Settings/KDE/Peripherals
-%{_applnkdir}/Settings/KDE/Personalization
-%{_applnkdir}/Settings/KDE/PowerControl
-%{_applnkdir}/Settings/KDE/Security
-%{_applnkdir}/Settings/KDE/Sound
-%{_applnkdir}/Settings/KDE/WebBrowsing
-%dir %{_applnkdir}/Settings/KDE/System
-%{_applnkdir}/Settings/KDE/System/.directory
-%{_applnkdir}/Settings/KDE/System/[!k]*
-%{_applnkdir}/Settings/KDE/System/kcm*
 
 %files devel
 %defattr(644,root,root,755)
@@ -762,22 +809,31 @@ fi
 %{_fontdir}/misc/cursor_large*.gz
 %{_fontdir}/misc/cursor_small*.gz
 
+%files kcontrol
+%defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/kcminit
+%attr(0755,root,root) %{_bindir}/kcmshell
+%attr(0755,root,root) %{_bindir}/kcontrol
+%attr(0755,root,root) %{_libdir}/kcminit.??
+%attr(0755,root,root) %{_libdir}/kcmshell.??
+%attr(0755,root,root) %{_libdir}/kcontrol.??
+%{_datadir}/apps/kcontrol
+%{_applnkdir}/KControl.desktop
+%{_applnkdir}/Settings/KDE/.directory
+%{_pixmapsdir}/*/*/apps/kcontrol.png
+
 %files -n kfind
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kfind
-%{_pixmapsdir}/*/*/apps/kfind.png
 %{_applnkdir}/Kfind.desktop
+%{_pixmapsdir}/*/*/apps/kfind.png
 
 %files mailnews
 %defattr(644,root,root,755)
-%attr(0755,root,root) %{_libdir}/kde3/kio_imap4.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_imap4.so
-%attr(0755,root,root) %{_libdir}/kde3/kio_nntp.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_nntp.so
-%attr(0755,root,root) %{_libdir}/kde3/kio_pop3.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_pop3.so
-%attr(0755,root,root) %{_libdir}/kde3/kio_smtp.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_smtp.so
+%attr(0755,root,root) %{_libdir}/kde3/kio_imap4.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_nntp.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_pop3.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_smtp.??
 %{_datadir}/services/imap4.protocol
 %{_datadir}/services/imaps.protocol
 %{_datadir}/services/nntp.protocol
@@ -792,6 +848,21 @@ fi
 # Must be here. kcheckpass needs it.
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdm
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kdm
+
+#%files screensavers -f libkscreensaver.lang
+%files screensavers
+%defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/*.kss
+%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kscreensaver
+%attr(0755,root,root) %{_libdir}/kde3/kcm_screensaver.??
+%{_applnkdir}/Settings/KDE/LookNFeel/screensaver.desktop
+%{_applnkdir}/System/ScreenSavers
+%{_pixmapsdir}/*/*/apps/kscreensaver.png
+
+%files wallpapers
+%defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/krootimage
+%{_datadir}/wallpapers
 
 %files -f kdm.lang -n kdm
 %defattr(644,root,root,755)
@@ -818,6 +889,8 @@ fi
 
 %files -n konqueror -f konqueror.lang
 %defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/filesharelist
+%attr(0755,root,root) %{_bindir}/fileshareset
 %attr(0755,root,root) %{_bindir}/keditbookmarks
 %attr(0755,root,root) %{_bindir}/keditfiletype
 %attr(0755,root,root) %{_bindir}/konqueror
@@ -839,50 +912,54 @@ fi
 %attr(0755,root,root) %{_libdir}/libkonsolepart.so
 %attr(0755,root,root) %{_libdir}/libnsplugin.la
 %attr(0755,root,root) %{_libdir}/libnsplugin.so*
-%attr(0755,root,root) %{_libdir}/kde3/kcm_konq*.??
-%attr(0755,root,root) %{_libdir}/kde3/kio_about.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_about.so
-%attr(0755,root,root) %{_libdir}/kde3/kio_cgi.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_cgi.so
-%attr(0755,root,root) %{_libdir}/kde3/kio_devices.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_devices.so
-%attr(0755,root,root) %{_libdir}/kde3/kio_filter.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_filter.so
-%attr(0755,root,root) %{_libdir}/kde3/kio_finger.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_finger.so
-%attr(0755,root,root) %{_libdir}/kde3/kio_fish.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_fish.so
-%attr(0755,root,root) %{_libdir}/kde3/kio_floppy.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_floppy.so
-%attr(0755,root,root) %{_libdir}/kde3/kio_info.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_info.so
-%attr(0755,root,root) %{_libdir}/kde3/kio_mac.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_mac.so
-%attr(0755,root,root) %{_libdir}/kde3/kio_man.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_man.so
-%attr(0755,root,root) %{_libdir}/kde3/kio_nfs.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_nfs.so
-%attr(0755,root,root) %{_libdir}/kde3/kio_print.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_print.so
-%attr(0755,root,root) %{_libdir}/kde3/kio_sftp.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_sftp.so
-%attr(0755,root,root) %{_libdir}/kde3/kio_smb.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_smb.so
-%attr(0755,root,root) %{_libdir}/kde3/kio_tar.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_tar.so
-%attr(0755,root,root) %{_libdir}/kde3/kio_thumbnail.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_thumbnail.so
-%attr(0755,root,root) %{_libdir}/kde3/kio_zip.la
-%attr(0755,root,root) %{_libdir}/kde3/kio_zip.so
+
 %attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.la
 %attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.so*
+
+%attr(0755,root,root) %{_libdir}/kde3/kcm_cgi.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_crypto.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_css.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_email.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_fileshare.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_filetypes.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_fonts.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_history.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_konqhtml.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_konq.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_kurifilt.??
+
+%attr(0755,root,root) %{_libdir}/kde3/kio_about.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_cgi.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_devices.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_filter.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_finger.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_fish.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_floppy.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_info.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_mac.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_man.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_nfs.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_print.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_sftp.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_smb.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_tar.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_thumbnail.??
+%attr(0755,root,root) %{_libdir}/kde3/kio_zip.??
+
 %attr(0755,root,root) %{_libdir}/kde3/konq*.??
+
 %attr(0755,root,root) %{_libdir}/kde3/lib*     
 %attr(0755,root,root) %{_libdir}/kde3/plugins/konqueror
+
 %{_datadir}/apps/keditbookmarks
 %{_datadir}/apps/kfindpart
 %{_datadir}/apps/konq*
-%{_datadir}/config/konq*
+%{_datadir}/config/konqsidebartng.rc
+%{_datadir}/config/kshorturifilterrc
+%{_datadir}/config/kuriikwsfilterrc
+%{_datadir}/mimelnk/application/*
+%{_datadir}/mimelnk/print
+%{_datadir}/mimelnk/kdedevice
 %{_datadir}/services/kded/*
 %{_datadir}/services/searchproviders
 %{_datadir}/services/useragentstrings
@@ -926,10 +1003,19 @@ fi
 %{_datadir}/services/thumbnail.protocol
 %{_datadir}/services/zip.protocol
 %{_datadir}/servicetypes/*
+
+%{_applnkdir}/.hidden/f*
 %{_applnkdir}/Network/WWW/konq*.desktop
 %{_applnkdir}/Utilities/keditbookmarks.desktop
+%{_applnkdir}/Settings/KDE/Components/.directory
+%{_applnkdir}/Settings/KDE/Components/filetypes.desktop
+%{_applnkdir}/Settings/KDE/Network
+%dir %{_applnkdir}/Settings/KDE/Security
+%{_applnkdir}/Settings/KDE/Security/.directory
+%{_applnkdir}/Settings/KDE/Security/crypto.desktop
 %{_applnkdir}/System/konq*.desktop
 %{_applnkdir}/System/Administration/konq*.desktop
+
 %{_pixmapsdir}/*/*/apps/kfm*.png
 %{_pixmapsdir}/*/*/apps/konqueror.png
 
@@ -940,23 +1026,12 @@ fi
 %attr(6755,root,root) %{_bindir}/konsole_grantpty
 %attr(0755,root,root) %{_libdir}/konsole.la
 %attr(0755,root,root) %{_libdir}/konsole.so
+%attr(0755,root,root) %{_libdir}/kde3/kcm_konsole.??
 %{_datadir}/apps/konsole
 %{_datadir}/config/konsolerc
+%dir %{_applnkdir}/.hidden
+%{_applnkdir}/.hidden/kcmkonsole.desktop
 %{_applnkdir}/System/konsolesu.desktop
 %{_applnkdir}/System/Administration/konsolesu.desktop
 %{_applnkdir}/Terminals/*.desktop
 %{_pixmapsdir}/*/*/apps/konsole.png
-
-#%files screensavers -f libkscreensaver.lang
-%files screensavers
-%defattr(644,root,root,755)
-%attr(0755,root,root) %{_bindir}/*.kss
-%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kscreensaver
-%{_applnkdir}/Settings/KDE/LookNFeel/screensaver.desktop
-%{_applnkdir}/System/ScreenSavers
-%{_pixmapsdir}/*/*/apps/kscreensaver.png
-
-%files wallpapers
-%defattr(644,root,root,755)
-%attr(0755,root,root) %{_bindir}/krootimage
-%{_datadir}/wallpapers
