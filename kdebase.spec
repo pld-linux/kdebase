@@ -29,7 +29,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	7.1
+Release:	7.2
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -458,9 +458,9 @@ Summary:	Konqueror - web browser and file manager
 Summary(pl):	Konqueror - przegl±darka WWW i zarz±dca plików
 Group:		X11/Applications
 Requires:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
-Requires:	%{name}-mailnews = %{epoch}:%{version}-%{release}
 Requires:	%{name}-konsole = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name}-konqueror
+Requires:	%{name}-mailnews = %{epoch}:%{version}-%{release}
 
 %description -n konqueror
 Konqueror is a web browser and file manager similar to MS Internet
@@ -514,7 +514,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{/etc/{pam.d,rc.d/init.d,security},%{_libdir}/kde3/plugins/konqueror}
 
 %{__make} install \
-	DESTDIR="$RPM_BUILD_ROOT"
+	DESTDIR=$RPM_BUILD_ROOT
 
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers{,.orig}
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession{,.orig}
@@ -956,19 +956,21 @@ fi
 
 %files devel
 %defattr(644,root,root,755)
+# shared libraries
+%attr(755,root,root) %{_libdir}/libkmultitabbar.so
+%attr(755,root,root) %{_libdir}/libkonq.so
+%attr(755,root,root) %{_libdir}/libkonqsidebarplugin.so
+%attr(755,root,root) %{_libdir}/libksgrd.so
+%attr(755,root,root) %{_libdir}/libsensordisplays.so
+%attr(755,root,root) %{_libdir}/libtask*.so
+# shared, possibly (lt_)dlopened libraries (.la in main package)
+%{_libdir}/libkickermain.so
+%{_libdir}/libnsplugin.so
 %dir %{_includedir}/kwin
 %{_includedir}/*.h
 %{_includedir}/kwin/*.h
 %{_includedir}/kate
 %{_includedir}/ksgrd
-%{_libdir}/libkickermain.so
-%{_libdir}/libkmultitabbar.so
-%{_libdir}/libkonq.so
-%{_libdir}/libkonqsidebarplugin.so
-%{_libdir}/libksgrd.so
-%{_libdir}/libnsplugin.so
-%{_libdir}/libsensordisplays.so
-%{_libdir}/libtask*.so
 
 %files static
 %defattr(644,root,root,755)
