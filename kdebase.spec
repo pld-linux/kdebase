@@ -500,8 +500,8 @@ for plik in `find ./ -name *.desktop` ; do
 	fi
 done
 
-cp %{SOURCE11} kcontrol/ebrowsing/plugins/ikws/searchproviders/
-cp %{SOURCE12} kcontrol/ebrowsing/plugins/ikws/searchproviders/
+rm -f kcontrol/ebrowsing/plugins/ikws/searchproviders/{ircpld,specs}.desktop
+cp {%{SOURCE11},%{SOURCE12}} kcontrol/ebrowsing/plugins/ikws/searchproviders/
 
 %configure \
 	--with-pam=kdm \
