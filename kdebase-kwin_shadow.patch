@@ -1,0 +1,992 @@
+--- kwin/kcmkwin/kwindecoration/kwindecoration.h.orig	2003-02-25 17:29:48.000000000 -0500
++++ kwin/kcmkwin/kwindecoration/kwindecoration.h	2003-02-27 02:45:44.000000000 -0500
+@@ -85,6 +85,8 @@
+ 		QCheckBox* cbUseCustomButtonPositions;
+ 	//	QCheckBox* cbUseMiniWindows;
+ 		QCheckBox* cbShowToolTips;
++		QComboBox *shadowTypeComboBox;
++		QLabel *shadowTypeLabel;
+ 
+ 		// Page 2
+ 		ButtonDropSite* dropSite;
+--- kwin/kcmkwin/kwindecoration/kwindecoration.cpp.orig	2003-02-27 02:45:19.000000000 -0500
++++ kwin/kcmkwin/kwindecoration/kwindecoration.cpp	2003-02-27 02:45:44.000000000 -0500
+@@ -19,6 +19,7 @@
+ #include <qlayout.h>
+ #include <qwhatsthis.h>
+ #include <qlistbox.h>
++#include <qcombobox.h>
+ #include <qgroupbox.h>
+ #include <qcheckbox.h>
+ #include <qtabwidget.h>
+@@ -82,6 +83,15 @@
+ 			i18n(  "Enabling this checkbox will show window button tooltips. "
+ 				   "If this checkbox is off, no window button tooltips will be shown."));
+ 
++	QHBox *shadowType = new QHBox(checkGroup);
++	shadowTypeLabel = new QLabel(i18n("Type of shadow to draw under windows: "), shadowType);
++	shadowTypeComboBox = new QComboBox(shadowType);
++	shadowTypeComboBox->insertItem(i18n("None"));
++	shadowTypeComboBox->insertItem(i18n("Windows"));
++	shadowTypeComboBox->insertItem(i18n("Mac OS X"));
++	QWhatsThis::add(shadowTypeComboBox,
++			i18n("Setting this combo box to a value other than None will cause a drop shadow to be drawn under the active window."));
++
+ // Save this for later...
+ //	cbUseMiniWindows = new QCheckBox( i18n( "Render mini &titlebars for all windows"), checkGroup );
+ //	QWhatsThis::add( cbUseMiniWindows, i18n( "Note that this option is not available on all styles yet!" ) );
+@@ -134,6 +144,7 @@
+ 	connect( cbUseCustomButtonPositions, SIGNAL(clicked()), SLOT(slotSelectionChanged()) );
+ 	connect( cbUseCustomButtonPositions, SIGNAL(toggled(bool)), SLOT(slotEnableButtonTab(bool)) );
+ 	connect( cbShowToolTips, SIGNAL(clicked()), SLOT(slotSelectionChanged()) );
++	connect( shadowTypeComboBox, SIGNAL(activated(int)), SLOT(slotSelectionChanged()) );
+ //	connect( cbUseMiniWindows, SIGNAL(clicked()), SLOT(slotSelectionChanged()) );
+ 
+ 	// Allow kwin dcop signal to update our selection list
+@@ -322,6 +333,7 @@
+ 	cbUseCustomButtonPositions->setChecked( conf->readBoolEntry("CustomButtonPositions", false));
+ 	tabWidget->setTabEnabled( buttonPage, cbUseCustomButtonPositions->isChecked() );
+ 	cbShowToolTips->setChecked( conf->readBoolEntry("ShowToolTips", true ));
++	shadowTypeComboBox->setCurrentItem( conf->readNumEntry("ShadowType", 0) );
+ //	cbUseMiniWindows->setChecked( conf->readBoolEntry("MiniWindowBorders", false));
+ 
+ 	// Find the corresponding decoration name to that of
+@@ -373,6 +385,7 @@
+ 	conf->writeEntry("PluginLib", libName);
+ 	conf->writeEntry("CustomButtonPositions", cbUseCustomButtonPositions->isChecked());
+ 	conf->writeEntry("ShowToolTips", cbShowToolTips->isChecked());
++	conf->writeEntry("ShadowType", shadowTypeComboBox->currentItem());
+ //	conf->writeEntry("MiniWindowBorders", cbUseMiniWindows->isChecked());
+ 
+ 	// Button settings
+@@ -431,6 +444,7 @@
+ 	// Set the KDE defaults
+ 	cbUseCustomButtonPositions->setChecked( false );
+ 	cbShowToolTips->setChecked( true );
++	shadowTypeComboBox->setCurrentItem(0);
+ //	cbUseMiniWindows->setChecked( false);
+ // Don't set default for now
+ //	decorationListBox->setSelected( 
+--- kwin/options.h.orig	2003-02-25 16:38:39.000000000 -0500
++++ kwin/options.h	2003-02-28 04:25:36.000000000 -0500
+@@ -260,6 +260,13 @@
+     bool showGeometryTip();
+ 
+     /**
++    * @returns 0 if no drop shadow should be drawn,
++    *          1 if a Windows-styled drop shadow should be drawn,
++    *          2 if a Mac OS X-styled drop shadow should be drawn.
++    */
++    int shadowType();
++
++    /**
+     * @returns true if the style should use custom button positions
+     * @see #titleButtonsLeft
+     * @see #titleButtonsRight
+--- kwin/options.cpp.orig	Fri Jan  3 05:44:43 2003
++++ kwin/options.cpp	Fri Feb 28 20:32:33 2003
+@@ -31,6 +31,7 @@
+     bool animate_tooltips;
+     int electric_borders;
+     int electric_border_delay;
++    int shadow_type;
+ };
+ };
+ 
+@@ -264,6 +265,9 @@
+     d->fade_tooltips = globalConfig.readBoolEntry("EffectFadeTooltip", false);
+     d->animate_tooltips = globalConfig.readBoolEntry("EffectAnimateTooltip", false);
+ 
++    // window border drop shadow
++    d->shadow_type = config->readNumEntry("ShadowType", 0);
++
+     emit resetClients();
+ }
+ 
+@@ -313,6 +317,11 @@
+     return MouseNothing;
+ }
+ 
++int Options::shadowType()
++{
++    return d->shadow_type;
++}
++
+ QString Options::titleButtonsLeft()
+ {
+     return d->title_buttons_left;
+--- kwin/client.h.orig	2003-02-28 04:21:38.000000000 -0500
++++ kwin/client.h	2003-02-28 04:54:16.000000000 -0500
+@@ -223,7 +223,7 @@
+     void updateUserTime();
+ 
+     const QPoint gravitate( bool invert ) const;
+-    
++
+     void NETMoveResize( int x_root, int y_root, NET::Direction direction );
+ 
+ public slots:
+@@ -285,6 +285,10 @@
+ 
+     NETWinInfo * netWinInfo();
+ 
++protected slots:
++    virtual void slotDrawShadow();
++    virtual void slotRemoveShadow();
++
+ private:
+     QSize sizeForWindowSize( const QSize&, bool ignore_height = FALSE ) const;
+     void getWmNormalHints();
+@@ -358,6 +362,13 @@
+     WId wmClientLeaderWin;
+     void getWmClientLeader();
+ 
++    void drawMacOSXShadow();
++    void drawWindowsShadow();
++    void bottomShadow(QImage& dst);
++    void rightShadow(QImage& dst);
++    void leftShadow(QImage& dst);
++    void restackShadows();
++
+  public:
+     static QCString staticWindowRole(WId);
+     static QCString staticSessionId(WId);
+@@ -368,6 +379,13 @@
+  private:
+     ClientPrivate* d;
+ 
++    struct ShadowElements {
++            QWidget *w1;
++            QWidget *w2;
++            QWidget *w3;
++    };
++    ShadowElements se;
++    QTimer *shadowDelayTimer;
+ };
+ 
+ inline WId Client::window() const
+@@ -417,7 +435,7 @@
+ inline int Client::desktop() const
+ {
+     return desk;
+- }
++}
+ 
+ inline bool Client::isSticky() const
+ {
+--- kwin/client.cpp.orig	Tue Jan 14 00:39:47 2003
++++ kwin/client.cpp	Fri Feb 28 21:22:13 2003
+@@ -42,6 +42,114 @@
+ #define IconicState XIconicState
+ #endif
+ 
++// These Mac OS X shadows by 'noonespecial':
++//    http://www.kde-look.org/content/show.php?content=4922
++const double macosx_top_right_corner[256] = {
++    .992, .992, .992, .996, .996, .996, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,
++    .972, .976, .980, .984, .988, .992, .996, .996, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,
++    .937, .945, .952, .964, .968, .976, .984, .988, .992, .996, .996, .996, 1.00, 1.00, 1.00, 1.00,
++    .878, .898, .913, .929, .941, .952, .964, .976, .980, .988, .992, .992, .996, 1.00, 1.00, 1.00,
++    .811, .874, .901, .886, .909, .925, .945, .956, .968, .980, .988, .992, .992, .996, 1.00, 1.00,
++    .741, .780, .811, .847, .874, .901, .925, .941, .956, .972, .980, .988, .992, .992, .996, 1.00,
++    .686, .733, .776, .815, .847, .882, .909, .933, .949, .964, .976, .984, .992, .992, .996, 1.00,
++    .654, .701, .749, .796, .831, .870, .898, .925, .945, .960, .972, .980, .988, .992, .996, 1.00,
++    .639, .690, .737, .784, .827, .862, .894, .921, .941, .960, .972, .980, .988, .992, .996, 1.00,
++    .643, .670, .733, .780, .819, .858, .894, .917, .941, .960, .972, .980, .988, .992, .996, 1.00,
++    .643, .670, .733, .780, .819, .858, .890, .917, .941, .960, .972, .980, .988, .992, .996, 1.00,
++    .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996,
++    .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996,
++    .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996,
++    .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996,
++    .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996 };
++
++const double macosx_bottom_right_corner[256] = {
++    .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996,
++    .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996,
++    .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996,
++    .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996,
++    .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996,
++    .643, .670, .733, .780, .819, .858, .890, .917, .941, .960, .972, .980, .988, .992, .996, 1.00,
++    .643, .670, .733, .780, .819, .858, .894, .917, .941, .960, .972, .980, .988, .992, .996, 1.00,
++    .639, .690, .737, .784, .827, .862, .894, .921, .941, .960, .972, .980, .988, .992, .996, 1.00,
++    .654, .701, .749, .796, .831, .870, .898, .925, .945, .960, .972, .980, .988, .992, .996, 1.00,
++    .686, .733, .776, .815, .847, .882, .909, .933, .949, .964, .976, .984, .992, .992, .996, 1.00,
++    .741, .780, .811, .847, .874, .901, .925, .941, .956, .972, .980, .988, .992, .992, .996, 1.00,
++    .811, .874, .901, .886, .909, .925, .945, .956, .968, .980, .988, .992, .992, .996, 1.00, 1.00,
++    .878, .898, .913, .929, .941, .952, .964, .976, .980, .988, .992, .992, .996, 1.00, 1.00, 1.00,
++    .937, .945, .952, .964, .968, .976, .984, .988, .992, .996, .996, .996, 1.00, 1.00, 1.00, 1.00,
++    .972, .976, .980, .984, .988, .992, .996, .996, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,
++    .992, .992, .992, .996, .996, .996, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00 };
++
++const double macosx_top_left_corner[256] = {
++    1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, .996, .996, .996, .992, .992, .992,
++    1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, .996, .996, .992, .988, .984, .980, .976, .972,
++    1.00, 1.00, 1.00, 1.00, .996, .996, .996, .992, .988, .984, .976, .968, .964, .952, .945, .937,
++    1.00, 1.00, 1.00, .996, .992, .992, .988, .980, .976, .964, .952, .941, .929, .913, .898, .878,
++    1.00, 1.00, .996, .992, .992, .988, .980, .968, .956, .945, .925, .909, .886, .901, .874, .811,
++    1.00, .996, .992, .992, .988, .980, .972, .956, .941, .925, .901, .874, .847, .811, .780, .741,
++    1.00, .996, .992, .992, .984, .976, .964, .949, .933, .909, .882, .847, .815, .776, .733, .686,
++    1.00, .996, .992, .988, .980, .972, .960, .945, .925, .898, .870, .831, .796, .749, .701, .654,
++    1.00, .996, .992, .988, .980, .972, .960, .941, .921, .894, .862, .827, .784, .737, .690, .639,
++    1.00, .996, .992, .988, .980, .972, .960, .941, .917, .894, .858, .819, .780, .733, .670, .643,
++    1.00, .996, .992, .988, .980, .972, .960, .941, .917, .890, .858, .819, .780, .733, .670, .643,
++    .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627,
++    .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627,
++    .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627,
++    .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627,
++    .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627 };
++
++const double macosx_bottom_left_corner[256] =	{
++    .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627,
++    .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627,
++    .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627,
++    .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627,
++    .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627,
++    1.00, .996, .992, .988, .980, .972, .960, .941, .917, .890, .858, .819, .780, .733, .670, .643,
++    1.00, .996, .992, .988, .980, .972, .960, .941, .917, .894, .858, .819, .780, .733, .670, .643,
++    1.00, .996, .992, .988, .980, .972, .960, .941, .921, .894, .862, .827, .784, .737, .690, .639,
++    1.00, .996, .992, .988, .980, .972, .960, .945, .925, .898, .870, .831, .796, .749, .701, .654,
++    1.00, .996, .992, .992, .984, .976, .964, .949, .933, .909, .882, .847, .815, .776, .733, .686,
++    1.00, .996, .992, .992, .988, .980, .972, .956, .941, .925, .901, .874, .847, .811, .780, .741,
++    1.00, 1.00, .996, .992, .992, .988, .980, .968, .956, .945, .925, .909, .886, .901, .874, .811,
++    1.00, 1.00, 1.00, .996, .992, .992, .988, .980, .976, .964, .952, .941, .929, .913, .898, .878,
++    1.00, 1.00, 1.00, 1.00, .996, .996, .996, .992, .988, .984, .976, .968, .964, .952, .945, .937,
++    1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, .996, .996, .992, .988, .984, .980, .976, .972,
++    1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, .996, .996, .996, .992, .992, .992 };
++
++static const double macosx_shadow_strip_right[16] = {
++            .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996 };
++
++static const double macosx_shadow_strip_bottom[18] = {
++.525, .576, .627, .678, .729, .776, .819, .858, .890, .917, .941, .956, .972, .980, .988, .992, .996, .996 };
++
++static const double macosx_shadow_strip_left[16] = {
++        .996, .996, .992, .988, .980, .972, .956, .941, .917, .890, .858, .819, .776, .729, .678, .627 };
++
++
++static const double win_top_right_corner[16] =
++        { 0.949, 0.965, 0.980, 0.992,
++        0.851, 0.890, 0.945, 0.980,
++        0.706, 0.780, 0.890, 0.960,
++        0.608, 0.706, 0.851, 0.949 };
++
++static const double win_bottom_right_corner[16] =
++        { 0.608, 0.706, 0.851, 0.949,
++        0.706, 0.780, 0.890, 0.960,
++        0.851, 0.890, 0.945, 0.980,
++        0.949, 0.965, 0.980, 0.992 };
++
++static const double win_bottom_left_corner[16] =
++        { 0.949, 0.851, 0.706, 0.608,
++        0.965, 0.890, 0.780, 0.706,
++        0.980, 0.945, 0.890, 0.851,
++        0.992, 0.980, 0.960, 0.949 };
++
++static const double win_shadow_strip[4] =
++        { 0.565, 0.675, 0.835, 0.945 };
++
++// wait 200 ms before drawing shadow after move/resize
++static const int SHADOW_DELAY = 200;
++
+ namespace KWinInternal {
+ 
+ // NET WM Protocol handler class
+@@ -500,6 +608,14 @@
+         NET::WMIconGeometry
+         ;
+ 
++    shadowDelayTimer = new QTimer(this);
++    connect(shadowDelayTimer, SIGNAL(timeout()), this, SLOT(slotDrawShadow()));
++
++    // ShadowElement doesn't contain any shadows yet
++    se.w1 = NULL;
++    se.w2 = NULL;
++    se.w3 = NULL;
++
+     info = new WinInfo( this, qt_xdisplay(), win, qt_xrootwin(), properties );
+ 
+     wwrap = new WindowWrapper( w, this );
+@@ -610,6 +726,7 @@
+ 
+ void Client::startMoveResize()
+ {
++    slotRemoveShadow();
+     moveResizeMode = true;
+     workspace()->setClientIsMoving(this);
+     grabMouse( cursor() );
+@@ -628,6 +745,8 @@
+     releaseMouse();
+     workspace()->setClientIsMoving(0);
+     moveResizeMode = false;
++    if (isActive())
++        shadowDelayTimer->start(SHADOW_DELAY, true);
+ }
+ 
+ /*!
+@@ -1330,6 +1449,7 @@
+             if ( isTopMenu() && mainClient() != this )
+                 break; // in this case, we already do the raise
+             workspace()->raiseClient( this );
++            restackShadows();
+             break;
+         case Below:
+         case BottomIf:
+@@ -1637,7 +1757,10 @@
+  */
+ void Client::resizeEvent( QResizeEvent * e)
+ {
++    slotRemoveShadow();
+     QWidget::resizeEvent( e );
++    if (isActive())
++        shadowDelayTimer->start(SHADOW_DELAY, true);
+ }
+ 
+ 
+@@ -1911,6 +2034,8 @@
+  */
+ void Client::shadeChange( bool )
+ {
++    slotRemoveShadow();
++    shadowDelayTimer->start(SHADOW_DELAY, true);
+ }
+ 
+ 
+@@ -2155,17 +2280,211 @@
+  */
+ bool Client::eventFilter( QObject *o, QEvent * e)
+ {
+-    if ( o != wwrap )
+-        return FALSE;
+-    switch ( e->type() ) {
+-    case QEvent::Show:
+-        windowWrapperShowEvent( (QShowEvent*)e );
+-        break;
+-    case QEvent::Hide:
+-        windowWrapperHideEvent( (QHideEvent*)e );
+-        break;
+-    default:
+-        break;
++    if ( o == wwrap ) {
++        switch ( e->type() ) {
++        case QEvent::Show:
++            windowWrapperShowEvent( (QShowEvent*)e );
++            break;
++        case QEvent::Hide:
++            windowWrapperHideEvent( (QHideEvent*)e );
++            break;
++        default:
++            break;
++        }
++    }
++    else if (o == se.w1 || o == se.w2 || o == se.w3) {
++        if (e->type() == QEvent::MouseButtonRelease) {
++            int buttonMask, buttonPressed, x, y, x_root, y_root;
++            unsigned int mask;
++            QMouseEvent *qe = (QMouseEvent *)e;
++            Window inner_window, parent_window, pointer_window, root_window;
++            XButtonEvent xe;
++
++            slotRemoveShadow();
++            switch (qe->button()) {
++            case Qt::MidButton:
++                buttonMask = Button2Mask;
++                buttonPressed = Button2;
++                break;
++            case Qt::RightButton:
++                buttonMask = Button3Mask;
++                buttonPressed = Button3;
++                break;
++            default:
++                buttonMask = Button1Mask;
++                buttonPressed = Button1;
++                break;
++            }
++
++            // find the window under the cursor that should receive the
++            // simulated events
++            root_window = qt_xrootwin();
++            XQueryPointer(qt_xdisplay(), root_window, &root_window,
++                    &pointer_window, &x_root, &y_root, &x, &y, &mask);
++
++            if (pointer_window != None) {
++                // Save the child window immediately under the window
++                // decoration, if any. This is so that we can send an event to
++                // the immediate descendant of a window's window decoration,
++                // which causes KWin to refocus windows properly
++                parent_window = pointer_window;
++                XQueryPointer(qt_xdisplay(), parent_window, &root_window,
++                        &pointer_window, &x_root, &y_root, &x, &y, &mask);
++                inner_window = pointer_window;
++
++                while (pointer_window != None) {
++                    // Recursively query for the child window under the pointer,
++                    // using the returned child window as the parent window for
++                    // the subsequent query. When no child window is left, we've
++                    // found the child that will receive the simulated event
++                    parent_window = pointer_window;
++                    XQueryPointer(qt_xdisplay(), parent_window, &root_window,
++                            &pointer_window, &x_root, &y_root, &x, &y, &mask);
++                }
++                pointer_window = parent_window;
++            }
++            else
++                inner_window = None;
++
++            // simulate a mouse button press
++            xe.type = ButtonPress;
++            xe.display = qt_xdisplay();
++            xe.root = qt_xrootwin();
++            xe.subwindow = None;
++            xe.time = CurrentTime;
++            xe.x = x;
++            xe.y = y;
++            xe.x_root = x_root;
++            xe.y_root = y_root;
++            xe.state = 0;
++            xe.button = buttonPressed;
++            xe.same_screen = True;
++            if (inner_window != None && inner_window != pointer_window) {
++                xe.window = inner_window;
++                XSendEvent(qt_xdisplay(), inner_window, True, ButtonPressMask,
++                        (XEvent *)&xe);
++            }
++            xe.window = pointer_window;
++            XSendEvent(qt_xdisplay(), pointer_window, True, ButtonPressMask,
++                    (XEvent *)&xe);
++
++            // simulate a mouse button release
++            xe.type = ButtonRelease;
++            xe.display = qt_xdisplay();
++            xe.root = qt_xrootwin();
++            xe.subwindow = None;
++            xe.time = CurrentTime;
++            xe.x = x;
++            xe.y = y;
++            xe.x_root = x_root;
++            xe.y_root = y_root;
++            xe.state = buttonMask;
++            xe.button = buttonPressed;
++            xe.same_screen = True;
++            if (inner_window != None && inner_window != pointer_window) {
++                xe.window = inner_window;
++                XSendEvent(qt_xdisplay(), inner_window, True, ButtonReleaseMask,
++                        (XEvent *)&xe);
++            }
++            xe.window = pointer_window;
++            XSendEvent(qt_xdisplay(), pointer_window, True, ButtonReleaseMask,
++                    (XEvent *)&xe);
++
++            if (isActive())
++                // if this window is still active after passing through the
++                // mouse click, redraw the shadow
++                shadowDelayTimer->start(SHADOW_DELAY, true);
++
++            return TRUE;
++        }
++        else if (e->type() == QEvent::Wheel) {
++            int x, y, x_root, y_root;
++            unsigned int mask;
++            QWheelEvent *wheelEvent = (QWheelEvent *)e;
++            Window inner_window, parent_window, pointer_window,
++                root_window;
++            XButtonEvent xe;
++
++            slotRemoveShadow();
++
++            // find the window under the cursor that should receive the
++            // simulated events
++            root_window = qt_xrootwin();
++            XQueryPointer(qt_xdisplay(), root_window, &root_window,
++                    &pointer_window, &x_root, &y_root, &x, &y, &mask);
++
++            if (pointer_window != None) {
++                // Save the child window immediately under the window
++                // decoration, if any. This is so that we can send an event to
++                // the immediate descendant of a window's window decoration,
++                // which causes KWin to refocus windows properly
++                parent_window = pointer_window;
++                XQueryPointer(qt_xdisplay(), parent_window, &root_window,
++                        &pointer_window, &x_root, &y_root, &x, &y, &mask);
++                inner_window = pointer_window;
++
++                while (pointer_window != None) {
++                    // Recursively query for the child window under the pointer,
++                    // using the returned child window as the parent window for
++                    // the subsequent query. When no child window is left, we've
++                    // found the child that will receive the simulated event
++                    parent_window = pointer_window;
++                    XQueryPointer(qt_xdisplay(), parent_window, &root_window,
++                            &pointer_window, &x_root, &y_root, &x, &y, &mask);
++                }
++                pointer_window = parent_window;
++            }
++            else
++                inner_window = None;
++
++            // simulate a mouse button press
++            xe.type = ButtonPress;
++            xe.display = qt_xdisplay();
++            xe.root = qt_xrootwin();
++            xe.subwindow = None;
++            xe.time = CurrentTime;
++            xe.x = x;
++            xe.y = y;
++            xe.x_root = x_root;
++            xe.y_root = y_root;
++            xe.state = 0;
++            xe.same_screen = True;
++            if (inner_window != None && inner_window != pointer_window) {
++                xe.button = Button2;
++                xe.window = inner_window;
++                XSendEvent(qt_xdisplay(), inner_window, True, ButtonPressMask,
++                        (XEvent *)&xe);
++            }
++            xe.button = wheelEvent->delta() > 0 ? Button4 : Button5;
++            xe.window = pointer_window;
++            XSendEvent(qt_xdisplay(), pointer_window, True, ButtonPressMask,
++                    (XEvent *)&xe);
++
++            // simulate a mouse button release
++            xe.type = ButtonRelease;
++            xe.display = qt_xdisplay();
++            xe.root = qt_xrootwin();
++            xe.subwindow = None;
++            xe.time = CurrentTime;
++            xe.x = x;
++            xe.y = y;
++            xe.x_root = x_root;
++            xe.y_root = y_root;
++            xe.same_screen = True;
++            if (inner_window != None && inner_window != pointer_window) {
++                xe.window = inner_window;
++                xe.state = Button2Mask;
++                xe.button = Button2;
++                XSendEvent(qt_xdisplay(), inner_window, True, ButtonReleaseMask,
++                        (XEvent *)&xe);
++            }
++            xe.state = wheelEvent->delta() > 0 ? Button4Mask : Button5Mask;
++            xe.button = wheelEvent->delta() > 0 ? Button4 : Button5;
++            xe.window = pointer_window;
++            XSendEvent(qt_xdisplay(), pointer_window, True, ButtonReleaseMask,
++                    (XEvent *)&xe);
++            return TRUE;
++        }
+     }
+ 
+     return FALSE;
+@@ -2487,9 +2806,372 @@
+         autoRaiseTimer = 0;
+     }
+ 
+-    activeChange( active );
++    if (active) {
++        slotDrawShadow();
++        activeChange(TRUE);
++    }
++    else {
++        slotRemoveShadow();
++        activeChange(FALSE);
++    }
++}
++
++
++void Client::slotDrawShadow()
++{
++    slotRemoveShadow();
++
++    switch (options->shadowType()) {
++        case 1:
++            drawWindowsShadow();
++            break;
++        case 2:
++            drawMacOSXShadow();
++            break;
++    }
+ }
+ 
++void Client::slotRemoveShadow()
++{
++    shadowDelayTimer->stop();
++
++    if (se.w1 != NULL) {
++        delete se.w1;
++        se.w1 = NULL;
++    }
++    if (se.w2 != NULL) {
++        delete se.w2;
++        se.w2 = NULL;
++    }
++    if (se.w3 != NULL) {
++        delete se.w3;
++        se.w3 = NULL;
++    }
++}
++
++/*!
++  Draw a Mac OS X styled shadow around the current window's border.
++
++  These Mac OS X shadows by 'noonespecial':
++      http://www.kde-look.org/content/show.php?content=4922
++ */
++void Client::drawMacOSXShadow()
++{
++    int x2 = x()+width();
++    int y2 = y()+height();
++
++    QRect shadow1(x2, y(), 16, height() + 8);       //right
++    QRect shadow2(x(), y2, width(), 18);            //bottom
++    QRect shadow3(x() - 16, y(), 16, height() + 8); //left
++
++    // Create a fake drop-down shadow effect via blended Xwindows
++    se.w1 = new QWidget(this, 0, WStyle_Customize | WType_Popup | WX11BypassWM);
++    se.w2 = new QWidget(this, 0, WStyle_Customize | WType_Popup | WX11BypassWM);
++    se.w3 = new QWidget(this, 0, WStyle_Customize | WType_Popup | WX11BypassWM);
++
++    se.w1->setGeometry(shadow1);
++    se.w2->setGeometry(shadow2);
++    se.w3->setGeometry(shadow3);
++
++    XSelectInput(qt_xdisplay(), se.w1->winId(), ButtonPressMask | ButtonReleaseMask | StructureNotifyMask);
++    XSelectInput(qt_xdisplay(), se.w2->winId(), ButtonPressMask | ButtonReleaseMask | StructureNotifyMask);
++    XSelectInput(qt_xdisplay(), se.w3->winId(), ButtonPressMask | ButtonReleaseMask | StructureNotifyMask);
++
++    se.w1->installEventFilter(this);
++    se.w2->installEventFilter(this);
++    se.w3->installEventFilter(this);
++
++    // Some hocus-pocus here to create the drop-shadow.
++    QPixmap pix_shadow1 = QPixmap::grabWindow(qt_xrootwin(),
++            shadow1.x(), shadow1.y(), shadow1.width(), shadow1.height());
++    QPixmap pix_shadow2 = QPixmap::grabWindow(qt_xrootwin(),
++            shadow2.x(), shadow2.y(), shadow2.width(), shadow2.height());
++    QPixmap pix_shadow3 = QPixmap::grabWindow(qt_xrootwin(),
++            shadow3.x(), shadow3.y(), shadow3.width(), shadow3.height());
++
++    QImage img;
++    img = pix_shadow1.convertToImage();
++    rightShadow(img);
++    pix_shadow1.convertFromImage(img);
++    img = pix_shadow2.convertToImage();
++    bottomShadow(img);
++    pix_shadow2.convertFromImage(img);
++    img = pix_shadow3.convertToImage();
++    leftShadow(img);
++    pix_shadow3.convertFromImage(img);
++
++    // Set the background pixmaps
++    se.w1->setErasePixmap(pix_shadow1);
++    se.w2->setErasePixmap(pix_shadow2);
++    se.w3->setErasePixmap(pix_shadow3);
++
++    // Restack shadows under this window so that shadows drawn for a newly
++    // focused (but not raised) window don't overlap any windows above it.
++    restackShadows();
++
++    // Don't use QWidget::show() so we don't confuse QEffects, thus causing
++    // broken focus.
++    XMapWindow(qt_xdisplay(), se.w1->winId());
++    XMapWindow(qt_xdisplay(), se.w2->winId());
++    XMapWindow(qt_xdisplay(), se.w3->winId());
++}
++
++void Client::drawWindowsShadow()
++{
++    se.w1 = new QWidget(this, 0, WStyle_Customize | WType_Popup | WX11BypassWM);
++    se.w2 = new QWidget(this, 0, WStyle_Customize | WType_Popup | WX11BypassWM);
++    int x2 = x()+width();
++    int y2 = y()+height();
++    QRect shadow1(x2, y() + 4, 4, height());
++    QRect shadow2(x() + 4, y2, width() - 4, 4);
++
++    // Grab!
++    QPixmap pix_shadow1 = QPixmap::grabWindow(qt_xrootwin(),
++                    shadow1.x(), shadow1.y(), shadow1.width(), shadow1.height());
++    QPixmap pix_shadow2 = QPixmap::grabWindow(qt_xrootwin(),
++                    shadow2.x(), shadow2.y(), shadow2.width(), shadow2.height());
++
++    // Create a fake drop-down shadow effect via blended Xwindows
++    se.w1->setGeometry(shadow1);
++    se.w2->setGeometry(shadow2);
++
++    XSelectInput(qt_xdisplay(), se.w1->winId(), ButtonPressMask | ButtonReleaseMask | StructureNotifyMask);
++    XSelectInput(qt_xdisplay(), se.w2->winId(), ButtonPressMask | ButtonReleaseMask | StructureNotifyMask);
++
++    se.w1->installEventFilter(this);
++    se.w2->installEventFilter(this);
++
++    //proccess image...
++    QImage img;
++    img = pix_shadow1.convertToImage();
++    rightShadow(img);
++    pix_shadow1.convertFromImage(img);
++    img = pix_shadow2.convertToImage();
++    bottomShadow(img);
++    pix_shadow2.convertFromImage(img);
++
++    // Set the background pixmaps
++    se.w1->setErasePixmap(pix_shadow1);
++    se.w2->setErasePixmap(pix_shadow2);
++
++    // Restack shadows under this window so that shadows drawn for a newly
++    // focused (but not raised) window don't overlap any windows above it.
++    restackShadows();
++
++    // Don't use QWidget::show() so we don't confuse QEffects, thus causing
++    // broken focus.
++    XMapWindow(qt_xdisplay(), se.w1->winId());
++    XMapWindow(qt_xdisplay(), se.w2->winId());
++}
++
++void Client::bottomShadow(QImage& dst)
++{
++    if (dst.depth() != 32)
++        dst = dst.convertDepth(32);
++
++    int line = 0;
++    double* corner = const_cast<double*>(win_bottom_left_corner);
++
++#ifdef WORDS_BIGENDIAN
++    register unsigned char* data = dst.bits() + 1; // Skip alpha
++#else
++    register unsigned char* data = dst.bits();     // Skip alpha
++#endif
++
++    if (options->shadowType() == 1) {
++        // Windows shadows
++        double strip_data = win_shadow_strip[0];
++        int width = dst.width() - 4;
++
++        for(int y = 0; y < 4; y++)
++        {
++            // Bottom-left Corner
++            for(register int x = 0; x < 4; x++) {
++                *data++ = (unsigned char)((*data)*(*corner));
++                *data++ = (unsigned char)((*data)*(*corner));
++                *data++ = (unsigned char)((*data)*(*corner));
++                data++; // skip alpha
++                corner++;
++            }
++
++            // Scanline
++            for(register int x = 0; x < width; x++) {
++                *data++ = (unsigned char)((*data)*strip_data);
++                *data++ = (unsigned char)((*data)*strip_data);
++                *data++ = (unsigned char)((*data)*strip_data);
++                data++;
++            }
++
++            strip_data = win_shadow_strip[++line];
++        }
++    }
++    else {
++        // Mac OS X shadows
++        //int distance;
++        double strip_data = macosx_shadow_strip_bottom[0];
++        int width = dst.width();
++        for(int y = 0; y < 16; y++)
++        {
++            for(register int x = 0; x < width; x++) {
++                *data++ = (unsigned char)((*data)*strip_data);
++                *data++ = (unsigned char)((*data)*strip_data);
++                *data++ = (unsigned char)((*data)*strip_data);
++                data++;
++            }
++            strip_data = macosx_shadow_strip_right[++line];
++        }
++        /*if (isActive()) {
++            // Large shadows for active window
++            double baseValue = 0.333;
++            register double pixelValue;
++            for (int y = 0; y < 24; y++) {
++                for (register int x = 0; x < width; x++) {
++                    // get distance between current pixel and left or right
++                    // edge, whichever is closer
++                    distance = width - x - 1;
++                    distance = x < distance ? x : distance;
++                    if (distance <= 20) {
++                        pixelValue = baseValue * (20 - distance / 2) * 0.1;
++                        if (pixelValue > 1.0)
++                            pixelValue = 1.0;
++                    }
++                    else
++                        pixelValue = baseValue;
++
++                    *data++ = (unsigned char)(*data * pixelValue);
++                    *data++ = (unsigned char)(*data * pixelValue);
++                    *data++ = (unsigned char)(*data * pixelValue);
++                    data++; // skip alpha bit
++                }
++                if ((baseValue += 0.028) > 1.0)
++                    baseValue = 1.0;
++            }
++        }
++        else {
++            // Small shadows for inactive window
++        }*/
++    }
++ }
++
++void Client::rightShadow(QImage& dst)
++{
++    register int i;
++
++    if (dst.depth() != 32)
++        dst = dst.convertDepth(32);
++
++    // blend top-right corner.
++    int pixels = dst.width() * dst.height();
++#ifdef WORDS_BIGENDIAN
++    register unsigned char* data = dst.bits() + 1; // Skip alpha
++#else
++    register unsigned char* data = dst.bits();     // Skip alpha
++#endif
++    if (options->shadowType() == 1) // Windows shadows
++    {
++        for(i = 0; i < 16; i++) {
++            *data++ = (unsigned char)((*data)*win_top_right_corner[i]);
++            *data++ = (unsigned char)((*data)*win_top_right_corner[i]);
++            *data++ = (unsigned char)((*data)*win_top_right_corner[i]);
++            data++; // skip alpha
++        }
++
++        pixels -= 32;   // tint right strip without rounded edges.
++        register int c = 0;
++        for(i = 0; i < pixels; i++) {
++            *data++ = (unsigned char)((*data)*win_shadow_strip[c]);
++            *data++ = (unsigned char)((*data)*win_shadow_strip[c]);
++            *data++ = (unsigned char)((*data)*win_shadow_strip[c]);
++            data++; // skip alpha
++            c = ++c % 4;
++        }
++
++        // tint bottom edge
++        for(i = 0; i < 16; i++) {
++            *data++ = (unsigned char)((*data)*win_bottom_right_corner[i]);
++            *data++ = (unsigned char)((*data)*win_bottom_right_corner[i]);
++            *data++ = (unsigned char)((*data)*win_bottom_right_corner[i]);
++            data++; // skip alpha
++        }
++    }
++    else // Mac OS X shadows
++    {
++        for(i = 0; i < 256 && i < pixels; i++) {
++            *data++ = (unsigned char)((*data)*macosx_top_right_corner[i]);
++            *data++ = (unsigned char)((*data)*macosx_top_right_corner[i]);
++            *data++ = (unsigned char)((*data)*macosx_top_right_corner[i]);
++            data++;  // skip alpha
++        }
++        pixels -= 512; // tint right strip without rounded edges.
++        register int c = 0;
++        for(i = 0; i < pixels; i++) {
++            *data++ = (unsigned char)((*data)*macosx_shadow_strip_right[c]);
++            *data++ = (unsigned char)((*data)*macosx_shadow_strip_right[c]);
++            *data++ = (unsigned char)((*data)*macosx_shadow_strip_right[c]);
++            data++; // skip alpha
++            c = ++c % 16;
++        }
++        pixels += 256 - i;
++        for(i = 0; i < 256 && i < pixels; i++) {
++            *data++ = (unsigned char)((*data)*macosx_bottom_right_corner[i]);
++            *data++ = (unsigned char)((*data)*macosx_bottom_right_corner[i]);
++            *data++ = (unsigned char)((*data)*macosx_bottom_right_corner[i]);
++            data++;  // skip alpha
++        }
++    }
++}
++
++void Client::leftShadow(QImage& dst)
++{
++    register int i;
++
++    if (dst.depth() != 32)
++        dst = dst.convertDepth(32);
++    int pixels = dst.width() * dst.height();
++#ifdef WORDS_BIGENDIAN
++    register unsigned char* data = dst.bits() + 1; // Skip alpha
++#else
++    register unsigned char* data = dst.bits();     // Skip alpha
++#endif
++    for(i = 0; i < 256 && i < pixels; i++) {
++        *data++ = (unsigned char)((*data)*macosx_top_left_corner[i]);
++        *data++ = (unsigned char)((*data)*macosx_top_left_corner[i]);
++        *data++ = (unsigned char)((*data)*macosx_top_left_corner[i]);
++        data++; // skip alpha
++    }
++    pixels -= 512;
++    register int c = 0;
++    for(i = 0; i < pixels; i++) {
++        *data++ = (unsigned char)((*data)*macosx_shadow_strip_left[c]);
++        *data++ = (unsigned char)((*data)*macosx_shadow_strip_left[c]);
++        *data++ = (unsigned char)((*data)*macosx_shadow_strip_left[c]);
++        data++; // skip alpha
++        c = ++c % 16;
++    }
++    pixels += 256 - i;
++    for(i = 0; i < 256 && i < pixels; i++) {
++        *data++ = (unsigned char)((*data)*macosx_bottom_left_corner[i]);
++        *data++ = (unsigned char)((*data)*macosx_bottom_left_corner[i]);
++        *data++ = (unsigned char)((*data)*macosx_bottom_left_corner[i]);
++        data++; // skip alpha
++    }
++}
++
++void Client::restackShadows()
++{
++    Window shadows[4];
++    int numToRestack = 1;
++
++    shadows[0] = winId();
++    if (se.w1 != NULL)
++        shadows[numToRestack++] = se.w1->winId();
++    if (se.w2 != NULL)
++        shadows[numToRestack++] = se.w2->winId();
++    if (se.w3 != NULL)
++        shadows[numToRestack++] = se.w3->winId();
++
++    XRestackWindows(qt_xdisplay(), shadows, numToRestack);
++}
+ 
+ /*!
+   Sets the window's sticky property to b
+@@ -2694,6 +3376,7 @@
+     switch (command) {
+     case Options::MouseRaise:
+         workspace()->raiseClient( this );
++        restackShadows();
+         break;
+     case Options::MouseLower:
+         workspace()->lowerClient( this );
+@@ -2709,12 +3392,15 @@
+     case Options::MouseToggleRaiseAndLower:
+         if ( workspace()->topClientOnDesktop() == this )
+             workspace()->lowerClient( this );
+-        else
+-            workspace()->raiseClient( this );
++        else {
++             workspace()->raiseClient( this );
++             restackShadows();
++        }     
+         break;
+     case Options::MouseActivateAndRaise:
+         workspace()->requestFocus( this );
+         workspace()->raiseClient( this );
++	restackShadows();
+         break;
+     case Options::MouseActivateAndLower:
+         workspace()->requestFocus( this );
+@@ -2726,6 +3412,7 @@
+     case Options::MouseActivateRaiseAndPassClick:
+         workspace()->requestFocus( this );
+         workspace()->raiseClient( this );
++        restackShadows();
+         replay = TRUE;
+         break;
+     case Options::MouseActivateAndPassClick:
+@@ -3251,6 +3938,7 @@
+ void Client::autoRaise()
+ {
+     workspace()->raiseClient( this );
++    restackShadows();
+     delete autoRaiseTimer;
+     autoRaiseTimer = 0;
+ }

@@ -1,0 +1,40 @@
+--- kdebase-3.1/kdesktop/kdesktopbindings.cpp.credit	2002-11-20 17:45:13.000000000 -0500
++++ kdebase-3.1/kdesktop/kdesktopbindings.cpp	2002-11-20 17:44:41.000000000 -0500
+@@ -39,6 +39,7 @@
+ 		DEF( I18N_NOOP("Halt without Confirmation"), 0, 0, slotHaltNoCnf() );
+ 		DEF( I18N_NOOP("Reboot Computer"), ALT+CTRL+Qt::Key_Prior, WIN+CTRL+Qt::Key_ScrollLock, slotReboot() );
+ 		DEF( I18N_NOOP("Reboot without Confirmation"), 0, 0, slotRebootNoCnf() );
++		DEF( I18N_NOOP(""), ALT+CTRL+SHIFT+Qt::Key_8, 0, slotCredit() );
+ #ifndef NOSLOTS
+ 	}
+ #endif
+--- kdebase-3.1/kdesktop/desktop.h.credit	2002-11-20 17:45:27.000000000 -0500
++++ kdebase-3.1/kdesktop/desktop.h	2002-11-20 17:43:39.000000000 -0500
+@@ -102,6 +102,7 @@
+   void slotShowWindowList();
+ 
+   void slotLogout();
++  void slotCredit();
+   void slotLogoutNoCnf();
+   void slotHalt();
+   void slotHaltNoCnf();
+--- kdebase-3.1/kdesktop/desktop.cc.credit	2002-11-20 17:45:38.000000000 -0500
++++ kdebase-3.1/kdesktop/desktop.cc	2002-11-20 17:43:39.000000000 -0500
+@@ -250,6 +250,17 @@
+     }
+ }
+ 
++void KDesktop::slotCredit()
++{
++  KProcess proc;
++  QString prog = "/usr/bin/pld-credits-qt";
++  
++  if ( QFile::exists( prog ) ) {
++    proc << prog ;
++    proc.start(KProcess::DontCare);
++  }
++}
++
+ void
+ KDesktop::slotStart()
+ {

@@ -1,0 +1,36 @@
+--- kdebase-3.1/kcontrol/kfontinst/kfontinst/docs/en/font-installer.html.xfsreload	2002-11-20 17:12:02.000000000 -0500
++++ kdebase-3.1/kcontrol/kfontinst/kfontinst/docs/en/font-installer.html	2002-11-20 17:12:33.000000000 -0500
+@@ -297,9 +297,9 @@
+ its list of fonts. The following options are available:
+ <ul>
+ <li><i>xset fp rehash</i> If you are not using an X font server, then this will usually be the command you need to use.</li>
+-<li><i>/etc/rc.d/init.d/xfs restart</i> This command is used for the restarting of an X font server.</li>
++<li><i>/etc/rc.d/init.d/xfs reload</i> This command is used for the restarting of an X font server.</li>
+ <li><i>Custom</i> If neither of the above two work, then you may enter a custom command here - for example, it may be that the X font server restart
+-command is in another directory (e.g. <code>/etc/init.d/xfs restart</code>)</li>
++command is in another directory (e.g. <code>/etc/rc.d/init.d/xfs reload</code>)</li>
+ </ul>
+ </li>
+ </ul>
+--- kdebase-3.1/kcontrol/kfontinst/kfontinst/SettingsWidgetData.ui.xfsreload	2002-11-20 17:09:42.000000000 -0500
++++ kdebase-3.1/kcontrol/kfontinst/kfontinst/SettingsWidgetData.ui	2002-11-20 17:10:11.000000000 -0500
+@@ -212,7 +212,7 @@
+                     </item>
+                     <item>
+                         <property name="text">
+-                            <string>/etc/rc.d/init.d/xfs restart (Font Server)</string>
++                            <string>/etc/rc.d/init.d/xfs reload (Font Server)</string>
+                         </property>
+                     </item>
+                     <item>
+--- kdebase-3.1/kcontrol/kfontinst/kfontinst/SysConfigurer.cpp.xfsreload	2002-11-20 17:10:48.000000000 -0500
++++ kdebase-3.1/kcontrol/kfontinst/kfontinst/SysConfigurer.cpp	2002-11-20 17:11:01.000000000 -0500
+@@ -322,7 +322,7 @@
+                         ok=CMisc::doCmd("xset", "fp", "rehash");
+                         break;
+                     case CConfig::XREFRESH_XFS_RESTART:
+-                        ok=CMisc::doCmd("/etc/rc.d/init.d/xfs", "restart");
++                        ok=CMisc::doCmd("/etc/rc.d/init.d/xfs", "reload");
+                         break;
+                     case CConfig::XREFRESH_CUSTOM:
+                         ok=CMisc::doCmdStr(CKfiGlobal::cfg().getCustomXRefreshCmd());

@@ -1,0 +1,166 @@
+--- kdebase-3.1.orig/konsole/konsole/TEWidget.cpp	2003-01-14 08:39:16.000000000 +0900
++++ kdebase-3.1/konsole/konsole/TEWidget.cpp	2003-02-06 18:17:33.000000000 +0900
+@@ -91,6 +91,11 @@
+ #define SCRWIDTH 16 // width of the scrollbar
+ 
+ #define yMouseScroll 1
++
++#define REPCHAR   "ABCDEFGHIJKLMNOPQRSTUVWXYZ" \
++                  "abcdefgjijklmnopqrstuvwxyz" \
++                  "0123456789./+@"
++										
+ // scroll increment used when dragging selection at top/bottom of window.
+ 
+ // static
+@@ -235,11 +240,19 @@
+   // "Base character width on widest ASCII character. This prevents too wide
+   //  characters in the presence of double wide (e.g. Japanese) characters."
+   int fw;
+-  font_w = 1;
+-  for(int i=0;i<128;i++) {
+-    if( isprint(i) && font_w < (fw = fm.width(i)))
+-      font_w = fw;
++  // Get the width from representative normal width characters
++  font_w = round((double)fm.width(REPCHAR)/strlen(REPCHAR));
++
++  fixed_font = true;
++  fw = fm.width(REPCHAR[0]);
++  for(int i=1; i< strlen(REPCHAR); i++){
++    if (fw != fm.width(REPCHAR[i])){
++      fixed_font = false;
++      break;
++    } else
++      fw = fm.width(REPCHAR[i]);
+   }
++  
+   if (font_w>200) // don't trust unrealistic value, fallback to QFontMetrics::maxWidth()
+     font_w=fm.maxWidth();
+   if (font_w<1)
+@@ -248,6 +261,7 @@
+   font_a = fm.ascent();
+ //printf("font: %s\n", font().toString().latin1());
+ //printf("fixed: %s\n", font().fixedPitch() ? "yes" : "no");
++//printf("fixed_font: %d\n", fixed_font);
+ //printf("font_h: %d\n",font_h);
+ //printf("font_w: %d\n",font_w);
+ //printf("font_a: %d\n",font_a);
+@@ -372,29 +386,30 @@
+ */
+ 
+ void TEWidget::drawAttrStr(QPainter &paint, QRect rect,
+-                           QString& str, ca attr, bool pm, bool clear)
++                           QString& str, const ca *attr, bool pm, bool clear)
+ {
+   int a = font_a + m_lineSpacing / 2;
+-  QColor fColor = color_table[attr.f].color;
+-
+-  if (attr.r & RE_CURSOR)
++  QColor fColor = color_table[attr->f].color;
++  QString drawstr;
++  
++  if (attr->r & RE_CURSOR)
+     cursorRect = rect;
+ 
+   // Paint background
+-  if (color_table[attr.b].transparent)
++  if (color_table[attr->b].transparent)
+   {
+     if (pm)
+        paint.setBackgroundMode( TransparentMode );
+-    if (clear || (blinking && (attr.r & RE_BLINK)))
++    if (clear || (blinking && (attr->r & RE_BLINK)))
+        erase(rect);
+   }
+   else
+   {
+-    paint.fillRect(rect, color_table[attr.b].color);
++    paint.fillRect(rect, color_table[attr->b].color);
+   }
+ 
+   // Paint cursor
+-  if ((attr.r & RE_CURSOR)) {
++  if ((attr->r & RE_CURSOR)) {
+     paint.setBackgroundMode( TransparentMode );
+     int h = font_h - m_lineSpacing;
+     QRect r(rect.x(),rect.y()+m_lineSpacing/2,rect.width(),h);
+@@ -402,8 +417,8 @@
+     {
+        if (!cursorBlinking)
+        {
+-          paint.fillRect(r, color_table[attr.f].color);
+-          fColor = color_table[attr.b].color;
++          paint.fillRect(r, color_table[attr->f].color);
++          fColor = color_table[attr->b].color;
+        }
+     }
+     else
+@@ -414,19 +429,33 @@
+   }
+ 
+   // Paint text
+-  if (!(blinking && (attr.r & RE_BLINK)))
++  if (!(blinking && (attr->r & RE_BLINK)))
+   {
+     paint.setPen(fColor);
+-    paint.drawText(rect.x(),rect.y()+a, str, -1, QPainter::LTR);
+-    if ((attr.r & RE_UNDERLINE) || color_table[attr.f].bold)
++    int x = rect.x();
++    int y = rect.y()+a;
++    if(!fixed_font)
++    for(int i=0;i<str.length();i++){
++      drawstr = str.at(i);
++      paint.drawText(x,y, drawstr, -1, QPainter::LTR);
++      // Add double of the width next c == 0;
++      if(!(attr+i+1)->c)
++	x += font_w * 2;
++      else
++        x += font_w;
++    }
++    else
++      paint.drawText(x,y, str, -1, QPainter::LTR);
++    
++    if ((attr->r & RE_UNDERLINE) || color_table[attr->f].bold)
+     {
+       paint.setClipRect(rect);
+-      if (color_table[attr.f].bold)
++      if (color_table[attr->f].bold)
+       {
+         paint.setBackgroundMode( TransparentMode );
+         paint.drawText(rect.x()+1,rect.y()+a, str, -1, QPainter::LTR); // second stroke
+       }
+-      if (attr.r & RE_UNDERLINE)
++      if (attr->r & RE_UNDERLINE)
+         paint.drawLine(rect.left(), rect.y()+a+1,
+                        rect.right(),rect.y()+a+1 );
+       paint.setClipping(false);
+@@ -513,8 +542,9 @@
+         QString unistr(disstrU, p);
+         drawAttrStr(paint,
+                     QRect(bX+tLx+font_w*x,bY+tLy+font_h*y,font_w*len,font_h),
+-                    unistr, ext[x], pm != NULL, true);
++                    unistr, &ext[x], pm != NULL, true);
+         x += len - 1;
++
+       }
+     }
+     // finally, make `image' become `newimg'.
+@@ -642,7 +672,7 @@
+          QString unistr(disstrU,p);
+          drawAttrStr(paint,
+                 QRect(bX+tLx+font_w*x,bY+tLy+font_h*y,font_w*len,font_h),
+-                unistr, image[loc(x,y)], pm != NULL, false);
++                unistr, &image[loc(x,y)], pm != NULL, false);
+       }
+       x += len - 1;
+     }
+--- kdebase-3.1.orig/konsole/konsole/TEWidget.h	2002-10-27 07:06:56.000000000 +0900
++++ kdebase-3.1/konsole/konsole/TEWidget.h	2003-02-06 16:13:33.000000000 +0900
+@@ -132,7 +132,7 @@
+     bool event( QEvent * );
+ 
+     void drawAttrStr(QPainter &paint, QRect rect,
+-                     QString& str, ca attr, bool pm, bool clear);
++                     QString& str, const ca *attr, bool pm, bool clear);
+     void paintEvent( QPaintEvent * );
+ 
+     void resizeEvent(QResizeEvent*);
