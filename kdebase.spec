@@ -17,7 +17,7 @@ Summary(uk):	K Desktop Environment - базов╕ файли
 Summary(zh_CN): KDE╨кпд
 Name:		kdebase
 Version:	3.0.4
-Release:	12
+Release:	13
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -769,6 +769,7 @@ fi
 %attr(755,root,root) %{_libdir}/libtaskbar.so
 %attr(755,root,root) %{_libdir}/libkonq*.so
 %attr(755,root,root) %{_libdir}/libnsplugin.so
+%attr(755,root,root) %{_libdir}/*.la
 
 %files static
 %defattr(644,root,root,755)
