@@ -46,10 +46,10 @@ Source8:	%{name}-ircpld.desktop
 Source9:	%{name}-specs.desktop
 Source10:	%{name}-kabc.desktop
 Source11:	%{name}-kde-settings.menu
-Patch0:	%{name}-fix-mem-leak-in-kfind.patch
+Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 Patch2:		%{name}-fontdir.patch
 Patch3:		%{name}-kcm_background.patch
-Patch4:		%{name}-kdm.daemon_output.patch
+#Patch4:	%{name}-kdm.daemon_output.patch
 Patch5:		%{name}-kdm_utmpx.patch
 Patch6:		%{name}-kdmconfig.patch
 Patch7:		%{name}-kicker.patch
@@ -481,7 +481,7 @@ Internet Explorer.
 %patch0 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
+#%patch4 -p1
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
