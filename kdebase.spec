@@ -12,7 +12,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.4
-Release:	2
+Release:	3
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -37,6 +37,7 @@ Patch9:		%{name}-konsole-defaultfonts.patch
 Patch10:	%{name}-konsoleF1.patch
 Patch11:	%{name}-linebreaks.patch
 Patch12:	%{name}-ptsname.patch
+Patch13:	%{name}-no_versioned_modules.patch
 Patch20:	%{name}-fix-klipper-bug-41137.patch
 Patch21:	%{name}-fix-konsole-bug-37890.patch
 Patch22:	%{name}-fix-mem-leak-in-kdesktop.patch
@@ -306,6 +307,7 @@ Standardowy obrazek okna "Wyloguj" KDE.
 %patch10 -p1
 %patch11 -p1
 %patch12 -p1
+%patch13 -p1
 
 %patch20 -p1
 %patch21 -p1
