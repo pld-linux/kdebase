@@ -1,6 +1,6 @@
 %define		_ver		3.0
 #define		_sub_ver
-%define		_rel		1
+%define		_rel		2
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
@@ -464,28 +464,36 @@ fi
 %attr(0755,root,root) %{_libdir}/libkonsolepart.la
 %attr(0755,root,root) %{_libdir}/libkonsolepart.so*
 
+# We have to include *.so.1 sym-links, as ldconfig doesn't touch
+# %{_libdir}/kde3
 %attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so.*.*.*
+%attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so.*
 %attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.so.*.*.*
+%attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.so.*
 %attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so.*.*.*
+%attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so.*
+%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so.*
 %attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so.*.*.*
+%attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so.*
 %attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so.*.*.*
+%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so.*
 %attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so.*.*.*
+%attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so.*
 %attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.so.*.*.*
+%attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.so.*
 %attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.so.*.*.*
+%attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.so.*
 %attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so.*.*.*
+%attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so.*
 %attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so.*.*.*
-%attr(0755,root,root) %{_libdir}/kde3/[ikt]*.la
-%attr(0755,root,root) %{_libdir}/kde3/[ikt]*.so*
+%attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so.*
+%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.so.*
+%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.so.*
+%attr(0755,root,root) %{_libdir}/kde3/i*.la
+%attr(0755,root,root) %{_libdir}/kde3/i*.so
 %attr(0755,root,root) %{_libdir}/kde3/libkcm_[abcefilmptu]*.la
 %attr(0755,root,root) %{_libdir}/kde3/libkcm_[abcefilmptu]*.so*
 %attr(0755,root,root) %{_libdir}/kde3/libk[fsuw]*.la*
