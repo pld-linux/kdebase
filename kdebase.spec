@@ -278,13 +278,13 @@ Wygaszacze ekranu desktopu KDE.
 %build
 
 # workaround -- don't allow to regenerate Makefile.xx
-find -name Makefile.am -exec touch {} \;
-find -name Makefile.in -exec touch {} \;
+#find -name Makefile.am -exec touch {} \;
+#find -name Makefile.in -exec touch {} \;
 
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
-%{__make} -f Makefile.cvs
+#%{__make} -f Makefile.cvs
 CPPFLAGS="-I%{_includedir}"
 export CPPFLAGS
 %configure \
