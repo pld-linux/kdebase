@@ -21,7 +21,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	2
+Release:	3
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -92,6 +92,7 @@ BuildRequires:	openldap-devel
 BuildRequires:	pam-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	xcursor-devel
+BuildConflicts:	kdebase-konqueror-libs
 Conflicts:	kdelibs < 9:3.1.94.040110-1
 # TODO: sensors
 #BuildRequires:	sensors-devel
