@@ -276,7 +276,7 @@ Wygaszacze ekranu desktopu KDE.
 %patch7 -p1
 
 %build
-
+%{__make}
 
 %install
 cd %{name}-%{version}
