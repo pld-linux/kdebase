@@ -18,15 +18,16 @@
      }
  
      // fill list
---- kdebase-030317/nsplugins/pluginscan.cpp~	Sat Mar 15 00:41:07 2003
-+++ kdebase-030317/nsplugins/pluginscan.cpp	Tue Mar 18 10:31:06 2003
-@@ -435,17 +435,7 @@
+--- kdebase-030516/nsplugins/pluginscan.cpp~	2003-05-16 00:35:34.000000000 +0200
++++ kdebase-030516/nsplugins/pluginscan.cpp	2003-05-16 13:35:14.000000000 +0200
+@@ -435,18 +435,7 @@
      // setup default paths
      if ( !config->hasKey("scanPaths") ) {
          QStringList paths;
 -        paths.append("$HOME/.netscape/plugins");
 -        paths.append("/usr/local/netscape/plugins");
 -        paths.append("/opt/mozilla/plugins");
+-	paths.append("/opt/mozilla/lib/plugins");
 -        paths.append("/opt/netscape/plugins");
 -        paths.append("/opt/netscape/communicator/plugins");
 -        paths.append("/usr/lib/netscape/plugins");
