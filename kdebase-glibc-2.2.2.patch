@@ -1,0 +1,14 @@
+--- kdebase/konsole/src/konsole_grantpty.c.glibc222	Wed Feb 14 15:14:33 2001
++++ kdebase/konsole/src/konsole_grantpty.c	Wed Feb 14 15:16:16 2001
+@@ -143,6 +143,11 @@
+   }
+   close(PTY_FILENO);
+ 
++  /* If we're using a sane setup (/dev/ptmx taking care of slave ttys),
++   * fake a /dev/pty0 so the rest of the code works                     */
++  if(strlen(pty)==9 && !strncmp(pty, "/dev/ptmx", 9))
++	  strcpy(pty, "/dev/pty0");
++  
+   /* matches /dev/pty?? */
+   if (strlen(pty) < 8 || strncmp(pty,"/dev/pty",8))
+   {
