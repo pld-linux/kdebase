@@ -6,10 +6,10 @@
 %bcond_with	cvs		# use cvs checkouts instead of tarballs
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040523
+%define		_snap		040524
 %define		_packager	adgor
 
-%define		_minlibsevr	9:3.2.90.030519
+%define		_minlibsevr	9:3.2.90.030524
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -27,8 +27,8 @@ Epoch:		9
 License:	GPL
 Group:		X11/Applications
 %if ! %{with cvs}
-Source0:        ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
-#Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
+#Source0:        ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
+Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
 ##%% Source0-md5:  53b213398dc488af5de57b74c6b3bbf5
 %else
 Source0:        kdesource.tar.gz
