@@ -2,7 +2,7 @@ Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
 Version:	2.0.1
-Release:	2
+Release:	3
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -13,6 +13,7 @@ Source2:	kdm.pamd
 Source3:	kdm.init
 Patch0:		%{name}-key.patch
 Patch1:		%{name}-waitkdm.patch
+Patch2:		%{name}-konsole-TERM.patch
 BuildRequires:	qt-devel >= 2.2.2
 BuildRequires:	kdelibs-devel >= %{version}
 BuildRequires:	libjpeg-devel
@@ -23,6 +24,7 @@ BuildRequires:	XFree86-devel
 BuildRequires:	zlib-devel
 BuildRequires:	pam-devel
 BuildRequires:	OpenGL-devel
+BuildRequires:	glut-devel
 BuildRequires:	alsa-lib-devel
 BuildRequires:	openssl-devel
 Requires:	kdelibs = %{version}
@@ -43,7 +45,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix 	/usr/X11R6
 %define		_fontdir 	/usr/share/fonts
-%define		_htmldir	%{_docdir}/kde/HTML
+%define		_htmldir	%{_datadir}/doc/kde/HTML
 
 %description
 KDE specific files. Used by core KDE applications. Package includes:
@@ -117,6 +119,9 @@ Explorer.
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
+#CFLAGS="%{!?debug:$RPM_OPT_FLAGS}"
+#CXXFLAGS="%{!?debug:$RPM_OPT_FLAGS}"
+export CPPFLAGS="-I/usr/X11R6/include"
 %configure \
  	--with-pam=kdm \
 	--without-shadow \
@@ -128,7 +133,7 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements} \
+install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,Settings/KDE} \
 	$RPM_BUILD_ROOT%{_sysconfdir}/{pam.d,security,rc.d/init.d}
 
 %{__make} install \
@@ -141,6 +146,16 @@ install ktip/ktip.desktop		$RPM_BUILD_ROOT%{_applnkdir}/Amusements
 install %{SOURCE1}			$RPM_BUILD_ROOT%{_bindir}/startkde
 install %{SOURCE2}			$RPM_BUILD_ROOT%{_sysconfdir}/pam.d/kdm
 install %{SOURCE3}			$RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/kdm
+
+# Make Control Center a subdirectory of Settings. Control Center applets can
+# not be mixed with normal programs or CC will die on startup.
+mv $RPM_BUILD_ROOT%{_applnkdir}/Settings/{[!K]*,KDE}
+cat > $RPM_BUILD_ROOT%{_applnkdir}/Settings/KDE/.desktop << EOF
+[Desktop Entry]
+Name=KDE
+Icon=package_settings
+X-KDE-BaseGroup=KDE
+EOF
 
 # removing unneeded directories
 rm -fr $RPM_BUILD_ROOT%{_applnkdir}/{Editors,Toys}
@@ -176,8 +191,19 @@ cat kcontrol.lang \
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
+%post
+/sbin/ldconfig
+
+cd %{_fontdir}/misc
+umask 022
+%{_bindir}/mkfontdir
+
+%postun
+/sbin/ldconfig
+
+cd %{_fontdir}/misc
+umask 022
+%{_bindir}/mkfontdir
 
 %post	-n konqueror -p /sbin/ldconfig 
 %postun	-n konqueror -p /sbin/ldconfig 
@@ -240,28 +266,24 @@ fi
 %attr(0755,root,root) %{_libdir}/libk[hmrstuw]*.so*
 %attr(0755,root,root) %{_libdir}/libkonsolepart.*
 
-%dir %{_applnkdir}/Settings/FileBrowsing
-%dir %{_applnkdir}/Settings/WebBrowsing
-%{_applnkdir}/*.desktop
-%{_applnkdir}/[AU]*/*.desktop
+# NOTE:	There are many directories created by kappfinder. They should be
+#	ignored as such functionality is provided by applnk package and
+#	*.dekstop files from apropriate packages.
+%{_applnkdir}/Amusements/*.desktop
+%{_applnkdir}/Development/*.desktop
+# This will go to "konqueror".
+#%{_applnkdir}/Network/WWW/*.desktop
 %{_applnkdir}/Office/Editors/*.desktop
-%{_applnkdir}/Settings/Help
-%{_applnkdir}/Settings/Information
-%{_applnkdir}/Settings/Network
-%{_applnkdir}/Settings/LookNFeel
-%{_applnkdir}/Settings/Personalization
-%{_applnkdir}/Settings/PowerControl
-%{_applnkdir}/Settings/Sound
-%{_applnkdir}/Settings/System
-%{_applnkdir}/Settings/Peripherals/*.desktop
-%{_applnkdir}/Settings/FileBrowsing/f*.desktop
-%{_applnkdir}/Settings/FileBrowsing/.directory
-%{_applnkdir}/Settings/WebBrowsing/[cepu]*.desktop
-%{_applnkdir}/Settings/WebBrowsing/.directory
-%{_applnkdir}/System/Arrange.desktop
-%{_applnkdir}/System/k[aflms]*.desktop
-%{_applnkdir}/System/konsole*.desktop
-%{_applnkdir}/System/ScreenSavers
+%{_applnkdir}/Settings/KDE
+%{_applnkdir}/System/[!k]*.desktop
+%{_applnkdir}/System/k[!o]*.desktop
+#%{_applnkdir}/System/ko[!n]*.desktop
+%{_applnkdir}/System/kon[!q]*.desktop
+%{_applnkdir}/System/ScreenSavers/*.desktop
+%{_applnkdir}/Utilities/*.desktop
+%{_applnkdir}/Help.desktop
+%{_applnkdir}/Home.desktop
+%{_applnkdir}/KControl.desktop
 
 %{_datadir}/apps/[cdq]*
 %{_datadir}/apps/k[abchimsw]*
@@ -277,13 +299,20 @@ fi
 %{_pixmapsdir}/*/*/apps/k[acdefhlmnpstw]*
 %{_pixmapsdir}/*/*/apps/konsole.png
 
-%{_datadir}/config
+%dir %{_datadir}/config
+%{_datadir}/config/[!k]*
+%{_datadir}/config/k[!d]*
 %{_datadir}/locale
 %{_datadir}/mimelnk
 %{_datadir}/services
 %{_datadir}/sounds
 %{_datadir}/templates
 %{_datadir}/wallpapers
+
+# TODO:	file /usr/share/fonts/misc/9x15.pcf.gz from install of kdebase-2.0.1-3
+# 	conflicts with file from package XFree86-fonts-4.0.1-2.
+# TODO:	there is a name conflict between cursor_large and cursor from XFree86.
+%{_fontdir}/misc/console8*.gz
 
 %files devel
 %defattr(644,root,root,755)
@@ -299,8 +328,9 @@ fi
 %attr(0640,root,root) %config %verify(not size mtime md5) %{_sysconfdir}/pam.d/kdm
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/security/blacklist.kdm
 %attr(0754,root,root) %{_sysconfdir}/rc.d/init.d/kdm
-%{_applnkdir}/Settings/System/kdm.desktop
+%{_applnkdir}/Settings/KDE/System/kdm.desktop
 %{_datadir}/apps/kdm
+%{_datadir}/config/kdmrc
 
 %files -n konqueror -f konqueror.lang
 %defattr(644,root,root,755)
@@ -311,6 +341,6 @@ fi
 %{_pixmapsdir}/*/*/apps/konqueror.png
 %{_applnkdir}/Network/WWW/konq*.desktop
 %{_applnkdir}/System/konq*.desktop
-%{_applnkdir}/Settings/FileBrowsing/kcmkonq.desktop
-%{_applnkdir}/Settings/WebBrowsing/konq*.desktop
+%{_applnkdir}/Settings/KDE/FileBrowsing/kcmkonq.desktop
+%{_applnkdir}/Settings/KDE/WebBrowsing/konq*.desktop
 %{_datadir}/apps/konq*
