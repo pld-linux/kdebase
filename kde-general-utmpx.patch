@@ -1,10 +1,24 @@
---- kdenetwork-030918/admin/acinclude.m4.in~	2003-09-17 23:36:46.000000000 +0200
-+++ kdenetwork-030918/admin/acinclude.m4.in	2003-09-22 18:10:27.000000000 +0200
-@@ -4224,6 +4224,7 @@
+--- kdenetwork-031105/admin/acinclude.m4.in.orig	2003-10-29 01:25:52.000000000 +0100
++++ kdenetwork-031105/admin/acinclude.m4.in	2003-11-12 18:15:08.000000000 +0100
+@@ -4274,20 +4274,7 @@
  
-     for ac_file in    \
-                       \
-+	/var/run/utmpx \
- 	/var/run/utmp \
- 	/var/adm/utmp \
- 	/etc/utmp     \
+     AC_CACHE_VAL(kde_cv_utmp_file,
+     [
+-    kde_cv_utmp_file=no
+-
+-    for ac_file in    \
+-                      \
+-	/var/run/utmp \
+-	/var/adm/utmp \
+-	/etc/utmp     \
+-     ; \
+-    do
+-     if test -r "$ac_file"; then
+-       kde_cv_utmp_file=$ac_file
+-       break
+-     fi
+-    done
++    kde_cv_utmp_file=/var/run/utmpx
+     ])
+ 
+     if test "$kde_cv_utmp_file" != "no"; then
