@@ -9,8 +9,8 @@
 #
 
 %define         _state          snapshots
-%define         _ver		3.1.92
-%define         _snap		031024
+%define         _ver		3.1.93
+%define         _snap		031103
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -29,7 +29,7 @@ License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:        http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	82631291410fea285de2843753ef5658
+# Source0-md5:	51ded5beb46f996a534146c9a784ffc9
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -38,7 +38,6 @@ Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-ircpld.desktop
 Source9:	%{name}-specs.desktop
-Source10:	%{name}-kde-settings.menu
 Source11:	%{name}-QtCurve.kcsrc
 Source12:	http://www.kernel.pl/~adgor/kde/%{name}-splash-Default-PLD.tar.bz2
 # Source12-md5:	d816105692259ada34b755c555a435fd
@@ -67,6 +66,8 @@ Patch23:	%{name}-prefmenu.patch
 Patch24:	%{name}-fix-mouse_cpp_for_enable_final.patch
 Patch25:	%{name}-session.patch
 Patch26:	%{name}-bgdefaults.patch
+Patch27:	%{name}-vmenus.patch
+Patch28:	kde-general-utmpx.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	arts-devel >= 1.2.0
@@ -104,12 +105,10 @@ BuildRequires:	xcursor-devel
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_sysconfdir	/etc/X11
 %define		_htmldir	%{_docdir}/kde/HTML
-%define		_vfinfodir	%{_datadir}/desktop-directories
+%define		_xdgdatadir	%{_datadir}/desktop-directories
 
 %define 	_noautoreqdep			libGL.so.1 libGLU.so.1
-%define		no_install_post_chrpath		1
 
 %description
 KDE specific files. Used by core KDE applications. Package includes:
@@ -869,6 +868,8 @@ Internet Explorer.
 #%patch24 -p1
 %patch25 -p1
 %patch26 -p1
+%patch27 -p1
+%patch28 -p1
 
 %build
 
@@ -879,6 +880,8 @@ done
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
+	--disable-rpath \
+	--enable-final \
 	--with-kdm-pam=kdm \
 	--with-pam=kdesktop
 
@@ -893,23 +896,21 @@ rm -rf $RPM_BUILD_ROOT
 	kde_htmldir=%{_htmldir}
 
 install -d \
-	$RPM_BUILD_ROOT/etc/{xdg/menus,pam.d,rc.d/init.d,security} \
-	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/faces \
+	$RPM_BUILD_ROOT/etc/{X11/kdm/faces,pam.d,rc.d/init.d,security} \
 	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
 
-mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession{,.orig}
+mv $RPM_BUILD_ROOT/etc/X11/kdm/Xsession{,.orig}
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
 install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
 install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
 install %{SOURCE3}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
-install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
+install %{SOURCE4}	$RPM_BUILD_ROOT/etc/X11/kdm/Xsession
 install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
 install %{SOURCE8}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/ircpld.desktop
 install %{SOURCE9}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/specs.desktop
-install %{SOURCE10}	$RPM_BUILD_ROOT/etc/xdg/menus/kde-settings.menu
 install %{SOURCE11}	$RPM_BUILD_ROOT%{_datadir}/apps/kdisplay/color-schemes/QtCurve.kcsrc
 
 # Make PLD splashscreen as default
@@ -922,9 +923,9 @@ cd -
 
 # Copying default faces to kdm config dir
 cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/default1.png \
-    $RPM_BUILD_ROOT%{_sysconfdir}/kdm/faces/.default.face.icon
+    $RPM_BUILD_ROOT/etc/X11/kdm/faces/.default.face.icon
 cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
-    $RPM_BUILD_ROOT%{_sysconfdir}/kdm/faces/root.face.icon
+    $RPM_BUILD_ROOT/etc/X11/kdm/faces/root.face.icon
 
 # Some desktop & kicker appearance defaults
 cat > $RPM_BUILD_ROOT%{_datadir}/config/kdesktoprc << EOF
@@ -946,9 +947,6 @@ mv $ALD/Help.desktop			$RPM_BUILD_ROOT%{_desktopdir}/kde
 mv $ALD/Home.desktop			$RPM_BUILD_ROOT%{_desktopdir}/kde
 mv $ALD/Kfind.desktop			$RPM_BUILD_ROOT%{_desktopdir}/kde
 mv $ALD/System/kinfocenter.desktop	$RPM_BUILD_ROOT%{_desktopdir}/kde
-
-cp $ALD/default_kde-information.menu \
-    $RPM_BUILD_ROOT/etc/xdg/menus/kde-information.menu
 
 mv $RPM_BUILD_ROOT%{_desktopdir}/kde/print{ers,mgr}.desktop
 
@@ -1097,12 +1095,23 @@ EOF
 %post -n kdm
 /sbin/chkconfig --add kdm
 if [ -f /var/lock/subsys/kdm ]; then
-	echo "To make sure that new version of KDM is running you should restart"
-	echo "KDM with:"
-	echo "/etc/rc.d/init.d/kdm restart"
-	echo
-	echo "WARNING: restarting KDM will terminate any X session started by it!"
-	else
+cat << EOF
+
+ ***************************************************
+ *                                                 *
+ * NOTE:                                           *
+ * To make sure that new version of KDM is running *
+ * You should restart KDM with:                    *
+ * "/etc/rc.d/init.d/kdm restart".                 *
+ *                                                 *
+ * WARNING:                                        *
+ * Restarting KDM will terminate any X session     *
+ * started by it!                                  *
+ *                                                 *
+ ***************************************************
+
+EOF
+else
 	echo "Run \"/etc/rc.d/init.d/kdm start\" to start kdm." >&2
 fi
 
@@ -1255,6 +1264,7 @@ fi
 %lang(en) %{_htmldir}/en/kcontrol/helpindex.html
 %lang(en) %{_htmldir}/en/kcontrol/index.*
 %lang(en) %{_htmldir}/en/kcontrol/screenshot.png
+/etc/xdg/menus/applications-merged/kde-essential.menu
 /etc/xdg/menus/kde-settings.menu
 %attr(0755,root,root) %{_bindir}/drkonqi
 %attr(0755,root,root) %{_bindir}/kcminit
@@ -1263,7 +1273,6 @@ fi
 %attr(0755,root,root) %{_bindir}/kdebugdialog
 %attr(0755,root,root) %{_bindir}/kdesu
 %attr(0755,root,root) %{_bindir}/kdesud
-#%attr(0755,root,root) %{_bindir}/kfmexec
 %attr(0755,root,root) %{_bindir}/khc_indexbuilder
 %attr(0755,root,root) %{_bindir}/khelpcenter
 %attr(0755,root,root) %{_bindir}/kprinter
@@ -1336,7 +1345,7 @@ fi
 %{_datadir}/services/programs.protocol
 %{_datadir}/services/settings.protocol
 %{_datadir}/services/system.protocol
-%{_vfinfodir}/kde-settings*.directory
+%{_xdgdatadir}/kde-settings*.directory
 %dir %{_applnkdir}/.hidden
 %{_desktopdir}/kde/language.desktop
 %{_desktopdir}/kde/kcmkded.desktop
@@ -1372,6 +1381,7 @@ fi
 %defattr(644,root,root,755)
 %doc AUTHORS README README.pam
 %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdesktop
+%attr(0755,root,root) %{_bindir}/kconf_update_bin/khotkeys_update
 %attr(0755,root,root) %{_bindir}/kaccess
 %attr(0755,root,root) %{_bindir}/kcheckpass
 %attr(0755,root,root) %{_bindir}/kdeeject
@@ -1483,7 +1493,7 @@ fi
 %{_datadir}/apps/kdesktop
 %{_datadir}/apps/kdewizard
 %{_datadir}/apps/kdisplay/app-defaults
-%{_datadir}/apps/kpersonalizer
+%{_datadir}/apps/khotkeys
 %dir %{_datadir}/apps/ksmserver
 %dir %{_datadir}/apps/ksmserver/pics
 %dir %{_datadir}/apps/ksplash
@@ -1522,7 +1532,6 @@ fi
 %{_datadir}/wallpapers/Time-For-Lunch-2.jpg
 %{_datadir}/wallpapers/Totally-New-Product-1.jpg
 %{_datadir}/wallpapers/Won-Ton-Soup-3.jpg
-#%{_datadir}/wallpapers/Via_Garibaldi.jpg
 %{_datadir}/wallpapers/default_blue.jpg
 %{_datadir}/wallpapers/default_gears.jpg
 %{_datadir}/wallpapers/fulmine.jpg
@@ -1677,7 +1686,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_view1394.so
 %{_datadir}/apps/kcmusb
 %{_datadir}/apps/kinfocenter
-%{_vfinfodir}/kde-information.directory
+%{_xdgdatadir}/kde-information.directory
 %{_desktopdir}/kde/devices.desktop
 %{_desktopdir}/kde/dma.desktop
 %{_desktopdir}/kde/interrupts.desktop
@@ -1926,12 +1935,13 @@ fi
 %files kpersonalizer
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kpersonalizer
+%{_datadir}/apps/kpersonalizer
 %{_desktopdir}/kde/kpersonalizer.desktop
 %{_iconsdir}/*/*/apps/kpersonalizer.png
 
 %files ksysguard -f ksysguard.lang
 %defattr(644,root,root,755)
-%config(noreplace) %verify(not size mtime md5) /etc/X11/ksysguarddrc
+%config(noreplace) %verify(not size mtime md5) /etc/ksysguarddrc
 %attr(0755,root,root) %{_bindir}/kpm
 %attr(0755,root,root) %{_bindir}/ksysguard
 %attr(0755,root,root) %{_bindir}/ksysguardd
@@ -2042,19 +2052,19 @@ fi
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdm
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kdm
 %attr(0754,root,root) /etc/rc.d/init.d/kdm
-%dir %{_sysconfdir}/kdm
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/kdmrc
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/backgroundrc
-%attr(0755,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/Xreset
-%attr(0755,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/Xsession
-%attr(0755,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/Xsetup
-%attr(0755,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/Xstartup
-%attr(0755,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/Xwilling
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/Xaccess
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/Xservers
-%dir %{_sysconfdir}/kdm/faces
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/faces/.default.face.icon
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/faces/root.face.icon
+%dir /etc/X11/kdm
+%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/kdmrc
+%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/backgroundrc
+%attr(0755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xreset
+%attr(0755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xsession
+%attr(0755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xsetup
+%attr(0755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xstartup
+%attr(0755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xwilling
+%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xaccess
+%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xservers
+%dir /etc/X11/kdm/faces
+%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/faces/.default.face.icon
+%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/faces/root.face.icon
 %attr(0755,root,root) %{_bindir}/genkdmconf
 %attr(0755,root,root) %{_bindir}/kdm
 %attr(0755,root,root) %{_bindir}/kdm_config
@@ -2062,6 +2072,8 @@ fi
 %attr(0755,root,root) %{_bindir}/krootimage
 %{_libdir}/kde3/kcm_kdm.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_kdm.so
+%{_libdir}/kde3/kgreet_classic.la
+%attr(0755,root,root) %{_libdir}/kde3/kgreet_classic.so
 %{_datadir}/apps/kdm
 %{_datadir}/wallpapers/kdm_pld.png
 %{_desktopdir}/kde/kdm.desktop
