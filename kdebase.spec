@@ -25,7 +25,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.5
+Release:	0.5.1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -598,7 +598,6 @@ for i in $programs; do
 	cat $i.lang >> %{name}.lang
 done
 
-
 programs="arts background bell clock colors desktop energy fonts \
 helpindex.html icons kcmaccess kcmfontinst kcmlaunch kcmnotify kcmsmserver \
 kcmstyle kcmtaskbar keyboard keys kthememgr kwindecoration language mouse \
@@ -721,8 +720,7 @@ fi
 %{_libdir}/[ae]*.la
 %attr(0755,root,root) %{_libdir}/[ae]*.so
 %{_libdir}/k[dhijlmsx]*.la
-%attr(0755,root,root) %{_libdir}/k[dhijlmsx]*.so
-%exclude %{_libdir}/*kicker*
+%attr(0755,root,root) %{_libdir}/k[dhjlmsx]*.so
 %{_libdir}/kaccess.la
 %attr(0755,root,root) %{_libdir}/kaccess.so
 %{_libdir}/kprinter.la
@@ -817,8 +815,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
 %dir %{_datadir}/apps/ksmserver
 %dir %{_datadir}/apps/ksplash
-%{_datadir}/apps/?[!acdefhosw]*
-%exclude %{_datadir}/apps/kicker
+%{_datadir}/apps/?[!acdefhiosw]*
 %{_datadir}/apps/kappfinder
 %{_datadir}/apps/kcm[!_c]*
 %{_datadir}/apps/kcm_componentchooser/*
@@ -829,6 +826,9 @@ fi
 %{_datadir}/apps/kdesktop
 %{_datadir}/apps/kdewizard
 %{_datadir}/apps/kdisplay
+%{_datadir}/apps/kinfocenter
+%{_datadir}/apps/kio_finger
+%{_datadir}/apps/kio_info
 %{_datadir}/apps/ksysguard
 %{_datadir}/apps/kwin
 %{_datadir}/apps/naughtyapplet
@@ -848,12 +848,23 @@ fi
 %{_datadir}/templates
 %{_datadir}/wallpapers
 %{_applnkdir}/Home.desktop
-%{_applnkdir}/.hidden/[kms][!c]*
-%exclude %{_applnkdir}/.hidden/*kicker*
+%{_applnkdir}/.hidden/k[!cio]*
+%{_applnkdir}/.hidden/[ms]*
+# compat
+%{_applnkdir}/.hidden/battery.desktop
+%{_applnkdir}/.hidden/bwarning.desktop
+%{_applnkdir}/.hidden/cwarning.desktop
+%{_applnkdir}/.hidden/kcmkxmlrpcd.desktop
+%{_applnkdir}/.hidden/power.desktop
+%{_applnkdir}/.hidden/virtualdesktops.desktop
+#
 %{_applnkdir}/System/k[!o]*.desktop
 %{_applnkdir}/Utilities/k[!de]*.desktop
-%{_applnkdir}/Settings/[!K]*.desktop
-%exclude  %{_applnkdir}/Settings/kcmkicker.desktop
+%{_applnkdir}/Settings/kappfinder.desktop
+%{_applnkdir}/Settings/kinfocenter.desktop
+%{_applnkdir}/Settings/kmenuedit.desktop
+%{_applnkdir}/Settings/kpersonalizer.desktop
+%{_applnkdir}/Settings/printmgr.desktop
 %{_applnkdir}/Settings/KDE/email.desktop
 %{_applnkdir}/Settings/KDE/Accessibility
 %{_applnkdir}/Settings/KDE/Components/[!f]*
@@ -881,8 +892,7 @@ fi
 %{_pixmapsdir}/*/*/apps/co[!o]*
 %{_pixmapsdir}/*/*/apps/e[!n]*
 %{_pixmapsdir}/*/*/apps/en[!h]*
-%{_pixmapsdir}/*/*/apps/k[ijlmnptvmx]*
-%exclude %{_pixmapsdir}/*/*/apps/*kicker*
+%{_pixmapsdir}/*/*/apps/k[jlmnptvmx]*
 %{_pixmapsdir}/*/*/apps/kappfinder.png
 %{_pixmapsdir}/[!l]*/*/apps/kc[!o][!s]*
 %{_pixmapsdir}/*/*/apps/kcms[!y]*
@@ -1311,6 +1321,10 @@ fi
 %{_datadir}/servicetypes/k[!a]*
 %{_applnkdir}/konqueror.desktop
 %{_applnkdir}/.hidden/f*
+%{_applnkdir}/.hidden/ko*
+# compat
+%{_applnkdir}/.hidden/kcmkonq.desktop
+#
 %{_applnkdir}/Network/WWW/konq*.desktop
 %{_applnkdir}/Utilities/keditbookmarks.desktop
 %{_applnkdir}/Settings/KDE/Components/filetypes.desktop
