@@ -88,6 +88,208 @@ diff -urN -x CVS kdebase.orig/kcontrol/locale/language.desktop kdebase/kcontrol/
  Name[tg]=Кишвар/Забон ва Минтақа
  Name[th]=ประเทศและภาษา
  Name[tr]=Ülke/Bölge ve Dil
+diff -urN -x CVS kdebase.orig/kioslave/fish/fish.cpp kdebase/kioslave/fish/fish.cpp
+--- kdebase.orig/kioslave/fish/fish.cpp	Fri May 28 13:44:52 2004
++++ kdebase/kioslave/fish/fish.cpp	Mon Jun  7 11:26:09 2004
+@@ -227,7 +227,8 @@
+ };
+ 
+ fishProtocol::fishProtocol(const QCString &pool_socket, const QCString &app_socket)
+-  : SlaveBase("fish", pool_socket, app_socket), mimeBuffer(1024)
++  : SlaveBase("fish", pool_socket, app_socket), mimeBuffer(1024),
++    mimeTypeSent(false)
+ {
+     myDebug( << "fishProtocol::fishProtocol()" << endl);
+     if (sshPath == NULL) {
+@@ -456,6 +457,8 @@
+         if (outBufPos >= 0) FD_SET(childFd,&wfds);
+         rc = select(childFd+1, &rfds, &wfds, NULL, NULL);
+         if (rc < 0) {
++            if (errno == EINTR)
++                continue;
+             myDebug( << "select failed, rc: " << rc << ", error: " << strerror(errno) << endl);
+             return true;
+         }
+@@ -464,6 +467,8 @@
+             else rc = 0;
+             if (rc >= 0) outBufPos += rc;
+             else {
++                if (errno == EINTR)
++                    continue;
+                 myDebug( << "write failed, rc: " << rc << ", error: " << strerror(errno) << endl);
+                 outBufPos = -1;
+                 //return true;
+@@ -482,6 +487,8 @@
+                 if (noff > 0) memmove(buf,buf+offset+rc-noff,noff);
+                 offset = noff;
+             } else {
++                if (errno == EINTR)
++                    continue;
+                 myDebug( << "read failed, rc: " << rc << ", error: " << strerror(errno) << endl);
+                 return true;
+             }
+@@ -646,10 +653,9 @@
+  */
+ void fishProtocol::shutdownConnection(bool forced){
+     if (childPid) {
+-        kill(childPid,SIGTERM);
+-        wait(NULL);
++        kill(childPid,SIGTERM); // We may not have permission...
+         childPid = 0;
+-        close(childFd);
++        close(childFd); // ...in which case this should do the trick
+         childFd = -1;
+         if (!forced)
+         {
+@@ -963,10 +969,10 @@
+                 break;
+             }
+             recvLen = line.toInt(&isOk);
+-            if (recvLen == 0) mimeType("application/x-zerosize");
+             if (!isOk) {
+                 error(ERR_COULD_NOT_READ,url.prettyURL());
+                 shutdownConnection();
++                break;
+             }
+             break;
+         default : break;
+@@ -985,6 +991,12 @@
+                 rawRead = recvLen;
+                 t_start = t_last = time(NULL);
+                 dataRead = 0;
++                mimeTypeSent = false;
++                if (recvLen == 0)
++                {
++                    mimeType("application/x-zerosize");
++                    mimeTypeSent = true;
++                }
+             }
+             break;
+         case FISH_STOR:
+@@ -1010,6 +1022,7 @@
+             break;
+         case FISH_READ:
+             mimeType("inode/directory");
++            mimeTypeSent = true;
+             recvLen = 0;
+             finished();
+             break;
+@@ -1103,6 +1116,7 @@
+             rawRead = recvLen;
+             t_start = t_last = time(NULL);
+             dataRead = 0;
++            mimeTypeSent = false;
+         }
+     }
+ }
+@@ -1161,29 +1175,36 @@
+         if (rawRead > 0) {
+             myDebug( << "processedSize " << dataRead << ", len " << buflen << "/" << rawRead << endl);
+             int dataSize = (rawRead > buflen?buflen:rawRead);
+-            if (dataRead < (int)mimeBuffer.size()) {
+-                int mimeSize = (dataSize > (int)mimeBuffer.size()-dataRead?(int)mimeBuffer.size()-dataRead:dataSize);
++            if (!mimeTypeSent)
++            {
++                int mimeSize = QMIN(dataSize, (int)mimeBuffer.size()-dataRead);
+                 memcpy(mimeBuffer.data()+dataRead,buffer,mimeSize);
+-                if (dataSize >= mimeSize) {
+-                    if (rawRead+dataRead < (int)mimeBuffer.size())
+-                        mimeBuffer.resize(rawRead+dataRead);
+-                    sendmimeType(KMimeMagic::self()->findBufferFileType(mimeBuffer,url.path())->mimeType());
+-                    if (fishCommand != FISH_READ) {
+-                        data(mimeBuffer);
+-                        totalSize(rawRead+dataRead);
+-                    }
+-                    mimeBuffer.resize(1024);
+-                    if (dataSize > mimeSize) {
+-                        QByteArray rest(dataSize-mimeSize);
+-                        rest.duplicate(buffer+mimeSize,dataSize-mimeSize);
+-                        data(rest);
+-                     }
++                dataRead += mimeSize;
++                rawRead -= mimeSize;
++                buffer += mimeSize;
++                buflen -= mimeSize;
++                if (rawRead == 0) // End of data
++                    mimeBuffer.resize(dataRead);
++                if (dataRead < (int)mimeBuffer.size())
++                {
++                    myDebug( << "wait for more" << endl);
++                    break;
+                 }
+-            } else {
+-                QByteArray bdata;
+-                bdata.duplicate(buffer,dataSize);
+-                data(bdata);
++                sendmimeType(KMimeMagic::self()->findBufferFileType(mimeBuffer,url.path())->mimeType());
++                mimeTypeSent = true;
++                if (fishCommand != FISH_READ) {
++                    totalSize(dataRead + rawRead);
++                    data(mimeBuffer);
++                    processedSize(dataRead);
++                }
++                mimeBuffer.resize(1024);
++                continue; // Process rest of buffer/buflen
+             }
++
++            QByteArray bdata;
++            bdata.duplicate(buffer,dataSize);
++            data(bdata);
++            
+             dataRead += dataSize;
+             rawRead -= dataSize;
+             time_t t = time(NULL);
+@@ -1295,6 +1316,8 @@
+             if (outBufPos >= 0) FD_SET(childFd,&wfds);
+             rc = select(childFd+1, &rfds, &wfds, NULL, NULL);
+             if (rc < 0) {
++                if (errno == EINTR)
++                    continue;
+                 myDebug( << "select failed, rc: " << rc << ", error: " << strerror(errno) << endl);
+                 error(ERR_CONNECTION_BROKEN,connectionHost);
+                 shutdownConnection();
+@@ -1308,6 +1331,8 @@
+                 else rc = 0;
+                 if (rc >= 0) outBufPos += rc;
+                 else {
++                    if (errno == EINTR)
++                        continue;
+                     myDebug( << "write failed, rc: " << rc << ", error: " << strerror(errno) << endl);
+                     error(ERR_CONNECTION_BROKEN,connectionHost);
+                     shutdownConnection();
+@@ -1328,6 +1353,8 @@
+                     //myDebug( << "left " << noff << " bytes: " << QString::fromLatin1(buf,offset) << endl);
+                     offset = noff;
+                 } else {
++                    if (errno == EINTR)
++                        continue;
+                     myDebug( << "read failed, rc: " << rc << ", error: " << strerror(errno) << endl);
+                     error(ERR_CONNECTION_BROKEN,connectionHost);
+                     shutdownConnection();
+diff -urN -x CVS kdebase.orig/kioslave/fish/fish.h kdebase/kioslave/fish/fish.h
+--- kdebase.orig/kioslave/fish/fish.h	Sun Jul 27 22:42:07 2003
++++ kdebase/kioslave/fish/fish.h	Mon Jun  7 11:26:09 2004
+@@ -172,6 +172,8 @@
+   QByteArray rawData;
+   /** buffer for storing bytes used for MimeMagic */
+   QByteArray mimeBuffer;
++  /** whther the mimetype has been sent already */
++  bool mimeTypeSent;
+   /** number of bytes read so far */
+   int dataRead;
+   time_t t_last, t_start;
+diff -urN -x CVS kdebase.orig/konqueror/konquerorsu.desktop kdebase/konqueror/konquerorsu.desktop
+--- kdebase.orig/konqueror/konquerorsu.desktop	Sun May 30 16:01:30 2004
++++ kdebase/konqueror/konquerorsu.desktop	Sat Jun  5 20:46:03 2004
+@@ -1,7 +1,7 @@
+ [Desktop Entry]
+ Encoding=UTF-8
+ Type=Application
+-Exec=konqueror
++Exec=konqueror --profile filemanagement
+ DocPath=konqueror/index.html
+ Icon=kfm
+ X-KDE-SubstituteUID=true
 diff -urN -x CVS kdebase.orig/konsole/konsole/TEWidget.cpp kdebase/konsole/konsole/TEWidget.cpp
 --- kdebase.orig/konsole/konsole/TEWidget.cpp	Sat May  1 20:56:07 2004
 +++ kdebase/konsole/konsole/TEWidget.cpp	Tue Jun  1 14:36:57 2004
