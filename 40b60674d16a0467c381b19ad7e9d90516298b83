@@ -1,0 +1,2 @@
+- cznged BuildRequires:
+	from Mesa-devel to OpenGL-devel.
