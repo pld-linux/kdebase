@@ -16,7 +16,7 @@ Summary(uk):	K Desktop Environment - базов╕ файли
 Summary(zh_CN):	KDE╨кпд
 Name:		kdebase
 Version:	3.0.5a
-Release:	0.1
+Release:	0.2
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -318,7 +318,7 @@ Standardowy obrazek okna "Wyloguj" KDE.
 %patch12 -p1
 %patch13 -p1
 %patch14 -p1
-#%patch15 -p1	-- to be updated
+%patch15 -p1
 
 %patch20 -p1
 %patch21 -p1
