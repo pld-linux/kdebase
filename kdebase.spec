@@ -2,7 +2,7 @@ Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
 Version:	2.2.1
-Release:	2
+Release:	3
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -19,6 +19,7 @@ Patch1:		%{name}-konsole-TERM.patch
 Patch2:		%{name}-glibc-2.2.2.patch
 Patch3:		%{name}-utmp.patch
 Patch4:		%{name}-nsplugins_dirs.patch
+Patch5:		%{name}-hardcoded_paths.patch
 BuildRequires:	grep
 BuildRequires:	awk
 BuildRequires:	findutils
@@ -42,6 +43,8 @@ BuildRequires:	lame-libs-devel
 BuildRequires:	glut-devel
 BuildRequires:	cups-devel
 BuildRequires:	gettext-devel
+BuildRequires:	alsa-lib-devel
+BuildRequires:	audiofile-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
 Prereq:		/sbin/ldconfig
@@ -170,6 +173,7 @@ Wygaszacze ekranu desktopu KDE.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 
