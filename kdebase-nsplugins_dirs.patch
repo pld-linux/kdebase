@@ -1,28 +1,31 @@
---- kdebase-031029/kcontrol/konqhtml/pluginopts.cpp.orig	2003-10-29 01:07:19.000000000 +0100
-+++ kdebase-031029/kcontrol/konqhtml/pluginopts.cpp	2003-10-29 22:27:57.000000000 +0100
-@@ -376,18 +376,7 @@
+--- kdebase/kcontrol/konqhtml/pluginopts.cpp.orig	2004-03-23 14:55:09.000000000 +0100
++++ kdebase/kcontrol/konqhtml/pluginopts.cpp	2004-03-23 15:17:25.182487976 +0100
+@@ -352,21 +352,7 @@
      if ( config->hasKey( "scanPaths" ) )
          paths = config->readListEntry( "scanPaths" );
-     else {
+     else {//keep sync with kdebase/nsplugins/pluginscan
 -        paths.append("$HOME/.netscape/plugins");
+-        paths.append("/usr/lib64/browser-plugins");
+-        paths.append("/usr/lib/browser-plugins");
 -        paths.append("/usr/local/netscape/plugins");
 -        paths.append("/opt/mozilla/plugins");
+-	paths.append("/opt/mozilla/lib/plugins");
 -        paths.append("/opt/netscape/plugins");
 -        paths.append("/opt/netscape/communicator/plugins");
 -        paths.append("/usr/lib/netscape/plugins");
 -        paths.append("/usr/lib/netscape/plugins-libc5");
 -        paths.append("/usr/lib/netscape/plugins-libc6");
 -        paths.append("/usr/lib/mozilla/plugins");
--        paths.append("/usr/lib64/netscape/plugins");
--        paths.append("/usr/lib64/mozilla/plugins");	
+-	paths.append("/usr/lib64/netscape/plugins");
+-	paths.append("/usr/lib64/mozilla/plugins");
 -        paths.append("$MOZILLA_HOME/plugins");
-+        paths.append("/usr/ilb/kde3/plugins/konqueror");
++        paths.append("/usr/lib/kde3/plugins/konqueror");
      }
  
      // fill list
---- kdebase-031029/nsplugins/pluginscan.cpp.orig	2003-10-29 01:07:30.000000000 +0100
-+++ kdebase-031029/nsplugins/pluginscan.cpp	2003-10-29 22:23:26.000000000 +0100
-@@ -441,22 +441,7 @@
+--- kdebase/nsplugins/pluginscan.cpp.orig	2004-03-23 14:57:02.000000000 +0100
++++ kdebase/nsplugins/pluginscan.cpp	2004-03-23 15:15:28.117284592 +0100
+@@ -441,20 +441,7 @@
      // setup default paths
      if ( !config->hasKey("scanPaths") ) {
          QStringList paths;
@@ -38,11 +41,9 @@
 -        paths.append("/usr/lib/netscape/plugins-libc5");
 -        paths.append("/usr/lib/netscape/plugins-libc6");
 -        paths.append("/usr/lib/mozilla/plugins");
--	paths.append("/usr/lib/browser-plugins");
 -	paths.append("/usr/lib64/netscape/plugins");
 -	paths.append("/usr/lib64/mozilla/plugins");
--        paths.append("$MOZILLA_HOME/plugins");
 +        paths.append("/usr/lib/kde3/plugins/konqueror");
+         paths.append("$MOZILLA_HOME/plugins");
          config->writeEntry( "scanPaths", paths );
      }
- 
