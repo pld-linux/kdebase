@@ -52,7 +52,7 @@
  		    {
  			case( SettingsMode ):
 -			    relPath=relPath.right(relPath.length()-9); //Settings/ ==9
-+			    relPath=relPath.right(relPath.length()-13); //Settings/ ==13
++			    relPath=relPath.right(relPath.length()-13); //KDE-Settings/ ==13
  			    kdDebug() << "SettingsProtocol: adding entry settings:/" << relPath << endl;
  			    createDirEntry(entry, groupCaption, "settings:/"+relPath, "inode/directory",g->icon());
  			    break;
