@@ -6,7 +6,7 @@
 # * Sources renaming & renumerating
 # * Separating kicker, kwin, wtf
 # * languages
-
+#
 # Conditional build:
 # _without_alsa 	- disable alsa
 #
@@ -95,6 +95,7 @@ BuildRequires:	openldap-devel
 BuildRequires:	openssl-devel >= 0.9.6j
 BuildRequires:	pam-devel
 BuildRequires:	perl
+BuildRequires:	sed
 BuildRequires:	qt-devel >= 3.1
 BuildRequires:	zlib-devel
 Conflicts:	%{name} < 3.1.1a
@@ -203,10 +204,10 @@ Pakiet zawiera statyczne biblioteki KDE.
 Bibliotecas estáticas do kdebase.
 
 %package -n kde-sdscreen-default
-Summary:        KDE "Logout" picture
-Summary(pl):    Obrazek okna "Wyloguj" KDE
-Group:          X11/Amusements
-Provides:       kde-sdscreen
+Summary:	KDE "Logout" picture
+Summary(pl):	Obrazek okna "Wyloguj" KDE
+Group:		X11/Amusements
+Provides:	kde-sdscreen
 Requires:	%{name} >= %{epoch}:%{version}
 Obsoletes:	kde-sdscreen-KDEGirl
 Obsoletes:	kde-sdscreen-keramik
@@ -437,11 +438,12 @@ Wygaszacze ekranu desktopu KDE.
 Summary:	KDE Display Manager
 Summary(pl):	Zarz±dca ekranów KDE
 Group:		X11/Applications
+PreReq:		rc-scripts
+Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-kcontrol = %{epoch}:%{version}-%{release}
 Requires:	%{name}-pam = %{epoch}:%{version}-%{release}
 Requires:	sessreg
 Requires:	xinitrc
-Prereq:		/sbin/chkconfig
 Obsoletes:	gdm
 Obsoletes:	xdm
 Obsoletes:	%{name}-kdm
