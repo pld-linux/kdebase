@@ -366,58 +366,6 @@
  
      _showUsers = GetCfgInt (C_ShowUsers);
      _users = GetCfgQStrList (C_SelectedUsers);
---- kdebase-3.1/kdm/kfrontend/kgreeter.cpp.orig	Mon Oct 28 10:55:24 2002
-+++ kdebase-3.1/kdm/kfrontend/kgreeter.cpp	Fri Nov 29 19:11:14 2002
-@@ -256,7 +256,7 @@
- 
-     UpdateLock();
- 
--    stsfile = new KSimpleConfig( QString::fromLatin1(KDE_CONFDIR "/kdm/kdmsts") ); // XXX get from kdm_config
-+    stsfile = new KSimpleConfig( QString::fromLatin1("/etc/X11/kdm/kdmsts") ); // XXX get from kdm_config
-     stsfile->setGroup( "PrevUser" );
-     enam = QString::fromLocal8Bit( dname );
-     if (kdmcfg->_preselUser != PRESEL_PREV)
-@@ -286,7 +286,8 @@
-     QImage p;
-     if (kdmcfg->_faceSource != FACE_USER_ONLY &&
- 	kdmcfg->_faceSource != FACE_PREFER_USER)
--	p = QPixmap( locate( "user_pic", username + ".png" ) );
-+	p = QPixmap( QString::fromLatin1("/etc/X11/kdm/pics/users/") +
-+					username + QString::fromLatin1(".png") );
-     if (p.isNull() && kdmcfg->_faceSource != FACE_ADMIN_ONLY) {
- 	// XXX remove seteuid-voodoo when we run as nobody
- 	seteuid( ps->pw_uid );
-@@ -294,7 +295,8 @@
- 	seteuid( 0 );
-     }
-     if (p.isNull() && kdmcfg->_faceSource != FACE_USER_ONLY)
--	p = QPixmap( locate( "user_pic", username + ".png" ) );
-+	p = QPixmap( QString::fromLatin1("/etc/X11/kdm/pics/users/") +
-+					username + QString::fromLatin1(".png") );
-     if (p.isNull())
- 	p = default_pix;
-     else
-@@ -313,7 +315,7 @@
- KGreeter::insertUsers( KListView *listview )
- {
-     QImage default_pix(
--	locate( "user_pic", QString::fromLatin1("default.png") ) );
-+	QString::fromLatin1("/etc/X11/kdm/pics/users/default.png") );
-     if (default_pix.isNull())
- 	LogError("Can't open default pixmap \"default.png\"\n");
-     default_pix = default_pix.smoothScale( 48, 48, QImage::ScaleMin );
-@@ -788,11 +790,6 @@
- 
-     app.setFont( kdmcfg->_normalFont );
- 
--    KGlobal::dirs()->addResourceType( "user_pic",
--				      KStandardDirs::kde_default("data") +
--				      QString::fromLatin1("kdm/pics/users/") );
--
--
- #ifdef HAVE_XKBSETPERCLIENTCONTROLS
-     //
-     //  Activate the correct mapping for modifiers in XKB extension as
 --- kdebase-3.1/kdm/kfrontend/pics/Makefile.am.orig	Sun Feb 20 17:34:48 2000
 +++ kdebase-3.1/kdm/kfrontend/pics/Makefile.am	Fri Nov 29 18:38:41 2002
 @@ -1,5 +1,5 @@
