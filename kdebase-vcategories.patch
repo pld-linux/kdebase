@@ -13,7 +13,14 @@
  Keywords[zu]=konqueror,imenenja yamafayela,izindlela,desktop,izibi,uhlu lwamafayela,ukuqala ngokuzenzekela
  
 -Categories=Qt;KDE;X-KDE-settings-system
-+Categories=Qt;KDE;X-KDE-settings-desktop
++Categories=Qt;KDE;X-KDE-settings-desktop;
+--- kdebase/kdepasswd/kcm/kcm_useraccount.desktop.orig	2004-03-25 23:46:49.000000000 +0100
++++ kdebase/kdepasswd/kcm/kcm_useraccount.desktop	2004-03-27 12:59:17.844442808 +0100
+@@ -30,3 +30,4 @@
+ Comment[pt_BR]=Informações do usuário tais como senha, nome e e-mail
+ Comment[sv]=Användarinformation som lösenord, namn och e-post
+ Comment[tr]=Parola, isim ve e-posta gibi kullanıcı bilgisi
++Categories=Qt;KDE;X-KDE-settings-security;
 --- kdebase-040110/khelpcenter/Help.desktop.orig	2004-01-10 14:42:58.000000000 +0100
 +++ kdebase-040110/khelpcenter/Help.desktop	2004-01-10 15:00:25.000000000 +0100
 @@ -6,7 +6,7 @@
@@ -57,7 +64,7 @@
  
  
 -Categories=Qt;KDE;System;X-KDE-More
-+Categories=Qt;KDE;SystemSetup
++Categories=Qt;KDE;SystemSetup;
 --- kdebase-030317/konsole/konsolesu.desktop~	Tue Mar 18 18:35:21 2003
 +++ kdebase-030317/konsole/konsolesu.desktop	Wed Mar 19 19:11:09 2003
 @@ -106,4 +106,4 @@
@@ -65,7 +72,7 @@
  GenericName[zu]=Uhlelo lwemisebenzi lwangaohandle
  X-KDE-AuthorizeAction=shell_access
 -Categories=Qt;KDE;System;TerminalEmulator;X-KDE-More
-+Categories=Qt;KDE;SystemSetup;TerminalEmulator
++Categories=Qt;KDE;SystemSetup;TerminalEmulator;
 --- kdebase-040104/konqueror/konqbrowser.desktop.orig	2004-01-04 14:57:13.000000000 +0100
 +++ kdebase-040104/konqueror/konqbrowser.desktop	2004-01-04 19:25:45.242699600 +0100
 @@ -75,4 +75,4 @@
@@ -73,4 +80,4 @@
  GenericName[zh_TW]=網頁瀏覽器
  GenericName[zu]=Umcingi we-Web
 -Categories=Qt;KDE;Network
-+Categories=Qt;KDE;Network;X-WWW
++Categories=Qt;KDE;Network;X-WWW;
