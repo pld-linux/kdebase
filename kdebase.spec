@@ -46,7 +46,7 @@ Source13:	http://ep09.pld-linux.org/~adgor/kde/%{name}-konqsidebartng-PLD-entrie
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
 %if %{with i18n}
 Source14:       http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
-# Source14-md5:  
+# Source14-md5: 30848effd6e53fb459a620a50f761b85 
 %endif
 Patch0:		%{name}-fontdir.patch
 Patch1:		%{name}-kcm_background.patch
