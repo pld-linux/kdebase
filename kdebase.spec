@@ -312,6 +312,6 @@ fi
 %attr(0755,xdm,xdm) %{_bindir}/kdm
 %attr(0755,xdm,xdm) %{_sysconfdir}/X11/kdm
 %attr(0640,root,root) %config %verify(not size mtime md5) %{_sysconfdir}/pam.d/kdm
-%attr(0640,root,root) %config(norepalce) %verify(not size mtime md5) %{_sysconfdir}/security/blacklist.kdm
+%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/security/blacklist.kdm
 %attr(0754,root,root) %{_sysconfdir}/rc.d/init.d/kdm
 %{_datadir}/apps/kdm
