@@ -49,9 +49,9 @@
    QString icon = "openterm";
    QString key;
    QString sch = s_kconfigSchema;
---- kdebase-030317/konsole/konsole/konsole_part.cpp~	Wed Feb 12 02:47:09 2003
-+++ kdebase-030317/konsole/konsole/konsole_part.cpp	Tue Mar 18 10:20:47 2003
-@@ -463,7 +463,7 @@
+--- kdebase-030621/konsole/konsole/konsole_part.cpp~	2003-06-21 00:34:59.000000000 +0200
++++ kdebase-030621/konsole/konsole/konsole_part.cpp	2003-06-21 19:59:49.000000000 +0200
+@@ -514,7 +514,7 @@
    b_framevis = config->readBoolEntry("has frame",false);
    b_histEnabled = config->readBoolEntry("historyenabled",true);
    n_bell = QMIN(config->readUnsignedNumEntry("bellmode",TEWidget::BELLSYSTEM),2);
@@ -60,12 +60,12 @@
    n_keytab=config->readNumEntry("keytab",0); // act. the keytab for this session
    n_scroll = QMIN(config->readUnsignedNumEntry("scrollbar",TEWidget::SCRRIGHT),2);
    m_histSize = config->readNumEntry("history",DEFAULT_HISTORY_SIZE);
-@@ -947,7 +947,7 @@
+@@ -987,7 +987,7 @@
                                  const QStrList& args )
  {
    if ( se ) delete se;
--  se = new TESession(te, program, args, "xterm");
-+  se = new TESession(te, program, args, "xterm-color");
+-  se = new TESession(te, program, args, "xterm", parentWidget->winId());
++  se = new TESession(te, program, args, "xterm-color", parentWidget->winId());
    connect( se,SIGNAL(done(TESession*)),
             this,SLOT(doneSession(TESession*)) );
    connect( se,SIGNAL(openURLRequest(const QString &)),
