@@ -49,9 +49,10 @@ Patch9:		%{name}-konsole_all.patch
 Patch10:	%{name}-nsplugins_dirs.patch
 Patch11:	%{name}-startkde.patch
 Patch12:	%{name}-gtkrc.patch
-# From rh
+# Two from RH
 Patch13:        %{name}-kicker_nodesktop.patch
 Patch14:        %{name}-xfsreload.patch
+#
 Patch15:	%{name}-kdm_kgreeter.patch
 
 %ifnarch sparc sparc64
@@ -87,8 +88,6 @@ BuildRequires:	openssl-devel >= 0.9.6i
 BuildRequires:	pam-devel
 BuildRequires:	qt-devel >= 3.1
 BuildRequires:	zlib-devel
-# TODO: sensors
-#BuildRequires:	sensors-devel
 Requires(post,postun):	/sbin/ldconfig
 Requires:	applnk >= 1.5.11
 Requires:	kde-splash
@@ -506,7 +505,6 @@ ALD=$RPM_BUILD_ROOT%{_applnkdir}
 
 install -d $ALD/{Help,Network/WWW,Settings/KDE,System/Administration,Terminals}
 
-mv -f $ALD/{Help.desktop,Help}
 mv -f $ALD/{Internet/konqbrowser.desktop,Network/WWW}
 mv -f $ALD/{Internet/keditbookmarks.desktop,Utilities}
 mv -f $ALD/{System/konsole.desktop,Terminals}
@@ -523,9 +521,8 @@ Icon=kcontrol
 X-KDE-BaseGroup=settings
 EOF
 
-cat $ALD/Help/Help.desktop |sed 's/Help/KDE Help/' |sed 's/Pomoc/Pomoc KDE/' \
-	> Help.desktop.tmp
-mv Help.desktop.tmp $ALD/Help/Help.desktop
+cat $ALD/Help.desktop |sed 's/Help/KDE Help/' |sed 's/Pomoc/Pomoc KDE/' \
+	> $ALD/Help/Help.desktop
 
 for f in `find $ALD -name '.directory' -o -name '*.dekstop'` ; do
 	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
