@@ -16,7 +16,7 @@
 
 # Get service config
 if [ -f /etc/sysconfig/kdm ] ; then
-        . /etc/sysconfig/kdm
+	. /etc/sysconfig/kdm
 fi
 
 # See how we were called.
@@ -44,7 +44,7 @@ case "$1" in
 	$0 start
 	;;
   *)
-	echo "Usage: $0 {start|stop|status|restart|reload}"
+	msg_usage "$0 {start|stop|restart|reload|status}"
 	exit 1
 esac
 
