@@ -185,3 +185,69 @@
  launcher_panelapplet_la_LIBADD = ../../kicker.la $(LIB_KSYCOCA) $(LIB_KDEUI) 
  
  messages:
+--- kdebase-3.0.4/kicker/extensions/kasbar/Makefile.am~	Mon Nov 11 13:28:27 2002
++++ kdebase-3.0.4/kicker/extensions/kasbar/Makefile.am	Mon Nov 11 13:28:27 2002
+@@ -9,7 +9,7 @@
+ 				kasgroupitem.cpp kasgrouppopup.cpp
+ 
+ kasbar_panelextension_la_METASOURCES = AUTO
+-kasbar_panelextension_la_LDFLAGS = $(all_libraries) -no-undefined -module -no-undefined
++kasbar_panelextension_la_LDFLAGS = $(all_libraries) -module -avoid-version -no-undefined
+ kasbar_panelextension_la_LIBADD =  $(LIB_KDEUI) ../../taskmanager/libtaskmanager.la
+ 
+ noinst_HEADERS = kasbar.h kasitem.h kasbarextension.h \
+--- kdebase-3.0.4/kicker/extensions/kasbar/Makefile.in~	Mon Nov 11 13:28:27 2002
++++ kdebase-3.0.4/kicker/extensions/kasbar/Makefile.in	Mon Nov 11 13:28:27 2002
+@@ -299,7 +299,7 @@
+ 
+ 
+ #>- kasbar_panelextension_la_METASOURCES = AUTO
+-kasbar_panelextension_la_LDFLAGS = $(all_libraries) -no-undefined -module -no-undefined
++kasbar_panelextension_la_LDFLAGS = $(all_libraries) -module -avoid-version -no-undefined
+ kasbar_panelextension_la_LIBADD = $(LIB_KDEUI) ../../taskmanager/libtaskmanager.la
+ 
+ noinst_HEADERS = kasbar.h kasitem.h kasbarextension.h \
+--- kdebase-3.0.4/kicker/applets/lockout/Makefile.am~	Mon Nov 11 13:30:36 2002
++++ kdebase-3.0.4/kicker/applets/lockout/Makefile.am	Mon Nov 11 13:30:36 2002
+@@ -4,7 +4,7 @@
+ kde_module_LTLIBRARIES = lockout_panelapplet.la
+ 
+ lockout_panelapplet_la_SOURCES = lockout.cpp
+-lockout_panelapplet_la_LDFLAGS = $(all_libraries) -module  -no-undefined
++lockout_panelapplet_la_LDFLAGS = $(all_libraries) -module -avoid-version -no-undefined
+ lockout_panelapplet_la_LIBADD = $(LIB_KSYCOCA)
+ 
+ noinst_HEADERS = lockout.h
+--- kdebase-3.0.4/kicker/applets/lockout/Makefile.in~	Mon Nov 11 13:30:45 2002
++++ kdebase-3.0.4/kicker/applets/lockout/Makefile.in	Mon Nov 11 13:30:45 2002
+@@ -293,7 +293,7 @@
+ kde_module_LTLIBRARIES = lockout_panelapplet.la
+ 
+ lockout_panelapplet_la_SOURCES = lockout.cpp
+-lockout_panelapplet_la_LDFLAGS = $(all_libraries) -module  -no-undefined
++lockout_panelapplet_la_LDFLAGS = $(all_libraries) -module -avoid-version -no-undefined
+ lockout_panelapplet_la_LIBADD = $(LIB_KSYCOCA)
+ 
+ noinst_HEADERS = lockout.h
+--- kdebase-3.0.4/ksysguard/gui/Makefile.am~	Mon Nov 11 13:34:19 2002
++++ kdebase-3.0.4/ksysguard/gui/Makefile.am	Mon Nov 11 13:34:19 2002
+@@ -52,7 +52,7 @@
+ 	ksgrd/libksgrd.la \
+ 	SensorDisplayLib/libsensordisplays.la \
+ 	$(LIB_KDEUI) $(LIB_KFILE)
+-sysguard_panelapplet_la_LDFLAGS = $(all_libraries) -version-info 1:0:0 -module -no-undefined
++sysguard_panelapplet_la_LDFLAGS = $(all_libraries) -module -avoid-version -no-undefined
+ 
+ EXTRA_DIST = $(lnk_DATA)
+ 
+--- kdebase-3.0.4/ksysguard/gui/Makefile.in~	Mon Nov 11 13:34:26 2002
++++ kdebase-3.0.4/ksysguard/gui/Makefile.in	Mon Nov 11 13:34:26 2002
+@@ -356,7 +356,7 @@
+ 	SensorDisplayLib/libsensordisplays.la \
+ 	$(LIB_KDEUI) $(LIB_KFILE)
+ 
+-sysguard_panelapplet_la_LDFLAGS = $(all_libraries) -version-info 1:0:0 -module -no-undefined
++sysguard_panelapplet_la_LDFLAGS = $(all_libraries) -module -avoid-version -no-undefined
+ 
+ EXTRA_DIST = $(lnk_DATA)
+ 
