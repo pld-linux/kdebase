@@ -204,7 +204,7 @@
  #Merge: xdm - incompatible!
  User: core
  # will be overwritten
-@@ -1593,11 +1593,11 @@
+@@ -1617,7 +1617,7 @@
  
  Key: AllowRootLogin
  Type: bool
@@ -212,12 +212,7 @@
 +Default: false
  User: core
  User: greeter(showRoot)
- # sensible?
--Instance: */false
-+Instance: */true
- Instance: :*/true
- Merge: xdm
- Comment:
+ Instance: */false
 @@ -1608,10 +1608,10 @@
  
  Key: AllowNullPasswd
