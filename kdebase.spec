@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without	apidocs		# prepare API documentation
+%bcond_without	apidocs		# Do not prepare API documentation
 %bcond_without	ldap		# build or not ldap ioslave
 %bcond_with	kwin_shadow	# experimental support for kwin shadows
 
@@ -1090,7 +1090,7 @@ done
 %build
 cp /usr/share/automake/config.sub admin
 
-export UNSERMAKE=/usr/share/unsermake/unsermake
+#export UNSERMAKE=/usr/share/unsermake/unsermake
 
 %{__make} -f admin/Makefile.common cvs
 
@@ -1127,10 +1127,6 @@ install -d \
 	$RPM_BUILD_ROOT/etc/{X11/kdm/faces,pam.d,rc.d/init.d,security} \
 	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
 
-if [ -d "$RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-%{version}-apidocs" ] ; then
-mv -f $RPM_BUILD_ROOT{%{_kdedocdir}/en/%{name}-%{version}-apidocs,%{_kdedocdir}/en/%{name}-apidocs}
-fi
-
 # Backup generated Xsession file (we have own one)
 mv $RPM_BUILD_ROOT/etc/X11/kdm/Xsession{,.orig}
 
@@ -1166,20 +1162,20 @@ mv $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop 
 	$RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/remote
 
 # Some desktop appearance defaults
-cat > $RPM_BUILD_ROOT%{_datadir}/config/kdesktoprc << EOF
-[FMSettings]
-NormalTextColor=255,255,255
-ShadowEnabled=true
-StandardFont=Helvetica,13,-1,5,75,0,0,0,0,0
-EOF
+#cat > $RPM_BUILD_ROOT%{_datadir}/config/kdesktoprc << EOF
+#[FMSettings]
+#NormalTextColor=255,255,255
+#ShadowEnabled=true
+#StandardFont=Helvetica,13,-1,5,75,0,0,0,0,0
+#EOF
 
 # Some kicker appearance defaults
-cat > $RPM_BUILD_ROOT%{_datadir}/config/kickerrc << EOF
-[General]
-Alignment=1
-SizePercentage=50
-UseBackgroundTheme=false
-EOF
+#cat > $RPM_BUILD_ROOT%{_datadir}/config/kickerrc << EOF
+#[General]
+#Alignment=1
+#SizePercentage=50
+#UseBackgroundTheme=false
+#EOF
 
 # Some order with desktop files
 mv $RPM_BUILD_ROOT%{_datadir}/applnk/System/kinfocenter.desktop \
@@ -1286,6 +1282,10 @@ cat kioslave.lang	>> kinfocenter.lang
 
 # Omit apidocs entries
 sed -i 's/.*apidocs.*//' *.lang
+
+if [ -d "$RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-%{version}-apidocs" ] ; then
+	mv -f $RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-{%{version}-,}apidocs
+fi
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -1584,7 +1584,6 @@ fi
 %{_datadir}/apps/kdeprint_part
 %dir %{_datadir}/apps/kdisplay
 %{_datadir}/apps/kdisplay/color-schemes
-%{_datadir}/apps/kdisplay/app-defaults
 %{_datadir}/apps/khelpcenter
 %{_datadir}/apps/khtml/kpartplugins/*
 %{_datadir}/apps/remoteview
@@ -1779,6 +1778,7 @@ fi
 %{_datadir}/apps/kconf_update/*.upd
 %{_datadir}/apps/kdesktop
 %{_datadir}/apps/kdewizard
+# Do not include this!
 #%{_datadir}/apps/kdisplay/app-defaults
 %{_datadir}/apps/khotkeys
 %dir %{_datadir}/apps/ksmserver
@@ -1796,7 +1796,7 @@ fi
 %{_datadir}/autostart/kdesktop.desktop
 %{_datadir}/autostart/khotkeys.desktop
 %{_datadir}/autostart/ktip.desktop
-%{_datadir}/config/kdesktoprc
+#%{_datadir}/config/kdesktoprc
 %{_datadir}/config/kdesktop_custom_menu1
 %{_datadir}/config/kdesktop_custom_menu2
 %{_datadir}/config/kxkb_groups
@@ -2056,7 +2056,7 @@ fi
 %{_datadir}/apps/kicker/wallpapers
 %{_datadir}/apps/naughtyapplet
 %{_datadir}/autostart/panel.desktop
-%{_datadir}/config/kickerrc
+#%{_datadir}/config/kickerrc
 %{_datadir}/applnk/.hidden/kicker_config.desktop
 %{_datadir}/applnk/.hidden/kicker_config_appearance.desktop
 %{_desktopdir}/kde/kcmtaskbar.desktop
