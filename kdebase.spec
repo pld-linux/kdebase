@@ -1,26 +1,26 @@
+%define		sver alpha2
 Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
-Version:	2.1.1
-Release:	2
-Epoch:		6
+Version:	2.2
+Release:	0.%{sver}
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
-Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/distribution/tar/generic/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/unstable/%{version}%{sver}/src/%{name}-%{version}%{sver}.tar.bz2
 Source1:	%{name}-startkde.sh
 Source2:	kdm.pamd
 Source3:	kdm.init
 Source4:	kdm.Xsession
 Source5:	kdmrc
-Patch0:		%{name}-waitkdm.patch
-Patch1:		%{name}-konsole-TERM.patch
-Patch2:		%{name}-time.patch
-Patch3:		%{name}-glibc-2.2.2.patch
-Patch4:		%{name}-kxmlrpcd-tcpsocket.patch
-Patch5:		%{name}-arrange.patch
-Patch6:		%{name}-utmp.patch
+#Patch0:		%{name}-waitkdm.patch
+#Patch1:		%{name}-konsole-TERM.patch
+#Patch2:		%{name}-time.patch
+#Patch3:		%{name}-glibc-2.2.2.patch
+#Patch4:		%{name}-kxmlrpcd-tcpsocket.patch
+#Patch5:		%{name}-arrange.patch
+#Patch6:		%{name}-utmp.patch
 BuildRequires:	grep
 BuildRequires:	libtool
 BuildRequires:	autoconf
@@ -154,14 +154,14 @@ KDE screensavers.
 Wygaszacze ekranu desktopu KDE.
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
+%setup  -q -n %{name}-%{version}%{sver}
+#%patch0 -p1
+#%patch1 -p1
+#%patch2 -p1
+#%patch3 -p1
+#%patch4 -p1
+#%patch5 -p1
+#%patch6 -p1
 
 %build
 #libtoolize --copy --force
@@ -198,7 +198,6 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,S
  	DESTDIR="$RPM_BUILD_ROOT" \
  	fontdir="%{_fontdir}/misc"
 
-install kwrite/kwrite.desktop		$RPM_BUILD_ROOT%{_applnkdir}/Office/Editors
 install konqueror/konqbrowser.desktop	$RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
 install konqueror/keditbookmarks/keditbookmarks.desktop \
 	$RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
@@ -318,6 +317,7 @@ fi
 %attr(0755,root,root) %{_libdir}/k[dhilmwx]*.so*
 %attr(0755,root,root) %{_libdir}/kcminit.??
 %attr(0755,root,root) %{_libdir}/kcontrol.??
+%attr(0755,root,root) %{_libdir}/kate.??
 %attr(0755,root,root) %{_libdir}/konsole.la
 %attr(0755,root,root) %{_libdir}/konsole.so*
 %attr(0755,root,root) %{_libdir}/lib[cdqt]*.la
@@ -350,7 +350,6 @@ fi
 %{_applnkdir}/KControl.desktop
 %{_applnkdir}/.hidden/konqfilemgr.desktop
 %{_applnkdir}/Amusements/*.desktop
-%{_applnkdir}/Office/Editors/*.desktop
 %{_applnkdir}/Settings/KDE/Help
 %{_applnkdir}/Settings/KDE/Information
 %{_applnkdir}/Settings/KDE/LookNFeel/background.desktop
@@ -407,7 +406,6 @@ fi
 %{_pixmapsdir}/*/*/apps/kdisknav.png
 
 %{_pixmapsdir}/*/*/actions/*
-%{_pixmapsdir}/*/*/devices/*
 %{_pixmapsdir}/*/*/filesystems/*
 
 # TODO:	file /usr/share/fonts/misc/9x15.pcf.gz from install of kdebase-2.0.1-3
@@ -480,7 +478,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kde2/libkcm_konq*.la
 %attr(0755,root,root) %{_libdir}/kde2/libkcm_konq*.so*
 %attr(0755,root,root) %{_libdir}/kde2/libkonq*la
-%attr(0755,root,root) %{_libdir}/kde2/libkonq*so*
+%attr(0755,root,root) %{_libdir}/kde2/libkonq*so
 
 %{_applnkdir}/Network/WWW/konq*.desktop
 %{_applnkdir}/Network/WWW/keditbookmarks.desktop
