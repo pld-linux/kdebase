@@ -2,7 +2,7 @@ Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
 Version:	2.1
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -76,6 +76,21 @@ This package contains header files needed to develop KDE applications.
 Pakiet zawiera pliki nag³ówkowe niezbêdne do programowania aplikacji
 KDE.
 
+%package static
+Summary:	Include static libraries to develop KDE applications.
+Summary(pl):	Statyczne biblioteki KDE.
+Group:		X11/Development/Libraries
+Group(de):	X11/Entwicklung/Libraries
+Group(pl):	X11/Programowanie/Biblioteki
+Requires:	qt-devel >= 2.2.2
+Requires:	kdelibs-devel = %{version}
+
+%description static
+This package contains KDE static libraries.
+
+%description static -l pl
+Pakiet zawiera statyczne biblioteki KDE.
+
 %package -n kdm
 Summary:	KDE Display Manager	
 Summary(pl):	KDE Display Manager
@@ -113,6 +128,21 @@ Explorer.
 Konqueror jest przegl±dark± WWW i mene¿derem plików podobnym do MS
 Internet Explorer.
 
+%package screensavers
+Summary:	KDE screensavers
+Summary(pl):	Wygaszacze ekranu desktopu KDE
+Group:		X11/Applications
+Group(de):	X11/Applikationen
+Group(pl):	X11/Aplikacje
+Requires:	qt >= 2.2.2
+Requires:	kdelibs = %{version}
+
+%description screensavers
+KDE screensavers
+
+%description screensavers -l pl
+Wygaszacze ekranu desktopu KDE
+
 %prep
 %setup -q
 #pascalek %patch0 -p1
@@ -144,6 +174,8 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,S
 
 install kwrite/kwrite.desktop		$RPM_BUILD_ROOT%{_applnkdir}/Office/Editors
 install konqueror/konqbrowser.desktop	$RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
+install konqueror/keditbookmarks/keditbookmarks.desktop \
+    $RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
 install ktip/ktip.desktop		$RPM_BUILD_ROOT%{_applnkdir}/Amusements
 install %{SOURCE1}			$RPM_BUILD_ROOT%{_bindir}/startkde
 install %{SOURCE2}			$RPM_BUILD_ROOT%{_sysconfdir}/pam.d/kdm
@@ -220,78 +252,119 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%attr(0755,root,root) %{_bindir}/[adens]*
+%attr(0755,root,root) %{_bindir}/[ades]*
 %attr(0755,root,root) %{_bindir}/conttest
-%attr(0755,root,root) %{_bindir}/k[abcefhilmprstvwx]*
+%attr(0755,root,root) %{_bindir}/k[acfitwx]*
+%attr(0755,root,root) %{_bindir}/keditfiletype
 %attr(0755,root,root) %{_bindir}/kd[ce]*
 %attr(0755,root,root) %{_bindir}/konsole*
+%attr(0755,root,root) %{_bindir}/khelpcenter
+%attr(0755,root,root) %{_bindir}/khotkeys
+%attr(0755,root,root) %{_bindir}/khtmlindex
+%attr(0755,root,root) %{_bindir}/klegacyimport
+%attr(0755,root,root) %{_bindir}/klipper
+%attr(0755,root,root) %{_bindir}/ks[mpty]*
+%attr(0755,root,root) %{_bindir}/krdb
+%attr(0755,root,root) %{_bindir}/kreadconfig
+%attr(0755,root,root) %{_bindir}/kpager
+%attr(0755,root,root) %{_bindir}/kmenuedit
 
-%attr(0755,root,root) %{_libdir}/[ae]*.la*
+%attr(0755,root,root) %{_libdir}/[ae]*.la
 %attr(0755,root,root) %{_libdir}/[ae]*.so*
-%attr(0755,root,root) %{_libdir}/k[acdefhilmwx]*.la*
-%attr(0755,root,root) %{_libdir}/k[acdefhilmwx]*.so*
+%attr(0755,root,root) %{_libdir}/k[cdefhilmwx]*.la
+%attr(0755,root,root) %{_libdir}/k[cdefhilmwx]*.so*
 %attr(0755,root,root) %{_libdir}/konsole.la
 %attr(0755,root,root) %{_libdir}/konsole.so*
-%attr(0755,root,root) %{_libdir}/lib[cdnqt]*.la*
-%attr(0755,root,root) %{_libdir}/lib[cdnqt]*.so*
-%attr(0755,root,root) %{_libdir}/libkasbarextension.la
-%attr(0755,root,root) %{_libdir}/libkasbarextension.so*
-%attr(0755,root,root) %{_libdir}/libkcm_[ilnx]*.la*
-%attr(0755,root,root) %{_libdir}/libkcm_[ilnx]*.so*
-%attr(0755,root,root) %{_libdir}/libk[hmrstw]*.la*
-%attr(0755,root,root) %{_libdir}/libk[hmrstw]*.so*
+%attr(0755,root,root) %{_libdir}/lib[cdqt]*.la
+%attr(0755,root,root) %{_libdir}/lib[cdqt]*.so*
+%attr(0755,root,root) %{_libdir}/libk[ahmrstw]*.la
+%attr(0755,root,root) %{_libdir}/libk[ahmrstw]*.so*
+%attr(0755,root,root) %{_libdir}/libkcm_[ilx]*.la*
+%attr(0755,root,root) %{_libdir}/libkcm_[ilx]*.so*
 %attr(0755,root,root) %{_libdir}/libkonsolepart.la
 %attr(0755,root,root) %{_libdir}/libkonsolepart.so*
+%attr(0755,root,root) %{_libdir}/libnaughtyapplet.la
+%attr(0755,root,root) %{_libdir}/libnaughtyapplet.so*
 
-%attr(0755,root,root) %{_libdir}/kde2/[ikt]*.la*
+%attr(0755,root,root) %{_libdir}/kde2/[ikt]*.la
 %attr(0755,root,root) %{_libdir}/kde2/[ikt]*.so*
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_[abcefilmpst]*.la*
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_[abcefilmpst]*.so*
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_k[ehinuw]*.la*
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_[abcefilmpt]*.la
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_[abcefilmpt]*.so*
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_k[ehinuw]*.la
 %attr(0755,root,root) %{_libdir}/kde2/libkcm_k[ehinuw]*.so*
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_s[amt]*.la
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_s[amt]*.so*
 %attr(0755,root,root) %{_libdir}/kde2/libk[fsuw]*.la*
 %attr(0755,root,root) %{_libdir}/kde2/libk[fsuw]*.so*
 
 # NOTE:	There are many directories created by kappfinder. They should be
 #	ignored as such functionality is provided by applnk package and
 #	*.dekstop files from apropriate packages.
-%{_applnkdir}/Amusements/*.desktop
-%{_applnkdir}/Office/Editors/*.desktop
-%{_applnkdir}/Settings/KDE
-%{_applnkdir}/System/k[!o]*.desktop
-%{_applnkdir}/System/kon[!q]*.desktop
-%{_applnkdir}/System/ScreenSavers/*.desktop
-%{_applnkdir}/Utilities/klipper.desktop
-%{_applnkdir}/Utilities/kpager.desktop
 %{_applnkdir}/Help.desktop
 %{_applnkdir}/Home.desktop
 %{_applnkdir}/KControl.desktop
+%{_applnkdir}/.hidden/konqfilemgr.desktop
+%{_applnkdir}/Amusements/*.desktop
+%{_applnkdir}/Development/*.desktop
+%{_applnkdir}/Office/Editors/*.desktop
+%{_applnkdir}/Settings/KDE/Help
+%{_applnkdir}/Settings/KDE/Information
+%{_applnkdir}/Settings/KDE/LookNFeel/background.desktop
+%{_applnkdir}/Settings/KDE/LookNFeel/colors.desktop
+%{_applnkdir}/Settings/KDE/LookNFeel/fonts.desktop
+%{_applnkdir}/Settings/KDE/LookNFeel/icons.desktop
+%{_applnkdir}/Settings/KDE/LookNFeel/kcmnotify.desktop
+%{_applnkdir}/Settings/KDE/LookNFeel/kcmtaskbar.desktop
+%{_applnkdir}/Settings/KDE/LookNFeel/keys.desktop
+%{_applnkdir}/Settings/KDE/LookNFeel/kthememgr.desktop
+%{_applnkdir}/Settings/KDE/LookNFeel/kwinoptions.desktop
+%{_applnkdir}/Settings/KDE/LookNFeel/panel.desktop
+%{_applnkdir}/Settings/KDE/LookNFeel/style.desktop
+%{_applnkdir}/Settings/KDE/LookNFeel/virtualdesktops.desktop
+%{_applnkdir}/Settings/KDE/LookNFeel/Desktop
+%{_applnkdir}/Settings/KDE/LookNFeel/Themes
+%{_applnkdir}/Settings/KDE/LookNFeel/Windows
+%{_applnkdir}/Settings/KDE/Network
+%{_applnkdir}/Settings/KDE/Peripherals
+%{_applnkdir}/Settings/KDE/Personalization
+%{_applnkdir}/Settings/KDE/PowerControl
+%{_applnkdir}/Settings/KDE/Sound
+%{_applnkdir}/Settings/KDE/System
+%{_applnkdir}/System/k[!o]*.desktop
+%{_applnkdir}/System/kon[!q]*.desktop
+%{_applnkdir}/Utilities/klipper.desktop
+%{_applnkdir}/Utilities/kpager.desktop
 
-%{_datadir}/apps/[cdq]*
-%{_datadir}/apps/k[abchimsw]*
-%{_datadir}/apps/kdcop
-%{_datadir}/apps/kdesktop
-%{_datadir}/apps/kdewizard
-%{_datadir}/apps/kdisplay
+%{_datadir}/apps/[cdn]*
+%{_datadir}/apps/k[abcfhimtw]*
+%{_datadir}/apps/kd[cei]*
 %{_datadir}/apps/konsole
+%{_datadir}/apps/ks[py]*
 
-%{_pixmapsdir}/*/*/actions/*
-%{_pixmapsdir}/*/*/devices/*
-%{_pixmapsdir}/*/*/apps/[abcdefghilmnprstwx]*
-%{_pixmapsdir}/*/*/apps/k[acdefhlmnpstw]*
-%{_pixmapsdir}/*/*/apps/konsole.png
-
+%{_datadir}/autostart
 %dir %{_datadir}/config
 %{_datadir}/config/[!k]*
 %{_datadir}/config/k[!d]*
+%{_datadir}/config/kdesktop*
 %{_datadir}/locale
 %{_datadir}/mimelnk
-%{_datadir}/services
+%{_datadir}/services/[abfghimnpst]*
+%{_datadir}/services/k[afhsuwx]*
 %{_datadir}/sounds
 %{_datadir}/templates
 %{_datadir}/wallpapers
-%{_datadir}/fonts
-%{_datadir}/servicetypes
+#pascalek %{_datadir}/fonts
+%{_datadir}/servicetypes/[stf]*.desktop
+
+%{_pixmapsdir}/*/*/apps/[abcdefghilmnprstwx]*
+%{_pixmapsdir}/*/*/apps/k[acefhilmnptwm]*
+%{_pixmapsdir}/*/*/apps/konsole.png
+%{_pixmapsdir}/*/*/apps/ksysguard.png
+%{_pixmapsdir}/*/*/apps/kdisknav.png
+
+%{_pixmapsdir}/*/*/actions/*
+%{_pixmapsdir}/*/*/devices/*
+%{_pixmapsdir}/*/*/filesystems/*
 
 # TODO:	file /usr/share/fonts/misc/9x15.pcf.gz from install of kdebase-2.0.1-3
 # 	conflicts with file from package XFree86-fonts-4.0.1-2.
@@ -303,36 +376,90 @@ fi
 %dir %{_includedir}/kwin
 %{_includedir}/*.h
 %{_includedir}/kwin/*.h
-%{_libdir}/*.a
+
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/libccont.a
 
 %files -f kdm.lang -n kdm
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/chooser
-%attr(0755,root,root) %{_bindir}/kdm*
-%attr(0755,root,root) %{_sysconfdir}/X11/kdm
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_kdm.??
-%attr(0755,root,root) %{_libdir}/libKdmGreet.??
+%attr(0755,root,root) %{_bindir}/kdm
+%attr(0755,root,root) %{_bindir}/kdmdesktop
+
+%attr(0755,root,root) %{_libdir}/libKdmGreet.la
+%attr(0755,root,root) %{_libdir}/libKdmGreet.so*
+
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_kdm.la
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_kdm.so*
+
+%dir %{_sysconfdir}/X11/kdm
+%attr(0755,root,root) %{_sysconfdir}/X11/kdm/*
+%attr(0754,root,root) %{_sysconfdir}/rc.d/init.d/kdm
 %attr(0640,root,root) %config %verify(not size mtime md5) %{_sysconfdir}/pam.d/kdm
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/security/blacklist.kdm
-%attr(0754,root,root) %{_sysconfdir}/rc.d/init.d/kdm
+
 %{_applnkdir}/Settings/KDE/System/kdm.desktop
+
 %{_datadir}/apps/kdm
 %{_datadir}/config/kdmrc
 
+%{_pixmapsdir}/*/*/apps/kdmconfig.png
+
 %files -n konqueror -f konqueror.lang
 %defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/keditbookmarks
 %attr(0755,root,root) %{_bindir}/konqueror
-%attr(0755,root,root) %{_libdir}/konqueror.??
-%attr(0755,root,root) %{_libdir}/libhtmlsearch.??
-%attr(0755,root,root) %{_libdir}/libkcm_htmlsearch.??
-%attr(0755,root,root) %{_libdir}/libkonq*
-%attr(0755,root,root) %{_libdir}/kde2/libkonq*
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_konq*
-%attr(0755,root,root) %{_libdir}/kde2/htmlthumbnail.*
+%attr(0755,root,root) %{_bindir}/nspluginscan
+%attr(0755,root,root) %{_bindir}/nspluginviewer
+
+%attr(0755,root,root) %{_libdir}/konqueror.la
+%attr(0755,root,root) %{_libdir}/konqueror.so*
+%attr(0755,root,root) %{_libdir}/libhtmlsearch.la
+%attr(0755,root,root) %{_libdir}/libhtmlsearch.so*
+%attr(0755,root,root) %{_libdir}/libkcm_htmlsearch.la
+%attr(0755,root,root) %{_libdir}/libkcm_htmlsearch.so*
+%attr(0755,root,root) %{_libdir}/libkcm_nsplugin.la
+%attr(0755,root,root) %{_libdir}/libkcm_nsplugin.so*
+%attr(0755,root,root) %{_libdir}/libkonq*.la
+%attr(0755,root,root) %{_libdir}/libkonq*.so*
+%attr(0755,root,root) %{_libdir}/libnsplugin.la
+%attr(0755,root,root) %{_libdir}/libnsplugin.so*
+
+%attr(0755,root,root) %{_libdir}/kde2/htmlthumbnail.la
+%attr(0755,root,root) %{_libdir}/kde2/htmlthumbnail.so*
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_konq.la
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_konq.so*
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_konqhtml.la
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_konqhtml.so*
+%attr(0755,root,root) %{_libdir}/kde2/libkonqtree.la
+%attr(0755,root,root) %{_libdir}/kde2/libkonqtree.so*
+
+%{_applnkdir}/Network/WWW/konq*.desktop
+%{_applnkdir}/Network/WWW/keditbookmarks.desktop
+%{_applnkdir}/System/konq*.desktop
+%{_applnkdir}/Settings/KDE/FileBrowsing
+%{_applnkdir}/Settings/KDE/WebBrowsing
+
+%{_datadir}/apps/konq*
+%{_datadir}/apps/keditbookmarks
+%{_datadir}/services/htmlthumbnail.desktop
+%{_datadir}/services/konq*.desktop
+%{_datadir}/servicetypes/konqaboutpage.desktop
 
 %{_pixmapsdir}/*/*/apps/konqueror.png
-%{_applnkdir}/Network/WWW/konq*.desktop
-%{_applnkdir}/System/konq*.desktop
-%{_applnkdir}/Settings/KDE/FileBrowsing/kcmkonq.desktop
-%{_applnkdir}/Settings/KDE/WebBrowsing/konq*.desktop
-%{_datadir}/apps/konq*
+
+
+%files screensavers
+%defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/*.kss
+
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_screensaver.la
+%attr(0755,root,root) %{_libdir}/kde2/libkcm_screensaver.so*
+
+%{_applnkdir}/Settings/KDE/LookNFeel/screensaver.desktop
+%{_applnkdir}/System/ScreenSavers/*
+
+%{_datadir}/apps/kscreensaver
+
+%{_pixmapsdir}/*/*/apps/kscreensaver.png
