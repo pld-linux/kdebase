@@ -552,6 +552,7 @@ i dekoracji okna).
 Summary:	KDE Info Center
 Summary(pl):	Centrum informacji o systemie dla KDE
 Group:		X11/Applications
+Requires:	pciutils
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 
 %description infocenter
