@@ -1,16 +1,17 @@
-Summary:     	K Desktop Environment - core files
-Summary(pl): 	K Desktop Environment - pliki ¶rodowiska
-Name:        	kdebase
-Version:     	1.93
-Release: 3
-Copyright:   	GPL
-Group:       	X11/KDE/Base
-Group(pl):      X11/KDE
-Vendor:      	The KDE Team
-Source0:      	ftp://ftp.kde.org/pub/kde/unstable/distribution/2.0Beta4/tar/src/%{name}-%{version}.tar.bz2
-Source1:     	kdeenv
-Patch0:		kdebase-DESTDIR.patch
-BuildRequires:	qt >= 2.2.0
+Summary:	K Desktop Environment - core files
+Summary(pl):	K Desktop Environment - pliki ¶rodowiska
+Name:		kdebase
+Version:	2.0
+Release:	3
+License:	GPL
+Group:		X11/KDE
+Group(de):	X11/KDE
+Group(pl):	X11/KDE
+Vendor:		The KDE Team
+Source0:	ftp://ftp.kde.org/pub/kde/stable/2.0/distribution/generic/tar/src/%{name}-%{version}.tar.bz2
+Source1:	kdeenv
+Patch0:		%{name}-DESTDIR.patch
+BuildRequires:	qt >= 2.2.1
 BuildRequires:	kdelibs-devel >= %{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng >= 1.0.8
@@ -21,149 +22,131 @@ BuildRequires:	zlib-devel
 BuildRequires:	pam-devel
 BuildRequires:	OpenGL-devel
 Requires:	kdelibs = %{version}
-Requires:	qt >= 2.2.0
-BuildRoot:   	/tmp/%{name}-%{version}-root
+Requires:	qt >= 2.2.1
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix 		/usr/X11R6
-%define		_sysconfdir		/etc/X11/kde
-%define		_kde_htmldir		%{_datadir}/doc/HTML
-%define		_kde_icondir		%{_datadir}/pixmaps
-%define		_kde_minidir		%{_kde_icondir}/mini
-%define		_kde_appsdir		%{_datadir}/applnk
-%define		_kde_sounddir		%{_datadir}/sounds
-%define		_kde_datadir		%{_datadir}/apps
-%define		_kde_locale		%{_datadir}/locale
-%define		_kde_cgidir		%{_libdir}/kde/cgi-bin
-%define		_kde_confdir		%{_sysconfdir}
-%define		_kde_mimedir		%{_datadir}/mimelnk
-%define		_kde_toolbardir		%{_datadir}/kde/toolbar
-%define		_kde_wallpaperdir	%{_datadir}/wallpapers
-%define		_kde_bindir		%{_bindir}
-%define		_kde_partsdir		%{_libdir}/parts
+%define		_includedir		%{_prefix}/kde
 
 %description
-KDE specific files. Used by core KDE applications.
-Package includes:
-  KDE menu hierarchy
-  kappfinder - script installing some non-KDE apps in KDE menu
-  krootwm - module used by KWM and KFM
-  kaudio - audio server for KDE
+KDE specific files. Used by core KDE applications. Package includes:
+KDE menu hierarchy kappfinder - script installing some non-KDE apps in
+KDE menu krootwm - module used by KWM and KFM kaudio - audio server
+for KDE
 
 %description -l pl
 Pliki specyficzne dla ¶rodowiska KDE i wykorzystywane przez g³ówne
-aplikacje KDE.
-Pakiet zawiera:
-  Hierarchiê menu KDE
-  kappfinder - skrypt u³awiaj±cy uruchamianie niektórych programów spoza KDE
-  krootwm - modu³ wykorzystywany przez kwm i kfm
-  kaudio - serwer d¼wiêku dla KDE
+aplikacje KDE. Pakiet zawiera: Hierarchiê menu KDE kappfinder - skrypt
+u³awiaj±cy uruchamianie niektórych programów spoza KDE krootwm - modu³
+wykorzystywany przez kwm i kfm kaudio - serwer d¼wiêku dla KDE
 
 %package kcontrol
-Summary:     	KDE Control Center
-Summary(pl): 	Centrum Sterowania KDE
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE Control Center
+Summary(pl):	Centrum Sterowania KDE
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 Requires:	%{name} = %{version}
 
 %description kcontrol
-KDE Control Center - easy way to access KDE configuration modules
-and several useful modules.
+KDE Control Center - easy way to access KDE configuration modules and
+several useful modules.
 
 %description -l pl kcontrol
 Centrum sterowania KDE - program obs³ugi modu³ów konfiguracyjnych KDE
 oraz kilka przydatnych modu³ów.
 
 %package khelpcenter
-Summary:     	KDE Help System	
-Summary(pl): 	System Pomocy KDE
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE Help System	
+Summary(pl):	System Pomocy KDE
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 
 %description khelpcenter
-This program is used for viewing KDE applications' online manual.
-It is also convinient for reading system's man pages and "info" documentation.
+This program is used for viewing KDE applications' online manual. It
+is also convinient for reading system's man pages and "info"
+documentation.
 
 %description -l pl khelpcenter
-Program umo¿liwiaj±cy przegl±danie dokumentacji applikacji KDE.
-Jest te¿ wygodnym narzêdziem do ogl±dania stron man i dokumentacji "info".
+Program umo¿liwiaj±cy przegl±danie dokumentacji applikacji KDE. Jest
+te¿ wygodnym narzêdziem do ogl±dania stron man i dokumentacji "info".
 
 %package kdm
-Summary:     	KDE Display Manager	
-Summary(pl): 	KDE Display Manager
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE Display Manager	
+Summary(pl):	KDE Display Manager
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 
 %description kdm
-It is KDE replacement for XDM.
-It manages local and remote X11 displays.
+It is KDE replacement for XDM. It manages local and remote X11
+displays.
 
 %description -l pl kdm
 Zamiennik XDM rodem z KDE.
 
 %package kdesu
-Summary:     	KDE Display Manager	
-Summary(pl): 	KDE Display Manager
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE Display Manager	
+Summary(pl):	KDE Display Manager
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 
 %description kdesu
-It is KDE replacement for XDM.
-It manages local and remote X11 displays.
+It is KDE replacement for XDM. It manages local and remote X11
+displays.
 
 %description -l pl kdesu
 Zamiennik XDM rodem z KDE.
 
 %package kstart
-Summary:     	KDE Display Manager	
-Summary(pl): 	KDE Display Manager
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE Display Manager	
+Summary(pl):	KDE Display Manager
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 
 %description kstart
-It is KDE replacement for XDM.
-It manages local and remote X11 displays.
+It is KDE replacement for XDM. It manages local and remote X11
+displays.
 
 %description -l pl kstart
 Zamiennik XDM rodem z KDE.
 
 %package ksmserver
-Summary:     	KDE Display Manager	
-Summary(pl): 	KDE Display Manager
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE Display Manager	
+Summary(pl):	KDE Display Manager
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 
 %description ksmserver
-It is KDE replacement for XDM.
-It manages local and remote X11 displays.
+It is KDE replacement for XDM. It manages local and remote X11
+displays.
 
 %description -l pl ksmserver
 Zamiennik XDM rodem z KDE.
 
 %package konsole
-Summary:     	KDE Display Manager	
-Summary(pl): 	KDE Display Manager
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE Display Manager	
+Summary(pl):	KDE Display Manager
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 
 %description konsole
-It is KDE replacement for XDM.
-It manages local and remote X11 displays.
+It is KDE replacement for XDM. It manages local and remote X11
+displays.
 
 %description -l pl konsole
 Zamiennik XDM rodem z KDE.
 
 %package kfind
-Summary:     	KDE file finder	
-Summary(pl): 	Wyszukiwarka plików dla KDE
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE file finder	
+Summary(pl):	Wyszukiwarka plików dla KDE
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 
 %description kfind
@@ -173,11 +156,11 @@ A simple frontend to find and grep.
 Prosty interfejs dla poleceñ find i grep.
 
 %package kfm
-Summary:     	KDE file manager	
-Summary(pl): 	Mened¿er plików KDE
-Group:       	X11/KDE/Base
-Requires:    	%{name} = %{version}
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE file manager	
+Summary(pl):	Mened¿er plików KDE
+Group:		X11/KDE
+Requires:	%{name} = %{version}
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version} 
 
 %description kfm
@@ -187,11 +170,11 @@ A file manager and a web browser for KDE.
 Mened¿er plików i przegl±darka WWW dla KDE.
 
 %package kappfinder
-Summary:     	KDE file manager	
-Summary(pl): 	Mened¿er plików KDE
-Group:       	X11/KDE/Base
-Requires:    	%{name} = %{version}
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE file manager	
+Summary(pl):	Mened¿er plików KDE
+Group:		X11/KDE
+Requires:	%{name} = %{version}
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version} 
 
 %description kappfinder
@@ -201,25 +184,25 @@ A file manager and a web browser for KDE.
 Mened¿er plików i przegl±darka WWW dla KDE.
 
 %package kfontmanager
-Summary:     	KDE font manager	
-Summary(pl): 	Mened¿er fontów KDE
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE font manager	
+Summary(pl):	Mened¿er fontów KDE
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 
 %description kfontmanager
-A font manager for KDE.
-It may be used to choose fonts which can be used by KDE.
+A font manager for KDE. It may be used to choose fonts which can be
+used by KDE.
 
 %description -l pl kfm
-Mened¿er fontów dla KDE.
-Mo¿e byæ wykorzystany do okre¶lenia listy czcionek dostêpnych dla aplikacji KDE.
+Mened¿er fontów dla KDE. Mo¿e byæ wykorzystany do okre¶lenia listy
+czcionek dostêpnych dla aplikacji KDE.
 
 %package kmenuedit
-Summary:     	KDE Menu Editor	
-Summary(pl): 	Edytor menu KDE
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE Menu Editor	
+Summary(pl):	Edytor menu KDE
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 
 %description kmenuedit
@@ -229,11 +212,11 @@ A system menu editor for KDE.
 Edytor menu systemowego KDE.
 
 %package kpanel
-Summary:     	KDE Panel	
-Summary(pl): 	Panel KDE
-Group:       	X11/KDE/Base
-Requires:    	kdebase-kfm = %{version}
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE Panel	
+Summary(pl):	Panel KDE
+Group:		X11/KDE
+Requires:	kdebase-kfm = %{version}
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version} 
 
 %description kpanel
@@ -243,10 +226,10 @@ An easy way to start applications and switch desktops in KDE.
 U³atwia startowanie aplikacji oraz prze³±czanie ekranów w KDE.
 
 %package kscreensaver
-Summary:     	KDE Screen-savers
-Summary(pl): 	Screen-savery dla KDE
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE Screen-savers
+Summary(pl):	Screen-savery dla KDE
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 
 %description kscreensaver
@@ -256,10 +239,10 @@ Several screen-savers for KDE.
 "Oszczêdzacze ekranu" dla KDE
 
 %package kvt
-Summary:     	KDE terminal emulator
-Summary(pl): 	Emulator terminala dla KDE
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE terminal emulator
+Summary(pl):	Emulator terminala dla KDE
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 
 %description kvt
@@ -269,10 +252,10 @@ Terminal emulator for KDE.
 Emulator terminala znakowego dla KDE
 
 %package kikbd
-Summary:     	KDE international keyboard
-Summary(pl): 	Klawiatura miedzynarodowa dla KDE
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE international keyboard
+Summary(pl):	Klawiatura miedzynarodowa dla KDE
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 
 %description kikbd
@@ -282,10 +265,10 @@ International keyboard for KDE.
 Klawiatura miedzynarodowa dla KDE
 
 %package kicker
-Summary:     	KDE international keyboard
-Summary(pl): 	Klawiatura miedzynarodowa dla KDE
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE international keyboard
+Summary(pl):	Klawiatura miedzynarodowa dla KDE
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 
 %description kicker
@@ -295,10 +278,10 @@ International keyboard for KDE.
 Klawiatura miedzynarodowa dla KDE
 
 %package kioslave
-Summary:     	KDE international keyboard
-Summary(pl): 	Klawiatura miedzynarodowa dla KDE
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE international keyboard
+Summary(pl):	Klawiatura miedzynarodowa dla KDE
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 
 %description kioslave
@@ -308,23 +291,23 @@ International keyboard for KDE.
 Klawiatura miedzynarodowa dla KDE
 
 %package konqueror
-Summary:     	KDE international keyboard
-Summary(pl): 	Klawiatura miedzynarodowa dla KDE
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE international keyboard
+Summary(pl):	Klawiatura miedzynarodowa dla KDE
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 
 %description konqueror
-International keyboard for KDE.
+File manager for KDE.
 
 %description -l pl konqueror
-Klawiatura miedzynarodowa dla KDE
+Menad¿er plików dla KDE
 
 %package kwm
-Summary:     	KDE window manager
-Summary(pl): 	Mened¿er okien KDE
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE window manager
+Summary(pl):	Mened¿er okien KDE
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 
 %description kwm
@@ -334,10 +317,10 @@ Window manager for KDE
 Mened¿er okien dla KDE
 
 %package kwin
-Summary:     	KDE window manager
-Summary(pl): 	Mened¿er okien KDE
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE window manager
+Summary(pl):	Mened¿er okien KDE
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 
 %description kwin
@@ -347,10 +330,10 @@ Window manager for KDE
 Mened¿er okien dla KDE
 
 %package kxmlrpc
-Summary:     	KDE window manager
-Summary(pl): 	Mened¿er okien KDE
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE window manager
+Summary(pl):	Mened¿er okien KDE
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 
 %description kxmlrpc
@@ -360,10 +343,10 @@ Window manager for KDE
 Mened¿er okien dla KDE
 
 %package kdesktop
-Summary:     	KDE desktop
-Summary(pl): 	Mened¿er okien KDE
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE desktop
+Summary(pl):	Mened¿er okien KDE
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 
 %description kdesktop
@@ -373,73 +356,48 @@ Window manager for KDE
 Mened¿er okien dla KDE
 
 %package kbgndwm
-Summary:     	KDE background manager and wallpapers
-Summary(pl): 	Tapety oraz mened¿er t³a KDE 
-Group:       	X11/KDE/Base
-Requires:	qt >= 2.2.0_beta2
+Summary:	KDE background manager and wallpapers
+Summary(pl):	Tapety oraz mened¿er t³a KDE 
+Group:		X11/KDE
+Requires:	qt >= 2.2.1
 Requires:	kdelibs = %{version}
 
 %description kbgndwm
-Background manager for KDE.
-It is responsible for displaying KDE wallpapers.
-Sample wallpapers are also included.
+Background manager for KDE. It is responsible for displaying KDE
+wallpapers. Sample wallpapers are also included.
 
 %description -l pl kbgndwm
-Mened¿er t³a dla KDE.
-Odpowiedzialny za wy¶wietlanie tapet.
+Mened¿er t³a dla KDE. Odpowiedzialny za wy¶wietlanie tapet.
 Przyk³adowe tapety s± tak¿e do³±czone
 
 %prep
 %setup -q
 %patch0 -p1
 %build
-
-export KDEDIR=%{_prefix}
-
-kde_htmldir=%{_kde_htmldir}
-kde_icondir=%{_kde_icondir}
-kde_minidir=%{_kde_minidir}
-kde_appsdir=%{_kde_appsdir}
-kde_sounddir=%{_kde_sounddir}
-kde_datadir=%{_kde_datadir}
-kde_locale=%{_kde_locale}
-kde_cgidir=%{_kde_cgidir}
-kde_confdir=%{_kde_confdir}
-kde_mimedir=%{_kde_mimedir}
-kde_toolbardir=%{_kde_toolbardir}
-kde_wallpaperdir=%{_kde_wallpaperdir}
-kde_bindir=%{_kde_bindir}
-kde_partsdir=%{_kde_partsdir}
-export  kde_htmldir kde_icondir kde_minidir kde_appsdir kde_sounddir \
-	kde_datadir kde_locale kde_cgidir kde_confdir kde_mimedir \
-	kde_toolbardir kde_wallpaperdir kde_bindir kde_partsdir
-
-make -f Makefile.cvs
-
-CXXFLAGS="$RPM_OPT_FLAGS -Wall";	export CXXFLAGS
-CFLAGS="$RPM_OPT_FLAGS -Wall";		export CFLAGS
-LDFLAGS="-s" ; 				export LDFLAGS
+automake
 %configure \
- 	--with-pam=yes
+ 	--with-pam=yes \
+	--without-shadow \
+	--disable-shadow \
+	--with-extra-includes=%{_includedir}
 
 %{__make} KDEDIR=$KDEDIR
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/etc/X11/kde
+install -d $RPM_BUILD_ROOT%{_sysconfdir}
 install -d $RPM_BUILD_ROOT/usr/share/fonts/misc
 
 %{__make} \
 	RUN_KAPPFINDER=no \
 	DESTDIR=$RPM_BUILD_ROOT \
-	localedir="$RPM_BUILD_ROOT/usr/X11R6/share/locale" \
+	localedir="$RPM_BUILD_ROOT%{_prefix}/share/locale" \
 	install
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/kdeenv
 
 # install fonts
 install konsole/fonts/*.pcf.gz $RPM_BUILD_ROOT/usr/share/fonts/misc
-strip --strip-unneeded $RPM_BUILD_ROOT%{_bindir}/* || :
 
 #### KCONTROL
 %post kcontrol -p /sbin/ldconfig
@@ -486,6 +444,7 @@ strip --strip-unneeded $RPM_BUILD_ROOT%{_bindir}/* || :
 rm -rf $RPM_BUILD_ROOT
 
 %files
+%defattr(644,root,root,755)
 #################################################
 #             drkonqi
 #################################################
@@ -514,7 +473,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %config(missingok) %{_applnkdir}/Utilities/kdewizard.desktop
 
-%{_datadir}/apps/kdewizard/
+%{_datadir}/kdewizard/
 
 #################################################
 #             kdesu
@@ -544,7 +503,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %config(missingok) %{_applnkdir}/System/kappfinder.desktop
 
-%{_datadir}/apps/kappfinder
+%{_datadir}/kappfinder
 
 
 #################################################
@@ -587,8 +546,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libkuriikwsfilter.la
 %attr(755,root,root) %{_libdir}/libkuriikwsfilter.so.*.*.*
 
-%{_datadir}/apps/kcontrol/
-%{_datadir}/apps/kdisplay/
+%{_datadir}/kcontrol/
+%{_datadir}/kdisplay/
 
 %config(missingok) %{_applnkdir}/Control/SysInfo.desktop
 %config(missingok) %{_applnkdir}/Control/System.desktop
@@ -736,7 +695,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %attr(644,root,root) %{_datadir}/icons/locolor/*x*/apps/error.png
 
-%{_datadir}/apps/kdesktop/
+%{_datadir}/kdesktop/
 
 
 #################################################
@@ -748,7 +707,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755, root, root) %{_bindir}/chooser
 %attr(755, root, root) %{_bindir}/kdm
 
-%{_datadir}/apps/kdm/
+%{_datadir}/kdm/
 
 %{_datadir}/config/kdmrc
 
@@ -786,8 +745,8 @@ rm -rf $RPM_BUILD_ROOT
 %config(missingok) %{_applnkdir}/Help.desktop
 %config(missingok) %{_applnkdir}/Utilities/kinfobrowser.desktop
 
-%{_datadir}/apps/khelpcenter/
-%{_datadir}/apps/kwelcome/
+%{_datadir}/khelpcenter/
+%{_datadir}/kwelcome/
 
 %{_datadir}/icons/hicolor/*x*/apps/khelpcenter.png
 %{_datadir}/icons/locolor/32x32/apps/khelpcenter.png
@@ -825,8 +784,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %config(missingok) %{_applnkdir}/Toys/
 
-%{_datadir}/apps/kicker/
-%{_datadir}/apps/quickbrowser/
+%{_datadir}/kicker/
+%{_datadir}/quickbrowser/
 
 %attr(644,root,root) %{_datadir}/icons/hicolor/*x*/apps/go.png
 %attr(644,root,root) %{_datadir}/icons/hicolor/*x*/apps/kdisknav.png
@@ -867,7 +826,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libsmb++.la
 %attr(755,root,root) %{_libdir}/libsmb++.so.*.*.*
 
-%{_datadir}/apps/kio_info/
+%{_datadir}/kio_info/
 
 %{_datadir}/config/protocols/info.desktop
 %{_datadir}/config/protocols/man.desktop
@@ -909,9 +868,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(missingok) %{_applnkdir}/System/kfmclient.desktop
 %config(missingok) %{_applnkdir}/System/konquerorsu.desktop
 
-%{_datadir}/apps/konqiconview/
-%{_datadir}/apps/konqlistview/
-%{_datadir}/apps/konqueror/
+%{_datadir}/konqiconview/
+%{_datadir}/konqlistview/
+%{_datadir}/konqueror/
 
 %attr(644,root,root) %{_datadir}/icons/hicolor/*x*/apps/konqueror.png
 
@@ -942,7 +901,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{_datadir}/doc/HTML/en/konsole
 
-%{_datadir}/apps/konsole
+%{_datadir}/konsole
 %{_datadir}/icons/hicolor/*x*/apps/konsole.*
 %{_datadir}/icons/locolor/*x*/apps/konsole.*
 
@@ -966,7 +925,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %config(missingok) %{_applnkdir}/System/ScreenSavers/*.desktop
 
-%{_datadir}/apps/kscreensaver/
+%{_datadir}/kscreensaver/
 
 %attr(644,root,root) %{_datadir}/config/attractionrc
 %attr(644,root,root) %{_datadir}/config/bouboulerc
@@ -1029,8 +988,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libkwinsystem.la
 %attr(755,root,root) %{_libdir}/libkwinsystem.so.*.*.*
 
-%{_datadir}/apps/kwin
-%{_datadir}/apps/kwm
+%{_datadir}/kwin
+%{_datadir}/kwm
 
 %{_datadir}/icons/hicolor/*x*/apps/kwin.png
 %{_datadir}/icons/locolor/*x*/apps/kwin.png
