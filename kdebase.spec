@@ -307,7 +307,7 @@ fi
 %{_applnkdir}/KControl.desktop
 %{_applnkdir}/.hidden/konqfilemgr.desktop
 %{_applnkdir}/Amusements/*.desktop
-%{_applnkdir}/Development/*.desktop
+#%{_applnkdir}/Development/*.desktop
 %{_applnkdir}/Office/Editors/*.desktop
 %{_applnkdir}/Settings/KDE/.directory
 %{_applnkdir}/Settings/KDE/Help
