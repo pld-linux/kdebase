@@ -432,11 +432,11 @@ EOF
 # removing unneeded directories
 # XXX rm -rf $RPM_BUILD_ROOT%{_applnkdir}/{Editors,Toys}
 
-for f in `find $RPM_BUILD_ROOT%{_applnkdir} -name '.directory' -o -name '*.dekstop'` ; do
+for f in `find $RPM_BUILD_ROOT%{_applnkdir} -name '.directory' -o -name '*.desktop'` ; do
 	awk -v F=$f '/^Icon=/ && !/\.xpm$/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
 	mv -f $f{.tmp,}
 done
-for f in `find $RPM_BUILD_ROOT%{_datadir}/apps/kappfinder/apps -name '*.dekstop'` ; do
+for f in `find $RPM_BUILD_ROOT%{_datadir}/apps/kappfinder/apps -name '*.desktop'` ; do
 	awk -v F=$f '/^Icon=/ && !/\.xpm$/&& !/\.png$/ { $0 = $0 ".png";} { print $0; }' < $f > $f.tmp
 	mv -f $f{.tmp,}
 done
