@@ -1048,6 +1048,10 @@ fi
 %files kicker -f kicker.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kicker
+%{_libdir}/kicker.la
+%attr(0755,root,root) %{_libdir}/kicker.so
+%{_libdir}/libkickermain.la
+%attr(0755,root,root) %{_libdir}/libkickermain.so.*
 %{_libdir}/kde3/kickermenu_kdeprint.la
 %attr(0755,root,root) %{_libdir}/kde3/kickermenu_kdeprint.so                         
 %{_libdir}/kde3/kickermenu_konsole.la
@@ -1058,8 +1062,6 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kickermenu_recentdocs.so                       
 %{_libdir}/kde3/kcm_kicker.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_kicker.so
-%{_libdir}/libkicker*.la
-%attr(0755,root,root) %{_libdir}/libkicker*.so*
 %{_libdir}/kde3/systemtray_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so
 %{_libdir}/kde3/taskbar_panelapplet.la
