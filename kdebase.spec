@@ -1,6 +1,6 @@
 %define		_ver		3.0
 #define		_sub_ver
-%define		_rel		4
+%define		_rel		5
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
@@ -59,7 +59,7 @@ BuildRequires:	libxml2-devel
 BuildRequires:	motif-devel
 BuildRequires:	openssl-devel
 BuildRequires:	pam-devel
-BuildRequires:	qt-devel >= 2.3.0
+BuildRequires:	qt-devel >= 3.0.3
 BuildRequires:	zlib-devel
 BuildRequires:	db3-devel
 # TODO: sensors
@@ -110,7 +110,7 @@ Summary(pl):	Pliki nag³ówkowe potrzebne do programowania
 Summary(pt_BR):	Arquivos de inclusão para compilar aplicativos que usem bibliotecas do kdebase
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}
-Requires:	qt-devel >= 2.3.0
+Requires:	qt-devel >= 3.0.3
 Requires:	kdelibs-devel >= %{version}
 
 %description devel
@@ -150,7 +150,7 @@ Group(ru):	X11/òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
 Group(sl):	X11/Razvoj/Knji¾nice
 Group(sv):	X11/Utveckling/Bibliotek
 Group(uk):	X11/òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
-Requires:	qt-devel >= 2.3.0
+Requires:	qt-devel >= 3.0.3
 Requires:	kdelibs-devel >= %{version}
 
 %description static
@@ -186,7 +186,7 @@ Group(ru):	X11/ðÒÉÌÏÖÅÎÉÑ
 Group(sl):	X11/Programi
 Group(sv):	X11/Tillämpningar
 Group(uk):	X11/ðÒÉËÌÁÄÎ¦ ðÒÏÇÒÁÍÉ
-Requires:	qt >= 2.3.0
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 Prereq:		/sbin/chkconfig
 Obsoletes:	gdm
@@ -221,7 +221,7 @@ Group(ru):	X11/ðÒÉÌÏÖÅÎÉÑ
 Group(sl):	X11/Programi
 Group(sv):	X11/Tillämpningar
 Group(uk):	X11/ðÒÉËÌÁÄÎ¦ ðÒÏÇÒÁÍÉ
-Requires:	qt >= 2.3.0
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 Obsoletes:	kdebase-konqueror
 
@@ -254,7 +254,7 @@ Group(ru):	X11/ðÒÉÌÏÖÅÎÉÑ
 Group(sl):	X11/Programi
 Group(sv):	X11/Tillämpningar
 Group(uk):	X11/ðÒÉËÌÁÄÎ¦ ðÒÏÇÒÁÍÉ
-Requires:	qt >= 2.3.0
+Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
 Requires:	OpenGL
 
