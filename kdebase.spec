@@ -278,7 +278,6 @@ Summary(pl):    Dekoracja okna dla KDE - KDE 1
 Group:          X11/Amusements
 Requires:       %{name} = %{epoch}:%{version}-%{release}
 
-
 %description -n kde-decoration-kde1
 KDE Window Decoration - KDE 1.
 
@@ -442,7 +441,7 @@ Centrum informacji o systemie dla KDE.
 
 %package kappfinder
 Summary:	Menu Updating Tool
-Summary(pl):	Narzedzie do aktualizacji menu.
+Summary(pl):	Narzêdzie do aktualizacji menu
 Group:		X11/Applications
 Requires:	kdelibs >= %{version}
 Obsoletes:	%{name} =< 3.1.1a-3
@@ -602,8 +601,8 @@ KDE System Guard.
 Stra¿nik systemu dla KDE.
 
 %package ksystraycmd
-Summary:        A tool that allows running applications in taskbar.
-Summary(pl):    Narzêdzie do odpalania aplikacji w pasku zadañ.
+Summary:        A tool that allows running applications in taskbar
+Summary(pl):    Narzêdzie do odpalania aplikacji w pasku zadañ
 Group:          X11/Applications
 Requires:       %{name}-kicker = %{epoch}:%{version}-%{release}
 
@@ -659,7 +658,7 @@ Demon zapisu KDE.
 
 %package libkate
 Summary:        A libraries for KDE text editors
-Summary(pl):    Biblioteki dla edytorów teksu KDE
+Summary(pl):    Biblioteki dla edytorów tekstu KDE
 Group:          X11/Libraries
 Requires:       %{name}-libkmultitabbar = %{epoch}:%{version}-%{release}
 Obsoletes:      %{name}-kate < 3.1.2-1
@@ -668,11 +667,11 @@ Obsoletes:      %{name}-kate < 3.1.2-1
 A libraries for KDE text editors.
 
 %description libkate -l pl
-Biblioteki dla edytorów teksu KDE.
+Biblioteki dla edytorów tekstu KDE.
 
 %package libkmultitabbar
-Summary:        Library containing multiple tab support.
-Summary(pl):    Biblioteka zawieraj±ca obs³ugê kilku kart.
+Summary:        Library containing multiple tab support
+Summary(pl):    Biblioteka zawieraj±ca obs³ugê kilku kart
 Group:          X11/Libraries
 Requires:       kdelibs >= %{version}-%{_kdelibsminrel}
 Obsoletes:      %{name}-common-filemanagement < 3.1.2-1
