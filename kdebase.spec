@@ -385,30 +385,28 @@ Default "Logout" picture with a KDE logo.
 Standardowy obrazek okna "Wyloguj" z logiem KDE.
 
 %package -n kde-splash-Default
-Summary:	Default clasic KDE splashscreen
-Summary(pl):	Domy¶lny klasyczny ekran startowy KDE
+Summary:	Default KDE splashscreen
+Summary(pl):	Domy¶lny ekran powitalny KDE
 Group:		X11/Amusements
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
 %description -n kde-splash-Default
-Default classic KDE splashscreen with a photo of the KDE team from the
-aKademy Conference and standard icons.
+Default splashscreen that came with this version of KDE.
 
 %description -n kde-splash-Default -l pl
-Domy¶lny klasyczny ekran startowy KDE ze standardowymi ikonami oraz
-fotografi± zespo³u twórców KDE z konferencji aKademy.
+Domy¶lny ekran powitalny dostarczony w tej wersji KDE.
 
 %package -n kde-splash-blue-bend
 Summary:	KDE blue-bend splashscreen
-Summary(pl):	Ekran startowy KDE blue-bend
+Summary(pl):	Ekran powitalny KDE blue-bend
 Group:		X11/Amusements
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
 %description -n kde-splash-blue-bend
-KDE splashscreen with standard icons, a KDE 3.3 text and blue background image.
+KDE blue-bend splashcreen.
 
 %description -n kde-splash-blue-bend -l pl
-Ekran startowy ze standardowymi ikonami, napisem KDE 3.3 oraz niebieskim t³em.
+Ekran powitalny KDE blue-bend.
 
 %package -n kde-splashplugin-Redmond
 Summary:	ksplash plugin Redmond
@@ -422,8 +420,8 @@ A splash screen plugin that resembles the Windows XP post login
 animations.
 
 %description -n kde-splashplugin-Redmond -l pl
-Wtyczka ekranu startowego KDE, podobna do animacji, które w Windows XP
-maj± miejsce po zalogowaniu.
+Wtyczka ekranu powitalnego KDE, podobna do animacji, które w Windows
+XP maj± miejsce po zalogowaniu.
 
 %package -n kde-splashplugin-Standard
 Summary:	ksplash plugin Standard
