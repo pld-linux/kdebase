@@ -1,6 +1,6 @@
 #
 # TODO:
-# * KDM: ColorSheme=Default works properly with GUIStyle=KDE only 
+# * KDM: ColorSheme=Default works properly with GUIStyle=KDE only
 # * KDM: Replacing findwm with a better solution (it's in the way)
 #
 # Conditional build:
@@ -357,7 +357,7 @@ Obsoletes:	kde-sdscreen-keramik
 Default KDE "Logout" picture.
 
 %description -n kde-sdscreen-default -l pl
-Standardowy obrazek okna "Wyloguj" KDE. 
+Standardowy obrazek okna "Wyloguj" KDE.
 
 %package -n kde-splash-default
 Summary:	KDE splash screen
@@ -462,7 +462,7 @@ Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	kate
 
 %description kate
-KDE advanced text editor. 
+KDE advanced text editor.
 
 %description kate -l pl
 Zaawansowany edytor tekstu dla KDE.
@@ -638,7 +638,7 @@ Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	kwrite
 
 %description kwrite
-KDE text editor with syntax highlighting. 
+KDE text editor with syntax highlighting.
 
 %description kwrite -l pl
 Edytor tekstu z pod¶wietlaniem sk³adni dla KDE.
@@ -780,7 +780,7 @@ Internet Explorer.
 %patch9 -p1
 %patch10 -p1
 %patch11 -p1
-%patch12 -p1 
+%patch12 -p1
 %patch13 -p1
 #%%patch14 -p1
 %patch16 -p1
@@ -1235,7 +1235,7 @@ fi
 %{_pixmapsdir}/*/*/apps/xpaint.png
 %{_pixmapsdir}/*/*/apps/x.png
 %{_pixmapsdir}/*/*/apps/xv.png
- 
+
 %files devel
 %defattr(644,root,root,755)
 %dir %{_includedir}/kwin
@@ -1253,7 +1253,7 @@ fi
 ##%{_libdir}/libsensordisplays.so
 %{_libdir}/libtaskbar.so
 %{_libdir}/libtaskmanager.so
- 
+
 
 %files -n kde-decoration-b2
 %defattr(644,root,root,755)
@@ -1262,13 +1262,13 @@ fi
 %{_libdir}/kde3/kwin_b2_config.la
 %attr(0755,root,root) %{_libdir}/kde3/kwin_b2_config.so
 %{_datadir}/apps/kwin/b2.desktop
- 
+
 %files -n kde-decoration-laptop
 %defattr(644,root,root,755)
 %{_libdir}/kde3/kwin_laptop.la
 %attr(0755,root,root) %{_libdir}/kde3/kwin_laptop.so
 %{_datadir}/apps/kwin/laptop.desktop
- 
+
 %files -n kde-decoration-modernsys
 %defattr(644,root,root,755)
 %{_libdir}/kde3/kwin_modernsys.la
@@ -1347,7 +1347,7 @@ fi
 # konqueror needs it
 %{_pixmapsdir}/*/*/apps/kate.png
 #
- 
+
 %files common-konsole
 %defattr(644,root,root,755)
 %{_fontdir}/console*.gz
@@ -1356,7 +1356,7 @@ fi
 %{_datadir}/mimelnk/application/x-konsole.desktop
 %{_pixmapsdir}/[!l]*/*/apps/bell.png
 %{_pixmapsdir}/*/*/apps/key_bindings.png
- 
+
 %files core -f core.lang
 %defattr(644,root,root,755)
 %lang(en) %dir %{_htmldir}/en/kcontrol
@@ -1470,7 +1470,7 @@ fi
 %{_pixmapsdir}/*/*/apps/kcmscsi.png
 %{_pixmapsdir}/*/*/apps/kcmsound.png
 %{_pixmapsdir}/*/*/apps/kcmx.png
- 
+
 %files kappfinder
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kappfinder
@@ -1487,7 +1487,7 @@ fi
 %{_datadir}/servicetypes/kateplugin.desktop
 %{_applnkdir}/Editors/kate.desktop
 %{_pixmapsdir}/*/*/apps/kate.png
- 
+
 %files kdeprintfax
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kdeprintfax
@@ -1496,7 +1496,7 @@ fi
 %{_datadir}/apps/kdeprintfax/[!a]*
 %{_applnkdir}/Utilities/kdeprintfax.desktop
 %{_pixmapsdir}/*/*/apps/kdeprintfax.png
- 
+
 %files kdialog
 %defattr(644,root,root,755)
 %doc kdialog/{README,test}
@@ -1598,7 +1598,7 @@ fi
 %{_applnkdir}/System/kmenuedit.desktop
 %{_pixmapsdir}/*/*/apps/kmenu.png
 %{_pixmapsdir}/*/*/apps/kmenuedit.png
- 
+
 %files konsole -f konsole.lang
 %defattr(644,root,root,755)
 %doc konsole/README*
@@ -1614,13 +1614,13 @@ fi
 %{_applnkdir}/System/Administration/konsolesu.desktop
 %{_applnkdir}/Terminals/*.desktop
 %{_pixmapsdir}/*/*/apps/konsole.png
- 
+
 %files kpager -f kpager.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kpager
 %{_applnkdir}/Utilities/kpager.desktop
 %{_pixmapsdir}/*/*/apps/kpager.png
- 
+
 %files ksysguard -f ksysguard.lang
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not size mtime md5) /etc/X11/ksysguarddrc
@@ -1659,7 +1659,7 @@ fi
 %{_datadir}/apps/kwrite
 %{_applnkdir}/Editors/kwrite.desktop
 %{_pixmapsdir}/*/*/apps/kwrite.png
- 
+
 %files kwrited
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kwrited
@@ -1744,7 +1744,7 @@ fi
 %{_datadir}/apps/kscreensaver
 %{_applnkdir}/Settings/KDE/LookNFeel/screensaver.desktop
 %{_pixmapsdir}/*/*/apps/kscreensaver.png
- 
+
 %files -n kdm -f kdm.lang
 %defattr(644,root,root,755)
 %doc README.pam kdm/{ChangeLog,README,TODO}
@@ -1768,7 +1768,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_kdm.so
 %{_applnkdir}/Settings/KDE/System/kdm.desktop
 %{_pixmapsdir}/*/*/apps/kdmconfig.png
- 
+
 %files -n konqueror -f konqueror.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/appletproxy
