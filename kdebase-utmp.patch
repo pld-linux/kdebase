@@ -1,6 +1,6 @@
---- kdebase/konsole/src/TEPty.C.utmp	Sun Feb  4 19:11:41 2001
-+++ kdebase/konsole/src/TEPty.C	Sun Feb  4 19:13:34 2001
-@@ -318,7 +318,7 @@
+--- kdebase/konsole/konsole/TEPty.cpp.utmp	Sun Feb  4 19:11:41 2001
++++ kdebase/konsole/konsole/TEPty.cpp	Sun Feb  4 19:13:34 2001
+@@ -349,7 +349,7 @@
        if (ptsn) {
            strncpy(ttynam, ptsname(ptyfd), 50);
            grantpt(ptyfd);
@@ -9,7 +9,7 @@
        } else {
        	  perror("ptsname");
  	  close(ptyfd);
-@@ -594,6 +594,7 @@
+@@ -659,6 +659,7 @@
  */
  TEPty::~TEPty()
  {
