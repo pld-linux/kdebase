@@ -984,7 +984,6 @@ programs=" \
 	keyboard \
 	keys \
 	ksplashml \
-	kwin \
 	kwindecoration \
 	kxkb \
 	mouse \
@@ -1021,7 +1020,6 @@ programs="\
 	icons \
 	kcmcss \
 	khtml \
-	libkonq \
 	netpref \
 	proxy \
 	smb \
@@ -1126,6 +1124,7 @@ fi
 
 %files devel
 %defattr(644,root,root,755)
+%lang(en) %{_kdedocdir}/en/%{name}-%{_snap}-apidocs
 %{_includedir}/*.h
 %{_includedir}/kate
 %{_includedir}/ksgrd
@@ -1260,8 +1259,6 @@ fi
 
 %files core -f core.lang
 %defattr(644,root,root,755)
-%lang(en) %dir %{_kdedocdir}/en/%{name}-%{_snap}-apidocs
-%lang(en) %{_kdedocdir}/en/%{name}-%{_snap}-apidocs/common
 %lang(en) %dir %{_kdedocdir}/en/kcontrol
 %lang(en) %{_kdedocdir}/en/kcontrol/common
 %lang(en) %{_kdedocdir}/en/kcontrol/helpindex.html
