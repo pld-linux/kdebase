@@ -41,40 +41,40 @@ Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-searchproviders.tar.bz2
 # Source8-md5:	be8f637d72ae08610cc483f3e6260987
 Source9:	%{name}-colorschemes.tar.bz2
-# Source9-md5:	8cb483f9de4740283e1fdd27d187d970
+# Source9-md5:	f5bd3ef0a351e6d5833290105628a398
 Source10:	%{name}-servicemenus.tar.bz2
-# Source10-md5:	9d1389fb6f266f10e7e84ed080560166
+# Source10-md5:	5b113fe35bd3a46de31e451e285e86d3
 Source11:	%{name}-konqsidebarext.tar.bz2
 # Source11-md5:	23ea11aaa85d78c0e39bdf5dd4f4ebda
 Source12:	http://ep09.pld-linux.org/~adgor/kde/%{name}-splash-Default-PLD-0.2.tar.bz2
 # Source12-md5:	24f9c6a4b711be36437639c410b400b2
 Source13:	http://ep09.pld-linux.org/~adgor/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
-Patch0:		%{name}-3.2branch.diff
-Patch1:		%{name}-fontdir.patch
-Patch2:		%{name}-kcm_background.patch
-Patch3:		%{name}-kdm_utmpx.patch
-Patch4:		%{name}-kdmconfig.patch
-Patch5:		%{name}-kicker.patch
-Patch6:		%{name}-konsole_all.patch
-Patch7:		%{name}-nsplugins_dirs.patch
-Patch8:		%{name}-startkde.patch
-Patch9:		%{name}-kcm_fonts.patch
-Patch10:	%{name}-kdesukonsole.patch
-Patch11:	%{name}-vcategories.patch
-Patch12:	%{name}-screensavers.patch
-Patch13:	%{name}-prefmenu.patch
-Patch14:	%{name}-session.patch
-Patch15:	%{name}-bgdefaults.patch
-Patch16:	%{name}-vmenus.patch
-Patch17:	kde-common-utmpx.patch
-Patch18:	%{name}-fileshareset.patch
-Patch19:	%{name}-kio_settings.patch
-Patch20:	%{name}-vt-numbers-fix.patch
-Patch21:	%{name}-konsole-default-keytab.patch
-Patch22:	kde-common-QTDOCDIR.patch
-Patch23:	%{name}-freetype218.patch
-Patch24:	%{name}-svgsupport.patch
+Patch100:	%{name}-branch.diff
+Patch0:		%{name}-fontdir.patch
+Patch1:		%{name}-kcm_background.patch
+Patch2:		%{name}-kdm_utmpx.patch
+Patch3:		%{name}-kdmconfig.patch
+Patch4:		%{name}-kicker.patch
+Patch5:		%{name}-konsole_all.patch
+Patch6:		%{name}-nsplugins_dirs.patch
+Patch7:		%{name}-startkde.patch
+Patch8:		%{name}-kcm_fonts.patch
+Patch9:		%{name}-kdesukonsole.patch
+Patch10:	%{name}-vcategories.patch
+Patch11:	%{name}-screensavers.patch
+Patch12:	%{name}-prefmenu.patch
+Patch13:	%{name}-session.patch
+Patch14:	%{name}-bgdefaults.patch
+Patch15:	%{name}-vmenus.patch
+Patch16:	kde-common-utmpx.patch
+Patch17:	%{name}-fileshareset.patch
+Patch18:	%{name}-kio_settings.patch
+Patch19:	%{name}-vt-numbers-fix.patch
+Patch20:	%{name}-konsole-default-keytab.patch
+Patch21:	kde-common-QTDOCDIR.patch
+Patch22:	%{name}-svgsupport.patch
+Patch23:	%{name}-kwin_delayfocus.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	audiofile-devel
@@ -553,8 +553,8 @@ KDE advanced text editor featuring among others:
 %description kate -l pl
 Kate (KDE advanced text editor) to zaawansowany edytor tekstu KDE o
 mo¿liwo¶ciach obejmuj±cych m.in.:
-- szybkie otwieranie i edycjê nawet du¿ych plików (otwiera plik 50MB
-  w parê sekund)
+- szybkie otwieranie i edycjê nawet du¿ych plików (otwiera plik 50MB w
+  parê sekund)
 - potê¿ny silnik pod¶wietlania sk³adni, rozszerzalny za pomoc± plików
   XML
 - mo¿liwo¶æ zwijania kodu dla C++, C, PHP i innych jêzyków
@@ -901,8 +901,8 @@ HTML 4.0, obs³uguj±c± aplety Javy, JavaScript, CSS1 i (czê¶ciowo)
 CSS2, a tak¿e wtyczki Netscape'a (na przyk³ad Flash i RealAudio).
 
 Konqueror jest uniwersaln± aplikacj± do przegl±dania, umo¿liwiaj±c±
-osadzenie w niej komponentów do przegl±dania aby ogl±daæ dokumenty
-bez uruchamiania innej aplikacji.
+osadzenie w niej komponentów do przegl±dania aby ogl±daæ dokumenty bez
+uruchamiania innej aplikacji.
 
 %package -n konqueror-libs
 Summary:	konqueror shared libraries
@@ -943,7 +943,8 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 %prep
 %setup -q -n %{name}-%{version}
-#%%patch0 -p1
+%patch100 -p1
+%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -968,8 +969,15 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch22 -p1
 %patch23 -p1
 
+%{__tar} xfj %{SOURCE11} -C konqueror/sidebar/
+%{__sed} -i -e "s,trees web_module,trees web_module infobar speedbar,g" \
+	konqueror/sidebar/Makefile.am
+
 %build
 cp %{_datadir}/automake/config.sub admin
+export kde_htmldir=%{_kdedocdir}
+export kde_libs_htmldir=%{_kdedocdir}
+export UNSERMAKE=%{_datadir}/unsermake/unsermake
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
@@ -978,8 +986,7 @@ cp %{_datadir}/automake/config.sub admin
 	--with-qt-libraries=%{_libdir} \
 	--with-kdm-pam=kdm \
 	%{!?with_ldap:--with-ldap=no} \
-	--with-pam=kdesktop \
-	--without-java
+	--with-pam=kdesktop
 
 %{__make}
 
@@ -990,6 +997,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
+	kde_libs_htmldir=%{_kdedocdir} \
 	kde_htmldir=%{_kdedocdir}
 
 install -d \
@@ -1069,104 +1077,6 @@ for f in `grep -El 'X-KDE-settings|X-KDE-information' *`; do
 	echo "OnlyShowIn=KDE" >> $f
 done
 cd -
-
-# <find_lang>
-> core.lang
-programs=" \
-	colors \
-	fonts \
-	kcmstyle \
-	kdeprint \
-	kdebugdialog \
-	kdesu \
-	khelpcenter \
-	language"
-
-for i in $programs; do
-	%find_lang $i --with-kde
-	cat $i.lang >> core.lang
-done
-
-> %{name}.lang
-programs=" \
-	arts \
-	background \
-	bell \
-	clock \
-	desktop \
-	desktopbehavior \
-	energy \
-	kcmaccess \
-	kcmlaunch \
-	kcmnotify \
-	kcmsmserver \
-	kcmtaskbar \
-	keyboard \
-	keys \
-	kicker \
-	kmenuedit \
-	ksplashml \
-	kwindecoration \
-	kxkb \
-	mouse \
-	panel \
-	panelappearance \
-	passwords \
-	spellchecking \
-	windowmanagement"
-
-for i in $programs; do
-	%find_lang $i --with-kde
-	cat $i.lang >> %{name}.lang
-done
-
-
-%find_lang konqueror	--with-kde
-programs="\
-	cache \
-	cookies \
-	crypto \
-	ebrowsing \
-	email \
-	filemanager \
-	filetypes \
-	icons \
-	kcmcss \
-	khtml \
-	netpref \
-	proxy \
-	smb \
-	useragent"
-
-for i in $programs; do
-	%find_lang $i --with-kde
-	cat $i.lang >> konqueror.lang
-done
-
-%find_lang	kate		--with-kde
-%find_lang	kcmkonsole	--with-kde
-%find_lang	kdm		--with-kde
-%find_lang	kfind		--with-kde
-%find_lang	kcmfontinst	--with-kde
-%find_lang	kinfocenter	--with-kde
-%find_lang	kioslave	--with-kde
-%find_lang	klipper		--with-kde
-%find_lang	kmenuedit	--with-kde
-%find_lang	konsole		--with-kde
-%find_lang	ksysguard	--with-kde
-%find_lang	kpager		--with-kde
-%find_lang	kwrite		--with-kde
-%find_lang	screensaver	--with-kde
-##%find_lang	kcontrol	--with-kde
-
-##cat kcontrol.lang	>> core.lang
-cat kcmkonsole.lang	>> konsole.lang
-cat kioslave.lang	>> kinfocenter.lang
-
-# Omit apidocs entries
-sed -i 's/.*apidocs.*//' *.lang
-
-# </find_lang>
 
 %clean
 rm -rf $RPM_BUILD_ROOT
