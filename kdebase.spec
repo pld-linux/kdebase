@@ -244,7 +244,7 @@ Dekoracja okna dla KDE - Web.
 
 %package -n kde-kside-default
 Summary:	Default kicker sidebar
-Summary(pl):	Domy¶lny boczny pasek do menu KDE 
+Summary(pl):	Domy¶lny boczny pasek do menu KDE
 Group:		Themes
 Provides:	kde-kside
 Requires:	kdebase-kicker >= 9:3.1.91
@@ -465,7 +465,7 @@ Summary:	Graphic DCOP browser/client
 Summary(pl):	Graficzna przegladarka/klient DCOP
 Group:		X11/Applications
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
-Obsoletes:	%{name}-desktop < 9:3.1.91.030911 
+Obsoletes:	%{name}-desktop < 9:3.1.91.030911
 
 %description kdcop
 Graphic DCOP browser/client.
@@ -506,7 +506,7 @@ Summary(pl):	TODO
 Group:		X11/Applications
 #Requires:	konqueror = %{epoch}:%{version}-%{release}
 Requires:	kdebase-core = %{epoch}:%{version}-%{release}
-Obsoletes:	%{name}-desktop < 3.1.90.030720 
+Obsoletes:	%{name}-desktop < 3.1.90.030720
 
 %description kfontinst
 TODO.
@@ -1052,8 +1052,8 @@ for f in *.lang; do
 	if grep -q %{name}-%{_snap}-apidocs $f; then
 		grep -v %{name}-%{_snap}-apidocs $f > $f.tmp
 		mv $f.tmp $f
-	fi	
-done	
+	fi
+done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
