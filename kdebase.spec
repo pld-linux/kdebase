@@ -692,16 +692,15 @@ fi
 %{_datadir}/wallpapers
 %{_datadir}/servicetypes/[fstu]*.desktop
 
-%{_pixmapsdir}/*/*/apps/[abcdefghilmnprstuwx]*
-%{_pixmapsdir}/[abcdefghilmnprstuwx]*
-%{_pixmapsdir}/*/*/apps/k[acefhijlmnptwm]*
-%{_pixmapsdir}/k[acefhijlmnptwm]*
+%{_pixmapsdir}/*/*/apps/[a-il-npr-uwx]*.png
+%{_pixmapsdir}/[a-il-npr-uwx]*.png
+%{_pixmapsdir}/*/*/apps/k[acefhijlmnptwm]*.png
+%{_pixmapsdir}/k[acefhijlmnptwm]*.png
 #%{_pixmapsdir}/*/*/apps/konsole.png
 %{_pixmapsdir}/konsole.png
 #%{_pixmapsdir}/*/*/apps/ksysguard.png
 %{_pixmapsdir}/ksysguard.png
-#%{_pixmapsdir}/*/*/apps/kdisk*
-%{_pixmapsdir}/kdisk*
+%{_pixmapsdir}/*/*/apps/kdisk*
 %{_pixmapsdir}/*/*/apps/kdeprint*
 #%{_pixmapsdir}/*/*/apps/opera*
 
