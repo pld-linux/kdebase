@@ -1010,7 +1010,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
-%patch9 -p1
+#%patch9 -p1
 %patch10 -p1
 %patch12 -p1
 %patch13 -p1
@@ -2107,7 +2107,6 @@ fi
 %{_datadir}/applnk/.hidden/kicker_config_appearance.desktop
 %{_datadir}/config.kcfg/taskbar.kcfg
 %{_desktopdir}/kde/kcm_kdnssd.desktop
-%{_desktopdir}/kde/kcmkicker.desktop
 %{_desktopdir}/kde/kcmtaskbar.desktop
 %{_desktopdir}/kde/panel.desktop
 %{_desktopdir}/kde/panel_appearance.desktop
@@ -2129,7 +2128,8 @@ fi
 %{_libdir}/kde3/kmenuedit.la
 %attr(755,root,root) %{_libdir}/kde3/kmenuedit.so
 %{_datadir}/apps/kmenuedit
-%{_desktopdir}/kde/kmenuedit.desktop
+# Do not include this!
+#%{_desktopdir}/kde/kmenuedit.desktop
 %{_iconsdir}/*/*/apps/kmenu.png
 %{_iconsdir}/*/*/apps/kmenuedit.png
 # thememgr is back?
@@ -2402,7 +2402,6 @@ fi
 %{_datadir}/apps/kscreensaver
 %{_desktopdir}/kde/screensaver.desktop
 %{_iconsdir}/*/*/apps/kscreensaver.png
-/etc/xdg/menus/kde-screensavers.menu
 
 %files useraccount
 %defattr(644,root,root,755)
