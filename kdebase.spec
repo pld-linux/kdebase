@@ -20,7 +20,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	3
+Release:	4
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -1046,7 +1046,7 @@ cd -
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Network;WebBrowser;/' \
 	konqueror/konqbrowser.desktop
 %{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
-	khotkeys/khotkeys.desktop \
+	khotkeys/kcontrol/khotkeys.desktop \
 	kioslave/cgi/kcmcgi/kcmcgi.desktop
 %{__sed} -i -e 's/Terminal=0/Terminal=false/' \
 	kappfinder/kappfinder.desktop \
