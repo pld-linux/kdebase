@@ -2,7 +2,6 @@
 # Conditional build:
 %bcond_without	apidocs		# Do not prepare API documentation
 %bcond_without	ldap		# build or not ldap ioslave
-%bcond_with	kwin_shadow	# experimental support for kwin shadows
 
 %define		_state		stable
 %define		_ver		3.4.0
@@ -19,7 +18,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.1
+Release:	0.2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -58,7 +57,6 @@ Patch16:	%{name}-vmenus.patch
 Patch17:	%{name}-sasl-includes.patch
 Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
-Patch20:	%{name}-kwin_shadow.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	OpenEXR-devel
 BuildRequires:	audiofile-devel
@@ -1018,11 +1016,6 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch16 -p1
 %patch18 -p1
 %patch19 -p1
-%if %{with kwin_shadow}
-cd kwin
-%patch20 -p0 -b .shadows
-cd -
-%endif
 
 %{__sed} -i -e 's/Categories=.*/Categories=Audio;Mixer;/' \
 	kappfinder/apps/Multimedia/alsamixergui.desktop
@@ -1200,10 +1193,11 @@ programs=" \
 	colors \
 	fonts \
 	kcmstyle \
-	kdeprint \
 	kdebugdialog \
+	kdeprint \
 	kdesu \
 	khelpcenter \
+	knetattach \
 	language"
 
 for i in $programs; do
