@@ -28,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	4
+Release:	4.1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -97,11 +97,11 @@ Requires(post,postun):	/sbin/ldconfig
 Requires:	applnk >= 1.5.11
 Requires:	kde-splash
 Requires:       kde-sdscreen
-Requires:	%{name}-kcheckpass = %{version}-%{release}
-Requires:	%{name}-kdesktop_lock = %{version}-%{release}
 Requires:	konqueror = %{version}-%{release}
-#
+Requires:	pam
 Obsoletes:	%{name}-fonts
+Obsoletes:	%{name}-kcheckpass
+Obsoletes:	%{name}-kdesktop_lock
 Obsoletes:	%{name}-khelpcenter
 Obsoletes:	%{name}-screensaver
 Obsoletes:	%{name}-kicker
@@ -112,7 +112,6 @@ Obsoletes:	%{name}-kxmlrpc
 Obsoletes:	%{name}-kdesktop
 Obsoletes:	%{name}-wallpapers
 Obsoletes:	kde-theme-keramik
-#
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
@@ -297,19 +296,6 @@ KDE advanced text editor.
 %description kate -l pl
 Zaawansowany edytor tekstu dla KDE.
 
-%package kcheckpass
-Summary:	KDE User Autentication
-Summary(pl):	Uwierzytelnianie u¿ytkowników dla KDE
-Group:		X11/Applications
-Requires:	pam
-Obsoletes:	%{name} =< 3.1.1a-1
-
-%description kcheckpass
-KDE User Autentication.
-
-%description kcheckpass -l pl
-Uwierzytelnianie u¿ytkowników dla KDE.
-
 %package kcontrol
 Summary:	KDE Control Center
 Summary(pl):	Centrum Sterowania KDE
@@ -322,21 +308,6 @@ KDE Control Center.
 
 %description kcontrol -l pl
 Narzêdzie do konfigurowania aplikacji KDE.
-
-%package kdesktop_lock
-Summary:	Allows to lock Your desktop
-Summary(pl):	Pozwala na zablokowanie biurka
-Group:		X11/Applications
-Requires:	kdelibs >= %{version}
-Obsoletes:	%{name} =< 3.1.1a-2
-
-%description kdesktop_lock
-A small application that allows You to lock Your desktop.
-It's required by kdebase and by kdebase-screensavers.
-
-%description kdesktop_lock -l pl
-Ma³a aplikacja umozliwiajaca zablokowanie biurka.
-Jest wymagana przez kdebase jak i kdebase-screensavers.
 
 %package kdeprintfax
 Summary:	KDE Fax Tool
@@ -433,10 +404,7 @@ Summary(pl):	Wygaszacze ekranu desktopu KDE
 Summary(ru):	ÈÒÁÎÉÔÅÌÉ ÜËÒÁÎÁ ÄÌÑ KDE
 Summary(uk):	ÚÂÅÒ¦ÇÁÞ¦ ÅËÒÁÎÕ ÄÌÑ KDE
 Group:		X11/Applications
-Requires:	OpenGL
-Requires:	%{name}-kcheckpass = %{version}-%{release}
-Requires:	%{name}-kdesktop_lock = %{version}-%{release}
-Requires:	%{name}-kcontrol = %{version}-%{release}
+Requires:	%{name} = %{version}-%{release}
 
 %description screensavers
 KDE screensavers.
@@ -739,12 +707,16 @@ fi
 %defattr(644,root,root,755)
 %doc AUTHORS README
 %config %{_sysconfdir}/ksysguarddrc
+%attr(0644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kcheckpass
+%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kcheckpass
 %attr(0755,root,root) %{_bindir}/[ades]*
 %attr(0755,root,root) %{_bindir}/k[jtx]*
 %attr(0755,root,root) %{_bindir}/ka[!pt]*
+%attr(0755,root,root) %{_bindir}/kcheckpass
 %attr(0755,root,root) %{_bindir}/kdc*
 %attr(0755,root,root) %{_bindir}/kde[!ps]*
 %attr(2755,root,nobody) %{_bindir}/kdesktop
+%attr(0755,root,root) %{_bindir}/kdesktop_lock
 %attr(2755,root,nobody) %{_bindir}/kdesud
 %attr(2755,root,nobody) %{_bindir}/kdialog
 %attr(0755,root,root) %{_bindir}/khotkeys
@@ -1077,13 +1049,6 @@ fi
 %{_applnkdir}/Editors/kate.desktop
 %{_pixmapsdir}/*/*/apps/kate.png
 
-%files kcheckpass
-%defattr(644,root,root,755)
-%doc README.pam kcheckpass/{ChangeLog,README}
-%attr(0644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kcheckpass
-%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kcheckpass
-%attr(0755,root,root) %{_bindir}/kcheckpass
-
 %files kcontrol
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kcminit
@@ -1113,10 +1078,6 @@ fi
 %lang(en) %{_htmldir}/en/kcontrol/common
 %lang(en) %{_htmldir}/en/kcontrol/index.*
 %lang(en) %{_htmldir}/en/kcontrol/screenshot.png
-
-%files kdesktop_lock
-%defattr(644,root,root,755)
-%attr(0755,root,root) %{_bindir}/kdesktop_lock
 
 %files kdeprintfax
 %defattr(644,root,root,755)
