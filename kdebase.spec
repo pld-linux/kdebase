@@ -11,7 +11,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define         _snap		030411
+%define         _snap		030418
 %define		_kdelibsminrel	0.%{_snap}.1 
 
 %ifarch	sparc sparcv9 sparc64
@@ -46,7 +46,6 @@ Source11:	ircpld.desktop
 Source12:	specs.desktop
 Source13:	kabc.desktop
 Source14:	kde-settings.menu
-Source15:	kde-settings.directory
 #
 Patch0:		%{name}-fix-mem-leak-in-kfind.patch
 # obsoleted
@@ -77,6 +76,7 @@ Patch19:	%{name}-vroot.patch
 #
 Patch21:	%{name}-vcategories.patch
 Patch22:	%{name}-screensavers.patch
+Patch23:	%{name}-prefmenu.patch
 %{?_without_alsa:BuildConflicts:	alsa-driver-devel}
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	OpenGL-devel
@@ -115,7 +115,7 @@ BuildRequires:	zlib-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
 Requires(post,postun):	/sbin/ldconfig
-Requires:	applnk >= 1.6
+Requires:	applnk >= 1.6.1
 # Old ksplash is obsoleted
 #Requires:	kde-splash
 #
@@ -503,6 +503,7 @@ Internet Explorer.
 #%patch20 -p1
 %patch21 -p1
 %patch22 -p1
+%patch23 -p1
 
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
@@ -532,8 +533,9 @@ cd ksplashml
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 cd -
 
-install -d $RPM_BUILD_ROOT/etc/{X11/desktop/menus,pam.d,rc.d/init.d,security} \
-    $RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
+install -d \
+	$RPM_BUILD_ROOT/etc/{X11/desktop/menus,pam.d,rc.d/init.d,security} \
+	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
 
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers{,.orig}
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession{,.orig}
@@ -555,18 +557,13 @@ cp $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop 
     $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/remote
 
 ALD=$RPM_BUILD_ROOT%{_applnkdir}
-install -d $ALD/Settings/KDE
-mv -f $ALD/{Settings/[!K]*,Settings/KDE}
-mv -f $ALD/Help.desktop $RPM_BUILD_ROOT%{_desktopdir}
-mv -f $ALD/Settingsmenu/[!K]*.desktop $RPM_BUILD_ROOT%{_desktopdir}
-mv -f $ALD/System/kinfocenter.desktop $RPM_BUILD_ROOT%{_desktopdir}
+mv -f $ALD/{Settings,KDE-Settings}
+mv -f $ALD/Help.desktop			$RPM_BUILD_ROOT%{_desktopdir}
+mv -f $ALD/Settingsmenu/*.desktop	$RPM_BUILD_ROOT%{_desktopdir}
+mv -f $ALD/System/kinfocenter.desktop	$RPM_BUILD_ROOT%{_desktopdir}
 
-install %{SOURCE13} $ALD/Settings/KDE/Components
+install %{SOURCE13} $ALD/KDE-Settings/Components
 install %{SOURCE14} $RPM_BUILD_ROOT/etc/X11/desktop/menus
-
-mv $RPM_BUILD_ROOT%{_vfinfodir}/kde-settings.directory{,.orig}
-install %{SOURCE15} $RPM_BUILD_ROOT%{_vfinfodir}
-
 
 > %{name}.lang
 
@@ -827,22 +824,22 @@ fi
 %{_applnkdir}/.hidden/k[!cio]*.desktop
 %{_applnkdir}/.hidden/kcmkxmlrpcd.desktop
 %{_applnkdir}/Utilities/k[!de]*.desktop
-%{_applnkdir}/Settings/KDE/Accessibility
-%{_applnkdir}/Settings/KDE/Components/[!f]*
-%{_applnkdir}/Settings/KDE/Components/filebrowser.desktop
-%{_applnkdir}/Settings/KDE/Desktop
-%{_applnkdir}/Settings/KDE/Information
-%dir %{_applnkdir}/Settings/KDE/LookNFeel
-%{_applnkdir}/Settings/KDE/LookNFeel/[!s]*
-%{_applnkdir}/Settings/KDE/LookNFeel/s[!c]*
-%{_applnkdir}/Settings/KDE/Network/email.desktop
-%{_applnkdir}/Settings/KDE/Peripherals
-%{_applnkdir}/Settings/KDE/PowerControl
-%{_applnkdir}/Settings/KDE/Security/passwords.desktop
-%{_applnkdir}/Settings/KDE/Sound
-%{_applnkdir}/Settings/KDE/System/[!k]*
-%{_applnkdir}/Settings/KDE/System/kcmfontinst.desktop
-%{_applnkdir}/Settings/KDE/WebBrowsing
+%{_applnkdir}/KDE-Settings/Accessibility
+%{_applnkdir}/KDE-Settings/Components/[!f]*
+%{_applnkdir}/KDE-Settings/Components/filebrowser.desktop
+%{_applnkdir}/KDE-Settings/Desktop
+%{_applnkdir}/KDE-Settings/Information
+%dir %{_applnkdir}/KDE-Settings/LookNFeel
+%{_applnkdir}/KDE-Settings/LookNFeel/[!s]*
+%{_applnkdir}/KDE-Settings/LookNFeel/s[!c]*
+%{_applnkdir}/KDE-Settings/Network/email.desktop
+%{_applnkdir}/KDE-Settings/Peripherals
+%{_applnkdir}/KDE-Settings/PowerControl
+%{_applnkdir}/KDE-Settings/Security/passwords.desktop
+%{_applnkdir}/KDE-Settings/Sound
+%{_applnkdir}/KDE-Settings/System/[!k]*
+%{_applnkdir}/KDE-Settings/System/kcmfontinst.desktop
+%{_applnkdir}/KDE-Settings/WebBrowsing
 %{_applnkdir}/System/k[!io]*.desktop
 %{_desktopdir}/kjobviewer.desktop
 %{_desktopdir}/klipper.desktop
@@ -951,8 +948,8 @@ fi
 %{_datadir}/services/thumbnail.protocol
 %{_datadir}/servicetypes/terminalemulator.desktop
 %{_datadir}/servicetypes/thumbcreator.desktop
-%dir %{_applnkdir}/Settings/KDE/Network
-%{_applnkdir}/Settings/KDE/Network/fileshare.desktop
+%dir %{_applnkdir}/KDE-Settings/Network
+%{_applnkdir}/KDE-Settings/Network/fileshare.desktop
 %{_vfinfodir}/kde-settings-network.directory
 
 %files common-konsole
@@ -1012,11 +1009,10 @@ fi
 %attr(0755,root,root) %{_libdir}/kcontrol.so
 %{_datadir}/apps/kcontrol
 %{_applnkdir}/KControl.desktop
-# no idea to do with
-#%{_applnkdir}/Settingsmenu/KControl.desktop
-%dir %{_applnkdir}/Settings/KDE
-%dir %{_applnkdir}/Settings/KDE/Components
-%dir %{_applnkdir}/Settings/KDE/System
+%dir %{_applnkdir}/KDE-Settings
+%dir %{_applnkdir}/KDE-Settings/Components
+%dir %{_applnkdir}/KDE-Settings/System
+%{_desktopdir}/KControl.desktop
 %{_vfinfodir}/kde-settings.directory
 %{_vfinfodir}/kde-settings-components.directory
 %{_vfinfodir}/kde-settings-system.directory
@@ -1097,9 +1093,9 @@ fi
 %{_libdir}/kde3/kcm_konsole.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_konsole.so
 %{_datadir}/config/konsolerc
+%{_datadir}/services/konsole-script.desktop
 %dir %{_applnkdir}/.hidden
 %{_applnkdir}/.hidden/kcmkonsole.desktop
-%{_applnkdir}/System/konsolesu.desktop
 %{_desktopdir}/konsole*.desktop
 %{_pixmapsdir}/*/*/apps/konsole.png
 
@@ -1146,7 +1142,7 @@ fi
 %{_libdir}/kde3/kcm_screensaver.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_screensaver.so
 %{_datadir}/apps/kscreensaver
-%{_applnkdir}/Settings/KDE/LookNFeel/screensaver.desktop
+%{_applnkdir}/KDE-Settings/LookNFeel/screensaver.desktop
 %{_pixmapsdir}/*/*/apps/kscreensaver.png
 
 
@@ -1169,7 +1165,7 @@ fi
 %attr(0755,root,root) %{_bindir}/krootimage
 %{_libdir}/kde3/kcm_kdm.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_kdm.so
-%{_applnkdir}/Settings/KDE/System/kdm.desktop
+%{_applnkdir}/KDE-Settings/System/kdm.desktop
 %{_pixmapsdir}/*/*/apps/kdmconfig.png
 
 %files -n konqueror -f konqueror.lang
@@ -1311,13 +1307,13 @@ fi
 %{_applnkdir}/.hidden/file*.desktop
 %{_applnkdir}/.hidden/kcmkonq.desktop
 %{_applnkdir}/.hidden/konq*.desktop
-%{_applnkdir}/Settings/KDE/Components/filetypes.desktop
-%{_applnkdir}/Settings/KDE/Network/WebBrowsing
-%{_applnkdir}/Settings/KDE/Network/netpref.desktop
-%{_applnkdir}/Settings/KDE/Network/lanbrowser.desktop
-%{_applnkdir}/Settings/KDE/Network/proxy.desktop
-%dir %{_applnkdir}/Settings/KDE/Security
-%{_applnkdir}/Settings/KDE/Security/crypto.desktop
+%{_applnkdir}/KDE-Settings/Components/filetypes.desktop
+%{_applnkdir}/KDE-Settings/Network/WebBrowsing
+%{_applnkdir}/KDE-Settings/Network/netpref.desktop
+%{_applnkdir}/KDE-Settings/Network/lanbrowser.desktop
+%{_applnkdir}/KDE-Settings/Network/proxy.desktop
+%dir %{_applnkdir}/KDE-Settings/Security
+%{_applnkdir}/KDE-Settings/Security/crypto.desktop
 %{_applnkdir}/System/konq*.desktop
 %{_desktopdir}/kfmclient*.desktop
 %{_desktopdir}/konq*.desktop
