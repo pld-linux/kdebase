@@ -13,7 +13,7 @@
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040210
+%define		_snap		040217
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -30,8 +30,9 @@ Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
+Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}.tar.bz2
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}-%{_snap}.tar.bz2
+#Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}-%{_snap}.tar.bz2
 ##%% Source0-md5:	9d05be3ccd6cc0294d6153e5d4dfa63a
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
@@ -67,6 +68,8 @@ Patch14:	%{name}-bgdefaults.patch
 Patch15:	%{name}-vmenus.patch
 Patch16:	kde-common-utmpx.patch
 Patch17:	%{name}-fileshareset.patch
+Patch18:	%{name}-sasl-includes.patch
+Patch19:	%{name}-kio_settings.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	arts-devel >= 1.2.0
@@ -109,8 +112,7 @@ BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_xdgdatadir	%{_datadir}/desktop-directories
-
-%define 	_noautoreqdep			libGL.so.1 libGLU.so.1
+%define 	_noautoreqdep	libGL.so.1 libGLU.so.1 libkdeinit_kmenuedit.so
 
 %description
 KDE specific files. Used by core KDE applications. Package includes:
@@ -602,11 +604,11 @@ Provides:	kicker
 Requires:	%{name}-kfind = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kicker-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kjobviewer = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kmenuedit = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kpager = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkickermain = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkonq = %{epoch}:%{version}-%{release}
 Requires:	kde-kside
+Obsoletes:	kdebase-kmenuedit
 
 %description kicker
 KDE Panel - kicker.
@@ -651,18 +653,6 @@ KDE Clipboard Tool.
 
 %description klipper -l pl
 Narzêdzie schowka dla KDE.
-
-%package kmenuedit
-Summary:	Menu Editor
-Summary(pl):	Edytor menu
-Group:		X11/Applications
-Requires:	%{name}-core = %{epoch}:%{version}-%{release}
-
-%description kmenuedit
-KDE Menu Editor.
-
-%description kmenuedit -l pl
-Edytor menu KDE.
 
 %package konsole
 Summary:	KDE Terminal Emulator
@@ -907,6 +897,8 @@ Explorer.
 %description -n konqueror -l pl
 Konqueror jest przegl±dark± WWW i zarz±dc± plików podobnym do MS
 Internet Explorer.
+
+### <i18n stuff>
 
 %package core-i18n
 Summary:	Internationalization and localization files for core
@@ -1322,8 +1314,10 @@ Internationalization and localization files for mailnews.
 %description mailnews-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla mailnews.
 
+### </i18n stuff>
+
 %prep
-%setup -q -n %{name}-%{_snap}
+%setup -q -n %{name}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -1342,6 +1336,8 @@ Pliki umiêdzynarodawiaj±ce dla mailnews.
 %patch15 -p1
 %patch16 -p1
 %patch17 -p1
+%patch18 -p1
+%patch19 -p1
 
 %build
 cp /usr/share/automake/config.sub admin
@@ -1498,6 +1494,7 @@ done
 programs=" \
 	clock \
 	kcmtaskbar \
+	kmenuedit \
 	panel \
 	panelappearance"
 
@@ -1536,7 +1533,6 @@ done
 %find_lang kinfocenter	--with-kde
 %find_lang kioslave	--with-kde
 %find_lang klipper	--with-kde
-%find_lang kmenuedit	--with-kde
 %find_lang konsole	--with-kde
 %find_lang ksysguard	--with-kde
 %find_lang kpager	--with-kde
@@ -1774,7 +1770,6 @@ files="\
 	kfind \
 	kioslave \
 	klipper \
-	kmenuedit \
 	ksysguard \
 	kpager \
 	kwrite \
@@ -1806,7 +1801,7 @@ cat << EOF
  *********************************************************
  *                                                       *
  * NOTE:                                                 *
- * If You want the catalogs sharing from the context     *
+ * If You want the directories sharing from the context  *
  * menu functionality, do as following:                  *
  * 1) Install sperl package,                             *
  * 2) Set SUID for fileshareset script.                  *
@@ -1927,7 +1922,7 @@ fi
 
 %files devel
 %defattr(644,root,root,755)
-%lang(en) %{_kdedocdir}/en/%{name}-%{_snap}-apidocs
+%lang(en) %{_kdedocdir}/en/%{name}-apidocs
 %{_includedir}/*.h
 %{_includedir}/kate
 %{_includedir}/ksgrd
@@ -2000,6 +1995,7 @@ fi
 %{_libdir}/kde3/kio_ldap.la
 %attr(0755,root,root) %{_libdir}/kde3/kio_ldap.so
 %{_datadir}/services/ldap.protocol
+%{_datadir}/services/ldaps.protocol
 %endif
 
 %files -n kde-kio-nntp
@@ -2150,6 +2146,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kio_info.so
 %{_libdir}/kde3/kio_man.la
 %attr(0755,root,root) %{_libdir}/kde3/kio_man.so
+# Move it to konqueror?
 %{_libdir}/kde3/kio_settings.la
 %attr(0755,root,root) %{_libdir}/kde3/kio_settings.so
 %{_libdir}/kde3/kprinter.la
@@ -2336,7 +2333,9 @@ fi
 %{_datadir}/apps/kcminput/pics
 %{_datadir}/apps/kcmkeys
 %{_datadir}/apps/kcmlocale
-%{_datadir}/apps/kconf_update/*
+%attr(755,root,root) %{_datadir}/apps/kconf_update/*.pl
+%attr(755,root,root) %{_datadir}/apps/kconf_update/*.sh
+%{_datadir}/apps/kconf_update/*.upd
 %{_datadir}/apps/kdcop
 %{_datadir}/apps/kdesktop
 %{_datadir}/apps/kdewizard
@@ -2719,6 +2718,16 @@ fi
 %{_iconsdir}/*/*/apps/package*.png
 %{_iconsdir}/*/*/apps/panel.png
 %{_iconsdir}/*/*/apps/panel_settings.png
+# kmenuedit part
+%attr(0755,root,root) %{_bindir}/kmenuedit
+%{_libdir}/libkdeinit_kmenuedit.la
+%attr(0755,root,root) %{_libdir}/libkdeinit_kmenuedit.so
+%{_libdir}/kde3/kmenuedit.la
+%attr(0755,root,root) %{_libdir}/kde3/kmenuedit.so
+%{_datadir}/apps/kmenuedit
+%{_desktopdir}/kde/kmenuedit.desktop
+%{_iconsdir}/*/*/apps/kmenu.png
+%{_iconsdir}/*/*/apps/kmenuedit.png
 
 %files kicker-libs
 %defattr(644,root,root,755)
@@ -2751,18 +2760,6 @@ fi
 %{_datadir}/config/klipperrc
 %{_desktopdir}/kde/klipper.desktop
 %{_iconsdir}/*/*/apps/klipper.png
-
-%files kmenuedit -f kmenuedit_en.lang
-%defattr(644,root,root,755)
-%attr(0755,root,root) %{_bindir}/kmenuedit
-%{_libdir}/libkdeinit_kmenuedit.la
-%attr(0755,root,root) %{_libdir}/libkdeinit_kmenuedit.so
-%{_libdir}/kde3/kmenuedit.la
-%attr(0755,root,root) %{_libdir}/kde3/kmenuedit.so
-%{_datadir}/apps/kmenuedit
-%{_desktopdir}/kde/kmenuedit.desktop
-%{_iconsdir}/*/*/apps/kmenu.png
-%{_iconsdir}/*/*/apps/kmenuedit.png
 
 %files konsole -f konsole_en.lang
 %defattr(644,root,root,755)
