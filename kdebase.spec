@@ -126,7 +126,7 @@ Group:       X11/KDE/Base
 Requires:    kfm = %{version}, qt >= 1.40, kdelibs = %{version} 
 
 %description -n kpanel
-An easy way to start applications and swtich desktops in KDE.
+An easy way to start applications and switch desktops in KDE.
 
 %description -l pl -n kpanel
 U³atwia startowanie aplikacji oraz prze³±czanie ekranów w KDE.
