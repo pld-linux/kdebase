@@ -4,19 +4,19 @@
 Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
-Version:	2.0
-Release:	6
+Version:	2.0.1
+Release:	1
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
-Source0:	ftp://ftp.kde.org/pub/kde/stable/2.0/distribution/generic/tar/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/stable/2.0.1/distribution/generic/tar/src/%{name}-%{version}.tar.bz2
 Source1:	%{name}-startkde.sh
 Source2:	kdm.pamd
 Source3:	kdm.init
 Patch0:		%{name}-key.patch
 Patch1:		%{name}-waitkdm.patch
-BuildRequires:	qt >= 2.2.1-6
+BuildRequires:	qt >= 2.2.2
 BuildRequires:	kdelibs-devel >= %{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng >= 1.0.8
@@ -28,7 +28,7 @@ BuildRequires:	pam-devel
 BuildRequires:	OpenGL-devel
 BuildRequires:	alsa-lib-devel
 Requires:	kdelibs = %{version}
-Requires:	qt >= 2.2.1-6
+Requires:	qt >= 2.2.2
 Obsoletes:	%{name}-kcontrol
 Obsoletes:	%{name}-khelpcenter
 Obsoletes:	%{name}-konsole
@@ -60,7 +60,7 @@ Summary(pl):	Pliki nag³ówkowe potrzebne do programowania.
 Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
-Requires:	qt-devel >= 2.2.1-6
+Requires:	qt-devel >= 2.2.2
 Requires:	kdelibs-devel = %{version}
 
 %description devel
@@ -75,7 +75,7 @@ Summary(pl):	KDE Display Manager
 Group:		X11/Applications
 Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
-Requires:	qt >= 2.2.1-6
+Requires:	qt >= 2.2.2
 Requires:	kdelibs = %{version}
 Obsoletes:	gdm
 Obsoletes:	xdm
@@ -94,7 +94,7 @@ Summary(pl):	Konqueror - przegl±darka WWW i mened¿er plików
 Group:		X11/Applications
 Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
-Requires:	qt >= 2.2.1-6
+Requires:	qt >= 2.2.2
 Requires:	kdelibs = %{version}
 Obsoletes:	kdebase-konqueror
 
