@@ -1,33 +1,37 @@
 --- kdebase-030317/kcontrol/background/bgdialog.cpp~	Mon Mar 10 00:42:45 2003
-+++ kdebase-030317/kcontrol/background/bgdialog.cpp	Tue Mar 18 18:11:54 2003
-@@ -238,6 +238,32 @@
++++ kdebase-030317/kcontrol/background/bgdialog.cpp	Tue Mar 18 19:06:34 2003
+@@ -238,6 +238,36 @@
     emit changed(true);
  }
  
 +void BGDialog::kdmdefaults()
 +{
-+    m_pGlobals->setCommonBackground(_defCommon);
-+    m_pGlobals->setLimitCache(_defLimitCache);
-+    m_pGlobals->setCacheSize(_defCacheSize);
++   m_pGlobals->setCommonBackground(_defCommon);
++   m_pGlobals->setLimitCache(_defLimitCache);
++   m_pGlobals->setCacheSize(_defCacheSize);
 +
-+    m_eDesk = _defCommon ? 0 : m_Desk;
++   m_eDesk = _defCommon ? 0 : m_Desk;
 +
-+    KBackgroundRenderer *r = m_Renderer[m_eDesk];
++   KBackgroundRenderer *r = m_Renderer[m_eDesk];
 +
-+    if (r->isActive())
-+        r->stop();
++   if (r->isActive())
++      r->stop();
 +
-+    r->setBackgroundMode(KBackgroundSettings::Flat);
-+    r->setColorA(QColor("#0000C8"));
-+    r->setColorB(_defColorB);
-+    r->setWallpaper(QString::fromLatin1("/etc/X11/kdm/pics/pldwallpaper.png"));
-+    r->setWallpaperMode(KBackgroundSettings::Scaled);
-+    r->setMultiWallpaperMode(_defMultiMode);
-+    r->setBlendMode(_defBlendMode);
-+    r->setBlendBalance(_defBlendBalance);
-+    r->setReverseBlending(_defReverseBlending);
-+    apply();
-+    emit changed(true);
++   r->setBackgroundMode(KBackgroundSettings::Flat);
++   r->setColorA(QColor("#0000C8"));
++   r->setColorB(_defColorB);
++   r->setWallpaper(QString::fromLatin1("/etc/X11/kdm/pics/pldwallpaper.png"));
++   r->setWallpaperMode(KBackgroundSettings::Scaled);
++   r->setMultiWallpaperMode(_defMultiMode);
++   m_slideShowRandom = _defMultiMode;
++   r->setBlendMode(_defBlendMode);
++   r->setBlendBalance(_defBlendBalance);
++   r->setReverseBlending(_defReverseBlending);
++
++   updateUI();
++
++   m_copyAllDesktops = true;
++   emit changed(true);
 +}
 +
  QString BGDialog::quickHelp() const

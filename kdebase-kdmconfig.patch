@@ -1,5 +1,5 @@
 --- kdebase-030317/kcontrol/kdm/background.cpp~	Sun Mar 16 00:35:44 2003
-+++ kdebase-030317/kcontrol/kdm/background.cpp	Tue Mar 18 18:24:59 2003
++++ kdebase-030317/kcontrol/kdm/background.cpp	Tue Mar 18 19:31:12 2003
 @@ -53,7 +53,7 @@
  		" This is done by running some program (possibly xsetroot) in the script"
  		" specified in the Setup= option in kdmrc (usually Xsetup).") );
@@ -9,9 +9,14 @@
      m_background = new BGDialog( this, m_simpleConf, false );
  
      connect(m_background, SIGNAL(changed(bool)), SIGNAL(changed(bool)));
-@@ -101,7 +101,7 @@
+@@ -105,7 +105,7 @@
+ {
+     m_pCBEnable->setChecked( true );
+     slotEnableChanged();
+-    m_background->defaults();
++    m_background->kdmdefaults();
+     emit changed(true);
  }
- 
  
 -void KBackground::defaults()
 +void KBackground::kdmdefaults()
