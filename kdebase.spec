@@ -9,7 +9,7 @@ Summary(ru):	K Desktop Environment - базовые файлы
 Summary(uk):	K Desktop Environment - базов╕ файли
 Name:		kdebase
 Version:	3.0.3
-Release:	10.2
+Release:	11
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -32,9 +32,8 @@ Patch7:		%{name}-startkde.patch
 Patch8:		%{name}-dont_merge_old_kdmrc.patch
 Patch9:		%{name}-konsole-defaultfonts.patch
 Patch10:	%{name}-konsoleF1.patch
-Patch11:	%{name}-konsole.patch
-Patch12:	%{name}-linebreaks.patch
-Patch13:	%{name}-ptsname.patch
+Patch11:	%{name}-linebreaks.patch
+Patch12:	%{name}-ptsname.patch
 Patch20:	%{name}-fix-big-mem-leak-into-bgsetting.patch
 Patch21:	%{name}-fix-kcmaudiocd-mem-leak.patch
 Patch22:	%{name}-fix-kcmlocale-mem-leak.patch
@@ -294,9 +293,8 @@ Standardowy obrazek okna "Wyloguj" KDE.
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
-%patch11 -p0
+%patch11 -p1
 %patch12 -p1
-%patch13 -p1
 
 %patch20 -p1
 %patch21 -p1
