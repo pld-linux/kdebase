@@ -1,6 +1,6 @@
 %define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		5
+%define		_rel		6
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -171,6 +171,7 @@ Summary(pl):	KDE Display Manager
 Group:		X11/Applications
 Requires:	qt >= 3.0.3
 Requires:	kdelibs >= %{version}
+Requires:	/usr/X11R6/bin/sessreg
 Prereq:		/sbin/chkconfig
 Obsoletes:	gdm
 Obsoletes:	xdm
