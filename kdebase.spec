@@ -1300,7 +1300,8 @@ cp %{_datadir}/automake/config.sub admin
 	--with-qt-libraries=%{_libdir} \
 	--with-kdm-pam=kdm \
 	%{!?with_ldap:--with-ldap=no} \
-	--with-pam=kdesktop
+	--with-pam=kdesktop \
+	--without-java
 
 %{__make}
 
