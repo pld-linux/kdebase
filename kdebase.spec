@@ -180,6 +180,7 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       %{name}-kicker = %{version}-%{release}
 Requires:       %{name}-ksysguard = %{version}-%{release}
 Requires:	kdelibs-devel >= %{version}
+Requires:	%{name}-libkate = %{version}-%{release}
 
 %description devel
 This package contains header files needed to develop KDE applications.
