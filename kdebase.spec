@@ -350,7 +350,7 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/{Amusements,Editors,Help,Network/WWW,Uti
  	fontdir="%{_fontdir}/misc"
 
 # remove icons corresponding to used by applnk
-rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/apps/package_{applications,editors,edutainment,games{,arcade,board,card,strategy},graphics,multimedia,network,settings,system,toys,utilities,wordprocessing}.png
+rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/apps/package_{applications,editors,edutainment,games{,_arcade,_board,_card,_strategy},graphics,multimedia,network,settings,system,toys,utilities,wordprocessing}.png
 
 # copy icons to toplevel %%{_pixmapsdir}
 cp -af $RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/{access,agent,bell,colors,cookie,date,designer,email,energy,energy_star,enhanced_browsing,filetypes,fonts,go,gvim,help_index,hwinfo,icons,input_devices_settings}.png \
