@@ -3,8 +3,9 @@
 # * KDM: ColorSheme=Default works properly with GUIStyle=KDE only
 # * KDM: Replacing findwm with a better solution (it's in the way)
 # * Fixing 48x48 pld applnk-pixmaps scaling (konqsidebar, kicker)
-# * Separating kicker, kwin, wtf
-# * Adding %%doc to subpkgs 
+# * Adding %%doc to subpkgs
+# * Kicker dosn't work properly without kwin (taskbar, systray,
+#   other applets)
 #
 # Conditional build:
 # _without_alsa		- without alsa support
@@ -30,7 +31,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.%{_snap}.2
+Release:	0.%{_snap}.3
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -506,11 +507,26 @@ Group:		X11/Applications
 Requires:	%{name}-kicker = %{version}-%{release}
 
 %description ksystraycmd
-KSysTrayCmd is a utility that allows you to run any application you             
+KSysTrayCmd is a utility that allows you to run any application you
 like in the system tray, not just those designed to use it.
 
 %description ksystraycmd -l pl
-TODO
+KSysTrayCmd to narzedzie pozwalaj±ce na uruchomienie dowolnej
+aplikacji w tacce systemowej - nie tylko tych, które zosta³y
+wyposa¿one w tak± w³a¶ciwo¶æ.
+
+%package kwmtheme
+Summary:	Desktop Theme Manager
+Summary(pl):	Mened¿er motywów biurka
+Group:		X11/Applications
+Requires:	%{name} = %{version}-%{release}
+
+%description kwmtheme
+KDE Desktop Theme Manager. This package contains also a few desktop
+themes.
+
+%description kwmtheme -l pl
+Menedzer motywów biurka KDE. Ten pakiet zawiera równie¿ kilka motywów.
 
 %package kwrite
 Summary:	KDE Text Editor
@@ -527,16 +543,16 @@ KDE text editor with syntax highlighting.
 Edytor tekstu z pod¶wietlaniem sk³adni dla KDE.
 
 %package kwrited
-Summary:	TODO
-Summary(pl):	TODO
+Summary:	KDE Write Daemon
+Summary(pl):	Demon zapisu KDE
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 
 %description kwrited
-TODO
+KDE Write Daemon.
 
 %description kwrited -l pl
-TODO
+Demon zapisu KDE.
 
 %package libkate
 Summary:	A libraries for KDE text editors
@@ -846,8 +862,8 @@ fi
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS README README.pam
-%attr(0644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kcheckpass
-%attr(0644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kcheckpass
+%config(noreplace) %verify(not size mtime md5) /etc/pam.d/kcheckpass
+%config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kcheckpass
 %attr(0755,root,root) %{_bindir}/appletproxy
 %attr(0755,root,root) %{_bindir}/drkonqi
 %attr(0755,root,root) %{_bindir}/extensionproxy
@@ -869,7 +885,7 @@ fi
 %attr(0755,root,root) %{_bindir}/ktip
 %attr(0755,root,root) %{_bindir}/kwebdesktop
 %attr(0755,root,root) %{_bindir}/kwin
-%attr(0755,root,root) %{_bindir}/kwmtheme
+
 %attr(0755,root,root) %{_bindir}/kxkb
 %attr(0755,root,root) %{_bindir}/startkde
 %{_libdir}/appletproxy.la
@@ -942,8 +958,6 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_spellchecking.so
 %{_libdir}/kde3/kcm_style.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_style.so
-%{_libdir}/kde3/kcm_themes.la
-%attr(0755,root,root) %{_libdir}/kde3/kcm_themes.so
 %{_libdir}/kde3/kcm_xinerama.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_xinerama.so
 %{_libdir}/kde3/kwin_default.la
@@ -954,8 +968,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kwin_keramik.so
 %{_libdir}/kde3/kwin_keramik_config.la
 %attr(0755,root,root) %{_libdir}/kde3/kwin_keramik_config.so
-%{_libdir}/kde3/kwin_kwmtheme.la
-%attr(0755,root,root) %{_libdir}/kde3/kwin_kwmtheme.so
+
 %{_libdir}/kde3/libkdeprint_part.la
 %attr(0755,root,root) %{_libdir}/kde3/libkdeprint_part.so
 %{_libdir}/kde3/libksplashdefault.la
@@ -979,7 +992,6 @@ fi
 %dir %{_datadir}/apps/ksplash
 %dir %{_datadir}/apps/ksplash/Themes
 %{_datadir}/apps/ksplash/Themes/Default
-%{_datadir}/apps/kthememgr
 %dir %{_datadir}/apps/kwin
 %{_datadir}/apps/kwin/eventsrc
 %{_datadir}/apps/kwin/keramik.desktop
@@ -1021,7 +1033,6 @@ fi
 %{_applnkdir}/KDE-Settings/Accessibility/keys.desktop
 %{_applnkdir}/KDE-Settings/Accessibility/language.desktop
 %{_applnkdir}/KDE-Settings/Components/componentchooser.desktop
-%{_applnkdir}/KDE-Settings/Components/kcmkded.desktop
 %{_applnkdir}/KDE-Settings/Components/kcmsmserver.desktop
 %{_applnkdir}/KDE-Settings/Components/spellchecking.desktop
 %{_applnkdir}/KDE-Settings/Desktop/desktop.desktop
@@ -1036,7 +1047,6 @@ fi
 %{_applnkdir}/KDE-Settings/LookNFeel/colors.desktop
 %{_applnkdir}/KDE-Settings/LookNFeel/icons.desktop
 %{_applnkdir}/KDE-Settings/LookNFeel/kcmlaunch.desktop
-%{_applnkdir}/KDE-Settings/LookNFeel/kthememgr.desktop
 %{_applnkdir}/KDE-Settings/LookNFeel/kwindecoration.desktop
 %{_applnkdir}/KDE-Settings/LookNFeel/style.desktop
 %{_applnkdir}/KDE-Settings/Network/email.desktop
@@ -1088,7 +1098,6 @@ fi
 %{_pixmapsdir}/*/*/apps/kmenu.png
 %{_pixmapsdir}/*/*/apps/knotify.png
 %{_pixmapsdir}/*/*/apps/kpersonalizer.png
-%{_pixmapsdir}/*/*/apps/kthememgr.png
 %{_pixmapsdir}/*/*/apps/ktip.png
 %{_pixmapsdir}/*/*/apps/kvirc.png
 %{_pixmapsdir}/*/*/apps/kwin.png
@@ -1246,9 +1255,7 @@ fi
 %{_datadir}/services/thumbnail.protocol
 %{_datadir}/servicetypes/terminalemulator.desktop
 %{_datadir}/servicetypes/thumbcreator.desktop
-%dir %{_applnkdir}/KDE-Settings/Network
 %{_applnkdir}/KDE-Settings/Network/fileshare.desktop
-%{_vfinfodir}/kde-settings-network.directory
 
 %files common-konsole
 %defattr(644,root,root,755)
@@ -1390,7 +1397,7 @@ fi
 %{_desktopdir}/kdeprintfax.desktop
 %{_pixmapsdir}/*/*/apps/kdeprintfax.png
 
-%files kdialog                                                              
+%files kdialog
 %defattr(644,root,root,755)
 %doc kdialog/{README,test}
 %attr(0755,root,root) %{_bindir}/kdialog
@@ -1530,7 +1537,7 @@ fi
 
 %files ksysguard -f ksysguard.lang
 %defattr(644,root,root,755)
-/etc/X11/ksysguarddrc
+%config(noreplace) %verify(not size mtime md5) /etc/X11/ksysguarddrc
 %attr(0755,root,root) %{_bindir}/kpm
 %attr(0755,root,root) %{_bindir}/ksysguard
 %attr(0755,root,root) %{_bindir}/ksysguardd
@@ -1546,6 +1553,17 @@ fi
 %defattr(644,root,root,755)
 %doc ksystraycmd/README
 %attr(0755,root,root) %{_bindir}/ksystraycmd
+
+%files kwmtheme
+%defattr(644,root,root,755)
+%attr(0755,root,root) %{_bindir}/kwmtheme
+%{_libdir}/kde3/kcm_themes.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_themes.so
+%{_libdir}/kde3/kwin_kwmtheme.la
+%attr(0755,root,root) %{_libdir}/kde3/kwin_kwmtheme.so
+%{_datadir}/apps/kthememgr
+%{_applnkdir}/KDE-Settings/LookNFeel/kthememgr.desktop
+%{_pixmapsdir}/*/*/apps/kthememgr.png
 
 %files kwrite -f kwrite.lang
 %defattr(644,root,root,755)
@@ -1818,6 +1836,7 @@ fi
 %{_applnkdir}/.hidden/konqhtml.desktop
 %{_applnkdir}/KDE-Settings/Components/filebrowser.desktop
 %{_applnkdir}/KDE-Settings/Components/filetypes.desktop
+%{_applnkdir}/KDE-Settings/Components/kcmkded.desktop
 %{_applnkdir}/KDE-Settings/Components/kcmkonqyperformance.desktop
 %{_applnkdir}/KDE-Settings/Components/kcmperformance.desktop
 %{_applnkdir}/KDE-Settings/LookNFeel/fonts.desktop
