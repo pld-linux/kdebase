@@ -72,6 +72,7 @@ Patch17:	%{name}-sasl-includes.patch
 Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
 Patch20:	%{name}-kwin_shadow.patch
+Patch21:	%{name}-svgsupport.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	arts-devel >= 1.2.0
 BuildRequires:	audiofile-devel
@@ -885,12 +886,12 @@ Biblioteki wspó³dzielone konquerora.
 %patch16 -p1
 %patch18 -p1
 %patch19 -p1
-
 %if %{with kwin_shadow}
 cd kwin
 %patch20 -p0 -b .shadows
 cd -
 %endif 
+%patch21 -p1 -R
 
 %{__tar} xfj %{SOURCE11} -C konqueror/sidebar/
 
