@@ -1043,7 +1043,7 @@ cd -
 	kcontrol/kcontrol/KControl.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;X-KDE-settings-desktop;/' \
 	kcontrol/konq/desktoppath.desktop
-%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Utility;/' \
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Utility;Applet;/' \
 	kcontrol/randr/krandrtray.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;X-Help;/' \
 	-e 's/Name=/Name=KDE/g' -e s'/Name[pl]=Pomoc/Name[pl]=Pomoc KDE/g' \
