@@ -11,7 +11,7 @@
 #
 
 %define         _state          stable
-%define         _ver		3.1.1
+%define         _ver		3.1.1a
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -24,7 +24,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËĞÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	3
+Release:	0.1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
