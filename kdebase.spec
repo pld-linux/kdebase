@@ -11,7 +11,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define         _snap		030418
+%define         _snap		030423
 %define		_kdelibsminrel	0.%{_snap}.1 
 
 %ifarch	sparc sparcv9 sparc64
@@ -29,7 +29,7 @@ Summary(uk):	K Desktop Environment - ¬¡⁄œ◊¶ ∆¡ Ã…
 Summary(zh_CN):	KDE∫À–ƒ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.%{_snap}.3
+Release:	0.%{_snap}.1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -107,17 +107,17 @@ Requires(post,postun):	/sbin/ldconfig
 Requires:	applnk >= 1.6.1
 Requires:       kde-sdscreen
 Requires:       kdelibs >= %{version}-%{_kdelibsminrel}
-Requires:	%{name}-kcheckpass = %{version}-%{release}
-Requires:	%{name}-kdesktop_lock = %{version}-%{release}
 Requires:	konqueror = %{version}-%{release}
 Obsoletes:	%{name}-fonts
+Obsoletes:	%{name}-kcheckpass
+Obsoletes:	%{name}-kdesktop
+Obsoletes:	%{name}-kdesktop_lock
 Obsoletes:	%{name}-khelpcenter
-Obsoletes:	%{name}-screensaver
 Obsoletes:	%{name}-kioslave
 Obsoletes:	%{name}-konqueror
 Obsoletes:	%{name}-kwin
 Obsoletes:	%{name}-kxmlrpc
-Obsoletes:	%{name}-kdesktop
+Obsoletes:	%{name}-screensaver
 Obsoletes:	%{name}-static
 Obsoletes:	%{name}-wallpapers
 Obsoletes:	kde-splash
@@ -136,8 +136,6 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 KDE specific files. Used by core KDE applications. Package includes:
 - KDE menu hierarchy,
 - kappfinder - script installing some non-KDE apps in KDE menu,
-- krootwm - module used by KWM and KFM,
-- kaudio - audio server for KDE.
 
 %description -l ja
 KDE•«•π•Ø•»•√•◊¥ƒ∂≠Õ—§Œ¥À‹•¢•◊•Í•±°º•∑•Á•Û°£
@@ -149,8 +147,6 @@ aplikacje KDE. Pakiet zawiera:
 - HierarchiÍ menu KDE,
 - kappfinder - skrypt u≥awiaj±cy uruchamianie niektÛrych programÛw
   spoza KDE
-- krootwm - modu≥ wykorzystywany przez kwm i kfm
-- kaudio - serwer dºwiÍku dla KDE.
 
 %description -l ru
 ‚¡⁄œ◊Ÿ≈ –“œ«“¡ÕÕŸ ƒÃ— K Desktop Environment. ˜ÀÃ¿ﬁ≈ŒŸ: kdm (⁄¡Õ≈Œ¡
@@ -267,6 +263,7 @@ Summary:	KDE Advanced Text Editor
 Summary(pl):	Zaawansowany edytor tekstu dla KDE
 Group:		X11/Applications/Editors
 Requires:	%{name}-common-filemanagement = %{version}-%{release}
+Requires:	%{name}-libkate = %{version}-%{release}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	kate
 
@@ -275,21 +272,6 @@ KDE advanced text editor.
 
 %description kate -l pl
 Zaawansowany edytor tekstu dla KDE.
-
-
-%package kcheckpass
-Summary:	KDE User Autentication  
-Summary(pl):	Uwierzytelnianie uøytkownikÛw dla KDE
-Group:		X11/Applications
-Obsoletes:	%{name} < 3.0.9-2.4
-Requires:	pam
-Obsoletes:	%{name} =< 3.2-0.030418.1
-
-%description kcheckpass
-KDE User Autentication.
-
-%description kcheckpass -l pl
-Uwierzytelnianie uøytkownikÛw dla KDE.
 
 %package kcontrol
 Summary:	KDE Control Center
@@ -303,21 +285,6 @@ KDE Control Center.
 
 %description kcontrol -l pl
 NarzÍdzie do konfigurowania aplikacji KDE.
-
-%package kdesktop_lock
-Summary:	Allows to lock Your desktop
-Summary(pl):	Pozwala na zablokowanie biurka
-Group:		X11/Applications
-Requires:	kdelibs >= %{version}
-Obsoletes:	%{name} =< 3.2-0.030418.2
-
-%description kdesktop_lock
-A small application that allows You to lock Your desktop.
-It's required by kdebase and by kdebase-screensavers.
-
-%description kdesktop_lock -l pl
-Ma≥a aplikacja umozliwiajaca zablokowanie biurka.
-Jest wymagana przez kdebase jak i kdebase-screensavers.
 
 %package kdeprintfax
 Summary:	KDE Fax Tool
@@ -394,6 +361,7 @@ Summary:	KDE Text Editor
 Summary(pl):	Edytor tekstu dla KDE
 Group:		X11/Applications/Editors
 Requires:	%{name}-helpcenter = %{version}-%{release}
+Requires:	%{name}-libkate = %{version}-%{release}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	kwrite
 
@@ -402,6 +370,18 @@ KDE text editor with syntax highlighting.
 
 %description kwrite -l pl
 Edytor tekstu z pod∂wietlaniem sk≥adni dla KDE.
+
+%package libkate
+Summary:	A libraries for KDE text editors
+Summary(pl):	Biblioteki dla edytorÛw teksu KDE
+Group:		X11/Libraries
+Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
+
+%description libkate
+A libraries for KDE text editors.
+
+%description libkate -l pl
+Biblioteki dla edytorÛw teksu KDE.
 
 %package mailnews
 Summary:	KDE Mail and News Services
@@ -423,9 +403,6 @@ Summary(pl):	Wygaszacze ekranu desktopu KDE
 Summary(ru):	»“¡Œ…‘≈Ã… ‹À“¡Œ¡ ƒÃ— KDE
 Summary(uk):	⁄¬≈“¶«¡ﬁ¶ ≈À“¡Œ’ ƒÃ— KDE
 Group:		X11/Applications
-Requires:	OpenGL
-Requires:	%{name}-kcheckpass = %{version}-%{release}
-Requires:	%{name}-kdesktop_lock = %{version}-%{release}
 Requires:	%{name}-kcontrol = %{version}-%{release}
 
 %description screensavers
@@ -693,17 +670,23 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS README
+%doc AUTHORS README README.pam
+%attr(0644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kcheckpass
+%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kcheckpass
 %config %{_sysconfdir}/ksysguarddrc
 %attr(0755,root,root) %{_bindir}/[ades]*
 %attr(0755,root,root) %{_bindir}/k[jtx]*
 %attr(0755,root,root) %{_bindir}/ka[!pt]*
+%attr(0755,root,root) %{_bindir}/kcheckpass
 %attr(0755,root,root) %{_bindir}/kdc*
 %attr(0755,root,root) %{_bindir}/kde[!ps]*
-%attr(2755,root,nobody) %{_bindir}/kdesktop
-%attr(2755,root,nobody) %{_bindir}/kdesud
-%attr(2755,root,nobody) %{_bindir}/kdialog
-%attr(2755,root,nobody) %{_bindir}/khc_indexbuilder
+%attr(0755,root,root) %{_bindir}/kdesktop_lock
+# why 2755 & nobody ?
+%attr(0755,root,root) %{_bindir}/kdesktop
+%attr(0755,root,root) %{_bindir}/kdesud
+%attr(0755,root,root) %{_bindir}/kdialog
+%attr(0755,root,root) %{_bindir}/khc_indexbuilder
+#
 %attr(0755,root,root) %{_bindir}/khotkeys
 %attr(0755,root,root) %{_bindir}/kinfocenter
 %attr(0755,root,root) %{_bindir}/klipper
@@ -1005,10 +988,6 @@ fi
 %attr(0755,root,root) %{_bindir}/kate
 %{_libdir}/kate.la
 %attr(0755,root,root) %{_libdir}/kate.so
-%{_libdir}/libkateinterfaces.la
-%attr(0755,root,root) %{_libdir}/libkateinterfaces.so.*
-%{_libdir}/libkateutils.la
-%attr(0755,root,root) %{_libdir}/libkateutils.so.*
 %{_libdir}/kde3/katedefaultprojectplugin.la
 %attr(0755,root,root) %{_libdir}/kde3/katedefaultprojectplugin.so
 %{_datadir}/apps/kate
@@ -1018,13 +997,6 @@ fi
 %{_datadir}/servicetypes/kateprojectplugin.desktop
 %{_desktopdir}/kate.desktop
 %{_pixmapsdir}/*/*/apps/kate.png
-
-%files kcheckpass
-%defattr(644,root,root,755)
-%doc README.pam kcheckpass/{ChangeLog,README}
-%attr(0644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kcheckpass
-%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kcheckpass
-%attr(0755,root,root) %{_bindir}/kcheckpass
 
 %files kcontrol
 %defattr(644,root,root,755)
@@ -1054,10 +1026,6 @@ fi
 %lang(en) %{_htmldir}/en/kcontrol/common
 %lang(en) %{_htmldir}/en/kcontrol/index.*
 %lang(en) %{_htmldir}/en/kcontrol/screenshot.png
-
-%files kdesktop_lock
-%defattr(644,root,root,755)
-%attr(0755,root,root) %{_bindir}/kdesktop_lock
 
 %files kdeprintfax
 %defattr(644,root,root,755)
@@ -1150,6 +1118,13 @@ fi
 %{_datadir}/apps/kwrite
 %{_desktopdir}/kwrite.desktop
 %{_pixmapsdir}/*/*/apps/kwrite.png
+
+%files libkate
+%defattr(644,root,root,755)
+%{_libdir}/libkateinterfaces.la
+%attr(0755,root,root) %{_libdir}/libkateinterfaces.so.*
+%{_libdir}/libkateutils.la
+%attr(0755,root,root) %{_libdir}/libkateutils.so.*
 
 %files mailnews
 %defattr(644,root,root,755)
