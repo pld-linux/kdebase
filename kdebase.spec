@@ -13,7 +13,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.98
-Release:	1
+Release:	1.1
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -809,7 +809,7 @@ fi
 %{_pixmapsdir}/*/*/apps/en[!h]*
 %{_pixmapsdir}/*/*/apps/k[ijlmnptvmx]*
 %{_pixmapsdir}/*/*/apps/kappfinder.png
-%{_pixmapsdir}/*/*/apps/kc[!o][!s]*
+%{_pixmapsdir}[!l]/*/*/apps/kc[!o][!s]*
 %{_pixmapsdir}/*/*/apps/kcms[!y]*
 %{_pixmapsdir}/*/*/apps/key[!_]*
 %{_pixmapsdir}/*/*/apps/ksysguard.png
@@ -894,7 +894,7 @@ fi
 %defattr(644,root,root,755)
 %{_fontdir}/misc/console*.gz
 %{_datadir}/apps/konsole
-%{_pixmapsdir}/*/*/apps/bell.png
+%{_pixmapsdir}/[!l]*/*/apps/bell.png
 %{_pixmapsdir}/*/*/apps/key_bindings.png
 
 %files helpcenter -f khelpcenter.lang
