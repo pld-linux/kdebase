@@ -28,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.9
+Release:	0.2
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -76,7 +76,7 @@ Patch21:	%{name}-libtool-sanitize.patch
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
-#BuildRequires:	XFree86-xrender-devel
+BuildRequires:	XFree86-xrender-devel
 BuildRequires:	arts-devel >= 1.1
 BuildRequires:	arts-kde-devel
 BuildRequires:	audiofile-devel
@@ -85,7 +85,7 @@ BuildRequires:	automake >= 1.6
 BuildRequires:	awk
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
-BuildRequires:	db3-devel
+BuildRequires:	db-devel
 BuildRequires:	findutils
 BuildRequires:	gettext-devel
 BuildRequires:	grep
@@ -102,9 +102,9 @@ BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	motif-devel
 BuildRequires:	openldap-devel
-BuildRequires:	openssl-devel >= 0.9.6j
+BuildRequires:	openssl-devel >= 0.9.7
 BuildRequires:	pam-devel
-BuildRequires:	sed
+BuildRequires:	sed >= 4.0
 BuildRequires:	qt-devel >= 3.1
 BuildRequires:	zlib-devel
 BuildRequires:	fam-devel
@@ -792,7 +792,7 @@ export CPPFLAGS
 
 for plik in `find ./ -name *.desktop` ; do
 	echo $plik
-	perl -pi -e "s/\[nb\]/\[no\]/g" $plik
+	sed -i -e "s/\[nb\]/\[no\]/g" $plik
 done
 
 # bleh, this cannot be done (new libtool translates kicker.la to -lkicker, which fails)
@@ -863,6 +863,7 @@ for f in `find $ALD -name '.directory' -o -name '*.dekstop'` ; do
 done
 
 bzip2 -dc %{SOURCE13} | tar xf - -C $RPM_BUILD_ROOT
+mv $RPM_BUILD_ROOT%{_prefix}/X11R6/share/locale/* $RPM_BUILD_ROOT%{_datadir}/locale
 
 > core.lang
 programs=" \
