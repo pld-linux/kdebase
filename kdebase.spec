@@ -13,8 +13,8 @@
 #
 
 %define         _state          snapshots
-%define         _ver		3.1.91
-%define         _snap		030918
+%define         _ver		3.1.92
+%define         _snap		030930
 
 %ifarch	sparc sparcv9 sparc64
 %define		_without_alsa	1
@@ -37,8 +37,7 @@ License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:        http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	df5273c7189f8f6dfee958427d6e5d40
-#Source0:        http://team.pld.org.pl/~djurban/kde/%{name}-%{_snap}.tar.bz2
+# Source0-md5:	d3a7ae59c7f8b5604463c24915c1cbce
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -61,7 +60,9 @@ Patch8:		%{name}-konsole_all.patch
 Patch9:		%{name}-nsplugins_dirs.patch
 #Patch10:	%{name}-startkde.patch
 Patch11:        %{name}-kcm_fonts.patch
+# TODO
 Patch12:	%{name}-gtkrc.patch
+#
 #Patch14:	%{name}-pldcredits.patch
 #Patch16:	%{name}-kicker_nodesktop.patch
 #Patch17:       %{name}-xfsreload.patch
@@ -71,6 +72,7 @@ Patch21:	%{name}-vcategories.patch
 Patch22:	%{name}-screensavers.patch
 Patch23:	%{name}-prefmenu.patch
 Patch24:	%{name}-fix-mouse_cpp_for_enable_final.patch
+Patch25:	%{name}-session.patch
 %{?_without_alsa:BuildConflicts:	alsa-driver-devel}
 %{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	OpenGL-devel
@@ -99,7 +101,7 @@ BuildRequires:	libvorbis-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	motif-devel
-BuildRequires:	openssl-devel >= 0.9.7
+BuildRequires:	openssl-devel >= 0.9.7c
 BuildRequires:	openldap-devel
 BuildRequires:	pam-devel
 BuildRequires:	sed >= 4.0
@@ -159,7 +161,7 @@ Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kicker = %{epoch}:%{version}-%{release}
 Requires:	%{name}-ksysguard = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
-Requires:	kdelibs-devel >= %{epoch}:%{version}
+Requires:	kdelibs-devel >= 9:%{version}
 
 %description devel
 This package contains header files needed to develop KDE applications.
@@ -250,7 +252,7 @@ Summary:        Default kicker sidebar
 Summary(pl):    Domy¶lny boczny pasek do menu KDE 
 Group:          Themes
 Provides:	kde-kside
-Requires:       kdebase-kicker = %{epoch}:%{version}-%{release}
+Requires:       kdebase-kicker >= 9:3.1.91
 
 %description -n kde-kside-default
 Default kicker sidebar.
@@ -314,7 +316,7 @@ Summary:	Common files for konsole and konsolepart
 Summary(pl):	Pliki wspólne dla konsole i konsolepart
 Group:		X11/Applications
 Requires(post,postun):	fontpostinst
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= 9:%{version}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	%{name}-fonts
 
@@ -329,7 +331,7 @@ Summary:	KDE Core Apps
 Summary(pl):	Podstawowe aplikacje KDE
 Group:		X11/Applications
 Requires:	applnk >= 1.6.3
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= 9:%{version}
 Obsoletes:	%{name} < 8:3.2-0.030428.1
 Obsoletes:	%{name}-kcontrol
 Obsoletes:	%{name}-khelpcenter
@@ -399,7 +401,7 @@ Centrum informacji o systemie dla KDE.
 Summary:	Menu Updating Tool
 Summary(pl):	Narzêdzie do aktualizacji menu
 Group:		X11/Applications
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= 9:%{version}
 Obsoletes:	%{name} =< 8:3.2-0.030418.2
 
 %description kappfinder
@@ -453,7 +455,7 @@ Graficzna przegladarka/klient DCOP.
 Summary:	A KDE version of dialog
 Summary(pl):	Wersja KDE dialogu
 Group:		X11/Applications
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= 9:%{version}
 Obsoletes:	%{name} < 8:3.2-0.030423.2
 
 %description kdialog
@@ -563,7 +565,7 @@ Emulator terminala dla KDE.
 Summary:	Desktop Pager
 Summary(pl):	Prze³±cznik biurek
 Group:		X11/Applications
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= 9:%{version}
 Obsoletes:	%{name} =< 8:3.2-0.030418.2
 
 %description kpager
@@ -632,7 +634,7 @@ Summary:	KDE Write Daemon
 Summary(pl):	Demon zapisu KDE
 Group:		X11/Applications
 #Requires:	konqueror?
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= 9:%{version}
 Obsoletes:	%{name} < 8:3.2-0.030423.1
 
 %description kwrited
@@ -646,7 +648,7 @@ Summary:	A libraries for KDE text editors
 Summary(pl):	Biblioteki dla edytorów tekstu KDE
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= 9:%{version}
 Obsoletes:	%{name}-kate < 8:3.2-0.030423.1
 Obsoletes:	%{name}-libkmultitabbar
 
@@ -661,7 +663,7 @@ Summary:	TODO
 Summary(pl):	TODO
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= 9:%{version}
 Obsoletes:	%{name}-kicker < 9:3.1.90.030629-0.1
 
 %description libkickermain
@@ -675,7 +677,7 @@ Summary:	Konqueror library files
 Summary(pl):	Biblioteki wykorzystywane przez konquerora
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= 9:%{version}
 Obsoletes:	konqueror < 8:3.2-0.030423.2
 
 %description libkonq
@@ -688,7 +690,7 @@ Biblioteki zawieraj±ce funkcje wykorzystywane przez konquerora.
 Summary:	KDE Mail and News Services
 Summary(pl):	Obs³uga protoko³ów pocztowych i news dla KDE
 Group:		X11/Libraries
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= 9:%{version}
 Obsoletes:	%{name} < 8:3.0.9-2.4
 Obsoletes:	%{name}-kioslave
 
@@ -772,7 +774,9 @@ Internet Explorer.
 %patch9 -p1
 #%patch10 -p1
 %patch11 -p1
-##%patch12 -p1
+# TODO
+#%patch12 -p1
+#
 #%patch14 -p1
 #%patch16 -p1
 #%patch17 -p1
@@ -782,6 +786,7 @@ Internet Explorer.
 %patch22 -p1
 %patch23 -p1
 %patch24 -p1
+%patch25 -p1
 
 %build
 
@@ -807,10 +812,11 @@ rm -rf $RPM_BUILD_ROOT
 	kde_htmldir=%{_htmldir}
 
 install -d \
-	$RPM_BUILD_ROOT/etc/{X11/kdm/pics/users,xdg/menus,pam.d,rc.d/init.d,security} \
+	$RPM_BUILD_ROOT/etc/{xdg/menus,pam.d,rc.d/init.d,security} \
+	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/faces \
 	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
 
-mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers{,.orig}
+#mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers{,.orig}
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession{,.orig}
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
@@ -819,7 +825,7 @@ install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
 install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
 install %{SOURCE3}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
-install %{SOURCE5}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
+#install %{SOURCE5}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
 install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/pldwallpaper.png
 install %{SOURCE8}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/ircpld.desktop
@@ -827,8 +833,10 @@ install %{SOURCE9}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/specs.des
 install %{SOURCE10}	$RPM_BUILD_ROOT/etc/xdg/menus/kde-settings.menu
 install %{SOURCE11}	$RPM_BUILD_ROOT%{_datadir}/apps/kdisplay/color-schemes/QtCurve.kcsrc
 
-cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/faces/{default,root}.png \
-    $RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/users
+cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/default1.png \
+    $RPM_BUILD_ROOT%{_sysconfdir}/kdm/faces/.default.face.icon
+cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
+    $RPM_BUILD_ROOT%{_sysconfdir}/kdm/faces/root.face.icon
 
 ALD=$RPM_BUILD_ROOT%{_applnkdir}
 mv $ALD/Help.desktop			$RPM_BUILD_ROOT%{_desktopdir}/kde
@@ -1009,13 +1017,13 @@ fi
 %{_libdir}/libtaskbar.so
 %{_libdir}/libtaskmanager.so
 
-#%files -n kde-decoration-b2
-#%defattr(644,root,root,755)
-#%{_libdir}/kde3/kwin_b2.la
-#%attr(0755,root,root) %{_libdir}/kde3/kwin_b2.so
-#%{_libdir}/kde3/kwin_b2_config.la
-#%attr(0755,root,root) %{_libdir}/kde3/kwin_b2_config.so
-#%{_datadir}/apps/kwin/b2.desktop
+%files -n kde-decoration-b2
+%defattr(644,root,root,755)
+%{_libdir}/kde3/kwin3_b2.la
+%attr(0755,root,root) %{_libdir}/kde3/kwin3_b2.so
+%{_libdir}/kde3/kwin_b2_config.la
+%attr(0755,root,root) %{_libdir}/kde3/kwin_b2_config.so
+%{_datadir}/apps/kwin/b2.desktop
 
 %files -n kde-decoration-laptop
 %defattr(644,root,root,755)
@@ -1031,13 +1039,13 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kwin_modernsys_config.so
 %{_datadir}/apps/kwin/modernsystem.desktop
 
-#%files -n kde-decoration-quartz
-#%defattr(644,root,root,755)
-#%{_libdir}/kde3/kwin_quartz.la
-#%attr(0755,root,root) %{_libdir}/kde3/kwin_quartz.so
-#%{_libdir}/kde3/kwin_quartz_config.la
-#%attr(0755,root,root) %{_libdir}/kde3/kwin_quartz_config.so
-#%{_datadir}/apps/kwin/quartz.desktop
+%files -n kde-decoration-quartz
+%defattr(644,root,root,755)
+%{_libdir}/kde3/kwin3_quartz.la
+%attr(0755,root,root) %{_libdir}/kde3/kwin3_quartz.so
+%{_libdir}/kde3/kwin_quartz_config.la
+%attr(0755,root,root) %{_libdir}/kde3/kwin_quartz_config.so
+%{_datadir}/apps/kwin/quartz.desktop
 
 %files -n kde-decoration-redmond
 %defattr(644,root,root,755)
@@ -1045,11 +1053,11 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kwin3_redmond.so
 %{_datadir}/apps/kwin/redmond.desktop
 
-#%files -n kde-decoration-web
-#%defattr(644,root,root,755)
-#%{_libdir}/kde3/kwin_web.la
-#%attr(0755,root,root) %{_libdir}/kde3/kwin_web.so
-#%{_datadir}/apps/kwin/web.desktop
+%files -n kde-decoration-web
+%defattr(644,root,root,755)
+%{_libdir}/kde3/kwin3_web.la
+%attr(0755,root,root) %{_libdir}/kde3/kwin3_web.so
+%{_datadir}/apps/kwin/web.desktop
 
 %files -n kde-kside-default
 %defattr(644,root,root,755)
@@ -1119,8 +1127,8 @@ fi
 %{_fontsdir}/misc/console*.gz
 %{_datadir}/apps/konsole
 %{_datadir}/mimelnk/application/x-konsole.desktop
-%{_iconsdir}/crystalsvg/*/actions/opentermblue.png
-%{_iconsdir}/crystalsvg/*/actions/opentermred.png
+#%{_iconsdir}/crystalsvg/*/actions/opentermblue.png
+#%{_iconsdir}/crystalsvg/*/actions/opentermred.png
 %{_iconsdir}/[!l]*/*/apps/bell.png
 %{_iconsdir}/*/*/apps/key_bindings.png
 
@@ -1149,6 +1157,8 @@ fi
 %attr(0755,root,root) %{_libdir}/libkdeinit_kcmshell.so
 %{_libdir}/libkdeinit_kcontrol.la
 %attr(0755,root,root) %{_libdir}/libkdeinit_kcontrol.so
+%{_libdir}/libkdeinit_khelpcenter.la
+%attr(0755,root,root) %{_libdir}/libkdeinit_khelpcenter.so
 %{_libdir}/libkdeinit_kprinter.la
 %attr(0755,root,root) %{_libdir}/libkdeinit_kprinter.so
 %{_libdir}/kde3/kcm_colors.la
@@ -1346,8 +1356,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kwin_keramik_config.so
 %{_libdir}/kde3/kwin3_default.la
 %attr(0755,root,root) %{_libdir}/kde3/kwin3_default.so
-%{_libdir}/kde3/kwin3_test.la
-%attr(0755,root,root) %{_libdir}/kde3/kwin3_test.so
+#%{_libdir}/kde3/kwin3_test.la
+#%attr(0755,root,root) %{_libdir}/kde3/kwin3_test.so
 %{_libdir}/kde3/kwin3_keramik.la
 %attr(0755,root,root) %{_libdir}/kde3/kwin3_keramik.so
 %{_libdir}/kde3/kxkb.la
@@ -1372,7 +1382,7 @@ fi
 %dir %{_datadir}/apps/kwin
 %{_datadir}/apps/kwin/eventsrc
 %{_datadir}/apps/kwin/keramik.desktop
-%{_datadir}/apps/kwin/test.desktop
+#%{_datadir}/apps/kwin/test.desktop
 %dir %{_datadir}/apps/kwin/pics
 %{_datadir}/apps/kwin/pics/*
 %{_datadir}/autostart/kdesktop.desktop
@@ -1408,6 +1418,7 @@ fi
 %{_datadir}/wallpapers/kdm_bg.jpg
 %{_datadir}/wallpapers/only_k.jpg
 %{_datadir}/wallpapers/triplegears.jpg
+%{_datadir}/xsessions/kde.desktop
 %{_applnkdir}/.hidden/battery.desktop
 %{_applnkdir}/.hidden/bwarning.desktop
 %{_applnkdir}/.hidden/cwarning.desktop
@@ -1890,11 +1901,13 @@ fi
 %attr(0755,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/Xwilling
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/Xaccess
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/Xservers
-%dir %{_sysconfdir}/kdm/pics
-%dir %{_sysconfdir}/kdm/pics/users
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/pics/users/default.png
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/pics/users/root.png
-%attr(0755,root,root) %{_bindir}/kdm*
+%dir %{_sysconfdir}/kdm/faces
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/faces/.default.face.icon
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/faces/root.face.icon
+%attr(0755,root,root) %{_bindir}/genkdmconf
+%attr(0755,root,root) %{_bindir}/kdm
+%attr(0755,root,root) %{_bindir}/kdm_config
+%attr(0755,root,root) %{_bindir}/kdm_greet
 %attr(0755,root,root) %{_bindir}/krootimage
 %{_libdir}/kde3/kcm_kdm.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_kdm.so
