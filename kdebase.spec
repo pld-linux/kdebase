@@ -1332,9 +1332,13 @@ fi
 %{_datadir}/apps/kcontrol
 %{_datadir}/apps/kdeprint/*
 %{_datadir}/apps/kdeprint_part
-%{_datadir}/apps/khelpcenter
 %dir %{_datadir}/apps/kdisplay
 %{_datadir}/apps/kdisplay/color-schemes
+%{_datadir}/apps/khelpcenter
+# For apps they store files in applets
+%dir %{_datadir}/apps/kicker
+%dir %{_datadir}/apps/kicker/applets
+#
 %dir %{_datadir}/apps/kio_info
 %attr(0755,root,root) %{_datadir}/apps/kio_info/kde-info2html
 %{_datadir}/apps/kio_info/kde-info2html.conf
@@ -1436,6 +1440,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_bell.so
 %{_libdir}/kde3/kcm_componentchooser.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_componentchooser.so
+#%{_libdir}/kde3/kcm_display.la
+#%attr(0755,root,root) %{_libdir}/kde3/kcm_display.so
 %{_libdir}/kde3/kcm_email.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_email.so
 %{_libdir}/kde3/kcm_energy.la
@@ -1569,6 +1575,7 @@ fi
 %{_desktopdir}/kde/desktop.desktop
 %{_desktopdir}/kde/desktopbehavior.desktop
 %{_desktopdir}/kde/desktoppath.desktop
+#%{_desktopdir}/kde/display.desktop
 %{_desktopdir}/kde/email.desktop
 %{_desktopdir}/kde/energy.desktop
 %{_desktopdir}/kde/kcmaccess.desktop
@@ -1845,8 +1852,15 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.so
 %{_libdir}/kde3/taskbar_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.so
-%{_datadir}/apps/kicker
-%exclude %{_datadir}/apps/kicker/pics/kside*.png
+%{_datadir}/apps/kicker/applets/*.desktop
+%{_datadir}/apps/kicker/default-apps
+%{_datadir}/apps/kicker/extensions
+%{_datadir}/apps/kicker/icons
+%{_datadir}/apps/kicker/menuext
+%dir %{_datadir}/apps/kicker/pics
+%{_datadir}/apps/kicker/pics/disk*.png
+%{_datadir}/apps/kicker/tiles
+%{_datadir}/apps/kicker/wallpapers
 %{_datadir}/apps/naughtyapplet
 %{_datadir}/autostart/panel.desktop
 %{_datadir}/config/kickerrc
