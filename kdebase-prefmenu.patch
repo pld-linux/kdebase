@@ -1,11 +1,11 @@
---- kdebase-030418/kicker/menuext/prefmenu/prefmenu.cpp~	2002-07-13 20:02:25.000000000 +0200
-+++ kdebase-030418/kicker/menuext/prefmenu/prefmenu.cpp	2003-04-18 17:40:01.000000000 +0200
+--- kdebase-030423/kicker/menuext/prefmenu/prefmenu.cpp~	2002-07-13 20:02:25.000000000 +0200
++++ kdebase-030423/kicker/menuext/prefmenu/prefmenu.cpp	2003-04-24 08:32:03.000000000 +0200
 @@ -33,7 +33,7 @@
  
  PrefMenu::PrefMenu(QWidget *parent, const char *name,
                     const QStringList &/*args*/)
 -  : PanelServiceMenu( QString::null, QString( "Settings/" ), parent, name)
-+  : PanelServiceMenu( QString::null, QString( "Settings/KDE/" ), parent, name)
++  : PanelServiceMenu( QString::null, QString( "KDE-Settings/" ), parent, name)
  {
  }
  
