@@ -73,6 +73,7 @@ Patch18:	%{name}-fileshareset.patch
 Patch19:	%{name}-kio_settings.patch
 Patch20:	%{name}-vt-numbers-fix.patch
 Patch21:	%{name}-konsole-default-keytab.patch
+Patch22:	kde-common-QTDOCDIR.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	audiofile-devel
@@ -831,6 +832,7 @@ Dokumentacja API.
 %patch19 -p1
 %patch20 -p1
 %patch21 -p1
+%patch22 -p1
 
 %build
 cp %{_datadir}/automake/config.sub admin
@@ -1024,9 +1026,9 @@ done
 %find_lang	kpager		--with-kde
 %find_lang	kwrite		--with-kde
 %find_lang	screensaver	--with-kde
-%find_lang	kcontrol	--with-kde
+##%find_lang	kcontrol	--with-kde
 
-cat kcontrol.lang	>> core.lang
+##cat kcontrol.lang	>> core.lang
 cat kcmkonsole.lang	>> konsole.lang
 cat kioslave.lang	>> kinfocenter.lang
 
@@ -1401,6 +1403,10 @@ fi
 # infocenter & konqueror need it:
 %{_iconsdir}/*/*/apps/samba.png
 %{_iconsdir}/*/*/apps/usb.png
+%lang(en) %{_kdedocdir}/en/kcontrol/helpindex.html
+%lang(en) %{_kdedocdir}/en/kcontrol/index.*
+%lang(en) %{_kdedocdir}/en/kcontrol/*.png
+%lang(en) %dir %{_kdedocdir}/en/kcontrol
 
 %files desktop -f %{name}.lang
 %defattr(644,root,root,755)
