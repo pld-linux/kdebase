@@ -814,7 +814,8 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d \
 	$RPM_BUILD_ROOT/etc/{pam.d,rc.d/init.d,security} \
-	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
+	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror \
+	$RPM_BUILD_ROOT/etc/xdg/menus/
 
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers{,.orig}
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession{,.orig}
