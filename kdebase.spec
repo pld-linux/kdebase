@@ -9,7 +9,7 @@ Summary(ru):	K Desktop Environment - базовые файлы
 Summary(uk):	K Desktop Environment - базов╕ файли
 Name:		kdebase
 Version:	3.0.3
-Release:	9
+Release:	10
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -342,7 +342,7 @@ export CPPFLAGS
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,Terminals,System/Administration,Settings/KDE} \
+install -d $RPM_BUILD_ROOT%{_applnkdir}/{Amusements,Help,Network/WWW,Office/Editors,Settings/KDE,System/Administration,Terminals} \
 	$RPM_BUILD_ROOT/etc/{pam.d,security,rc.d/init.d,X11/kdm}
 
 %{__make} install \
@@ -364,7 +364,7 @@ mv -f $ALD/{Editors/{kate,kwrite}.desktop,Office/Editors}
 mv -f $ALD/{System/konsole.desktop,Terminals}
 mv -f $ALD/{System/{konquerorsu,konsolesu}.desktop,System/Administration}
 mv -f $ALD/{System/{kappfinder,kmenuedit,kpersonalizer}.desktop,Utilities}
-
+mv -f $ALD/{Help.desktop,Help}
 
 install %{SOURCE2}			$RPM_BUILD_ROOT/etc/pam.d/kdm
 install %{SOURCE6}			$RPM_BUILD_ROOT/etc/pam.d/kscreensaver
@@ -615,7 +615,7 @@ fi
 # NOTE:	There are many directories created by kappfinder. They should be
 #	ignored as such functionality is provided by applnk package and
 #	*.dekstop files from apropriate packages.
-%{_applnkdir}/Help.desktop
+%{_applnkdir}/Help/Help.desktop
 %{_applnkdir}/Home.desktop
 %{_applnkdir}/KControl.desktop
 %{_applnkdir}/Kfind.desktop
