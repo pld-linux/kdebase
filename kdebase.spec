@@ -24,7 +24,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.2
+Release:	0.3
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -50,6 +50,7 @@ Patch8:		%{name}-kicker.patch
 Patch9:		%{name}-konsole_all.patch
 Patch10:	%{name}-nsplugins_dirs.patch
 Patch11:	%{name}-startkde.patch
+Patch12:	%{name}-gtkrc.patch
 %ifnarch sparc sparc64
 %{!?_without_alsa:BuildRequires: alsa-lib-devel}
 %endif
@@ -442,6 +443,7 @@ Internet Explorer.
 %patch9 -p1
 %patch10 -p1
 %patch11 -p1
+%patch12 -p1
 
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
