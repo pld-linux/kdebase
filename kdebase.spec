@@ -2152,8 +2152,7 @@ fi
 %{_libdir}/kde3/kmenuedit.la
 %attr(755,root,root) %{_libdir}/kde3/kmenuedit.so
 %{_datadir}/apps/kmenuedit
-# Do not include this!
-#%{_desktopdir}/kde/kmenuedit.desktop
+%{_desktopdir}/kde/kmenuedit.desktop
 %{_iconsdir}/*/*/apps/kmenu.png
 %{_iconsdir}/*/*/apps/kmenuedit.png
 # thememgr is back?
