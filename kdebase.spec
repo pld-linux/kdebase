@@ -1,6 +1,6 @@
 
 %define		_state		unstable
-%define		_kdever		kde-3.1-rc1
+à%define		_kdever		kde-3.1-rc1
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -73,13 +73,11 @@ BuildRequires:	zlib-devel
 Requires(post,postun):	/sbin/ldconfig
 Prereq:		/usr/X11R6/bin/mkfontdir
 Requires:	applnk >= 1.5.11
-Requires:	kdelibs >= %{version}
 Requires:	kde-splash
 Requires:       kde-sdscreen
-Requires:	kfind = %{version}
-Requires:	konqueror >= %{version}
-Requires:	%{name}-pam
-Requires:	%{name}-wallpapers
+Requires:	konqueror = %{version}-%{release}
+Requires:	%{name}-pam = %{version}-%{release}
+Requires:	%{name}-wallpapers = %{version}-%{release}
 #
 Obsoletes:	%{name}-fonts
 Obsoletes:	%{name}-khelpcenter
@@ -148,8 +146,7 @@ Summary:	Include files to develop KDE applications
 Summary(pl):	Pliki nag³ówkowe potrzebne do programowania
 Summary(pt_BR):	Arquivos de inclusão para compilar aplicativos que usem bibliotecas do kdebase
 Group:		X11/Development/Libraries
-Requires:	%{name} = %{version}
-Requires:	qt-devel >= 3.0.5
+Requires:	%{name} = %{version}-%{release}
 Requires:	kdelibs-devel >= %{version}
 
 %description devel
@@ -168,8 +165,7 @@ Summary:	Include static libraries to develop KDE applications
 Summary(pl):	Statyczne biblioteki KDE
 Summary(pt_BR):	Bibliotecas estáticas do kdebase
 Group:		X11/Development/Libraries
-Requires:	qt-devel >= 3.0.5
-Requires:	kdelibs-devel >= %{version}
+Requires:	kdelibs-devel = %{version}-%{release}
 
 %description static
 This package contains KDE static libraries.
@@ -214,10 +210,8 @@ Standardowy obrazek startowy KDE.
 Summary:	Common Files for kate and konqueror
 Summary(pl):	Pliki wspólne dla kate i konquerora
 Group:		X11/Libraries
-Requires:	%{name}-common-konsole
-Requires:	%{name}-kcontrol
-Requires:	kdelibs >= %{version}
-Requires:	qt >= 3.1
+Requires:	%{name}-common-konsole = %{version}-%{release}
+Requires:	%{name}-kcontrol = %{version}-%{release}
 Obsoletes:	%{name} < 3.0.9-2.4
 
 %description common-filemanagement
@@ -230,7 +224,7 @@ Pliki wspólne - u¿ywane przez kate i konquerora
 Summary:	Common files for konsole and konsolepart
 Summary(pl):	Pliki wspólne dla konsole i konsolepart
 Group:		X11/Applications
-Obsoletes:	%{name} < 3.0.9-2
+Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	%{name}-fonts
 
 %description common-konsole
@@ -244,7 +238,6 @@ Summary:	KDE Help Center
 Summary(pl):	Przegladarka plików pomocy dla KDE
 Group:		X11/Applications
 Requires:	kdelibs >= %{version}
-Requires:	qt >= 3.1
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	%{name}-khelpcenter
 
@@ -258,10 +251,8 @@ Przegladarka plików pomocy dla KDE
 Summary:	KDE Control Center
 Summary(pl):	Centrum Sterowania KDE
 Group:		X11/Applications
-Requires:	%{name}-helpcenter
-Requires:	kdelibs >= %{version}
-Requires:	qt >= 3.1
-Obsoletes:	%{name} < 3.0.9-2.2
+Requires:	%{name}-helpcenter = %{version}-%{release}
+Obsoletes:	%{name} < 3.0.9-2.4
 
 %description kcontrol
 KDE Control Center
@@ -274,8 +265,7 @@ Summary:	KDE Mail and News Services
 Summary(pl):	Obs³uga protoko³ów pocztowych i news dla KDE
 Group:		X11/Libraries
 Requires:	kdelibs >= %{version}
-Requires:	qt >= 3.1
-Obsoletes:	%{name} < 3.0.9-2
+Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	%{name}-kioslave
 
 %description mailnews
@@ -289,7 +279,7 @@ Obs³uga protoko³ów pocztowych i news dla KDE
 Summary:        KDE User Autentication 
 Summary(pl):    Autentykacja u¿ytkownika dla KDE
 Group:          X11/Applications
-Obsoletes:	%{name} < 3.0.9-2
+Obsoletes:	%{name} < 3.0.9-2.4
 
 %description pam
 KDE User Autentication
@@ -304,9 +294,7 @@ Summary(ru):	ÈÒÁÎÉÔÅÌÉ ÜËÒÁÎÁ ÄÌÑ KDE
 Summary(uk):	ÚÂÅÒ¦ÇÁÞ¦ ÅËÒÁÎÕ ÄÌÑ KDE
 Group:		X11/Applications
 Requires:	OpenGL
-Requires:	%{name} = %{version}
-Requires:	kdelibs >= %{version}
-Requires:	qt >= 3.1
+Requires:	%{name} = %{version}-%{release}
 
 %description screensavers
 KDE screensavers.
@@ -321,7 +309,8 @@ Wygaszacze ekranu desktopu KDE.
 Summary:	KDE Wallpapers
 Summary(pl):	Tapety pulpitu dla KDE
 Group:		X11/Amusements
-Obsoletes:	%{name} < 3.0.9-2
+Requires:	kdelibs >= %{version}
+Obsoletes:	%{name} < 3.0.9-2.4
 
 %description wallpapers
 KDE Wallpapers
@@ -333,9 +322,7 @@ Tapety pulpitu dla KDE.
 Summary:	KDE Advanced Text Editor
 Summary(pl):	Zaawansowany edytor tekstu dla KDE
 Group:		X11/Applications/Editors
-Requires:	%{name}-common-filemanagement
-Requires:	kdelibs >= %{version}
-Requires:	qt >= 3.1
+Requires:	%{name}-common-filemanagement = %{version}-%{release}
 Obsoletes:	%{name} < 3.0.9-2.4
 
 %description -n kate
@@ -348,11 +335,9 @@ Zaawansowany edytor tekstu dla KDE
 Summary:	KDE Display Manager
 Summary(pl):	KDE Display Manager
 Group:		X11/Applications
-Requires:	%{name}-kcontrol
-Requires:	%{name}-pam
-Requires:	%{name}-wallpapers
-Requires:	kdelibs >= %{version}
-Requires:	qt >= 3.1
+Requires:	%{name}-kcontrol = %{version}-%{release}
+Requires:	%{name}-pam = %{version}-%{release}
+Requires:	%{name}-wallpapers = %{version}-%{release}
 Requires:	sessreg
 Requires:	xinitrc
 Prereq:		/sbin/chkconfig
@@ -371,10 +356,9 @@ Zamiennik XDM rodem z KDE.
 Summary:	KDE Find Tool
 Summary(pl):	Narzêdzie do wyszukiwania plików dla KDE
 Group:		X11/Applications
-Requires:	%{name}-helpcenter
+Requires:	%{name}-helpcenter = %{version}-%{release}
 Requires:	kdelibs >= %{version}
-Requires:	qt >= 3.1
-Obsoletes:	%{name} < 3.0.9-2
+Obsoletes:	%{name} < 3.0.9-2.4
 
 %description -n kfind
 KDE Find Tool
@@ -386,11 +370,10 @@ Narzêdzie do wyszukiwania plików dla KDE
 Summary:	Konqueror - web browser and file manager
 Summary(pl):	Konqueror - przegl±darka WWW i mened¿er plików
 Group:		X11/Applications
-Requires:	%{name}-common-filemanagement
-Requires:	kdelibs >= %{version}
-Requires:	konsole = %{version}
-Requires:	qt >= 3.1
-Obsoletes:	kdebase-konqueror
+Requires:	%{name}-common-filemanagement = %{version}-%{release}
+Requires:	%{name}-mailnews = %{version}-%{release}
+Requires:	konsole = %{version}-%{release}
+Obsoletes:	%{name}-konqueror
 
 %description -n konqueror
 Konqueror is a web browser and file manager similar to MS Internet
@@ -404,12 +387,10 @@ Internet Explorer.
 Summary:	KDE Terminal Emulator
 Summary(pl):	Emulator terminala dla KDE
 Group:		X11/Applications
-Requires:	%{name}-common-konsole
-Requires:	%{name}-kcontrol
-Requires:	kdelibs >= %{version}
-Requires:	qt >= 3.1
+Requires:	%{name}-common-konsole = %{version}-%{release}
+Requires:	%{name}-kcontrol = %{version}-%{release}
 Obsoletes:	%{name}-konsole
-Obsoletes:	%{name} < 3.0.9-2
+Obsoletes:	%{name} < 3.0.9-2.4
 
 %description -n konsole
 KDE Terminal Emulator
@@ -421,9 +402,7 @@ Emulator terminala dla KDE
 Summary:	KDE Text Editor
 Summary(pl):	Edytor tekstu dla KDE
 Group:		X11/Applications/Editors
-Requires:	%{name}-helpcenter
-Requires:	kdelibs >= %{version}
-Requires:	qt >= 3.1
+Requires:	%{name}-helpcenter = %{version}-%{release}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	%{name}-kwrite
 
