@@ -240,7 +240,7 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/{Network/WWW,Office/Editors,Amusements,S
  	DESTDIR="$RPM_BUILD_ROOT" \
  	fontdir="%{_fontdir}/misc"
 
-bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT%
+bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
 # Patch kdmrc. It is generated so it can not be patched in %%prep.
 cd $RPM_BUILD_ROOT%{_datadir}/config/kdm
@@ -496,7 +496,7 @@ fi
 %dir %{_datadir}/config
 %{_datadir}/config/k[!d]*
 %{_datadir}/config/kdesktop*
-%{_datadir}/locale
+%{_datadir}/locale/l10n
 %{_datadir}/mimelnk
 %{_datadir}/services/[abfgimnpst]*
 %{_datadir}/services/k[afhsuwx]*
