@@ -47,8 +47,8 @@
  
     void makeReadOnly();
                 
---- kdebase-030317/kcontrol/background/main.cpp~	Sat Jan 25 00:35:46 2003
-+++ kdebase-030317/kcontrol/background/main.cpp	Tue Mar 18 18:13:25 2003
+--- kdebase-030924/kcontrol/background/main.cpp~	2003-09-23 21:46:09.000000000 +0200
++++ kdebase-030924/kcontrol/background/main.cpp	2003-09-23 21:56:35.000000000 +0200
 @@ -100,6 +100,11 @@
      m_base->defaults();
  }
@@ -58,9 +58,9 @@
 +    m_base->kdmdefaults();
 +}
 +
- void KBackground::slotChildChanged(bool different)
+ QString KBackground::quickHelp() const
  {
-    emit changed(different);
+     return m_base->quickHelp();
 --- kdebase-030317/kcontrol/background/main.h~	Sat Jan 25 00:35:46 2003
 +++ kdebase-030317/kcontrol/background/main.h	Tue Mar 18 18:00:49 2003
 @@ -31,6 +31,7 @@
