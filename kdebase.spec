@@ -2511,6 +2511,11 @@ fi
 %{_iconsdir}/crystalsvg/*/apps/firefox.png
 %{_iconsdir}/crystalsvg/*/apps/linguist.png
 %{_iconsdir}/crystalsvg/scalable/apps
+%{_iconsdir}/crystalsvg/*/apps/eclipse.png
+%{_iconsdir}/crystalsvg/*/apps/pan.png
+%{_iconsdir}/crystalsvg/*/apps/scribus.png
+%{_iconsdir}/crystalsvg/*/apps/sodipodi.png
+%{_iconsdir}/crystalsvg/*/apps/thunderbird.png
 # Merged kicker
 %attr(0755,root,root) %{_bindir}/kicker
 %attr(0755,root,root) %{_bindir}/ksystraycmd
