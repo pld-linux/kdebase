@@ -28,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.1
+Release:	1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -1352,6 +1352,7 @@ fi
 %defattr(644,root,root,755)
 %{_fontdir}/console*.gz
 %{_fontdir}/9x15.pcf.gz
+%{_fontdir}/fonts.dir
 %{_datadir}/apps/konsole
 %{_datadir}/mimelnk/application/x-konsole.desktop
 %{_pixmapsdir}/[!l]*/*/apps/bell.png
@@ -1894,6 +1895,7 @@ fi
 %{_datadir}/apps/konqueror
 %{_datadir}/config/konqsidebartng.rc
 %{_datadir}/config/kshorturifilterrc
+%{_datadir}/config/kuriikwsfilterrc
 %{_datadir}/mimelnk/kdedevice
 %{_datadir}/services/searchproviders
 %{_datadir}/services/useragentstrings
@@ -1934,6 +1936,7 @@ fi
 %{_datadir}/services/zip.protocol
 %{_applnkdir}/konqueror.desktop
 %{_applnkdir}/.hidden/file*.desktop
+%{_applnkdir}/.hidden/kcmkonq.desktop
 %{_datadir}/servicetypes/findpart.desktop
 %{_datadir}/servicetypes/konqaboutpage.desktop
 %{_datadir}/servicetypes/konqpopupmenuplugin.desktop
