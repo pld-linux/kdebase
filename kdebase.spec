@@ -1,10 +1,11 @@
+%define		_sub_ver	beta2
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos b·sicos
 Summary(pl):	K Desktop Environment - pliki ∂rodowiska
 Summary(pt_BR):	K Desktop Environment - arquivos b·sicos
 Name:		kdebase
-Version:	2.2.2
-Release:	9
+Version:	3.0
+Release:	0.%{_sub_ver}.2
 Epoch:		6
 License:	GPL
 Group:		X11/Applications
@@ -25,8 +26,10 @@ Group(ru):	X11/“…Ãœ÷≈Œ…—
 Group(sl):	X11/Programi
 Group(sv):	X11/Till‰mpningar
 Group(uk):	X11/“…ÀÃ¡ƒŒ¶ “œ«“¡Õ…
-Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
-Source1:	%{name}-startkde.sh
+%{!?_sub_ver:	%define	_ftpdir	stable}
+%{?_sub_ver:	%define	_ftpdir	unstable/kde-%{version}-%{_sub_ver}}
+Source0:	ftp://ftp.kde.org/pub/kde/%{_ftpdir}/src/%{name}-%{version}%{_sub_ver}.tar.bz2
+#Source1:	%{name}-startkde.sh
 Source2:	kdm.pamd
 Source3:	kdm.init
 Source4:	kdm.Xsession
@@ -39,6 +42,7 @@ Patch3:		%{name}-utmp.patch
 Patch4:		%{name}-nsplugins_dirs.patch
 Patch5:		%{name}-hardcoded_paths.patch
 Patch6:		%{name}-kdm.daemon_output.patch
+Patch7:		%{name}-startkde.patch
 %ifnarch sparc sparc64 ppc
 BuildRequires:	alsa-lib-devel
 %endif
@@ -288,7 +292,7 @@ KDE screensavers.
 Wygaszacze ekranu desktopu KDE.
 
 %prep
-%setup  -q
+%setup -q -n "%{name}-%{version}%{_sub_ver}"
 # patch0 is applied in %%install
 %patch1 -p1
 %patch2 -p1
@@ -296,6 +300,7 @@ Wygaszacze ekranu desktopu KDE.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
 
 %build
 
@@ -311,6 +316,7 @@ CPPFLAGS="-I%{_includedir}"
 export CPPFLAGS
 %configure \
 	--with-pam=kdm \
+	--without-ldap \
 	--without-shadow \
 	--disable-shadow \
 	--with-xdmdir="%{_sysconfdir}/kdm" \
@@ -447,6 +453,8 @@ fi
 %attr(0755,root,root) %{_bindir}/kdes[!u]*
 %attr(0755,root,root) %{_bindir}/kdesu
 %attr(6755,root,root) %{_bindir}/kdesud
+%attr(0755,root,root) %{_bindir}/kfind
+%attr(0755,root,root) %{_bindir}/kpm
 %attr(0755,root,root) %{_bindir}/konsole
 %attr(6755,root,root) %{_bindir}/konsole_grantpty
 %attr(0755,root,root) %{_bindir}/khelpcenter
@@ -464,8 +472,8 @@ fi
 
 %attr(0755,root,root) %{_libdir}/[ae]*.la
 %attr(0755,root,root) %{_libdir}/[ae]*.so*
-%attr(0755,root,root) %{_libdir}/k[dhijlmwx]*.la
-%attr(0755,root,root) %{_libdir}/k[dhijlmwx]*.so*
+%attr(0755,root,root) %{_libdir}/k[dhijlmswx]*.la
+%attr(0755,root,root) %{_libdir}/k[dhijlmswx]*.so*
 %attr(0755,root,root) %{_libdir}/kate.??
 %attr(0755,root,root) %{_libdir}/konsole.la
 %attr(0755,root,root) %{_libdir}/konsole.so*
@@ -473,38 +481,48 @@ fi
 %attr(0755,root,root) %{_libdir}/lib[cdqt]*.so*
 %attr(0755,root,root) %{_libdir}/libk[ahmrstw]*.la
 %attr(0755,root,root) %{_libdir}/libk[ahmrstw]*.so*
-%attr(0755,root,root) %{_libdir}/libkcm_[ilx]*.la*
-%attr(0755,root,root) %{_libdir}/libkcm_[ilx]*.so*
+#%attr(0755,root,root) %{_libdir}/libkcm_[ilx]*.la*
+#%attr(0755,root,root) %{_libdir}/libkcm_[ilx]*.so*
+#%attr(0755,root,root) %{_libdir}/libkcm_[ku]*.la
+#%attr(0755,root,root) %{_libdir}/libkcm_[ku]*.so
+%attr(0755,root,root) %{_libdir}/libkicker.la
+%attr(0755,root,root) %{_libdir}/libkicker.so.*.*.*
+%attr(0755,root,root) %{_libdir}/liblockoutapplet.la
+%attr(0755,root,root) %{_libdir}/liblockoutapplet.so.*.*.*
 %attr(0755,root,root) %{_libdir}/libkonsolepart.la
 %attr(0755,root,root) %{_libdir}/libkonsolepart.so*
 %attr(0755,root,root) %{_libdir}/libnaughtyapplet.la
 %attr(0755,root,root) %{_libdir}/libnaughtyapplet.so*
-%attr(0755,root,root) %{_libdir}/libkcm_[ku]*.la
-%attr(0755,root,root) %{_libdir}/libkcm_[ku]*.so
 
-%attr(0755,root,root) %{_libdir}/kde2/[ikt]*.la
-%attr(0755,root,root) %{_libdir}/kde2/[ikt]*.so*
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_[abcefilmptu]*.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_[abcefilmptu]*.so*
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_k[ehinuw]*.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_k[ehinuw]*.so*
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_s[amt]*.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_s[amt]*.so*
-%attr(0755,root,root) %{_libdir}/kde2/libk[fsuw]*.la*
-%attr(0755,root,root) %{_libdir}/kde2/libk[fsuw]*.so*
+%attr(0755,root,root) %{_libdir}/kde3/[ikt]*.la
+%attr(0755,root,root) %{_libdir}/kde3/[ikt]*.so*
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_[abcefilmptu]*.la
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_[abcefilmptu]*.so*
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_k[ehinuw]*.la
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_k[ehinuw]*.so*
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_nic.la
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_nic.so*
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_s[amt]*.la
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_s[amt]*.so*
+%attr(0755,root,root) %{_libdir}/kde3/libk[fsuw]*.la*
+%attr(0755,root,root) %{_libdir}/kde3/libk[fsuw]*.so*
 
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_socks.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_socks.so
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_konsole.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_konsole.so
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_spellchecking.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_spellchecking.so
-%attr(0755,root,root) %{_libdir}/kde2/libkded*.la
-%attr(0755,root,root) %{_libdir}/kde2/libkded*.so*
-%attr(0755,root,root) %{_libdir}/kde2/libkhelp*.la
-%attr(0755,root,root) %{_libdir}/kde2/libkhelp*.so*
-%attr(0755,root,root) %{_libdir}/kde2/gsthumbnail.la
-%attr(0755,root,root) %{_libdir}/kde2/gsthumbnail.so*
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_socks.la
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_socks.so
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_konsole.la
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_konsole.so
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_spellchecking.la
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_spellchecking.so
+%attr(0755,root,root) %{_libdir}/kde3/libkded*.la
+%attr(0755,root,root) %{_libdir}/kde3/libkded*.so*
+%attr(0755,root,root) %{_libdir}/kde3/lib*kdeprint*.la
+%attr(0755,root,root) %{_libdir}/kde3/lib*kdeprint*.so*
+%attr(0755,root,root) %{_libdir}/kde3/libkhelp*.la
+%attr(0755,root,root) %{_libdir}/kde3/libkhelp*.so*
+%attr(0755,root,root) %{_libdir}/kde3/libklipperapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/libklipperapplet.so*
+%attr(0755,root,root) %{_libdir}/kde3/gsthumbnail.la
+%attr(0755,root,root) %{_libdir}/kde3/gsthumbnail.so*
 
 # NOTE:	There are many directories created by kappfinder. They should be
 #	ignored as such functionality is provided by applnk package and
@@ -512,6 +530,7 @@ fi
 %{_applnkdir}/Help.desktop
 %{_applnkdir}/Home.desktop
 %{_applnkdir}/KControl.desktop
+%{_applnkdir}/Kfind.desktop
 %{_applnkdir}/.hidden/konqfilemgr.desktop
 %{_applnkdir}/Amusements/*.desktop
 %dir %{_applnkdir}/Settings
@@ -528,7 +547,7 @@ fi
 %{_applnkdir}/Settings/KDE/PowerControl
 %{_applnkdir}/Settings/KDE/Sound
 %dir %{_applnkdir}/Settings/KDE/System
-%{_applnkdir}/Settings/KDE/System/k[!d]*
+#%{_applnkdir}/Settings/KDE/System/k[!d]*
 %{_applnkdir}/Settings/KDE/System/[!k]*
 %{_applnkdir}/Settings/KDE/System/.directory
 %{_applnkdir}/System/k[!o]*.desktop
@@ -536,7 +555,7 @@ fi
 %{_applnkdir}/Utilities/*.desktop
 %{_applnkdir}/Editors/*.desktop
 # No idea what it is for...
-%{_applnkdir}/ksysguard
+#%{_applnkdir}/ksysguard
 
 %{_datadir}/apps/[cdn]*
 %{_datadir}/apps/k[abcfhijmtw]*
@@ -547,7 +566,7 @@ fi
 
 %{_datadir}/autostart
 %dir %{_datadir}/config
-%{_datadir}/config/[!k]*
+#%{_datadir}/config/[!k]*
 %{_datadir}/config/k[!d]*
 %{_datadir}/config/kdesktop*
 %{_datadir}/locale
@@ -555,12 +574,13 @@ fi
 %{_datadir}/services/[abfgimnpst]*
 %{_datadir}/services/k[afhsuwx]*
 %{_datadir}/services/kded
+%{_datadir}/services/kdeprint_part.desktop
 %{_datadir}/services/kons*
 %{_datadir}/sounds
 %{_datadir}/templates
 %{_datadir}/wallpapers
 %{_datadir}/servicetypes/[fstu]*.desktop
-%{_datadir}/servicetypes/k[!o]*.desktop
+#%{_datadir}/servicetypes/k[!o]*.desktop
 
 %{_pixmapsdir}/*/*/apps/[abcdefghilmnprstuwx]*
 %{_pixmapsdir}/*/*/apps/k[acefhijlmnptwm]*
@@ -570,6 +590,7 @@ fi
 %{_pixmapsdir}/*/*/apps/kdeprint*
 
 %{_pixmapsdir}/*/*/actions/*
+%{_pixmapsdir}/*/*/devices/*
 %{_pixmapsdir}/*/*/filesystems/*
 
 # TODO:	file /usr/share/fonts/misc/9x15.pcf.gz from install of kdebase-2.0.1-3
@@ -589,6 +610,9 @@ fi
 %{_includedir}/*.h
 %{_includedir}/kwin/*.h
 %{_includedir}/kate/*.h
+%{_includedir}/ksgrd
+%{_libdir}/libkicker.so
+%{_libdir}/liblockoutapplet.so
 
 %files static
 %defattr(644,root,root,755)
@@ -598,8 +622,8 @@ fi
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/chooser
 %attr(0755,root,root) %{_bindir}/kdm*
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_kdm.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_kdm.so*
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_kdm.la
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_kdm.so*
 
 %dir %{_sysconfdir}/kdm
 %{_sysconfdir}/kdm/kdmrc
@@ -634,20 +658,20 @@ fi
 %attr(0755,root,root) %{_libdir}/kfm*.??
 %attr(0755,root,root) %{_libdir}/konqueror.la
 %attr(0755,root,root) %{_libdir}/konqueror.so*
-%attr(0755,root,root) %{_libdir}/libkcm_nsplugin.la
-%attr(0755,root,root) %{_libdir}/libkcm_nsplugin.so*
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_nsplugin.la
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_nsplugin.so*
 %attr(0755,root,root) %{_libdir}/libkonq*.la
 %attr(0755,root,root) %{_libdir}/libkonq*.so*
 %attr(0755,root,root) %{_libdir}/libnsplugin.la
 %attr(0755,root,root) %{_libdir}/libnsplugin.so*
 
-%attr(0755,root,root) %{_libdir}/kde2/htmlthumbnail.la
-%attr(0755,root,root) %{_libdir}/kde2/htmlthumbnail.so*
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_konq*.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_konq*.so*
-%attr(0755,root,root) %{_libdir}/kde2/libkonq*la
-%attr(0755,root,root) %{_libdir}/kde2/libkonq*so.*
-%attr(0755,root,root) %{_libdir}/kde2/libkonq*.so
+%attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.la
+%attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.so*
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_konq*.la
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_konq*.so*
+%attr(0755,root,root) %{_libdir}/kde3/libkonq*la
+%attr(0755,root,root) %{_libdir}/kde3/libkonq*so.*
+%attr(0755,root,root) %{_libdir}/kde3/libkonq*.so
 
 %{_applnkdir}/Network/WWW/konq*.desktop
 %{_applnkdir}/Network/WWW/keditbookmarks.desktop
@@ -663,6 +687,7 @@ fi
 %{_datadir}/services/konq*.desktop
 %{_datadir}/services/useragentstrings
 %{_datadir}/servicetypes/konqaboutpage.desktop
+%{_datadir}/servicetypes/konqpopupmenuplugin.desktop
 
 %{_pixmapsdir}/*/*/apps/konqueror.png
 
@@ -671,12 +696,12 @@ fi
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/*.kss
 
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_screensaver.la
-%attr(0755,root,root) %{_libdir}/kde2/libkcm_screensaver.so*
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_screensaver.la
+%attr(0755,root,root) %{_libdir}/kde3/libkcm_screensaver.so*
 
 %{_applnkdir}/Settings/KDE/LookNFeel/screensaver.desktop
 %{_applnkdir}/System/ScreenSavers/*
 
-%{_datadir}/apps/kscreensaver
+#%{_datadir}/apps/kscreensaver
 
 %{_pixmapsdir}/*/*/apps/kscreensaver.png
