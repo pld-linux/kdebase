@@ -115,20 +115,17 @@
    greetfont = QFont("charter", 24);
  }
  
---- kdebase-3.1/kcontrol/kdm/kdm-sess.cpp.orig	Sun Sep 15 23:08:39 2002
-+++ kdebase-3.1/kcontrol/kdm/kdm-sess.cpp	Thu Nov 21 23:18:34 2002
-@@ -400,11 +400,6 @@
-   sdlcombo->setCurrentItem(SdAll);
-   sdrcombo->setCurrentItem(SdRoot);
+--- kdebase-030418/kcontrol/kdm/kdm-sess.cpp~	2003-04-04 00:37:58.000000000 +0200
++++ kdebase-030418/kcontrol/kdm/kdm-sess.cpp	2003-04-19 19:26:08.000000000 +0200
+@@ -364,7 +364,7 @@
+   QString str;
  
--  sessionslb->clear();
--  sessionslb->insertItem("default");
--  sessionslb->insertItem("kde");
--  sessionslb->insertItem("failsafe");
--
- #if defined(__linux__) && defined(__i386__)
-     lilo_check->setChecked(false);
-     slotLiloCheckToggled(false);
+   config->setGroup("X-:*-Core");
+-  readSD(sdlcombo, "All");
++  readSD(sdlcombo, "Root");
+ 
+   config->setGroup("X-*-Core");
+   readSD(sdrcombo, "Root");
 --- kdebase-3.1/kcontrol/kdm/kdm-users.cpp.fixed	Fri Nov 29 03:55:12 2002
 +++ kdebase-3.1/kcontrol/kdm/kdm-users.cpp	Fri Nov 29 18:53:19 2002
 @@ -66,7 +66,7 @@
@@ -177,8 +174,8 @@
  
  messages:
  	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
---- kdebase-3.1.1/kdm/kfrontend/genkdmconf.c~	Sun Mar  2 19:35:05 2003
-+++ kdebase-3.1.1/kdm/kfrontend/genkdmconf.c	Tue Mar  4 15:53:10 2003
+--- kdebase-030418/kdm/kfrontend/genkdmconf.c~	2003-03-08 00:46:01.000000000 +0100
++++ kdebase-030418/kdm/kfrontend/genkdmconf.c	2003-04-19 19:56:53.000000000 +0200
 @@ -56,7 +56,7 @@
  
  #define as(ar) ((int)(sizeof(ar)/sizeof(ar[0])))
@@ -197,7 +194,7 @@
  "WallpaperList=\n"
  "WallpaperMode=Scaled\n";
  
-@@ -1831,18 +1831,18 @@
+@@ -1823,18 +1823,20 @@
  "# this opens a security hole: a secured display lock can be circumvented\n"
  "# (unless you use KDE's built-in screen lock). Default is false\n" },
  { "AllowRootLogin",	0, 0, 
@@ -208,12 +205,14 @@
 +"# Allow to log in, when user has set an empty password? Default is false\n" },
  { "AllowShutdown",	0, 0, 
  "# Who is allowed to shut down the system. This applies both to the\n"
- "# greeter and to the command FiFo. Default is All\n"
+-"# greeter and to the command FiFo. Default is All\n"
++"# greeter and to the command FiFo.\n"
  "# \"None\" - no \"Shutdown...\" button is shown at all\n"
--"# \"Root\" - the root password must be entered to shut down\n"
+ "# \"Root\" - the root password must be entered to shut down\n"
 -"# \"All\" - everybody can shut down the machine (Default)\n" },
-+"# \"Root\" - the root password must be entered to shut down (Default)\n"
-+"# \"All\" - everybody can shut down the machine\n" },
++"# \"All\" - everybody can shut down the machine\n"
++"# Default value is \"Root\". For local displays we set this option to \"All\"\n"
++"# (see the \"[X-:*-Core]\" section below).\n" },
  { "AllowSdForceNow",	0, 0, 
  "# Who is allowed to abort all still running sessions when shutting down.\n"
 -"# Same options as for AllowShutdown. Default is All\n" },
@@ -221,7 +220,7 @@
  { "DefaultSdMode",	0, 0, 
  "# The default choice for the shutdown condition/timing.\n"
  "# \"Schedule\" - shutdown after all sessions exit (possibly at once) (Default)\n"
-@@ -1857,7 +1857,7 @@
+@@ -1849,7 +1851,7 @@
  "# option!), i.e., KDM will behave exactly as before KDE 3.0.\n" }, 
  { "SessSaveFile",	0, 0, 
  "# Where (relatively to the user's home directory) to store the last\n"
@@ -230,7 +229,7 @@
  { "ServerAttempts",	0, 0, 
  "# How often to try to run the X-server. Running includes executing it and\n"
  "# waiting for it to come up. Default is 1\n" },
-@@ -1894,17 +1894,17 @@
+@@ -1882,17 +1884,17 @@
  { "GUIStyle",		0, upd_guistyle, 
  "# Widget Style of the greeter:\n"
  "# Default, Windows, Platinum, Motif, MotifPlus, CDE, SGI, and any styles you\n"
@@ -252,7 +251,7 @@
  { "GreeterPosFixed",	0, 0, 
  "# Normally, the greeter is centered on the screen. Use this, if you want\n"
  "# it to appear elsewhere on the screen. Default is false\n" },
-@@ -1925,13 +1925,13 @@
+@@ -1913,13 +1915,13 @@
  "# - %r -> the operating system's version\n"
  "# - %m -> the machine (hardware) type\n"
  "# - %% -> a single %\n"
@@ -269,9 +268,9 @@
  { "AntiAliasing",	0, 0,
  "# Whether the fonts shown in the greeter should be antialiased. Default is false\n" },
  { "NumLock",		0, 0,
-@@ -2121,10 +2121,10 @@
+@@ -2126,10 +2128,10 @@
+ { "SystemShell",	"/bin/bash", 0 },
  { "UserAuthDir",	"", 0 },
- { "Chooser",		"", 0 },	/* XXX kill */
  { "AutoReLogin",	"true", 0 },
 -{ "AllowRootLogin",	"false", 1 },
 -{ "AllowNullPasswd",	"false", 1 },
@@ -284,7 +283,7 @@
  { "DefaultSdMode",	"ForceNow", 0}, 
  { "InteractiveSd",	"false", 0}, 
  { "SessSaveFile",	"", 0 },	/* XXX .dmrc */
-@@ -2134,7 +2134,7 @@
+@@ -2139,7 +2141,7 @@
  { "SessionTypes",	"default,kde,failsafe", 1 },
  { "GUIStyle",		"Windows", 0 },
  { "ColorScheme",	"Pumpkin", 0 },
@@ -293,7 +292,7 @@
  { "LogoPixmap",		"", 0 },
  { "GreeterPosFixed",	"true", 0 },
  { "GreeterPosX",	"200", 0 },
-@@ -2167,8 +2167,8 @@
+@@ -2172,8 +2174,8 @@
  { "ServerAttempts",	"", 0 },
  { "ServerTimeout",	"", 0 },
  { "AllowShutdown",	"All", 1 },
