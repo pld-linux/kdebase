@@ -787,6 +787,7 @@ fi
 %{_libdir}/kde3/sysguard_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/sysguard_panelapplet.so
 %dir %{_datadir}/apps/ksmserver
+%dir %{_datadir}/apps/ksplash
 %dir %{_datadir}/apps/ksplash/Themes
 %{_datadir}/apps/ksplash/Themes/Default
 %{_datadir}/apps/?[!acdefhiosw]*
