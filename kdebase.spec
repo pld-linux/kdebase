@@ -16,7 +16,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.4
-Release:	14
+Release:	15
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -387,7 +387,7 @@ rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{access,agent,bell,colors,coo
 	$RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{keyboard,kfind,kfm,kfm_home,khelpcenter,klipper,kmenuedit,knotify,konqueror,konsole,kpager,kscreensaver,ksysguard,kthememgr,ktip,kwrite,licq,locale,looknfeel,mouse}.png \
 	$RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{multimedia,netscape-plugins,password,personal,proxy,samba,style,stylesheet,usb,window_list}.png \
 # resized
-rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{background,kcmsound,printmgr,cache,kcmx,kcmkicker,keditbookmarks}.png
+rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{background,kcmsound,kpersonalizer,printmgr,cache,kcmx,kcmkicker,keditbookmarks}.png
 # moved to kdelibs
 rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{arts,penguin}.png
 %endif
