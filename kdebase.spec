@@ -600,7 +600,7 @@ fi
 %attr(0755,root,root) %{_libdir}/libkickermain.so.*.*.*
 %attr(0755,root,root) %{_libdir}/libkfindpart.so
 %attr(0755,root,root) %{_libdir}/libsensordisplays.so.*.*.*
-%attr(0755,root,root) %{_libdir}/libkonsolepart.so.*.*.*
+%attr(0755,root,root) %{_libdir}/libkonsolepart.so
 
 # We have to include *.so.1 sym-links, as ldconfig doesn't touch
 # %{_libdir}/kde3
@@ -807,7 +807,7 @@ fi
 
 %attr(755,root,root) %{_libdir}/keditbookmarks.so
 %attr(755,root,root) %{_libdir}/kfm*.so
-%attr(755,root,root) %{_libdir}/konqueror.so.*.*.*
+%attr(755,root,root) %{_libdir}/konqueror.so
 %attr(755,root,root) %{_libdir}/kde3/kcm_konq*.??
 %attr(755,root,root) %{_libdir}/kde3/konq*.??
 %attr(755,root,root) %{_libdir}/kde3/libkcm_nsplugin.la
