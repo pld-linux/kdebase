@@ -24,9 +24,10 @@ Release:	0.1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-#Source0:	http://download.kde.org/%{_state}/3.3/src/%{name}-%{_ver}.tar.bz2
-Source0:	http://ftp.pld-linux.org/software/kde/%{name}-%{version}.tar.bz2
-# Source0-md5:	c8d2cf86adaaa253a90f3934c1954df3
+Source0:	http://download.kde.org/%{_state}/%{version}/src/%{name}-%{_ver}.tar.bz2
+# Source0-md5:	dd0d9707296f2be143c28a8be21b6e24
+# Source0-size:	19906317
+#Source0:	http://ftp.pld-linux.org/software/kde/%{name}-%{version}.tar.bz2
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
