@@ -285,7 +285,7 @@
 -{ "AllowRootLogin",	C_allowRootLogin | C_BOOL, 0,	"true" },
 -{ "AllowShutdown",	C_allowShutdown | C_ENUM, sd_who, "All" },
 -{ "AllowSdForceNow",	C_allowNuke | C_ENUM, sd_who,	"All" },
-+{ "AllowNullPasswd",	C_allowNullPasswd | C_BOOL, 0,	"falsa" },
++{ "AllowNullPasswd",	C_allowNullPasswd | C_BOOL, 0,	"false" },
 +{ "AllowRootLogin",	C_allowRootLogin | C_BOOL, 0,	"false" },
 +{ "AllowShutdown",	C_allowShutdown | C_ENUM, sd_who, "Root" },
 +{ "AllowSdForceNow",	C_allowNuke | C_ENUM, sd_who,	"Root" },
