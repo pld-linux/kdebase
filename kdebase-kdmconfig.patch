@@ -120,28 +120,6 @@
  #define KDMDATA KDE_DATADIR "/kdm"
  
  #define RCVERMAJOR 2
-@@ -532,7 +532,7 @@
- #endif
- 
- #ifdef __linux__
--# define DEF_SERVER_LINE ":0 local@tty1 " XBINDIR "/X vt7"
-+# define DEF_SERVER_LINE ":0 local@tty1 " XBINDIR "/X vt9"
- /* ###
- # define DEF_SERVER_LINES DEF_SERVER_LINE "\n" \
- 			 ":1 local@tty2 reserve " XBINDIR "/X :1 vt8\n" \
-@@ -541,10 +541,8 @@
- 			 "#:4 local@tty5 reserve " XBINDIR "/X :4 vt11\n"
- */
- # define DEF_SERVER_LINES DEF_SERVER_LINE "\n" \
--			 "#:1 local@tty2 reserve " XBINDIR "/X :1 vt8\n" \
--			 "#:2 local@tty3 reserve " XBINDIR "/X :2 vt9\n" \
--			 "#:3 local@tty4 reserve " XBINDIR "/X :3 vt10\n" \
--			 "#:4 local@tty5 reserve " XBINDIR "/X :4 vt11\n"
-+			 "#:1 local@tty2 reserve " XBINDIR "/X :1 vt10\n" \
-+			 "#:2 local@tty3 reserve " XBINDIR "/X :2 vt11\n"
- #elif defined(__sun__)
- # define DEF_SERVER_LINE ":0 local@console " XBINDIR "/X"
- #elif defined(_AIX)
 @@ -787,14 +785,15 @@
  "esac\n"
  "exec xmessage -center -buttons OK:0 -default OK \"Sorry, cannot execute $1. Check $DESKTOP_SESSION.desktop.\"\n";

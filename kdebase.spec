@@ -2,13 +2,16 @@
 # TODO:
 # * KDM: ColorSheme=Default works properly with GUIStyle=KDE only
 # * Adding %%doc to subpkgs
-#
+# * i18n files
+# * files list check
+
+
 # Conditional build:
 %bcond_without	i18n	# don't build i18n packages per module
 %bcond_without	ldap	# build without LDAP support
 #
 %define		_state		stable
-%define		_ver		3.2.0
+%define		_ver		3.2.1
 #%%define		_snap		040110
 
 Summary:	K Desktop Environment - core files
@@ -22,13 +25,14 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	5.1
+Release:	0.1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{version}.tar.bz2
+# Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{version}.tar.bz2
+Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
+# Source0-md5:	3a3d89b0b49dbb1eaa9e71c83019bbef
 #Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
-# Source0-md5:	9d05be3ccd6cc0294d6153e5d4dfa63a
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -46,7 +50,7 @@ Source13:	http://ep09.pld-linux.org/~adgor/kde/%{name}-konqsidebartng-PLD-entrie
 Source14:	http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
 # Source14-md5:	30848effd6e53fb459a620a50f761b85
 %endif
-Patch0:		%{name}-3.2branch.diff
+# Patch0:		%{name}-3.2branch.diff
 Patch1:		%{name}-fontdir.patch
 Patch2:		%{name}-kcm_background.patch
 Patch3:		%{name}-kdm_utmpx.patch
@@ -66,6 +70,7 @@ Patch16:	%{name}-vmenus.patch
 Patch17:	kde-common-utmpx.patch
 Patch18:	%{name}-fileshareset.patch
 Patch19:	%{name}-kio_settings.patch
+Patch20:	%{name}-vt-numbers-fix.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	audiofile-devel
@@ -1263,7 +1268,7 @@ Pliki umiêdzynarodawiaj±ce dla mailnews.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p1
+#%%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -1283,6 +1288,7 @@ Pliki umiêdzynarodawiaj±ce dla mailnews.
 %patch17 -p1
 %patch18 -p1
 %patch19 -p1
+%patch20 -p1
 
 %build
 cp %{_datadir}/automake/config.sub admin
