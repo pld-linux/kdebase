@@ -1,15 +1,27 @@
-Summary:     K Desktop Environment - core files
-Summary(pl): K Desktop Environment - pliki ¶rodowiska
-Name:        kdebase
-Version:     1.0
-Release:     7
-Copyright:   GPL
-Group:       X11/KDE/Base
-Vendor:      The KDE Team
-Source:      ftp://ftp.kde.org/pub/kde/stable/%{version}/distribution/tar/generic/source/%{name}-%{version}.tar.gz
-Source2:     kdeenv
-Requires:    qt >= 1.40, kdelibs = %{version}
-BuildRoot:   /tmp/%{name}-%{version}-root
+Summary:     	K Desktop Environment - core files
+Summary(pl): 	K Desktop Environment - pliki ¶rodowiska
+Name:        	kdebase
+Version:     	1.1.1
+Release:     	1
+Copyright:   	GPL
+Group:       	X11/KDE/Base
+Vendor:      	The KDE Team
+Source:      	ftp://ftp.kde.org/pub/kde/stable/%{version}/distribution/tar/generic/source/bz2/%{name}-%{version}.tar.bz2
+Source2:     	kdeenv
+Patch:		kdebase-DESTDIR.patch
+BuildPrereq:	qt-devel >= 1.44
+BuildPrereq:	kdelibs-devel = %{version}
+BuildPrereq:	libjpeg-devel
+BuildPrereq:	libpng-devel
+BuildPrereq:	libstdc++-devel
+BuildPrereq:	libtiff-devel
+BuildPrereq:	XFree86-devel
+BuildPrereq:	zlib-devel
+BuildPrereq:	pam-devel
+BuildPrereq:	Mesa-devel
+Requires:    	qt >= 1.44
+Requires:	kdelibs = %{version}
+BuildRoot:   	/tmp/%{name}-%{version}-root
 
 %description
 KDE specific files. Used by core KDE applications.
@@ -29,10 +41,12 @@ Pakiet zawiera:
   kaudio - serwer d¼wiêku dla KDE
 
 %package -n kcontrol
-Summary:     KDE Control Center
-Summary(pl): Centrum Sterowania KDE
-Group:       X11/KDE/Base
-Requires:    qt >= 1.40, kdelibs = %{version}, %{name} = %{version}
+Summary:     	KDE Control Center
+Summary(pl): 	Centrum Sterowania KDE
+Group:       	X11/KDE/Base
+Requires:    	qt >= 1.4
+Requires:	kdelibs = %{version}
+Requires:	%{name} = %{version}
 
 %description -n kcontrol
 KDE Control Center - easy way to access KDE configuration modules
@@ -43,10 +57,11 @@ Centrum sterowania KDE - program obs³ugi modu³ów konfiguracyjnych KDE
 oraz kilka przydatnych modu³ów.
 
 %package -n kdehelp
-Summary:     KDE Help System	
-Summary(pl): System Pomocy KDE
-Group:       X11/KDE/Base
-Requires:    qt >= 1.40, kdelibs = %{version}
+Summary:     	KDE Help System	
+Summary(pl): 	System Pomocy KDE
+Group:       	X11/KDE/Base
+Requires:    	qt >= 1.44
+Requires:	kdelibs = %{version}
 
 %description -n kdehelp
 This program is used for viewing KDE applications' online manual.
@@ -57,10 +72,11 @@ Program umo¿liwiaj±cy przegl±danie dokumentacji applikacji KDE.
 Jest te¿ wygodnym narzêdziem do ogl±dania stron man i dokumentacji "info".
 
 %package -n kdm
-Summary:     KDE Display Manager	
-Summary(pl): KDE Display Manager
-Group:       X11/KDE/Base
-Requires:    qt >= 1.40, kdelibs = %{version}
+Summary:     	KDE Display Manager	
+Summary(pl): 	KDE Display Manager
+Group:       	X11/KDE/Base
+Requires:    	qt >= 1.44
+Requires:	kdelibs = %{version}
 
 %description -n kdm
 It is KDE replacement for XDM.
@@ -70,10 +86,11 @@ It manages local and remote X11 displays.
 Zamiennik XDM rodem z KDE.
 
 %package -n kfind
-Summary:     KDE file finder	
-Summary(pl): Wyszukiwarka plików dla KDE
-Group:       X11/KDE/Base
-Requires:    qt >= 1.40, kdelibs = %{version}
+Summary:     	KDE file finder	
+Summary(pl): 	Wyszukiwarka plików dla KDE
+Group:       	X11/KDE/Base
+Requires:    	qt >= 1.44
+Requires:	kdelibs = %{version}
 
 %description -n kfind
 A simple frontend to find and grep.
@@ -82,10 +99,12 @@ A simple frontend to find and grep.
 Prosty interfejs dla poleceñ find i grep.
 
 %package -n kfm
-Summary:     KDE file manager	
-Summary(pl): Mened¿er plików KDE
-Group:       X11/KDE/Base
-Requires:    %{name} = %{version}, qt >= 1.40, kdelibs = %{version} 
+Summary:     	KDE file manager	
+Summary(pl): 	Mened¿er plików KDE
+Group:       	X11/KDE/Base
+Requires:    	%{name} = %{version}
+Requires:	qt >= 1.44
+Requires:	kdelibs = %{version} 
 
 %description -n kfm
 A file manager and a web browser for KDE.
@@ -94,10 +113,11 @@ A file manager and a web browser for KDE.
 Mened¿er plików i przegl±darka WWW dla KDE.
 
 %package -n kfontmanager
-Summary:     KDE font manager	
-Summary(pl): Mened¿er fontów KDE
-Group:       X11/KDE/Base
-Requires:    qt >= 1.40, kdelibs = %{version}
+Summary:     	KDE font manager	
+Summary(pl): 	Mened¿er fontów KDE
+Group:       	X11/KDE/Base
+Requires:    	qt >= 1.44
+Requires:	kdelibs = %{version}
 
 %description -n kfontmanager
 A font manager for KDE.
@@ -108,10 +128,11 @@ Mened¿er fontów dla KDE.
 Mo¿e byæ wykorzystany do okre¶lenia listy czcionek dostêpnych dla aplikacji KDE.
 
 %package -n kmenuedit
-Summary:     KDE Menu Editor	
-Summary(pl): Edytor menu KDE
-Group:       X11/KDE/Base
-Requires:    qt >= 1.40, kdelibs = %{version}
+Summary:     	KDE Menu Editor	
+Summary(pl): 	Edytor menu KDE
+Group:       	X11/KDE/Base
+Requires:    	qt >= 1.44
+Requires:	kdelibs = %{version}
 
 %description -n kmenuedit
 A system menu editor for KDE.
@@ -120,10 +141,12 @@ A system menu editor for KDE.
 Edytor menu systemowego KDE.
 
 %package -n kpanel
-Summary:     KDE Panel	
-Summary(pl): Panel KDE
-Group:       X11/KDE/Base
-Requires:    kfm = %{version}, qt >= 1.40, kdelibs = %{version} 
+Summary:     	KDE Panel	
+Summary(pl): 	Panel KDE
+Group:       	X11/KDE/Base
+Requires:    	kfm = %{version}
+Requires:	qt >= 1.44
+Requires:	kdelibs = %{version} 
 
 %description -n kpanel
 An easy way to start applications and switch desktops in KDE.
@@ -132,10 +155,11 @@ An easy way to start applications and switch desktops in KDE.
 U³atwia startowanie aplikacji oraz prze³±czanie ekranów w KDE.
 
 %package -n kscreensaver
-Summary:     KDE Screen-savers
-Summary(pl): Screen-savery dla KDE
-Group:       X11/KDE/Base
-Requires:    qt >= 1.40, kdelibs = %{version}
+Summary:     	KDE Screen-savers
+Summary(pl): 	Screen-savery dla KDE
+Group:       	X11/KDE/Base
+Requires:    	qt >= 1.44
+Requires:	kdelibs = %{version}
 
 %description -n kscreensaver
 Several screen-savers for KDE.
@@ -144,10 +168,11 @@ Several screen-savers for KDE.
 "Oszczêdzacze ekranu" dla KDE
 
 %package -n kvt
-Summary:     KDE terminal emulator
-Summary(pl): Emulator terminala dla KDE
-Group:       X11/KDE/Base
-Requires:    qt >= 1.40, kdelibs = %{version}
+Summary:     	KDE terminal emulator
+Summary(pl): 	Emulator terminala dla KDE
+Group:       	X11/KDE/Base
+Requires:    	qt >= 1.44
+Requires:	kdelibs = %{version}
 
 %description -n kvt
 Terminal emulator for KDE.
@@ -155,11 +180,25 @@ Terminal emulator for KDE.
 %description -l pl -n kvt
 Emulator terminala znakowego dla KDE
 
+%package -n kikdb
+Summary:     	KDE international keyboard
+Summary(pl): 	Klawiatura miedzynarodowa dla KDE
+Group:       	X11/KDE/Base
+Requires:    	qt >= 1.44
+Requires:	kdelibs = %{version}
+
+%description -n kikdb
+International keyboard for KDE.
+
+%description -l pl -n kikdb
+Klawiatura miedzynarodowa dla KDE
+
 %package -n kwm
-Summary:     KDE window manager
-Summary(pl): Mened¿er okien KDE
-Group:       X11/KDE/Base
-Requires:    qt >= 1.40, kdelibs = %{version}
+Summary:     	KDE window manager
+Summary(pl): 	Mened¿er okien KDE
+Group:       	X11/KDE/Base
+Requires:    	qt >= 1.44
+Requires:	kdelibs = %{version}
 
 %description -n kwm
 Window manager for KDE
@@ -168,10 +207,11 @@ Window manager for KDE
 Mened¿er okien dla KDE
 
 %package -n kbgndwm
-Summary:     KDE background manager and wallpapers
-Summary(pl): Tapety oraz mened¿er t³a KDE 
-Group:       X11/KDE/Base
-Requires:    qt >= 1.40, kdelibs = %{version}
+Summary:     	KDE background manager and wallpapers
+Summary(pl): 	Tapety oraz mened¿er t³a KDE 
+Group:       	X11/KDE/Base
+Requires:    	qt >= 1.44
+Requires:	kdelibs = %{version}
 
 %description -n kbgndwm
 Background manager for KDE.
@@ -185,19 +225,27 @@ Przyk³adowe tapety s± tak¿e do³±czone
 
 %prep
 %setup -q
+%patch -p1
 
 %build
 export KDEDIR=/usr/X11R6
-CXXFLAGS="$RPM_OPT_FLAGS -Wall" CFLAGS="$RPM_OPT_FLAGS -Wall" \
-./configure --prefix=$KDEDIR \
- 	--with-install-root=$RPM_BUILD_ROOT \
+CXXFLAGS="$RPM_OPT_FLAGS -fno-rtti -fno-exceptions" \
+CFLAGS="$RPM_OPT_FLAGS -Wall" \
+./configure %{_target} \
+	--prefix=$KDEDIR \
  	--with-pam="yes"
 make KDEDIR=$KDEDIR
+# 	--with-install-root=$RPM_BUILD_ROOT 
 
 %install
 rm -rf $RPM_BUILD_ROOT
 export KDEDIR=/usr/X11R6
-make RUN_KAPPFINDER=no prefix=$RPM_BUILD_ROOT$KDEDIR install
+#make RUN_KAPPFINDER=no prefix=$RPM_BUILD_ROOT$KDEDIR install
+make \
+	RUN_KAPPFINDER=no \
+	DESTDIR=$RPM_BUILD_ROOT \
+	localedir="$RPM_BUILD_ROOT/usr/X11R6/share/locale" \
+	install
 
 # create wmconfig files
 install -d $RPM_BUILD_ROOT/etc/X11/wmconfig
@@ -222,9 +270,11 @@ rm -rf $RPM_BUILD_ROOT
 #################################################
 
 %files
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 
 #directory hierarchy
+%dir /etc/X11/kde/mimelnk
+%dir /etc/X11/kde/applnk
 %dir /etc/X11/kde/applnk/System
 %dir /etc/X11/kde/applnk/Applications
 %dir /etc/X11/kde/applnk/Games
@@ -233,6 +283,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir /etc/X11/kde/applnk/Multimedia
 %dir /etc/X11/kde/applnk/Utilities
 %dir /etc/X11/kde/applnk/Settings
+%dir /etc/X11/kde/applnk/Settings/Applications
+%dir /usr/X11R6/share/kde/doc
+%dir /usr/X11R6/share/kde/doc/HTML
+%dir /usr/X11R6/share/kde/doc/HTML/en
 
 # locale files
 %lang(ca) /usr/X11R6/share/locale/ca/LC_MESSAGES/krootwm.mo
@@ -255,43 +309,45 @@ rm -rf $RPM_BUILD_ROOT
 %lang(sk) /usr/X11R6/share/locale/sk/LC_MESSAGES/krootwm.mo
 %lang(sv) /usr/X11R6/share/locale/sv/LC_MESSAGES/krootwm.mo
 %lang(zh) /usr/X11R6/share/locale/zh*/LC_MESSAGES/krootwm.mo
-%lang(ca) /usr/X11R6/share/locale/ca/LC_MESSAGES/kdisplay.mo
-%lang(cs) /usr/X11R6/share/locale/cs/LC_MESSAGES/kdisplay.mo
-%lang(da) /usr/X11R6/share/locale/da/LC_MESSAGES/kdisplay.mo
-%lang(de) /usr/X11R6/share/locale/de/LC_MESSAGES/kdisplay.mo
-%lang(el) /usr/X11R6/share/locale/el/LC_MESSAGES/kdisplay.mo
-%lang(en) /usr/X11R6/share/locale/en*/LC_MESSAGES/kdisplay.mo
-%lang(es) /usr/X11R6/share/locale/es/LC_MESSAGES/kdisplay.mo
-%lang(fi) /usr/X11R6/share/locale/fi/LC_MESSAGES/kdisplay.mo
-%lang(fr) /usr/X11R6/share/locale/fr/LC_MESSAGES/kdisplay.mo
-%lang(hr) /usr/X11R6/share/locale/hr/LC_MESSAGES/kdisplay.mo
-%lang(hu) /usr/X11R6/share/locale/hu/LC_MESSAGES/kdisplay.mo
-%lang(it) /usr/X11R6/share/locale/it/LC_MESSAGES/kdisplay.mo
-%lang(mk) /usr/X11R6/share/locale/mk/LC_MESSAGES/kdisplay.mo
-%lang(nl) /usr/X11R6/share/locale/nl/LC_MESSAGES/kdisplay.mo
-%lang(no) /usr/X11R6/share/locale/no/LC_MESSAGES/kdisplay.mo
-%lang(pl) /usr/X11R6/share/locale/pl/LC_MESSAGES/kdisplay.mo
-%lang(pt) /usr/X11R6/share/locale/pt*/LC_MESSAGES/kdisplay.mo
-%lang(ro) /usr/X11R6/share/locale/ro/LC_MESSAGES/kdisplay.mo
-%lang(ru) /usr/X11R6/share/locale/ru/LC_MESSAGES/kdisplay.mo
-%lang(sk) /usr/X11R6/share/locale/sk/LC_MESSAGES/kdisplay.mo
-%lang(sv) /usr/X11R6/share/locale/sv/LC_MESSAGES/kdisplay.mo
-%lang(zh) /usr/X11R6/share/locale/zh*/LC_MESSAGES/kdisplay.mo
+%lang(ca) /usr/X11R6/share/locale/ca/LC_MESSAGES/kcmdisplay.mo
+%lang(cs) /usr/X11R6/share/locale/cs/LC_MESSAGES/kcmdisplay.mo
+%lang(da) /usr/X11R6/share/locale/da/LC_MESSAGES/kcmdisplay.mo
+%lang(de) /usr/X11R6/share/locale/de/LC_MESSAGES/kcmdisplay.mo
+%lang(el) /usr/X11R6/share/locale/el/LC_MESSAGES/kcmdisplay.mo
+%lang(en) /usr/X11R6/share/locale/en*/LC_MESSAGES/kcmdisplay.mo
+%lang(es) /usr/X11R6/share/locale/es/LC_MESSAGES/kcmdisplay.mo
+%lang(fi) /usr/X11R6/share/locale/fi/LC_MESSAGES/kcmdisplay.mo
+%lang(fr) /usr/X11R6/share/locale/fr/LC_MESSAGES/kcmdisplay.mo
+%lang(hr) /usr/X11R6/share/locale/hr/LC_MESSAGES/kcmdisplay.mo
+%lang(hu) /usr/X11R6/share/locale/hu/LC_MESSAGES/kcmdisplay.mo
+%lang(it) /usr/X11R6/share/locale/it/LC_MESSAGES/kcmdisplay.mo
+%lang(mk) /usr/X11R6/share/locale/mk/LC_MESSAGES/kcmdisplay.mo
+%lang(nl) /usr/X11R6/share/locale/nl/LC_MESSAGES/kcmdisplay.mo
+%lang(no) /usr/X11R6/share/locale/no/LC_MESSAGES/kcmdisplay.mo
+%lang(pl) /usr/X11R6/share/locale/pl/LC_MESSAGES/kcmdisplay.mo
+%lang(pt) /usr/X11R6/share/locale/pt*/LC_MESSAGES/kcmdisplay.mo
+%lang(ro) /usr/X11R6/share/locale/ro/LC_MESSAGES/kcmdisplay.mo
+%lang(ru) /usr/X11R6/share/locale/ru/LC_MESSAGES/kcmdisplay.mo
+%lang(sk) /usr/X11R6/share/locale/sk/LC_MESSAGES/kcmdisplay.mo
+%lang(sv) /usr/X11R6/share/locale/sv/LC_MESSAGES/kcmdisplay.mo
+%lang(zh) /usr/X11R6/share/locale/zh*/LC_MESSAGES/kcmdisplay.mo
 
 %config(missingok) /etc/X11/kde/applnk/Settings/Desktop/
+%config(missingok) /etc/X11/kde/applnk/.directory
 %config(missingok) /etc/X11/wmconfig/kdebackground
 %config(missingok) /etc/X11/wmconfig/kdecolors
-%config(missingok) /etc/X11/wmconfig/kdedesktop
+#%config(missingok) /etc/X11/wmconfig/kdedesktop
 %config(missingok) /etc/X11/wmconfig/kdelanguage
 %config(missingok) /etc/X11/wmconfig/kdescreensaver
 %config(missingok) /etc/X11/wmconfig/kdestyle
 /usr/X11R6/share/kde/apps/kdisplay/
 
 # Help files
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kcontrol/kdisplay
+#%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kcontrol/kdisplay
 
 # Applications' files
-/usr/X11R6/share/kde/apps/kappfinder/*
+/usr/X11R6/share/kde/apps/kappfinder
+/usr/X11R6/share/kde/apps/kdisknav
 
 # some icons
 /usr/X11R6/share/kde/icons/*_package.xpm
@@ -320,7 +376,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/X11R6/share/kde/icons/mini/terminal.xpm
 /usr/X11R6/share/kde/icons/mini/x.xpm
 /usr/X11R6/share/kde/icons/background.xpm
-/usr/X11R6/share/kde/icons/palette.xpm
+#/usr/X11R6/share/kde/icons/palette.xpm
 /usr/X11R6/share/kde/icons/application_settings.xpm
 /usr/X11R6/share/kde/icons/desktop_settings.xpm
 /usr/X11R6/share/kde/icons/general_settings.xpm
@@ -329,9 +385,56 @@ rm -rf $RPM_BUILD_ROOT
 /usr/X11R6/share/kde/icons/network_settings.xpm
 /usr/X11R6/share/kde/icons/panel_settings.xpm
 /usr/X11R6/share/kde/icons/sound_settings.xpm
+/usr/X11R6/share/kde/icons/brightness.xpm
+/usr/X11R6/share/kde/icons/buttons.xpm
+/usr/X11R6/share/kde/icons/colors.xpm
+/usr/X11R6/share/kde/icons/colourness.xpm
+/usr/X11R6/share/kde/icons/contrast.xpm
+/usr/X11R6/share/kde/icons/desktop.xpm
+/usr/X11R6/share/kde/icons/fonts.xpm
+/usr/X11R6/share/kde/icons/kcmdevices.xpm
+/usr/X11R6/share/kde/icons/kcmmemory.xpm
+/usr/X11R6/share/kde/icons/kcmpartitions.xpm
+/usr/X11R6/share/kde/icons/kcmpci.xpm
+/usr/X11R6/share/kde/icons/kcmprocessor.xpm
+/usr/X11R6/share/kde/icons/kcmscsi.xpm
+/usr/X11R6/share/kde/icons/kcmsound.xpm
+/usr/X11R6/share/kde/icons/kcmsyssound.xpm
+/usr/X11R6/share/kde/icons/kcmx.xpm
+/usr/X11R6/share/kde/icons/kdisknav.xpm
+/usr/X11R6/share/kde/icons/konsole.xpm
+/usr/X11R6/share/kde/icons/locked.xpm
+/usr/X11R6/share/kde/icons/logo.xpm
+/usr/X11R6/share/kde/icons/mini/audiovol.xpm
+/usr/X11R6/share/kde/icons/mini/bell.xpm
+/usr/X11R6/share/kde/icons/mini/desktop.xpm
+/usr/X11R6/share/kde/icons/mini/fonts.xpm
+/usr/X11R6/share/kde/icons/mini/kcmdevices.xpm
+/usr/X11R6/share/kde/icons/mini/kcmkpanel.xpm
+/usr/X11R6/share/kde/icons/mini/kcmkwm.xpm
+/usr/X11R6/share/kde/icons/mini/kcmmemory.xpm
+/usr/X11R6/share/kde/icons/mini/kcmpartitions.xpm
+/usr/X11R6/share/kde/icons/mini/kcmpci.xpm
+/usr/X11R6/share/kde/icons/mini/kcmprocessor.xpm
+/usr/X11R6/share/kde/icons/mini/kcmscsi.xpm
+/usr/X11R6/share/kde/icons/mini/kcmsound.xpm
+/usr/X11R6/share/kde/icons/mini/kcmsyssound.xpm
+/usr/X11R6/share/kde/icons/mini/kcmx.xpm
+/usr/X11R6/share/kde/icons/mini/konsole.xpm
+/usr/X11R6/share/kde/icons/mini/pci.xpm
+/usr/X11R6/share/kde/icons/mini/sample.xpm
+/usr/X11R6/share/kde/icons/mini/tablet.xpm
+/usr/X11R6/share/kde/icons/mini/winprops.xpm
+/usr/X11R6/share/kde/icons/monitor.xpm
+/usr/X11R6/share/kde/icons/properties.xpm
+/usr/X11R6/share/kde/icons/screensaver.xpm
+/usr/X11R6/share/kde/icons/style.xpm
+/usr/X11R6/share/kde/icons/tablet.xpm
+/usr/X11R6/share/kde/icons/titlebar.xpm
+
 
 #config files
-%config /etc/X11/kde/kdisplayrc
+#%config /etc/X11/kde/kdisplayrc
 
 # KDE menu
 %config(missingok) /etc/X11/kde/applnk/System/.directory
@@ -343,28 +446,37 @@ rm -rf $RPM_BUILD_ROOT
 %config(missingok) /etc/X11/kde/applnk/Internet/.directory
 %config(missingok) /etc/X11/kde/applnk/Multimedia/.directory
 %config(missingok) /etc/X11/kde/applnk/Utilities/.directory
-%config(missingok) /etc/X11/kde/applnk/Settings/Input_Devices/.directory
 %config(missingok) /etc/X11/kde/applnk/Settings/Sound/.directory
-%config(missingok) /etc/X11/kde/applnk/Settings/Windows/.directory
-%config(missingok) /etc/X11/kde/applnk/Settings/Network/.directory
-%config(missingok) /etc/X11/kde/applnk/Settings/Information/.directory
 %config(missingok) /etc/X11/kde/applnk/Settings/Applications/.directory
 %config(missingok) /etc/X11/kde/applnk/Settings/.directory
+%config(missingok) /etc/X11/kde/applnk/Utilities/konsole.kdelnk
+%config(missingok) /etc/X11/wmconfig/kdekonsole
 
 #documentation
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kmedia/*
+/usr/X11R6/share/kde/doc/HTML/en/kmedia/*
+/usr/X11R6/share/kde/doc/HTML/en/kdisknav
+/usr/X11R6/share/kde/doc/HTML/en/konsole
+
+/usr/X11R6/share/kde/apps/konsole
 
 #no go executables
-%defattr(755, root, root, 755)
-/usr/X11R6/bin/startkde
-/usr/X11R6/bin/kdeenv
-/usr/X11R6/bin/krootwm
-/usr/X11R6/bin/maudio
-/usr/X11R6/bin/kaudioserver
-/usr/X11R6/bin/kappfinder
-/usr/X11R6/bin/kappfinder_restart
-/usr/X11R6/bin/krdb
-/usr/X11R6/bin/kcmdisplay
+%attr(755,root,root) /usr/X11R6/bin/startkde
+%attr(755,root,root) /usr/X11R6/bin/kdeenv
+%attr(755,root,root) /usr/X11R6/bin/kde
+%attr(755,root,root) /usr/X11R6/bin/kstart
+%attr(755,root,root) /usr/X11R6/bin/rman
+%attr(755,root,root) /usr/X11R6/bin/krootwm
+%attr(755,root,root) /usr/X11R6/bin/maudio
+%attr(755,root,root) /usr/X11R6/bin/kaudioserver
+%attr(755,root,root) /usr/X11R6/bin/kplayaudio
+%attr(755,root,root) /usr/X11R6/bin/kappfinder
+%attr(755,root,root) /usr/X11R6/bin/kappfinder_restart
+%attr(755,root,root) /usr/X11R6/bin/krdb
+%attr(755,root,root) /usr/X11R6/bin/kcmdisplay
+%attr(755,root,root) /usr/X11R6/bin/konsole
+
+# konsole_grantpty need SUID ?
+%attr(755,root,root) /usr/X11R6/bin/konsole_grantpty
 
 #################################################
 #             KWM
@@ -372,27 +484,30 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n kwm
 %defattr(644, root, root, 755)
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kwm/
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kcontrol/kcmkwm/
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kcontrol/kcmsyssound/
+/usr/X11R6/share/kde/doc/HTML/en/kwm/
+/usr/X11R6/share/kde/doc/HTML/en/kcontrol/kcmkwm/
+/usr/X11R6/share/kde/doc/HTML/en/kcontrol/kcmsyssound/
+/usr/X11R6/share/kde/doc/HTML/en/konsole
+/usr/X11R6/share/kde/doc/HTML/en/kpager
 %config(missingok) /etc/X11/kde/applnk/Settings/Windows/
 %config(missingok) /etc/X11/wmconfig/kdebuttons
 %config(missingok) /etc/X11/wmconfig/kdeproperties
 %config(missingok) /etc/X11/wmconfig/kdetitlebar
-%config(missingok) /etc/X11/kde/applnk/System/kwmpager.kdelnk
-%config(missingok) /etc/X11/wmconfig/kdekwmpager
+%config(missingok) /etc/X11/kde/applnk/System/kpager.kdelnk
+%config(missingok) /etc/X11/wmconfig/kdekpager
 %config(missingok) /etc/X11/kde/applnk/Settings/Sound/syssound.kdelnk
 %config(missingok) /etc/X11/wmconfig/kdesyssound
+%config(missingok) /etc/X11/kde/desktop?rc
 /usr/X11R6/share/kde/apps/kwm/
 /usr/X11R6/share/kde/icons/mini/maximize2.xpm
 /usr/X11R6/share/kde/icons/mini/kwm.xpm
-/usr/X11R6/share/kde/icons/mini/syssound.xpm
-/usr/X11R6/share/kde/icons/syssound.xpm
+#/usr/X11R6/share/kde/icons/mini/syssound.xpm
+#/usr/X11R6/share/kde/icons/syssound.xpm
 /usr/X11R6/share/kde/icons/kcmkwm.xpm
 /usr/X11R6/share/kde/icons/kwm.xpm
 
-%lang(de) /usr/X11R6/share/kde/doc/HTML/de/kcontrol/kcmsyssound
-%lang(no) /usr/X11R6/share/kde/doc/HTML/no/kcontrol/kcmsyssound
+#%lang(de) /usr/X11R6/share/kde/doc/HTML/de/kcontrol/kcmsyssound
+#%lang(no) /usr/X11R6/share/kde/doc/HTML/no/kcontrol/kcmsyssound
 %lang(ca) /usr/X11R6/share/locale/ca/LC_MESSAGES/kwm.mo
 %lang(cs) /usr/X11R6/share/locale/cs/LC_MESSAGES/kwm.mo
 %lang(da) /usr/X11R6/share/locale/da/LC_MESSAGES/kwm.mo
@@ -458,26 +573,23 @@ rm -rf $RPM_BUILD_ROOT
 %lang(sv) /usr/X11R6/share/locale/sv/LC_MESSAGES/kcmsyssound.mo
 %lang(zh) /usr/X11R6/share/locale/zh*/LC_MESSAGES/kcmsyssound.mo
 
-%defattr(755, root, root, 755)
-/usr/X11R6/bin/kcmsyssound
-/usr/X11R6/bin/kstartondesk
-/usr/X11R6/bin/kcmkwm
-/usr/X11R6/bin/kwmsound
-/usr/X11R6/bin/kwmcom
-/usr/X11R6/bin/kwmpager
-/usr/X11R6/bin/kbgndwm
-/usr/X11R6/bin/kwm
+%attr(755,root,root) /usr/X11R6/bin/kcmsyssound
+#/usr/X11R6/bin/kstartondesk
+%attr(755,root,root) /usr/X11R6/bin/kcmkwm
+%attr(755,root,root) /usr/X11R6/bin/kwmsound
+%attr(755,root,root) /usr/X11R6/bin/kwmcom
+%attr(755,root,root) /usr/X11R6/bin/kpager
+%attr(755,root,root) /usr/X11R6/bin/kwm
 
 #################################################
 #             KBGNDWM
 #################################################
 
 %files -n kbgndwm
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 /usr/X11R6/share/kde/wallpapers/*
 
-%defattr(755, root, root, 755)
-/usr/X11R6/bin/kbgndwm
+%attr(755,root,root) /usr/X11R6/bin/kbgndwm
 
 
 #################################################
@@ -485,14 +597,13 @@ rm -rf $RPM_BUILD_ROOT
 #################################################
 
 %files -n kdehelp
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 %lang(en) /usr/X11R6/share/kde/doc/HTML/en/kdehelp/
 /usr/X11R6/share/kde/icons/mini/kdehelp.xpm
 /usr/X11R6/share/kde/icons/kdehelp.xpm
 
-%defattr(755, root, root, 755)
-/usr/X11R6/lib/kde/cgi-bin
-/usr/X11R6/bin/kdehelp
+%attr(755,root,root) /usr/X11R6/lib/kde/cgi-bin
+%attr(755,root,root) /usr/X11R6/bin/kdehelp
 %config(missingok) /etc/X11/kde/applnk/Help.kdelnk
 %config(missingok) /etc/X11/wmconfig/kdeHelp
 
@@ -526,7 +637,8 @@ rm -rf $RPM_BUILD_ROOT
 %files -n kfm
 %defattr(644, root, root, 755)
 %config /etc/X11/kde/mimelnk/*
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kfm/
+/usr/X11R6/share/kde/doc/HTML/en/kfm/
+/usr/X11R6/share/kde/doc/HTML/en/kcontrol/kcmkfm
 %config(missingok) /etc/X11/kde/applnk/Krefresh.kdelnk
 %config(missingok) /etc/X11/wmconfig/kdeKrefresh
 %config(missingok) /etc/X11/kde/applnk/Trash.kdelnk
@@ -537,6 +649,10 @@ rm -rf $RPM_BUILD_ROOT
 %config(missingok) /etc/X11/wmconfig/kdekfmsu
 %config(missingok) /etc/X11/kde/applnk/System/Arrange.kdelnk
 %config(missingok) /etc/X11/wmconfig/kdeArrange
+%config(missingok) /etc/X11/kde/applnk/Settings/Applications/kfmbrowser.kdelnk
+%config(missingok) /etc/X11/kde/applnk/Settings/Applications/kfm.kdelnk
+%config(missingok) /etc/X11/wmconfig/kdekfm
+%config(missingok) /etc/X11/wmconfig/kdekfmbrowser
 %config /etc/X11/kde/kfmrc
 %config /etc/X11/kde/desktop
 /usr/X11R6/share/kde/icons/kfm.xpm
@@ -558,7 +674,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/X11R6/share/kde/icons/mini/folder_blue.xpm
 /usr/X11R6/share/kde/icons/mini/folder_cyan.xpm
 /usr/X11R6/share/kde/icons/mini/folder_green.xpm
-/usr/X11R6/share/kde/icons/mini/folder_locked.xpm
+#/usr/X11R6/share/kde/icons/mini/folder_locked.xpm
 /usr/X11R6/share/kde/icons/mini/folder_open.xpm
 /usr/X11R6/share/kde/icons/mini/folder_red.xpm
 /usr/X11R6/share/kde/icons/mini/folder_yellow.xpm
@@ -625,7 +741,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/X11R6/share/kde/icons/folder_blue.xpm
 /usr/X11R6/share/kde/icons/folder_cyan.xpm
 /usr/X11R6/share/kde/icons/folder_green.xpm
-/usr/X11R6/share/kde/icons/folder_locked.xpm
+#/usr/X11R6/share/kde/icons/folder_locked.xpm
 /usr/X11R6/share/kde/icons/folder_open.xpm
 /usr/X11R6/share/kde/icons/folder_red.xpm
 /usr/X11R6/share/kde/icons/folder_yellow.xpm
@@ -683,7 +799,7 @@ rm -rf $RPM_BUILD_ROOT
 %lang(da) /usr/X11R6/share/locale/da/LC_MESSAGES/kfm.mo
 %lang(de) /usr/X11R6/share/locale/de/LC_MESSAGES/kfm.mo
 %lang(el) /usr/X11R6/share/locale/el/LC_MESSAGES/kfm.mo
-%lang(en) /usr/X11R6/share/locale/en*/LC_MESSAGES/kfm.mo
+#%lang(en) /usr/X11R6/share/locale/en*/LC_MESSAGES/kfm.mo
 %lang(es) /usr/X11R6/share/locale/es/LC_MESSAGES/kfm.mo
 %lang(fi) /usr/X11R6/share/locale/fi/LC_MESSAGES/kfm.mo
 %lang(fr) /usr/X11R6/share/locale/fr/LC_MESSAGES/kfm.mo
@@ -701,15 +817,15 @@ rm -rf $RPM_BUILD_ROOT
 %lang(sv) /usr/X11R6/share/locale/sv/LC_MESSAGES/kfm.mo
 %lang(zh) /usr/X11R6/share/locale/zh*/LC_MESSAGES/kfm.mo
 
-%defattr(755, root, root, 755)
-/usr/X11R6/bin/kfmwarn
-/usr/X11R6/bin/kfmclient
-/usr/X11R6/bin/kioslave
-/usr/X11R6/bin/kfmexec
-/usr/X11R6/bin/kfm
-/usr/X11R6/bin/kfmsu
-/usr/X11R6/bin/kfmsu2
-/usr/X11R6/bin/unpack
+%attr(755,root,root) /usr/X11R6/bin/kfmwarn
+%attr(755,root,root) /usr/X11R6/bin/kfmclient
+%attr(755,root,root) /usr/X11R6/bin/kioslave
+%attr(755,root,root) /usr/X11R6/bin/kfmexec
+%attr(755,root,root) /usr/X11R6/bin/kfm
+%attr(755,root,root) /usr/X11R6/bin/kfmsu
+%attr(755,root,root) /usr/X11R6/bin/kfmsu2
+%attr(755,root,root) /usr/X11R6/bin/unpack
+%attr(755,root,root) /usr/X11R6/bin/kcmkfm
 
 #################################################
 #             KFIND
@@ -746,41 +862,60 @@ rm -rf $RPM_BUILD_ROOT
 %lang(sv) /usr/X11R6/share/locale/sv/LC_MESSAGES/kfind.mo
 %lang(zh) /usr/X11R6/share/locale/zh*/LC_MESSAGES/kfind.mo
 
-%defattr(755, root, root, 755)
-/usr/X11R6/bin/kfind
+%attr(755,root,root) /usr/X11R6/bin/kfind
 
 #################################################
 #            KCONTROL 
 #################################################
 %files -n kcontrol
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 /usr/X11R6/share/kde/apps/kcontrol/
 /usr/X11R6/share/kde/apps/kcmlocale/
 %config /etc/X11/kde/kcmlocalerc
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kcontrol/kcmbell
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kcontrol/kcminfo
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kcontrol/kcminput
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kcontrol/kcmlocale
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kcontrol/kcmsamba
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kcontrol/index.html
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kcontrol/index-1.html
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kcontrol/index-2.html
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kcontrol/logotp3.gif
+/usr/X11R6/share/kde/doc/HTML/en/kcontrol/kcmbell
+/usr/X11R6/share/kde/doc/HTML/en/kcontrol/kcmdisplay
+/usr/X11R6/share/kde/doc/HTML/en/kcontrol/kcmkeys
+/usr/X11R6/share/kde/doc/HTML/en/kcontrol/kcminfo
+/usr/X11R6/share/kde/doc/HTML/en/kcontrol/kcminput
+/usr/X11R6/share/kde/doc/HTML/en/kcontrol/kcmlocale
+/usr/X11R6/share/kde/doc/HTML/en/kcontrol/kcmsamba
+/usr/X11R6/share/kde/doc/HTML/en/kcontrol/index.html
+/usr/X11R6/share/kde/doc/HTML/en/kcontrol/index-1.html
+/usr/X11R6/share/kde/doc/HTML/en/kcontrol/index-2.html
+/usr/X11R6/share/kde/doc/HTML/en/kcontrol/logotp3.gif
 %config(missingok) /etc/X11/kde/applnk/Settings/Input_Devices/
 %config(missingok) /etc/X11/wmconfig/kdekeyboard
 %config(missingok) /etc/X11/wmconfig/kdemouse
+%dir /etc/X11/kde/applnk/Settings/Sound
 %config(missingok) /etc/X11/kde/applnk/Settings/Sound/bell.kdelnk
 %config(missingok) /etc/X11/wmconfig/kdebell
 %config(missingok) /etc/X11/kde/applnk/Settings/Network/
 %config(missingok) /etc/X11/wmconfig/kdesmbstatus
 %config(missingok) /etc/X11/kde/applnk/Settings/Information/
+%config(missingok) /etc/X11/kde/applnk/Settings/Keys/
 %config(missingok) /etc/X11/wmconfig/kdememory
 %config(missingok) /etc/X11/wmconfig/kdeprocessor
 %config(missingok) /etc/X11/kde/applnk/KControl.kdelnk
 %config(missingok) /etc/X11/wmconfig/kdeKControl
+%config(missingok) /etc/X11/wmconfig/kdeadvanced
+%config(missingok) /etc/X11/wmconfig/kdeborders
+%config(missingok) /etc/X11/wmconfig/kdedevices
+%config(missingok) /etc/X11/wmconfig/kdedma
+%config(missingok) /etc/X11/wmconfig/kdefonts
+%config(missingok) /etc/X11/wmconfig/kdeglobal
+%config(missingok) /etc/X11/wmconfig/kdeicons
+%config(missingok) /etc/X11/wmconfig/kdeinterrupts
+%config(missingok) /etc/X11/wmconfig/kdeioports
+%config(missingok) /etc/X11/wmconfig/kdepartitions
+%config(missingok) /etc/X11/wmconfig/kdepci
+%config(missingok) /etc/X11/wmconfig/kdescsi
+%config(missingok) /etc/X11/wmconfig/kdesound
+%config(missingok) /etc/X11/wmconfig/kdestandard
+%config(missingok) /etc/X11/wmconfig/kdexserver
+
 /usr/X11R6/share/kde/icons/mini/smbstatus.xpm
-/usr/X11R6/share/kde/icons/mini/memory.xpm
-/usr/X11R6/share/kde/icons/mini/processor.xpm
+#/usr/X11R6/share/kde/icons/mini/memory.xpm
+#/usr/X11R6/share/kde/icons/mini/processor.xpm
 /usr/X11R6/share/kde/icons/kcontrol.xpm
 /usr/X11R6/share/kde/icons/locale.xpm
 /usr/X11R6/share/kde/icons/network.xpm
@@ -918,19 +1053,20 @@ rm -rf $RPM_BUILD_ROOT
 %lang(sv) /usr/X11R6/share/locale/sv/LC_MESSAGES/kcmsamba.mo
 %lang(zh) /usr/X11R6/share/locale/zh*/LC_MESSAGES/kcmsamba.mo
 
-%defattr(755, root, root, 755)
-/usr/X11R6/bin/kcmsamba
-/usr/X11R6/bin/kcmbell
-/usr/X11R6/bin/kcminput
-/usr/X11R6/bin/kcminfo
-/usr/X11R6/bin/kcontrol
-/usr/X11R6/bin/kcmlocale
+%attr(755,root,root) /usr/X11R6/bin/kcmsamba
+%attr(755,root,root) /usr/X11R6/bin/kcmbell
+%attr(755,root,root) /usr/X11R6/bin/kcminput
+%attr(755,root,root) /usr/X11R6/bin/kcminfo
+%attr(755,root,root) /usr/X11R6/bin/kcontrol
+%attr(755,root,root) /usr/X11R6/bin/kcmlocale
+%attr(755,root,root) /usr/X11R6/bin/kcmkeys
+%attr(755,root,root) /usr/X11R6/bin/kcmkonsole
 
 #################################################
 #            KSCREENSAVER 
 #################################################
 %files -n kscreensaver
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 /usr/X11R6/share/kde/icons/mini/kscreensaver.xpm
 /usr/X11R6/share/kde/apps/kscreensaver/
 /usr/X11R6/share/kde/icons/kscreensaver.xpm
@@ -957,9 +1093,9 @@ rm -rf $RPM_BUILD_ROOT
 %lang(sv) /usr/X11R6/share/locale/sv/LC_MESSAGES/klock.mo
 %lang(zh) /usr/X11R6/share/locale/zh*/LC_MESSAGES/klock.mo
 
-%defattr(755, root, root, 755)
-/usr/X11R6/bin/klock
-/usr/X11R6/bin/*.kss
+%attr(755,root,root) /usr/X11R6/bin/kcheckpass
+%attr(755,root,root) /usr/X11R6/bin/klock
+%attr(755,root,root) /usr/X11R6/bin/*.kss
 
 #################################################
 #            KVT 
@@ -994,8 +1130,7 @@ rm -rf $RPM_BUILD_ROOT
 %lang(sv) /usr/X11R6/share/locale/sv/LC_MESSAGES/kvt.mo
 %lang(zh) /usr/X11R6/share/locale/zh*/LC_MESSAGES/kvt.mo
 
-%defattr(755, root, root, 755)
-/usr/X11R6/bin/kvt
+%attr(755,root,root) /usr/X11R6/bin/kvt
 
 #################################################
 #            KMENUEDIT
@@ -1027,8 +1162,7 @@ rm -rf $RPM_BUILD_ROOT
 %lang(sv) /usr/X11R6/share/locale/sv/LC_MESSAGES/kmenuedit.mo
 %lang(zh) /usr/X11R6/share/locale/zh*/LC_MESSAGES/kmenuedit.mo
 
-%defattr(755, root, root, 755)
-/usr/X11R6/bin/kmenuedit
+%attr(755,root,root) /usr/X11R6/bin/kmenuedit
 
 #################################################
 #            KPANEL
@@ -1037,10 +1171,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644, root, root, 755)
 /usr/X11R6/share/kde/apps/kpanel/
 %config /etc/X11/kde/kpanelrc
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kcontrol/kcmkpanel/
-%lang(en) /usr/X11R6/share/kde/doc/HTML/en/kpanel/index.html
+/usr/X11R6/share/kde/doc/HTML/en/kcontrol/kcmkpanel/
+/usr/X11R6/share/kde/doc/HTML/en/kpanel
 %config(missingok) /etc/X11/kde/applnk/Settings/Applications/panel.kdelnk
 %config(missingok) /etc/X11/wmconfig/kdepanel
+/usr/X11R6/share/kde/icons/kcmkpanel.xpm
 %lang(ca) /usr/X11R6/share/locale/ca/LC_MESSAGES/kpanel.mo
 %lang(cs) /usr/X11R6/share/locale/cs/LC_MESSAGES/kpanel.mo
 %lang(da) /usr/X11R6/share/locale/da/LC_MESSAGES/kpanel.mo
@@ -1082,20 +1217,21 @@ rm -rf $RPM_BUILD_ROOT
 %lang(sv) /usr/X11R6/share/locale/sv/LC_MESSAGES/kcmkpanel.mo
 %lang(zh) /usr/X11R6/share/locale/zh*/LC_MESSAGES/kcmkpanel.mo
 
-%defattr(755, root, root, 755)
-%attr(-,root,root) /usr/X11R6/bin/kpanel
-%attr(-,root,root) /usr/X11R6/bin/kcmkpanel
+%attr(755,root,root) /usr/X11R6/bin/kpanel
+%attr(755,root,root) /usr/X11R6/bin/kcmkpanel
 
 #################################################
 #            KDM
 #################################################
 %files -n kdm
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 %lang(en) /usr/X11R6/share/kde/doc/HTML/en/kdm/
 %lang(en) /usr/X11R6/share/kde/doc/HTML/en/kcontrol/kdmconfig/
 %config(missingok) /etc/X11/kde/applnk/Settings/Applications/kdm.kdelnk
 %config(missingok) /etc/X11/wmconfig/kdekdm
 %config /etc/X11/kde/kdmrc
+%dir /usr/X11R6/config/kdm
+%config /usr/X11R6/config/kdm/*
 /usr/X11R6/share/kde/apps/kdm/
 /usr/X11R6/share/kde/apps/kdmconfig/
 /usr/X11R6/share/kde/icons/mini/kdmconfig.xpm
@@ -1180,7 +1316,21 @@ rm -rf $RPM_BUILD_ROOT
 %lang(sv) /usr/X11R6/share/locale/sv/LC_MESSAGES/kfontmanager.mo
 %lang(zh) /usr/X11R6/share/locale/zh*/LC_MESSAGES/kfontmanager.mo
 
-%attr(755, root, root) /usr/X11R6/bin/kfontmanager
+%attr(755,root,root) /usr/X11R6/bin/kfontmanager
+
+%files -n kikdb
+%defattr(644,root,root,755)
+/etc/X11/kde/applnk/System/kikbd.kdelnk
+/etc/X11/kde/kikbdrc
+/etc/X11/wmconfig/kdekcmikbd
+/etc/X11/wmconfig/kdekikbd
+/usr/X11R6/share/kde/apps/kikbd
+/usr/X11R6/share/kde/doc/HTML/en/kikbd
+/usr/X11R6/share/kde/icons/kikbd.xpm
+/usr/X11R6/share/kde/icons/mini/kikbd.xpm
+%lang(ru) /usr/X11R6/share/kde/doc/HTML/ru/kikbd
+%attr(755,root,root) /usr/X11R6/bin/kcmikbd
+%attr(755,root,root) /usr/X11R6/bin/kikbd
 
 %changelog
 * Wed Dec  8 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
