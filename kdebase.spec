@@ -3090,16 +3090,16 @@ fi
 %{_datadir}/servicetypes/konqpopupmenuplugin.desktop
 %{_datadir}/servicetypes/searchprovider.desktop
 %{_datadir}/servicetypes/uasprovider.desktop
-%{_datadir}/applnk/.hidden/fileappearance.desktop
-%{_datadir}/applnk/.hidden/filebehavior.desktop
-%{_datadir}/applnk/.hidden/filepreviews.desktop
-%{_datadir}/applnk/.hidden/kcmkonq.desktop
-%{_datadir}/applnk/.hidden/kcmkonqyperformance.desktop
-%{_datadir}/applnk/.hidden/konqfilemgr.desktop
-%{_datadir}/applnk/.hidden/konqhtml.desktop
-%{_datadir}/applnk/.hidden/smb.desktop
+%{_applnkdir}/.hidden/fileappearance.desktop
+%{_applnkdir}/.hidden/filebehavior.desktop
+%{_applnkdir}/.hidden/filepreviews.desktop
+%{_applnkdir}/.hidden/kcmkonq.desktop
+%{_applnkdir}/.hidden/kcmkonqyperformance.desktop
+%{_applnkdir}/.hidden/konqfilemgr.desktop
+%{_applnkdir}/.hidden/konqhtml.desktop
+%{_applnkdir}/.hidden/smb.desktop
 # Must be here!
-%{_datadir}/applnk/konqueror.desktop
+%{_applnkdir}/konqueror.desktop
 #
 %{_desktopdir}/kde/filebrowser.desktop
 %{_desktopdir}/kde/filetypes.desktop
