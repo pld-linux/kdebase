@@ -14,7 +14,7 @@
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040403
+%define		_snap		040407
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -34,16 +34,16 @@ Group:		X11/Applications
 #Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}.tar.bz2
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
 Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	3f760c8f8787f71c9abfee8c4c9e99c8
+# Source0-md5:	80e319dd2b57919ad79d5160233e660f
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
 Source4:	%{name}-kdm.Xsession
 Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
-Source8:	%{name}-ircpld.desktop
-Source9:	%{name}-specs.desktop
-Source11:	%{name}-QtCurve.kcsrc
+Source8:	%{name}-searchproviders.tar.bz2 
+Source9:	%{name}-colorschemes.tar.bz2
+Source10:	%{name}-servicemenus.tar.bz2
 Source12:	http://ep09.pld-linux.org/~adgor/kde/%{name}-splash-Default-PLD-0.2.tar.bz2
 # Source12-md5:	24f9c6a4b711be36437639c410b400b2
 Source13:	http://ep09.pld-linux.org/~adgor/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
@@ -54,7 +54,6 @@ Patch0:		%{name}-fontdir.patch
 Patch1:		%{name}-kcm_background.patch
 Patch2:		%{name}-kdm_utmpx.patch
 Patch3:		%{name}-kdmconfig.patch
-# TODO
 Patch4:		%{name}-kicker.patch
 Patch5:		%{name}-konsole_all.patch
 Patch6:		%{name}-nsplugins_dirs.patch
@@ -1350,7 +1349,7 @@ Pliki umiêdzynarodawiaj±ce dla mailnews.
 ### </i18n stuff>
 
 %prep
-%setup -q -n %{name}-%{_snap}
+%setup -q -n %{name}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -1429,9 +1428,11 @@ install %{SOURCE3}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE4}	$RPM_BUILD_ROOT/etc/X11/kdm/Xsession
 install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
-install %{SOURCE8}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/ircpld.desktop
-install %{SOURCE9}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/specs.desktop
-install %{SOURCE11}	$RPM_BUILD_ROOT%{_datadir}/apps/kdisplay/color-schemes/QtCurve.kcsrc
+%{__tar} xfj %{SOURCE8} -C $RPM_BUILD_ROOT%{_datadir}/services/searchproviders/
+%{__tar} xfj %{SOURCE9} -C $RPM_BUILD_ROOT%{_datadir}/apps/kdisplay/color-schemes/
+%{__tar} xfj %{SOURCE10} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/
+mv  $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts/* $RPM_BUILD_ROOT%{_bindir}
+rm -rf $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts
 
 # Needed for pam support
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
@@ -3010,6 +3011,8 @@ fi
 %attr(0755,root,root) %{_bindir}/konqueror
 %attr(0755,root,root) %{_bindir}/nspluginscan
 %attr(0755,root,root) %{_bindir}/nspluginviewer
+%attr(0755,root,root) %{_bindir}/iconvert
+%attr(0755,root,root) %{_bindir}/multiple-attachments-servicemenu
 %{_libdir}/libkdeinit_appletproxy.la
 %attr(0755,root,root) %{_libdir}/libkdeinit_appletproxy.so
 %{_libdir}/libkdeinit_extensionproxy.la
