@@ -823,7 +823,7 @@ fi
 %{_pixmapsdir}/*/*/apps/en[!h]*
 %{_pixmapsdir}/*/*/apps/k[ijlmnptvmx]*
 %{_pixmapsdir}/*/*/apps/kappfinder.png
-%{_pixmapsdir}[!l]/*/*/apps/kc[!o][!s]*
+%{_pixmapsdir}/[!l]*/*/apps/kc[!o][!s]*
 %{_pixmapsdir}/*/*/apps/kcms[!y]*
 %{_pixmapsdir}/*/*/apps/key[!_]*
 %{_pixmapsdir}/*/*/apps/ksysguard.png
