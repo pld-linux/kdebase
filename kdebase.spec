@@ -1,6 +1,6 @@
 %define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		1
+%define		_rel		2
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -323,7 +323,11 @@ fi
 %post -n kdm
 /sbin/chkconfig --add kdm
 if [ -f /var/lock/subsys/kdm ]; then
-        /etc/rc.d/init.d/kdm restart >&2
+        echo "To make sure that new version of KDM is running you should restart"
+	echo "KDM with:"
+	echo "/etc/rc.d/init.d/kdm restart"
+	echo
+	echo "WARNING: restarting KDM will terminate any X session started by it!"
 else
         echo "Run \"/etc/rc.d/init.d/kdm start\" to start kdm." >&2
 fi
