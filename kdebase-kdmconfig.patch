@@ -1,42 +1,25 @@
---- kdebase-3.1/kcontrol/kdm/background.cpp.orig	Wed Sep 25 14:51:07 2002
-+++ kdebase-3.1/kcontrol/kdm/background.cpp	Fri Nov 22 15:45:54 2002
-@@ -40,6 +40,7 @@
- #include <ksimpleconfig.h>
- #include <kdialog.h>
- 
-+
- extern KSimpleConfig *config;
- 
- KBackground::KBackground(QWidget *parent, const char *name)
-@@ -54,7 +55,7 @@
+--- kdebase-030317/kcontrol/kdm/background.cpp~	Sun Mar 16 00:35:44 2003
++++ kdebase-030317/kcontrol/kdm/background.cpp	Tue Mar 18 11:07:27 2003
+@@ -53,7 +53,7 @@
  		" This is done by running some program (possibly xsetroot) in the script"
  		" specified in the Setup= option in kdmrc (usually Xsetup).") );
      config->setGroup( "X-*-Greeter" );
 -    m_simpleConf=new KSimpleConfig(config->readEntry( "BackgroundCfg",KDE_CONFDIR "/kdm/backgroundrc" ) );
 +    m_simpleConf=new KSimpleConfig(config->readEntry( "BackgroundCfg","/etc/X11/kdm/backgroundrc" ) );
-     m_background = new Backgnd( this, m_simpleConf, false );
-     connect(m_background, SIGNAL(changed(bool)), SLOT(moduleChanged(bool)));
+     m_background = new BGDialog( this, m_simpleConf, false );
  
-@@ -111,7 +112,7 @@
- {
-     m_pCBEnable->setChecked( true );
-     slotEnableChanged();
--    m_background->defaults();
-+    m_background->kdmdefaults();
-     emit changed(true);
- }
- 
---- kdebase-3.1.1/kcontrol/kdm/kdm-appear.cpp~	Sun Mar  2 19:31:52 2003
-+++ kdebase-3.1.1/kcontrol/kdm/kdm-appear.cpp	Tue Mar  4 15:13:46 2003
-@@ -193,6 +193,7 @@
- 
-   guicombo = new KComboBox(false, hlp);
-   guicombo->insertStringList(QStyleFactory::keys());
+     connect(m_background, SIGNAL(changed(bool)), SIGNAL(changed(bool)));
+--- kdebase-030317/kcontrol/kdm/kdm-appear.cpp~	Tue Mar 18 11:15:18 2003
++++ kdebase-030317/kcontrol/kdm/kdm-appear.cpp	Tue Mar 18 11:15:43 2003
+@@ -194,6 +194,7 @@
+   QStringList list = QStyleFactory::keys();
+   list = KDMAppearanceWidget::sortStringList(list);
+   guicombo->insertStringList(list);
 +  guicombo->insertItem("KDE");
+ 
    label = new QLabel(guicombo, i18n("GUI s&tyle:"), hlp);
    connect(guicombo, SIGNAL(activated(int)), SLOT(changed()));
-   hglay->addWidget(label, 0, 0);
-@@ -318,7 +319,7 @@
+@@ -322,7 +323,7 @@
  bool KDMAppearanceWidget::setLogo(QString logo)
  {
      QString flogo = logo.isEmpty() ?
@@ -45,7 +28,7 @@
                      logo;
      QPixmap p(flogo);
      if (p.isNull())
-@@ -335,7 +336,7 @@
+@@ -339,7 +340,7 @@
  {
      KImageIO::registerFormats();
      QString fileName = KFileDialog::getOpenFileName(
@@ -54,7 +37,7 @@
  	KImageIO::pattern());
      if (!fileName.isEmpty())
  	if (setLogo(fileName))
-@@ -392,9 +393,7 @@
+@@ -396,9 +397,7 @@
  
  	// we gotta check if it is a non-local file and make a tmp copy at the hd.
  	if(!url->isLocalFile()) {
@@ -65,7 +48,7 @@
  	    KIO::NetAccess::copy(*url, pixurl);
  	    istmp = true;
  	} else {
-@@ -449,10 +448,10 @@
+@@ -453,10 +452,10 @@
    config->setGroup("X-*-Greeter");
  
    // Read the greeting string
@@ -78,7 +61,7 @@
    if (logoArea == "Clock") {
      clockRadio->setChecked(true);
      slotAreaRadioClicked(KdmClock);
-@@ -468,7 +467,7 @@
+@@ -472,7 +471,7 @@
    setLogo( config->readEntry("LogoPixmap", ""));
  
    // Check the GUI type
@@ -87,7 +70,7 @@
  
    // Check the Color Scheme
    colcombo->setCurrentItem (config->readEntry("ColorScheme", "Default"), true, 0);
-@@ -499,13 +498,13 @@
+@@ -503,13 +502,13 @@
  
  void KDMAppearanceWidget::defaults()
  {
@@ -366,9 +349,19 @@
  
      _showUsers = GetCfgInt (C_ShowUsers);
      _users = GetCfgQStrList (C_SelectedUsers);
---- kdebase-3.1/kdm/kfrontend/kgreeter.cpp.orig	Mon Oct 28 10:55:24 2002
-+++ kdebase-3.1/kdm/kfrontend/kgreeter.cpp	Fri Nov 29 19:11:14 2002
-@@ -256,7 +256,7 @@
+--- kdebase-030317/kdm/kfrontend/kgreeter.cpp~	Sat Mar 15 00:39:49 2003
++++ kdebase-030317/kdm/kfrontend/kgreeter.cpp	Tue Mar 18 11:02:15 2003
+@@ -115,8 +115,7 @@
+   , capslocked( -1 )
+   , loginfailed( false )
+ {
+-    user_pic_dir = KGlobal::dirs()->resourceDirs( "data" ).last() +
+-				      QString::fromLatin1("kdm/pics/users/");	/* XXX standardize */
++    user_pic_dir = QString::fromLatin1("/etc/X11/kdm/pics/users/");	/* XXX standardize */
+ 
+     QGridLayout* main_grid = new QGridLayout( winFrame, 4, 2, 10 );
+     QBoxLayout* hbox1 = new QHBoxLayout( 10 );
+@@ -283,7 +282,7 @@
  
      UpdateLock();
  
@@ -377,47 +370,6 @@
      stsfile->setGroup( "PrevUser" );
      enam = QString::fromLocal8Bit( dname );
      if (kdmcfg->_preselUser != PRESEL_PREV)
-@@ -286,7 +286,8 @@
-     QImage p;
-     if (kdmcfg->_faceSource != FACE_USER_ONLY &&
- 	kdmcfg->_faceSource != FACE_PREFER_USER)
--	p = QPixmap( locate( "user_pic", username + ".png" ) );
-+	p = QPixmap( QString::fromLatin1("/etc/X11/kdm/pics/users/") +
-+					username + QString::fromLatin1(".png") );
-     if (p.isNull() && kdmcfg->_faceSource != FACE_ADMIN_ONLY) {
- 	// XXX remove seteuid-voodoo when we run as nobody
- 	seteuid( ps->pw_uid );
-@@ -294,7 +295,8 @@
- 	seteuid( 0 );
-     }
-     if (p.isNull() && kdmcfg->_faceSource != FACE_USER_ONLY)
--	p = QPixmap( locate( "user_pic", username + ".png" ) );
-+	p = QPixmap( QString::fromLatin1("/etc/X11/kdm/pics/users/") +
-+					username + QString::fromLatin1(".png") );
-     if (p.isNull())
- 	p = default_pix;
-     else
-@@ -313,7 +315,7 @@
- KGreeter::insertUsers( KListView *listview )
- {
-     QImage default_pix(
--	locate( "user_pic", QString::fromLatin1("default.png") ) );
-+	QString::fromLatin1("/etc/X11/kdm/pics/users/default.png") );
-     if (default_pix.isNull())
- 	LogError("Can't open default pixmap \"default.png\"\n");
-     default_pix = default_pix.smoothScale( 48, 48, QImage::ScaleMin );
-@@ -788,11 +790,6 @@
- 
-     app.setFont( kdmcfg->_normalFont );
- 
--    KGlobal::dirs()->addResourceType( "user_pic",
--				      KStandardDirs::kde_default("data") +
--				      QString::fromLatin1("kdm/pics/users/") );
--
--
- #ifdef HAVE_XKBSETPERCLIENTCONTROLS
-     //
-     //  Activate the correct mapping for modifiers in XKB extension as
 --- kdebase-3.1/kdm/kfrontend/pics/Makefile.am.orig	Sun Feb 20 17:34:48 2000
 +++ kdebase-3.1/kdm/kfrontend/pics/Makefile.am	Fri Nov 29 18:38:41 2002
 @@ -1,5 +1,5 @@
