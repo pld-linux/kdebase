@@ -297,6 +297,19 @@ KDE advanced text editor.
 %description kate -l pl
 Zaawansowany edytor tekstu dla KDE.
 
+%package kicker
+Summary:        KDE Panel - kicker
+Summary(pl):    Panel KDE - kicker
+Group:          X11/Applications
+Requires:       %{name} = %{version}-%{release}
+
+%description kicker
+KDE Panel - kicker
+
+%description kicker -l pl
+Panel KDE - kicker
+
+
 %package kcontrol
 Summary:	KDE Control Center
 Summary(pl):	Centrum Sterowania KDE
@@ -597,7 +610,7 @@ for i in $programs; do
 	cat $i.lang >> %{name}.lang
 done
 
-kicker 
+%find_lang kicker --with-kde
 
 programs="arts background bell clock colors desktop energy fonts \
 helpindex.html icons kcmaccess kcmfontinst kcmlaunch kcmnotify kcmsmserver \
@@ -854,9 +867,11 @@ fi
 %{_datadir}/wallpapers
 %{_applnkdir}/Home.desktop
 %{_applnkdir}/.hidden/[kms][!c]*
+%exclude %{_applnkdir}/.hidden/*kicker*
 %{_applnkdir}/System/k[!o]*.desktop
 %{_applnkdir}/Utilities/k[!de]*.desktop
 %{_applnkdir}/Settings/[!K]*.desktop
+%exclude  %{_applnkdir}/Settings/kcmkicker.desktop
 %{_applnkdir}/Settings/KDE/email.desktop
 %{_applnkdir}/Settings/KDE/Accessibility
 %{_applnkdir}/Settings/KDE/Components/[!f]*
@@ -903,7 +918,7 @@ fi
 %{_pixmapsdir}/*/*/devices/print_[!c]*
 %{_pixmapsdir}/*/*/filesystems/*
 
-%files kicker
+%files kicker -f kicker.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kicker
 %{_libdir}/kde3/kickermenu_kdeprint.la
@@ -918,7 +933,6 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_kicker.so
 %{_libdir}/libkicker*.la
 %attr(0755,root,root) %{_libdir}/libkicker*.so*
-
 %{_libdir}/kde3/systemtray_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so
 %{_libdir}/kde3/taskbar_panelapplet.la
@@ -945,7 +959,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so 
 %{_datadir}/apps/kicker
 %{_pixmapsdir}/*/*/apps/*kicker*
-
+%{_applnkdir}/.hidden/*kicker*
+%{_applnkdir}/Settings/kcmkicker.desktop
 
 %files devel
 %defattr(644,root,root,755)
