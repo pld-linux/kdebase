@@ -10,7 +10,7 @@
 %define		_state		stable
 %define		_ver		3.1.4
 
-%define		_kdelibsminrel	1
+%define		_kdelibsminrel	0.1
 
 %ifarch	sparc sparcv9 sparc64
 %define		_without_alsa	1
@@ -381,7 +381,6 @@ Summary:	Common files for konsole and konsolepart
 Summary(pl):	Pliki wspólne dla konsole i konsolepart
 Group:		X11/Applications
 Requires(post,postun):	/usr/X11R6/bin/mkfontdir
-Requires(post,postun):	fontpostinst
 Requires:	%{_fontdir}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	%{name}-fonts
@@ -964,10 +963,20 @@ rm -rf $RPM_BUILD_ROOT
 %postun	-p /sbin/ldconfig
 
 %post common-konsole
-fontpostinst misc
+cd %{_fontdir}
+umask 022
+/usr/X11R6/bin/mkfontdir
+if [ -x /usr/X11R6/bin/xftcache ]; then
+	/usr/X11R6/bin/xftcache .
+fi
 
 %postun common-konsole
-fontpostinst misc
+cd %{_fontdir}
+umask 022
+/usr/X11R6/bin/mkfontdir
+if [ -x /usr/X11R6/bin/xftcache ]; then
+	/usr/X11R6/bin/xftcache .
+fi
 
 %pre -n kdm
 /usr/sbin/groupadd -g 55 -r -f xdm
