@@ -3,11 +3,10 @@
 %bcond_without	apidocs		# prepare API documentation
 %bcond_without	ldap		# build or not ldap ioslave
 %bcond_with	kwin_shadow	# experimental support for kwin shadows
-#bcond_with	cvs		# use cvs checkouts instead of tarballs
 
 %define		_state		snapshots
 %define		_ver		3.3.0
-#define		_snap		040724
+%define		_snap		rc2
 
 %define		_minlibsevr	9:3.3.0
 
@@ -22,16 +21,12 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.rc.2
+Release:	0.%{_snap}.1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-#if ! %{with cvs}
-Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{version}-rc2.tar.bz2
+Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{version}-%{_snap}.tar.bz2
 # Source0-md5:	49340c1ab3548c6c864e3ddcc847b810
-#else
-#Source0:        kdesource.tar.gz
-#endif
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -39,7 +34,7 @@ Source4:	%{name}-kdm.Xsession
 Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
 Source8:        %{name}-searchproviders.tar.bz2
-# Source8-md5:  2102f4a5f78f66bb86e5ab81f9ec686d
+# Source8-md5:  c6d9045d9c99abce93232c7ab231fabb
 Source9:        %{name}-colorschemes.tar.bz2
 # Source9-md5:  3c76ae94cb5c23efafd2b93991fa4258
 Source10:       %{name}-servicemenus.tar.bz2
@@ -985,11 +980,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 - listê przestrzeni nazw (namespace)
 
 %prep
-%if ! %{with cvs}
-%setup -q -n %{name}-%{_snap}
-%else
-%setup -q -n %{name} -D
-%endif
+%setup -q
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -1325,7 +1316,7 @@ fi
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%{_kdedocdir}/en/%{name}%{!?with_cvs:-%{_snap}}-apidocs
+%{_kdedocdir}/en/%{name}-apidocs
 %endif
 
 %files -n kde-decoration-b2
