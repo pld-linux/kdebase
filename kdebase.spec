@@ -13,7 +13,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define         _snap		030602
+%define         _snap		030610
 %define		_kdelibsminrel	0.%{_snap}.1
 
 %ifarch	sparc sparcv9 sparc64
@@ -31,13 +31,13 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.%{_snap}.1
+Release:	0.%{_snap}.1.1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	870c19398bd9a134bf9e51ee48d0da94
 Source0:        http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
+# Source0-md5:	84de52086fcc83852c449a6106ecf327
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -48,7 +48,7 @@ Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-ircpld.desktop
 Source9:	%{name}-specs.desktop
 Source10:	%{name}-kde-settings.menu
-Patch0:		%{name}-fix-mem-leak-in-kfind.patch
+#Patch0:	%{name}-fix-mem-leak-in-kfind.patch
 Patch2:		%{name}-fontdir.patch
 Patch3:		%{name}-kcm_background.patch
 #Patch4:	%{name}-kdm.daemon_output.patch
@@ -60,11 +60,11 @@ Patch9:		%{name}-nsplugins_dirs.patch
 Patch10:	%{name}-startkde.patch
 Patch11:        %{name}-kcm_fonts.patch
 Patch12:	%{name}-gtkrc.patch
-Patch14:	%{name}-pldcredits.patch
-Patch16:	%{name}-kicker_nodesktop.patch
-#Patch17:        %{name}-xfsreload.patch
+#Patch14:	%{name}-pldcredits.patch
+#Patch16:	%{name}-kicker_nodesktop.patch
+#Patch17:       %{name}-xfsreload.patch
 Patch18:	%{name}-kdesukonsole.patch
-Patch19:	%{name}-vroot.patch
+#Patch19:	%{name}-vroot.patch
 Patch21:	%{name}-vcategories.patch
 Patch22:	%{name}-screensavers.patch
 Patch23:	%{name}-prefmenu.patch
@@ -585,8 +585,9 @@ Demon zapisu KDE.
 Summary:	A libraries for KDE text editors
 Summary(pl):	Biblioteki dla edytorów tekstu KDE
 Group:		X11/Libraries
-Requires:	%{name}-libkmultitabbar = %{version}-%{release}
+#Requires:	%{name}-libkmultitabbar = %{version}-%{release}
 Obsoletes:	%{name}-kate < 3.2-0.030423.1
+Obsoletes:	%{name}-libkmultitabbar
 
 %description libkate
 A libraries for KDE text editors.
@@ -681,9 +682,10 @@ Group:		X11/Applications
 Requires:	%{name}-common-filemanagement = %{version}-%{release}
 Requires:	%{name}-konsole = %{version}-%{release}
 Requires:	%{name}-libkonq = %{version}-%{release}
-Requires:	%{name}-libkmultitabbar = %{version}-%{release}
+#Requires:	%{name}-libkmultitabbar = %{version}-%{release}
 Requires:	%{name}-mailnews = %{version}-%{release}
 Obsoletes:	%{name}-konqueror
+Obsoletes:	%{name}-libkmultitabbar
 
 %description -n konqueror
 Konqueror is a web browser and file manager similar to MS Internet
@@ -695,7 +697,7 @@ Internet Explorer.
 
 %prep
 %setup -q -n %{name}-%{_snap}
-%patch0 -p1
+#%patch0 -p1
 %patch2 -p1
 %patch3 -p1
 #%patch4 -p1
@@ -707,11 +709,11 @@ Internet Explorer.
 %patch10 -p1
 %patch11 -p1
 %patch12 -p1
-%patch14 -p1
-%patch16 -p1
+#%patch14 -p1
+#%patch16 -p1
 #%patch17 -p1
 %patch18 -p1
-%patch19 -p1
+#%patch19 -p1
 %patch21 -p1
 %patch22 -p1
 %patch23 -p1
@@ -740,7 +742,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
 install -d \
-	$RPM_BUILD_ROOT/etc/{xdg/menus,pam.d,rc.d/init.d,security} \
+	$RPM_BUILD_ROOT/etc/{X11/kdm/pics/users,xdg/menus,pam.d,rc.d/init.d,security} \
 	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
 
 mv $RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers{,.orig}
@@ -753,11 +755,14 @@ install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
 install %{SOURCE3}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xsession
 install %{SOURCE5}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/Xservers
-install %{SOURCE6}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldlogo.png
-install %{SOURCE7}	$RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/pldwallpaper.png
+install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
+install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/pldwallpaper.png
 install %{SOURCE8}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/ircpld.desktop
 install %{SOURCE9}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/specs.desktop
 install %{SOURCE10}	$RPM_BUILD_ROOT/etc/xdg/menus/kde-settings.menu
+
+cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/faces/{default,root}.png \
+    $RPM_BUILD_ROOT%{_sysconfdir}/kdm/pics/users
 
 cp $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop \
     $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/remote
@@ -768,6 +773,8 @@ mv $ALD/Help.desktop			$RPM_BUILD_ROOT%{_desktopdir}
 mv $ALD/Settingsmenu/*.desktop		$RPM_BUILD_ROOT%{_desktopdir}
 mv $ALD/System/kinfocenter.desktop	$RPM_BUILD_ROOT%{_desktopdir}
 
+# This file must be called as kcm service for standalone work
+mv $ALD/KDE-Settings/Peripherals/print{ers,mgr}.desktop
 
 > core.lang
 programs=" \
@@ -1021,6 +1028,7 @@ fi
 %dir %{_datadir}/apps/ksmserver
 %dir %{_datadir}/apps/ksplash
 %dir %{_datadir}/apps/ksplash/Themes
+%dir %{_datadir}/apps/ksplash/pics
 %{_datadir}/apps/ksplash/Themes/Default
 %dir %{_datadir}/apps/kwin
 %{_datadir}/apps/kwin/eventsrc
@@ -1034,14 +1042,31 @@ fi
 %{_datadir}/config/kdesktop_custom_menu2
 %{_datadir}/config/kxkb_groups
 %{_datadir}/services/kaccess.desktop
-%{_datadir}/services/kdeprint_part.desktop
 %{_datadir}/services/ksplash.desktop
 %{_datadir}/services/ksplashdefault.desktop
 %{_datadir}/services/kxkb.desktop
 %{_datadir}/servicetypes/ksplashplugins.desktop
 %{_datadir}/sounds
 %{_datadir}/templates
-%{_datadir}/wallpapers
+%{_datadir}/wallpapers/All-Good-People-1.jpg
+%{_datadir}/wallpapers/Blkmarble.jpg
+%{_datadir}/wallpapers/Chicken-Songs-2.jpg
+%{_datadir}/wallpapers/Circuit.jpg
+%{_datadir}/wallpapers/Foggy1.jpg
+%{_datadir}/wallpapers/Marble01.jpg
+%{_datadir}/wallpapers/No-Ones-Laughing-3.jpg
+%{_datadir}/wallpapers/Paper01.jpg
+%{_datadir}/wallpapers/Planning-And-Probing-1.jpg
+%{_datadir}/wallpapers/Time-For-Lunch-2.jpg
+%{_datadir}/wallpapers/Totally-New-Product-1.jpg
+%{_datadir}/wallpapers/Won-Ton-Soup-3.jpg
+%{_datadir}/wallpapers/default_blue.jpg
+%{_datadir}/wallpapers/default_gears.jpg
+%{_datadir}/wallpapers/kde_box.png
+%{_datadir}/wallpapers/kde_passion.jpg
+%{_datadir}/wallpapers/kdm_bg.jpg
+%{_datadir}/wallpapers/only_k.jpg
+%{_datadir}/wallpapers/triplegears.jpg
 %{_applnkdir}/.hidden/battery.desktop
 %{_applnkdir}/.hidden/bwarning.desktop
 %{_applnkdir}/.hidden/cwarning.desktop
@@ -1179,7 +1204,7 @@ fi
 %{_libdir}/libkateinterfaces.so
 %{_libdir}/libkateutils.so
 %{_libdir}/libkickermain.so
-%{_libdir}/libkmultitabbar.so
+#%{_libdir}/libkmultitabbar.so
 %{_libdir}/libkonq.so
 %{_libdir}/libkonqsidebarplugin.so
 %{_libdir}/libksgrd.so
@@ -1247,6 +1272,7 @@ fi
 %{_libdir}/kde3/libksplashstandard.la
 %attr(755,root,root) %{_libdir}/kde3/libksplashstandard.so*
 %{_datadir}/apps/ksplash/Themes/Standard
+%{_datadir}/apps/ksplash/pics/splash.png
 %{_datadir}/services/ksplashstandard.desktop
 
 %files common-filemanagement
@@ -1357,6 +1383,7 @@ fi
 %{_datadir}/mimelnk/print
 %{_datadir}/services/info.protocol
 %{_datadir}/services/khelpcenter.desktop
+%{_datadir}/services/kdeprint_part.desktop
 %{_datadir}/services/man.protocol
 %{_vfinfodir}/kde-settings*.directory
 %dir %{_applnkdir}/.hidden
@@ -1380,7 +1407,7 @@ fi
 %{_applnkdir}/KDE-Settings/LookNFeel/colors.desktop
 %{_applnkdir}/KDE-Settings/LookNFeel/fonts.desktop
 %{_applnkdir}/KDE-Settings/LookNFeel/style.desktop
-%{_applnkdir}/KDE-Settings/Peripherals/printers.desktop
+%{_applnkdir}/KDE-Settings/Peripherals/printmgr.desktop
 %{_desktopdir}/Help.desktop
 %{_desktopdir}/KControl.desktop
 %{_pixmapsdir}/*/*/apps/colors.png
@@ -1681,10 +1708,10 @@ fi
 %{_libdir}/libkateutils.la
 %attr(0755,root,root) %{_libdir}/libkateutils.so.*.*.*
 
-%files libkmultitabbar
-%defattr(644,root,root,755)
-%{_libdir}/libkmultitabbar.la
-%attr(0755,root,root) %{_libdir}/libkmultitabbar.so.*.*.*
+#%files libkmultitabbar
+#%defattr(644,root,root,755)
+#%{_libdir}/libkmultitabbar.la
+#%attr(0755,root,root) %{_libdir}/libkmultitabbar.so.*.*.*
 
 %files libkonq
 %defattr(644,root,root,755)
@@ -1736,11 +1763,16 @@ fi
 %attr(0755,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/Xwilling
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/Xaccess
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/Xservers
-%{_sysconfdir}/kdm/pics
+%dir %{_sysconfdir}/kdm/pics
+%dir %{_sysconfdir}/kdm/pics/users
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/pics/users/default.png
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/kdm/pics/users/root.png
 %attr(0755,root,root) %{_bindir}/kdm*
 %attr(0755,root,root) %{_bindir}/krootimage
 %{_libdir}/kde3/kcm_kdm.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_kdm.so
+%{_datadir}/apps/kdm
+%{_datadir}/wallpapers/pldwallpaper.png
 %{_applnkdir}/KDE-Settings/System/kdm.desktop
 %{_pixmapsdir}/*/*/apps/kdmconfig.png
 
