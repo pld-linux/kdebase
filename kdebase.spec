@@ -28,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	2
+Release:	1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -920,10 +920,11 @@ for i in $programs; do
 done
 cd $RPM_BUILD_ROOT
 for i in usr/X11R6/share/locale/{??,???,??_??}; do
-	echo "%lang($i) %{_datadir}/locale/$i/entry.desktop" >> %{name}.lang
+	l=`basename $i`
+	echo "%lang($l) %{_datadir}/locale/$i/entry.desktop" >> %{name}.lang
 # these don't seem to be used
-#	echo "%lang($i) %{_datadir}/locale/$i/flag.png" >> %{name}.lang
-#	echo "%lang($i) %{_datadir}/locale/$i/charset" >> %{name}.lang
+#	echo "%lang($l) %{_datadir}/locale/$i/flag.png" >> %{name}.lang
+#	echo "%lang($l) %{_datadir}/locale/$i/charset" >> %{name}.lang
 done
 cd -
 
