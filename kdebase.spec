@@ -140,7 +140,7 @@ Pakiet zawiera statyczne biblioteki KDE.
 Bibliotecas estáticas do kdebase.
 
 %package -n kdm
-Summary:	KDE Display Manager	
+Summary:	KDE Display Manager
 Summary(pl):	KDE Display Manager
 Group:		X11/Applications
 Requires:	qt >= 2.3.0
@@ -299,8 +299,8 @@ cd %{_fontdir}/misc
 umask 022
 %{_bindir}/mkfontdir
 
-%post	-n konqueror -p /sbin/ldconfig 
-%postun	-n konqueror -p /sbin/ldconfig 
+%post	-n konqueror -p /sbin/ldconfig
+%postun	-n konqueror -p /sbin/ldconfig
 
 %pre -n kdm
 /usr/sbin/groupadd -g 55 -r -f xdm
