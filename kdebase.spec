@@ -383,8 +383,6 @@ Obsoletes:	%{name}-kxmlrpc
 Obsoletes:	%{name}-screensaver
 Obsoletes:	%{name}-static
 Obsoletes:	%{name}-wallpapers
-Obsoletes:	kde-sdscreen
-Obsoletes:	kde-splash
 Obsoletes:	kde-theme-keramik
 
 %description desktop
