@@ -9,11 +9,12 @@
 #
 # Conditional build:
 %bcond_with 	i18n	# build i18n packages per module
+%bcond_without	apidocs	# prepare API documentation
 %bcond_without  ldap    # build or not ldap ioslave
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040312
+%define		_snap		040323
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -70,6 +71,7 @@ Patch16:	kde-common-utmpx.patch
 Patch17:	%{name}-fileshareset.patch
 Patch18:	%{name}-sasl-includes.patch
 Patch19:	%{name}-kio_settings.patch
+Patch20:	kde-common-QTDOCDIR.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	arts-devel >= 1.2.0
@@ -162,6 +164,19 @@ Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkonq = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libksgrd = %{epoch}:%{version}-%{release}
 Requires:	kdelibs-devel >= 9:%{version}
+
+%package apidocs
+Summary:	API documentation
+Summary(pl):	Dokumentacja API
+Group:		Development/Docs
+#Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
+Requires:	%{name}-desktop
+
+%description apidocs
+API documentation.
+
+%description apidocs -l pl
+Dokumentacja API.
 
 %description devel
 This package contains header files needed to develop KDE applications.
@@ -864,7 +879,7 @@ Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	pam
 Requires:	sessreg
-Requires:	xinitrc
+Requires:	xinitrc-ng >= 0.4
 Obsoletes:	gdm
 Obsoletes:	xdm
 Obsoletes:	%{name}-kdm
@@ -1338,11 +1353,12 @@ Pliki umiêdzynarodawiaj±ce dla mailnews.
 %patch17 -p1
 %patch18 -p1
 %patch19 -p1
+%patch20 -p1
 
 %build
 cp /usr/share/automake/config.sub admin
 
-export kde_htmldir=%{_kdedocdir}
+#export kde_htmldir=%{_kdedocdir}
 
 export UNSERMAKE=/usr/share/unsermake/unsermake
 
@@ -1358,11 +1374,14 @@ export UNSERMAKE=/usr/share/unsermake/unsermake
 
 %{__make}
 
+%{?with_apidocs:%{__make} apidox}
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	kde_htmldir=%{_kdedocdir}
 
 install -d \
 	$RPM_BUILD_ROOT/etc/{X11/kdm/faces,pam.d,rc.d/init.d,security} \
@@ -1934,7 +1953,6 @@ fi
 
 %files devel
 %defattr(644,root,root,755)
-%lang(en) %{_kdedocdir}/en/%{name}-apidocs
 %{_includedir}/*.h
 %{_includedir}/kate
 %{_includedir}/ksgrd
@@ -1951,6 +1969,12 @@ fi
 #%{_libdir}/libsensordisplays.so
 %{_libdir}/libtaskbar.so
 %{_libdir}/libtaskmanager.so
+
+%if %{with apidocs}
+%files apidocs
+%defattr(644,root,root,755)
+%lang(en) %{_kdedocdir}/en/%{name}-apidocs
+%endif
 
 %files -n kde-decoration-b2
 %defattr(644,root,root,755)
@@ -2526,7 +2550,6 @@ fi
 %{_iconsdir}/*/*/apps/xpaint.png
 %{_iconsdir}/*/*/apps/x.png
 %{_iconsdir}/*/*/apps/xv.png
-%{_iconsdir}/crystalsvg/scalable/apps
 # kcontroledit
 %attr(0755,root,root) %{_bindir}/kcontroledit
 %{_libdir}/libkdeinit_kcontroledit.la
@@ -2534,6 +2557,9 @@ fi
 %{_libdir}/kde3/kcontroledit.la
 %attr(0755,root,root) %{_libdir}/kde3/kcontroledit.so
 %{_datadir}/apps/kcontroledit
+# new
+%{_iconsdir}/crystalsvg/*/actions/newfont.png
+%{_iconsdir}/crystalsvg/scalable/apps
 
 %files desktop-libs
 %defattr(644,root,root,755)
