@@ -8,8 +8,8 @@
 # * Proper descriptions
 #
 
-%define		_state		unstable
-%define		_ver		3.1.95
+%define		_state		stable
+%define		_ver		3.2.0
 #%%define		_snap		040110
 
 Summary:	K Desktop Environment - core files
@@ -27,9 +27,9 @@ Release:	0.1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
-#Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
-# Source0-md5:	7b60b22787ade2897c0760a24cf6feba	
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
+Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
+# Source0-md5:	9d05be3ccd6cc0294d6153e5d4dfa63a
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -43,31 +43,24 @@ Source12:	http://ep09.pld-linux.org/~adgor/kde/%{name}-splash-Default-PLD-0.2.ta
 # Source12-md5:	24f9c6a4b711be36437639c410b400b2
 Source13:	http://ep09.pld-linux.org/~adgor/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
-#Patch0:	%{name}-fix-mem-leak-in-kfind.patch
-Patch2:		%{name}-fontdir.patch
-Patch3:		%{name}-kcm_background.patch
-#Patch4:	%{name}-kdm.daemon_output.patch
-Patch5:		%{name}-kdm_utmpx.patch
-Patch6:		%{name}-kdmconfig.patch
-Patch7:		%{name}-kicker.patch
-Patch8:		%{name}-konsole_all.patch
-Patch9:		%{name}-nsplugins_dirs.patch
-Patch10:	%{name}-startkde.patch
-Patch11:	%{name}-kcm_fonts.patch
-#Patch14:	%{name}-pldcredits.patch
-#Patch16:	%{name}-kicker_nodesktop.patch
-#Patch17:	%{name}-xfsreload.patch
-Patch18:	%{name}-kdesukonsole.patch
-#Patch19:	%{name}-vroot.patch
-Patch21:	%{name}-vcategories.patch
-Patch22:	%{name}-screensavers.patch
-Patch23:	%{name}-prefmenu.patch
-#Patch24:	%{name}-fix-mouse_cpp_for_enable_final.patch
-Patch25:	%{name}-session.patch
-Patch26:	%{name}-bgdefaults.patch
-Patch27:	%{name}-vmenus.patch
-Patch28:	kde-common-utmpx.patch
-Patch29:	%{name}-fileshareset.patch
+Patch0:		%{name}-fontdir.patch
+Patch1:		%{name}-kcm_background.patch
+Patch2:		%{name}-kdm_utmpx.patch
+Patch3:		%{name}-kdmconfig.patch
+Patch4:		%{name}-kicker.patch
+Patch5:		%{name}-konsole_all.patch
+Patch6:		%{name}-nsplugins_dirs.patch
+Patch7:		%{name}-startkde.patch
+Patch8:		%{name}-kcm_fonts.patch
+Patch9:		%{name}-kdesukonsole.patch
+Patch10:	%{name}-vcategories.patch
+Patch11:	%{name}-screensavers.patch
+Patch12:	%{name}-prefmenu.patch
+Patch13:	%{name}-session.patch
+Patch14:	%{name}-bgdefaults.patch
+Patch15:	%{name}-vmenus.patch
+Patch16:	kde-common-utmpx.patch
+Patch17:	%{name}-fileshareset.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	arts-devel >= 1.2.0
@@ -281,6 +274,19 @@ Default classic KDE splashscreen.
 
 %description -n kde-splash-Default-KDE -l pl
 Domy¶lny klasyczny ekran startowy KDE.
+
+%package -n kde-splash-blue-bend
+Summary:        KDE blue-bend splashscreen
+Summary(pl):    Ekran startowy KDE blue-bend
+Group:          X11/Amusements
+Requires:       %{name}-desktop = %{epoch}:%{version}-%{release}
+
+%description -n kde-splash-blue-bend
+KDE blue-bend splashscreen.
+
+%description -n kde-splash-blue-bend -l pl
+Ekran startowy KDE blue-bend.
+
 
 %package -n kde-splashplugin-Redmond
 Summary:	ksplash plugin Redmond
@@ -844,10 +850,11 @@ Internet Explorer.
 
 %prep
 %setup -q -n %{name}-%{version}
-#%patch0 -p1
+%patch0 -p1
+%patch1 -p1
 %patch2 -p1
 %patch3 -p1
-#%patch4 -p1
+%patch4 -p1
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
@@ -855,20 +862,12 @@ Internet Explorer.
 %patch9 -p1
 %patch10 -p1
 %patch11 -p1
-#%patch14 -p1
-#%patch16 -p1
-#%patch17 -p1
-%patch18 -p1
-#%patch19 -p1
-%patch21 -p1
-%patch22 -p1
-%patch23 -p1
-#%patch24 -p1
-%patch25 -p1
-%patch26 -p1
-%patch27 -p1
-%patch28 -p1
-%patch29 -p1
+%patch12 -p1
+%patch13 -p1
+%patch14 -p1
+%patch15 -p1
+%patch16 -p1
+%patch17 -p1
 
 %build
 cp /usr/share/automake/config.sub admin
@@ -1062,14 +1061,26 @@ done
 cat kcmkonsole.lang	>> konsole.lang
 cat kioslave.lang	>> kinfocenter.lang
 
+
 # apicdocs dir is independently installed
 for f in *.lang; do
-	if grep -q %{name}-%{version}-apidocs $f; then
-		grep -v %{name}-%{version}-apidocs $f > $f.tmp
+	if grep -q %{name}-apidocs $f; then
+		grep -v %{name}-apidocs $f > $f.tmp
 		mv $f.tmp $f
 	fi
 done
 # </find_lang>
+
+files="core kdebase kicker konqueror konsole kinfocenter kate kdm kfind kioslave klipper kmenuedit 
+ksysguard kpager kwrite screensaver"
+
+for i in $files; do
+	mv $i.lang $i_en.lang
+done
+
+%if %{with i18n}
+
+%endif 
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -1166,7 +1177,7 @@ fi
 
 %files devel
 %defattr(644,root,root,755)
-%lang(en) %{_kdedocdir}/en/%{name}-%{version}-apidocs
+%lang(en) %{_kdedocdir}/en/%{name}-apidocs
 %{_includedir}/*.h
 %{_includedir}/kate
 %{_includedir}/ksgrd
@@ -1180,7 +1191,6 @@ fi
 %{_libdir}/libkonqsidebarplugin.so
 %{_libdir}/libksgrd.so
 %{_libdir}/libksplashthemes.so
-%{_libdir}/libnsplugin.so
 #%{_libdir}/libsensordisplays.so
 %{_libdir}/libtaskbar.so
 %{_libdir}/libtaskmanager.so
@@ -1238,6 +1248,10 @@ fi
 %files -n kde-splash-Default-KDE
 %defattr(644,root,root,755)
 %{_datadir}/apps/ksplash/Themes/Default-KDE
+
+%files -n kde-splash-blue-bend
+%defattr(644,root,root,755)
+%{_datadir}/apps/ksplash/Themes/blue-bend
 
 %files -n kde-splashplugin-Redmond
 %defattr(644,root,root,755)
@@ -1592,6 +1606,8 @@ fi
 %{_datadir}/wallpapers/only_k.jpg
 %{_datadir}/wallpapers/seaofconero.jpg
 %{_datadir}/wallpapers/triplegears.jpg
+%{_datadir}/wallpapers/blue-bend.jpg
+%{_datadir}/wallpapers/Island-of-Elba.jpg
 %{_datadir}/xsessions/kde.desktop
 %{_datadir}/applnk/.hidden/battery.desktop
 %{_datadir}/applnk/.hidden/bwarning.desktop
@@ -1828,8 +1844,8 @@ fi
 %files kfontinst -f kcmfontinst.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kfontinst
-%{_libdir}/libkfontviewpart.la
-%attr(0755,root,root) %{_libdir}/libkfontviewpart.so
+%{_libdir}/kde3/libkfontviewpart.la
+%attr(0755,root,root) %{_libdir}/kde3/libkfontviewpart.so
 %{_libdir}/kde3/kcm_fontinst.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_fontinst.so
 %{_libdir}/kde3/kio_fonts.la
@@ -1970,8 +1986,8 @@ fi
 %defattr(644,root,root,755)
 %{_libdir}/libkonqsidebarplugin.la
 %attr(0755,root,root) %{_libdir}/libkonqsidebarplugin.so.*.*.*
-%{_libdir}/libnsplugin.la
-%attr(0755,root,root) %{_libdir}/libnsplugin.so.*.*.*
+%{_libdir}/kde3/libnsplugin.la
+%attr(0755,root,root) %{_libdir}/kde3/libnsplugin.so
 
 %files konsole -f konsole.lang
 %defattr(644,root,root,755)
