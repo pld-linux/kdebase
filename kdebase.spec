@@ -520,6 +520,7 @@ Requires:	%{name}-kpager = %{epoch}:%{version}-%{release}
 Requires:	konqueror = %{epoch}:%{version}-%{release}
 Requires:	xcursor >= 1.1.0
 Requires:	kde-splash
+Requires:	kde-splash-Default
 Obsoletes:	kde-theme-keramik
 Obsoletes:	kdebase
 Obsoletes:	kdebase-fonts
