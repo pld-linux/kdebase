@@ -30,11 +30,11 @@ Patch5:		%{name}-hardcoded_paths.patch
 Patch6:		%{name}-kdm.daemon_output.patch
 Patch7:		%{name}-startkde.patch
 Patch8:		%{name}-dont_merge_old_kdmrc.patch
-Patch9:         %{name}-konsole-defaultfonts.patch
-Patch10:        %{name}-konsoleF1.patch
-Patch11:        %{name}-konsole.patch
-Patch12:        %{name}-linebreaks.patch
-Patch13:        %{name}-ptsname.patch
+Patch9:		%{name}-konsole-defaultfonts.patch
+Patch10:	%{name}-konsoleF1.patch
+Patch11:	%{name}-konsole.patch
+Patch12:	%{name}-linebreaks.patch
+Patch13:	%{name}-ptsname.patch
 Patch20:	%{name}-fix-big-mem-leak-into-bgsetting.patch
 Patch21:	%{name}-fix-kcmaudiocd-mem-leak.patch
 Patch22:	%{name}-fix-kcmlocale-mem-leak.patch
@@ -93,7 +93,7 @@ BuildRequires:	qt-devel >= 3.0.5
 BuildRequires:	zlib-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
-Prereq:		/sbin/ldconfig
+Requires(post,postun):	/sbin/ldconfig
 Prereq:		/usr/X11R6/bin/mkfontdir
 Requires:	applnk
 Requires:	kdelibs >= %{version}
@@ -196,7 +196,7 @@ Pakiet zawiera statyczne biblioteki KDE.
 Bibliotecas estáticas do kdebase.
 
 %package -n kdm
-Summary:	KDE Display Manager	
+Summary:	KDE Display Manager
 Summary(pl):	KDE Display Manager
 Group:		X11/Applications
 Requires:	qt >= 3.0.5
@@ -433,19 +433,20 @@ cat kio.lang >> %{name}.lang
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post -p /sbin/ldconfig
+%post
+/sbin/ldconfig
 cd %{_fontdir}/misc
 umask 022
 %{_bindir}/mkfontdir
 
-%postun -p /sbin/ldconfig
-
+%postun
+/sbin/ldconfig
 cd %{_fontdir}/misc
 umask 022
 %{_bindir}/mkfontdir
 
-%post	-n konqueror -p /sbin/ldconfig 
-%postun	-n konqueror -p /sbin/ldconfig 
+%post   -n konqueror -p /sbin/ldconfig
+%postun	-n konqueror -p /sbin/ldconfig
 
 %pre -n kdm
 /usr/sbin/groupadd -g 55 -r -f xdm
