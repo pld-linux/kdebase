@@ -313,7 +313,7 @@
  #include <grp.h>
  
 -#define KDMCONF KDE_CONFDIR "/kdm"
-+#define KDMCONF KDE_CONFDIR "/etc/X11/kdm"
++#define KDMCONF "/etc/X11/kdm"
  
  
  /*
