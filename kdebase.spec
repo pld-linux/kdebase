@@ -104,7 +104,7 @@ BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	motif-devel
 %{!?_without_ldap:BuildRequires:	openldap-devel}
-BuildRequires:	openssl-devel >= 0.9.6k
+BuildRequires:	openssl-devel >= 0.9.6m
 BuildRequires:	pam-devel
 BuildRequires:	qt-devel >= 3.1
 BuildRequires:	zlib-devel
