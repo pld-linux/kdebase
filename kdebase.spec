@@ -7,8 +7,8 @@
 
 
 # Conditional build:
-%bcond_without	i18n	# don't build i18n packages per module
 %bcond_without	ldap	# build without LDAP support
+%bcond_without	apidocs	# build without apidocs
 #
 %define		_state		stable
 %define		_ver		3.2.2
@@ -39,18 +39,19 @@ Source3:	%{name}-kdm.init
 Source4:	%{name}-kdm.Xsession
 Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
-Source8:	%{name}-ircpld.desktop
-Source9:	%{name}-specs.desktop
-Source11:	%{name}-QtCurve.kcsrc
+Source8:	%{name}-searchproviders.tar.bz2 
+# Source8-md5:	fc8652f962e3e09563226ed511422e5f
+Source9:	%{name}-colorschemes.tar.bz2
+# Source9-md5:	af89fbee2e58eac2cdb2e4ab77d168a5
+Source10:	%{name}-servicemenus.tar.bz2
+# Source10-md5:	c75c9cc23283ca7de61f2a1a6f1258a0
+Source11:	%{name}-konqsidebarext.tar.bz2
+# Source11-md5:	23ea11aaa85d78c0e39bdf5dd4f4ebda
 Source12:	http://ep09.pld-linux.org/~adgor/kde/%{name}-splash-Default-PLD-0.2.tar.bz2
 # Source12-md5:	24f9c6a4b711be36437639c410b400b2
 Source13:	http://ep09.pld-linux.org/~adgor/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
-%if %{with i18n}
-Source14:	kde-i18n-%{name}-%{version}.tar.bz2
-# Source14-md5:	b1f89de8918aa9c1d690eb45aa18953f
-%endif
-# Patch0:		%{name}-3.2branch.diff
+Patch0:		%{name}-3.2branch.diff
 Patch1:		%{name}-fontdir.patch
 Patch2:		%{name}-kcm_background.patch
 Patch3:		%{name}-kdm_utmpx.patch
@@ -102,6 +103,11 @@ BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	pam-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	xcursor-devel
+%if %{with apidocs}
+BuildRequires:	qt-doc >= %{qtver}
+BuildRequires:	doxygen
+BuildRequires:	graphviz
+%endif
 BuildConflicts:	kdebase-konqueror-libs
 Conflicts:	kdelibs < 9:3.1.94.040110-1
 # TODO: sensors
@@ -155,10 +161,9 @@ Summary(pl):	Pliki nag³ówkowe potrzebne do programowania
 Summary(pt_BR):	Arquivos de inclusão para compilar aplicativos que usem bibliotecas do kdebase
 Group:		X11/Development/Libraries
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kicker-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
-Requires:	%{name}-libkonq = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libksgrd = %{epoch}:%{version}-%{release}
+Requires:	konqueror-libs = %{epoch}:%{version}-%{release}
 Requires:	kdelibs-devel >= 9:%{version}
 
 %description devel
@@ -248,7 +253,7 @@ Dekoracja okna dla KDE - Web.
 Summary:	Default kicker sidebar
 Summary(pl):	Domy¶lny boczny pasek do menu KDE
 Group:		Themes
-Requires:	kdebase-kicker >= 9:3.1.91
+Requires:	kdebase-desktop >= 9:3.2.90.040424-2
 Provides:	kde-kside
 
 %description -n kde-kside-default
@@ -381,24 +386,30 @@ Summary(pl):	KDesktop - obs³uga ikon na pulpicie, menu itp.
 Group:		X11/Applications
 Requires:	kde-logoutpic
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
-Requires:	kicker
 Requires:	konqueror = %{epoch}:%{version}-%{release}
-Obsoletes:	%{name}
-Obsoletes:	%{name}-fonts
-Obsoletes:	%{name}-kcheckpass
-Obsoletes:	%{name}-kdesktop
-Obsoletes:	%{name}-kdesktop_lock
-Obsoletes:	%{name}-khelpcenter
-Obsoletes:	%{name}-kioslave
-Obsoletes:	%{name}-konqueror
-Obsoletes:	%{name}-kwin
-Obsoletes:	%{name}-kwmtheme
-Obsoletes:	%{name}-kxmlrpc
-Obsoletes:	%{name}-screensaver
-Obsoletes:	%{name}-static
-Obsoletes:	%{name}-wallpapers
+Requires:	kde-kside
+Requires:	%{name}-kfind = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kjobviewer = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kpager = %{epoch}:%{version}-%{release}
 Obsoletes:	kde-theme-keramik
 Obsoletes:	kdebase-kwin_plugin
+Obsoletes:	kdebase
+Obsoletes:	kdebase-fonts
+Obsoletes:	kdebase-kcheckpass
+Obsoletes:	kdebase-kdesktop
+Obsoletes:	kdebase-kdesktop_lock
+Obsoletes:	kdebase-khelpcenter
+Obsoletes:	kdebase-kicker
+Obsoletes:	kdebase-kioslave
+Obsoletes:	kdebase-kmenuedit
+Obsoletes:	kdebase-konqueror
+Obsoletes:	kdebase-ksystraycmd
+Obsoletes:	kdebase-kwin
+Obsoletes:	kdebase-kwmtheme
+Obsoletes:	kdebase-kxmlrpc
+Obsoletes:	kdebase-screensaver
+Obsoletes:	kdebase-static
+Obsoletes:	kdebase-wallpapers
 
 %description desktop
 KDesktop is the program that handles the desktop icons, the popup
@@ -414,7 +425,8 @@ Summary(pl):	Biblioteki KDesktop
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	kdelibs >= 9:%{version}
-Obsoletes:	%{name}-desktop < 9:3.1.92.031006
+Obsoletes:	kdebase-desktop < 9:3.1.92.031006
+Obsoletes:	kdebase-kicker-libs
 
 %description desktop-libs
 KDesktop libraries.
@@ -526,41 +538,7 @@ Obsoletes:	%{name}-desktop < 3.1.90.030720
 K Font Installer.
 
 %description kfontinst -l pl
-Instalator fontów dla KDE.
-
-%package kicker
-Summary:	KDE Panel - kicker
-Summary(pl):	Panel KDE - kicker
-Group:		X11/Applications
-Requires:	%{name}-kfind = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kicker-libs = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kjobviewer = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kmenuedit = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kpager = %{epoch}:%{version}-%{release}
-Requires:	%{name}-libkickermain = %{epoch}:%{version}-%{release}
-Requires:	%{name}-libkonq = %{epoch}:%{version}-%{release}
-Requires:	kde-kside
-Provides:	kicker
-
-%description kicker
-KDE Panel - kicker.
-
-%description kicker -l pl
-Panel KDE - kicker.
-
-%package kicker-libs
-Summary:	kicker shared libraries
-Summary(pl):	Biblioteki wspó³dzielone kickera
-Group:		X11/Libraries
-Requires(post,postun):	/sbin/ldconfig
-Requires:	%{name}-libkickermain = %{epoch}:%{version}-%{release}
-Obsoletes:	%{name}-kicker < 9:3.1.92.031006
-
-%description kicker-libs
-Shared libraries used by kicker.
-
-%description kicker-libs -l pl
-Biblioteki wspó³dzielone u¿ywane przez kickera.
+Instalator czcionek dla KDE.
 
 %package kjobviewer
 Summary:	Print Job Viewer
@@ -572,19 +550,19 @@ Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 KDE Print Job Viewer.
 
 %description kjobviewer -l pl
-Podgl±d zadañ drukowania dla KDE.
+Przegl±darka zleceñ drukowania dla KDE.
 
 %package klipper
 Summary:	Clipboard Tool
 Summary(pl):	Narzêdzie schowka
 Group:		X11/Applications
-Requires:	%{name}-kicker = %{epoch}:%{version}-%{release}
+Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
 %description klipper
 KDE Clipboard Tool.
 
 %description klipper -l pl
-Narzêdzie schowka dla KDE.
+Narzêdzie obs³ugi schowka dla KDE.
 
 %package kmenuedit
 Summary:	Menu Editor
@@ -653,34 +631,6 @@ KDE System Guard.
 %description ksysguard -l pl
 Stra¿nik systemu dla KDE.
 
-%package ksystraycmd
-Summary:	A tool that allows running applications in taskbar
-Summary(pl):	Narzêdzie do uruchamiania aplikacji w pasku zadañ
-Group:		X11/Applications
-Requires:	%{name}-kicker = %{epoch}:%{version}-%{release}
-
-%description ksystraycmd
-KSysTrayCmd is a utility that allows you to run any application you
-like in the system tray, not just those designed to use it.
-
-%description ksystraycmd -l pl
-KSysTrayCmd to narzêdzie pozwalaj±ce na uruchomienie dowolnej
-aplikacji w tacce systemowej - nie tylko tych, które zosta³y
-wyposa¿one w tak± w³a¶ciwo¶æ.
-
-%package kwmtheme
-Summary:	Desktop Theme Manager
-Summary(pl):	Zarz±dca motywów biurka
-Group:		X11/Applications
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
-
-%description kwmtheme
-KDE Desktop Theme Manager. This package contains also a few desktop
-themes.
-
-%description kwmtheme -l pl
-Zarz±dca motywów biurka KDE. Ten pakiet zawiera równie¿ kilka motywów.
-
 %package kwrite
 Summary:	KDE Text Editor
 Summary(pl):	Edytor tekstu dla KDE
@@ -715,44 +665,14 @@ Summary(pl):	Biblioteki dla edytorów tekstu KDE
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	kdelibs >= 9:%{version}
-Obsoletes:	%{name}-kate < 8:3.2-0.030423.1
-Obsoletes:	%{name}-libkmultitabbar
+Obsoletes:	kdebase-kate < 8:3.2-0.030423.1
+Obsoletes:	kdebase-libkmultitabbar
 
 %description libkate
 A libraries for KDE text editors.
 
 %description libkate -l pl
 Biblioteki dla edytorów tekstu KDE.
-
-%package libkickermain
-Summary:	libkickermain library
-Summary(pl):	Biblioteka libkickermain
-Group:		X11/Libraries
-Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= 9:%{version}
-Obsoletes:	%{name}-kicker < 9:3.1.90.030629-0.1
-
-%description libkickermain
-libkickermain shared library.
-
-%description libkickermain -l pl
-Biblioteka wspó³dzielona libkickermain.
-
-%package libkonq
-Summary:	Konqueror library files
-Summary(pl):	Biblioteki wykorzystywane przez konquerora
-Group:		X11/Libraries
-Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= 9:%{version}
-Obsoletes:	kdebase-konqueror-libs
-Obsoletes:	konqueror < 8:3.2-0.030423.2
-
-%description libkonq
-Libraries containing functions used by konqueror and kicker.
-
-%description libkonq -l pl
-Biblioteki zawieraj±ce funkcje wykorzystywane przez konquerora i
-kickera.
 
 %package libksgrd
 Summary:	ksgrd library
@@ -825,11 +745,11 @@ Zamiennik XDM rodem z KDE. Zarz±dza lokalnymi i zdalnymi ekranami X11.
 Summary:	Konqueror - web browser and file manager
 Summary(pl):	Konqueror - przegl±darka WWW i zarz±dca plików
 Group:		X11/Applications
-Requires:	%{name}-libkickermain = %{epoch}:%{version}-%{release}
-Requires:	%{name}-libkonq = %{epoch}:%{version}-%{release}
+Requires:	konqueror-libs = %{epoch}:%{version}-%{release}
+Obsoletes:	kdebase-konqueror
+Obsoletes:	kdebase-libkmultitabbar
 %{?with_ldap:Requires:	openldap-libs}
-Obsoletes:	%{name}-konqueror
-Obsoletes:	%{name}-libkmultitabbar
+
 
 %description -n konqueror
 Konqueror is a web browser and file manager similar to MS Internet
@@ -839,432 +759,36 @@ Explorer.
 Konqueror jest przegl±dark± WWW i zarz±dc± plików podobnym do MS
 Internet Explorer.
 
-%package i18n
-Summary:	Common internationalization and localization files for kdebase
-Summary(pl):	Wspó³dzielone pliki umiêdzynarodawiaj±ce dla kdebase
-Group:		X11/Applications
+%package -n konqueror-libs
+Summary:	konqueror shared libraries
+Summary(pl):	Biblioteki wspó³dzielone konquerora
+Group:		X11/Libraries
+Requires(post,postun):	/sbin/ldconfig
+Requires:	kdelibs >= 9:%{version}
+Obsoletes:	kdebase-libkickermain
+Obsoletes:	kdebase-libkonq
+Obsoletes:	kdebase-libkonqsidebarplugin
+Obsoletes:	kdebase-konqueror-libs
+Obsoletes:	konqueror < 9:3.1.92.031006
+ 
+%description -n konqueror-libs
+Konqueror shared libraries.
+ 
+%description -n konqueror-libs -l pl
+Biblioteki wspó³dzielone konquerora.
+
+%package apidocs
+Summary:	API documentation
+Summary(pl):	Dokumentacja API
+Group:		Development/Docs
 #Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	kdelibs-i18n >= 9:%{version}
+Requires:	%{name}
 
-%description i18n
-Internationalization and localization files for kdebase.
+%description apidocs
+API documentation.
 
-%description i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kdebase.
-
-%package core-i18n
-Summary:	Internationalization and localization files for core
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla core
-Group:		X11/Applications
-Requires:	%{name}-core = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-
-%description core-i18n
-Internationalization and localization files for core.
-
-%description core-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla core.
-
-%package desktop-i18n
-Summary:	Internationalization and localization files for desktop
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla desktop
-Group:		X11/Applications
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
-Requires:	%{name}-desktop-libs-i18n = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kicker-i18n = %{epoch}:%{version}-%{release}
-Requires:	konqueror-i18n = %{epoch}:%{version}-%{release}
-
-%description desktop-i18n
-Internationalization and localization files for desktop.
-
-%description desktop-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla desktop.
-
-%package infocenter-i18n
-Summary:	Internationalization and localization files for infocenter
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla infocenter
-Group:		X11/Applications
-Requires:	%{name}-infocenter = %{epoch}:%{version}-%{release}
-Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
-
-%description infocenter-i18n
-Internationalization and localization files for infocenter.
-
-%description infocenter-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla infocenter.
-
-%package kate-i18n
-Summary:	Internationalization and localization files for kate
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kate
-Group:		X11/Applications
-Requires:	%{name}-kate = %{epoch}:%{version}-%{release}
-Requires:	%{name}-common-filemanagement-i18n = %{epoch}:%{version}-%{release}
-
-%description kate-i18n
-Internationalization and localization files for kate.
-
-%description kate-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kate.
-
-%package kfind-i18n
-Summary:	Internationalization and localization files for kfind
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kfind
-Group:		X11/Applications
-Requires:	%{name}-kfind = %{epoch}:%{version}-%{release}
-Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
-
-%description kfind-i18n
-Internationalization and localization files for kfind.
-
-%description kfind-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kfind.
-
-%package kfontinst-i18n
-Summary:	Internationalization and localization files for kfontinst
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kfontinst
-Group:		X11/Applications
-Requires:	%{name}-kfontinst = %{epoch}:%{version}-%{release}
-Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
-
-%description kfontinst-i18n
-Internationalization and localization files for kfontinst.
-
-%description kfontinst-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kfontinst.
-
-%package kicker-i18n
-Summary:	Internationalization and localization files for kicker
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kickera
-Group:		X11/Applications
-Requires:	%{name}-kicker = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kfind-i18n = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kicker-libs-i18n = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kjobviewer-i18n = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kmenuedit-i18n = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kpager-i18n = %{epoch}:%{version}-%{release}
-Requires:	%{name}-libkonq-i18n = %{epoch}:%{version}-%{release}
-
-%description kicker-i18n
-Internationalization and localization files for kicker.
-
-%description kicker-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kickera.
-
-%package klipper-i18n
-Summary:	Internationalization and localization files for klipper
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla klippera
-Group:		X11/Applications
-Requires:	%{name}-klipper = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kicker-i18n = %{epoch}:%{version}-%{release}
-
-%description klipper-i18n
-Internationalization and localization files for klipper.
-
-%description klipper-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla klippera.
-
-%package kmenuedit-i18n
-Summary:	Internationalization and localization files for kmenuedit
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kmenuedit
-Group:		X11/Applications
-Requires:	%{name}-kmenuedit = %{epoch}:%{version}-%{release}
-Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
-
-%description kmenuedit-i18n
-Internationalization and localization files for kmenuedit.
-
-%description kmenuedit-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kmenuedit.
-
-%package konsole-i18n
-Summary:	Internationalization and localization files for konsole
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla konsole
-Group:		X11/Applications
-Requires:	%{name}-konsole = %{epoch}:%{version}-%{release}
-Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
-
-%description konsole-i18n
-Internationalization and localization files for konsole.
-
-%description konsole-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla konsole.
-
-%package kpager-i18n
-Summary:	Internationalization and localization files for kpager
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kpagera
-Group:		X11/Applications
-Requires:	%{name}-kpager = %{epoch}:%{version}-%{release}
-Requires:	kdelibs-i18n >= 9:%{version}
-
-%description kpager-i18n
-Internationalization and localization files for kpager.
-
-%description kpager-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kpagera.
-
-%package ksysguard-i18n
-Summary:	Internationalization and localization files for ksysguard
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla ksysguarda
-Group:		X11/Applications
-Requires:	%{name}-ksysguard = %{epoch}:%{version}-%{release}
-Requires:	%{name}-desktop-i18n = %{epoch}:%{version}-%{release}
-Requires:	%{name}-klipper-i18n = %{epoch}:%{version}-%{release}
-
-%description ksysguard-i18n
-Internationalization and localization files for ksysguard.
-
-%description ksysguard-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla ksysguarda.
-
-%package kwrite-i18n
-Summary:	Internationalization and localization files for kwrite
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kwrite
-Group:		X11/Applications
-Requires:	%{name}-kwrite = %{epoch}:%{version}-%{release}
-Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
-
-%description kwrite-i18n
-Internationalization and localization files for kwrite.
-
-%description kwrite-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kwrite.
-
-%package screensavers-i18n
-Summary:	Internationalization and localization files for screensavers
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla screensavers
-Group:		X11/Applications
-Requires:	%{name}-screensavers = %{epoch}:%{version}-%{release}
-Requires:	%{name}-desktop-i18n = %{epoch}:%{version}-%{release}
-
-%description screensavers-i18n
-Internationalization and localization files for screensavers.
-
-%description screensavers-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla screensavers.
-
-%package -n kdm-i18n
-Summary:	Internationalization and localization files for kdm
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kdm-a
-Group:		X11/Applications
-Requires:	kdm = %{epoch}:%{version}-%{release}
-Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
-
-%description -n kdm-i18n
-Internationalization and localization files for kdm.
-
-%description -n kdm-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kdm-a.
-
-%package -n konqueror-i18n
-Summary:	Internationalization and localization files for konqueror
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla konquerora
-Group:		X11/Applications
-Requires:	konqueror = %{epoch}:%{version}-%{release}
-Requires:	%{name}-common-filemanagement-i18n = %{epoch}:%{version}-%{release}
-Requires:	%{name}-konsole-i18n = %{epoch}:%{version}-%{release}
-Requires:	%{name}-libkonq-i18n = %{epoch}:%{version}-%{release}
-Requires:	%{name}-mailnews-i18n = %{epoch}:%{version}-%{release}
-
-%description -n konqueror-i18n
-Internationalization and localization files for konqueror.
-
-%description -n konqueror-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla konquerora.
-
-%package -n kde-decoration-b2-i18n
-Summary:	Internationalization and localization files for kde-decoration-b2
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kde-decoration-b2
-Group:		X11/Applications
-Requires:	kde-decoration-b2 = %{epoch}:%{version}-%{release}
-Requires:	%{name}-desktop-i18n = %{epoch}:%{version}-%{release}
-
-%description -n kde-decoration-b2-i18n
-Internationalization and localization files for kde-decoration-b2.
-
-%description -n kde-decoration-b2-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kde-decoration-b2.
-
-%package -n kde-decoration-modernsys-i18n
-Summary:	Internationalization and localization files for kde-decoration-modernsys
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kde-decoration-modernsys
-Group:		X11/Applications
-Requires:	%{name}-desktop-i18n = %{epoch}:%{version}-%{release}
-Requires:	kde-decoration-modernsys = %{epoch}:%{version}-%{release}
-
-%description -n kde-decoration-modernsys-i18n
-Internationalization and localization files for kde-decoration-modernsys.
-
-%description -n kde-decoration-modernsys-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kde-decoration-modernsys.
-
-%package -n kde-decoration-quartz-i18n
-Summary:	Internationalization and localization files for kde-decoration-quartz
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kde-decoration-quartz
-Group:		X11/Applications
-Requires:	%{name}-desktop-i18n = %{epoch}:%{version}-%{release}
-Requires:	kde-decoration-quartz = %{epoch}:%{version}-%{release}
-
-%description -n kde-decoration-quartz-i18n
-Internationalization and localization files for kde-decoration-quartz.
-
-%description -n kde-decoration-quartz-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kde-decoration-quartz.
-
-%package common-filemanagement-i18n
-Summary:	Internationalization and localization files for common-filemanagement
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla common-filemanagement
-Group:		X11/Applications
-Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
-Requires:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
-
-%description common-filemanagement-i18n
-Internationalization and localization files for common-filemanagement.
-
-%description common-filemanagement-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla common-filemanagement.
-
-%package desktop-libs-i18n
-Summary:	Internationalization and localization files for desktop-libs
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla desktop-libs
-Group:		X11/Applications
-Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-
-%description desktop-libs-i18n
-Internationalization and localization files for desktop-libs.
-
-%description desktop-libs-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla desktop-libs.
-
-%package kappfinder-i18n
-Summary:	Internationalization and localization files for kappfinder
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kappfindera
-Group:		X11/Applications
-Requires:	%{name}-kappfinder = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-
-%description kappfinder-i18n
-Internationalization and localization files for kappfinder.
-
-%description kappfinder-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kappfindera.
-
-%package kdcop-i18n
-Summary:	Internationalization and localization files for kdcop
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kdcopa
-Group:		X11/Applications
-Requires:	%{name}-kdcop = %{epoch}:%{version}-%{release}
-Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
-
-%description kdcop-i18n
-Internationalization and localization files for kdcop.
-
-%description kdcop-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kdcopa.
-
-%package kdeprintfax-i18n
-Summary:	Internationalization and localization files for kdeprintfax
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kdeprintfax
-Group:		X11/Applications
-Requires:	%{name}-kdeprintfax = %{epoch}:%{version}-%{release}
-Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
-
-%description kdeprintfax-i18n
-Internationalization and localization files for kdeprintfax.
-
-%description kdeprintfax-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kdeprintfax.
-
-%package kdialog-i18n
-Summary:	Internationalization and localization files for kdialog
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kdialoga
-Group:		X11/Applications
-Requires:	%{name}-kdialog = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-
-%description kdialog-i18n
-Internationalization and localization files for kdialog.
-
-%description kdialog-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kdialoga.
-
-%package kicker-libs-i18n
-Summary:	Internationalization and localization files for kicker-libs
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kicker-libs
-Group:		X11/Applications
-Requires:	%{name}-kicker-libs = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-
-%description kicker-libs-i18n
-Internationalization and localization files for kicker-libs.
-
-%description kicker-libs-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kicker-libs.
-
-%package kjobviewer-i18n
-Summary:	Internationalization and localization files for kjobviewer
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kjobviewera
-Group:		X11/Applications
-Requires:	%{name}-kjobviewer = %{epoch}:%{version}-%{release}
-Requires:	%{name}-core-i18n = %{epoch}:%{version}-%{release}
-
-%description kjobviewer-i18n
-Internationalization and localization files for kjobviewer.
-
-%description kjobviewer-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kjobviewera.
-
-%package kpersonalizer-i18n
-Summary:	Internationalization and localization files for kpersonalizer
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kpersonalizera
-Group:		X11/Applications
-Requires:	%{name}-kpersonalizer = %{epoch}:%{version}-%{release}
-Requires:	%{name}-desktop-i18n = %{epoch}:%{version}-%{release}
-
-%description kpersonalizer-i18n
-Internationalization and localization files for kpersonalizer.
-
-%description kpersonalizer-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kpersonalizera.
-
-%package ksystraycmd-i18n
-Summary:	Internationalization and localization files for ksystraycmd
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla ksystraycmd
-Group:		X11/Applications
-Requires:	%{name}-ksystraycmd = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kicker-i18n = %{epoch}:%{version}-%{release}
-
-%description ksystraycmd-i18n
-Internationalization and localization files for ksystraycmd.
-
-%description ksystraycmd-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla ksystraycmd.
-
-%package libkonq-i18n
-Summary:	Internationalization and localization files for libkonq
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla libkonq
-Group:		X11/Applications
-Requires:	%{name}-libkonq = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-
-%description libkonq-i18n
-Internationalization and localization files for libkonq.
-
-%description libkonq-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla libkonq.
-
-%package mailnews-i18n
-Summary:	Internationalization and localization files for mailnews
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla mailnews
-Group:		X11/Applications
-Requires:	%{name}-mailnews = %{epoch}:%{version}-%{release}
-Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-
-%description mailnews-i18n
-Internationalization and localization files for mailnews.
-
-%description mailnews-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla mailnews.
+%description apidocs -l pl
+Dokumentacja API.
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -1306,6 +830,11 @@ cp %{_datadir}/automake/config.sub admin
 
 %{__make}
 
+%if %{with apidocs}
+%{__make} apidox
+%endif
+
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
@@ -1327,9 +856,11 @@ install %{SOURCE3}	$RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/kdm
 install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/X11/kdm/Xsession
 install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
-install %{SOURCE8}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/ircpld.desktop
-install %{SOURCE9}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/specs.desktop
-install %{SOURCE11}	$RPM_BUILD_ROOT%{_datadir}/apps/kdisplay/color-schemes/QtCurve.kcsrc
+%{__tar} xfj %{SOURCE8} -C $RPM_BUILD_ROOT%{_datadir}/services/searchproviders/
+%{__tar} xfj %{SOURCE9} -C $RPM_BUILD_ROOT%{_datadir}/apps/kdisplay/color-schemes/
+%{__tar} xfj %{SOURCE10} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/
+mv $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts/* $RPM_BUILD_ROOT%{_bindir}
+rm -rf $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts
 
 # Needed for pam support
 touch $RPM_BUILD_ROOT%{_sysconfdir}/security/blacklist.kdm
@@ -1389,13 +920,6 @@ for f in `grep -El 'X-KDE-settings|X-KDE-information' *`; do
 done
 cd -
 
-%if %{with i18n}
-bzip2 -dc %{SOURCE14} | tar xf - -C $RPM_BUILD_ROOT
-for f in $RPM_BUILD_ROOT%{_datadir}/locale/*/LC_MESSAGES/*.mo; do
-        [ "`file $f | sed -e 's/.*,//' -e 's/message.*//'`" -le 1 ] && rm -f $f
-done
-%endif
-
 # <find_lang>
 > core.lang
 programs=" \
@@ -1418,6 +942,7 @@ programs=" \
 	arts \
 	background \
 	bell \
+	clock \
 	desktop \
 	desktopbehavior \
 	energy \
@@ -1425,12 +950,17 @@ programs=" \
 	kcmlaunch \
 	kcmnotify \
 	kcmsmserver \
+	kcmtaskbar \
 	keyboard \
 	keys \
+	kicker \
+	kmenuedit \
 	ksplashml \
 	kwindecoration \
 	kxkb \
 	mouse \
+	panel \
+	panelappearance \
 	passwords \
 	spellchecking \
 	windowmanagement"
@@ -1440,17 +970,6 @@ for i in $programs; do
 	cat $i.lang >> %{name}.lang
 done
 
-%find_lang kicker	--with-kde
-programs=" \
-	clock \
-	kcmtaskbar \
-	panel \
-	panelappearance"
-
-for i in $programs; do
-	%find_lang $i --with-kde
-	cat $i.lang >> kicker.lang
-done
 
 %find_lang konqueror	--with-kde
 programs="\
@@ -1494,7 +1013,6 @@ cat kioslave.lang	>> kinfocenter.lang
 
 files="core \
 kdebase \
-kicker \
 konqueror \
 konsole \
 kinfocenter \
@@ -1510,251 +1028,11 @@ kwrite \
 screensaver \
 kcmfontinst"
 
-%if %{with i18n}
-%find_lang kwin_b2_config	--with-kde
-%find_lang kwin_modernsys_config	--with-kde
-%find_lang kwin_quartz_config	--with-kde
-%find_lang kcmfileshare	--with-kde
-
-core="kdesud \
-kcmaccessibility \
-kcmprintmgr \
-klegacyimport \
-kpartapp \
-kprinter \
-kcmcolors \
-kcmfonts \
-kcmkded \
-kcmlocale \
-kdeprint_part \
-kio_man \
-kio_settings \
-kstyle_keramik_config \
-drkonqi"
-
-for i in $core;
-do
-	%find_lang $i	--with-kde
-	cat $i.lang >> core.lang
-done
-
-desktop="kcmkwintheme \
-kcmkwm \
-kwin \
-krandr \
-privacy \
-kcmspellchecking \
-kcminput \
-kcmxinerama \
-display \
-ktip \
-kaccess \
-krdb \
-kreadconfig \
-ksplash \
-kstart \
-kwin_default_config \
-kcmarts \
-kcmbackground \
-kcmbell \
-kcmcomponentchooser \
-kcmemail \
-kcmenergy \
-kcmkeys \
-kcmkwindecoration \
-khotkeys \
-kdesktop \
-ksmserver \
-kwin_keramik_config \
-kcmmidi"
-
-for i in $desktop;
-do
-	%find_lang $i	--with-kde
-	cat $i.lang >> %{name}.lang
-done
-
-%find_lang ksplashthemes	--with-kde
-
-info="kcminfo \
-kcmioslaveinfo \
-kcmnic \
-kcmsamba \
-kcmusb \
-kcmview1394"
-
-for i in $info;
-do
-	%find_lang $i	--with-kde
-	cat $i.lang >> kinfocenter.lang
-done
-
-%find_lang kappfinder	--with-kde
-
-%find_lang katedefaultproject	--with-kde
-cat katedefaultproject.lang >> kate.lang
-
-%find_lang kdcop	--with-kde
-
-%find_lang kdeprintfax	--with-kde
-
-%find_lang kdialog	--with-kde
-
-%find_lang kfindpart	--with-kde
-cat kfindpart.lang >> kfind.lang
-
-
-%find_lang kfontinst	--with-kde
-cat kfontinst.lang >> kcmfontinst.lang
-%find_lang fontinst	--with-kde
-cat fontinst.lang >> kcmfontinst.lang
-
-kicker="kcmkclock \
-kcmkicker \
-lockout \
-ktaskbarapplet \
-libkicker \
-libkickermenu_kdeprint \
-libkickermenu_konsole \
-libkickermenu_prefmenu \
-libkickermenu_recentdocs \
-ksystemtrayapplet \
-childpanelextension \
-clockapplet \
-kmenuapplet \
-kminipagerapplet \
-krunapplet \
-devicesapplet \
-dockbarextension \
-kasbarextension \
-naughtyapplet \
-quicklauncher \
-taskbarextension"
-
-for i in $kicker;
-do
-	%find_lang $i	--with-kde
-	cat $i.lang >> kicker.lang
-done
-
-%find_lang libtaskbar	--with-kde
-%find_lang libtaskmanager	--with-kde
-cat libtaskmanager.lang >> libtaskbar.lang
-
-%find_lang kjobviewer	--with-kde
-
-%find_lang kpersonalizer	--with-kde
-
-%find_lang ksystraycmd	--with-kde
-
-%find_lang kwriteconfig	--with-kde
-cat kwriteconfig.lang >> kwrite.lang
-
-%find_lang libkonq	--with-kde
-
-mn="kio_imap4 \
-kio_pop3 \
-kio_nntp \
-kio_smtp"
-
-for i in $mn;
-do
-	%find_lang $i	--with-kde
-	cat $i.lang >> mailnews.lang
-done
-
-screen="kscreensaver \
-kcmscreensaver"
-
-for i in $screen;
-do
-	%find_lang $i	--with-kde
-	cat $i.lang >> screensaver.lang
-done
-
-
-kdm="kdmchooser \
-kdmconfig \
-kdmgreet"
-
-for i in $kdm;
-do
-	%find_lang $i	--with-kde
-	cat $i.lang >> kdm.lang
-done
-
-konqueror="appletproxy \
-nsplugin \
-kcmhtmlsearch \
-kcmsocks \
-kcmlayout \
-htmlsearch \
-extensionproxy \
-kfmclient \
-kio_devices \
-kcmcgi \
-kcmcrypto \
-kcmicons \
-kcmkio \
-kcmkonq \
-kcmkonqhtml \
-kcmkurifilt \
-kcmperformance \
-kfile_font \
-kio_finger \
-kio_fish \
-kio_floppy \
-kio_mac \
-kio_nfs \
-kio_print \
-kio_sftp \
-kio_smb \
-kio_smbro"
-
-for i in $konqueror;
-do
-	%find_lang $i	--with-kde
-	cat $i.lang >> konqueror.lang
-done
-
-
-echo "%defattr(644,root,root,755)" > i18n.lang
-
-for i in $RPM_BUILD_ROOT%{_datadir}/locale/* ;
-do
-	echo $i
-	if [ -d $i ] ; then
-	z=`echo $i|sed -e "s,${RPM_BUILD_ROOT}%{_datadir}/locale/,,"`
-	if [ -f ${RPM_BUILD_ROOT}%{_datadir}/locale/$z/charset ] ; then
-	echo %lang\($z\) %{_datadir}/locale/$z/charset >> i18n.lang
-	fi
-	if [ -f ${RPM_BUILD_ROOT}%{_datadir}/locale/$z/entry.desktop ] ; then
-	echo %lang\($z\) %{_datadir}/locale/$z/entry.desktop >> i18n.lang
-	fi
-	if [ -f ${RPM_BUILD_ROOT}%{_datadir}/locale/$z/flag.png ] ; then
-	echo %lang\($z\) %{_datadir}/locale/$z/flag.png >> i18n.lang
-	fi
-	fi
-done
-%endif
-
 for i in $files; do
-	echo "%defattr(644,root,root,755)" > ${i}_en.lang
-	grep en\/ ${i}.lang|grep -v apidocs >> ${i}_en.lang
-	grep -v apidocs $i.lang|grep -v en\/ > ${i}.lang.1
+	grep -v apidocs $i.lang > ${i}.lang.1
 	mv ${i}.lang.1 ${i}.lang
 done
 
-durne=`ls -1 *.lang|grep -v _en`
-
-for i in $durne;
-do
-	echo $i >> control
-	grep -v en\/ $i|grep -v apidocs >> ${i}.1
-	if [ -f ${i}.1 ] ; then
-		mv ${i}.1 ${i}
-	fi
-done
 # </find_lang>
 
 
@@ -1802,17 +1080,11 @@ EOF
 %post	desktop-libs	-p /sbin/ldconfig
 %postun	desktop-libs	-p /sbin/ldconfig
 
-%post	kicker-libs	-p /sbin/ldconfig
-%postun	kicker-libs	-p /sbin/ldconfig
-
 %post	libkate		-p /sbin/ldconfig
 %postun	libkate		-p /sbin/ldconfig
 
-%post	libkickermain	-p /sbin/ldconfig
-%postun	libkickermain	-p /sbin/ldconfig
-
-%post	libkonq		-p /sbin/ldconfig
-%postun	libkonq		-p /sbin/ldconfig
+%post	-n konqueror-libs	-p /sbin/ldconfig
+%postun	-n konqueror-libs	-p /sbin/ldconfig
 
 %post	libksgrd	-p /sbin/ldconfig
 %postun	libksgrd	-p /sbin/ldconfig
@@ -1848,44 +1120,13 @@ if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del kdm
 fi
 
-%if %{with i18n}
-%files core-i18n -f core.lang
-%files desktop-i18n -f kdebase.lang
-%files infocenter-i18n -f kinfocenter.lang
-%files kate-i18n -f kate.lang
-%files kfind-i18n -f kfind.lang
-%files kfontinst-i18n -f kcmfontinst.lang
-%files kicker-i18n -f kicker.lang
-%files klipper-i18n -f klipper.lang
-%files kmenuedit-i18n -f kmenuedit.lang
-%files konsole-i18n -f konsole.lang
-%files kpager-i18n -f kpager.lang
-%files ksysguard-i18n -f ksysguard.lang
-%files kwrite-i18n -f kwrite.lang
-%files screensavers-i18n -f screensaver.lang
-%files -n kdm-i18n -f kdm.lang
-%files -n konqueror-i18n -f konqueror.lang
-%files i18n -f i18n.lang
-%files -n kde-decoration-b2-i18n -f kwin_b2_config.lang
-%files -n kde-decoration-modernsys-i18n -f kwin_modernsys_config.lang
-%files -n kde-decoration-quartz-i18n -f kwin_quartz_config.lang
-%files common-filemanagement-i18n -f kcmfileshare.lang
-%files desktop-libs-i18n -f ksplashthemes.lang
-%files kappfinder-i18n -f kappfinder.lang
-%files kdcop-i18n -f kdcop.lang
-%files kdeprintfax-i18n -f kdeprintfax.lang
-%files kdialog-i18n -f kdialog.lang
-%files kicker-libs-i18n -f libtaskbar.lang
-%files kjobviewer-i18n -f kjobviewer.lang
-%files kpersonalizer-i18n -f kpersonalizer.lang
-%files ksystraycmd-i18n -f ksystraycmd.lang
-%files libkonq-i18n -f libkonq.lang
-%files mailnews-i18n -f mailnews.lang
-%endif
+
+%files apidocs
+%defattr(644,root,root,755)
+%lang(en) %{_kdedocdir}/en/%{name}-apidocs
 
 %files devel
 %defattr(644,root,root,755)
-##%lang(en) %{_kdedocdir}/en/%{name}-apidocs
 %attr(755,root,root) %{_libdir}/libkateinterfaces.so
 %attr(755,root,root) %{_libdir}/libkateutils.so
 %attr(755,root,root) %{_libdir}/libkdecorations.so
@@ -2022,7 +1263,7 @@ fi
 %{_iconsdir}/[!l]*/*/apps/bell.png
 %{_iconsdir}/*/*/apps/key_bindings.png
 
-%files core -f core_en.lang
+%files core -f core.lang
 %defattr(644,root,root,755)
 %{_sysconfdir}/xdg/menus/applications-merged/kde-essential.menu
 %{_sysconfdir}/xdg/menus/kde-settings.menu
@@ -2140,7 +1381,7 @@ fi
 %{_iconsdir}/*/*/apps/samba.png
 %{_iconsdir}/*/*/apps/usb.png
 
-%files desktop -f %{name}_en.lang
+%files desktop -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS README README.pam
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/pam.d/kdesktop
@@ -2433,136 +1674,8 @@ fi
 %{_iconsdir}/*/*/apps/xpaint.png
 %{_iconsdir}/*/*/apps/x.png
 %{_iconsdir}/*/*/apps/xv.png
-
-%files desktop-libs
-%defattr(644,root,root,755)
-%{_libdir}/libkdecorations.la
-%attr(755,root,root) %{_libdir}/libkdecorations.so.*.*.*
-%{_libdir}/libksplashthemes.la
-%attr(755,root,root) %{_libdir}/libksplashthemes.so.*.*.*
-
-%files infocenter -f kinfocenter_en.lang
-%defattr(644,root,root,755)
-%{_sysconfdir}/xdg/menus/kde-information.menu
-%attr(755,root,root) %{_bindir}/kinfocenter
-%{_libdir}/kde3/kcm_info.la
-%attr(755,root,root) %{_libdir}/kde3/kcm_info.so
-%{_libdir}/kde3/kcm_ioslaveinfo.la
-%attr(755,root,root) %{_libdir}/kde3/kcm_ioslaveinfo.so
-%{_libdir}/kde3/kcm_nic.la
-%attr(755,root,root) %{_libdir}/kde3/kcm_nic.so
-%{_libdir}/kde3/kcm_samba.la
-%attr(755,root,root) %{_libdir}/kde3/kcm_samba.so
-%{_libdir}/kde3/kcm_usb.la
-%attr(755,root,root) %{_libdir}/kde3/kcm_usb.so
-%{_libdir}/kde3/kcm_view1394.la
-%attr(755,root,root) %{_libdir}/kde3/kcm_view1394.so
-%{_datadir}/apps/kcmusb
-%{_datadir}/apps/kinfocenter
-%{_xdgdatadir}/kde-information.directory
-%{_desktopdir}/kde/devices.desktop
-%{_desktopdir}/kde/dma.desktop
-%{_desktopdir}/kde/interrupts.desktop
-%{_desktopdir}/kde/ioports.desktop
-%{_desktopdir}/kde/kcmusb.desktop
-%{_desktopdir}/kde/kcmview1394.desktop
-%{_desktopdir}/kde/ioslaveinfo.desktop
-%{_desktopdir}/kde/memory.desktop
-%{_desktopdir}/kde/nic.desktop
-%{_desktopdir}/kde/partitions.desktop
-%{_desktopdir}/kde/pci.desktop
-%{_desktopdir}/kde/processor.desktop
-%{_desktopdir}/kde/scsi.desktop
-%{_desktopdir}/kde/smbstatus.desktop
-%{_desktopdir}/kde/sound.desktop
-%{_desktopdir}/kde/xserver.desktop
-%{_desktopdir}/kde/kinfocenter.desktop
-%{_iconsdir}/*/*/apps/hwinfo.png
-%{_iconsdir}/*/*/apps/kcmdevices.png
-%{_iconsdir}/*/*/apps/kcmmemory.png
-%{_iconsdir}/*/*/apps/kcmpartitions.png
-%{_iconsdir}/*/*/apps/kcmpci.png
-%{_iconsdir}/*/*/apps/kcmprocessor.png
-%{_iconsdir}/*/*/apps/kcmscsi.png
-%{_iconsdir}/*/*/apps/kcmsound.png
-%{_iconsdir}/*/*/apps/kcmx.png
-# !!!
-%{_iconsdir}/*/*/apps/kthememgr.png
-
-%files kappfinder
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/kappfinder
-%{_datadir}/apps/kappfinder
-%{_desktopdir}/kde/kappfinder.desktop
-%{_iconsdir}/*/*/apps/kappfinder.png
-
-%files kate -f kate_en.lang
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/kate
-%{_libdir}/libkdeinit_kate.la
-%attr(755,root,root) %{_libdir}/libkdeinit_kate.so
-%{_libdir}/kde3/kate.la
-%attr(755,root,root) %{_libdir}/kde3/kate.so
-%{_libdir}/kde3/katedefaultprojectplugin.la
-%attr(755,root,root) %{_libdir}/kde3/katedefaultprojectplugin.so
-%dir %{_datadir}/apps/kate
-%{_datadir}/apps/kate/[!s]*
-%dir %{_datadir}/apps/kate/scripts
-%{_datadir}/apps/kate/scripts/*.desktop
-%attr(755,root,root) %{_datadir}/apps/kate/scripts/*.sh
-%{_datadir}/services/katedefaultproject.desktop
-%{_datadir}/servicetypes/kateinitplugin.desktop
-%{_datadir}/servicetypes/kateplugin.desktop
-%{_datadir}/servicetypes/kateprojectplugin.desktop
-%{_desktopdir}/kde/kate.desktop
-# konqueror needs it ?
-%{_iconsdir}/*/*/apps/kate.png
-
-%files kdcop
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/kdcop
-%{_datadir}/apps/kdcop
-
-%files kdeprintfax
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/kdeprintfax
-%dir %{_datadir}/apps/kdeprintfax
-%attr(755,root,root) %{_datadir}/apps/kdeprintfax/anytops
-%{_datadir}/apps/kdeprintfax/[!a]*
-%{_desktopdir}/kde/kdeprintfax.desktop
-%{_iconsdir}/*/*/apps/kdeprintfax.png
-
-%files kdialog
-%defattr(644,root,root,755)
-%doc kdialog/{README,test}
-%attr(755,root,root) %{_bindir}/kdialog
-
-%files kfind -f kfind_en.lang
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/kfind
-%{_desktopdir}/kde/Kfind.desktop
-%{_iconsdir}/*/*/apps/kfind.png
-
-%files kfontinst -f kcmfontinst_en.lang
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/kfontinst
-%{_libdir}/kde3/libkfontviewpart.la
-%attr(755,root,root) %{_libdir}/kde3/libkfontviewpart.so
-%{_libdir}/kde3/kcm_fontinst.la
-%attr(755,root,root) %{_libdir}/kde3/kcm_fontinst.so
-%{_libdir}/kde3/kio_fonts.la
-%attr(755,root,root) %{_libdir}/kde3/kio_fonts.so
-#%{_datadir}/apps/konqsidebartng/virtual_folders/services/fonts.desktop
-%dir %{_datadir}/mimelnk/fonts
-%{_datadir}/mimelnk/fonts/folder.desktop
-%{_datadir}/mimelnk/fonts/system-folder.desktop
-%{_datadir}/services/fonts.protocol
-%{_datadir}/services/kfontviewpart.desktop
-%{_desktopdir}/kde/kcmfontinst.desktop
-%{_iconsdir}/[!l]*/*/apps/kcmfontinst.png
-
-%files kicker -f kicker_en.lang
-%defattr(644,root,root,755)
+%doc ksystraycmd/README
+%attr(755,root,root) %{_bindir}/ksystraycmd
 %attr(755,root,root) %{_bindir}/kicker
 %{_libdir}/libkdeinit_kicker.la
 %attr(755,root,root) %{_libdir}/libkdeinit_kicker.so
@@ -2640,12 +1753,137 @@ fi
 %{_iconsdir}/*/*/apps/panel.png
 %{_iconsdir}/*/*/apps/panel_settings.png
 
-%files kicker-libs
+%files desktop-libs
 %defattr(644,root,root,755)
+%{_libdir}/libkdecorations.la
+%attr(755,root,root) %{_libdir}/libkdecorations.so.*.*.*
+%{_libdir}/libksplashthemes.la
+%attr(755,root,root) %{_libdir}/libksplashthemes.so.*.*.*
 %{_libdir}/libtaskbar.la
 %attr(755,root,root) %{_libdir}/libtaskbar.so.*.*.*
 %{_libdir}/libtaskmanager.la
 %attr(755,root,root) %{_libdir}/libtaskmanager.so.*.*.*
+
+
+%files infocenter -f kinfocenter.lang
+%defattr(644,root,root,755)
+%{_sysconfdir}/xdg/menus/kde-information.menu
+%attr(755,root,root) %{_bindir}/kinfocenter
+%{_libdir}/kde3/kcm_info.la
+%attr(755,root,root) %{_libdir}/kde3/kcm_info.so
+%{_libdir}/kde3/kcm_ioslaveinfo.la
+%attr(755,root,root) %{_libdir}/kde3/kcm_ioslaveinfo.so
+%{_libdir}/kde3/kcm_nic.la
+%attr(755,root,root) %{_libdir}/kde3/kcm_nic.so
+%{_libdir}/kde3/kcm_samba.la
+%attr(755,root,root) %{_libdir}/kde3/kcm_samba.so
+%{_libdir}/kde3/kcm_usb.la
+%attr(755,root,root) %{_libdir}/kde3/kcm_usb.so
+%{_libdir}/kde3/kcm_view1394.la
+%attr(755,root,root) %{_libdir}/kde3/kcm_view1394.so
+%{_datadir}/apps/kcmusb
+%{_datadir}/apps/kinfocenter
+%{_xdgdatadir}/kde-information.directory
+%{_desktopdir}/kde/devices.desktop
+%{_desktopdir}/kde/dma.desktop
+%{_desktopdir}/kde/interrupts.desktop
+%{_desktopdir}/kde/ioports.desktop
+%{_desktopdir}/kde/kcmusb.desktop
+%{_desktopdir}/kde/kcmview1394.desktop
+%{_desktopdir}/kde/ioslaveinfo.desktop
+%{_desktopdir}/kde/memory.desktop
+%{_desktopdir}/kde/nic.desktop
+%{_desktopdir}/kde/partitions.desktop
+%{_desktopdir}/kde/pci.desktop
+%{_desktopdir}/kde/processor.desktop
+%{_desktopdir}/kde/scsi.desktop
+%{_desktopdir}/kde/smbstatus.desktop
+%{_desktopdir}/kde/sound.desktop
+%{_desktopdir}/kde/xserver.desktop
+%{_desktopdir}/kde/kinfocenter.desktop
+%{_iconsdir}/*/*/apps/hwinfo.png
+%{_iconsdir}/*/*/apps/kcmdevices.png
+%{_iconsdir}/*/*/apps/kcmmemory.png
+%{_iconsdir}/*/*/apps/kcmpartitions.png
+%{_iconsdir}/*/*/apps/kcmpci.png
+%{_iconsdir}/*/*/apps/kcmprocessor.png
+%{_iconsdir}/*/*/apps/kcmscsi.png
+%{_iconsdir}/*/*/apps/kcmsound.png
+%{_iconsdir}/*/*/apps/kcmx.png
+# !!!
+%{_iconsdir}/*/*/apps/kthememgr.png
+
+%files kappfinder
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kappfinder
+%{_datadir}/apps/kappfinder
+%{_desktopdir}/kde/kappfinder.desktop
+%{_iconsdir}/*/*/apps/kappfinder.png
+
+%files kate -f kate.lang
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kate
+%{_libdir}/libkdeinit_kate.la
+%attr(755,root,root) %{_libdir}/libkdeinit_kate.so
+%{_libdir}/kde3/kate.la
+%attr(755,root,root) %{_libdir}/kde3/kate.so
+%{_libdir}/kde3/katedefaultprojectplugin.la
+%attr(755,root,root) %{_libdir}/kde3/katedefaultprojectplugin.so
+%dir %{_datadir}/apps/kate
+%{_datadir}/apps/kate/[!s]*
+%dir %{_datadir}/apps/kate/scripts
+%{_datadir}/apps/kate/scripts/*.desktop
+%attr(755,root,root) %{_datadir}/apps/kate/scripts/*.sh
+%{_datadir}/services/katedefaultproject.desktop
+%{_datadir}/servicetypes/kateinitplugin.desktop
+%{_datadir}/servicetypes/kateplugin.desktop
+%{_datadir}/servicetypes/kateprojectplugin.desktop
+%{_desktopdir}/kde/kate.desktop
+# konqueror needs it ?
+%{_iconsdir}/*/*/apps/kate.png
+
+%files kdcop
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kdcop
+%{_datadir}/apps/kdcop
+
+%files kdeprintfax
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kdeprintfax
+%dir %{_datadir}/apps/kdeprintfax
+%attr(755,root,root) %{_datadir}/apps/kdeprintfax/anytops
+%{_datadir}/apps/kdeprintfax/[!a]*
+%{_desktopdir}/kde/kdeprintfax.desktop
+%{_iconsdir}/*/*/apps/kdeprintfax.png
+
+%files kdialog
+%defattr(644,root,root,755)
+%doc kdialog/{README,test}
+%attr(755,root,root) %{_bindir}/kdialog
+
+%files kfind -f kfind.lang
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kfind
+%{_desktopdir}/kde/Kfind.desktop
+%{_iconsdir}/*/*/apps/kfind.png
+
+%files kfontinst -f kcmfontinst.lang
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kfontinst
+%{_libdir}/kde3/libkfontviewpart.la
+%attr(755,root,root) %{_libdir}/kde3/libkfontviewpart.so
+%{_libdir}/kde3/kcm_fontinst.la
+%attr(755,root,root) %{_libdir}/kde3/kcm_fontinst.so
+%{_libdir}/kde3/kio_fonts.la
+%attr(755,root,root) %{_libdir}/kde3/kio_fonts.so
+#%{_datadir}/apps/konqsidebartng/virtual_folders/services/fonts.desktop
+%dir %{_datadir}/mimelnk/fonts
+%{_datadir}/mimelnk/fonts/folder.desktop
+%{_datadir}/mimelnk/fonts/system-folder.desktop
+%{_datadir}/services/fonts.protocol
+%{_datadir}/services/kfontviewpart.desktop
+%{_desktopdir}/kde/kcmfontinst.desktop
+%{_iconsdir}/[!l]*/*/apps/kcmfontinst.png
 
 %files kjobviewer
 %defattr(644,root,root,755)
@@ -2658,7 +1896,7 @@ fi
 %{_desktopdir}/kde/kjobviewer.desktop
 %{_iconsdir}/*/*/apps/kjobviewer.png
 
-%files klipper -f klipper_en.lang
+%files klipper -f klipper.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/klipper
 %{_libdir}/libkdeinit_klipper.la
@@ -2672,7 +1910,7 @@ fi
 %{_desktopdir}/kde/klipper.desktop
 %{_iconsdir}/*/*/apps/klipper.png
 
-%files kmenuedit -f kmenuedit_en.lang
+%files kmenuedit -f kmenuedit.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kmenuedit
 %{_libdir}/libkdeinit_kmenuedit.la
@@ -2684,7 +1922,7 @@ fi
 %{_iconsdir}/*/*/apps/kmenu.png
 %{_iconsdir}/*/*/apps/kmenuedit.png
 
-%files konsole -f konsole_en.lang
+%files konsole -f konsole.lang
 %defattr(644,root,root,755)
 %doc konsole/README*
 %attr(755,root,root) %{_bindir}/konsole
@@ -2700,7 +1938,7 @@ fi
 %{_desktopdir}/kde/konsole*.desktop
 %{_iconsdir}/*/*/apps/konsole.png
 
-%files kpager -f kpager_en.lang
+%files kpager -f kpager.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kpager
 %{_desktopdir}/kde/kpager.desktop
@@ -2713,7 +1951,7 @@ fi
 %{_desktopdir}/kde/kpersonalizer.desktop
 %{_iconsdir}/*/*/apps/kpersonalizer.png
 
-%files ksysguard -f ksysguard_en.lang
+%files ksysguard -f ksysguard.lang
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/ksysguarddrc
 %attr(755,root,root) %{_bindir}/kpm
@@ -2726,12 +1964,18 @@ fi
 %{_desktopdir}/kde/ksysguard.desktop
 %{_iconsdir}/*/*/apps/ksysguard.png
 
-%files ksystraycmd
+%files -n konqueror-libs
 %defattr(644,root,root,755)
-%doc ksystraycmd/README
-%attr(755,root,root) %{_bindir}/ksystraycmd
+%{_libdir}/libkickermain.la
+%attr(755,root,root) %{_libdir}/libkickermain.so.*.*.*
+%{_libdir}/libkonq.la
+%attr(755,root,root) %{_libdir}/libkonq.so.*.*.*
+%{_libdir}/kde3/konq_sound.la
+%attr(755,root,root) %{_libdir}/kde3/konq_sound.so
+%{_libdir}/libkonqsidebarplugin.la
+%attr(755,root,root) %{_libdir}/libkonqsidebarplugin.so.*.*.*
 
-#%files kwmtheme -f kthememgr_en.lang
+#%files kwmtheme -f kthememgr.lang
 #%defattr(644,root,root,755)
 #%attr(0755,root,root) %{_bindir}/kdeinstallktheme
 #%attr(0755,root,root) %{_bindir}/kwmtheme
@@ -2744,7 +1988,7 @@ fi
 #%{_desktopdir}/kde/kthememgr.desktop
 #%{_iconsdir}/*/*/apps/kthememgr.png
 
-%files kwrite -f kwrite_en.lang
+%files kwrite -f kwrite.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kwrite
 %attr(755,root,root) %{_bindir}/kwriteconfig
@@ -2774,19 +2018,6 @@ fi
 %{_libdir}/libkateutils.la
 %attr(755,root,root) %{_libdir}/libkateutils.so.*.*.*
 
-%files libkickermain
-%defattr(644,root,root,755)
-%{_libdir}/libkickermain.la
-%attr(755,root,root) %{_libdir}/libkickermain.so.*.*.*
-
-%files libkonq
-%defattr(644,root,root,755)
-%{_libdir}/libkonq.la
-%attr(755,root,root) %{_libdir}/libkonq.so.*.*.*
-%{_libdir}/kde3/konq_sound.la
-%attr(755,root,root) %{_libdir}/kde3/konq_sound.so
-%{_libdir}/libkonqsidebarplugin.la
-%attr(755,root,root) %{_libdir}/libkonqsidebarplugin.so.*.*.*
 
 %files libksgrd
 %defattr(644,root,root,755)
@@ -2813,7 +2044,7 @@ fi
 %{_datadir}/services/smtp.protocol
 %{_datadir}/services/smtps.protocol
 
-%files screensavers -f screensaver_en.lang
+%files screensavers -f screensaver.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*.kss
 %{_libdir}/kde3/kcm_screensaver.la
@@ -2822,7 +2053,7 @@ fi
 %{_desktopdir}/kde/screensaver.desktop
 %{_iconsdir}/*/*/apps/kscreensaver.png
 
-%files -n kdm -f kdm_en.lang
+%files -n kdm -f kdm.lang
 %defattr(644,root,root,755)
 %doc README.pam kdm/{ChangeLog,README,TODO}
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/pam.d/kdm
@@ -2855,7 +2086,7 @@ fi
 %{_desktopdir}/kde/kdm.desktop
 %{_iconsdir}/*/*/apps/kdmconfig.png
 
-%files -n konqueror -f konqueror_en.lang
+%files -n konqueror -f konqueror.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/appletproxy
 %attr(755,root,root) %{_bindir}/extensionproxy
