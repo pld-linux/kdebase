@@ -13,7 +13,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define         _snap		030610
+%define         _snap		030613
 %define		_kdelibsminrel	0.%{_snap}.1
 
 %ifarch	sparc sparcv9 sparc64
@@ -31,13 +31,13 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	0.%{_snap}.1.1
+Release:	0.%{_snap}.1
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:        http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	84de52086fcc83852c449a6106ecf327
+# Source0-md5:	0a10237d1b4cbf8f819fe28bf50947bf
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -126,6 +126,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_fontdir	/usr/share/fonts/misc
 %define		_htmldir	%{_docdir}/kde/HTML
+%define		_icondir	%{_datadir}/icons
 %define		_sysconfdir	/etc/X11
 %define		_vfinfodir	%{_datadir}/desktop-directories
 
@@ -175,6 +176,7 @@ Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-kicker = %{version}-%{release}
 Requires:	%{name}-ksysguard = %{version}-%{release}
+Requires:	%{name}-libkate = %{version}-%{release}
 Requires:	kdelibs-devel >= %{version}-%{_kdelibsminrel}
 
 %description devel
@@ -276,7 +278,7 @@ Default KDE "Logout" picture.
 Standardowy obrazek okna "Wyloguj" KDE.
 
 %package -n kde-splashplugin-Redmond
-Summary:	ksplash plugin Redmond	
+Summary:	ksplash plugin Redmond
 Summary(pl):	Wtyczka ksplash Redmond
 Group:		X11/Amusements
 Provides:	ksplashplugin
@@ -588,6 +590,7 @@ Group:		X11/Libraries
 #Requires:	%{name}-libkmultitabbar = %{version}-%{release}
 Obsoletes:	%{name}-kate < 3.2-0.030423.1
 Obsoletes:	%{name}-libkmultitabbar
+Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
 
 %description libkate
 A libraries for KDE text editors.
@@ -720,9 +723,6 @@ Internet Explorer.
 %patch24 -p1
 
 %build
-kde_appsdir="%{_applnkdir}"; export kde_appsdir
-kde_htmldir="%{_htmldir}"; export kde_htmldir
-kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 for plik in `find ./ -name *.desktop` ; do
 	echo $plik
@@ -739,7 +739,10 @@ done
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	kde_appsdir=%{_applnkdir} \
+	kde_htmldir=%{_htmldir}
 
 install -d \
 	$RPM_BUILD_ROOT/etc/{X11/kdm/pics/users,xdg/menus,pam.d,rc.d/init.d,security} \
@@ -1114,84 +1117,84 @@ fi
 %{_desktopdir}/kpersonalizer.desktop
 %{_desktopdir}/ktip.desktop
 #%{_desktopdir}/printmgr.desktop
-%{_pixmapsdir}/*/*/apps/access.png
-%{_pixmapsdir}/*/*/apps/acroread.png
-%{_pixmapsdir}/*/*/apps/alevt.png
-%{_pixmapsdir}/*/*/apps/applixware.png
-%{_pixmapsdir}/*/*/apps/arts.png
-%{_pixmapsdir}/*/*/apps/background.png
-%{_pixmapsdir}/*/*/apps/blender.png
-%{_pixmapsdir}/*/*/apps/clanbomber.png
-%{_pixmapsdir}/*/*/apps/designer.png
-%{_pixmapsdir}/*/*/apps/dlgedit.png
-%{_pixmapsdir}/*/*/apps/emacs.png
-%{_pixmapsdir}/*/*/apps/email.png
-%{_pixmapsdir}/*/*/apps/energy_star.png
-%{_pixmapsdir}/*/*/apps/error.png
-%{_pixmapsdir}/*/*/apps/galeon.png
-%{_pixmapsdir}/*/*/apps/gimp.png
-%{_pixmapsdir}/*/*/apps/gnome
-%{_pixmapsdir}/*/*/apps/gvim.png
-%{_pixmapsdir}/*/*/apps/gv.png
-%{_pixmapsdir}/[!l]*/*/apps/kcmfontinst.png
-%{_pixmapsdir}/*/*/apps/kcmkwm.png
-%{_pixmapsdir}/*/*/apps/kcmmidi.png
-%{_pixmapsdir}/*/*/apps/kdisknav.png
-%{_pixmapsdir}/*/*/apps/keyboard_layout.png
-%{_pixmapsdir}/*/*/apps/keyboard.png
-%{_pixmapsdir}/*/*/apps/knotify.png
-%{_pixmapsdir}/*/*/apps/kpersonalizer.png
-%{_pixmapsdir}/*/*/apps/ktip.png
-%{_pixmapsdir}/*/*/apps/kvirc.png
-%{_pixmapsdir}/*/*/apps/kwin.png
-%{_pixmapsdir}/*/*/apps/kxkb.png
-%{_pixmapsdir}/*/*/apps/licq.png
-%{_pixmapsdir}/*/*/apps/linuxconf.png
-%{_pixmapsdir}/*/*/apps/lyx.png
-%{_pixmapsdir}/*/*/apps/mathematica.png
-%{_pixmapsdir}/*/*/apps/mozilla
-%{_pixmapsdir}/*/*/apps/mozilla.png
-%{_pixmapsdir}/*/*/apps/nedit.png
-%{_pixmapsdir}/*/*/apps/netscape.png
-%{_pixmapsdir}/*/*/apps/opera.png
-%{_pixmapsdir}/*/*/apps/password.png
-%{_pixmapsdir}/*/*/apps/penguin.png
-%{_pixmapsdir}/*/*/apps/phppg.png
-%{_pixmapsdir}/*/*/apps/plan.png
-%{_pixmapsdir}/*/*/apps/pybliographic.png
-%{_pixmapsdir}/*/*/apps/pysol.png
-%{_pixmapsdir}/*/*/apps/qtella.png
-%{_pixmapsdir}/*/*/apps/realplayer.png
-%{_pixmapsdir}/*/*/apps/remote.png
-%{_pixmapsdir}/*/*/apps/soffice.png
-%{_pixmapsdir}/*/*/apps/staroffice.png
-%{_pixmapsdir}/*/*/apps/terminal.png
-%{_pixmapsdir}/*/*/apps/tux.png
-%{_pixmapsdir}/*/*/apps/vnc.png
-%{_pixmapsdir}/*/*/apps/wabi.png
-%{_pixmapsdir}/*/*/apps/window_list.png
-%{_pixmapsdir}/*/*/apps/winprops.png
-%{_pixmapsdir}/*/*/apps/wmaker_apps.png
-%{_pixmapsdir}/*/*/apps/wp.png
-%{_pixmapsdir}/*/*/apps/xapp.png
-%{_pixmapsdir}/*/*/apps/xawtv.png
-%{_pixmapsdir}/*/*/apps/xcalc.png
-%{_pixmapsdir}/*/*/apps/xchat.png
-%{_pixmapsdir}/*/*/apps/xclipboard.png
-%{_pixmapsdir}/*/*/apps/xclock.png
-%{_pixmapsdir}/*/*/apps/xconsole.png
-%{_pixmapsdir}/*/*/apps/xedit.png
-%{_pixmapsdir}/*/*/apps/xemacs.png
-%{_pixmapsdir}/*/*/apps/xeyes.png
-%{_pixmapsdir}/*/*/apps/xfig.png
-%{_pixmapsdir}/*/*/apps/xfmail.png
-%{_pixmapsdir}/*/*/apps/xload.png
-%{_pixmapsdir}/*/*/apps/xmag.png
-%{_pixmapsdir}/*/*/apps/xmms.png
-%{_pixmapsdir}/*/*/apps/xosview.png
-%{_pixmapsdir}/*/*/apps/xpaint.png
-%{_pixmapsdir}/*/*/apps/x.png
-%{_pixmapsdir}/*/*/apps/xv.png
+%{_icondir}/*/*/apps/access.png
+%{_icondir}/*/*/apps/acroread.png
+%{_icondir}/*/*/apps/alevt.png
+%{_icondir}/*/*/apps/applixware.png
+%{_icondir}/*/*/apps/arts.png
+%{_icondir}/*/*/apps/background.png
+%{_icondir}/*/*/apps/blender.png
+%{_icondir}/*/*/apps/clanbomber.png
+%{_icondir}/*/*/apps/designer.png
+%{_icondir}/*/*/apps/dlgedit.png
+%{_icondir}/*/*/apps/emacs.png
+%{_icondir}/*/*/apps/email.png
+%{_icondir}/*/*/apps/energy_star.png
+%{_icondir}/*/*/apps/error.png
+%{_icondir}/*/*/apps/galeon.png
+%{_icondir}/*/*/apps/gimp.png
+%{_icondir}/*/*/apps/gnome
+%{_icondir}/*/*/apps/gvim.png
+%{_icondir}/*/*/apps/gv.png
+%{_icondir}/[!l]*/*/apps/kcmfontinst.png
+%{_icondir}/*/*/apps/kcmkwm.png
+%{_icondir}/*/*/apps/kcmmidi.png
+%{_icondir}/*/*/apps/kdisknav.png
+%{_icondir}/*/*/apps/keyboard_layout.png
+%{_icondir}/*/*/apps/keyboard.png
+%{_icondir}/*/*/apps/knotify.png
+%{_icondir}/*/*/apps/kpersonalizer.png
+%{_icondir}/*/*/apps/ktip.png
+%{_icondir}/*/*/apps/kvirc.png
+%{_icondir}/*/*/apps/kwin.png
+%{_icondir}/*/*/apps/kxkb.png
+%{_icondir}/*/*/apps/licq.png
+%{_icondir}/*/*/apps/linuxconf.png
+%{_icondir}/*/*/apps/lyx.png
+%{_icondir}/*/*/apps/mathematica.png
+%{_icondir}/*/*/apps/mozilla
+%{_icondir}/*/*/apps/mozilla.png
+%{_icondir}/*/*/apps/nedit.png
+%{_icondir}/*/*/apps/netscape.png
+%{_icondir}/*/*/apps/opera.png
+%{_icondir}/*/*/apps/password.png
+%{_icondir}/*/*/apps/penguin.png
+%{_icondir}/*/*/apps/phppg.png
+%{_icondir}/*/*/apps/plan.png
+%{_icondir}/*/*/apps/pybliographic.png
+%{_icondir}/*/*/apps/pysol.png
+%{_icondir}/*/*/apps/qtella.png
+%{_icondir}/*/*/apps/realplayer.png
+%{_icondir}/*/*/apps/remote.png
+%{_icondir}/*/*/apps/soffice.png
+%{_icondir}/*/*/apps/staroffice.png
+%{_icondir}/*/*/apps/terminal.png
+%{_icondir}/*/*/apps/tux.png
+%{_icondir}/*/*/apps/vnc.png
+%{_icondir}/*/*/apps/wabi.png
+%{_icondir}/*/*/apps/window_list.png
+%{_icondir}/*/*/apps/winprops.png
+%{_icondir}/*/*/apps/wmaker_apps.png
+%{_icondir}/*/*/apps/wp.png
+%{_icondir}/*/*/apps/xapp.png
+%{_icondir}/*/*/apps/xawtv.png
+%{_icondir}/*/*/apps/xcalc.png
+%{_icondir}/*/*/apps/xchat.png
+%{_icondir}/*/*/apps/xclipboard.png
+%{_icondir}/*/*/apps/xclock.png
+%{_icondir}/*/*/apps/xconsole.png
+%{_icondir}/*/*/apps/xedit.png
+%{_icondir}/*/*/apps/xemacs.png
+%{_icondir}/*/*/apps/xeyes.png
+%{_icondir}/*/*/apps/xfig.png
+%{_icondir}/*/*/apps/xfmail.png
+%{_icondir}/*/*/apps/xload.png
+%{_icondir}/*/*/apps/xmag.png
+%{_icondir}/*/*/apps/xmms.png
+%{_icondir}/*/*/apps/xosview.png
+%{_icondir}/*/*/apps/xpaint.png
+%{_icondir}/*/*/apps/x.png
+%{_icondir}/*/*/apps/xv.png
 
 %files devel
 %defattr(644,root,root,755)
@@ -1309,7 +1312,7 @@ fi
 %{_datadir}/servicetypes/thumbcreator.desktop
 %{_applnkdir}/KDE-Settings/Network/fileshare.desktop
 # konqueror needs it
-%{_pixmapsdir}/*/*/apps/kate.png
+%{_icondir}/*/*/apps/kate.png
 #
 
 %files common-konsole
@@ -1317,8 +1320,8 @@ fi
 %{_fontdir}/console*.gz
 %{_datadir}/apps/konsole
 %{_datadir}/mimelnk/application/x-konsole.desktop
-%{_pixmapsdir}/[!l]*/*/apps/bell.png
-%{_pixmapsdir}/*/*/apps/key_bindings.png
+%{_icondir}/[!l]*/*/apps/bell.png
+%{_icondir}/*/*/apps/key_bindings.png
 
 %files core -f core.lang
 %defattr(644,root,root,755)
@@ -1410,27 +1413,27 @@ fi
 %{_applnkdir}/KDE-Settings/Peripherals/printmgr.desktop
 %{_desktopdir}/Help.desktop
 %{_desktopdir}/KControl.desktop
-%{_pixmapsdir}/*/*/apps/colors.png
-%{_pixmapsdir}/*/*/apps/energy.png
-%{_pixmapsdir}/*/*/apps/fonts.png
-%{_pixmapsdir}/*/*/apps/help_index.png
-%{_pixmapsdir}/*/*/apps/input_devices_settings.png
-%{_pixmapsdir}/*/*/apps/kcmdrkonqi.png
-%{_pixmapsdir}/*/*/apps/khelpcenter.png
-%{_pixmapsdir}/*/*/apps/kcmsystem.png
-%{_pixmapsdir}/*/*/apps/kcontrol.png
-%{_pixmapsdir}/*/*/apps/konqueror.png
-%{_pixmapsdir}/*/*/apps/locale.png
-%{_pixmapsdir}/*/*/apps/looknfeel.png
-%{_pixmapsdir}/*/*/apps/multimedia.png
-%{_pixmapsdir}/*/*/apps/personal.png
-%{_pixmapsdir}/*/*/apps/printmgr.png
-%{_pixmapsdir}/*/*/apps/style.png
-%{_pixmapsdir}/*/*/devices/print_printer.png
-%{_pixmapsdir}/*/*/filesystems/folder_print2.png
+%{_icondir}/*/*/apps/colors.png
+%{_icondir}/*/*/apps/energy.png
+%{_icondir}/*/*/apps/fonts.png
+%{_icondir}/*/*/apps/help_index.png
+%{_icondir}/*/*/apps/input_devices_settings.png
+%{_icondir}/*/*/apps/kcmdrkonqi.png
+%{_icondir}/*/*/apps/khelpcenter.png
+%{_icondir}/*/*/apps/kcmsystem.png
+%{_icondir}/*/*/apps/kcontrol.png
+%{_icondir}/*/*/apps/konqueror.png
+%{_icondir}/*/*/apps/locale.png
+%{_icondir}/*/*/apps/looknfeel.png
+%{_icondir}/*/*/apps/multimedia.png
+%{_icondir}/*/*/apps/personal.png
+%{_icondir}/*/*/apps/printmgr.png
+%{_icondir}/*/*/apps/style.png
+%{_icondir}/*/*/devices/print_printer.png
+%{_icondir}/*/*/filesystems/folder_print2.png
 # infocenter & konqueror need it:
-%{_pixmapsdir}/*/*/apps/samba.png
-%{_pixmapsdir}/*/*/apps/usb.png
+%{_icondir}/*/*/apps/samba.png
+%{_icondir}/*/*/apps/usb.png
 #
 
 %files infocenter -f kinfocenter.lang
@@ -1466,15 +1469,15 @@ fi
 %{_applnkdir}/KDE-Settings/Information/sound.desktop
 %{_applnkdir}/KDE-Settings/Information/xserver.desktop
 %{_desktopdir}/kinfocenter.desktop
-%{_pixmapsdir}/*/*/apps/hwinfo.png
-%{_pixmapsdir}/*/*/apps/kcmdevices.png
-%{_pixmapsdir}/*/*/apps/kcmmemory.png
-%{_pixmapsdir}/*/*/apps/kcmpartitions.png
-%{_pixmapsdir}/*/*/apps/kcmpci.png
-%{_pixmapsdir}/*/*/apps/kcmprocessor.png
-%{_pixmapsdir}/*/*/apps/kcmscsi.png
-%{_pixmapsdir}/*/*/apps/kcmsound.png
-%{_pixmapsdir}/*/*/apps/kcmx.png
+%{_icondir}/*/*/apps/hwinfo.png
+%{_icondir}/*/*/apps/kcmdevices.png
+%{_icondir}/*/*/apps/kcmmemory.png
+%{_icondir}/*/*/apps/kcmpartitions.png
+%{_icondir}/*/*/apps/kcmpci.png
+%{_icondir}/*/*/apps/kcmprocessor.png
+%{_icondir}/*/*/apps/kcmscsi.png
+%{_icondir}/*/*/apps/kcmsound.png
+%{_icondir}/*/*/apps/kcmx.png
 
 %files kappfinder
 %defattr(644,root,root,755)
@@ -1484,7 +1487,7 @@ fi
 %{_applnkdir}/System/kappfinder.desktop
 #
 %{_desktopdir}/kappfinder.desktop
-%{_pixmapsdir}/*/*/apps/kappfinder.png
+%{_icondir}/*/*/apps/kappfinder.png
 
 %files kate -f kate.lang
 %defattr(644,root,root,755)
@@ -1507,7 +1510,7 @@ fi
 %attr(0755,root,root) %{_datadir}/apps/kdeprintfax/anytops
 %{_datadir}/apps/kdeprintfax/[!a]*
 %{_desktopdir}/kdeprintfax.desktop
-%{_pixmapsdir}/*/*/apps/kdeprintfax.png
+%{_icondir}/*/*/apps/kdeprintfax.png
 
 %files kdialog
 %defattr(644,root,root,755)
@@ -1518,7 +1521,7 @@ fi
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kfind
 %{_applnkdir}/Kfind.desktop
-%{_pixmapsdir}/*/*/apps/kfind.png
+%{_icondir}/*/*/apps/kfind.png
 
 %files kicker -f kicker.lang
 %defattr(644,root,root,755)
@@ -1585,14 +1588,14 @@ fi
 %{_applnkdir}/KDE-Settings/LookNFeel/panel_appearance.desktop
 %{_applnkdir}/KDE-Settings/System/clock.desktop
 #%{_desktopdir}/kcmkicker.desktop
-%{_pixmapsdir}/*/*/apps/clock.png
-%{_pixmapsdir}/*/*/apps/date.png
-%{_pixmapsdir}/*/*/apps/go.png
-%{_pixmapsdir}/*/*/apps/kcmkicker.png
-%{_pixmapsdir}/*/*/apps/kicker.png
-%{_pixmapsdir}/*/*/apps/package*.png
-%{_pixmapsdir}/*/*/apps/panel.png
-%{_pixmapsdir}/*/*/apps/panel_settings.png
+%{_icondir}/*/*/apps/clock.png
+%{_icondir}/*/*/apps/date.png
+%{_icondir}/*/*/apps/go.png
+%{_icondir}/*/*/apps/kcmkicker.png
+%{_icondir}/*/*/apps/kicker.png
+%{_icondir}/*/*/apps/package*.png
+%{_icondir}/*/*/apps/panel.png
+%{_icondir}/*/*/apps/panel_settings.png
 
 %files kjobviewer
 %defattr(644,root,root,755)
@@ -1601,7 +1604,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kjobviewer.so
 %{_datadir}/apps/kjobviewer
 %{_desktopdir}/kjobviewer.desktop
-%{_pixmapsdir}/*/*/apps/kjobviewer.png
+%{_icondir}/*/*/apps/kjobviewer.png
 
 %files klipper -f klipper.lang
 %defattr(644,root,root,755)
@@ -1613,7 +1616,7 @@ fi
 %{_datadir}/autostart/klipper.desktop
 %{_datadir}/config/klipperrc
 %{_desktopdir}/klipper.desktop
-%{_pixmapsdir}/*/*/apps/klipper.png
+%{_icondir}/*/*/apps/klipper.png
 
 %files kmenuedit -f kmenuedit.lang
 %defattr(644,root,root,755)
@@ -1623,8 +1626,8 @@ fi
 %{_datadir}/apps/kmenuedit
 %{_applnkdir}/System/kmenuedit.desktop
 %{_desktopdir}/kmenuedit.desktop
-%{_pixmapsdir}/*/*/apps/kmenu.png
-%{_pixmapsdir}/*/*/apps/kmenuedit.png
+%{_icondir}/*/*/apps/kmenu.png
+%{_icondir}/*/*/apps/kmenuedit.png
 
 %files konsole -f konsole.lang
 %defattr(644,root,root,755)
@@ -1638,7 +1641,7 @@ fi
 %{_datadir}/services/konsole-script.desktop
 %{_applnkdir}/.hidden/kcmkonsole.desktop
 %{_desktopdir}/konsole*.desktop
-%{_pixmapsdir}/*/*/apps/konsole.png
+%{_icondir}/*/*/apps/konsole.png
 
 %files kpager -f kpager.lang
 %defattr(644,root,root,755)
@@ -1647,7 +1650,7 @@ fi
 %{_applnkdir}/Utilities/kpager.desktop
 #
 %{_desktopdir}/kpager.desktop
-%{_pixmapsdir}/*/*/apps/kpager.png
+%{_icondir}/*/*/apps/kpager.png
 
 %files ksysguard -f ksysguard.lang
 %defattr(644,root,root,755)
@@ -1662,7 +1665,7 @@ fi
 %{_datadir}/apps/ksysguard
 %{_datadir}/mimelnk/application/x-ksysguard.desktop
 %{_desktopdir}/ksysguard.desktop
-%{_pixmapsdir}/*/*/apps/ksysguard.png
+%{_icondir}/*/*/apps/ksysguard.png
 
 %files ksystraycmd
 %defattr(644,root,root,755)
@@ -1680,7 +1683,7 @@ fi
 %{_datadir}/apps/kthememgr
 %{_datadir}/mimelnk/application/x-ktheme.desktop
 %{_applnkdir}/KDE-Settings/LookNFeel/kthememgr.desktop
-%{_pixmapsdir}/*/*/apps/kthememgr.png
+%{_icondir}/*/*/apps/kthememgr.png
 
 %files kwrite -f kwrite.lang
 %defattr(644,root,root,755)
@@ -1690,7 +1693,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kwrite.so
 %{_datadir}/apps/kwrite
 %{_desktopdir}/kwrite.desktop
-%{_pixmapsdir}/*/*/apps/kwrite.png
+%{_icondir}/*/*/apps/kwrite.png
 
 %files kwrited
 %defattr(644,root,root,755)
@@ -1745,7 +1748,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_screensaver.so
 %{_datadir}/apps/kscreensaver
 %{_applnkdir}/KDE-Settings/LookNFeel/screensaver.desktop
-%{_pixmapsdir}/*/*/apps/kscreensaver.png
+%{_icondir}/*/*/apps/kscreensaver.png
 
 %files -n kdm -f kdm.lang
 %defattr(644,root,root,755)
@@ -1774,7 +1777,7 @@ fi
 %{_datadir}/apps/kdm
 %{_datadir}/wallpapers/pldwallpaper.png
 %{_applnkdir}/KDE-Settings/System/kdm.desktop
-%{_pixmapsdir}/*/*/apps/kdmconfig.png
+%{_icondir}/*/*/apps/kdmconfig.png
 
 %files -n konqueror -f konqueror.lang
 %defattr(644,root,root,755)
@@ -1991,16 +1994,16 @@ fi
 %{_desktopdir}/kfmclient_war.desktop
 %{_desktopdir}/konqbrowser.desktop
 %{_desktopdir}/konquerorsu.desktop
-%{_pixmapsdir}/*/*/apps/agent.png
-%{_pixmapsdir}/*/*/apps/cache.png
-%{_pixmapsdir}/*/*/apps/cookie.png
-%{_pixmapsdir}/*/*/apps/enhanced_browsing.png
-%{_pixmapsdir}/*/*/apps/filetypes.png
-%{_pixmapsdir}/*/*/apps/icons.png
-%{_pixmapsdir}/*/*/apps/iconthemes.png
-%{_pixmapsdir}/*/*/apps/keditbookmarks.png
-%{_pixmapsdir}/*/*/apps/kfm_home.png
-%{_pixmapsdir}/*/*/apps/kfm.png
-%{_pixmapsdir}/*/*/apps/mac.png
-%{_pixmapsdir}/*/*/apps/proxy.png
-%{_pixmapsdir}/*/*/apps/stylesheet.png
+%{_icondir}/*/*/apps/agent.png
+%{_icondir}/*/*/apps/cache.png
+%{_icondir}/*/*/apps/cookie.png
+%{_icondir}/*/*/apps/enhanced_browsing.png
+%{_icondir}/*/*/apps/filetypes.png
+%{_icondir}/*/*/apps/icons.png
+%{_icondir}/*/*/apps/iconthemes.png
+%{_icondir}/*/*/apps/keditbookmarks.png
+%{_icondir}/*/*/apps/kfm_home.png
+%{_icondir}/*/*/apps/kfm.png
+%{_icondir}/*/*/apps/mac.png
+%{_icondir}/*/*/apps/proxy.png
+%{_icondir}/*/*/apps/stylesheet.png
