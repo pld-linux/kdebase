@@ -931,7 +931,7 @@ for i in usr/share/doc/kde/HTML/*; do
 	if [ -d $i/kcontrol ]; then
 		echo "%lang($l) %dir /$i/kcontrol" >> $BDIR/core.lang
 		for j in `ls $i/kcontrol | \
-grep -v '^arts\|^background\|^bell\|^cache\|^clock\|^cookies\|^crypto\|^desktop\|^ebrowsing\|^email\|^energy\|^filemanager\|^filetypes\|^icons\|^kcmaccess\|^kcmcss\|^kcmfontinst\|^kcmkonsole\|^kcmlaunch\|^kcmnotify\|^kcmsmserver\|^kcmtaskbar\|^keyboard\|^keys\|^khtml\|^kwindecoration\|^mouse\|^netpref\|^panel\|^passwords\|^proxy\|^screensaver\|^smb\|^spellchecking\|^useragent\|^windowmanagement'`
+grep -v '^arts\|^background\|^bell\|^cache\|^clock\|^cookies\|^crypto\|^desktop\|^ebrowsing\|^email\|^energy\|^filemanager\|^filetypes\|^icons\|^kcmaccess\|^kcmcss\|^kcmfontinst\|^kcmkonsole\|^kcmlaunch\|^kcmnotify\|^kcmsmserver\|^kcmtaskbar\|^keyboard\|^keys\|^khtml\|^kthememgr\|^kwindecoration\|^mouse\|^netpref\|^panel\|^passwords\|^proxy\|^screensaver\|^smb\|^spellchecking\|^useragent\|^windowmanagement'`
 		do
 			echo "%lang($l) /$i/kcontrol/$j" >> $BDIR/core.lang
 		done
@@ -955,7 +955,9 @@ done
 cd $RPM_BUILD_ROOT
 for i in usr/X11R6/share/locale/{??,???,??_??}; do
 	l=`basename $i`
-	echo "%lang($l) /$i/entry.desktop" >> $BDIR/%{name}.lang
+	if [ $l != en_US ]; then
+		echo "%lang($l) /$i/entry.desktop" >> $BDIR/%{name}.lang
+	fi
 # these don't seem to be used
 #	echo "%lang($l) /$i/flag.png" >> $BDIR/%{name}.lang
 #	echo "%lang($l) /$i/charset" >> $BDIR/%{name}.lang
