@@ -142,6 +142,9 @@ install %{SOURCE1}			$RPM_BUILD_ROOT%{_bindir}/startkde
 install %{SOURCE2}			$RPM_BUILD_ROOT%{_sysconfdir}/pam.d/kdm
 install %{SOURCE3}			$RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/kdm
 
+# removing unneeded directories
+rm -fr $RPM_BUILD_ROOT%{_applnkdir}/{Editors,Toys}
+
 touch $RPM_BUILD_ROOT%{_sysconfdir}/security/blacklist.kdm
 
 %find_lang kcontrol --with-kde
