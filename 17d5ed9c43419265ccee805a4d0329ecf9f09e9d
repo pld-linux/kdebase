@@ -1,0 +1,3 @@
+- group all %%define,
+- fixed BuildRequires rules (s/libpng/libpng-devel/; s/qt/qt-devel/),
+- fixed Source url.
