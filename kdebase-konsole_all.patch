@@ -20,9 +20,18 @@
  Icon=konsole
  DocPath=konsole/index.html
  Terminal=0
---- kdebase-030317/konsole/konsole/konsole.cpp~	Mon Mar 17 00:36:08 2003
-+++ kdebase-030317/konsole/konsole/konsole.cpp	Tue Mar 18 10:19:01 2003
-@@ -1113,7 +1113,7 @@
+--- kdebase-030518/konsole/konsole/konsole.cpp~	2003-05-06 00:34:51.000000000 +0200
++++ kdebase-030518/konsole/konsole/konsole.cpp	2003-05-21 20:22:44.000000000 +0200
+@@ -832,7 +832,7 @@
+                               SLOT(slotSaveHistory()), m_shortcuts, "save_history");
+   m_saveHistory->setEnabled(b_histEnabled );
+ 
+-  m_clearHistory = new KAction(i18n("Clear &History"), "history_clear", 0, this,
++  m_clearHistory = new KAction(i18n("Clear &History"), "history_clear", Qt::CTRL+Qt::ALT+Qt::Key_W, this,
+                                SLOT(slotClearHistory()), m_shortcuts, "clear_history");
+   m_clearHistory->setEnabled(b_histEnabled);
+ 
+@@ -1145,7 +1145,7 @@
     {
        n_defaultKeytab=KeyTrans::find(config->readEntry("keytab","default"))->numb(); // act. the keytab for this session
        b_fullscreen = config->readBoolEntry("Fullscreen",false);
@@ -31,7 +40,7 @@
        n_scroll   = QMIN(config->readUnsignedNumEntry("scrollbar",TEWidget::SCRRIGHT),2);
        n_bell = QMIN(config->readUnsignedNumEntry("bellmode",TEWidget::BELLSYSTEM),2);
  
-@@ -1957,7 +1957,7 @@
+@@ -1995,7 +1995,7 @@
  
  QString Konsole::newSession(KSimpleConfig *co, QString program, const QStrList &args, const QString &_term,const QString &_icon,const QString &_title, const QString &_cwd)
  {
