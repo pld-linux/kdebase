@@ -4,7 +4,7 @@ Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Summary(pt_BR):	K Desktop Environment - arquivos básicos
 Name:		kdebase
 Version:	2.2.2
-Release:	11
+Release:	12
 Epoch:		6
 License:	GPL
 Group:		X11/Applications
@@ -22,7 +22,7 @@ Patch3:		%{name}-utmp.patch
 Patch4:		%{name}-nsplugins_dirs.patch
 Patch5:		%{name}-hardcoded_paths.patch
 Patch6:		%{name}-kdm.daemon_output.patch
-%ifnarch sparc sparc64 ppc
+%ifnarch sparc sparc64
 BuildRequires:	alsa-lib-devel
 %endif
 BuildRequires:	OpenGL-devel
