@@ -23,9 +23,9 @@
  {
      m_pCBEnable->setChecked( true );
      slotEnableChanged();
---- kdebase-030512/kcontrol/kdm/kdm-appear.cpp~	2003-05-12 00:34:51.000000000 +0200
-+++ kdebase-030512/kcontrol/kdm/kdm-appear.cpp	2003-05-12 10:47:10.000000000 +0200
-@@ -379,7 +379,7 @@
+--- kdebase-031010/kcontrol/kdm/kdm-appear.cpp.orig	2003-09-23 21:46:11.000000000 +0200
++++ kdebase-031010/kcontrol/kdm/kdm-appear.cpp	2003-10-10 19:41:03.000000000 +0200
+@@ -385,7 +385,7 @@
  bool KDMAppearanceWidget::setLogo(QString logo)
  {
      QString flogo = logo.isEmpty() ?
@@ -34,7 +34,7 @@
                      logo;
      QPixmap p(flogo);
      if (p.isNull())
-@@ -510,10 +508,10 @@
+@@ -516,7 +516,7 @@
    config->setGroup("X-*-Greeter");
  
    // Read the greeting string
@@ -42,23 +42,16 @@
 +  greetstr_lined->setText(config->readEntry("GreetString", i18n("Welcome to PLD Linux at %n")));
  
    // Regular logo or clock
--  QString logoArea = config->readEntry("LogoArea", "Logo" );
-+  QString logoArea = config->readEntry("LogoArea", "None" );
-   if (logoArea == "Clock") {
-     clockRadio->setChecked(true);
-     slotAreaRadioClicked(KdmClock);
-@@ -560,9 +558,9 @@
+   QString logoArea = config->readEntry("LogoArea", "Logo" );
+@@ -566,7 +566,7 @@
  
  void KDMAppearanceWidget::defaults()
  {
 -  greetstr_lined->setText( i18n("Welcome to %s at %n") );
 +  greetstr_lined->setText( i18n("Welcome to PLD Linux at %n") );
    logoRadio->setChecked( true );
--  slotAreaRadioClicked( KdmLogo );
-+  slotAreaRadioClicked( KdmNone );
+   slotAreaRadioClicked( KdmLogo );
    posCenterRadio->setChecked( true );
-   slotPosRadioClicked( 0 );
-   setLogo( "" );
 --- kdebase-030618/kcontrol/kdm/kdm-font.cpp~	2003-06-17 00:35:06.000000000 +0200
 +++ kdebase-030618/kcontrol/kdm/kdm-font.cpp	2003-06-18 12:03:33.000000000 +0200
 @@ -87,8 +87,8 @@
@@ -116,8 +109,8 @@
  
  messages:
  	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
---- kdebase-030924/kdm/kfrontend/genkdmconf.c~	2003-09-23 21:46:21.000000000 +0200
-+++ kdebase-030924/kdm/kfrontend/genkdmconf.c	2003-09-24 18:23:43.000000000 +0200
+--- kdebase-031010/kdm/kfrontend/genkdmconf.c.orig	2003-10-09 01:52:19.000000000 +0200
++++ kdebase-031010/kdm/kfrontend/genkdmconf.c	2003-10-10 19:50:16.000000000 +0200
 @@ -65,7 +65,7 @@
  #define __stringify(x) #x
  #define stringify(x) __stringify(x)
@@ -193,15 +186,9 @@
  };
  
  static Ent entsGreeter[] = {
-@@ -2079,11 +2079,11 @@
- "# currently is quite greyish. Default is \"\"\n" },
- { "LogoArea",		0, upd_logoarea, 
- "# What should be shown righthand of the input lines:\n"
--"# \"Logo\" - the image specified by LogoPixmap (Default)\n"
-+"# \"Logo\" - the image specified by LogoPixmap\n"
+@@ -2083,7 +2083,7 @@
  "# \"Clock\" - a neat analog clock\n"
--"# \"None\" - nothing\n" },
-+"# \"None\" - nothing (Default)\n" },
+ "# \"None\" - nothing\n" },
  { "LogoPixmap",		0, 0, 
 -"# The image to show when LogoArea=Logo. Default is kdelogo.png\n" },
 +"# The image to show when LogoArea=Logo. Default is pldlogo.png\n" },
@@ -249,15 +236,6 @@
  { "DefaultSdMode",	"ForceNow", 0}, 
  { "InteractiveSd",	"false", 0}, 
  { "SessionsDirs",	"/etc/X11/sessions,/usr/share/xsessions", 0 },
-@@ -2339,7 +2339,7 @@
- static DEnt dEntsAnyGreeter[] = {
- { "GUIStyle",		"Windows", 0 },
- { "ColorScheme",	"Pumpkin", 0 },
--{ "LogoArea",		"None", 0 },
-+{ "LogoArea",		"Logo", 0 },
- { "LogoPixmap",		"", 0 },
- { "GreeterPosFixed",	"true", 0 },
- { "GreeterPosX",	"200", 0 },
 @@ -2374,8 +2374,8 @@
  { "ServerAttempts",	"", 0 },
  { "ServerTimeout",	"", 0 },
@@ -269,8 +247,8 @@
  { "NoPassEnable",	"true", 0 },
  { "NoPassUsers",	"fred,ethel", 0 },
  };
---- kdebase-030924/kdm/kfrontend/kdm_config.c~	2003-09-24 00:15:33.000000000 +0200
-+++ kdebase-030924/kdm/kfrontend/kdm_config.c	2003-09-24 18:14:56.000000000 +0200
+--- kdebase-031010/kdm/kfrontend/kdm_config.c.orig	2003-09-24 00:15:33.000000000 +0200
++++ kdebase-031010/kdm/kfrontend/kdm_config.c	2003-10-10 19:53:31.000000000 +0200
 @@ -38,7 +38,7 @@
  #include <netdb.h>
  #include <grp.h>
@@ -280,7 +258,7 @@
  #define KDMDATA KDE_DATADIR "/kdm"
  
  
-@@ -499,27 +499,27 @@
+@@ -499,13 +499,13 @@
  { "AutoLoginUser",	C_autoUser,	(void *)PautoLoginX,	"" },
  { "AutoLoginPass",	C_autoPass,	(void *)PautoLoginX,	"" },
  { "AutoReLogin",	C_autoReLogin | C_BOOL,	0,	"false" },
@@ -299,12 +277,7 @@
  };
  
  Ent entsGreeter[] = {
- { "GUIStyle",		C_GUIStyle, 		0,	"" },
- { "ColorScheme",	C_ColorScheme,		0,	"" },
--{ "LogoArea",		C_LogoArea | C_ENUM, logoarea,	"Logo" },
-+{ "LogoArea",		C_LogoArea | C_ENUM, logoarea,	"None" },
- { "LogoPixmap",		C_LogoPixmap,		0,	"" },
- { "GreeterPosFixed",	C_GreeterPosFixed | C_BOOL, 0,	"false" },
+@@ -517,9 +517,9 @@
  { "GreeterPosX",	C_GreeterPosX,		0,	"0" },
  { "GreeterPosY",	C_GreeterPosY,		0,	"0" },
  { "GreeterScreen",	C_GreeterScreen,	0,	"0" },
