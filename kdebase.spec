@@ -150,7 +150,7 @@ install %{SOURCE3}			$RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/kdm
 # Make Control Center a subdirectory of Settings. Control Center applets can
 # not be mixed with normal programs or CC will die on startup.
 mv $RPM_BUILD_ROOT%{_applnkdir}/Settings/{[!K]*,KDE}
-cat > $RPM_BUILD_ROOT%{_applnkdir}/Settings/KDE/.desktop << EOF
+cat > $RPM_BUILD_ROOT%{_applnkdir}/Settings/KDE/.directory << EOF
 [Desktop Entry]
 Name=KDE
 Icon=package_settings
