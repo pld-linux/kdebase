@@ -23,7 +23,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}.%{_snap}
-Release:	1
+Release:	2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -39,8 +39,8 @@ Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-ircpld.desktop
 Source9:	%{name}-specs.desktop
 Source11:	%{name}-QtCurve.kcsrc
-Source12:	http://www.kernel.pl/~adgor/kde/%{name}-splash-Default-PLD.tar.bz2
-# Source12-md5:	167d37fdd316e5f6c13280b54577a4fb
+Source12:	http://www.kernel.pl/~adgor/kde/%{name}-splash-Default-PLD-0.1.tar.bz2
+# Source12-md5:	dd0b40219a7d3cfc48400d9f0b1c86c0
 #Patch0:	%{name}-fix-mem-leak-in-kfind.patch
 Patch2:		%{name}-fontdir.patch
 Patch3:		%{name}-kcm_background.patch
