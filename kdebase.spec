@@ -1,14 +1,13 @@
-%define		sver beta1
 Summary:	K Desktop Environment - core files
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
 Version:	2.2
-Release:	0.%{sver}.10
+Release:	0.1
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
-Source0:	ftp://ftp.kde.org/pub/kde/unstable/%{version}%{sver}/src/%{name}-%{version}%{sver}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/unstable/%{version}/src/%{name}-%{version}.tar.bz2
 Source1:	%{name}-startkde.sh
 Source2:	kdm.pamd
 Source3:	kdm.init
@@ -162,7 +161,8 @@ KDE screensavers.
 Wygaszacze ekranu desktopu KDE.
 
 %prep
-%setup  -q -n %{name}-%{version}%{sver}
+#%setup  -q -n %{name}-%{version}%{sver}
+%setup  -q -n %{name}-%{version}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
