@@ -16,7 +16,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.4
-Release:	15
+Release:	16
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -768,7 +768,6 @@ fi
 %attr(755,root,root) %{_libdir}/libsensordisplays.so
 %attr(755,root,root) %{_libdir}/libtaskbar.so
 %attr(755,root,root) %{_libdir}/libtaskmanager.so
-%attr(755,root,root) %{_libdir}/libkonq*.so
 %attr(755,root,root) %{_libdir}/libnsplugin.so
 %{_libdir}/*.la
 
@@ -815,6 +814,7 @@ fi
 %{_libdir}/kde3/libkcm_nsplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libkcm_nsplugin.so
 %attr(755,root,root) %{_libdir}/libkonq*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libkonq_sidebar_tree.so
 %attr(755,root,root) %{_libdir}/libnsplugin.so.*.*.*
 
 %{_libdir}/kde3/htmlthumbnail.la
