@@ -25,7 +25,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	2.1
+Release:	3
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -71,8 +71,6 @@ Patch17:	kde-common-utmpx.patch
 Patch18:	%{name}-fileshareset.patch
 Patch19:	%{name}-kio_settings.patch
 Patch20:	%{name}-vt-numbers-fix.patch
-Patch21:	%{name}-konsole-default-keytab.patch
-Patch22:	%{name}-konsole-default_shell.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	audiofile-devel
@@ -1293,8 +1291,6 @@ Pliki umiêdzynarodawiaj±ce dla mailnews.
 %patch18 -p1
 %patch19 -p1
 %patch20 -p1
-%patch21 -p1
-%patch22 -p1
 
 %build
 cp %{_datadir}/automake/config.sub admin
