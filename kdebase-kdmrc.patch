@@ -52,7 +52,7 @@
  # The program to run if Session fails.
  # Default is /usr/X11R6/bin/xterm
  #FailsafeClient=
-@@ -248,14 +248,14 @@
+@@ -255,14 +255,14 @@
  #DefaultSdMode=ForceNow
  # Where (relatively to the user's home directory) to store the last
  # selected session. Default is .wmrc
@@ -78,7 +78,7 @@
  # The font for the headline. Default is charter,24,bold
  #GreetFont=charter,24,5,0,50,0
  # The normal font used in the greeter. Default is helvetica,12
-@@ -310,7 +310,7 @@
+@@ -317,7 +317,7 @@
  HiddenUsers=adm,alias,amanda,apache,bin,bind,daemon,exim,falken,ftp,games,gdm,gopher,halt,httpd,ident,ingres,kmem,lp,mail,mailnull,man,mta,mysql,named,news,nfsnobody,nobody,nscd,ntp,operator,pcap,pop,postfix,postgres,qmaild,qmaill,qmailp,qmailq,qmailr,qmails,radvd,reboot,rpc,rpcuser,rpm,sendmail,shutdown,squid,sympa,sync,tty,uucp,xfs,xten
  # Special case of HiddenUsers: users with a UID less than this number
  # (except root) will not be shown as well. Default is 0
@@ -102,10 +102,10 @@
  # Enable password-less logins on this display. USE WITH EXTREME CARE!
  # Default is false
  #NoPassEnable=true
-@@ -368,6 +368,7 @@
- # The screen the greeter should be displayed on in multi-headed setups.
- # Default is 0
- #GreeterScreen=1
+@@ -377,6 +377,7 @@
+ # active ServerLayout section of XF86Config. -1 means to use the upper-left
+ # screen. Default is 0
+ #GreeterScreen=-1
 +AllowShutdown=Root
  
  # Core config for 1st local display
