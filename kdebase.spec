@@ -378,7 +378,11 @@ under it. For every step of the loading process a different icon is
 highlighted.
 
 %description -n kde-splashplugin-Standard -l pl
-Standardowa wtyczka uruchamiana podczas startu KDE.
+Standardowa wtyczka uruchamiana podczas startu KDE. Obs³uguje motywy i
+pokazuje ekrany startowe na ¶rodku ekranu. Motywy startowe dla tej
+wtyczki sk³adaj± siê z g³ównego obrazka i dwóch pasków ikon pod nim
+pokazywanych. Dla ka¿dego kroku procesu ³adowania pod¶wietlana jest
+inna ikona.
 
 %package common-filemanagement
 Summary:	Common Files for kate and konqueror
@@ -400,8 +404,8 @@ Summary(pl):	Pliki wspólne dla konsole i konsolepart
 Group:		X11/Applications
 Requires(post,postun):	fontpostinst
 Requires:	kdelibs >= 9:%{version}
-Obsoletes:	%{name} < 3.0.9-2.4
-Obsoletes:	%{name}-fonts
+Obsoletes:	kdebase < 3.0.9-2.4
+Obsoletes:	kdebase-fonts
 
 %description common-konsole
 Color schemes, icons, fonts and shell profiles for konsole.
@@ -415,10 +419,10 @@ Summary(pl):	Podstawowe aplikacje KDE
 Group:		X11/Applications
 Requires:	applnk >= 1.9.0
 Requires:	kdelibs >= 9:%{version}
-Obsoletes:	%{name} < 8:3.2-0.030428.1
-Obsoletes:	%{name}-kcontrol
-Obsoletes:	%{name}-khelpcenter
-Obsoletes:	%{name}-helpcenter
+Obsoletes:	kdebase < 8:3.2-0.030428.1
+Obsoletes:	kdebase-kcontrol
+Obsoletes:	kdebase-khelpcenter
+Obsoletes:	kdebase-helpcenter
 
 %description core
 KDE Core apps. This package contains:
@@ -510,7 +514,7 @@ Summary:	Menu updating tool
 Summary(pl):	Narzêdzie do aktualizacji menu
 Group:		X11/Applications
 Requires:	kdelibs >= 9:%{version}
-Obsoletes:	%{name} =< 8:3.2-0.030418.2
+Obsoletes:	kdebase =< 8:3.2-0.030418.2
 
 %description kappfinder
 The tool for finding installed application and adding them to your
@@ -532,7 +536,7 @@ Obsoletes:	kate
 KDE advanced text editor featuring among others:
 - fast opening/editing of files even the big ones (opens a 50MB file
   in a few seconds)
-- powerfull syntaxhighlighting engine, extensible via xml files
+- powerful syntaxhighlighting engine, extensible via XML files
 - Code Folding capabilities for C++, C, PHP and more
 - Dynamic Word Wrap - long lines are wrapped at the window border on
   the fly for better overview
@@ -547,7 +551,24 @@ KDE advanced text editor featuring among others:
   command
 
 %description kate -l pl
-
+Kate (KDE advanced text editor) to zaawansowany edytor tekstu KDE o
+mo¿liwo¶ciach obejmuj±cych m.in.:
+- szybkie otwieranie i edycjê nawet du¿ych plików (otwiera plik 50MB
+  w parê sekund)
+- potê¿ny silnik pod¶wietlania sk³adni, rozszerzalny za pomoc± plików
+  XML
+- mo¿liwo¶æ zwijania kodu dla C++, C, PHP i innych jêzyków
+- dynamiczne zawijanie wierszy - d³ugie linie s± zawijane na granicy
+  okna w locie dla lepszej widoczno¶ci
+- wiele widoków pozwalaj±cych ogl±daæ wiêcej instancji tego samego
+  dokumentu i/lub wiêcej dokumentów w tym samym czasie
+- obs³ugê ró¿nych kodowañ globalnie i w czasie zapisu
+- wbudowan± emulacjê dokowalnego terminala
+- paski z list± otwartych dokumentów, przegl±darkê katalogów z
+  mo¿liwo¶ci± wybierania katalogu i filtrów
+- interfejs wtyczek obs³uguj±cy zewnêtrzne wtyczki
+- polecenie "Filtr" pozwalaj±ce przepuszczaæ zaznaczony tekst przez
+  polecenie pow³oki
 
 %package kdeprintfax
 Summary:	KDE Fax Tool
@@ -568,7 +589,7 @@ Summary:	Graphic DCOP browser/client
 Summary(pl):	Graficzna przegladarka/klient DCOP
 Group:		X11/Applications
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
-Obsoletes:	%{name}-desktop < 9:3.1.91.030911
+Obsoletes:	kdebase-desktop < 9:3.1.91.030911
 
 %description kdcop
 Graphic DCOP browser/client. Actually useful only for developers and
@@ -583,7 +604,7 @@ Summary:	A KDE version of dialog
 Summary(pl):	Wersja KDE dialogu
 Group:		X11/Applications
 Requires:	kdelibs >= 9:%{version}
-Obsoletes:	%{name} < 8:3.2-0.030423.2
+Obsoletes:	kdebase < 8:3.2-0.030423.2
 
 %description kdialog
 Kdialog allows to display window dialogs with KDE widgets from shell
@@ -612,7 +633,7 @@ Summary(pl):	Instalator fontów dla KDE
 Group:		X11/Applications
 #Requires:	konqueror = %{epoch}:%{version}-%{release}
 Requires:	kdebase-core = %{epoch}:%{version}-%{release}
-Obsoletes:	%{name}-desktop < 3.1.90.030720
+Obsoletes:	kdebase-desktop < 3.1.90.030720
 
 %description kfontinst
 KDE font installer.
@@ -677,7 +698,7 @@ Summary:	Desktop Pager
 Summary(pl):	Prze³±cznik biurek
 Group:		X11/Applications
 Requires:	kdelibs >= 9:%{version}
-Obsoletes:	%{name} =< 8:3.2-0.030418.2
+Obsoletes:	kdebase =< 8:3.2-0.030418.2
 
 %description kpager
 KDE desktop pager.
@@ -691,7 +712,7 @@ Summary(pl):	Kreator ustawieñ ¶rodowiska KDE
 Group:		X11/Applications
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 Requires:	%{name}-klipper = %{epoch}:%{version}-%{release}
-Obsoletes:	%{name} < 9:3.1.92.031021
+Obsoletes:	kdebase < 9:3.1.92.031021
 
 %description kpersonalizer
 KDE desktop settings wizard.
@@ -728,7 +749,9 @@ dynamic word wrap and more, it's the lightweight version of Kate,
 providing more speed for minor tasks.
 
 %description kwrite -l pl
-
+KWrite to prosty edytor tekstu z pod¶wietlaniem sk³adni, zwijaniem
+kodu, dynamicznym zawijaniem wierszy itp. Jest l¿ejsz± wersj± Kate,
+szybsz± dla mniejszych zadañ.
 
 %package kwrited
 Summary:	KDE write messaging daemon
@@ -736,7 +759,7 @@ Summary(pl):	Demon do KDE obs³uguj±cy wymianê wiadomo¶ci za pomoc± write
 Group:		X11/Applications
 # With functional reasons
 Requires:	kdebase-core = %{epoch}:%{version}-%{release}
-Obsoletes:	%{name} < 8:3.2-0.030423.1
+Obsoletes:	kdebase < 8:3.2-0.030423.1
 
 %description kwrited
 A kde daeomn that watches for messages from local users sent with
@@ -744,7 +767,7 @@ write or wall.
 
 %description kwrited -l pl
 Demon KDE, który monitoruje wiadomo¶ci jakie lokalni u¿ytkownicy
-wysy³aja za pomoc± komend write lub wall.
+wysy³aj± za pomoc± komend write lub wall.
 
 %package libkate
 Summary:	A libraries for KDE text editors
@@ -782,8 +805,8 @@ Summary:	KDE Mail and News Services
 Summary(pl):	Obs³uga protoko³ów pocztowych i news dla KDE
 Group:		X11/Libraries
 Requires:	kdelibs >= 9:%{version}
-Obsoletes:	%{name} < 8:3.0.9-2.4
-Obsoletes:	%{name}-kioslave
+Obsoletes:	kdebase < 8:3.0.9-2.4
+Obsoletes:	kdebase-kioslave
 
 %description mailnews
 KDE Mail (ex. POP3 and IMAP) and News (NNTP) protocols support.
@@ -821,17 +844,17 @@ Requires:	sessreg
 Requires:	xinitrc
 Requires:	kde-kgreet
 Obsoletes:	gdm
+Obsoletes:	kdebase-kdm
+Obsoletes:	kdebase-pam
 Obsoletes:	xdm
-Obsoletes:	%{name}-kdm
-Obsoletes:	%{name}-pam
 
 %description -n kdm
 A program used for managing X11 sessions on local or remote computers.
 Also provides graphical login method.
 
 %description -n kdm -l pl
-Program s³u¿±cy do zarz±dzania zró³no lokalnych jak i zdalnych sesji
-X11. Udostêpnia tak¿e graficzny tryb logowania.
+Program s³u¿±cy do zarz±dzania zarówno lokalnymi jak i zdalnymi
+sesjami X11. Udostêpnia tak¿e graficzny tryb logowania.
 
 %package -n konqueror
 Summary:	Konqueror - web browser and file manager
@@ -862,7 +885,24 @@ read-only viewing components in itself to view documents without ever
 launching another application.
 
 %description -n konqueror -l pl
+Konqueror to zarz±dca plików dla ¶rodowiska KDE. Obs³uguje podstawowe
+zarz±dzanie plikami w lokalnych uniksowych systemach plików, od
+prostych operacji wycinania/kopiowania i wklejania do zaawansowanego
+przegl±dania plików z sieci zdalnych i lokalnych.
 
+Konqueror to podstawa dla wszystkich nowych technologii KDE, od us³ug
+KIO (dostarczaj±cych mechanizmy dostêpu do plików) po osadzanie
+komponentów poprzez interfejs obiektowy KParts i jest jedn± z
+najbardziej poddaj±cych siê dostosowaniu do w³asnych potrzeb
+dostêpnych aplikacji.
+
+Konqueror jest tak¿e przegl±dark± WWW o otwartych ¼ród³ach, zgodn± z
+HTML 4.0, obs³uguj±c± aplety Javy, JavaScript, CSS1 i (czê¶ciowo)
+CSS2, a tak¿e wtyczki Netscape'a (na przyk³ad Flash i RealAudio).
+
+Konqueror jest uniwersaln± aplikacj± do przegl±dania, umo¿liwiaj±c±
+osadzenie w niej komponentów do przegl±dania aby ogl±daæ dokumenty
+bez uruchamiania innej aplikacji.
 
 %package -n konqueror-libs
 Summary:	konqueror shared libraries
