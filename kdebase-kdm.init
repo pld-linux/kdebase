@@ -19,6 +19,7 @@ if [ -f /etc/sysconfig/kdm ] ; then
 	. /etc/sysconfig/kdm
 fi
 
+RETVAL=0
 # See how we were called.
 case "$1" in
   start)
@@ -26,10 +27,10 @@ case "$1" in
 	if [ ! -f /var/lock/subsys/kdm ]; then
 		msg_starting "KDE Display Manager"
 		daemon kdm
-		touch /var/lock/subsys/kdm
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/kdm
 	else
 		msg_already_running "KDE Display Manager"
-		exit 1
 	fi
 	;;
   stop)
@@ -39,20 +40,21 @@ case "$1" in
 		killproc kdm
 		rm -f /var/lock/subsys/kdm
 	else
-		msg_already_running "KDE Display Manager"
-		exit 1
+		msg_not_running "KDE Display Manager"
 	fi
 	;;
   status)
 	status kdm
+	exit $?
 	;;
-  restart|reload)
+  restart|force-reload)
 	$0 stop
 	$0 start
+	exit $?
 	;;
   *)
-	msg_usage "$0 {start|stop|restart|reload|status}"
-	exit 1
+	msg_usage "$0 {start|stop|restart|force-reload|status}"
+	exit 3
 esac
 
-exit 0
+exit $RETVAL
