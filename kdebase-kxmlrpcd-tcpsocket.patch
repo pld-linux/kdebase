@@ -1,0 +1,200 @@
+--- kdebase/kxmlrpc/kxmlrpcdaemon.h.tcpsock	Mon Aug  7 22:43:11 2000
++++ kdebase/kxmlrpc/kxmlrpcdaemon.h	Sun Feb 18 22:42:57 2001
+@@ -65,6 +65,7 @@
+     void processReturnValue(const QString& _type, const QByteArray& _reply);
+ 
+ private:
++    char         *socketFile;
+     DCOPClient   *m_dcopClient;
+     QString       m_authToken;
+     KXmlRpcProxy *m_proxy;
+--- kdebase/kxmlrpc/kxmlrpcdaemon.cpp.tcpsock	Mon Feb  5 06:42:36 2001
++++ kdebase/kxmlrpc/kxmlrpcdaemon.cpp	Sun Feb 18 22:52:31 2001
+@@ -9,6 +9,8 @@
+ #include <kxmlrpcdaemon.h>
+ #include <kxmlrpcutil.h>
+ #include <kdebug.h>
++#include <kglobal.h>
++#include <kconfig.h>
+ #include <dcopclient.h>
+ #include <dcopref.h>
+ 
+@@ -36,8 +38,19 @@
+ template QDataStream&operator>><QString,int>(QDataStream&,QMap<QString,int>&);
+ 
+ KXmlRpcDaemon::KXmlRpcDaemon()
+-    : KXmlRpcServer(0)
++    : KXmlRpcServer()
+ {
++    KConfig *config=KGlobal::config();
++    config->setGroup("KDE");
++    bool isTcp=config->readBoolEntry("RemoteScripting", true);
++    if(isTcp) {
++	socketFile=0;
++        KXmlRpcServer::createTcp(0);
++    } else {
++	socketFile=strdup(QFile::encodeName(QDir::homeDirPath() + "/.kxmlrpcd-socket-XXXXXX"));
++	mktemp(socketFile);
++	KXmlRpcServer::createUnix(socketFile);
++    }
+     // get our auth token
+     m_authToken = KXmlRpcUtil::generateAuthToken();
+     if (m_authToken == "")
+@@ -52,7 +65,10 @@
+     if (auth_file.open(IO_WriteOnly))
+     {
+         QTextStream auth_stream(&auth_file);
+-        auth_stream << port() << ",";
++	if(isTcp)
++            auth_stream << port() << ",";
++	else
++	    auth_stream << "file://" << socketFile << ",";
+         auth_stream << m_authToken;
+     }
+     else
+@@ -80,6 +96,14 @@
+     // nuke our .kxmlrpcd file
+     QFile auth_file(QDir::homeDirPath() + "/.kxmlrpcd");
+     auth_file.remove();
++
++    // nuke our socket, if we're running on a UNIX socket
++    if(socketFile) {
++	    QFile socket(socketFile);
++	    socket.remove();
++	    free(socketFile);
++	    socketFile=0;
++    }
+ }
+ 
+ void KXmlRpcDaemon::dispatch(const QString& _name, const QString& _object,
+--- kdebase/kxmlrpc/kxmlrpcserver.cpp.tcpsock	Tue Nov 28 19:49:29 2000
++++ kdebase/kxmlrpc/kxmlrpcserver.cpp	Sun Feb 18 22:44:47 2001
+@@ -22,6 +22,17 @@
+ #include <qdom.h>
+ #include <qtimer.h>
+ 
++KXmlRpcServer::KXmlRpcServer()
++    : QObject(),
++      m_serverSocket(0),
++      m_incomingXml(""),
++      m_outgoingXml(""),
++      m_server(""),
++      m_keepalive(false),
++      m_complete(false)
++{
++}
++
+ KXmlRpcServer::KXmlRpcServer(unsigned short int port)
+     : QObject(),
+       m_serverSocket(new KServerSocket(port)),
+@@ -43,6 +54,60 @@
+     // connect our one and only slot
+     connect(m_serverSocket, SIGNAL(accepted(KSocket *)),
+             this,           SLOT(acceptConnection(KSocket *)));
++}
++
++KXmlRpcServer::KXmlRpcServer(const char *filename)
++    : QObject(),
++      m_serverSocket(new KServerSocket(filename)),
++      m_currentSocket(0),
++      m_incomingXml(""),
++      m_outgoingXml(""),
++      m_server(""),
++      m_keepalive(false),
++      m_complete(false),
++      m_filename(filename)
++{
++    // we see if our socket is valid.  if it is not, then we might
++    // as well return now since we can't do anything about it
++    if (m_serverSocket->socket() == -1)
++    {
++        kdDebug() << "Couldn't create a server socket!" << endl;
++	return;
++    }
++
++    // connect our one and only slot
++    connect(m_serverSocket, SIGNAL(accepted(KSocket *)),
++            this,           SLOT(acceptConnection(KSocket *)));
++}
++
++bool KXmlRpcServer::createTcp(unsigned short int port)
++{
++    if(m_serverSocket!=0)
++        return false;
++    m_serverSocket=new KServerSocket(port);
++    if (m_serverSocket->socket() == -1)
++    {
++        kdDebug() << "Couldn't create a server socket!" << endl;
++	return false;
++    }
++    connect(m_serverSocket, SIGNAL(accepted(KSocket *)),
++            this,           SLOT(acceptConnection(KSocket *)));
++    return true;
++}
++
++bool KXmlRpcServer::createUnix(const char *filename)
++{
++    if(m_serverSocket!=0)
++        return false;
++    m_serverSocket=new KServerSocket(filename);
++    if (m_serverSocket->socket() == -1)
++    {
++        kdDebug() << "Couldn't create a server socket!" << endl;
++	return false;
++    }
++    connect(m_serverSocket, SIGNAL(accepted(KSocket *)),
++            this,           SLOT(acceptConnection(KSocket *)));
++    return true;
+ }
+ 
+ unsigned short int KXmlRpcServer::port()
+--- kdebase/kxmlrpc/kxmlrpcserver.h.tcpsock	Tue Nov 28 19:49:29 2000
++++ kdebase/kxmlrpc/kxmlrpcserver.h	Sun Feb 18 22:44:28 2001
+@@ -41,15 +41,39 @@
+     KXmlRpcServer(unsigned short int port);
+ 
+     /**
++     * Constructor.  This accepts the filename of a UNIX socket we will
++     * be listening on.
++     */
++    KXmlRpcServer(const char *path);
++
++    /**
++     * Constructor.  Simply prepare things and wait for create*().
++     * Needed because an inheriting class may not know whether we want
++     * to use a UNIX socket or a TCP/IP socket.
++     */
++    KXmlRpcServer();
++
++    /**
+      * Standard destructor
+      */
+     virtual ~KXmlRpcServer();
+ 
+     /**
++     * Create the actual connection
++     */
++    bool createTcp(unsigned short int port);
++    bool createUnix(const char *path);
++    
++    /**
+      * Return the current port
+      */
+     unsigned short int port();
+ 
++    /**
++     * Return the current filename (UNIX socket)
++     */
++    const char *filename() const { return m_filename; };
++
+ protected:
+     /**
+      * You MUST implement this function!  When an incoming methodCall
+@@ -239,6 +263,7 @@
+     bool     m_keepalive;
+ 
+     bool m_complete;
++    const char *m_filename;
+ 
+     QMap<unsigned long, unsigned int> m_retryMap;
+ };

@@ -1,0 +1,19 @@
+--- kdebase/konsole/src/TEPty.C.utmp	Sun Feb  4 19:11:41 2001
++++ kdebase/konsole/src/TEPty.C	Sun Feb  4 19:13:34 2001
+@@ -318,7 +318,7 @@
+       if (ptsn) {
+           strncpy(ttynam, ptsname(ptyfd), 50);
+           grantpt(ptyfd);
+-          needGrantPty = FALSE;
++//          needGrantPty = FALSE;
+       } else {
+       	  perror("ptsname");
+ 	  close(ptyfd);
+@@ -594,6 +594,7 @@
+ */
+ TEPty::~TEPty()
+ {
++  donePty();
+ }
+ 
+ int TEPty::setupCommunication(Communication comm)
