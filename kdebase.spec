@@ -299,7 +299,8 @@ Summary(pl):	Narzêdzie do faksowania dla KDE
 Group:		X11/Applications
 Requires:	%{name}-helpcenter = %{version}-%{release}
 Requires:	kdelibs >= %{version}
-Requires:	/usr/bin/fax
+Requires:	efax
+Requires:	enscript
 Obsoletes:	%{name} <= 3.1-9
 
 %description kdeprintfax
