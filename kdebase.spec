@@ -13,7 +13,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.2
-%define         _snap		030428
+%define         _snap		030501
 %define		_kdelibsminrel	0.%{_snap}.1
 
 %ifarch	sparc sparcv9 sparc64
@@ -108,7 +108,6 @@ BuildRequires:	zlib-devel
 Requires(post,postun):	/sbin/ldconfig
 Requires:	applnk >= 1.6.1
 Requires:       kde-sdscreen
-Requires:       kdelibs >= %{version}-%{_kdelibsminrel}
 Requires:	konqueror = %{version}-%{release}
 Obsoletes:	%{name}-fonts
 Obsoletes:	%{name}-kcheckpass
@@ -295,7 +294,7 @@ Summary:	Common files for konsole and konsolepart
 Summary(pl):	Pliki wspólne dla konsole i konsolepart
 Group:		X11/Applications
 Requires(post,postun):	/usr/X11R6/bin/mkfontdir
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	%{name}-fonts
 
@@ -309,7 +308,7 @@ Pliki wspólne dla konsole i konsolepart.
 Summary:	KDE Core Apps
 Summary(pl):	Podstaqwowe aplikacje KDE
 Group:		X11/Applications
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
 Obsoletes:	%{name} < 3.2-0.030428.1
 Obsoletes:	%{name}-kcontrol
 Obsoletes:	%{name}-khelpcenter
@@ -320,7 +319,7 @@ KDE Core apps. This package contains:
 - Help Center;
 - Print System;
 - Crash Handlers;
-- kdesu.
+- A Frontend for "su" program.
 
 %description core -l pl
 Podstawowe aplikacje ¶rodowiska KDE. Pakiet ten zawiera:
@@ -328,7 +327,7 @@ Podstawowe aplikacje ¶rodowiska KDE. Pakiet ten zawiera:
 - System drukowania;
 - System pomocy;
 - Programy obs³ugi b³êdów;
-- kdesu.
+- Frontend dla programu "su".
 
 %package infocenter
 Summary:	KDE Info Center
@@ -346,7 +345,7 @@ Centrum informacji o systemie dla KDE.
 Summary:	Menu Updating Tool
 Summary(pl):	Narzedzie do aktualizacji menu.
 Group:		X11/Applications
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
 Obsoletes:	%{name} =< 3.2-0.030418.2
 
 %description kappfinder
@@ -479,7 +478,7 @@ Emulator terminala dla KDE.
 Summary:	Desktop Pager
 Summary(pl):	Prze³±cznik biurek
 Group:		X11/Applications
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
 Obsoletes:	%{name} =< 3.2-0.030418.2
 
 %description kpager
@@ -546,7 +545,7 @@ Edytor tekstu z pod¶wietlaniem sk³adni dla KDE.
 Summary:	KDE Write Daemon
 Summary(pl):	Demon zapisu KDE
 Group:		X11/Applications
-Requires:	%{name}-core = %{version}-%{release}
+Requires:	kdelibs >= %{version}-%{_kdelibsminrel}
 Obsoletes:	%{name} < 3.2-0.030423.1
 %description kwrited
 KDE Write Daemon.
@@ -952,6 +951,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_khotkeys.so
 %{_libdir}/kde3/kcm_knotify.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_knotify.so
+%{_libdir}/kde3/kcm_ksplashthemes.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_ksplashthemes.so
 %{_libdir}/kde3/kcm_kwindecoration.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_kwindecoration.so
 %{_libdir}/kde3/kcm_kwinoptions.la
@@ -1041,6 +1042,7 @@ fi
 #
 %{_applnkdir}/KDE-Settings/LookNFeel/background.desktop
 %{_applnkdir}/KDE-Settings/LookNFeel/kcmlaunch.desktop
+%{_applnkdir}/KDE-Settings/LookNFeel/ksplashthememgr.desktop
 %{_applnkdir}/KDE-Settings/LookNFeel/kwindecoration.desktop
 %{_applnkdir}/KDE-Settings/Network/email.desktop
 %{_applnkdir}/KDE-Settings/Peripherals/keyboard.desktop
@@ -1237,7 +1239,9 @@ fi
 %{_datadir}/servicetypes/terminalemulator.desktop
 %{_datadir}/servicetypes/thumbcreator.desktop
 %{_applnkdir}/KDE-Settings/Network/fileshare.desktop
+# konqueror needs it
 %{_pixmapsdir}/*/*/apps/kate.png
+#
 
 %files common-konsole
 %defattr(644,root,root,755)
@@ -1354,11 +1358,13 @@ fi
 %{_pixmapsdir}/*/*/apps/multimedia.png
 %{_pixmapsdir}/*/*/apps/personal.png
 %{_pixmapsdir}/*/*/apps/printmgr.png
-%{_pixmapsdir}/*/*/apps/samba.png
 %{_pixmapsdir}/*/*/apps/style.png
-%{_pixmapsdir}/*/*/apps/usb.png
 %{_pixmapsdir}/*/*/devices/print_printer.png
 %{_pixmapsdir}/*/*/filesystems/folder_print2.png
+# infocenter & konqueror need it:
+%{_pixmapsdir}/*/*/apps/samba.png
+%{_pixmapsdir}/*/*/apps/usb.png
+#
 
 %files infocenter -f kinfocenter.lang
 %defattr(644,root,root,755)
@@ -1484,6 +1490,8 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so
 %{_libdir}/kde3/lockout_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so
+%{_libdir}/kde3/menu_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/menu_panelapplet.so
 %{_libdir}/kde3/minipager_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so
 %{_libdir}/kde3/naughty_panelapplet.la
@@ -1829,6 +1837,8 @@ fi
 %{_datadir}/config/kshorturifilterrc
 %{_datadir}/mimelnk/application/x-smb-workgroup.desktop
 %{_datadir}/mimelnk/kdedevice
+%{_datadir}/services/searchproviders
+%{_datadir}/services/useragentstrings
 %{_datadir}/services/about.protocol
 %{_datadir}/services/bzip.protocol
 %{_datadir}/services/bzip2.protocol
@@ -1861,11 +1871,9 @@ fi
 %{_datadir}/services/mac.protocol
 %{_datadir}/services/nfs.protocol
 %{_datadir}/services/print.protocol
-%{_datadir}/services/searchproviders
 %{_datadir}/services/sftp.protocol
 %{_datadir}/services/smb.protocol
 %{_datadir}/services/tar.protocol
-%{_datadir}/services/useragentstrings
 %{_datadir}/services/zip.protocol
 %{_datadir}/servicetypes/findpart.desktop
 %{_datadir}/servicetypes/konqaboutpage.desktop
