@@ -6,8 +6,7 @@
 # * Sources renaming & renumerating 
 # * Separating kicker, kwin, wtf
 #
-# Conditional Builds:
-#
+# Conditional build:
 # _with_db3		- use it if You have db package installed
 # _without_alsa 	- disable alsa
 #
@@ -18,12 +17,12 @@
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
 Summary(ja):	KDE¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­ - ´ðËÜ¥Õ¥¡¥¤¥ë
-Summary(ko):    KDE - ±âº» ÆÄÀÏ
+Summary(ko):	KDE - ±âº» ÆÄÀÏ
 Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Summary(pt_BR):	K Desktop Environment - arquivos básicos
 Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
-Summary(zh_CN): KDEºËÐÄ
+Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
 Release:	12
@@ -92,7 +91,6 @@ BuildRequires:	zlib-devel
 # TODO: sensors
 #BuildRequires:	sensors-devel
 Requires(post,postun):	/sbin/ldconfig
-Prereq:		/usr/X11R6/bin/mkfontdir
 Requires:	applnk >= 1.5.11
 Requires:	kde-splash
 Requires:       kde-sdscreen
@@ -233,37 +231,38 @@ Requires:	%{name}-kcontrol = %{version}-%{release}
 Obsoletes:	%{name} < 3.0.9-2.4
 
 %description common-filemanagement
-Common files - needed by kate and konqueror
+Common files needed by kate and konqueror.
 
 %description common-filemanagement -l pl
-Pliki wspólne - u¿ywane przez kate i konquerora
+Pliki wspólne, u¿ywane przez kate i konquerora.
 
 %package common-konsole
 Summary:	Common files for konsole and konsolepart
 Summary(pl):	Pliki wspólne dla konsole i konsolepart
 Group:		X11/Applications
+Requires(post,postun):	/usr/X11R6/bin/mkfontdir
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	%{name}-fonts
 
 %description common-konsole
-Common files for konsole and konsolepart
+Common files for konsole and konsolepart.
 
 %description common-konsole -l pl
-Pliki wspólne dla konsole i konsolepart
+Pliki wspólne dla konsole i konsolepart.
 
 %package helpcenter
 Summary:	KDE Help Center
-Summary(pl):	Przegladarka plików pomocy dla KDE
+Summary(pl):	Przegl±darka plików pomocy dla KDE
 Group:		X11/Applications
 Requires:	kdelibs >= %{version}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	%{name}-khelpcenter
 
 %description helpcenter
-KDE Help Center
+KDE Help Center.
 
 %description helpcenter -l pl
-Przegladarka plików pomocy dla KDE
+Przegl±darka plików pomocy dla KDE.
 
 %package kate
 Summary:	KDE Advanced Text Editor
@@ -277,7 +276,7 @@ Obsoletes:	kate
 KDE advanced text editor. 
 
 %description kate -l pl
-Zaawansowany edytor tekstu dla KDE
+Zaawansowany edytor tekstu dla KDE.
 
 %package kcontrol
 Summary:	KDE Control Center
@@ -287,10 +286,10 @@ Requires:	%{name}-helpcenter = %{version}-%{release}
 Obsoletes:	%{name} < 3.0.9-2.4
 
 %description kcontrol
-KDE Control Center
+KDE Control Center.
 
 %description kcontrol -l pl
-Narzêdzie do konfigurowania aplikacji KDE
+Narzêdzie do konfigurowania aplikacji KDE.
 
 %package kdeprintfax
 Summary:	KDE Fax Tool
@@ -303,10 +302,10 @@ Requires:	enscript
 Obsoletes:	%{name} <= 3.1-9
 
 %description kdeprintfax
-KDE Fax Tool
+KDE Fax Tool.
 
 %description kdeprintfax -l pl
-Narzêdzie do faksowania dla KDE
+Narzêdzie do faksowania dla KDE.
 
 %package kfind
 Summary:	KDE Find Tool
@@ -318,10 +317,10 @@ Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	kfind
 
 %description kfind
-KDE Find Tool
+KDE Find Tool.
 
 %description kfind -l pl
-Narzêdzie do wyszukiwania plików dla KDE
+Narzêdzie do wyszukiwania plików dla KDE.
 
 
 %package konsole
@@ -334,10 +333,10 @@ Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	konsole
 
 %description konsole
-KDE Terminal Emulator
+KDE Terminal Emulator.
 
 %description konsole -l pl
-Emulator terminala dla KDE
+Emulator terminala dla KDE.
 
 %package kwrite
 Summary:	KDE Text Editor
@@ -351,7 +350,7 @@ Obsoletes:	kwrite
 KDE text editor with syntax highlighting. 
 
 %description kwrite -l pl
-Edytor tekstu z pod¶wietlaniem sk³adni dla KDE
+Edytor tekstu z pod¶wietlaniem sk³adni dla KDE.
 
 %package mailnews
 Summary:	KDE Mail and News Services
@@ -362,22 +361,22 @@ Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	%{name}-kioslave
 
 %description mailnews
-KDE Mail and News Services
+KDE Mail and News Services.
 
 %description mailnews -l pl
-Obs³uga protoko³ów pocztowych i news dla KDE
+Obs³uga protoko³ów pocztowych i news dla KDE.
 
 %package pam
-Summary:        KDE User Autentication 
-Summary(pl):    Autentykacja u¿ytkownika dla KDE
-Group:          X11/Applications
+Summary:	KDE User Autentication 
+Summary(pl):	Uwierzytelnianie u¿ytkowników dla KDE
+Group:		X11/Applications
 Obsoletes:	%{name} < 3.0.9-2.4
 
 %description pam
-KDE User Autentication
+KDE User Autentication.
 
 %description pam -l pl
-Autentykacja u¿ytkownika dla KDE
+Uwierzytelnianie u¿ytkowników dla KDE.
 
 %package screensavers
 Summary:	KDE screensavers
@@ -399,7 +398,7 @@ Wygaszacze ekranu desktopu KDE.
 
 %package -n kdm
 Summary:	KDE Display Manager
-Summary(pl):	KDE Display Manager
+Summary(pl):	Zarz±dca ekranów KDE
 Group:		X11/Applications
 Requires:	%{name}-kcontrol = %{version}-%{release}
 Requires:	%{name}-pam = %{version}-%{release}
@@ -415,11 +414,11 @@ It is KDE replacement for XDM. It manages local and remote X11
 displays.
 
 %description -n kdm -l pl
-Zamiennik XDM rodem z KDE.
+Zamiennik XDM rodem z KDE. Zarz±dza lokalnymi i zdalnymi ekranami X11.
 
 %package -n konqueror
 Summary:	Konqueror - web browser and file manager
-Summary(pl):	Konqueror - przegl±darka WWW i mened¿er plików
+Summary(pl):	Konqueror - przegl±darka WWW i zarz±dca plików
 Group:		X11/Applications
 Requires:	%{name}-common-filemanagement = %{version}-%{release}
 Requires:	%{name}-mailnews = %{version}-%{release}
@@ -431,7 +430,7 @@ Konqueror is a web browser and file manager similar to MS Internet
 Explorer.
 
 %description -n konqueror -l pl
-Konqueror jest przegl±dark± WWW i mene¿derem plików podobnym do MS
+Konqueror jest przegl±dark± WWW i zarz±dc± plików podobnym do MS
 Internet Explorer.
 
 %prep
@@ -451,7 +450,6 @@ Internet Explorer.
 #%patch12 -p1
 
 %build
-
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
@@ -562,11 +560,11 @@ done
 %find_lang	kwrite		--with-kde
 %find_lang	screensaver	--with-kde
 
-%post
-/sbin/ldconfig
+%clean
+rm -rf $RPM_BUILD_ROOT
 
-%postun
-/sbin/ldconfig
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
 %post common-konsole
 cd %{_fontdir}
@@ -620,9 +618,6 @@ fi
 
 %post   -n konqueror -p /sbin/ldconfig
 %postun	-n konqueror -p /sbin/ldconfig
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
