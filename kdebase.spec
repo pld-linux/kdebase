@@ -1,6 +1,6 @@
 
 %define		_state		unstable
-%define		_kdever		kde-3.1-rc1
+%define		_kdever		kde-3.1-rc2
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -12,8 +12,8 @@ Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
-Version:	3.0.9
-Release:	2.4
+Version:	3.0.98
+Release:	1
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -512,14 +512,15 @@ done
 
 programs="arts background bell clock colors desktop energy fonts \
 helpindex.html icons kcmaccess kcmfontinst kcmlaunch kcmnotify kcmsmserver \
-kcmstyle kcmtaskbar keyboard keys kthememgr kwindecoration language midi \
-mouse panel passwords smb spellchecking windowmanagement"
+kcmstyle kcmtaskbar keyboard keys kthememgr kwindecoration language mouse \
+panel passwords smb spellchecking windowmanagement"
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> %{name}.lang
 done
 
 %find_lang	kate		--with-kde
+%find_lang	kdm		--with-kde
 %find_lang	kfind		--with-kde
 %find_lang	khelpcenter	--with-kde
 %find_lang	kcmkonsole	--with-kde
@@ -684,6 +685,7 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/kcm_email.??
 %attr(0755,root,root) %{_libdir}/kde3/kcm_energy.??
 %attr(0755,root,root) %{_libdir}/kde3/kcm_fontinst.??
+%attr(0755,root,root) %{_libdir}/kde3/kcm_helpcenter.??
 %attr(0755,root,root) %{_libdir}/kde3/kcm_icons.??
 %attr(0755,root,root) %{_libdir}/kde3/kcm_info.??
 %attr(0755,root,root) %{_libdir}/kde3/kcm_input.??
@@ -736,7 +738,7 @@ fi
 
 %dir %{_datadir}/apps/ksmserver
 %dir %{_datadir}/apps/ksplash
-%{_datadir}/apps/?[!acdefosw]*
+%{_datadir}/apps/?[!acdefhosw]*
 %{_datadir}/apps/kappfinder
 %{_datadir}/apps/kcm[!_c]*
 %{_datadir}/apps/kcm_componentchooser/*
@@ -794,7 +796,8 @@ fi
 %{_applnkdir}/Settings/KDE/Security/passwords.desktop
 %{_applnkdir}/Settings/KDE/Sound
 %{_applnkdir}/Settings/KDE/System/[!k]*
-%{_applnkdir}/Settings/KDE/System/kcm*
+%{_applnkdir}/Settings/KDE/System/kcmfontinst.desktop
+%{_applnkdir}/Settings/KDE/System/kcmhelpcenter.desktop
 %{_applnkdir}/Settings/KDE/WebBrowsing
 
 %{_pixmapsdir}/*/*/apps/a[!g]*
@@ -897,7 +900,6 @@ fi
 %files helpcenter -f khelpcenter.lang
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/khelpcenter
-%attr(0755,root,root) %{_libdir}/kde3/kcm_helpcenter.??
 %attr(0755,root,root) %{_libdir}/kde3/kio_info.??
 %attr(0755,root,root) %{_libdir}/kde3/kio_man.??
 %attr(0755,root,root) %{_libdir}/kde3/khelpcenter.??
