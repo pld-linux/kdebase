@@ -354,15 +354,17 @@ rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/apps/package_{applications,edit
 
 # copy icons to toplevel %%{_pixmapsdir}
 cp -af $RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/{access,agent,bell,colors,cookie,date,designer,email,energy,energy_star,enhanced_browsing,filetypes,fonts,go,gvim,help_index,hwinfo,icons,input_devices_settings}.png \
-	$RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/{kaddressbook,kappfinder,kate,kcmdevices,kcmfontinst,kcmkwm,kcmmemory,kcmmidi,kcmpartitions,kcmpci,kcmprocessor,kcmscsi,kcmsystem,kcontrol,key_bindings,keyboard}.png \
-	$RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/{kfind,kfm,kfm_home,khelpcenter,klipper,kmenuedit,knotify,konqueror,konsole,kpager,kscreensaver,ksysguard,kthememgr,ktip,kwrite,licq,locale,looknfeel,mouse}.png \
+	$RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/{kaddressbook,kappfinder,kate,kcmdevices,kcmfontinst,kcmkwm,kcmmemory,kcmmidi,kcmpartitions,kcmpci,kcmprocessor,kcmscsi,kcmsystem,kcontrol,kdmconfig,key_bindings}.png \
+	$RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/{keyboard,kfind,kfm,kfm_home,khelpcenter,klipper,kmenuedit,knotify,konqueror,konsole,kpager,kscreensaver,ksysguard,kthememgr,ktip,kwrite,licq,locale,looknfeel,mouse}.png \
 	$RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/{multimedia,password,personal,proxy,samba,style,stylesheet,usb,window_list}.png \
 	$RPM_BUILD_ROOT%{_pixmapsdir}	
+cp -af $RPM_BUILD_ROOT%{_pixmapsdir}/hicolor/48x48/apps/netscape.png \
+	$RPM_BUILD_ROOT%{_pixmapsdir}/netscape-plugins.png
 
 rm -f $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{emacs,gimp,mozilla,netscape,opera,xedit,xemacs,xmag,xv}.png
 rm -rf $RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{access,agent,bell,colors,cookie,date,designer,email,energy,energy_star,enhanced_browsing,filetypes,fonts,go,gvim,help_index,hwinfo,icons,input_devices_settings}.png \
-	$RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{kaddressbook,kappfinder,kate,kcmdevices,kcmfontinst,kcmkwm,kcmmemory,kcmmidi,kcmpartitions,kcmpci,kcmprocessor,kcmscsi,kcmsystem,kcontrol,key_bindings,keyboard}.png \
-	$RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{kfind,kfm,kfm_home,khelpcenter,klipper,kmenuedit,knotify,konqueror,konsole,kpager,kscreensaver,ksysguard,kthememgr,ktip,kwrite,licq,locale,looknfeel,mouse}.png \
+	$RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{kaddressbook,kappfinder,kate,kcmdevices,kcmfontinst,kcmkwm,kcmmemory,kcmmidi,kcmpartitions,kcmpci,kcmprocessor,kcmscsi,kcmsystem,kcontrol,kdmconfig,key_bindings}.png \
+	$RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{keyboard,kfind,kfm,kfm_home,khelpcenter,klipper,kmenuedit,knotify,konqueror,konsole,kpager,kscreensaver,ksysguard,kthememgr,ktip,kwrite,licq,locale,looknfeel,mouse}.png \
 	$RPM_BUILD_ROOT%{_pixmapsdir}/*color/??x??/*/{multimedia,password,personal,proxy,samba,style,stylesheet,usb,window_list}.png \
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
@@ -404,7 +406,7 @@ mv -f $RPM_BUILD_ROOT%{_applnkdir}/Settings/{[!K]*,KDE}
 cat > $RPM_BUILD_ROOT%{_applnkdir}/Settings/KDE/.directory << EOF
 [Desktop Entry]
 Name=KDE
-Icon=package_settings
+Icon=go
 X-KDE-BaseGroup=settings
 EOF
 
@@ -412,7 +414,11 @@ EOF
 # XXX rm -rf $RPM_BUILD_ROOT%{_applnkdir}/{Editors,Toys}
 
 for f in `find $RPM_BUILD_ROOT%{_applnkdir} -name '.directory' -o -name '*.dekstop'` ; do
-	awk -v F=$f '/^Icon=/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
+	awk -v F=$f '/^Icon=/ && !/\.xpm$/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
+	mv -f $f{.tmp,}
+done
+for f in `find $RPM_BUILD_ROOT%{_datadir}/apps/kappfinder/apps -name '*.dekstop'` ; do
+	awk -v F=$f '/^Icon=/ && !/\.xpm$/&& !/\.png$/ { $0 = $0 ".png";} { print $0; }' < $f > $f.tmp
 	mv -f $f{.tmp,}
 done
 
@@ -756,7 +762,8 @@ fi
 %dir %{_datadir}/config/kdm
 %config(noreplace) %{_datadir}/config/kdm/kdmrc
 
-%{_pixmapsdir}/*/*/apps/kdmconfig.png
+#%{_pixmapsdir}/*/*/apps/kdmconfig.png
+%{_pixmapsdir}/kdmconfig.png
 
 %files -n konqueror -f konqueror.lang
 %defattr(644,root,root,755)
