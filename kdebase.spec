@@ -28,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	5.1
+Release:	5.2
 Epoch:		8
 License:	GPL
 Group:		X11/Applications
@@ -558,80 +558,40 @@ done
 
 bzip2 -dc %{SOURCE8} | tar xf - -C $RPM_BUILD_ROOT
 
-> %{name}.lang
+:> %{name}.lang
 
 programs=" \
-	kdebugdialog \
-	kdeprint \
-	kdesu \
-	kicker \
-	kinfocenter \
-	kioslave \
-	klipper \
-	kmenuedit \
-	ksysguard"
+	arts background bell \
+	clock colors desktop \
+	energy fonts helpindex.html \
+	icons kcmaccess kcmfontinst \
+	kcmlaunch kcmnotify kcmsmserver \
+	kcmstyle kcmtaskbar kdebugdialog \
+	kdeprint kdesu 	keyboard \
+	keys khotkeys kicker kinfocenter \
+	kioslave klipper kmenuedit \
+	kpersonalizer kpm kprinter \
+	krdb kreadconfig krunapplet \
+	ksysguard kthememgr \
+	kwin kwin_b2_config kwin_default_config \
+	kwin_icewm_config kwin_keramik_config kwin_modernsys_config \
+	kwin_quartz_config kwindecoration language \
+	libkickermenu_konsole libkickermenu_prefmenu libkickermenu_recentdocs \
+	libtaskbar libtaskmanager mouse \
+	panel passwords smb \
+	spellchecking taskbarextension windowmanagement"
 
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> %{name}.lang
 done
-
-programs=" \
-	arts \
-	background \
-	bell \
-	clock \
-	colors \
-	desktop \
-	energy \
-	fonts \
-	helpindex.html \
-	icons \
-	kcmaccess \
-	kcmfontinst \
-	kcmlaunch \
-	kcmnotify \
-	kcmsmserver \
-	kcmstyle \
-	kcmtaskbar \
-	keyboard \
-	keys \
-	kthememgr \
-	kwindecoration \
-	language \
-	mouse \
-	panel \
-	passwords \
-	smb \
-	spellchecking \
-	windowmanagement"
-
-for i in $programs; do
-	%find_lang $i --with-kde
-	cat $i.lang >> %{name}.lang
-done
-
-%find_lang	kate		--with-kde
-%find_lang	kdm		--with-kde
-%find_lang	kfind		--with-kde
-%find_lang	khelpcenter	--with-kde
-%find_lang	kcmkonsole	--with-kde
-%find_lang	konsole		--with-kde
-cat kcmkonsole.lang >> konsole.lang
 
 %find_lang konqueror	--with-kde
 programs=" \
-	cache \
-	cookies \
-	crypto \
-	ebrowsing \
-	email \
-	filemanager \
-	filetypes \
-	kcmcss \
-	khtml \
-	netpref \
-	proxy \
+	cache cookies crypto \
+	ebrowsing email filemanager \
+	filetypes kcmcss khtml \
+	libkonq netpref proxy \
 	useragent"
 
 for i in $programs; do
@@ -639,9 +599,20 @@ for i in $programs; do
 	cat $i.lang >> konqueror.lang
 done
 
+%find_lang	kcmkonsole	--with-kde
+%find_lang	konsole		--with-kde
+cat kcmkonsole.lang >> konsole.lang
+
+%find_lang	screensaver	--with-kde
+%find_lang	kscreensaver	--with-kde
+cat kscreensaver.lang >> screensaver.lang
+
+%find_lang	kate		--with-kde
+%find_lang	kdm		--with-kde
+%find_lang	kfind		--with-kde
+%find_lang	khelpcenter	--with-kde
 %find_lang	kpager		--with-kde
 %find_lang	kwrite		--with-kde
-%find_lang	screensaver	--with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -891,7 +862,7 @@ fi
 %{_datadir}/config/kdesktop*
 %{_datadir}/config/klipperrc
 %{_datadir}/config/kwritedrc
-%{_datadir}/locale/*
+#%{_datadir}/locale/*
 %{_datadir}/services/kaccess.desktop
 %{_datadir}/services/kdeprint_part.desktop
 %{_datadir}/services/kwrited.desktop
