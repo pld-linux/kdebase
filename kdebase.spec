@@ -116,17 +116,18 @@ Requires:	applnk >= 1.5.16
 Requires:	kde-splash
 Requires:	kde-sdscreen
 Requires:	%{name}-kwin_plugin
+Requires:	%{name}-klipper
 Requires:	konqueror = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name}-fonts
 Obsoletes:	%{name}-kcheckpass
+Obsoletes:	%{name}-kdesktop
 Obsoletes:	%{name}-kdesktop_lock
 Obsoletes:	%{name}-khelpcenter
-Obsoletes:	%{name}-screensaver
 Obsoletes:	%{name}-kioslave
 Obsoletes:	%{name}-konqueror
 Obsoletes:	%{name}-kwin
 Obsoletes:	%{name}-kxmlrpc
-Obsoletes:	%{name}-kdesktop
+Obsoletes:	%{name}-screensaver
 Obsoletes:	%{name}-wallpapers
 Obsoletes:	kde-theme-keramik
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
