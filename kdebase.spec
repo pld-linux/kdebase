@@ -489,7 +489,7 @@ fi
 %{_datadir}/services/k[afhsuwx]*
 %{_datadir}/services/kons*
 %{_datadir}/sounds/*
-%{_datadir}/templates/*.dessktop
+%{_datadir}/templates/*.desktop
 %{_datadir}/templates/.source/*
 %{_datadir}/wallpapers
 %{_datadir}/servicetypes/[fstu]*.desktop
