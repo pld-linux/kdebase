@@ -520,6 +520,7 @@ Obsoletes:	kdebase-kxmlrpc
 Obsoletes:	kdebase-screensaver
 Obsoletes:	kdebase-static
 Obsoletes:	kdebase-wallpapers
+Obsoletes:	khotkeys
 
 %description desktop
 KDesktop is the program that handles the desktop icons, the popup
