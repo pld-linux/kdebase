@@ -1,6 +1,6 @@
---- kdmrc.orig	Sun Feb 17 15:55:33 2002
-+++ kdmrc	Sun Feb 17 16:14:08 2002
-@@ -69,7 +69,7 @@
+--- kdmrc.3.0.8	Mon Sep 30 02:22:05 2002
++++ kdmrc	Mon Sep 30 02:39:11 2002
+@@ -52,7 +52,7 @@
  # Default is ":0 local@tty1 /usr/X11R6/bin/X vt7"
  # XXX i'm planning to absorb this file into kdmrc, but i'm not sure how to
  # do this best.
@@ -9,16 +9,22 @@
  # Where KDM should store its PID. Default is "" (don't store)
  PidFile=/var/run/kdm.pid
  # Whether KDM should lock the pid file to prevent having multiple KDM
-@@ -103,7 +103,7 @@
+@@ -81,12 +81,12 @@
+ #Port=177
+ # File with the private keys of X-terminals. Required for XDM authentication.
+ # Default is ""
+-#KeyFile=/usr/X11R6/share/config/kdm/kdmkeys
++#KeyFile=/etc/X11/kdm/kdmkeys
+ # XDMCP access control file in the usual XDM-Xaccess format.
  # Default is /usr/X11R6/share/config/kdm/Xaccess
  # XXX i'm planning to absorb this file into kdmrc, but i'm not sure how to
  # do this best.
--Xaccess=/usr/X11R6/share/config/kdm/Xaccess
+-#Xaccess=
 +Xaccess=/etc/X11/kdm/Xaccess
  # Number of seconds to wait for display to respond after the user has
  # selected a host from the chooser. Default is 15.
  #ChoiceTimeout=10
-@@ -116,7 +116,7 @@
+@@ -99,7 +99,7 @@
  # The program which is invoked to dynamically generate replies to XDMCP
  # BroadcastQuery requests.
  # By default no program is invoked and "Willing to manage" is sent.
@@ -27,7 +33,7 @@
  
  [Shutdown]
  # The command to run to halt the system. Default is /sbin/halt
-@@ -191,20 +191,20 @@
+@@ -174,20 +174,20 @@
  # A program to run before the greeter is shown. You should start kdmdesktop
  # there. Also, xconsole can be started by this script.
  # Default is ""
@@ -52,12 +58,21 @@
  # The program to run if Session fails.
  # Default is /usr/X11R6/bin/xterm
  #FailsafeClient=
-@@ -255,14 +255,14 @@
- #DefaultSdMode=ForceNow
+@@ -223,7 +223,7 @@
+ AllowShutdown=Root
+ # Who is allowed to abort all still running sessions when shutting down.
+ # Same options as for AllowShutdown. Default is All
+-#AllowSdForceNow=Root
++AllowSdForceNow=Root
+ # The default choice for the shutdown condition/timing.
+ # "Schedule" - shutdown after all sessions exit (possibly at once) (Default)
+ # "TryNow" - shutdown, if no sessions are open, otherwise do nothing
+@@ -238,14 +238,14 @@
+ #InteractiveSd=false
  # Where (relatively to the user's home directory) to store the last
  # selected session. Default is .wmrc
 -#SessSaveFile=
-+SessSaveFile=.kdmrc
++#SessSaveFile=.kdmrc
  
  # Greeter config for all displays
  [X-*-Greeter]
@@ -65,34 +80,13 @@
  # "failsafe" listed herein, which is also the default.
  # Note, that the meaning of this value is entirely up to your Session program.
 -SessionTypes=default,kde,failsafe
-+SessionTypes=default,kde,gnome,failsafe
++SessionTypes=default,kde,gnome,twm,failsafe
  # Widget Style of the greeter:
  # Default, Windows, Platinum, Motif, MotifPlus, CDE, SGI, and any styles you
  # may have installed, e.g., HighColor; Default is "Default"
-@@ -282,7 +282,7 @@
- # - %m -> the machine (hardware) type
- # - %% -> a single %
- # Default is "Welcome to %s at %n"
--#GreetString=K Desktop Environment (%n)
-+GreetString=Welcome to PLD Linux at %n
- # The font for the headline. Default is charter,24,bold
- #GreetFont=charter,24,5,0,50,0
- # The normal font used in the greeter. Default is helvetica,12
-@@ -317,7 +317,7 @@
- HiddenUsers=adm,alias,amanda,apache,bin,bind,daemon,exim,falken,ftp,games,gdm,gopher,halt,httpd,ident,ingres,kmem,lp,mail,mailnull,man,mta,mysql,named,news,nfsnobody,nobody,nscd,ntp,operator,pcap,pop,postfix,postgres,qmaild,qmaill,qmailp,qmailq,qmailr,qmails,radvd,reboot,rpc,rpcuser,rpm,sendmail,shutdown,squid,sympa,sync,tty,uucp,xfs,xten
- # Special case of HiddenUsers: users with a UID less than this number
- # (except root) will not be shown as well. Default is 0
--#MinShowUID=1000
-+MinShowUID=500
- # Complement to MinShowUID: users with a UID greater than this number will
- # not be shown as well. Default is 65535
- #MaxShowUID=29999
-@@ -349,11 +349,11 @@
- # How long to wait for a local X-server to come up. Default is 15
- #ServerTimeout=
+@@ -357,9 +357,9 @@
  # See above
--AllowShutdown=All
-+AllowShutdown=None
+ AllowShutdown=All
  # See above
 -AllowRootLogin=true
 +AllowRootLogin=false
@@ -102,11 +96,3 @@
  # Enable password-less logins on this display. USE WITH EXTREME CARE!
  # Default is false
  #NoPassEnable=true
-@@ -377,6 +377,7 @@
- # active ServerLayout section of XF86Config. -1 means to use the upper-left
- # screen. Default is 0
- #GreeterScreen=-1
-+AllowShutdown=Root
- 
- # Core config for 1st local display
- [X-:0-Core]
