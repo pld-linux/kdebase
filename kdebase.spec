@@ -4,7 +4,7 @@ Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Summary(pt_BR):	K Desktop Environment - arquivos básicos
 Name:		kdebase
 Version:	2.2.2
-Release:	0.1
+Release:	1
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
