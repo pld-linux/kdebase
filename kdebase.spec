@@ -176,11 +176,11 @@ Summary:	Include files to develop KDE applications
 Summary(pl):	Pliki nag³ówkowe potrzebne do programowania
 Summary(pt_BR):	Arquivos de inclusão para compilar aplicativos que usem bibliotecas do kdebase
 Group:		X11/Development/Libraries
-Requires:       %{name} = %{version}-%{release}
-Requires:       %{name}-kicker = %{version}-%{release}
-Requires:       %{name}-ksysguard = %{version}-%{release}
+Requires:       %{name} = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kicker = %{epoch}:%{version}-%{release}
+Requires:       %{name}-ksysguard = %{epoch}:%{version}-%{release}
 Requires:	kdelibs-devel >= %{version}
-Requires:	%{name}-libkate = %{version}-%{release}
+Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
 
 %description devel
 This package contains header files needed to develop KDE applications.
@@ -213,7 +213,7 @@ Bibliotecas estáticas do kdebase.
 Summary:        KDE Window Decoration - B2
 Summary(pl):    Dekoracja okna dla KDE - B2
 Group:          X11/Amusements
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = %{epoch}:%{version}-%{release}
 
 %description -n kde-decoration-b2
 KDE Window Decoration - B2.
@@ -225,7 +225,7 @@ Dekoracja okna dla KDE - B2.
 Summary:        KDE Window Decoration - Laptop
 Summary(pl):    Dekoracja okna dla KDE - Laptop
 Group:          X11/Amusements
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = %{epoch}:%{version}-%{release}
 
 %description -n kde-decoration-laptop
 KDE Window Decoration - Laptop.
@@ -237,7 +237,7 @@ Dekoracja okna dla KDE - Laptop.
 Summary:        KDE Window Decoration - ModernSys
 Summary(pl):    Dekoracja okna dla KDE - ModernSys
 Group:          X11/Amusements
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = %{epoch}:%{version}-%{release}
 
 %description -n kde-decoration-modernsys
 KDE Window Decoration - ModernSys.
@@ -249,7 +249,7 @@ Dekoracja okna dla KDE - ModernSys.
 Summary:        KDE Window Decoration - Quartz
 Summary(pl):    Dekoracja okna dla KDE - Quartz
 Group:          X11/Amusements
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = %{epoch}:%{version}-%{release}
 
 %description -n kde-decoration-quartz
 KDE Window Decoration - Quartz.
@@ -261,7 +261,7 @@ Dekoracja okna dla KDE - Quartz.
 Summary:        KDE Window Decoration - Redmond
 Summary(pl):    Dekoracja okna dla KDE - Redmond
 Group:          X11/Amusements
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = %{epoch}:%{version}-%{release}
 
 %description -n kde-decoration-redmond
 KDE Window Decoration - Redmond.
@@ -273,7 +273,7 @@ Dekoracja okna dla KDE - Redmond.
 Summary:        KDE Window Decoration - KDE 1
 Summary(pl):    Dekoracja okna dla KDE - KDE 1
 Group:          X11/Amusements
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = %{epoch}:%{version}-%{release}
 
 
 %description -n kde-decoration-kde1
@@ -286,7 +286,7 @@ Dekoracja okna dla KDE - KDE 1.
 Summary:        KDE Window Decoration - Kstep
 Summary(pl):    Dekoracja okna dla KDE - Kstep
 Group:          X11/Amusements
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = %{epoch}:%{version}-%{release}
 
 %description -n kde-decoration-kstep
 KDE Window Decoration - Kstep.
@@ -298,7 +298,7 @@ Dekoracja okna dla KDE - Kstep.
 Summary:        Extensions for KDE IceWM decoration
 Summary(pl):    Rozszerzenie dekoracji okna "IceWM" dla KDE
 Group:          X11/Amusements
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = %{epoch}:%{version}-%{release}
 
 %description -n kde-decoration-icewm
 Extensions for KDE "IceWM" decoration.
@@ -309,7 +309,7 @@ Rozszerzenie dekoracji okna IceWM dla KDE.
 %package -n kde-decoration-riscos
 Summary:        KDE Window Decoration - Risc OS
 Summary(pl):    Dekoracja okna dla KDE - Risc OS
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = %{epoch}:%{version}-%{release}
 Group:          X11/Amusements
 
 %description -n kde-decoration-riscos
@@ -322,7 +322,7 @@ Dekoracja okna dla KDE - Risc OS.
 Summary:        KDE Window Decoration - System
 Summary(pl):    Dekoracja okna dla KDE - System
 Group:          X11/Amusements
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = %{epoch}:%{version}-%{release}
 
 %description -n kde-decoration-system
 KDE Window Decoration - System.
@@ -334,7 +334,7 @@ Dekoracja okna dla KDE - System.
 Summary:        KDE Window Decoration - Web
 Summary(pl):    Dekoracja okna dla KDE - Web
 Group:          X11/Amusements
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = %{epoch}:%{version}-%{release}
 
 %description -n kde-decoration-web
 KDE Window Decoration - Web.
@@ -376,7 +376,7 @@ Standardowy obrazek startowy KDE.
 Summary:	Common Files for kate and konqueror
 Summary(pl):	Pliki wspólne dla kate i konquerora
 Group:		X11/Libraries
-Requires:	%{name}-common-konsole = %{version}-%{release}
+Requires:	%{name}-common-konsole = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name} < 3.0.9-2.4
 
 %description common-filemanagement
@@ -429,7 +429,7 @@ Podstawowe aplikacje ¶rodowiska KDE. Pakiet ten zawiera:
 Summary:        KDE Info Center
 Summary(pl):    Centrum informacji o systemie dla KDE
 Group:          X11/Applications
-Requires:       %{name}-core = %{version}-%{release}
+Requires:       %{name}-core = %{epoch}:%{version}-%{release}
 
 %description infocenter
 KDE Info Center.
@@ -454,8 +454,8 @@ Narzêdzie do aktualizacji menu.
 Summary:	KDE Advanced Text Editor
 Summary(pl):	Zaawansowany edytor tekstu dla KDE
 Group:		X11/Applications/Editors
-Requires:	%{name}-common-filemanagement = %{version}-%{release}
-Requires:       %{name}-libkate = %{version}-%{release}
+Requires:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
+Requires:       %{name}-libkate = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	kate
 
@@ -469,7 +469,7 @@ Zaawansowany edytor tekstu dla KDE.
 Summary:	KDE Fax Tool
 Summary(pl):	Narzêdzie do faksowania dla KDE
 Group:		X11/Applications
-Requires:	%{name}-core = %{version}-%{release}
+Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	efax
 Requires:	enscript
 Obsoletes:	%{name} <= 3.1-9
@@ -498,7 +498,7 @@ pow³oki.
 Summary:	KDE Find Tool
 Summary(pl):	Narzêdzie do wyszukiwania plików dla KDE
 Group:		X11/Applications
-Requires:	%{name}-core = %{version}-%{release}
+Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	kdelibs >= %{version}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	kfind
@@ -513,8 +513,8 @@ Narzêdzie do wyszukiwania plików dla KDE.
 Summary:        KDE Panel - kicker
 Summary(pl):    Panel KDE - kicker
 Group:          X11/Applications
-Requires:       %{name}-kmenuedit = %{version}-%{release}
-Requires:       %{name}-libkonq = %{version}-%{release}
+Requires:       %{name}-kmenuedit = %{epoch}:%{version}-%{release}
+Requires:       %{name}-libkonq = %{epoch}:%{version}-%{release}
 
 %description kicker
 KDE Panel - kicker.
@@ -526,7 +526,7 @@ Panel KDE - kicker.
 Summary:        Print Job Viewer
 Summary(pl):    Podgl±d zadañ drukowania
 Group:          X11/Applications
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = %{epoch}:%{version}-%{release}
 
 %description kjobviewer
 KDE Print Job Viewer.
@@ -538,7 +538,7 @@ Podgl±d zadañ drukowania dla KDE.
 Summary:        Clipboard Tool
 Summary(pl):    Narzêdzie schowka
 Group:          X11/Applications
-Requires:       %{name}-kicker = %{version}-%{release}
+Requires:       %{name}-kicker = %{epoch}:%{version}-%{release}
 
 %description klipper
 KDE Clipboard Tool.
@@ -550,7 +550,7 @@ Narzêdzie schowka dla KDE.
 Summary:        Menu Editor
 Summary(pl):    Edytor menu
 Group:          X11/Applications
-Requires:       %{name}-core = %{version}-%{release}
+Requires:       %{name}-core = %{epoch}:%{version}-%{release}
 
 %description kmenuedit
 KDE Menu Editor.
@@ -562,8 +562,8 @@ Edytor menu KDE.
 Summary:	KDE Terminal Emulator
 Summary(pl):	Emulator terminala dla KDE
 Group:		X11/Applications
-Requires:	%{name}-common-konsole = %{version}-%{release}
-Requires:	%{name}-core = %{version}-%{release}
+Requires:	%{name}-common-konsole = %{epoch}:%{version}-%{release}
+Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	konsole
 
@@ -590,7 +590,7 @@ Prze³±cznik biurek dla KDE.
 Summary:        System Guard
 Summary(pl):    Stra¿nik systemu
 Group:          X11/Applications
-Requires:       %{name}-core = %{version}-%{release}
+Requires:       %{name}-core = %{epoch}:%{version}-%{release}
 
 %description ksysguard
 KDE System Guard.
@@ -602,7 +602,7 @@ Stra¿nik systemu dla KDE.
 Summary:        A tool that allows running applications in taskbar.
 Summary(pl):    Narzêdzie do odpalania aplikacji w pasku zadañ.
 Group:          X11/Applications
-Requires:       %{name}-kicker = %{version}-%{release}
+Requires:       %{name}-kicker = %{epoch}:%{version}-%{release}
 
 %description ksystraycmd
 KSysTrayCmd is a utility that allows you to run any application you
@@ -617,7 +617,7 @@ wyposa¿one w tak± w³a¶ciwo¶æ.
 Summary:        Desktop Theme Manager
 Summary(pl):	Zarz±dca motywów biurka
 Group:          X11/Applications
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = %{epoch}:%{version}-%{release}
 
 %description kwmtheme
 KDE Desktop Theme Manager. This package contains also a few desktop
@@ -630,8 +630,8 @@ Zarz±dca motywów biurka KDE. Ten pakiet zawiera równie¿ kilka motywów.
 Summary:	KDE Text Editor
 Summary(pl):	Edytor tekstu dla KDE
 Group:		X11/Applications/Editors
-Requires:       %{name}-core = %{version}-%{release}
-Requires:       %{name}-libkate = %{version}-%{release}
+Requires:       %{name}-core = %{epoch}:%{version}-%{release}
+Requires:       %{name}-libkate = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	kwrite
 
@@ -658,7 +658,7 @@ Demon zapisu KDE.
 Summary:        A libraries for KDE text editors
 Summary(pl):    Biblioteki dla edytorów teksu KDE
 Group:          X11/Libraries
-Requires:       %{name}-libkmultitabbar = %{version}-%{release}
+Requires:       %{name}-libkmultitabbar = %{epoch}:%{version}-%{release}
 Obsoletes:      %{name}-kate < 3.1.2-1
 
 %description libkate
@@ -713,7 +713,7 @@ Summary(pl):	Wygaszacze ekranu desktopu KDE
 Summary(ru):	ÈÒÁÎÉÔÅÌÉ ÜËÒÁÎÁ ÄÌÑ KDE
 Summary(uk):	ÚÂÅÒ¦ÇÁÞ¦ ÅËÒÁÎÕ ÄÌÑ KDE
 Group:		X11/Applications
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description screensavers
 KDE screensavers.
@@ -730,7 +730,7 @@ Summary(pl):	Zarz±dca ekranów KDE
 Group:		X11/Applications
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
-Requires:	%{name}-core = %{version}-%{release}
+Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	sessreg
 Requires:	xinitrc
 Obsoletes:	gdm
@@ -749,11 +749,11 @@ Zamiennik XDM rodem z KDE. Zarz±dza lokalnymi i zdalnymi ekranami X11.
 Summary:	Konqueror - web browser and file manager
 Summary(pl):	Konqueror - przegl±darka WWW i zarz±dca plików
 Group:		X11/Applications
-Requires:       %{name}-common-filemanagement = %{version}-%{release}
-Requires:       %{name}-konsole = %{version}-%{release}
-Requires:       %{name}-libkonq = %{version}-%{release}
-Requires:       %{name}-libkmultitabbar = %{version}-%{release}
-Requires:       %{name}-mailnews = %{version}-%{release}
+Requires:       %{name}-common-filemanagement = %{epoch}:%{version}-%{release}
+Requires:       %{name}-konsole = %{epoch}:%{version}-%{release}
+Requires:       %{name}-libkonq = %{epoch}:%{version}-%{release}
+Requires:       %{name}-libkmultitabbar = %{epoch}:%{version}-%{release}
+Requires:       %{name}-mailnews = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name}-konqueror
 
 %description -n konqueror
