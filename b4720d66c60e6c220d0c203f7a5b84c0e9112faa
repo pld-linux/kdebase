@@ -1,0 +1,4 @@
+- Partially reverted last changes - kcheckpass & kdesktop_lock subpackages
+  moved to main package (there's no sense to separate them, because screensavers
+  subpackage seems to never work as standalone app)
+- Release 4.1 - there is problem with screen unlocking - so NFY, DNT!
