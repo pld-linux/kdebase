@@ -1,0 +1,199 @@
+--- kdebase-3.1/kcontrol/kdm/background.cpp.orig	Wed Sep 25 14:51:07 2002
++++ kdebase-3.1/kcontrol/kdm/background.cpp	Thu Nov 21 02:56:54 2002
+@@ -54,7 +54,7 @@
+ 		" This is done by running some program (possibly xsetroot) in the script"
+ 		" specified in the Setup= option in kdmrc (usually Xsetup).") );
+     config->setGroup( "X-*-Greeter" );
+-    m_simpleConf=new KSimpleConfig(config->readEntry( "BackgroundCfg",KDE_CONFDIR "/kdm/backgroundrc" ) );
++    m_simpleConf=new KSimpleConfig(config->readEntry( "BackgroundCfg","/etc/X11/kdm/backgroundrc" ) );
+     m_background = new Backgnd( this, m_simpleConf, false );
+     connect(m_background, SIGNAL(changed(bool)), SLOT(moduleChanged(bool)));
+
+--- kdebase-3.1/kcontrol/kdm/kdm-appear.cpp.orig	Mon Nov 18 14:14:28 2002
++++ kdebase-3.1/kcontrol/kdm/kdm-appear.cpp	Thu Nov 21 03:56:35 2002
+@@ -447,7 +447,7 @@
+   config->setGroup("X-*-Greeter");
+ 
+   // Read the greeting string
+-  greetstr_lined->setText(config->readEntry("GreetString", i18n("Welcome to %s at %n")));
++  greetstr_lined->setText(config->readEntry("GreetString", i18n("Welcome to PLD Linux at %n")));
+ 
+   // Regular logo or clock
+   QString logoArea = config->readEntry("LogoArea", "Logo" );
+@@ -466,10 +466,10 @@
+   setLogo( config->readEntry("LogoPixmap", ""));
+ 
+   // Check the GUI type
+-  guicombo->setCurrentItem (config->readEntry("GUIStyle", "Default"), true, 0);
++  guicombo->setCurrentItem (config->readEntry("GUIStyle", "Keramik"), true, 0);
+ 
+   // Check the Color Scheme
+-  colcombo->setCurrentItem (config->readEntry("ColorScheme", "Default"), true, 0);
++  colcombo->setCurrentItem (config->readEntry("ColorScheme", "Keramik"), true, 0);
+ 
+   // Check the echo mode
+   QString echostr = config->readEntry("EchoMode", "OneStar");
+--- kdebase-3.1/kcontrol/kdm/main.cpp.orig	Sun Oct 27 00:05:07 2002
++++ kdebase-3.1/kcontrol/kdm/main.cpp	Thu Nov 21 02:51:19 2002
+@@ -92,7 +92,7 @@
+     usermap.insert( QString::fromLocal8Bit( ps->pw_name ), ps->pw_uid );
+   endpwent();
+ 
+-  config = new KSimpleConfig( QString::fromLatin1( KDE_CONFDIR "/kdm/kdmrc" ));
++  config = new KSimpleConfig( QString::fromLatin1( "/etc/X11/kdm/kdmrc" ));
+ 
+   QVBoxLayout *top = new QVBoxLayout(this);
+   tab = new QTabWidget(this);
+--- kdebase-3.1/kdm/kfrontend/Makefile.am.orig	Sun Oct 27 00:05:49 2002
++++ kdebase-3.1/kdm/kfrontend/Makefile.am	Wed Nov 20 23:26:39 2002
+@@ -30,8 +30,8 @@
+ genkdmconf_LDADD = $(LIB_X11)
+ 
+ install-data-local: genkdmconf
+-	@$(mkinstalldirs) $(DESTDIR)$(kde_confdir)/kdm
+-	@./genkdmconf --in $(DESTDIR)$(kde_confdir)/kdm
++	@$(mkinstalldirs) $(DESTDIR)/etc/X11/kdm
++	@./genkdmconf --no-old --in $(DESTDIR)/etc/X11/kdm
+ 
+ messages:
+ 	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
+--- kdebase-3.1/kdm/kfrontend/Makefile.in.orig	Mon Nov 18 22:22:07 2002
++++ kdebase-3.1/kdm/kfrontend/Makefile.in	Wed Nov 20 23:47:04 2002
+@@ -786,8 +786,8 @@
+ 
+ 
+ install-data-local: genkdmconf
+-	@$(mkinstalldirs) $(DESTDIR)$(kde_confdir)/kdm
+-	@./genkdmconf --in $(DESTDIR)$(kde_confdir)/kdm
++	@$(mkinstalldirs) $(DESTDIR)/etc/X11/kdm
++	@./genkdmconf --no-old --in $(DESTDIR)/etc/X11/kdm
+ 
+ messages:
+ 	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
+--- kdebase-3.1/kdm/kfrontend/genkdmconf.c.orig	Mon Oct 28 10:55:24 2002
++++ kdebase-3.1/kdm/kfrontend/genkdmconf.c	Thu Nov 21 03:41:28 2002
+@@ -56,7 +56,7 @@
+ 
+ #define as(ar) ((int)(sizeof(ar)/sizeof(ar[0])))
+ 
+-#define KDMCONF KDE_CONFDIR "/kdm"
++#define KDMCONF  "/etc/X11/kdm"
+ 
+ #define RCVERMAJOR 2
+ #define RCVERMINOR 0
+@@ -1816,18 +1816,18 @@
+ "# this opens a security hole: a secured display lock can be circumvented\n"
+ "# (unless you use KDE's built-in screen lock). Default is false\n" },
+ { "AllowRootLogin",	0, 0, 
+-"# Allow root logins? Default is true\n" },
++"# Allow root logins? Default is false\n" },
+ { "AllowNullPasswd",	0, 0, 
+-"# Allow to log in, when user has set an empty password? Default is true\n" },
++"# Allow to log in, when user has set an empty password? Default is false\n" },
+ { "AllowShutdown",	0, 0, 
+ "# Who is allowed to shut down the system. This applies both to the\n"
+ "# greeter and to the command FiFo. Default is All\n"
+ "# \"None\" - no \"Shutdown...\" button is shown at all\n"
+-"# \"Root\" - the root password must be entered to shut down\n"
+-"# \"All\" - everybody can shut down the machine (Default)\n" },
++"# \"Root\" - the root password must be entered to shut down (Default)\n"
++"# \"All\" - everybody can shut down the machine\n" },
+ { "AllowSdForceNow",	0, 0, 
+ "# Who is allowed to abort all still running sessions when shutting down.\n"
+-"# Same options as for AllowShutdown. Default is All\n" },
++"# Same options as for AllowShutdown. Default is Root\n" },
+ { "DefaultSdMode",	0, 0, 
+ "# The default choice for the shutdown condition/timing.\n"
+ "# \"Schedule\" - shutdown after all sessions exit (possibly at once) (Default)\n"
+@@ -1842,7 +1842,7 @@
+ "# option!), i.e., KDM will behave exactly as before KDE 3.0.\n" }, 
+ { "SessSaveFile",	0, 0, 
+ "# Where (relatively to the user's home directory) to store the last\n"
+-"# selected session. Default is .wmrc\n" },
++"# selected session. Default is .kdmrc\n" },
+ { "ServerAttempts",	0, 0, 
+ "# How often to try to run the X-server. Running includes executing it and\n"
+ "# waiting for it to come up. Default is 1\n" },
+@@ -1910,7 +1910,7 @@
+ "# - %r -> the operating system's version\n"
+ "# - %m -> the machine (hardware) type\n"
+ "# - %% -> a single %\n"
+-"# Default is \"Welcome to %s at %n\"\n" },
++"# Default is \"Welcome to PLD Linux at %n\"\n" },
+ { "GreetFont",		0, 0, 
+ "# The font for the headline. Default is charter,24,bold\n" },
+ { "StdFont",		0, 0, 
+@@ -2106,10 +2106,10 @@
+ { "UserAuthDir",	"", 0 },
+ { "Chooser",		"", 0 },	/* XXX kill */
+ { "AutoReLogin",	"true", 0 },
+-{ "AllowRootLogin",	"false", 1 },
+-{ "AllowNullPasswd",	"false", 1 },
+-{ "AllowShutdown",	"Root", 1 },
+-{ "AllowSdForceNow",	"Root", 0 },
++{ "AllowRootLogin",	"true", 0 },
++{ "AllowNullPasswd",	"true", 0 },
++{ "AllowShutdown",	"All", 0 },
++{ "AllowSdForceNow",	"All", 0 },
+ { "DefaultSdMode",	"ForceNow", 0}, 
+ { "InteractiveSd",	"false", 0}, 
+ { "SessSaveFile",	"", 0 },	/* XXX .dmrc */
+@@ -2152,8 +2152,8 @@
+ { "ServerAttempts",	"", 0 },
+ { "ServerTimeout",	"", 0 },
+ { "AllowShutdown",	"All", 1 },
+-{ "AllowRootLogin",	"true", 1 },
+-{ "AllowNullPasswd",	"true", 1 },
++{ "AllowRootLogin",	"true", 0 },
++{ "AllowNullPasswd",	"true", 0 },
+ { "NoPassEnable",	"true", 0 },
+ { "NoPassUsers",	"fred,ethel", 0 },
+ };
+--- kdebase-3.1/kdm/kfrontend/kdm_config.c.orig	Sun Oct 27 00:05:55 2002
++++ kdebase-3.1/kdm/kfrontend/kdm_config.c	Wed Nov 20 22:09:09 2002
+@@ -38,7 +38,7 @@
+ #include <netdb.h>
+ #include <grp.h>
+ 
+-#define KDMCONF KDE_CONFDIR "/kdm"
++#define KDMCONF "/etc/X11/kdm"
+ 
+ 
+ /*
+@@ -519,11 +519,11 @@
+ { "AutoLoginSession",	C_autoString,	(void *)PautoLoginX,	"" },
+ { "AutoLogin1st",	C_autoLogin1st | C_BOOL, 0,	"true" },
+ { "AutoReLogin",	C_autoReLogin | C_BOOL,	0,	"false" },
+-{ "AllowNullPasswd",	C_allowNullPasswd | C_BOOL, 0,	"true" },
+-{ "AllowRootLogin",	C_allowRootLogin | C_BOOL, 0,	"true" },
+-{ "SessSaveFile",	C_sessSaveFile,		0,	".wmrc" },
+-{ "AllowShutdown",	C_allowShutdown | C_ENUM, sd_who, "All" },
+-{ "AllowSdForceNow",	C_allowNuke | C_ENUM, sd_who,	"All" },
++{ "AllowNullPasswd",	C_allowNullPasswd | C_BOOL, 0,	"false" },
++{ "AllowRootLogin",	C_allowRootLogin | C_BOOL, 0,	"false" },
++{ "SessSaveFile",	C_sessSaveFile,		0,	".kdmrc" },
++{ "AllowShutdown",	C_allowShutdown | C_ENUM, sd_who, "Root" },
++{ "AllowSdForceNow",	C_allowNuke | C_ENUM, sd_who,	"Root" },
+ { "DefaultSdMode",	C_defSdMode | C_ENUM, sd_mode,	"Schedule" },
+ { "InteractiveSd",	C_interactiveSd | C_BOOL, 0,	"true" },
+ };
+@@ -540,7 +540,7 @@
+ { "GreeterScreen",	C_GreeterScreen,	0,	"0" },
+ { "StdFont",		C_StdFont,		0,	"helvetica,12,5,0,50,0" },
+ { "FailFont",		C_FailFont,		0,	"helvetica,12,5,0,75,0" },
+-{ "GreetString",	C_GreetString,		0,	"Welcome to %s at %n" },
++{ "GreetString",	C_GreetString,		0,	"Welcome to PLD Linux at %n" },
+ { "GreetFont",		C_GreetFont,		0,	"charter,24,5,0,50,0" },
+ { "AntiAliasing",	C_AntiAliasing | C_BOOL,0,	"false" },
+ { "NumLock",		C_NumLock | C_ENUM, numlock,	"Keep" },
+--- kdebase-3.1/kdm/kfrontend/kgreeter.cpp.orig	Mon Oct 28 10:55:24 2002
++++ kdebase-3.1/kdm/kfrontend/kgreeter.cpp	Wed Nov 20 22:43:56 2002
+@@ -256,7 +256,7 @@
+ 
+     UpdateLock();
+ 
+-    stsfile = new KSimpleConfig( QString::fromLatin1(KDE_CONFDIR "/kdm/kdmsts") ); // XXX get from kdm_config
++    stsfile = new KSimpleConfig( QString::fromLatin1("/etc/X11/kdm/kdmsts") ); // XXX get from kdm_config
+     stsfile->setGroup( "PrevUser" );
+     enam = QString::fromLocal8Bit( dname );
+     if (kdmcfg->_preselUser != PRESEL_PREV)
