@@ -261,9 +261,11 @@ make \
 	localedir="$RPM_BUILD_ROOT/usr/X11R6/share/locale" \
 	install
 
-install -d ${RPM_BUILD_ROOT}/etc/X11/kde
+install -d $RPM_BUILD_ROOT/etc/X11/kde
 
-install ${RPM_SOURCE_DIR}/kdeenv $RPM_BUILD_ROOT%{_bindir}/kdeenv
+install $RPM_SOURCE_DIR/kdeenv $RPM_BUILD_ROOT%{_bindir}/kdeenv
+
+strip --strip-unneeded $RPM_BUILD_ROOT%{_bindir}/* || :
 
 #### kdebase - main package find_lang
 %find_lang krootwm krootwm.lang
