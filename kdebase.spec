@@ -562,6 +562,10 @@ done
 
 bzip2 -dc %{SOURCE8} | tar xf - -C $RPM_BUILD_ROOT
 
+for i in /usr/X11R6/share/locale/*/LC_MESSAGES/*.mo ; do
+	[ "`file $f | sed -e 's/.*,//' -e 's/message.*//'`" -le 1 ] && rm -f $f
+done
+
 :> %{name}.lang
 
 programs=" \
