@@ -4,7 +4,7 @@
 # * Adding %%doc to subpkgs
 #
 # Conditional build:
-%bcond_without	i18n	# don't build i18n packages per module 
+%bcond_without	i18n	# don't build i18n packages per module
 %bcond_without	ldap	# build without LDAP support
 #
 %define		_state		stable
@@ -26,7 +26,7 @@ Release:	5
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_ver}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{version}.tar.bz2
 #Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
 # Source0-md5:	9d05be3ccd6cc0294d6153e5d4dfa63a
 Source1:	%{name}-kdesktop.pam
@@ -43,7 +43,7 @@ Source12:	http://ep09.pld-linux.org/~adgor/kde/%{name}-splash-Default-PLD-0.2.ta
 Source13:	http://ep09.pld-linux.org/~adgor/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
 %if %{with i18n}
-Source14:       http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
+Source14:	http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
 # Source14-md5:	30848effd6e53fb459a620a50f761b85
 %endif
 Patch0:		%{name}-3.2branch.diff
@@ -276,10 +276,10 @@ Default classic KDE splashscreen.
 Domy¶lny klasyczny ekran startowy KDE.
 
 %package -n kde-splash-blue-bend
-Summary:        KDE blue-bend splashscreen
-Summary(pl):    Ekran startowy KDE blue-bend
-Group:          X11/Amusements
-Requires:       %{name}-desktop = %{epoch}:%{version}-%{release}
+Summary:	KDE blue-bend splashscreen
+Summary(pl):	Ekran startowy KDE blue-bend
+Group:		X11/Amusements
+Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
 %description -n kde-splash-blue-bend
 KDE blue-bend splashscreen.
@@ -1284,7 +1284,7 @@ Pliki umiêdzynarodawiaj±ce dla mailnews.
 
 
 %build
-cp /usr/share/automake/config.sub admin
+cp %{_datadir}/automake/config.sub admin
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
@@ -1305,17 +1305,17 @@ rm -rf $RPM_BUILD_ROOT
 	kde_htmldir=%{_kdedocdir}
 
 install -d \
-	$RPM_BUILD_ROOT/etc/{X11/kdm/faces,pam.d,rc.d/init.d,security} \
+	$RPM_BUILD_ROOT%{_sysconfdir}/{X11/kdm/faces,pam.d,rc.d/init.d,security} \
 	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
 
 # Backup generated Xsession file (we have own one)
-mv $RPM_BUILD_ROOT/etc/X11/kdm/Xsession{,.orig}
+mv $RPM_BUILD_ROOT%{_sysconfdir}/X11/kdm/Xsession{,.orig}
 
 # Install miscleanous PLD files
-install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
-install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
-install %{SOURCE3}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
-install %{SOURCE4}	$RPM_BUILD_ROOT/etc/X11/kdm/Xsession
+install %{SOURCE1}	$RPM_BUILD_ROOT%{_sysconfdir}/pam.d/kdesktop
+install %{SOURCE2}	$RPM_BUILD_ROOT%{_sysconfdir}/pam.d/kdm
+install %{SOURCE3}	$RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/kdm
+install %{SOURCE4}	$RPM_BUILD_ROOT%{_sysconfdir}/X11/kdm/Xsession
 install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
 install %{SOURCE8}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/ircpld.desktop
@@ -1323,16 +1323,16 @@ install %{SOURCE9}	$RPM_BUILD_ROOT%{_datadir}/services/searchproviders/specs.des
 install %{SOURCE11}	$RPM_BUILD_ROOT%{_datadir}/apps/kdisplay/color-schemes/QtCurve.kcsrc
 
 # Needed for pam support
-touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
+touch $RPM_BUILD_ROOT%{_sysconfdir}/security/blacklist.kdm
 
 # For fileshare
-touch $RPM_BUILD_ROOT/etc/security/fileshare.conf
+touch $RPM_BUILD_ROOT%{_sysconfdir}/security/fileshare.conf
 
 # Copying default faces to kdm config dir
 cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/default1.png \
-	$RPM_BUILD_ROOT/etc/X11/kdm/faces/.default.face.icon
+	$RPM_BUILD_ROOT%{_sysconfdir}/X11/kdm/faces/.default.face.icon
 cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
-	$RPM_BUILD_ROOT/etc/X11/kdm/faces/root.face.icon
+	$RPM_BUILD_ROOT%{_sysconfdir}/X11/kdm/faces/root.face.icon
 
 # Make PLD splashscreen as default
 cd $RPM_BUILD_ROOT%{_datadir}/apps/ksplash/Themes
@@ -1368,7 +1368,7 @@ UseBackgroundTheme=false
 EOF
 
 # Some order with desktop files
-mv $RPM_BUILD_ROOT%{_datadir}/applnk/System/kinfocenter.desktop \
+mv $RPM_BUILD_ROOT%{_applnkdir}/System/kinfocenter.desktop \
 	$RPM_BUILD_ROOT%{_desktopdir}/kde
 
 mv $RPM_BUILD_ROOT%{_desktopdir}/kde/print{ers,mgr}.desktop
@@ -1740,7 +1740,7 @@ done
 
 durne=`ls -1 *.lang|grep -v _en`
 
-for i in $durne; 
+for i in $durne;
 do
 	echo $i >> control
 	grep -v en\/ $i|grep -v apidocs >> ${i}.1
@@ -1767,7 +1767,7 @@ cat << EOF
  *                                                       *
  * WARNING:                                              *
  * 1) That allows users to write to /etc/samba/smb.conf, *
- * 2) After all - using sperl is not safe.               * 
+ * 2) After all - using sperl is not safe.               *
  *                                                       *
  *********************************************************
 
@@ -1843,37 +1843,69 @@ fi
 
 %if %{with i18n}
 %files core-i18n -f core.lang
+%defattr(644,root,root,755)
 %files desktop-i18n -f kdebase.lang
+%defattr(644,root,root,755)
 %files infocenter-i18n -f kinfocenter.lang
+%defattr(644,root,root,755)
 %files kate-i18n -f kate.lang
+%defattr(644,root,root,755)
 %files kfind-i18n -f kfind.lang
+%defattr(644,root,root,755)
 %files kfontinst-i18n -f kcmfontinst.lang
+%defattr(644,root,root,755)
 %files kicker-i18n -f kicker.lang
+%defattr(644,root,root,755)
 %files klipper-i18n -f klipper.lang
+%defattr(644,root,root,755)
 %files kmenuedit-i18n -f kmenuedit.lang
+%defattr(644,root,root,755)
 %files konsole-i18n -f konsole.lang
+%defattr(644,root,root,755)
 %files kpager-i18n -f kpager.lang
+%defattr(644,root,root,755)
 %files ksysguard-i18n -f ksysguard.lang
+%defattr(644,root,root,755)
 %files kwrite-i18n -f kwrite.lang
+%defattr(644,root,root,755)
 %files screensavers-i18n -f screensaver.lang
+%defattr(644,root,root,755)
 %files -n kdm-i18n -f kdm.lang
+%defattr(644,root,root,755)
 %files -n konqueror-i18n -f konqueror.lang
+%defattr(644,root,root,755)
 %files i18n -f i18n.lang
+%defattr(644,root,root,755)
 %files -n kde-decoration-b2-i18n -f kwin_b2_config.lang
+%defattr(644,root,root,755)
 %files -n kde-decoration-modernsys-i18n -f kwin_modernsys_config.lang
+%defattr(644,root,root,755)
 %files -n kde-decoration-quartz-i18n -f kwin_quartz_config.lang
+%defattr(644,root,root,755)
 %files common-filemanagement-i18n -f kcmfileshare.lang
+%defattr(644,root,root,755)
 %files desktop-libs-i18n -f ksplashthemes.lang
+%defattr(644,root,root,755)
 %files kappfinder-i18n -f kappfinder.lang
+%defattr(644,root,root,755)
 %files kdcop-i18n -f kdcop.lang
+%defattr(644,root,root,755)
 %files kdeprintfax-i18n -f kdeprintfax.lang
+%defattr(644,root,root,755)
 %files kdialog-i18n -f kdialog.lang
+%defattr(644,root,root,755)
 %files kicker-libs-i18n -f libtaskbar.lang
+%defattr(644,root,root,755)
 %files kjobviewer-i18n -f kjobviewer.lang
+%defattr(644,root,root,755)
 %files kpersonalizer-i18n -f kpersonalizer.lang
+%defattr(644,root,root,755)
 %files ksystraycmd-i18n -f ksystraycmd.lang
+%defattr(644,root,root,755)
 %files libkonq-i18n -f libkonq.lang
+%defattr(644,root,root,755)
 %files mailnews-i18n -f mailnews.lang
+%defattr(644,root,root,755)
 %endif
 
 %files devel
@@ -1971,7 +2003,7 @@ fi
 
 %files common-filemanagement
 %defattr(644,root,root,755)
-%ghost /etc/security/fileshare.conf
+%ghost %{_sysconfdir}/security/fileshare.conf
 %attr(755,root,root) %{_bindir}/filesharelist
 %attr(755,root,root) %{_bindir}/fileshareset
 %{_libdir}/kde3/kcm_fileshare.la
@@ -2017,8 +2049,8 @@ fi
 
 %files core -f core_en.lang
 %defattr(644,root,root,755)
-/etc/xdg/menus/applications-merged/kde-essential.menu
-/etc/xdg/menus/kde-settings.menu
+%{_sysconfdir}/xdg/menus/applications-merged/kde-essential.menu
+%{_sysconfdir}/xdg/menus/kde-settings.menu
 %attr(755,root,root) %{_bindir}/drkonqi
 %attr(755,root,root) %{_bindir}/kcminit
 %attr(755,root,root) %{_bindir}/kcmshell
@@ -2136,7 +2168,7 @@ fi
 %files desktop -f %{name}_en.lang
 %defattr(644,root,root,755)
 %doc AUTHORS README README.pam
-%config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdesktop
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/pam.d/kdesktop
 %attr(755,root,root) %{_bindir}/kaccess
 %attr(755,root,root) %{_bindir}/kcheckpass
 %attr(755,root,root) %{_bindir}/kdeeject
@@ -2305,19 +2337,19 @@ fi
 %{_datadir}/wallpapers/blue-bend.jpg
 %{_datadir}/wallpapers/Island-of-Elba.jpg
 %{_datadir}/xsessions/kde.desktop
-%{_datadir}/applnk/.hidden/battery.desktop
-%{_datadir}/applnk/.hidden/bwarning.desktop
-%{_datadir}/applnk/.hidden/cwarning.desktop
-%{_datadir}/applnk/.hidden/kcmkxmlrpcd.desktop
-%{_datadir}/applnk/.hidden/kwinactions.desktop
-%{_datadir}/applnk/.hidden/kwinadvanced.desktop
-%{_datadir}/applnk/.hidden/kwinfocus.desktop
-%{_datadir}/applnk/.hidden/kwinmoving.desktop
-%{_datadir}/applnk/.hidden/power.desktop
-%{_datadir}/applnk/.hidden/randr.desktop
-%{_datadir}/applnk/.hidden/socks.desktop
-%{_datadir}/applnk/.hidden/virtualdesktops.desktop
-%{_datadir}/applnk/.hidden/xinerama.desktop
+%{_applnkdir}/.hidden/battery.desktop
+%{_applnkdir}/.hidden/bwarning.desktop
+%{_applnkdir}/.hidden/cwarning.desktop
+%{_applnkdir}/.hidden/kcmkxmlrpcd.desktop
+%{_applnkdir}/.hidden/kwinactions.desktop
+%{_applnkdir}/.hidden/kwinadvanced.desktop
+%{_applnkdir}/.hidden/kwinfocus.desktop
+%{_applnkdir}/.hidden/kwinmoving.desktop
+%{_applnkdir}/.hidden/power.desktop
+%{_applnkdir}/.hidden/randr.desktop
+%{_applnkdir}/.hidden/socks.desktop
+%{_applnkdir}/.hidden/virtualdesktops.desktop
+%{_applnkdir}/.hidden/xinerama.desktop
 %{_desktopdir}/kde/arts.desktop
 %{_desktopdir}/kde/background.desktop
 %{_desktopdir}/kde/bell.desktop
@@ -2437,7 +2469,7 @@ fi
 
 %files infocenter -f kinfocenter_en.lang
 %defattr(644,root,root,755)
-/etc/xdg/menus/kde-information.menu
+%{_sysconfdir}/xdg/menus/kde-information.menu
 %attr(755,root,root) %{_bindir}/kinfocenter
 %{_libdir}/kde3/kcm_info.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_info.so
@@ -2617,8 +2649,8 @@ fi
 %{_datadir}/apps/naughtyapplet
 %{_datadir}/autostart/panel.desktop
 %{_datadir}/config/kickerrc
-%{_datadir}/applnk/.hidden/kicker_config.desktop
-%{_datadir}/applnk/.hidden/kicker_config_appearance.desktop
+%{_applnkdir}/.hidden/kicker_config.desktop
+%{_applnkdir}/.hidden/kicker_config_appearance.desktop
 %{_desktopdir}/kde/kcmtaskbar.desktop
 %{_desktopdir}/kde/panel.desktop
 %{_desktopdir}/kde/panel_appearance.desktop
@@ -2689,7 +2721,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/konsole.so
 #%{_datadir}/config/konsolerc
 %{_datadir}/services/konsole-script.desktop
-%{_datadir}/applnk/.hidden/kcmkonsole.desktop
+%{_applnkdir}/.hidden/kcmkonsole.desktop
 %{_desktopdir}/kde/konsole*.desktop
 %{_iconsdir}/*/*/apps/konsole.png
 
@@ -2708,7 +2740,7 @@ fi
 
 %files ksysguard -f ksysguard_en.lang
 %defattr(644,root,root,755)
-%config(noreplace) %verify(not size mtime md5) /etc/ksysguarddrc
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/ksysguarddrc
 %attr(755,root,root) %{_bindir}/kpm
 %attr(755,root,root) %{_bindir}/ksysguard
 %attr(755,root,root) %{_bindir}/ksysguardd
@@ -2818,22 +2850,22 @@ fi
 %files -n kdm -f kdm_en.lang
 %defattr(644,root,root,755)
 %doc README.pam kdm/{ChangeLog,README,TODO}
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdm
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kdm
-%attr(754,root,root) /etc/rc.d/init.d/kdm
-%dir /etc/X11/kdm
-%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/kdmrc
-%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/backgroundrc
-%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xreset
-%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xsession
-%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xsetup
-%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xstartup
-%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xwilling
-%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xaccess
-%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xservers
-%dir /etc/X11/kdm/faces
-%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/faces/.default.face.icon
-%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/faces/root.face.icon
+%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/pam.d/kdm
+%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/security/blacklist.kdm
+%attr(754,root,root) %{_sysconfdir}/rc.d/init.d/kdm
+%dir %{_sysconfdir}/X11/kdm
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/X11/kdm/kdmrc
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/X11/kdm/backgroundrc
+%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/X11/kdm/Xreset
+%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/X11/kdm/Xsession
+%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/X11/kdm/Xsetup
+%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/X11/kdm/Xstartup
+%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/X11/kdm/Xwilling
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/X11/kdm/Xaccess
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/X11/kdm/Xservers
+%dir %{_sysconfdir}/X11/kdm/faces
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/X11/kdm/faces/.default.face.icon
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/X11/kdm/faces/root.face.icon
 %attr(755,root,root) %{_bindir}/genkdmconf
 %attr(755,root,root) %{_bindir}/kdm
 %attr(755,root,root) %{_bindir}/kdm_config
