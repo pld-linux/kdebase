@@ -6,7 +6,7 @@
     {
 -      list.append(QString::fromLatin1("/etc/gtk/gtkrc"));
 +      // Keep in sync with gtk+ prefix
-+      list.append("/usr/share/gtk/gtkrc." + QString::fromLatin1(getenv("LANG")).left(2));
++      list.append("/usr/X11R6/share/gtk/gtkrc." + QString::fromLatin1(getenv("LANG")).left(2));
        list.append(QDir::homeDirPath()+"/.gtkrc");
     }
     list.remove(gtkkde);
