@@ -5,9 +5,9 @@
 %bcond_with	kwin_shadow	# experimental support for kwin shadows
 
 %define		_state		stable
-%define		_ver		3.3.1
+%define		_ver		3.3.2
 
-%define		_minlibsevr	9:3.3.1
+%define		_minlibsevr	9:3.3.2
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -20,13 +20,12 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	8
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-Source0:	http://download.kde.org/%{_state}/%{version}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	dd0d9707296f2be143c28a8be21b6e24
-# Source0-size:	19906317
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{_ver}.tar.bz2
+# Source0-md5:	edbd721a2a4970977dfe5f45d9e38923
 #Source0:	http://ftp.pld-linux.org/software/kde/%{name}-%{version}.tar.bz2
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
@@ -44,7 +43,6 @@ Source12:	http://ep09.pld-linux.org/~adgor/kde/%{name}-splash-Default-PLD-0.2.ta
 # Source12-md5:	24f9c6a4b711be36437639c410b400b2
 Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
-Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-fontdir.patch
 Patch2:		%{name}-kcm_background.patch
@@ -65,6 +63,7 @@ Patch17:	%{name}-sasl-includes.patch
 Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
 Patch20:	%{name}-kwin_shadow.patch
+Patch21:	post-3.3.2-%{name}-htmlframes2.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
@@ -373,7 +372,6 @@ Default "Logout" picture with a KDE logo.
 %description -n kde-logoutpic-default -l pl
 Standardowy obrazek okna "Wyloguj" z logiem KDE.
 
-
 %package -n kde-splash-Default-KDE
 Summary:	Default clasic KDE splashscreen
 Summary(pl):	Domy¶lny klasyczny ekran startowy KDE
@@ -399,7 +397,6 @@ KDE splashscreen with standard icons, a KDE 3.3 text and blue background image.
 
 %description -n kde-splash-blue-bend -l pl
 Ekran startowy ze standardowymi ikonami, napisem KDE 3.3 oraz niebieskim t³em.
-
 
 %package -n kde-splashplugin-Redmond
 Summary:	ksplash plugin Redmond
@@ -841,7 +838,6 @@ A library containing functions for the system monitor KSysGuard.
 %description libksgrd -l pl
 Biblioteka zawieraj±ce funkcje monitora systemu - KSysGuard.
 
-
 %package screensavers
 Summary:	KDE screensavers
 Summary(pl):	Wygaszacze ekranu desktopu KDE
@@ -970,7 +966,7 @@ Biblioteki wspó³dzielone konquerora.
 Summary:	API documentation
 Summary(pl):	Dokumentacja API
 Group:		Documentation
-Requires:	kdelibs >= 9:3.2.90 
+Requires:	kdelibs >= 9:3.2.90
 
 %description apidocs
 Annotated reference of konqueror,kate,kicker,kcontrol and other
@@ -987,7 +983,6 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 %prep
 %setup -q
-%patch100 -p1
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -1010,7 +1005,8 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 cd kwin
 %patch20 -p0 -b .shadows
 cd -
-%endif 
+%endif
+%patch21 -p0
 
 %{__sed} -i -e 's/Categories=.*/Categories=Audio;Mixer;/' \
 	kappfinder/apps/Multimedia/alsamixergui.desktop
@@ -1108,7 +1104,7 @@ cd -
 %{?with_apidocs:%{__make} apidox}
 
 %install
-rm -rf $RPM_BUILD_ROOT 
+rm -rf $RPM_BUILD_ROOT
 rm -rf *.lang
 
 %{__make} install \
