@@ -1306,7 +1306,7 @@ fi
 %{_iconsdir}/[!l]*/*/apps/bell.png
 %{_iconsdir}/*/*/apps/key_bindings.png
 
-%files core -f core.lang
+%files core 
 %defattr(644,root,root,755)
 %{_sysconfdir}/xdg/menus/applications-merged/kde-essential.menu
 %{_sysconfdir}/xdg/menus/kde-settings.menu
@@ -1321,7 +1321,7 @@ fi
 %attr(755,root,root) %{_bindir}/khelpcenter
 %attr(755,root,root) %{_bindir}/kprinter
 %attr(755,root,root) %{_bindir}/iconvert
-%attr(755,root,root) %{_bindir}/multiple-attachments-servicemenu
+#%%attr(755,root,root) %{_bindir}/multiple-attachments-servicemenu
 %{_libdir}/libkdeinit_kcminit.la
 %attr(755,root,root) %{_libdir}/libkdeinit_kcminit.so
 %{_libdir}/libkdeinit_kcmshell.la
@@ -1430,7 +1430,7 @@ fi
 %lang(en) %{_kdedocdir}/en/kcontrol/*.png
 %lang(en) %dir %{_kdedocdir}/en/kcontrol
 
-%files desktop -f %{name}.lang
+%files desktop 
 %defattr(644,root,root,755)
 %doc AUTHORS README README.pam
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/pam.d/kdesktop
@@ -1817,7 +1817,7 @@ fi
 %{_libdir}/libtaskmanager.la
 %attr(755,root,root) %{_libdir}/libtaskmanager.so.*.*.*
 
-%files infocenter -f kinfocenter.lang
+%files infocenter
 %defattr(644,root,root,755)
 %{_sysconfdir}/xdg/menus/kde-information.menu
 %attr(755,root,root) %{_bindir}/kinfocenter
@@ -1872,7 +1872,7 @@ fi
 %{_desktopdir}/kde/kappfinder.desktop
 %{_iconsdir}/*/*/apps/kappfinder.png
 
-%files kate -f kate.lang
+%files kate
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kate
 %{_libdir}/libkdeinit_kate.la
@@ -1913,13 +1913,13 @@ fi
 %doc kdialog/{README,test}
 %attr(755,root,root) %{_bindir}/kdialog
 
-%files kfind -f kfind.lang
+%files kfind 
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kfind
 %{_desktopdir}/kde/Kfind.desktop
 %{_iconsdir}/*/*/apps/kfind.png
 
-%files kfontinst -f kcmfontinst.lang
+%files kfontinst 
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kfontinst
 %{_libdir}/kde3/libkfontviewpart.la
@@ -1948,7 +1948,7 @@ fi
 %{_desktopdir}/kde/kjobviewer.desktop
 %{_iconsdir}/*/*/apps/kjobviewer.png
 
-%files klipper -f klipper.lang
+%files klipper 
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/klipper
 %{_libdir}/libkdeinit_klipper.la
@@ -1962,7 +1962,7 @@ fi
 %{_desktopdir}/kde/klipper.desktop
 %{_iconsdir}/*/*/apps/klipper.png
 
-%files kmenuedit -f kmenuedit.lang
+%files kmenuedit 
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kmenuedit
 %{_libdir}/libkdeinit_kmenuedit.la
@@ -1974,7 +1974,7 @@ fi
 %{_iconsdir}/*/*/apps/kmenu.png
 %{_iconsdir}/*/*/apps/kmenuedit.png
 
-%files konsole -f konsole.lang
+%files konsole
 %defattr(644,root,root,755)
 %doc konsole/README*
 %attr(755,root,root) %{_bindir}/konsole
@@ -1990,7 +1990,7 @@ fi
 %{_desktopdir}/kde/konsole*.desktop
 %{_iconsdir}/*/*/apps/konsole.png
 
-%files kpager -f kpager.lang
+%files kpager 
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kpager
 %{_desktopdir}/kde/kpager.desktop
@@ -2003,7 +2003,7 @@ fi
 %{_desktopdir}/kde/kpersonalizer.desktop
 %{_iconsdir}/*/*/apps/kpersonalizer.png
 
-%files ksysguard -f ksysguard.lang
+%files ksysguard 
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/ksysguarddrc
 %attr(755,root,root) %{_bindir}/kpm
@@ -2027,7 +2027,7 @@ fi
 %{_libdir}/libkonqsidebarplugin.la
 %attr(755,root,root) %{_libdir}/libkonqsidebarplugin.so.*.*.*
 
-#%files kwmtheme -f kthememgr.lang
+#%files kwmtheme 
 #%defattr(644,root,root,755)
 #%attr(0755,root,root) %{_bindir}/kdeinstallktheme
 #%attr(0755,root,root) %{_bindir}/kwmtheme
@@ -2040,7 +2040,7 @@ fi
 #%{_desktopdir}/kde/kthememgr.desktop
 #%{_iconsdir}/*/*/apps/kthememgr.png
 
-%files kwrite -f kwrite.lang
+%files kwrite 
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kwrite
 %attr(755,root,root) %{_bindir}/kwriteconfig
@@ -2096,7 +2096,7 @@ fi
 %{_datadir}/services/smtp.protocol
 %{_datadir}/services/smtps.protocol
 
-%files screensavers -f screensaver.lang
+%files screensavers 
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*.kss
 %{_libdir}/kde3/kcm_screensaver.la
@@ -2110,7 +2110,7 @@ fi
 %{_libdir}/kde3/kgreet_classic.la
 %attr(0755,root,root) %{_libdir}/kde3/kgreet_classic.so
 
-%files -n kdm -f kdm.lang
+%files -n kdm 
 %defattr(644,root,root,755)
 %doc README.pam kdm/{ChangeLog,README,TODO}
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/pam.d/kdm
@@ -2141,7 +2141,7 @@ fi
 %{_desktopdir}/kde/kdm.desktop
 %{_iconsdir}/*/*/apps/kdmconfig.png
 
-%files -n konqueror -f konqueror.lang
+%files -n konqueror
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/appletproxy
 %attr(755,root,root) %{_bindir}/extensionproxy
