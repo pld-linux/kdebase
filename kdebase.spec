@@ -50,6 +50,7 @@ Obsoletes:	%{name}-kdesktop
 Obsoletes:	%{name}-kwrite
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 %define		_prefix 	/usr/X11R6
 %define		_fontdir 	/usr/share/fonts
 %define		_htmldir	%{_datadir}/doc/kde/HTML
@@ -142,6 +143,7 @@ Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
 Requires:	qt >= 2.3.0
 Requires:	kdelibs = %{version}
+Requires:	OpenGL
 
 %description screensavers
 KDE screensavers.
