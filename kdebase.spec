@@ -16,7 +16,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN): KDEºËÐÄ
 Name:		kdebase
 Version:	3.0.4
-Release:	9
+Release:	10
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
@@ -447,6 +447,9 @@ for f in `find $RPM_BUILD_ROOT%{_datadir}/apps/kappfinder/apps -name '*.desktop'
 	mv -f $f{.tmp,}
 done
 
+mv -f $RPM_BUILD_ROOT%{_applnkdir}/{KControl.desktop,Settings/KDE}
+mv -f $RPM_BUILD_ROOT%{_applnkdir}/{Kfind.desktop,Home.desktop,Utilities}
+
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 mkdir konsole-doc
 cp konsole/README* konsole-doc/
@@ -585,18 +588,18 @@ fi
 
 %attr(0755,root,root) %{_libdir}/[ae]*.so*
 %attr(0755,root,root) %{_libdir}/k[dhijlmswx]*.so*
-%attr(0755,root,root) %{_libdir}/kaccess.??
+%attr(0755,root,root) %{_libdir}/kaccess.so
 %attr(0755,root,root) %{_libdir}/kate.so
-%attr(0755,root,root) %{_libdir}/kcminit.??
-%attr(0755,root,root) %{_libdir}/kcmshell.??
-%attr(0755,root,root) %{_libdir}/kcontrol.??
+%attr(0755,root,root) %{_libdir}/kcminit.so
+%attr(0755,root,root) %{_libdir}/kcmshell.so
+%attr(0755,root,root) %{_libdir}/kcontrol.so
 %attr(0755,root,root) %{_libdir}/konsole.so*
 %attr(0755,root,root) %{_libdir}/lib[cdqt]*.so*
 %attr(0755,root,root) %{_libdir}/libk[ahmrstw]*.so*
 %attr(0755,root,root) %{_libdir}/libkickermain.so.*.*.*
-%attr(0755,root,root) %{_libdir}/libkfindpart.??
+%attr(0755,root,root) %{_libdir}/libkfindpart.so
 %attr(0755,root,root) %{_libdir}/libsensordisplays.so.*.*.*
-%attr(0755,root,root) %{_libdir}/libkonsolepart.so*
+%attr(0755,root,root) %{_libdir}/libkonsolepart.so.*.*.*
 
 # We have to include *.so.1 sym-links, as ldconfig doesn't touch
 # %{_libdir}/kde3
@@ -607,11 +610,11 @@ fi
 %attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so
 %attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so*
+%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so
 %attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so*
+%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so
 %attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.la
@@ -653,12 +656,10 @@ fi
 #	ignored as such functionality is provided by applnk package and
 #	*.dekstop files from apropriate packages.
 %{_applnkdir}/Help/Help.desktop
-%{_applnkdir}/Home.desktop
-%{_applnkdir}/KControl.desktop
-%{_applnkdir}/Kfind.desktop
 %{_applnkdir}/.hidden/konqfilemgr.desktop
 %{_applnkdir}/Amusements/*.desktop
 %{_applnkdir}/Editors/k*.desktop
+%{_applnkdir}/Settings/KDE/KControl.desktop
 %{_applnkdir}/Settings/KDE/Help
 %{_applnkdir}/Settings/KDE/Databases
 %{_applnkdir}/Settings/KDE/Information
@@ -760,8 +761,13 @@ fi
 %{_includedir}/kwin/*.h
 %{_includedir}/kate/*.h
 %{_includedir}/ksgrd
-%attr(0755,root,root) %{_libdir}/libkickermain.so
-%attr(0755,root,root) %{_libdir}/libsensordisplays.so
+%attr(755,root,root) %{_libdir}/libkateinterfaces.so
+%attr(755,root,root) %{_libdir}/libkickermain.so
+%attr(755,root,root) %{_libdir}/libksgrd.so
+%attr(755,root,root) %{_libdir}/libsensordisplays.so
+%attr(755,root,root) %{_libdir}/libtaskbar.so
+%attr(755,root,root) %{_libdir}/libkonq*.so
+%attr(755,root,root) %{_libdir}/libnsplugin.so
 
 %files static
 %defattr(644,root,root,755)
@@ -798,15 +804,15 @@ fi
 %attr(0755,root,root) %{_bindir}/nspluginscan
 %attr(0755,root,root) %{_bindir}/nspluginviewer
 
-%attr(0755,root,root) %{_libdir}/keditbookmarks.so
-%attr(0755,root,root) %{_libdir}/kfm*.??
-%attr(0755,root,root) %{_libdir}/konqueror.so*
-%attr(0755,root,root) %{_libdir}/kde3/kcm_konq*.??
-%attr(0755,root,root) %{_libdir}/kde3/konq*.??
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_nsplugin.la
-%attr(0755,root,root) %{_libdir}/kde3/libkcm_nsplugin.so
-%attr(0755,root,root) %{_libdir}/libkonq*.so*
-%attr(0755,root,root) %{_libdir}/libnsplugin.so*
+%attr(755,root,root) %{_libdir}/keditbookmarks.so
+%attr(755,root,root) %{_libdir}/kfm*.so
+%attr(755,root,root) %{_libdir}/konqueror.so.*.*.*
+%attr(755,root,root) %{_libdir}/kde3/kcm_konq*.??
+%attr(755,root,root) %{_libdir}/kde3/konq*.??
+%attr(755,root,root) %{_libdir}/kde3/libkcm_nsplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libkcm_nsplugin.so
+%attr(755,root,root) %{_libdir}/libkonq*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libnsplugin.so.*.*.*
 
 %attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.la
 %attr(0755,root,root) %{_libdir}/kde3/htmlthumbnail.so
