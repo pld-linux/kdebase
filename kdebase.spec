@@ -1,12 +1,4 @@
 #
-# TODO:
-# * KDM: ColorSheme=Default works properly with GUIStyle=KDE only
-# * Fixing 48x48 pld applnk-pixmaps scaling (konqsidebar, kicker)
-# * Adding %%doc to subpkgs
-# * Kicker dosn't work properly without kwin (taskbar, systray,
-#   other applets)
-# * Proper descriptions
-#
 # Conditional build:
 %bcond_with 	i18n	# build i18n packages per module
 %bcond_without	apidocs	# prepare API documentation
@@ -29,7 +21,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}.%{_snap}
-Release:	1
+Release:	2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -80,7 +72,6 @@ Patch20:	kde-common-QTDOCDIR.patch
 Patch21:	%{name}-konsole-default-keytab.patch
 Patch22:	%{name}-kwin_shadow.patch
 BuildRequires:	OpenGL-devel
-BuildRequires:	XFree86-devel
 BuildRequires:	arts-devel >= 1.2.0
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
@@ -115,7 +106,6 @@ BuildRequires:	pam-devel
 %{?with_apidocs:BuildRequires:	qt-doc}
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	unsermake
-BuildRequires:	xcursor-devel
 BuildConflicts: %{name}-konqueror-libs
 Conflicts:	kdelibs < 9:3.1.94.040110-1
 # TODO: sensors
@@ -124,7 +114,6 @@ BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_xdgdatadir	%{_datadir}/desktop-directories
-%define 	_noautoreqdep	libGL.so.1 libGLU.so.1 libkdeinit_kmenuedit.so
 
 %description
 KDE specific files. Used by core KDE applications. Package includes:
@@ -167,11 +156,9 @@ Summary:	Include files to develop KDE applications
 Summary(pl):	Pliki nag³ówkowe potrzebne do programowania
 Summary(pt_BR):	Arquivos de inclusão para compilar aplicativos que usem bibliotecas do kdebase
 Group:		X11/Development/Libraries
+Requires:	konqueror-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kicker-libs = %{epoch}:%{version}-%{release}
-Requires:	%{name}-libkonqsidebarplugin = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
-Requires:	%{name}-libkonq = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libksgrd = %{epoch}:%{version}-%{release}
 Requires:	kdelibs-devel >= 9:%{version}
 
@@ -340,7 +327,7 @@ Summary:	Default kicker sidebar
 Summary(pl):	Domy¶lny boczny pasek do menu KDE
 Group:		Themes
 Provides:	kde-kside
-Requires:	kdebase-kicker >= 9:3.1.91
+Requires:	kdebase-desktop >= 9:3.2.90.040424-2
 
 %description -n kde-kside-default
 Default kicker sidebar.
@@ -471,25 +458,31 @@ Podstawowe aplikacje ¶rodowiska KDE. Pakiet ten zawiera:
 Summary:	KDesktop - handling of desktop icons, popup menus etc.
 Summary(pl):	KDesktop - obs³uga ikon na pulpicie, menu itp.
 Group:		X11/Applications
+Requires:	kde-kside
 Requires:	kde-logoutpic
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
-Requires:	kicker
 Requires:	konqueror = %{epoch}:%{version}-%{release}
-Obsoletes:	%{name}
-Obsoletes:	%{name}-fonts
-Obsoletes:	%{name}-kcheckpass
-Obsoletes:	%{name}-kdesktop
-Obsoletes:	%{name}-kdesktop_lock
-Obsoletes:	%{name}-khelpcenter
-Obsoletes:	%{name}-kioslave
-Obsoletes:	%{name}-konqueror
-Obsoletes:	%{name}-kwin
-Obsoletes:	%{name}-kwmtheme
-Obsoletes:	%{name}-kxmlrpc
-Obsoletes:	%{name}-screensaver
-Obsoletes:	%{name}-static
-Obsoletes:	%{name}-wallpapers
+Requires:	%{name}-kfind = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kjobviewer = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kpager = %{epoch}:%{version}-%{release}
 Obsoletes:	kde-theme-keramik
+Obsoletes:	kdebase
+Obsoletes:	kdebase-fonts
+Obsoletes:	kdebase-kcheckpass
+Obsoletes:	kdebase-kdesktop
+Obsoletes:	kdebase-kdesktop_lock
+Obsoletes:	kdebase-khelpcenter
+Obsoletes:	kdebase-kicker
+Obsoletes:	kdebase-kioslave
+Obsoletes:	kdebase-kmenuedit
+Obsoletes:	kdebase-konqueror
+Obsoletes:	kdebase-ksystraycmd
+Obsoletes:	kdebase-kwin
+Obsoletes:	kdebase-kwmtheme
+Obsoletes:	kdebase-kxmlrpc
+Obsoletes:	kdebase-screensaver
+Obsoletes:	kdebase-static
+Obsoletes:	kdebase-wallpapers
 
 %description desktop
 KDesktop is the program that handles the desktop icons, the popup
@@ -505,7 +498,8 @@ Summary(pl):	Biblioteki KDesktop
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	kdelibs >= 9:%{version}
-Obsoletes:	%{name}-desktop < 9:3.1.92.031006
+Obsoletes:	kdebase-desktop < 9:3.1.92.031006
+Obsoletes:	kdebase-kicker-libs
 
 %description desktop-libs
 KDesktop libraries.
@@ -620,40 +614,6 @@ K Font Installer.
 %description kfontinst -l pl
 Instalator fontów dla KDE.
 
-%package kicker
-Summary:	KDE Panel - kicker
-Summary(pl):	Panel KDE - kicker
-Group:		X11/Applications
-Provides:	kicker
-Requires:	%{name}-kfind = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kicker-libs = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kjobviewer = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kpager = %{epoch}:%{version}-%{release}
-Requires:	%{name}-libkickermain = %{epoch}:%{version}-%{release}
-Requires:	%{name}-libkonq = %{epoch}:%{version}-%{release}
-Requires:	kde-kside
-Obsoletes:	kdebase-kmenuedit
-
-%description kicker
-KDE Panel - kicker.
-
-%description kicker -l pl
-Panel KDE - kicker.
-
-%package kicker-libs
-Summary:	kicker shared libraries
-Summary(pl):	Biblioteki wspó³dzielone kickera
-Group:		X11/Libraries
-Requires(post,postun):	/sbin/ldconfig
-Requires:	%{name}-libkickermain = %{epoch}:%{version}-%{release}
-Obsoletes:	%{name}-kicker < 9:3.1.92.031006
-
-%description kicker-libs
-Shared libraries used by kicker.
-
-%description kicker-libs -l pl
-Biblioteki wspó³dzielone u¿ywane przez kickera.
-
 %package kjobviewer
 Summary:	Print Job Viewer
 Summary(pl):	Podgl±d zadañ drukowania
@@ -670,7 +630,7 @@ Podgl±d zadañ drukowania dla KDE.
 Summary:	Clipboard Tool
 Summary(pl):	Narzêdzie schowka
 Group:		X11/Applications
-Requires:	%{name}-kicker = %{epoch}:%{version}-%{release}
+Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
 %description klipper
 KDE Clipboard Tool.
@@ -733,34 +693,6 @@ KDE System Guard.
 %description ksysguard -l pl
 Stra¿nik systemu dla KDE.
 
-%package ksystraycmd
-Summary:	A tool that allows running applications in taskbar
-Summary(pl):	Narzêdzie do uruchamiania aplikacji w pasku zadañ
-Group:		X11/Applications
-Requires:	%{name}-kicker = %{epoch}:%{version}-%{release}
-
-%description ksystraycmd
-KSysTrayCmd is a utility that allows you to run any application you
-like in the system tray, not just those designed to use it.
-
-%description ksystraycmd -l pl
-KSysTrayCmd to narzêdzie pozwalaj±ce na uruchomienie dowolnej
-aplikacji w tacce systemowej - nie tylko tych, które zosta³y
-wyposa¿one w tak± w³a¶ciwo¶æ.
-
-%package kwmtheme
-Summary:	Desktop Theme Manager
-Summary(pl):	Zarz±dca motywów biurka
-Group:		X11/Applications
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
-
-%description kwmtheme
-KDE Desktop Theme Manager. This package contains also a few desktop
-themes.
-
-%description kwmtheme -l pl
-Zarz±dca motywów biurka KDE. Ten pakiet zawiera równie¿ kilka motywów.
-
 %package kwrite
 Summary:	KDE Text Editor
 Summary(pl):	Edytor tekstu dla KDE
@@ -795,58 +727,14 @@ Summary(pl):	Biblioteki dla edytorów tekstu KDE
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	kdelibs >= 9:%{version}
-Obsoletes:	%{name}-kate < 8:3.2-0.030423.1
-Obsoletes:	%{name}-libkmultitabbar
+Obsoletes:	kdebase-kate < 8:3.2-0.030423.1
+Obsoletes:	kdebase-libkmultitabbar
 
 %description libkate
 A libraries for KDE text editors.
 
 %description libkate -l pl
 Biblioteki dla edytorów tekstu KDE.
-
-%package libkickermain
-Summary:	libkickermain library
-Summary(pl):	Biblioteka libkickermain
-Group:		X11/Libraries
-Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= 9:%{version}
-Obsoletes:	%{name}-kicker < 9:3.1.90.030629-0.1
-
-%description libkickermain
-libkickermain shared library.
-
-%description libkickermain -l pl
-Biblioteka wspó³dzielona libkickermain.
-
-%package libkonq
-Summary:	Konqueror library files
-Summary(pl):	Biblioteki wykorzystywane przez konquerora
-Group:		X11/Libraries
-Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= 9:%{version}
-Obsoletes:	konqueror < 8:3.2-0.030423.2
-
-%description libkonq
-Libraries containing functions used by konqueror and kicker.
-
-%description libkonq -l pl
-Biblioteki zawieraj±ce funkcje wykorzystywane przez konquerora i
-kickera.
-
-%package libkonqsidebarplugin
-Summary:	konqueror shared library
-Summary(pl):	Biblioteki wspó³dzielona konquerora
-Group:		X11/Libraries
-Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= 9:%{version}
-Obsoletes:	konqueror < 9:3.1.92.031006
-Obsoletes:	%{name}-konqueror-libs
-
-%description libkonqsidebarplugin
-A shared library used by konqueror.
-
-%description libkonqsidebarplugin -l pl
-Biblioteka wspó³dzielona u¿ywana przez konquerora.
 
 %package libksgrd
 Summary:	ksgrd library
@@ -922,13 +810,9 @@ Summary:	Konqueror - web browser and file manager
 Summary(pl):	Konqueror - przegl±darka WWW i zarz±dca plików
 Group:		X11/Applications
 Requires:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
-#Requires:	%{name}-konsole = %{epoch}:%{version}-%{release}
-Requires:	%{name}-libkickermain = %{epoch}:%{version}-%{release}
-Requires:	%{name}-libkonq = %{epoch}:%{version}-%{release}
-Requires:	%{name}-libkonqsidebarplugin = %{epoch}:%{version}-%{release}
-#Requires:	%{name}-mailnews = %{epoch}:%{version}-%{release}
-Obsoletes:	%{name}-konqueror
-Obsoletes:	%{name}-libkmultitabbar
+Requires:	konqueror-libs = %{epoch}:%{version}-%{release}
+Obsoletes:	kdebase-konqueror
+Obsoletes:	kdebase-libkmultitabbar
 
 %description -n konqueror
 Konqueror is a web browser and file manager similar to MS Internet
@@ -937,6 +821,24 @@ Explorer.
 %description -n konqueror -l pl
 Konqueror jest przegl±dark± WWW i zarz±dc± plików podobnym do MS
 Internet Explorer.
+
+%package -n konqueror-libs
+Summary:	konqueror shared libraries
+Summary(pl):	Biblioteki wspó³dzielone konquerora
+Group:		X11/Libraries
+Requires(post,postun):	/sbin/ldconfig
+Requires:	kdelibs >= 9:%{version}
+Obsoletes:	kdebase-libkickermain
+Obsoletes:	kdebase-libkonq
+Obsoletes:	kdebase-libkonqsidebarplugin
+Obsoletes:	kdebase-konqueror-libs
+Obsoletes:	konqueror < 9:3.1.92.031006
+
+%description -n konqueror-libs
+Konqueror shared libraries.
+
+%description -n konqueror-libs -l pl
+Biblioteki wspó³dzielone konquerora.
 
 ### <i18n stuff>
 
@@ -1537,6 +1439,7 @@ programs=" \
 	arts \
 	background \
 	bell \
+	clock \
 	desktop \
 	desktopbehavior \
 	energy \
@@ -1544,12 +1447,17 @@ programs=" \
 	kcmlaunch \
 	kcmnotify \
 	kcmsmserver \
+	kcmtaskbar \
 	keyboard \
 	keys \
+	kicker \
+	kmenuedit \
 	ksplashml \
 	kwindecoration \
 	kxkb \
 	mouse \
+	panel \
+	panelappearance \
 	passwords \
 	spellchecking \
 	windowmanagement"
@@ -1557,19 +1465,6 @@ programs=" \
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> %{name}.lang
-done
-
-%find_lang kicker	--with-kde
-programs=" \
-	clock \
-	kcmtaskbar \
-	kmenuedit \
-	panel \
-	panelappearance"
-
-for i in $programs; do
-	%find_lang $i --with-kde
-	cat $i.lang >> kicker.lang
 done
 
 %find_lang konqueror	--with-kde
@@ -1829,7 +1724,6 @@ done
 files="\
 	core \
 	kdebase \
-	kicker \
 	konqueror \
 	konsole \
 	kinfocenter \
@@ -1904,23 +1798,14 @@ EOF
 %post	desktop-libs	-p /sbin/ldconfig
 %postun	desktop-libs	-p /sbin/ldconfig
 
-%post	kicker-libs	-p /sbin/ldconfig
-%postun	kicker-libs	-p /sbin/ldconfig
-
 %post	libkate		-p /sbin/ldconfig
 %postun	libkate		-p /sbin/ldconfig
 
-%post	libkickermain	-p /sbin/ldconfig
-%postun	libkickermain	-p /sbin/ldconfig
-
-%post	libkonq		-p /sbin/ldconfig
-%postun	libkonq		-p /sbin/ldconfig
-
-%post	libkonqsidebarplugin	-p /sbin/ldconfig
-%postun	libkonqsidebarplugin	-p /sbin/ldconfig
-
 %post	libksgrd	-p /sbin/ldconfig
 %postun	libksgrd	-p /sbin/ldconfig
+
+%post	-n konqueror-libs	-p /sbin/ldconfig
+%postun	-n konqueror-libs	-p /sbin/ldconfig
 
 %post -n kdm
 /sbin/chkconfig --add kdm
@@ -2603,6 +2488,97 @@ fi
 %{_iconsdir}/crystalsvg/*/apps/firefox.png
 %{_iconsdir}/crystalsvg/*/apps/linguist.png
 %{_iconsdir}/crystalsvg/scalable/apps
+# Merged kicker
+%attr(0755,root,root) %{_bindir}/kicker
+%attr(0755,root,root) %{_bindir}/ksystraycmd
+%{_libdir}/libkdeinit_kicker.la
+%attr(0755,root,root) %{_libdir}/libkdeinit_kicker.so
+%{_libdir}/kde3/childpanel_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so*
+%{_libdir}/kde3/clock_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.so
+%{_libdir}/kde3/devices_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/devices_panelapplet.so
+%{_libdir}/kde3/dockbar_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so
+%{_libdir}/kde3/kasbar_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so
+%{_libdir}/kde3/kcm_clock.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_clock.so
+%{_libdir}/kde3/kcm_kicker.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_kicker.so
+%{_libdir}/kde3/kcm_taskbar.la
+%attr(0755,root,root) %{_libdir}/kde3/kcm_taskbar.so
+%{_libdir}/kde3/kicker.la
+%attr(0755,root,root) %{_libdir}/kde3/kicker.so*
+%{_libdir}/kde3/kickermenu_find.la
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_find.so
+%{_libdir}/kde3/kickermenu_kdeprint.la
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_kdeprint.so
+%{_libdir}/kde3/kickermenu_konqueror.la
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_konqueror.so
+%{_libdir}/kde3/kickermenu_konsole.la
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_konsole.so
+%{_libdir}/kde3/kickermenu_prefmenu.la
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_prefmenu.so
+%{_libdir}/kde3/kickermenu_recentdocs.la
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_recentdocs.so
+%{_libdir}/kde3/launcher_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so*
+%{_libdir}/kde3/lockout_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so
+%{_libdir}/kde3/menu_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/menu_panelapplet.so
+%{_libdir}/kde3/minipager_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so
+%{_libdir}/kde3/naughty_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.so
+%{_libdir}/kde3/run_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.so
+%{_libdir}/kde3/systemtray_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so
+%{_libdir}/kde3/taskbar_panelapplet.la
+%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.so
+%{_libdir}/kde3/taskbar_panelextension.la
+%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.so
+%{_datadir}/apps/kicker/applets/*.desktop
+%{_datadir}/apps/kicker/default-apps
+%{_datadir}/apps/kicker/extensions
+%{_datadir}/apps/kicker/icons
+%{_datadir}/apps/kicker/menuext
+%dir %{_datadir}/apps/kicker/pics
+%{_datadir}/apps/kicker/pics/disk*.png
+%{_datadir}/apps/kicker/tiles
+%{_datadir}/apps/kicker/wallpapers
+%{_datadir}/apps/naughtyapplet
+%{_datadir}/autostart/panel.desktop
+%{_datadir}/config/kickerrc
+%{_datadir}/applnk/.hidden/kicker_config.desktop
+%{_datadir}/applnk/.hidden/kicker_config_appearance.desktop
+%{_desktopdir}/kde/kcmtaskbar.desktop
+%{_desktopdir}/kde/panel.desktop
+%{_desktopdir}/kde/panel_appearance.desktop
+%{_desktopdir}/kde/clock.desktop
+# Do not include this!
+#%{_desktopdir}/kde/kcmkicker.desktop
+%{_iconsdir}/*/*/apps/clock.png
+%{_iconsdir}/*/*/apps/date.png
+%{_iconsdir}/*/*/apps/go.png
+%{_iconsdir}/*/*/apps/kcmkicker.png
+%{_iconsdir}/*/*/apps/kicker.png
+%{_iconsdir}/*/*/apps/package*.png
+%{_iconsdir}/*/*/apps/panel.png
+%{_iconsdir}/*/*/apps/panel_settings.png
+# kmenuedit part
+%attr(0755,root,root) %{_bindir}/kmenuedit
+%{_libdir}/libkdeinit_kmenuedit.la
+%attr(0755,root,root) %{_libdir}/libkdeinit_kmenuedit.so
+%{_libdir}/kde3/kmenuedit.la
+%attr(0755,root,root) %{_libdir}/kde3/kmenuedit.so
+%{_datadir}/apps/kmenuedit
+%{_desktopdir}/kde/kmenuedit.desktop
+%{_iconsdir}/*/*/apps/kmenu.png
+%{_iconsdir}/*/*/apps/kmenuedit.png
 
 %files desktop-libs
 %defattr(644,root,root,755)
@@ -2610,6 +2586,11 @@ fi
 %attr(0755,root,root) %{_libdir}/libkdecorations.so.*.*.*
 %{_libdir}/libksplashthemes.la
 %attr(0755,root,root) %{_libdir}/libksplashthemes.so.*.*.*
+# Merged kicker
+%{_libdir}/libtaskbar.la
+%attr(0755,root,root) %{_libdir}/libtaskbar.so.*.*.*
+%{_libdir}/libtaskmanager.la
+%attr(0755,root,root) %{_libdir}/libtaskmanager.so.*.*.*
 
 %files infocenter -f kinfocenter_en.lang
 %defattr(644,root,root,755)
@@ -2730,105 +2711,6 @@ fi
 %{_desktopdir}/kde/kcmfontinst.desktop
 %{_iconsdir}/[!l]*/*/apps/kcmfontinst.png
 
-%files kicker -f kicker_en.lang
-%defattr(644,root,root,755)
-%attr(0755,root,root) %{_bindir}/kicker
-%{_libdir}/libkdeinit_kicker.la
-%attr(0755,root,root) %{_libdir}/libkdeinit_kicker.so
-%{_libdir}/kde3/childpanel_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/childpanel_panelextension.so*
-%{_libdir}/kde3/clock_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/clock_panelapplet.so
-%{_libdir}/kde3/devices_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/devices_panelapplet.so
-%{_libdir}/kde3/dockbar_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so
-%{_libdir}/kde3/kasbar_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so
-%{_libdir}/kde3/kcm_clock.la
-%attr(0755,root,root) %{_libdir}/kde3/kcm_clock.so
-%{_libdir}/kde3/kcm_kicker.la
-%attr(0755,root,root) %{_libdir}/kde3/kcm_kicker.so
-%{_libdir}/kde3/kcm_taskbar.la
-%attr(0755,root,root) %{_libdir}/kde3/kcm_taskbar.so
-%{_libdir}/kde3/kicker.la
-%attr(0755,root,root) %{_libdir}/kde3/kicker.so*
-%{_libdir}/kde3/kickermenu_find.la
-%attr(0755,root,root) %{_libdir}/kde3/kickermenu_find.so
-%{_libdir}/kde3/kickermenu_kdeprint.la
-%attr(0755,root,root) %{_libdir}/kde3/kickermenu_kdeprint.so
-%{_libdir}/kde3/kickermenu_konqueror.la
-%attr(0755,root,root) %{_libdir}/kde3/kickermenu_konqueror.so
-%{_libdir}/kde3/kickermenu_konsole.la
-%attr(0755,root,root) %{_libdir}/kde3/kickermenu_konsole.so
-%{_libdir}/kde3/kickermenu_prefmenu.la
-%attr(0755,root,root) %{_libdir}/kde3/kickermenu_prefmenu.so
-%{_libdir}/kde3/kickermenu_recentdocs.la
-%attr(0755,root,root) %{_libdir}/kde3/kickermenu_recentdocs.so
-%{_libdir}/kde3/launcher_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/launcher_panelapplet.so*
-%{_libdir}/kde3/lockout_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/lockout_panelapplet.so
-%{_libdir}/kde3/menu_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/menu_panelapplet.so
-%{_libdir}/kde3/minipager_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/minipager_panelapplet.so
-%{_libdir}/kde3/naughty_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/naughty_panelapplet.so
-%{_libdir}/kde3/run_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/run_panelapplet.so
-%{_libdir}/kde3/systemtray_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/systemtray_panelapplet.so
-%{_libdir}/kde3/taskbar_panelapplet.la
-%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelapplet.so
-%{_libdir}/kde3/taskbar_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/taskbar_panelextension.so
-%{_datadir}/apps/kicker/applets/*.desktop
-%{_datadir}/apps/kicker/default-apps
-%{_datadir}/apps/kicker/extensions
-%{_datadir}/apps/kicker/icons
-%{_datadir}/apps/kicker/menuext
-%dir %{_datadir}/apps/kicker/pics
-%{_datadir}/apps/kicker/pics/disk*.png
-%{_datadir}/apps/kicker/tiles
-%{_datadir}/apps/kicker/wallpapers
-%{_datadir}/apps/naughtyapplet
-%{_datadir}/autostart/panel.desktop
-%{_datadir}/config/kickerrc
-%{_datadir}/applnk/.hidden/kicker_config.desktop
-%{_datadir}/applnk/.hidden/kicker_config_appearance.desktop
-%{_desktopdir}/kde/kcmtaskbar.desktop
-%{_desktopdir}/kde/panel.desktop
-%{_desktopdir}/kde/panel_appearance.desktop
-%{_desktopdir}/kde/clock.desktop
-# Do not include this!
-#%{_desktopdir}/kde/kcmkicker.desktop
-%{_iconsdir}/*/*/apps/clock.png
-%{_iconsdir}/*/*/apps/date.png
-%{_iconsdir}/*/*/apps/go.png
-%{_iconsdir}/*/*/apps/kcmkicker.png
-%{_iconsdir}/*/*/apps/kicker.png
-%{_iconsdir}/*/*/apps/package*.png
-%{_iconsdir}/*/*/apps/panel.png
-%{_iconsdir}/*/*/apps/panel_settings.png
-# kmenuedit part
-%attr(0755,root,root) %{_bindir}/kmenuedit
-%{_libdir}/libkdeinit_kmenuedit.la
-%attr(0755,root,root) %{_libdir}/libkdeinit_kmenuedit.so
-%{_libdir}/kde3/kmenuedit.la
-%attr(0755,root,root) %{_libdir}/kde3/kmenuedit.so
-%{_datadir}/apps/kmenuedit
-%{_desktopdir}/kde/kmenuedit.desktop
-%{_iconsdir}/*/*/apps/kmenu.png
-%{_iconsdir}/*/*/apps/kmenuedit.png
-
-%files kicker-libs
-%defattr(644,root,root,755)
-%{_libdir}/libtaskbar.la
-%attr(0755,root,root) %{_libdir}/libtaskbar.so.*.*.*
-%{_libdir}/libtaskmanager.la
-%attr(0755,root,root) %{_libdir}/libtaskmanager.so.*.*.*
-
 %files kjobviewer
 %defattr(644,root,root,755)
 %attr(0755,root,root) %{_bindir}/kjobviewer
@@ -2897,10 +2779,6 @@ fi
 %{_desktopdir}/kde/ksysguard.desktop
 %{_iconsdir}/*/*/apps/ksysguard.png
 
-%files ksystraycmd
-%defattr(644,root,root,755)
-%doc ksystraycmd/README
-%attr(0755,root,root) %{_bindir}/ksystraycmd
 
 #%files kwmtheme -f kthememgr_en.lang
 #%defattr(644,root,root,755)
@@ -2945,21 +2823,6 @@ fi
 %attr(0755,root,root) %{_libdir}/libkateinterfaces.so.*.*.*
 %{_libdir}/libkateutils.la
 %attr(0755,root,root) %{_libdir}/libkateutils.so.*.*.*
-
-%files libkickermain
-%defattr(644,root,root,755)
-%{_libdir}/libkickermain.la
-%attr(0755,root,root) %{_libdir}/libkickermain.so.*.*.*
-
-%files libkonq
-%defattr(644,root,root,755)
-%{_libdir}/libkonq.la
-%attr(0755,root,root) %{_libdir}/libkonq.so.*.*.*
-
-%files libkonqsidebarplugin
-%defattr(644,root,root,755)
-%{_libdir}/libkonqsidebarplugin.la
-%attr(0755,root,root) %{_libdir}/libkonqsidebarplugin.so.*.*.*
 
 %files libksgrd
 %defattr(644,root,root,755)
@@ -3289,3 +3152,12 @@ fi
 %{_iconsdir}/*/*/apps/mac.png
 %{_iconsdir}/*/*/apps/proxy.png
 %{_iconsdir}/*/*/apps/stylesheet.png
+
+%files -n konqueror-libs
+%defattr(644,root,root,755)
+%{_libdir}/libkickermain.la
+%attr(0755,root,root) %{_libdir}/libkickermain.so.*.*.*
+%{_libdir}/libkonq.la
+%attr(0755,root,root) %{_libdir}/libkonq.so.*.*.*
+%{_libdir}/libkonqsidebarplugin.la
+%attr(0755,root,root) %{_libdir}/libkonqsidebarplugin.so.*.*.*
