@@ -10,7 +10,7 @@
 
 %define         _state          snapshots
 %define         _ver		3.1.93
-%define         _snap		031103
+%define         _snap		031105
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -29,7 +29,7 @@ License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:        http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	51ded5beb46f996a534146c9a784ffc9
+# Source0-md5:	45260d6d63dbc35eebf3ea62bef4d413
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -98,6 +98,7 @@ BuildRequires:	motif-devel
 BuildRequires:	openssl-devel >= 0.9.7c
 BuildRequires:	openldap-devel
 BuildRequires:	pam-devel
+BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
 BuildRequires:	xcursor-devel
 # TODO: sensors
@@ -105,7 +106,6 @@ BuildRequires:	xcursor-devel
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_htmldir	%{_docdir}/kde/HTML
 %define		_xdgdatadir	%{_datadir}/desktop-directories
 
 %define 	_noautoreqdep			libGL.so.1 libGLU.so.1
@@ -893,7 +893,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_appsdir=%{_applnkdir} \
-	kde_htmldir=%{_htmldir}
+	kde_htmldir=%{_kdedocdir}
 
 install -d \
 	$RPM_BUILD_ROOT/etc/{X11/kdm/faces,pam.d,rc.d/init.d,security} \
@@ -1259,11 +1259,11 @@ fi
 
 %files core -f core.lang
 %defattr(644,root,root,755)
-%lang(en) %dir %{_htmldir}/en/kcontrol
-%lang(en) %{_htmldir}/en/kcontrol/common
-%lang(en) %{_htmldir}/en/kcontrol/helpindex.html
-%lang(en) %{_htmldir}/en/kcontrol/index.*
-%lang(en) %{_htmldir}/en/kcontrol/screenshot.png
+%lang(en) %dir %{_kdedocdir}/en/kcontrol
+%lang(en) %{_kdedocdir}/en/kcontrol/common
+%lang(en) %{_kdedocdir}/en/kcontrol/helpindex.html
+%lang(en) %{_kdedocdir}/en/kcontrol/index.*
+%lang(en) %{_kdedocdir}/en/kcontrol/screenshot.png
 /etc/xdg/menus/applications-merged/kde-essential.menu
 /etc/xdg/menus/kde-settings.menu
 %attr(0755,root,root) %{_bindir}/drkonqi
