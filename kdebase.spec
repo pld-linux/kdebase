@@ -882,6 +882,7 @@ Requires:	pam
 Requires:	sessreg
 Requires:	xinitrc-ng >= 0.4
 Obsoletes:	X11-xdm
+Obsoletes:	entrance
 Obsoletes:	gdm
 Obsoletes:	wdm
 Obsoletes:	xdm
