@@ -1,6 +1,6 @@
 %define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		4.7
+%define		_rel		4.8
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -306,7 +306,7 @@ gzip AUTHORS README*
 grep -vE konqueror\|kdm tmp.%{name}.lang > %{name}.lang
 grep -E kdm tmp.%{name}.lang > kdm.lang
 %find_lang konqueror --with-kde
-#%find_lang kdm --with-kde
+%find_lang kdm --with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
