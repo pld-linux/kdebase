@@ -101,6 +101,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_htmldir	/usr/share/doc/kde/HTML
 %define		_sysconfdir	/etc/X11
 
+%define		no_install_post_chrpath		1
+
 %description
 KDE specific files. Used by core KDE applications. Package includes:
 - KDE menu hierarchy,
