@@ -20,7 +20,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -1039,9 +1039,9 @@ cd -
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Utility;/' \
 	-e 's/Terminal=0/Terminal=false/' -e 's/OnlyShowIn=KDE;//g' \
 	kfind/Kfind.desktop
-%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;SystemSetup;/' \
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;System;X-administration;/' \
 	konqueror/konquerorsu.desktop
-%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;SystemSetup;/' \
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;System;X-administration;/' \
 	-e 's/Terminal=0/Terminal=false/' \
 	konsole/konsolesu.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Network;WebBrowser;/' \
