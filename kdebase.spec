@@ -29,7 +29,7 @@ Summary(uk):	K Desktop Environment - базов╕ файли
 Summary(zh_CN): KDE╨кпд
 Name:		kdebase
 Version:	3.1
-Release:	4
+Release:	5
 Epoch:		7
 License:	GPL
 Group:		X11/Applications
