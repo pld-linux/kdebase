@@ -35,7 +35,7 @@ Source4:	%{name}-kdm.Xsession
 Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
 Source8:        %{name}-searchproviders.tar.bz2
-# Source8-md5:	435e99537dd9dc0fc7c7dbcee9a1fdb4
+# Source8-md5:	ddf8cdd13fb42b5c07bbb8bf3577c23d
 Source9:        %{name}-colorschemes.tar.bz2
 # Source9-md5:	3d90d52c3727109ff670099d4015290f
 Source10:       %{name}-servicemenus.tar.bz2
