@@ -3,6 +3,7 @@ Summary(pl):	K Desktop Environment - pliki ¶rodowiska
 Name:		kdebase
 Version:	2.0.1
 Release:	3
+Epoch:		6
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
