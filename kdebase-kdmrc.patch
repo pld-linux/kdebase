@@ -1,5 +1,5 @@
---- kdmrc.3.0.9	Fri Nov  1 23:48:32 2002
-+++ kdmrc	Sat Nov  2 00:01:04 2002
+--- kdmrc.orig	Wed Nov 13 22:46:28 2002
++++ kdmrc	Wed Nov 13 22:47:55 2002
 @@ -52,7 +52,7 @@
  # Default is ":0 local@tty1 /usr/X11R6/bin/X vt7"
  # XXX i'm planning to absorb this file into kdmrc, but i'm not sure how to
@@ -52,11 +52,11 @@
  # The program which is run as the user which logs in. It is supposed to
  # interpret the session argument (see SessionTypes) and start an appropriate
  # session according to it.
- # Default is /opt/X11R6/bin/xterm -ls -T
+ # Default is /usr/X11R6/bin/xterm -ls -T
 -Session=/usr/X11R6/share/config/kdm/Xsession
 +Session=/etc/X11/kdm/Xsession
  # The program to run if Session fails.
- # Default is /opt/X11R6/bin/xterm
+ # Default is /usr/X11R6/bin/xterm
  #FailsafeClient=
 @@ -223,7 +223,7 @@
  AllowShutdown=Root
