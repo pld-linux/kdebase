@@ -340,6 +340,7 @@ Summary:	Default kicker sidebar
 Summary(pl):	Domy¶lny boczny pasek do menu KDE
 Group:		Themes
 Provides:	kde-kside
+Obsoletes:	kde-kside
 Requires:	kdebase-desktop >= 9:3.2.90.040424-2
 
 %description -n kde-kside-default
@@ -471,6 +472,7 @@ Podstawowe aplikacje ¶rodowiska KDE. Pakiet ten zawiera:
 Summary:	KDesktop - handling of desktop icons, popup menus etc.
 Summary(pl):	KDesktop - obs³uga ikon na pulpicie, menu itp.
 Group:		X11/Applications
+Provides:	kdebase-kicker
 Requires:	kde-kgreet
 Requires:	kde-kside
 Requires:	kde-logoutpic
