@@ -95,7 +95,7 @@ BuildRequires:	openssl-devel >= 0.9.7c
 BuildRequires:	pam-devel
 %{?with_apidocs:BuildRequires:	qt-doc}
 BuildRequires:	rpmbuild(macros) >= 1.129
-BuildRequires:	unsermake >= 040511
+#BuildRequires:	unsermake >= 040511
 BuildRequires:	xcursor-devel >= 1.1.0
 BuildConflicts: kdebase-konqueror-libs
 Conflicts:	kdelibs < 9:3.1.94.040110-1
