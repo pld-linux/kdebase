@@ -1,0 +1,26 @@
+#!/bin/sh
+
+
+if [ -x /usr/X11R6/bin/startkde ]; then
+    w1="kde,"
+fi
+    
+if [ -x /usr/X11R6/bin/gnome-session ]; then
+    w2="gnome,"
+fi
+
+owms="aewm afterstep blackbox ctwm enlightenment fluxbox fvwm fvwm2 golem icewm ion larswm metacity mwm olvwm qvwm sawfish twm wmaker"
+int=2
+for n in $owms; do
+    if [ -x /usr/X11R6/bin/$n ]; then
+        typeset w$((int+1))="$n,"
+        int=$((int+1))
+    fi
+done
+cfgfile="/etc/X11/kdm/kdmrc"
+tmpfile="/tmp/kdmrc.tmp"
+cat  $cfgfile \
+    |sed 's/SessionTypes=[^$]\+/SessionTypes=default,failsafe,'"$w1$w2$w3$w4$w5$w6$w7$w8$w9$w10$w11$w12$w13$w14$w15$w16$w17$w18$w19$w20$w21"'/' \
+    > $tmpfile
+cat $tmpfile > $cfgfile
+rm -rf $tmpfile
