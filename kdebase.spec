@@ -763,6 +763,7 @@ fi
 %{_includedir}/ksgrd
 %attr(755,root,root) %{_libdir}/libkateinterfaces.so
 %attr(755,root,root) %{_libdir}/libkickermain.so
+%attr(755,root,root) %{_libdir}/libkonq.so
 %attr(755,root,root) %{_libdir}/libksgrd.so
 %attr(755,root,root) %{_libdir}/libsensordisplays.so
 %attr(755,root,root) %{_libdir}/libtaskbar.so
