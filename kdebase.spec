@@ -106,6 +106,7 @@ BuildRequires:	motif-devel
 BuildRequires:	openssl-devel >= 0.9.6m
 BuildRequires:	pam-devel
 BuildRequires:	qt-devel >= 3.1
+BuildRequires:	rpm-build >= 4.0.2-107
 BuildRequires:	zlib-devel
 BuildRequires:	fam-devel
 BuildRequires:	libart_lgpl-devel
