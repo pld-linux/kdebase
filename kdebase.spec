@@ -7,7 +7,7 @@
 # * Separating kicker, kwin, wtf
 #
 # Conditional build:
-# _with_db3		- use it if You have db package installed
+# _with_ra		- use it if You're building for Ra dist 
 # _without_alsa 	- disable alsa
 #
 
@@ -49,8 +49,6 @@ Patch7:		%{name}-kicker.patch
 Patch8:		%{name}-konsole_all.patch
 Patch9:		%{name}-nsplugins_dirs.patch
 Patch10:	%{name}-startkde.patch
-#Patch11:	%{name}-gtkrc.patch
-#Patch12:	%{name}-vfolder.patch
 %ifnarch sparc sparc64
 %{!?_without_alsa:BuildRequires: alsa-lib-devel}
 %endif
@@ -64,7 +62,7 @@ BuildRequires:	automake
 BuildRequires:	awk
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
-%if %{?_with_db3:1}%{!?_with_db3:0}
+%if %{?_with_ra:1}0
 BuildRequires:	db3-devel
 %else
 BuildRequires:	db-devel
@@ -84,7 +82,11 @@ BuildRequires:	libvorbis-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	motif-devel
+%if %{?_with_ra:1}0
+BuildRequires:	openssl-devel = 0.9.6i
+%else
 BuildRequires:	openssl-devel >= 0.9.7
+%endif
 BuildRequires:	pam-devel
 BuildRequires:	qt-devel >= 3.1
 BuildRequires:	zlib-devel
