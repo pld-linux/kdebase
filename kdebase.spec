@@ -1,9 +1,9 @@
 #
 # TODO:
-# * KDM: ColorSheme=Default works properly with GUIStyle=KDE only 
+# * KDM: ColorSheme=Default works properly with GUIStyle=KDE only
 # * KDM: Replacing findwm with a better solution (it's in the way)
 # * Fixing 48x48 pld applnk-pixmaps scaling (konqsidebar, kicker)
-# * Sources renaming & renumerating 
+# * Sources renaming & renumerating
 # * Separating kicker, kwin, wtf
 #
 # Conditional build:
@@ -88,6 +88,7 @@ BuildRequires:	openssl-devel >= 0.9.6i
 BuildRequires:	pam-devel
 BuildRequires:	qt-devel >= 3.1
 BuildRequires:	zlib-devel
+BuildRequires:	perl
 Requires(post,postun):	/sbin/ldconfig
 Requires:	applnk >= 1.5.11
 Requires:	kde-splash
@@ -205,7 +206,7 @@ Obsoletes:      kde-sdscreen-keramik
 Default KDE "Logout" picture.
 
 %description -n kde-sdscreen-default -l pl
-Standardowy obrazek okna "Wyloguj" KDE. 
+Standardowy obrazek okna "Wyloguj" KDE.
 
 %package -n kde-splash-default
 Summary:	KDE splash screen
@@ -273,7 +274,7 @@ Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	kate
 
 %description kate
-KDE advanced text editor. 
+KDE advanced text editor.
 
 %description kate -l pl
 Zaawansowany edytor tekstu dla KDE.
@@ -347,7 +348,7 @@ Obsoletes:	%{name} < 3.0.9-2.4
 Obsoletes:	kwrite
 
 %description kwrite
-KDE text editor with syntax highlighting. 
+KDE text editor with syntax highlighting.
 
 %description kwrite -l pl
 Edytor tekstu z pod¶wietlaniem sk³adni dla KDE.
@@ -367,7 +368,7 @@ KDE Mail and News Services.
 Obs³uga protoko³ów pocztowych i news dla KDE.
 
 %package pam
-Summary:	KDE User Autentication 
+Summary:	KDE User Autentication
 Summary(pl):	Uwierzytelnianie u¿ytkowników dla KDE
 Group:		X11/Applications
 Obsoletes:	%{name} < 3.0.9-2.4
@@ -457,13 +458,10 @@ kde_appsdir="%{_applnkdir}"; export kde_appsdir
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
-for plik in `find ./ -name *.desktop` ; do
-        if [ -d $plik ]; then
-	echo $plik
-	sed -ie "s/[nb]/[no]/g" $plik			        
-	fi
+for plik in `find ./ -name \*.desktop` ; do
+		echo $plik
+		perl -pi -e "s/\[nb\]/\[no\]/g" $plik
 done
-				
 
 CPPFLAGS="-I%{_includedir}"
 export CPPFLAGS
@@ -535,7 +533,7 @@ done
 > %{name}.lang
 
 programs="kdebugdialog kdeprint kdesu kicker kinfocenter \
-kioslave klipper kmenuedit kpager ksysguard" 
+kioslave klipper kmenuedit kpager ksysguard"
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> %{name}.lang
@@ -598,7 +596,7 @@ if [ -z "`id -u xdm 2>/dev/null`" ]; then
 fi
 if [ -L /etc/X11/kdm/kdmrc ]; then
     rm /etc/X11/kdm/kdmrc
-fi    
+fi
 if [ -f %{_datadir}/config/kdm/kdmrc ] && \
     [ ! -L %{_datadir}/config/kdm/kdmrc ] && \
     [ ! -f /etc/X11/kdm/kdmrc ]; then
@@ -697,7 +695,7 @@ fi
 %{_libdir}/kde3/dockbar_panelextension.la
 %attr(0755,root,root) %{_libdir}/kde3/dockbar_panelextension.so
 %{_libdir}/kde3/kasbar_panelextension.la
-%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so                                   
+%attr(0755,root,root) %{_libdir}/kde3/kasbar_panelextension.so
 %{_libdir}/kde3/kcm_access.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_access.so
 %{_libdir}/kde3/kcm_arts.la
@@ -767,13 +765,13 @@ fi
 %{_libdir}/kde3/kcm_usb.la
 %attr(0755,root,root) %{_libdir}/kde3/kcm_usb.so
 %{_libdir}/kde3/kickermenu_kdeprint.la
-%attr(0755,root,root) %{_libdir}/kde3/kickermenu_kdeprint.so                                                  
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_kdeprint.so
 %{_libdir}/kde3/kickermenu_konsole.la
-%attr(0755,root,root) %{_libdir}/kde3/kickermenu_konsole.so                                                   
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_konsole.so
 %{_libdir}/kde3/kickermenu_prefmenu.la
-%attr(0755,root,root) %{_libdir}/kde3/kickermenu_prefmenu.so                                                  
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_prefmenu.so
 %{_libdir}/kde3/kickermenu_recentdocs.la
-%attr(0755,root,root) %{_libdir}/kde3/kickermenu_recentdocs.so                                                
+%attr(0755,root,root) %{_libdir}/kde3/kickermenu_recentdocs.so
 %{_libdir}/kde3/klipper_panelapplet.la
 %attr(0755,root,root) %{_libdir}/kde3/klipper_panelapplet.so
 %{_libdir}/kde3/kwin*.la
@@ -898,13 +896,13 @@ fi
 %defattr(644,root,root,755)
 %{_libdir}/libccont.a
 
-%files -n kde-sdscreen-default                                                  
-%defattr(644,root,root,755)                                                     
-%{_datadir}/apps/ksmserver/* 
+%files -n kde-sdscreen-default
+%defattr(644,root,root,755)
+%{_datadir}/apps/ksmserver/*
 
-%files -n kde-splash-default                                                  
-%defattr(644,root,root,755)                                                     
-%{_datadir}/apps/ksplash/* 
+%files -n kde-splash-default
+%defattr(644,root,root,755)
+%{_datadir}/apps/ksplash/*
 
 %files common-filemanagement
 %defattr(644,root,root,755)
@@ -1135,8 +1133,8 @@ fi
 %{_libdir}/libnsplugin.la
 %attr(0755,root,root) %{_libdir}/libnsplugin.so.*
 %dir %{_libdir}/kde3/plugins/konqueror
-%{_libdir}/kde3/kfile_font.la     
-%attr(0755,root,root) %{_libdir}/kde3/kfile_font.so     
+%{_libdir}/kde3/kfile_font.la
+%attr(0755,root,root) %{_libdir}/kde3/kfile_font.so
 %{_libdir}/kde3/libkmanpart.la
 %attr(0755,root,root) %{_libdir}/kde3/libkmanpart.so
 %{_libdir}/kde3/libkshorturifilter.la
