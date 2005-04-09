@@ -1034,6 +1034,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch16 -p1
 %patch18 -p1
 %patch19 -p1
+%patch20 -p1
 %patch21 -p1
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
