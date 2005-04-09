@@ -10,20 +10,20 @@
  
 --- kdebase-3.4.0/konqueror/konq_mainwindow.cc.orig	2005-03-04 12:21:51.000000000 +0100
 +++ kdebase-3.4.0/konqueror/konq_mainwindow.cc	2005-03-11 20:46:17.049824568 +0100
-@@ -3680,14 +3680,13 @@
+@@ -3681,14 +3681,13 @@
    connect( m_paUp->popupMenu(), SIGNAL( aboutToShow() ), this, SLOT( slotUpAboutToShow() ) );
    connect( m_paUp->popupMenu(), SIGNAL( activated( int ) ), this, SLOT( slotUpActivated( int ) ) );
  
 -  QPair< KGuiItem, KGuiItem > backForward = KStdGuiItem::backAndForward();
 -  m_paBack = new KToolBarPopupAction( backForward.first, KStdAccel::shortcut(KStdAccel::Back), 0, "", actionCollection(), "back" );
 +  m_paBack = new KToolBarPopupAction( KStdGuiItem::back(), KStdAccel::shortcut(KStdAccel::Back), 0, "", actionCollection(), "back" );
-   connect( m_paBack, SIGNAL( activated( KAction::ActivationReason, Qt::ButtonState) ), this, 
+   connect( m_paBack, SIGNAL( activated( KAction::ActivationReason, Qt::ButtonState) ), this,
  	   SLOT( slotBack(KAction::ActivationReason, Qt::ButtonState) ) );
    connect( m_paBack->popupMenu(), SIGNAL( aboutToShow() ), this, SLOT( slotBackAboutToShow() ) );
    connect( m_paBack->popupMenu(), SIGNAL( activated( int ) ), this, SLOT( slotBackActivated( int ) ) );
  
 -  m_paForward = new KToolBarPopupAction( backForward.second, KStdAccel::shortcut(KStdAccel::Forward), 0, "", actionCollection(), "forward" );
 +  m_paForward = new KToolBarPopupAction( KStdGuiItem::forward(), KStdAccel::shortcut(KStdAccel::Forward), 0, "", actionCollection(), "forward" );
-   connect( m_paForward, SIGNAL( activated( KAction::ActivationReason, Qt::ButtonState) ), this, 
+   connect( m_paForward, SIGNAL( activated( KAction::ActivationReason, Qt::ButtonState) ), this,
  	   SLOT( slotForward(KAction::ActivationReason, Qt::ButtonState) ) );
    connect( m_paForward->popupMenu(), SIGNAL( aboutToShow() ), this, SLOT( slotForwardAboutToShow() ) );
