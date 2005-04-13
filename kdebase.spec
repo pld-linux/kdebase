@@ -25,7 +25,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	2
+Release:	3
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -65,7 +65,7 @@ Patch16:	%{name}-vmenus.patch
 Patch17:	%{name}-sasl-includes.patch
 Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
-Patch20:	%{name}-gcc4-konq_mainwindow.patch
+Patch20:	%{name}-konqueror-segv.patch
 Patch21:	%{name}-seesar.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	OpenEXR-devel >= 1.2.2
