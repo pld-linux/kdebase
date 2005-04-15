@@ -73,6 +73,7 @@ BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	awk
+BuildRequires:	bzip2-devel
 BuildRequires:	cyrus-sasl-devel
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
@@ -106,6 +107,7 @@ BuildRequires:	openssl-devel >= 0.9.7c
 BuildRequires:	X11-devel >= 1:6.8.1
 %{?with_ldap:BuildRequires:	openldap-devel}
 BuildRequires:	pam-devel
+BuildRequires:	pkgconfig
 %{?with_apidocs:BuildRequires:	qt-doc}
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
