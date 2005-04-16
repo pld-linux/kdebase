@@ -1,0 +1,71 @@
+--- kdebase-030317/kcontrol/konsole/sessioneditor.cpp~	Sun Mar 16 00:35:44 2003
++++ kdebase-030317/kcontrol/konsole/sessioneditor.cpp	Tue Mar 18 10:16:38 2003
+@@ -201,7 +201,7 @@
+         i = co->readUnsignedNumEntry("Font",(unsigned int)-1);
+         fontCombo->setCurrentItem(i+1);
+ 
+-        str = co->readEntry("Term","xterm");
++        str = co->readEntry("Term","xterm-color");
+         termLine->setText(str);
+ 
+         str = co->readEntry("KeyTab","");
+--- kdebase-030518/konsole/konsole/konsole.cpp~	2003-05-06 00:34:51.000000000 +0200
++++ kdebase-030518/konsole/konsole/konsole.cpp	2003-05-21 20:22:44.000000000 +0200
+@@ -832,7 +832,7 @@
+                               SLOT(slotSaveHistory()), m_shortcuts, "save_history");
+   m_saveHistory->setEnabled(b_histEnabled );
+ 
+-  m_clearHistory = new KAction(i18n("Clear &History"), "history_clear", 0, this,
++  m_clearHistory = new KAction(i18n("Clear &History"), "history_clear", Qt::CTRL+Qt::ALT+Qt::Key_W, this,
+                                SLOT(slotClearHistory()), m_shortcuts, "clear_history");
+   m_clearHistory->setEnabled(b_histEnabled);
+ 
+@@ -1145,7 +1145,7 @@
+    {
+       n_defaultKeytab=KeyTrans::find(config->readEntry("keytab","default"))->numb(); // act. the keytab for this session
+       b_fullscreen = config->readBoolEntry("Fullscreen",false);
+-      n_defaultFont = n_font = QMIN(config->readUnsignedNumEntry("font",3),TOPFONT);
++      n_defaultFont = n_font = QMIN(config->readUnsignedNumEntry("font",6),TOPFONT);
+       n_scroll   = QMIN(config->readUnsignedNumEntry("scrollbar",TEWidget::SCRRIGHT),2);
+       n_bell = QMIN(config->readUnsignedNumEntry("bellmode",TEWidget::BELLSYSTEM),2);
+ 
+@@ -1995,7 +1995,7 @@
+ 
+ QString Konsole::newSession(KSimpleConfig *co, QString program, const QStrList &args, const QString &_term,const QString &_icon,const QString &_title, const QString &_cwd)
+ {
+-  QString emu = "xterm";
++  QString emu = "xterm-color";
+   QString icon = "openterm";
+   QString key;
+   QString sch = s_kconfigSchema;
+--- kdebase-030621/konsole/konsole/konsole_part.cpp~	2003-06-21 00:34:59.000000000 +0200
++++ kdebase-030621/konsole/konsole/konsole_part.cpp	2003-06-21 19:59:49.000000000 +0200
+@@ -514,7 +514,7 @@
+   b_framevis = config->readBoolEntry("has frame",false);
+   b_histEnabled = config->readBoolEntry("historyenabled",true);
+   n_bell = QMIN(config->readUnsignedNumEntry("bellmode",TEWidget::BELLSYSTEM),3);
+-  n_font = QMIN(config->readUnsignedNumEntry("font",3),TOPFONT);
++  n_font = QMIN(config->readUnsignedNumEntry("font",6),TOPFONT);
+   n_keytab=config->readNumEntry("keytab",0); // act. the keytab for this session
+   n_scroll = QMIN(config->readUnsignedNumEntry("scrollbar",TEWidget::SCRRIGHT),2);
+   m_histSize = config->readNumEntry("history",DEFAULT_HISTORY_SIZE);
+@@ -987,7 +987,7 @@
+                                 const QStrList& args )
+ {
+   if ( se ) delete se;
+-  se = new TESession(te, program, args, "xterm", parentWidget->winId());
++  se = new TESession(te, program, args, "xterm-color", parentWidget->winId());
+   connect( se,SIGNAL(done(TESession*)),
+            this,SLOT(doneSession(TESession*)) );
+   connect( se,SIGNAL(openURLRequest(const QString &)),
+--- kdebase-3.3.92/konsole/konsole/main.cpp.orig	2005-02-04 00:19:05.000000000 +0100
++++ kdebase-3.3.92/konsole/konsole/main.cpp	2005-02-10 21:19:03.141540912 +0100
+@@ -57,7 +57,7 @@
+    { "name <name>",     I18N_NOOP("Set window class"), 0 },
+    { "ls",              I18N_NOOP("Start login shell"), 0 },
+    { "T <title>",       I18N_NOOP("Set the window title"), 0 },
+-   { "tn <terminal>",   I18N_NOOP("Specify terminal type as set in the TERM\nenvironment variable"), "xterm" },
++   { "tn <terminal>",   I18N_NOOP("Specify terminal type as set in the TERM\nenvironment variable"), "xterm-color" },
+    { "noclose",         I18N_NOOP("Do not close Konsole when command exits"), 0 },
+    { "nohist",          I18N_NOOP("Do not save lines in history"), 0 },
+    { "nomenubar",       I18N_NOOP("Do not display menubar"), 0 },

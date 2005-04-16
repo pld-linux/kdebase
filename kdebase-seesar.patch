@@ -1,0 +1,66 @@
+diff -Nur kdebase-3.3.2/kcontrol/ebrowsing/plugins/ikws/searchproviders.orig/Makefile.am kdebase-3.3.2/kcontrol/ebrowsing/plugins/ikws/searchproviders/Makefile.am
+--- kdebase-3.3.2/kcontrol/ebrowsing/plugins/ikws/searchproviders.orig/Makefile.am	2004-07-17 19:51:58.000000000 +0200
++++ kdebase-3.3.2/kcontrol/ebrowsing/plugins/ikws/searchproviders/Makefile.am	2005-02-26 21:46:47.488340688 +0100
+@@ -66,6 +66,10 @@
+ 		ruby_application_archive.desktop \
+ 		seek.desktop \
+ 		sourceforge.desktop \
++		seesar.desktop \
++		seesar_film.desktop \
++		seesar_music.desktop \
++		seesar_video.desktop \
+ 		thesaurus.desktop \
+ 		vivisimo.desktop \
+ 		voila.desktop \
+diff -Nur kdebase-3.3.2/kcontrol/ebrowsing/plugins/ikws/searchproviders.orig/seesar.desktop kdebase-3.3.2/kcontrol/ebrowsing/plugins/ikws/searchproviders/seesar.desktop
+--- kdebase-3.3.2/kcontrol/ebrowsing/plugins/ikws/searchproviders.orig/seesar.desktop	1970-01-01 01:00:00.000000000 +0100
++++ kdebase-3.3.2/kcontrol/ebrowsing/plugins/ikws/searchproviders/seesar.desktop	2005-02-26 21:49:02.309844704 +0100
+@@ -0,0 +1,9 @@
++[Desktop Entry]
++Encoding=UTF-8
++Type=Service
++Name=Seesar Search (PW dormitory search engine)
++Name[pl]=Seesar Search (wyszukiwarka akademików PW)
++ServiceTypes=SearchProvider
++Keys=ss
++Query=http://exor.mikrus/cgi-bin/ss.cgi?q=\\{@}&tplik=0&eftep=1&rozmiar=1&kategoria=all
++Charset=iso8859-2
+diff -Nur kdebase-3.3.2/kcontrol/ebrowsing/plugins/ikws/searchproviders.orig/seesar_film.desktop kdebase-3.3.2/kcontrol/ebrowsing/plugins/ikws/searchproviders/seesar_film.desktop
+--- kdebase-3.3.2/kcontrol/ebrowsing/plugins/ikws/searchproviders.orig/seesar_film.desktop	1970-01-01 01:00:00.000000000 +0100
++++ kdebase-3.3.2/kcontrol/ebrowsing/plugins/ikws/searchproviders/seesar_film.desktop	2005-02-26 22:00:36.741275080 +0100
+@@ -0,0 +1,9 @@
++[Desktop Entry]
++Encoding=UTF-8
++Type=Service
++Name=Seesar Search: movies (PW dormitory search engine)
++Name[pl]=Seesar Search: filmy (wyszukiwarka akademików PW)
++ServiceTypes=SearchProvider
++Keys=ssf
++Query=http://exor.mikrus/cgi-bin/ss.cgi?q=\\{@}&tplik=0&eftep=1&rozmiar=6&kategoria=filmy
++Charset=iso8859-2
+diff -Nur kdebase-3.3.2/kcontrol/ebrowsing/plugins/ikws/searchproviders.orig/seesar_music.desktop kdebase-3.3.2/kcontrol/ebrowsing/plugins/ikws/searchproviders/seesar_music.desktop
+--- kdebase-3.3.2/kcontrol/ebrowsing/plugins/ikws/searchproviders.orig/seesar_music.desktop	1970-01-01 01:00:00.000000000 +0100
++++ kdebase-3.3.2/kcontrol/ebrowsing/plugins/ikws/searchproviders/seesar_music.desktop	2005-02-26 21:51:24.668202944 +0100
+@@ -0,0 +1,9 @@
++[Desktop Entry]
++Encoding=UTF-8
++Type=Service
++Name=Seesar Search: music (PW dormitory search engine)
++Name[pl]=Seesar Search: muzyka (wyszukiwarka akademików PW)
++ServiceTypes=SearchProvider
++Keys=ssm
++Query=http://exor.mikrus/cgi-bin/ss.cgi?q=\\{@}&tplik=0&eftep=1&rozmiar=1&kategoria=muzyka
++Charset=iso8859-2
+diff -Nur kdebase-3.3.2/kcontrol/ebrowsing/plugins/ikws/searchproviders.orig/seesar_video.desktop kdebase-3.3.2/kcontrol/ebrowsing/plugins/ikws/searchproviders/seesar_video.desktop
+--- kdebase-3.3.2/kcontrol/ebrowsing/plugins/ikws/searchproviders.orig/seesar_video.desktop	1970-01-01 01:00:00.000000000 +0100
++++ kdebase-3.3.2/kcontrol/ebrowsing/plugins/ikws/searchproviders/seesar_video.desktop	2005-02-26 21:59:12.319109200 +0100
+@@ -0,0 +1,9 @@
++[Desktop Entry]
++Encoding=UTF-8
++Type=Service
++Name=Seesar Search: videos (PW dormitory search engine)
++Name[pl]=Seesar Search: filmiki (wyszukiwarka akademików PW)
++ServiceTypes=SearchProvider
++Keys=ssv
++Query=http://exor.mikrus/cgi-bin/ss.cgi?q=\\{@}&tplik=0&eftep=1&rozmiar=1&kategoria=filmy
++Charset=iso8859-2
