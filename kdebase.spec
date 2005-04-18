@@ -101,7 +101,6 @@ BuildRequires:	libusb-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
-BuildRequires:	mDNSResponder-devel
 BuildRequires:	motif-devel
 BuildRequires:	openssl-devel >= 0.9.7c
 # kde requires libXext and more stuff that is X11-only juz grep X11 `find -name configure.in.in`
