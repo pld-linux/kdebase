@@ -25,10 +25,11 @@
      // fill list
 --- kdebase/nsplugins/pluginscan.cpp.orig	2004-03-23 14:57:02.000000000 +0100
 +++ kdebase/nsplugins/pluginscan.cpp	2004-03-23 15:15:28.117284592 +0100
-@@ -441,20 +441,7 @@
+@@ -443,21 +443,7 @@
      // setup default paths
      if ( !config->hasKey("scanPaths") ) {
          QStringList paths;
+-        paths.append("$HOME/.mozilla/plugins");
 -        paths.append("$HOME/.netscape/plugins");
 -        paths.append("/usr/lib64/browser-plugins");
 -        paths.append("/usr/lib/browser-plugins");
@@ -43,7 +44,7 @@
 -        paths.append("/usr/lib/mozilla/plugins");
 -	paths.append("/usr/lib64/netscape/plugins");
 -	paths.append("/usr/lib64/mozilla/plugins");
-+        paths.append("/usr/lib/kde3/plugins/konqueror");
++	paths.append("/usr/lib/kde3/plugins/konqueror");
          paths.append("$MOZILLA_HOME/plugins");
          config->writeEntry( "scanPaths", paths );
      }
