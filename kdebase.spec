@@ -10,9 +10,10 @@
 %bcond_without	ldap		# build or not ldap ioslave
 
 %define		_state		stable
-%define		_kdever		3.4
-%define		_ver		3.4.0
-%define		_minlibsevr	9:3.4.0
+%define		_kdever		3.4.89
+%define		_ver		3.4.89
+%define		_snap		050428
+%define		_minlibsevr	9:3.4.89.050428
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -24,13 +25,14 @@ Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
-Version:	%{_ver}
+Version:	%{_ver}.%{_snap}
 Release:	5
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	c88659e558ca98dc45377bf8ddfc26c9
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
+Source0:        ftp://ftp.pld-linux.org/software/kde/%{name}-%{_snap}.tar.bz2
+##% Source0-md5:	c88659e558ca98dc45377bf8ddfc26c9
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm.init
@@ -45,7 +47,7 @@ Source10:	%{name}-servicemenus.tar.bz2
 # Source10-md5:	5b113fe35bd3a46de31e451e285e86d3
 Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
-Patch100:	%{name}-branch.diff
+#Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-fontdir.patch
 Patch2:		%{name}-kcm_background.patch
@@ -1015,8 +1017,9 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 - listê przestrzeni nazw (namespace)
 
 %prep
-%setup -q
-%patch100 -p1
+#%setup -q
+%setup -q -n %{name}-%{_snap}
+#%patch100 -p1
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -1123,6 +1126,8 @@ done
 cp /usr/share/automake/config.sub admin
 
 #export UNSERMAKE=/usr/share/unsermake/unsermake
+
+echo "KDE_OPTIONS = nofinal" > kicker/extensions/kasbar/Makefile.am
 
 %{__make} -f admin/Makefile.common cvs
 
@@ -1239,6 +1244,7 @@ programs=" \
 	kdesu \
 	khelpcenter \
 	knetattach \
+	kompmgr \
 	language"
 
 for i in $programs; do
@@ -1271,6 +1277,7 @@ programs=" \
 	panel \
 	panelappearance \
 	passwords \
+	performance \
 	spellchecking \
 	windowmanagement"
 
@@ -1391,7 +1398,7 @@ fi
 %{_includedir}/ksgrd
 %{_includedir}/ksplash
 %{_includedir}/kwin
-%{_libdir}/libkasbar.so
+#%{_libdir}/libkasbar.so
 %{_libdir}/libkateinterfaces.so
 %{_libdir}/libkateutils.so
 %{_libdir}/libkdecorations.so
@@ -1547,8 +1554,8 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/imagethumbnail.so
 %{_libdir}/kde3/libkonsolepart.la
 %attr(755,root,root) %{_libdir}/kde3/libkonsolepart.so
-%{_libdir}/kde3/picturethumbnail.la
-%attr(755,root,root) %{_libdir}/kde3/picturethumbnail.so
+#%{_libdir}/kde3/picturethumbnail.la
+#%attr(755,root,root) %{_libdir}/kde3/picturethumbnail.so
 %{_libdir}/kde3/textthumbnail.la
 %attr(755,root,root) %{_libdir}/kde3/textthumbnail.so
 %{_datadir}/services/djvuthumbnail.desktop
@@ -1558,7 +1565,7 @@ fi
 %{_datadir}/services/imagethumbnail.desktop
 %{_datadir}/services/konsolepart.desktop
 %{_datadir}/services/textthumbnail.desktop
-%{_datadir}/services/picturethumbnail.desktop
+#%{_datadir}/services/picturethumbnail.desktop
 %{_datadir}/services/thumbnail.protocol
 %{_datadir}/servicetypes/terminalemulator.desktop
 %{_datadir}/servicetypes/thumbcreator.desktop
@@ -1702,7 +1709,8 @@ fi
 %doc AUTHORS README README.pam
 %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdesktop
 %attr(755,root,root) %{_bindir}/kaccess
-%attr(755,root,root) %{_bindir}/kasbar
+#%attr(755,root,root) %{_bindir}/kasbar
+%attr(755,root,root) %{_bindir}/kapplymousetheme
 %attr(755,root,root) %{_bindir}/kcheckpass
 %attr(755,root,root) %{_bindir}/kdeeject
 %attr(755,root,root) %{_bindir}/kdesktop
@@ -1712,7 +1720,7 @@ fi
 %attr(755,root,root) %{_bindir}/khotkeys
 %attr(755,root,root) %{_bindir}/krdb
 %attr(755,root,root) %{_bindir}/kreadconfig
-%attr(755,root,root) %{_bindir}/krandrinithack
+#%attr(755,root,root) %{_bindir}/krandrinithack
 %attr(755,root,root) %{_bindir}/krandrtray
 %attr(755,root,root) %{_bindir}/ksmserver
 %attr(755,root,root) %{_bindir}/ksplash
@@ -1743,8 +1751,8 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit_kdesktop.so
 %{_libdir}/libkdeinit_khotkeys.la
 %attr(755,root,root) %{_libdir}/libkdeinit_khotkeys.so
-%{_libdir}/libkdeinit_krandrinithack.la
-%attr(755,root,root) %{_libdir}/libkdeinit_krandrinithack.so
+#%{_libdir}/libkdeinit_krandrinithack.la
+#%attr(755,root,root) %{_libdir}/libkdeinit_krandrinithack.so
 %{_libdir}/libkdeinit_ksmserver.la
 %attr(755,root,root) %{_libdir}/libkdeinit_ksmserver.so
 %{_libdir}/libkdeinit_kwin.la
@@ -1817,8 +1825,8 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/kdesktop.so
 %{_libdir}/kde3/khotkeys.la
 %attr(755,root,root) %{_libdir}/kde3/khotkeys.so
-%{_libdir}/kde3/krandrinithack.la
-%attr(755,root,root) %{_libdir}/kde3/krandrinithack.so
+#%{_libdir}/kde3/krandrinithack.la
+#%attr(755,root,root) %{_libdir}/kde3/krandrinithack.so
 %{_libdir}/kde3/ksmserver.la
 %attr(755,root,root) %{_libdir}/kde3/ksmserver.so
 %{_libdir}/kde3/ksplashdefault.la
@@ -1871,10 +1879,13 @@ fi
 %{_datadir}/config/kdesktop_custom_menu1
 %{_datadir}/config/kdesktop_custom_menu2
 %{_datadir}/config/kxkb_groups
-%{_datadir}/config.kcfg/kwin.kcfg
 %{_datadir}/config.kcfg/kdesktop.kcfg
+%{_datadir}/config.kcfg/keditbookmarks.kcfg
+%{_datadir}/config.kcfg/kickerSettings.kcfg
 %{_datadir}/config.kcfg/klaunch.kcfg
+%{_datadir}/config.kcfg/konq_listview.kcfg
 %{_datadir}/config.kcfg/kwebdesktop.kcfg
+%{_datadir}/config.kcfg/kwin.kcfg
 %{_datadir}/services/cursorthumbnail.desktop
 %{_datadir}/services/kaccess.desktop
 %{_datadir}/services/kded/khotkeys.desktop
@@ -1917,6 +1928,9 @@ fi
 %{_datadir}/applnk/.hidden/email.desktop
 %{_datadir}/applnk/.hidden/energy.desktop
 %{_datadir}/applnk/.hidden/kcmkxmlrpcd.desktop
+%{_datadir}/applnk/.hidden/kicker_config_arrangement.desktop
+%{_datadir}/applnk/.hidden/kicker_config_hiding.desktop
+%{_datadir}/applnk/.hidden/kicker_config_menus.desktop
 %{_datadir}/applnk/.hidden/kwinactions.desktop
 %{_datadir}/applnk/.hidden/kwinadvanced.desktop
 %{_datadir}/applnk/.hidden/kwinfocus.desktop
@@ -2060,6 +2074,12 @@ fi
 %{_iconsdir}/crystalsvg/*/apps/thunderbird.png
 %{_iconsdir}/crystalsvg/*/apps/wine.png
 %{_iconsdir}/crystalsvg/scalable/apps
+# New
+%{_iconsdir}/crystalsvg/*/apps/fifteenpieces.png
+%{_iconsdir}/crystalsvg/*/apps/kbinaryclock.png
+%{_iconsdir}/crystalsvg/*/apps/runprocesscatcher.png
+%{_iconsdir}/crystalsvg/*/apps/systemtray.png
+%{_iconsdir}/crystalsvg/*/apps/taskbar.png
 
 # kcontroledit
 %attr(755,root,root) %{_bindir}/kcontroledit
@@ -2077,8 +2097,8 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/clock_panelapplet.so
 %{_libdir}/kde3/dockbar_panelextension.la
 %attr(755,root,root) %{_libdir}/kde3/dockbar_panelextension.so
-%{_libdir}/kde3/kasbar_panelextension.la
-%attr(755,root,root) %{_libdir}/kde3/kasbar_panelextension.so
+#%{_libdir}/kde3/kasbar_panelextension.la
+#%attr(755,root,root) %{_libdir}/kde3/kasbar_panelextension.so
 %{_libdir}/kde3/kcm_clock.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_clock.so
 %{_libdir}/kde3/kcm_kicker.la
@@ -2175,8 +2195,8 @@ fi
 
 %files desktop-libs
 %defattr(644,root,root,755)
-%{_libdir}/libkasbar.la
-%attr(755,root,root) %{_libdir}/libkasbar.so.*.*.*
+#%{_libdir}/libkasbar.la
+#%attr(755,root,root) %{_libdir}/libkasbar.so.*.*.*
 %{_libdir}/libkdecorations.la
 %attr(755,root,root) %{_libdir}/libkdecorations.so.*.*.*
 %{_libdir}/libksplashthemes.la
@@ -2251,8 +2271,8 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit_kate.so
 %{_libdir}/kde3/kate.la
 %attr(755,root,root) %{_libdir}/kde3/kate.so
-%{_libdir}/kde3/katedefaultprojectplugin.la
-%attr(755,root,root) %{_libdir}/kde3/katedefaultprojectplugin.so
+#%{_libdir}/kde3/katedefaultprojectplugin.la
+#%attr(755,root,root) %{_libdir}/kde3/katedefaultprojectplugin.so
 #%{_libdir}/kde3/katekttsdplugin.la
 #%attr(755,root,root) %{_libdir}/kde3/katekttsdplugin.so
 %dir %{_datadir}/apps/kate
@@ -2260,11 +2280,11 @@ fi
 %dir %{_datadir}/apps/kate/scripts
 %{_datadir}/apps/kate/scripts/*.desktop
 %attr(755,root,root) %{_datadir}/apps/kate/scripts/*.sh
-%{_datadir}/apps/katepart
+#%{_datadir}/apps/katepart
 %{_datadir}/config/katerc
-%{_datadir}/mimelnk/application/x-kate-project.desktop
-%{_datadir}/services/katedefaultproject.desktop
-%{_datadir}/services/katekttsd.desktop
+#%{_datadir}/mimelnk/application/x-kate-project.desktop
+#%{_datadir}/services/katedefaultproject.desktop
+#%{_datadir}/services/katekttsd.desktop
 %{_datadir}/servicetypes/kateinitplugin.desktop
 %{_datadir}/servicetypes/kateplugin.desktop
 %{_datadir}/servicetypes/kateprojectplugin.desktop
