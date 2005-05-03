@@ -9,9 +9,9 @@
          termLine->setText(str);
  
          str = co->readEntry("KeyTab","");
---- kdebase-030518/konsole/konsole/konsole.cpp~	2003-05-06 00:34:51.000000000 +0200
-+++ kdebase-030518/konsole/konsole/konsole.cpp	2003-05-21 20:22:44.000000000 +0200
-@@ -832,7 +832,7 @@
+--- kdebase-050428/konsole/konsole/konsole.cpp.orig	2005-04-28 19:38:19.000000000 +0200
++++ kdebase-050428/konsole/konsole/konsole.cpp	2005-04-30 14:46:13.743872128 +0200
+@@ -1013,7 +1013,7 @@
                                SLOT(slotSaveHistory()), m_shortcuts, "save_history");
    m_saveHistory->setEnabled(b_histEnabled );
  
@@ -20,35 +20,17 @@
                                 SLOT(slotClearHistory()), m_shortcuts, "clear_history");
    m_clearHistory->setEnabled(b_histEnabled);
  
-@@ -1145,7 +1145,7 @@
-    {
-       n_defaultKeytab=KeyTrans::find(config->readEntry("keytab","default"))->numb(); // act. the keytab for this session
-       b_fullscreen = config->readBoolEntry("Fullscreen",false);
--      n_defaultFont = n_font = QMIN(config->readUnsignedNumEntry("font",3),TOPFONT);
-+      n_defaultFont = n_font = QMIN(config->readUnsignedNumEntry("font",6),TOPFONT);
-       n_scroll   = QMIN(config->readUnsignedNumEntry("scrollbar",TEWidget::SCRRIGHT),2);
-       n_bell = QMIN(config->readUnsignedNumEntry("bellmode",TEWidget::BELLSYSTEM),2);
- 
-@@ -1995,7 +1995,7 @@
- 
- QString Konsole::newSession(KSimpleConfig *co, QString program, const QStrList &args, const QString &_term,const QString &_icon,const QString &_title, const QString &_cwd)
+@@ -2564,7 +2564,7 @@
+                             const QString &_term,const QString &_icon,
+                             const QString &_title, const QString &_cwd)
  {
 -  QString emu = "xterm";
 +  QString emu = "xterm-color";
-   QString icon = "openterm";
+   QString icon = "konsole";
    QString key;
    QString sch = s_kconfigSchema;
 --- kdebase-030621/konsole/konsole/konsole_part.cpp~	2003-06-21 00:34:59.000000000 +0200
 +++ kdebase-030621/konsole/konsole/konsole_part.cpp	2003-06-21 19:59:49.000000000 +0200
-@@ -514,7 +514,7 @@
-   b_framevis = config->readBoolEntry("has frame",false);
-   b_histEnabled = config->readBoolEntry("historyenabled",true);
-   n_bell = QMIN(config->readUnsignedNumEntry("bellmode",TEWidget::BELLSYSTEM),3);
--  n_font = QMIN(config->readUnsignedNumEntry("font",3),TOPFONT);
-+  n_font = QMIN(config->readUnsignedNumEntry("font",6),TOPFONT);
-   n_keytab=config->readNumEntry("keytab",0); // act. the keytab for this session
-   n_scroll = QMIN(config->readUnsignedNumEntry("scrollbar",TEWidget::SCRRIGHT),2);
-   m_histSize = config->readNumEntry("history",DEFAULT_HISTORY_SIZE);
 @@ -987,7 +987,7 @@
                                  const QStrList& args )
  {

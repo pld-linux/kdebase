@@ -1,14 +1,14 @@
---- kdebase-031021/startkde.orig	2003-10-14 22:48:48.000000000 +0200
-+++ kdebase-031021/startkde	2003-10-21 13:58:14.000000000 +0200
-@@ -181,6 +181,7 @@
+--- kdebase-050428/startkde.orig	2005-04-28 19:38:07.000000000 +0200
++++ kdebase-050428/startkde	2005-04-30 14:55:25.458998680 +0200
+@@ -259,6 +259,7 @@
  
  # run KPersonalizer before the session, if this is the first login
- if kreadconfig --file kpersonalizerrc --group General --key FirstLogin --default true --type bool; then
+ if test "$kpersonalizerrc_general_firstlogin" = "true"; then
 +  if test `/usr/bin/which kpersonalizer 2>/dev/null`; then
      # start only dcopserver, don't start whole kdeinit (takes too long)
      echo 'startkde: Running kpersonalizer...'  1>&2
      dcopserver
-@@ -192,6 +193,7 @@
+@@ -270,6 +271,7 @@
      done
      dcopquit kwin
      dcopserver_shutdown --wait
@@ -16,4 +16,3 @@
  fi
  
  # the splashscreen and progress indicator
-
