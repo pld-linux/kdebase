@@ -25,7 +25,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	5
+Release:	6
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -533,6 +533,7 @@ Requires:	%{name}-kpager = %{epoch}:%{version}-%{release}
 Requires:	konqueror = %{epoch}:%{version}-%{release}
 Requires:	xcursor >= 1.1.0
 Requires:	kde-splash-Default
+Requires:	pam >= 0.79.0
 Obsoletes:	kde-theme-keramik
 Obsoletes:	kdebase
 Obsoletes:	kdebase-fonts
@@ -910,7 +911,7 @@ PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires:	kde-kgreet
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
-Requires:	pam
+Requires:	pam >= 0.79.0
 Requires:	sessreg
 Requires:	xinitrc-ng >= 0.4
 Obsoletes:	X11-xdm
