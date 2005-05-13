@@ -25,7 +25,7 @@ Summary(uk):	K Desktop Environment - базов╕ файли
 Summary(zh_CN):	KDE╨кпд
 Name:		kdebase
 Version:	%{_ver}
-Release:	6
+Release:	7
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -501,6 +501,7 @@ Obsoletes:	kdebase < 8:3.2-0.030428.1
 Obsoletes:	kdebase-kcontrol
 Obsoletes:	kdebase-khelpcenter
 Obsoletes:	kdebase-helpcenter
+Conflicts:	kttsd <= 040609
 
 %description core
 KDE Core apps. This package contains:
@@ -615,6 +616,7 @@ Group:		X11/Applications/Editors
 Requires:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
 Obsoletes:	kate
+Conflicts:	kttsd <= 040609
 
 %description kate
 KDE advanced text editor featuring among others:
