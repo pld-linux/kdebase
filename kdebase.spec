@@ -556,6 +556,7 @@ Obsoletes:	kdebase-static
 Obsoletes:	kdebase-wallpapers
 Obsoletes:	khotkeys
 Obsoletes:	kde-decoration-plastik
+Conflicts:	kdeedu-libkdeeduui < 8:3.4.0
 
 %description desktop
 KDesktop is the program that handles the desktop icons, the popup
