@@ -33,8 +33,9 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.
 # Source0-md5:	c88659e558ca98dc45377bf8ddfc26c9
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
-Source3:	%{name}-kdm.init
-Source4:	%{name}-kdm.Xsession
+Source3:	%{name}-kdm-np.pam
+Source4:	%{name}-kdm.init
+Source5:	%{name}-kdm.Xsession
 Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-searchproviders.tar.bz2
@@ -1174,8 +1175,9 @@ mv $RPM_BUILD_ROOT/etc/X11/kdm/Xsession{,.orig}
 # Install miscleanous PLD files
 install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
 install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
-install %{SOURCE3}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
-install %{SOURCE4}	$RPM_BUILD_ROOT/etc/X11/kdm/Xsession
+install %{SOURCE3}	$RPM_BUILD_ROOT/etc/pam.d/kdm-np
+install %{SOURCE4}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
+install %{SOURCE5}	$RPM_BUILD_ROOT/etc/X11/kdm/Xsession
 install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
 %{__tar} xfj %{SOURCE8} -C $RPM_BUILD_ROOT%{_datadir}/services/searchproviders/
@@ -2455,6 +2457,7 @@ fi
 %defattr(644,root,root,755)
 %doc README.pam kdm/{ChangeLog,README,TODO}
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdm
+%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdm-np
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kdm
 %attr(0754,root,root) /etc/rc.d/init.d/kdm
 %dir /etc/X11/kdm
