@@ -7,7 +7,7 @@ auth		required	pam_shells.so
 auth		required	pam_nologin.so
 auth		optional	pam_mail.so
 account		required	pam_tally.so file=/var/log/faillog onerr=succeed
-account		required 	pam_access.so
+account		required	pam_access.so
 account		required	pam_time.so
 account		required	pam_unix.so
 password	required	pam_cracklib.so difok=2 minlen=8 dcredit=2 ocredit=2 retry=3
