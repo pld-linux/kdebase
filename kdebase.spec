@@ -81,7 +81,6 @@ BuildRequires:	dbus-qt-devel
 BuildRequires:	db-devel
 %{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	ed
-BuildRequires:	findutils
 BuildRequires:	gettext-devel
 %{?with_apidocs:BuildRequires:	graphviz}
 BuildRequires:	grep
