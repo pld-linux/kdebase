@@ -524,6 +524,7 @@ Summary:	KDesktop - handling of desktop icons, popup menus etc.
 Summary(pl):	KDesktop - obs³uga ikon na pulpicie, menu itp.
 Group:		X11/Applications
 Provides:	kdebase-kicker
+Requires:	kde-kdialog
 Requires:	kde-kgreet
 Requires:	kde-kside
 Requires:	kde-logoutpic
