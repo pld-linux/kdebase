@@ -532,6 +532,7 @@ Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kfind = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kjobviewer = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kpager = %{epoch}:%{version}-%{release}
+Requires:	eject
 Requires:	konqueror = %{epoch}:%{version}-%{release}
 Requires:	xcursor >= 1.1.0
 Requires:	kde-splash-Default
