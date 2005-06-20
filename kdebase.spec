@@ -41,7 +41,7 @@ Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-searchproviders.tar.bz2
 # Source8-md5:	5f5c25cd843a3956354eef7dcfa0c883
 Source9:	%{name}-colorschemes.tar.bz2
-# Source9-md5:	6a9cb98ac7ffcc6084c05a6885c75a25
+# Source9-md5:	66d7224c7f3c0fd10d5f925bc4ce43a6
 Source10:	%{name}-servicemenus.tar.bz2
 # Source10-md5:	5b113fe35bd3a46de31e451e285e86d3
 Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
