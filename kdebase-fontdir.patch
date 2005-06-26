@@ -1,17 +1,18 @@
---- kdebase/konsole/fonts/Makefile.am.orig	2004-03-23 14:56:32.000000000 +0100
-+++ kdebase/konsole/fonts/Makefile.am	2004-03-23 15:11:37.198389600 +0100
-@@ -1,12 +1,8 @@
--fontdir = $(datadir)/fonts
--font_DATA =console8x16.pcf.gz console8x8.pcf.gz 9x15.pcf.gz
+--- kdebase-050625/konsole/fonts/Makefile.am.orig	2005-06-24 22:46:36.000000000 +0200
++++ kdebase-050625/konsole/fonts/Makefile.am	2005-06-25 07:14:05.973746664 +0200
+@@ -1,5 +1,5 @@
+-fontdir = $(kde_datadir)/konsole/fonts
+-font_DATA =console8x16.pcf.gz 9x15.pcf.gz
 +fontdir = /usr/share/fonts/misc
-+font_DATA =console8x16.pcf.gz console8x8.pcf.gz
++font_DATA = console8x16.pcf.gz
  
  EXTRA_DIST = $(font_DATA)
  
--# This uses -hook instead of -local so that it is run after fonts are installed
--install-data-hook:
--	-mkfontdir $(DESTDIR)$(fontdir)
--
- # edit with xmbdfed console8x16.bdf
- fonts: $(srcdir)/console8x16.bdf
+@@ -10,7 +10,3 @@
+ console8x16.pcf.gz: $(srcdir)/console8x16.bdf
  	bdftopcf -o console8x16.pcf $(srcdir)/console8x16.bdf
+ 	gzip --best console8x16.pcf
+-
+-9x15.pcf.gz: $(srcdir)/9x15.bdf
+-	bdftopcf -o 9x15.pcf $(srcdir)/9x15.bdf
+-	gzip --best 9x15.pcf
