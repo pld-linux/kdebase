@@ -8,6 +8,7 @@
 # Conditional build:
 %bcond_without	apidocs		# Do not prepare API documentation
 %bcond_without	ldap		# build or not ldap ioslave
+%bcond_without	kerberos5	# kerberos 5 support
 
 %define		_state		stable
 %define		_kdever		3.4.1
@@ -25,7 +26,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	2
+Release:	3
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -84,6 +85,7 @@ BuildRequires:	ed
 BuildRequires:	gettext-devel
 %{?with_apidocs:BuildRequires:	graphviz}
 BuildRequires:	grep
+%{?with_kerberos5:BuildRequires: heimdal-devel}
 BuildRequires:	hal-devel
 BuildRequires:	jasper-devel
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
@@ -524,11 +526,11 @@ Summary:	KDesktop - handling of desktop icons, popup menus etc.
 Summary(pl):	KDesktop - obs³uga ikon na pulpicie, menu itp.
 Group:		X11/Applications
 Provides:	kdebase-kicker
-Requires:	kde-kdialog
 Requires:	kde-kgreet
 Requires:	kde-kside
 Requires:	kde-logoutpic
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kdialog = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kfind = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kjobviewer = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kpager = %{epoch}:%{version}-%{release}
@@ -1117,6 +1119,8 @@ for f in `find . -name \*.desktop`; do
 	fi
 done
 
+sed -i -e 's#krb5/##g' configure* */configure* */*.c
+
 %build
 %if %{with apidocs}
 	if [ ! -f "%{_kdedocdir}/en/common/kde-common.css" ]; then
@@ -1143,6 +1147,7 @@ cp /usr/share/automake/config.sub admin
 	--with-kdm-pam=kdm \
 	--with-pam=kdesktop \
 	--with-qt-libraries=%{_libdir} \
+	%{?with_kerberos5:--with-krb5auth} \
 	%{!?with_ldap:--without-ldap} \
 	--with-distribution="PLD Linux Distribution"
 
