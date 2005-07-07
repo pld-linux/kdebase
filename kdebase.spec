@@ -1119,7 +1119,7 @@ for f in `find . -name \*.desktop`; do
 	fi
 done
 
-sed -i -e 's#krb5/##g' configure* */configure* */*.c
+sed -i -e 's#krb5/##g' configure* */configure* */*.c */*/*.c
 
 %build
 %if %{with apidocs}
