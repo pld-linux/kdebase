@@ -1,14 +1,14 @@
-#
-# Look at kdm and possibilities of using it with:
+# TODO:
+# - Look at kdm and possibilities of using it with:
 #   * sun's secure rpc (--with-rpcauth)
-#   * kerberos{4,5} (--with-krb{4,5}auth) 
 #   * builting console (--with-kdm-xconsole)
 #   * afs support (--with afs)
-# I dont use kdm, so if anyone this those are worth enabling, just do it -- djurban
+# - fix kerberos support (kdm segfaults)
+
 # Conditional build:
 %bcond_without	apidocs		# Do not prepare API documentation
 %bcond_without	ldap		# build or not ldap ioslave
-%bcond_without	kerberos5	# kerberos 5 support
+%bcond_with	kerberos5	# kerberos 5 support
 
 %define		_state		stable
 %define		_kdever		3.4.1
@@ -26,7 +26,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	4
+Release:	5
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -1147,7 +1147,7 @@ cp /usr/share/automake/config.sub admin
 	--with-kdm-pam=kdm \
 	--with-pam=kdesktop \
 	--with-qt-libraries=%{_libdir} \
-	%{?with_kerberos5:--with-krb5auth} \
+	--with%{!?with_kerberos5:out}-krb5auth \
 	%{!?with_ldap:--without-ldap} \
 	--with-distribution="PLD Linux Distribution"
 
