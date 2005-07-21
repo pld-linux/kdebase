@@ -11,9 +11,9 @@
 %bcond_with	kerberos5	# kerberos 5 support
 
 %define		_state		stable
-%define		_kdever		3.4.1
-%define		_ver		3.4.1
-%define		_minlibsevr	9:3.4.1
+%define		_kdever		3.4.2
+%define		_ver		3.4.2
+%define		_minlibsevr	9:3.4.2
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -26,12 +26,12 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	5
+Release:	0.1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	8fbe0b943721b79f2549064b580acdde
+# Source0-md5:	0ea16eb7185ef014d8bd4da4f4530272
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -42,7 +42,7 @@ Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-searchproviders.tar.bz2
 # Source8-md5:	5f5c25cd843a3956354eef7dcfa0c883
 Source9:	%{name}-colorschemes.tar.bz2
-# Source9-md5:	66d7224c7f3c0fd10d5f925bc4ce43a6
+# Source9-md5:	6a9cb98ac7ffcc6084c05a6885c75a25
 Source10:	%{name}-servicemenus.tar.bz2
 # Source10-md5:	5b113fe35bd3a46de31e451e285e86d3
 Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
