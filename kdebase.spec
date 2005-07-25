@@ -68,6 +68,7 @@ Patch17:	%{name}-sasl-includes.patch
 Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
 Patch20:	%{name}-seesar.patch
+Patch21:	%{name}-konsole-wordseps.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	OpenEXR-devel >= 1.2.2
 BuildRequires:	audiofile-devel
@@ -1044,6 +1045,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch18 -p1
 %patch19 -p1
 %patch20 -p1
+%patch21 -p1
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
 for i in  google*.desktop
