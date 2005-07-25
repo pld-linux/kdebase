@@ -8,7 +8,7 @@ glen, 2005-07-20
  ,column_selection_mode(false)
  ,scrollLoc(SCRNONE)
 -,word_characters(":@-./_~")
-+,word_characters(":@-./_~%")
++,word_characters(":@-./_~?=&%+#")
  ,m_bellMode(BELLSYSTEM)
  ,blinking(false)
  ,cursorBlinking(false)
@@ -19,7 +19,7 @@ glen, 2005-07-20
       b_allowResize=config->readBoolEntry( "AllowResize", false);
       b_bidiEnabled = config->readBoolEntry("EnableBidi",false);
 -     s_word_seps= config->readEntry("wordseps",":@-./_~");
-+     s_word_seps= config->readEntry("wordseps",":@-./_~%");
++     s_word_seps= config->readEntry("wordseps",":@-./_~?=&%+#");
       b_framevis = config->readBoolEntry("has frame",true);
       QPtrList<TEWidget> tes = activeTEs();
       for (TEWidget *_te = tes.first(); _te; _te = tes.next()) {
@@ -30,7 +30,7 @@ glen, 2005-07-20
    n_scroll = QMIN(config->readUnsignedNumEntry("scrollbar",TEWidget::SCRRIGHT),2);
    m_histSize = config->readNumEntry("history",DEFAULT_HISTORY_SIZE);
 -  s_word_seps= config->readEntry("wordseps",":@-./_~");
-+  s_word_seps= config->readEntry("wordseps",":@-./_~%");
++  s_word_seps= config->readEntry("wordseps",":@-./_~?=&%+#");
  
    n_encoding = config->readNumEntry("encoding",0);
  
