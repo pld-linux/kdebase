@@ -1725,7 +1725,11 @@ fi
 %attr(755,root,root) %{_bindir}/kwin_killer_helper
 %attr(755,root,root) %{_bindir}/khotkeys
 %attr(755,root,root) %{_bindir}/krdb
+# TODO: move kreadconfig/kwriteconfig to some smaller package,
+# for development i don't need big kdebase-desktop, just kreadconfig/kwriteconfig scripts.
+# 12.3(kdebase-desktop)+3.4(konqueror)+4(kdebase-core) ~ 20mb!!
 %attr(755,root,root) %{_bindir}/kreadconfig
+%attr(755,root,root) %{_bindir}/kwriteconfig
 %attr(755,root,root) %{_bindir}/krandrinithack
 %attr(755,root,root) %{_bindir}/krandrtray
 %attr(755,root,root) %{_bindir}/ksmserver
@@ -2403,7 +2407,6 @@ fi
 %files kwrite -f kwrite.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kwrite
-%attr(755,root,root) %{_bindir}/kwriteconfig
 %{_libdir}/libkdeinit_kwrite.la
 %attr(755,root,root) %{_libdir}/libkdeinit_kwrite.so
 %{_libdir}/kde3/kwrite.la
