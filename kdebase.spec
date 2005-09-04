@@ -26,7 +26,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	4
+Release:	5
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -79,7 +79,7 @@ BuildRequires:	bzip2-devel
 BuildRequires:	cyrus-sasl-devel
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
-BuildRequires:	dbus-qt-devel
+BuildRequires:	dbus-qt-devel >= 0.33
 BuildRequires:	db-devel
 %{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	ed
