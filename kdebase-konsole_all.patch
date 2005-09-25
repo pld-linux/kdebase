@@ -29,17 +29,6 @@
    QString icon = "konsole";
    QString key;
    QString sch = s_kconfigSchema;
---- kdebase-030621/konsole/konsole/konsole_part.cpp~	2003-06-21 00:34:59.000000000 +0200
-+++ kdebase-030621/konsole/konsole/konsole_part.cpp	2003-06-21 19:59:49.000000000 +0200
-@@ -987,7 +987,7 @@
-                                 const QStrList& args )
- {
-   if ( se ) delete se;
--  se = new TESession(te, program, args, "xterm", parentWidget->winId());
-+  se = new TESession(te, program, args, "xterm-color", parentWidget->winId());
-   connect( se,SIGNAL(done(TESession*)),
-            this,SLOT(doneSession(TESession*)) );
-   connect( se,SIGNAL(openURLRequest(const QString &)),
 --- kdebase-3.3.92/konsole/konsole/main.cpp.orig	2005-02-04 00:19:05.000000000 +0100
 +++ kdebase-3.3.92/konsole/konsole/main.cpp	2005-02-10 21:19:03.141540912 +0100
 @@ -57,7 +57,7 @@
@@ -51,3 +40,14 @@
     { "noclose",         I18N_NOOP("Do not close Konsole when command exits"), 0 },
     { "nohist",          I18N_NOOP("Do not save lines in history"), 0 },
     { "nomenubar",       I18N_NOOP("Do not display menubar"), 0 },
+--- kdebase/konsole/konsole/konsole_part.cpp.orig	2005-09-25 12:47:42.000000000 +0200
++++ kdebase/konsole/konsole/konsole_part.cpp	2005-09-25 16:54:12.000000000 +0200
+@@ -1059,7 +1059,7 @@
+ void konsolePart::newSession()
+ {
+   if ( se ) delete se;
+-  se = new TESession(te, "xterm", parentWidget->winId());
++  se = new TESession(te, "xterm-color", parentWidget->winId());
+   connect( se,SIGNAL(done(TESession*)),
+            this,SLOT(doneSession(TESession*)) );
+   connect( se,SIGNAL(openURLRequest(const QString &)),
