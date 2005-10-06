@@ -112,6 +112,7 @@ BuildRequires:	pam-devel
 BuildRequires:	pkgconfig
 %{?with_apidocs:BuildRequires:	qt-doc}
 BuildRequires:	rpmbuild(macros) >= 1.129
+BuildRequires:	rpm-pythonprov
 BuildRequires:	sed >= 4.0
 #BuildRequires:	unsermake >= 040511
 BuildRequires:	xcursor-devel >= 1.1.0
