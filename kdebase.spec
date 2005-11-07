@@ -44,7 +44,7 @@ Source8:	%{name}-searchproviders.tar.bz2
 Source9:	%{name}-colorschemes.tar.bz2
 # Source9-md5:	6a9cb98ac7ffcc6084c05a6885c75a25
 Source10:	%{name}-servicemenus.tar.bz2
-# Source10-md5:	5b113fe35bd3a46de31e451e285e86d3
+# Source10-md5:	1c99db4d7f9548a77d5bb74bc0a889db
 Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
 Patch100:	%{name}-branch.diff
@@ -2510,6 +2510,7 @@ fi
 %attr(755,root,root) %{_bindir}/nspluginscan
 %attr(755,root,root) %{_bindir}/nspluginviewer
 %attr(755,root,root) %{_bindir}/iconvert
+%attr(755,root,root) %{_bindir}/jpegtran-rotate
 %attr(755,root,root) %{_bindir}/attach-to-email
 %{_libdir}/libkdeinit_appletproxy.la
 %attr(755,root,root) %{_libdir}/libkdeinit_appletproxy.so
