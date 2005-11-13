@@ -4,7 +4,7 @@
  
  # run KPersonalizer before the session, if this is the first login
  if test "$kpersonalizerrc_general_firstlogin" = "true"; then
-+  if test `/usr/bin/which kpersonalizer 2>/dev/null`; then
++  if [ -x /usr/bin/kpersonalizer ]; then
      # start only dcopserver, don't start whole kdeinit (takes too long)
      echo 'startkde: Running kpersonalizer...'  1>&2
      dcopserver
