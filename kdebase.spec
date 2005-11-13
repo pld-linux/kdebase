@@ -1027,18 +1027,14 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 #%patch100 -p0
 %patch0 -p1
 %patch1 -p1
-# FIXME, APPLIES BUT BROKEN COMPILATION
-# %patch2 -p1
+%patch2 -p1
 %patch3 -p1
-# FIXME, APPLIES BUT BROKEN COMPILATION
-# %patch4 -p1
-#%patch5 -p1
-# FIXME
+%patch4 -p1
+%patch5 -p1
+# DROPME?
 # %patch6 -p1
-# FIXME
-# %patch7 -p1
-# FIXME
-# %patch8 -p1
+%patch7 -p1
+%patch8 -p1
 #%patch9 -p1
 %patch10 -p1
 %patch12 -p1
@@ -1049,8 +1045,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch18 -p1
 # FIXME
 #%patch19 -p1
-# FIXME
-#%patch20 -p1
+%patch20 -p1
 %patch21 -p1
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
@@ -1145,6 +1140,7 @@ sed -i -e 's#krb5/##g' configure* */configure* */*.c */*/*.c
 
 
 %configure \
+	--enable-final \
 %if "%{_lib}" == "lib64"
 	--enable-libsuffix=64 \
 %endif
@@ -1195,11 +1191,10 @@ install %{SOURCE4}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE5}	$RPM_BUILD_ROOT/etc/X11/kdm/Xsession
 install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
-# need to move this out!
-#%{__tar} xfj %{SOURCE8} -C $RPM_BUILD_ROOT%{_datadir}/services/searchproviders/
-#%{__tar} xfj %{SOURCE10} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/
-#mv $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts/* $RPM_BUILD_ROOT%{_bindir}
-#rm -rf $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts
+%{__tar} xfj %{SOURCE8} -C $RPM_BUILD_ROOT%{_datadir}/services/searchproviders/
+%{__tar} xfj %{SOURCE10} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/
+mv $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts/* $RPM_BUILD_ROOT%{_bindir}
+rm -rf $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts
 
 # Needed for pam support
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
@@ -2527,15 +2522,14 @@ fi
 %attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kdm
 %attr(0754,root,root) /etc/rc.d/init.d/kdm
 %dir /etc/X11/kdm
-# FIXME: include again after fixing kdebase-kdmconfig.patch
-#%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/kdmrc
-#%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/backgroundrc
-#%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xreset
+%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/kdmrc
+%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/backgroundrc
+%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xreset
 %attr(755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xsession
-#%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xsetup
-#%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xstartup
-#%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xwilling
-#%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xaccess
+%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xsetup
+%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xstartup
+%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xwilling
+%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xaccess
 #%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xservers
 %dir /etc/X11/kdm/faces
 %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/faces/.default.face.icon
