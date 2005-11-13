@@ -1,12 +1,13 @@
 --- kdebase-031021/kcontrol/background/bgdialog.cpp.orig	2003-10-21 00:24:03.000000000 +0200
 +++ kdebase-031021/kcontrol/background/bgdialog.cpp	2003-10-21 16:56:06.000000000 +0200
-@@ -248,6 +248,44 @@
+@@ -248,6 +248,45 @@
     emit changed(true);
  }
  
 +void BGDialog::kdmdefaults()
 +{
-+   m_pGlobals->setCommonBackground(_defCommon);
++   m_pGlobals->setCommonBackground(_defCommonScreen);
++   m_pGlobals->setCommonDeskBackground(_defCommonDesk);
 +   m_pGlobals->setLimitCache(_defLimitCache);
 +   m_pGlobals->setCacheSize(_defCacheSize);
 +   m_comboWallpaperPos->setCurrentItem( 0 );
