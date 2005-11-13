@@ -1,9 +1,11 @@
---- kdebase/kcontrol/konqhtml/pluginopts.cpp.orig	2004-03-23 14:55:09.000000000 +0100
-+++ kdebase/kcontrol/konqhtml/pluginopts.cpp	2004-03-23 15:17:25.182487976 +0100
-@@ -352,21 +352,7 @@
+diff -urbB kdebase-3.5.0.org/kcontrol/konqhtml/pluginopts.cpp kdebase-3.5.0/kcontrol/konqhtml/pluginopts.cpp
+--- kdebase-3.5.0.org/kcontrol/konqhtml/pluginopts.cpp	2005-09-10 10:25:11.000000000 +0200
++++ kdebase-3.5.0/kcontrol/konqhtml/pluginopts.cpp	2005-11-13 20:59:01.337129500 +0100
+@@ -392,22 +392,8 @@
      if ( config->hasKey( "scanPaths" ) )
          paths = config->readListEntry( "scanPaths" );
      else {//keep sync with kdebase/nsplugins/pluginscan
+-        paths.append("$HOME/.mozilla/plugins");
 -        paths.append("$HOME/.netscape/plugins");
 -        paths.append("/usr/lib64/browser-plugins");
 -        paths.append("/usr/lib/browser-plugins");
@@ -19,13 +21,15 @@
 -	paths.append("/usr/lib64/netscape/plugins");
 -	paths.append("/usr/lib64/mozilla/plugins");
 -        paths.append("$MOZILLA_HOME/plugins");
-+        paths.append("/usr/lib/kde3/plugins/konqueror");
++	paths.append("/usr/lib/kde3/plugins/konqueror");
++        paths.append("/usr/lib64/kde3/plugins/konqueror");
      }
  
      // fill list
---- kdebase/nsplugins/pluginscan.cpp.orig	2004-03-23 14:57:02.000000000 +0100
-+++ kdebase/nsplugins/pluginscan.cpp	2004-03-23 15:15:28.117284592 +0100
-@@ -443,21 +443,7 @@
+diff -urbB kdebase-3.5.0.org/nsplugins/pluginscan.cpp kdebase-3.5.0/nsplugins/pluginscan.cpp
+--- kdebase-3.5.0.org/nsplugins/pluginscan.cpp	2005-10-10 17:04:05.000000000 +0200
++++ kdebase-3.5.0/nsplugins/pluginscan.cpp	2005-11-13 20:59:27.118740750 +0100
+@@ -443,22 +443,8 @@
      // setup default paths
      if ( !config->hasKey("scanPaths") ) {
          QStringList paths;
@@ -44,7 +48,9 @@
 -        paths.append("/usr/lib/mozilla/plugins");
 -	paths.append("/usr/lib64/netscape/plugins");
 -	paths.append("/usr/lib64/mozilla/plugins");
+-        paths.append("$MOZILLA_HOME/plugins");
 +	paths.append("/usr/lib/kde3/plugins/konqueror");
-         paths.append("$MOZILLA_HOME/plugins");
++	paths.append("/usr/lib64/kde3/plugins/konqueror");
          config->writeEntry( "scanPaths", paths );
      }
+ 
