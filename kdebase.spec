@@ -1723,6 +1723,10 @@ fi
 %defattr(644,root,root,755)
 %doc AUTHORS README README.pam
 %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdesktop
+# New
+%attr(755,root,root) %{_bindir}/attach-to-email
+%attr(755,root,root) %{_bindir}/iconvert
+#
 %attr(755,root,root) %{_bindir}/kaccess
 %attr(755,root,root) %{_bindir}/kasbar
 %attr(755,root,root) %{_bindir}/kapplymousetheme
