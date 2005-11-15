@@ -1673,7 +1673,7 @@ fi
 %dir %{_datadir}/apps/kicker/applets
 #
 %dir %{_datadir}/apps/kio_info
-%attr(0755,root,root) %{_datadir}/apps/kio_info/kde-info2html
+%attr(755,root,root) %{_datadir}/apps/kio_info/kde-info2html
 %{_datadir}/apps/kio_info/kde-info2html.conf
 # For apps they store files in servicemenus
 %dir %{_datadir}/apps/konqueror
@@ -1722,7 +1722,7 @@ fi
 %files desktop -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS README README.pam
-%config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdesktop
+%config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdesktop
 # New
 %attr(755,root,root) %{_bindir}/attach-to-email
 %attr(755,root,root) %{_bindir}/iconvert
@@ -2447,7 +2447,7 @@ fi
 
 %files ksysguard -f ksysguard.lang
 %defattr(644,root,root,755)
-%config(noreplace) %verify(not size mtime md5) /etc/ksysguarddrc
+%config(noreplace) %verify(not md5 mtime size) /etc/ksysguarddrc
 %attr(755,root,root) %{_bindir}/kpm
 %attr(755,root,root) %{_bindir}/ksysguard
 %attr(755,root,root) %{_bindir}/ksysguardd
@@ -2521,23 +2521,23 @@ fi
 %files -n kdm -f kdm.lang
 %defattr(644,root,root,755)
 %doc README.pam kdm/{ChangeLog,README,TODO}
-%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdm
-%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/kdm-np
-%attr(0640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/security/blacklist.kdm
-%attr(0754,root,root) /etc/rc.d/init.d/kdm
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm-np
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/security/blacklist.kdm
+%attr(754,root,root) /etc/rc.d/init.d/kdm
 %dir /etc/X11/kdm
-%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/kdmrc
-%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/backgroundrc
-%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xreset
-%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xsession
-%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xsetup
-%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xstartup
-%attr(755,root,root) %config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xwilling
-%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xaccess
-#%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/Xservers
+%config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/kdmrc
+%config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/backgroundrc
+%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xreset
+%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xsession
+%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xsetup
+%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xstartup
+%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xwilling
+%config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xaccess
+#%config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xservers
 %dir /etc/X11/kdm/faces
-%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/faces/.default.face.icon
-%config(noreplace) %verify(not size mtime md5) /etc/X11/kdm/faces/root.face.icon
+%config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/faces/.default.face.icon
+%config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/faces/root.face.icon
 %attr(755,root,root) %{_bindir}/genkdmconf
 %attr(755,root,root) %{_bindir}/kdm
 %attr(755,root,root) %{_bindir}/kdmctl
