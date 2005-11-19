@@ -1390,7 +1390,7 @@ if [ -f /var/lock/subsys/kdm ]; then
 EOF
 else
 	%banner kdm -e <<EOF
-Run \"/etc/rc.d/init.d/kdm start\" to start kdm.
+Run "/etc/rc.d/init.d/kdm start" to start kdm.
 
 EOF
 fi
