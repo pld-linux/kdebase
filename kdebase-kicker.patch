@@ -1,12 +1,8 @@
---- kdebase-030901/kicker/kicker/core/default-apps~	2003-08-31 15:37:34.000000000 +0200
-+++ kdebase-030901/kicker/kicker/core/default-apps	2003-09-02 10:00:06.000000000 +0200
-@@ -1,5 +1,4 @@
+--- ./kicker/kicker/core/default-apps~	2005-11-21 19:13:15.000000000 +0200
++++ ./kicker/kicker/core/default-apps	2005-11-21 19:13:17.000000000 +0200
+@@ -1,2 +1,4 @@
  Home.desktop
 -Internet/konqbrowser.desktop
--Office/Kontact.desktop
--Office/kword.desktop
--Help.desktop
 +Network/WWW/konqbrowser.desktop
 +Network/Mail/KMail.desktop
 +Help/Help.desktop
-
