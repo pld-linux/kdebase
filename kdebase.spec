@@ -31,7 +31,7 @@ Epoch:		9
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	073534b86d2d758ed35711fdbef6b6cd
+# Source0-md5:	ab5a1b3541825c88646c926083e3aefd
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -1152,6 +1152,7 @@ sed -i -e 's#krb5/##g' configure* */configure* */*.c */*/*.c
 	--with-qt-libraries=%{_libdir} \
 	--with%{!?with_kerberos5:out}-krb5auth \
 	%{!?with_ldap:--without-ldap} \
+	--with-openexr \
 	--with-distribution="PLD Linux Distribution"
 
 #cd kwin/kcmkwin/kwinrules
