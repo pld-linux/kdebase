@@ -174,7 +174,6 @@ Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kfontinst = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libksgrd = %{epoch}:%{version}-%{release}
-Requires:	acl-devel
 Requires:	kdelibs-devel >= %{_minlibsevr}
 Obsoletes:	kdebase-ksysguard-libs
 
