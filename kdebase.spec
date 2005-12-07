@@ -26,7 +26,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	2
+Release:	3
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -45,7 +45,7 @@ Source10:	%{name}-servicemenus.tar.bz2
 # Source10-md5:	5b113fe35bd3a46de31e451e285e86d3
 Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
-#Patch100:	%{name}-branch.diff
+Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-fontdir.patch
 Patch2:		%{name}-kcm_background.patch
@@ -114,7 +114,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	sed >= 4.0
 #BuildRequires:	unsermake >= 040511
 BuildRequires:	xcursor-devel >= 1.1.0
-BuildConflicts: kdebase-konqueror-libs
+BuildConflicts:	kdebase-konqueror-libs
 Conflicts:	kdelibs < 9:3.1.94.040110-1
 # TODO: sensors
 #BuildRequires:	sensors-devel
@@ -522,7 +522,7 @@ Podstawowe aplikacje ¶rodowiska KDE. Pakiet ten zawiera:
 - Frontend dla programu "su".
 
 %package desktop
-Summary:	KDesktop - handling of desktop icons, popup menus etc.
+Summary:	KDesktop - handling of desktop icons, popup menus etc
 Summary(pl):	KDesktop - obs³uga ikon na pulpicie, menu itp.
 Group:		X11/Applications
 Provides:	kdebase-kicker
@@ -914,7 +914,7 @@ funkcjonalno¶æ programu kdepasswd.
 Summary:	KDE Display Manager
 Summary(pl):	Zarz±dca ekranów KDE
 Group:		X11/Applications
-PreReq:		rc-scripts
+Requires:	rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires:	kde-kgreet
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
@@ -1024,7 +1024,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 %prep
 %setup -q
-#%patch100 -p0
+%patch100 -p0
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -1050,9 +1050,9 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
 for i in  google*.desktop
-do 
+do
 	url=`grep 'Query=' $i|sed -e 's,google.com,google.pl,g'|cut -c 7-`
-	echo "Query[pl]=${url}" >> $i  
+	echo "Query[pl]=${url}" >> $i
 done
 cd -
 
