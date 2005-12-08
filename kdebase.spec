@@ -9,7 +9,10 @@
 %bcond_without	apidocs		# Do not prepare API documentation
 %bcond_without	ldap		# build or not ldap ioslave
 %bcond_with	kerberos5	# kerberos 5 support
-
+%bcond_with	hidden_visibility	# pass '--fvisibility=hidden'
+					# & '--fvisibility-inlines-hidden'
+					# to g++ 
+#
 %define		_state		stable
 %define		_kdever		3.5
 %define		_ver		3.5.0
@@ -81,6 +84,7 @@ BuildRequires:	dbus-qt-devel >= 0.33
 BuildRequires:	db-devel
 %{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	ed
+%{?with_hidden_visibility:BuildRequires:	gcc-c++ >= 5:4.1.0-0.20051206r108118.1}
 BuildRequires:	gettext-devel
 %{?with_apidocs:BuildRequires:	graphviz}
 BuildRequires:	grep
@@ -108,6 +112,7 @@ BuildRequires:	X11-devel >= 1:6.8.1
 %{?with_ldap:BuildRequires:	openldap-devel}
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig
+%{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
 %{?with_apidocs:BuildRequires:	qt-doc}
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	rpm-pythonprov
@@ -1135,17 +1140,14 @@ sed -i -e 's#krb5/##g' configure* */configure* */*.c */*/*.c
 	fi
 %endif
 
-
-#export UNSERMAKE=/usr/share/unsermake/unsermake
-
-
 %configure \
+	--%{?debug:en}%{!?debug:dis}able-debug%{?debug:=full} \
+	%{!?debug:--disable-rpath} \
 	--enable-final \
+	%{?with_hidden_visibility:--enable-gcc-hidden-visibility} \
 %if "%{_lib}" == "lib64"
 	--enable-libsuffix=64 \
 %endif
-	--%{?debug:en}%{!?debug:dis}able-debug%{?debug:=full} \
-	--disable-rpath \
 	--without-java \
 	--with-kdm-pam=kdm \
 	--with-pam=kdesktop \
