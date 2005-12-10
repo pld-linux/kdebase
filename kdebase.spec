@@ -29,7 +29,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	3
+Release:	4
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -45,7 +45,7 @@ Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-searchproviders.tar.bz2
 # Source8-md5:	5f5c25cd843a3956354eef7dcfa0c883
 Source10:	%{name}-servicemenus.tar.bz2
-# Source10-md5:	5b113fe35bd3a46de31e451e285e86d3
+# Source10-md5:	b8ce7213a7f54c97874f1ea9cb7973b3
 Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
 Patch100:	%{name}-branch.diff
@@ -1729,6 +1729,7 @@ fi
 # New
 %attr(755,root,root) %{_bindir}/attach-to-email
 %attr(755,root,root) %{_bindir}/iconvert
+%attr(755,root,root) %{_bindir}/jpegtran-rotate
 #
 %attr(755,root,root) %{_bindir}/kaccess
 %attr(755,root,root) %{_bindir}/kasbar
