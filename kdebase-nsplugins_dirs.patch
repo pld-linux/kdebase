@@ -26,15 +26,15 @@ diff -urbB kdebase-3.5.0.org/kcontrol/konqhtml/pluginopts.cpp kdebase-3.5.0/kcon
      }
  
      // fill list
-diff -urbB kdebase-3.5.0.org/nsplugins/pluginscan.cpp kdebase-3.5.0/nsplugins/pluginscan.cpp
---- kdebase-3.5.0.org/nsplugins/pluginscan.cpp	2005-10-10 17:04:05.000000000 +0200
-+++ kdebase-3.5.0/nsplugins/pluginscan.cpp	2005-11-13 20:59:27.118740750 +0100
-@@ -443,22 +443,8 @@
+--- kdebase-3.5.0/nsplugins/pluginscan.cpp~	2006-01-10 05:32:41.000000000 +0200
++++ kdebase-3.5.0/nsplugins/pluginscan.cpp	2006-01-10 05:32:47.000000000 +0200
+@@ -443,23 +443,8 @@
      // setup default paths
      if ( !config->hasKey("scanPaths") ) {
          QStringList paths;
 -        paths.append("$HOME/.mozilla/plugins");
 -        paths.append("$HOME/.netscape/plugins");
+-        paths.append("/usr/lib/firefox/plugins");
 -        paths.append("/usr/lib64/browser-plugins");
 -        paths.append("/usr/lib/browser-plugins");
 -        paths.append("/usr/local/netscape/plugins");
@@ -49,8 +49,8 @@ diff -urbB kdebase-3.5.0.org/nsplugins/pluginscan.cpp kdebase-3.5.0/nsplugins/pl
 -	paths.append("/usr/lib64/netscape/plugins");
 -	paths.append("/usr/lib64/mozilla/plugins");
 -        paths.append("$MOZILLA_HOME/plugins");
-+	paths.append("/usr/lib/kde3/plugins/konqueror");
-+	paths.append("/usr/lib64/kde3/plugins/konqueror");
++		paths.append("/usr/lib/kde3/plugins/konqueror");
++		paths.append("/usr/lib64/kde3/plugins/konqueror");
          config->writeEntry( "scanPaths", paths );
      }
  
