@@ -29,7 +29,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	6
+Release:	7
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -1822,8 +1822,8 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/kcm_khotkeys.so
 %{_libdir}/kde3/kcm_khotkeys_init.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_khotkeys_init.so
-%{_libdir}/kde3/khotkeys_shared_arts.la
-%attr(755,root,root) %{_libdir}/kde3/khotkeys_shared_arts.so
+%{_libdir}/kde3/khotkeys_arts.la
+%attr(755,root,root) %{_libdir}/kde3/khotkeys_arts.so
 %{_libdir}/kde3/kcm_knotify.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_knotify.so
 %{_libdir}/kde3/kcm_ksplashthemes.la
