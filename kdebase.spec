@@ -29,7 +29,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	5
+Release:	6
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -1177,7 +1177,8 @@ rm -rf *.lang
 
 install -d \
 	$RPM_BUILD_ROOT/etc/{X11/kdm/faces,pam.d,rc.d/init.d,security} \
-	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror
+	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror \
+	$RPM_BUILD_ROOT%{_datadir}/apps/kate/{scripts,plugins}
 
 if [ -d "$RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-%{version}-apidocs" ] ; then
 mv -f $RPM_BUILD_ROOT{%{_kdedocdir}/en/%{name}-%{version}-apidocs,%{_kdedocdir}/en/%{name}-apidocs}
@@ -1817,11 +1818,11 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/kcm_keyboard.so
 %{_libdir}/kde3/kcm_keys.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_keys.so
- %{_libdir}/kde3/kcm_khotkeys.la
+%{_libdir}/kde3/kcm_khotkeys.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_khotkeys.so
- %{_libdir}/kde3/kcm_khotkeys_init.la
+%{_libdir}/kde3/kcm_khotkeys_init.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_khotkeys_init.so
- %{_libdir}/kde3/khotkeys_shared_arts.la
+%{_libdir}/kde3/khotkeys_shared_arts.la
 %attr(755,root,root) %{_libdir}/kde3/khotkeys_shared_arts.so
 %{_libdir}/kde3/kcm_knotify.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_knotify.so
@@ -2330,11 +2331,7 @@ fi
 #%attr(755,root,root) %{_libdir}/kde3/katedefaultprojectplugin.so
 #%{_libdir}/kde3/katekttsdplugin.la
 #%attr(755,root,root) %{_libdir}/kde3/katekttsdplugin.so
-%dir %{_datadir}/apps/kate
-%{_datadir}/apps/kate/[!s]*
-#%dir %{_datadir}/apps/kate/scripts
-#%{_datadir}/apps/kate/scripts/*.desktop
-#%attr(755,root,root) %{_datadir}/apps/kate/scripts/*.sh
+%{_datadir}/apps/kate
 #%{_datadir}/apps/katepart
 %{_datadir}/config/katerc
 #%{_datadir}/mimelnk/application/x-kate-project.desktop
