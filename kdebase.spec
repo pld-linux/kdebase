@@ -29,7 +29,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	7
+Release:	8
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -109,7 +109,7 @@ BuildRequires:	motif-devel
 BuildRequires:	openssl-devel >= 0.9.7c
 # kde requires libXext and more stuff that is X11-only juz grep X11 `find -name configure.in.in`
 BuildRequires:	X11-devel >= 1:6.8.1
-%{?with_ldap:BuildRequires:	openldap-devel}
+%{?with_ldap:BuildRequires:	openldap-devel >= 2.3.0}
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig
 %{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
