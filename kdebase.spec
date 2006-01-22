@@ -14,9 +14,9 @@
 					# to g++
 #
 %define		_state		stable
-%define		_kdever		3.5
-%define		_ver		3.5.0
-%define		_minlibsevr	9:3.5.0
+%define		_kdever		3.5.1
+%define		_ver		3.5.1
+%define		_minlibsevr	9:3.5.1
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -29,12 +29,12 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	8
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	b86622c029ee8ab656a67c6467fff887
+# Source0-md5:	484c7b3895ce4f95173f4789571eb1cc
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -1029,7 +1029,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 %prep
 %setup -q
-%patch100 -p0
+#%patch100 -p0
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
