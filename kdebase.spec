@@ -948,6 +948,7 @@ Summary(pl):	Konqueror - przegl±darka WWW i zarz±dca plików
 Group:		X11/Applications
 Requires:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
 Requires:	konqueror-libs = %{epoch}:%{version}-%{release}
+Provides:	wwwbrowser
 Obsoletes:	kdebase-konqueror
 Obsoletes:	kdebase-libkmultitabbar
 
