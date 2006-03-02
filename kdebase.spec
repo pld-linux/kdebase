@@ -9,9 +9,7 @@
 %bcond_without	apidocs		# Do not prepare API documentation
 %bcond_without	ldap		# build or not ldap ioslave
 %bcond_with	kerberos5	# kerberos 5 support
-%bcond_without	hidden_visibility	# pass '--fvisibility=hidden'
-					# & '--fvisibility-inlines-hidden'
-					# to g++
+%bcond_without	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
 #
 %define		_state		stable
 %define		_kdever		3.5.1
@@ -106,14 +104,14 @@ BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	lm_sensors-devel
 BuildRequires:	motif-devel
-BuildRequires:	openssl-devel >= 0.9.7c
 %{?with_ldap:BuildRequires:	openldap-devel >= 2.3.0}
+BuildRequires:	openssl-devel >= 0.9.7c
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig
 %{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
 %{?with_apidocs:BuildRequires:	qt-doc}
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.129
+BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	sed >= 4.0
 #BuildRequires:	unsermake >= 040511
 BuildRequires:	xorg-app-bdftopcf
@@ -391,9 +389,9 @@ Obs³uga protoko³u SMTP.
 Summary:	Default kicker sidebar
 Summary(pl):	Domy¶lny boczny pasek do menu KDE
 Group:		Themes
+Requires:	kdebase-desktop >= 9:3.2.90.040424-2
 Provides:	kde-kside
 Obsoletes:	kde-kside
-Requires:	kdebase-desktop >= 9:3.2.90.040424-2
 
 %description -n kde-kside-default
 Default kicker sidebar with a gear and the K Desktop Environment text.
@@ -406,9 +404,9 @@ Environment.
 Summary:	KDE "Logout" picture
 Summary(pl):	Obrazek okna "Wyloguj" KDE
 Group:		X11/Amusements
+Requires:	%{name}-desktop
 Provides:	kde-logoutpic
 Obsoletes:	kde-logoutpic-PLD
-Requires:	%{name}-desktop
 
 %description -n kde-logoutpic-default
 Default "Logout" picture with a KDE logo.
@@ -515,9 +513,9 @@ Group:		X11/Applications
 Requires:	applnk >= 1.9.0
 Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdebase < 8:3.2-0.030428.1
+Obsoletes:	kdebase-helpcenter
 Obsoletes:	kdebase-kcontrol
 Obsoletes:	kdebase-khelpcenter
-Obsoletes:	kdebase-helpcenter
 Conflicts:	kttsd <= 040609
 
 %description core
@@ -540,7 +538,6 @@ Podstawowe aplikacje ¶rodowiska KDE. Pakiet ten zawiera:
 Summary:	KDesktop - handling of desktop icons, popup menus etc.
 Summary(pl):	KDesktop - obs³uga ikon na pulpicie, menu itp.
 Group:		X11/Applications
-Provides:	kdebase-kicker
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kdialog = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kfind = %{epoch}:%{version}-%{release}
@@ -553,6 +550,8 @@ Requires:	kde-logoutpic
 Requires:	kde-splash-Default
 Requires:	konqueror = %{epoch}:%{version}-%{release}
 Requires:	pam >= 0.79.0
+Provides:	kdebase-kicker
+Obsoletes:	kde-decoration-plastik
 Obsoletes:	kde-theme-keramik
 Obsoletes:	kdebase
 Obsoletes:	kdebase-fonts
@@ -573,7 +572,6 @@ Obsoletes:	kdebase-screensaver
 Obsoletes:	kdebase-static
 Obsoletes:	kdebase-wallpapers
 Obsoletes:	khotkeys
-Obsoletes:	kde-decoration-plastik
 Conflicts:	kdeedu-libkdeeduui < 8:3.4.0
 
 %description desktop
@@ -938,10 +936,10 @@ Requires:	xorg-app-sessreg
 Obsoletes:	X11-xdm
 Obsoletes:	entrance
 Obsoletes:	gdm
-Obsoletes:	wdm
-Obsoletes:	xdm
 Obsoletes:	kdebase-kdm
 Obsoletes:	kdebase-pam
+Obsoletes:	wdm
+Obsoletes:	xdm
 
 %description -n kdm
 A program used for managing X11 sessions on local or remote computers.
@@ -1006,10 +1004,10 @@ Summary(pl):	Biblioteki wspó³dzielone konquerora
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	kdelibs >= %{_minlibsevr}
+Obsoletes:	kdebase-konqueror-libs
 Obsoletes:	kdebase-libkickermain
 Obsoletes:	kdebase-libkonq
 Obsoletes:	kdebase-libkonqsidebarplugin
-Obsoletes:	kdebase-konqueror-libs
 Obsoletes:	konqueror < 9:3.1.92.031006
 
 %description -n konqueror-libs
@@ -1393,7 +1391,7 @@ if [ -f /var/lock/subsys/kdm ]; then
  * NOTE:                                           *
  * To make sure that new version of KDM is running *
  * You should restart KDM with:                    *
- * "/etc/rc.d/init.d/kdm restart".                 *
+ * "/sbin/service kdm restart".                    *
  *                                                 *
  * WARNING:                                        *
  * Restarting KDM will terminate any X session     *
@@ -1404,16 +1402,14 @@ if [ -f /var/lock/subsys/kdm ]; then
 EOF
 else
 	%banner kdm -e <<EOF
-Run "/etc/rc.d/init.d/kdm start" to start kdm.
+Run "/sbin/service kdm start" to start kdm.
 
 EOF
 fi
 
 %preun -n kdm
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/kdm ]; then
-		/etc/rc.d/init.d/kdm stop >&2
-	fi
+	%service kdm stop
 	/sbin/chkconfig --del kdm
 fi
 
