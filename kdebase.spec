@@ -27,7 +27,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	4
+Release:	5
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -93,7 +93,7 @@ BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	lame-libs-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
-BuildRequires:	libraw1394-devel
+BuildRequires:	libraw1394-devel >= 1.2.0
 BuildRequires:	libsmbclient-devel >= 3.0.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
