@@ -68,6 +68,7 @@ Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
 Patch20:	%{name}-seesar.patch
 Patch21:	%{name}-konsole-wordseps.patch
+Patch22:	%{name}-tango.patch
 BuildRequires:	OpenEXR-devel >= 1.2.2
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
@@ -1060,6 +1061,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 #%patch19 -p1
 %patch20 -p1
 %patch21 -p1
+%patch22 -p0
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
 for i in  google*.desktop
