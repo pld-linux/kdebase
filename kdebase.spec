@@ -9,14 +9,12 @@
 %bcond_without	apidocs		# Do not prepare API documentation
 %bcond_without	ldap		# build or not ldap ioslave
 %bcond_with	kerberos5	# kerberos 5 support
-%bcond_with	hidden_visibility	# pass '--fvisibility=hidden'
-					# & '--fvisibility-inlines-hidden'
-					# to g++
+%bcond_with	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
 #
 %define		_state		stable
-%define		_kdever		3.5.1
-%define		_ver		3.5.1
-%define		_minlibsevr	9:3.5.1
+%define		_kdever		3.5.2
+%define		_ver		3.5.2
+%define		_minlibsevr	9:3.5.2
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -29,12 +27,12 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	%{_ver}
-Release:	3
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	484c7b3895ce4f95173f4789571eb1cc
+# Source0-md5:	c5685e1be34e033286aa1f37002a0552
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -43,7 +41,7 @@ Source5:	%{name}-kdm.Xsession
 Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-searchproviders.tar.bz2
-# Source8-md5:	5f5c25cd843a3956354eef7dcfa0c883
+# Source8-md5:	582b29204e85c01a91799ed72f845312
 Source10:	%{name}-servicemenus.tar.bz2
 # Source10-md5:	b8ce7213a7f54c97874f1ea9cb7973b3
 Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
@@ -70,6 +68,7 @@ Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
 Patch20:	%{name}-seesar.patch
 Patch21:	%{name}-konsole-wordseps.patch
+Patch22:	%{name}-tango.patch
 BuildRequires:	OpenEXR-devel >= 1.2.2
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
@@ -95,7 +94,7 @@ BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	lame-libs-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
-BuildRequires:	libraw1394-devel
+BuildRequires:	libraw1394-devel >= 1.2.0
 BuildRequires:	libsmbclient-devel >= 3.0.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
@@ -115,7 +114,7 @@ BuildRequires:	pkgconfig
 %{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
 %{?with_apidocs:BuildRequires:	qt-doc}
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.129
+BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	sed >= 4.0
 #BuildRequires:	unsermake >= 040511
 BuildRequires:	xcursor-devel >= 1.1.0
@@ -1030,7 +1029,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 %prep
 %setup -q
-%patch100 -p0
+#%patch100 -p0
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -1053,6 +1052,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 #%patch19 -p1
 %patch20 -p1
 %patch21 -p1
+%patch22 -p0
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
 for i in  google*.desktop
@@ -1384,7 +1384,7 @@ if [ -f /var/lock/subsys/kdm ]; then
  * NOTE:                                           *
  * To make sure that new version of KDM is running *
  * You should restart KDM with:                    *
- * "/etc/rc.d/init.d/kdm restart".                 *
+ * "/sbin/service kdm restart".                    *
  *                                                 *
  * WARNING:                                        *
  * Restarting KDM will terminate any X session     *
@@ -1395,16 +1395,14 @@ if [ -f /var/lock/subsys/kdm ]; then
 EOF
 else
 	%banner kdm -e <<EOF
-Run "/etc/rc.d/init.d/kdm start" to start kdm.
+Run "/sbin/service kdm start" to start kdm.
 
 EOF
 fi
 
 %preun -n kdm
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/kdm ]; then
-		/etc/rc.d/init.d/kdm stop >&2
-	fi
+	%service kdm stop
 	/sbin/chkconfig --del kdm
 fi
 
@@ -1764,6 +1762,7 @@ fi
 %attr(755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kicker-3.4-reverseLayout
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
+%attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_default_rules
 # New
 %attr(755,root,root) %{_bindir}/kbookmarkmerger
 %attr(755,root,root) %{_bindir}/kcheckrunning
