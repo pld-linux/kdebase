@@ -12,9 +12,7 @@
 %bcond_without	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
 #
 %define		_state		stable
-%define		_kdever		3.5.2
-%define		_ver		3.5.2
-%define		_minlibsevr	9:3.5.2
+%define		_minlibsevr	9:%{version}
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos bАsicos
@@ -26,12 +24,12 @@ Summary(ru):	K Desktop Environment - базовые файлы
 Summary(uk):	K Desktop Environment - базов╕ файли
 Summary(zh_CN):	KDE╨кпд
 Name:		kdebase
-Version:	%{_ver}
+Version:	3.5.2
 Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	c5685e1be34e033286aa1f37002a0552
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
