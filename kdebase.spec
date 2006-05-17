@@ -9,12 +9,10 @@
 %bcond_without	apidocs		# Do not prepare API documentation
 %bcond_without	ldap		# build or not ldap ioslave
 %bcond_with	kerberos5	# kerberos 5 support
-%bcond_without	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
+%bcond_with	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
 #
 %define		_state		stable
-%define		_kdever		3.5.1
-%define		_ver		3.5.1
-%define		_minlibsevr	9:3.5.1
+%define		_minlibsevr	9:%{version}
 
 Summary:	K Desktop Environment - core files
 Summary(es):	K Desktop Environment - archivos básicos
@@ -26,13 +24,13 @@ Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
-Version:	%{_ver}
-Release:	6
+Version:	3.5.2
+Release:	2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	484c7b3895ce4f95173f4789571eb1cc
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	c5685e1be34e033286aa1f37002a0552
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -68,6 +66,7 @@ Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
 Patch20:	%{name}-seesar.patch
 Patch21:	%{name}-konsole-wordseps.patch
+Patch22:	%{name}-tango.patch
 BuildRequires:	OpenEXR-devel >= 1.2.2
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
@@ -79,7 +78,7 @@ BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
 BuildRequires:	cyrus-sasl-devel
 BuildRequires:	db-devel
-BuildRequires:	dbus-qt-devel >= 0.33
+BuildRequires:	dbus-qt-devel >= 0.60
 %{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	ed
 %{?with_hidden_visibility:BuildRequires:	gcc-c++ >= 5:4.1.0-0.20051206r108118.1}
@@ -104,8 +103,10 @@ BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	lm_sensors-devel
 BuildRequires:	motif-devel
-%{?with_ldap:BuildRequires:	openldap-devel >= 2.3.0}
 BuildRequires:	openssl-devel >= 0.9.7c
+# kde requires libXext and more stuff that is X11-only juz grep X11 `find -name configure.in.in`
+BuildRequires:	X11-devel >= 1:6.8.1
+%{?with_ldap:BuildRequires:	openldap-devel >= 2.3.0}
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig
 %{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
@@ -114,19 +115,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	sed >= 4.0
 #BuildRequires:	unsermake >= 040511
-BuildRequires:	xorg-app-bdftopcf
-BuildRequires:	xorg-cf-files
-BuildRequires:	xorg-lib-libXcomposite-devel
-BuildRequires:	xorg-lib-libXcursor-devel
-BuildRequires:	xorg-lib-libXdamage-devel
-BuildRequires:	xorg-lib-libXft-devel
-BuildRequires:	xorg-lib-libXinerama-devel
-BuildRequires:	xorg-lib-libXmu-devel
-BuildRequires:	xorg-lib-libXtst-devel
-BuildRequires:	xorg-lib-libfontenc-devel
-BuildRequires:	xorg-lib-libxkbfile-devel
-BuildRequires:	xorg-proto-scrnsaverproto-devel
-BuildRequires:	xorg-util-imake
+BuildRequires:	xcursor-devel >= 1.1.0
 BuildConflicts:	kdebase-konqueror-libs
 Conflicts:	kdelibs < 9:3.1.94.040110-1
 # TODO: sensors
@@ -389,9 +378,9 @@ Obs³uga protoko³u SMTP.
 Summary:	Default kicker sidebar
 Summary(pl):	Domy¶lny boczny pasek do menu KDE
 Group:		Themes
-Requires:	kdebase-desktop >= 9:3.2.90.040424-2
 Provides:	kde-kside
 Obsoletes:	kde-kside
+Requires:	kdebase-desktop >= 9:3.2.90.040424-2
 
 %description -n kde-kside-default
 Default kicker sidebar with a gear and the K Desktop Environment text.
@@ -404,9 +393,9 @@ Environment.
 Summary:	KDE "Logout" picture
 Summary(pl):	Obrazek okna "Wyloguj" KDE
 Group:		X11/Amusements
-Requires:	%{name}-desktop
 Provides:	kde-logoutpic
 Obsoletes:	kde-logoutpic-PLD
+Requires:	%{name}-desktop
 
 %description -n kde-logoutpic-default
 Default "Logout" picture with a KDE logo.
@@ -513,9 +502,9 @@ Group:		X11/Applications
 Requires:	applnk >= 1.9.0
 Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdebase < 8:3.2-0.030428.1
-Obsoletes:	kdebase-helpcenter
 Obsoletes:	kdebase-kcontrol
 Obsoletes:	kdebase-khelpcenter
+Obsoletes:	kdebase-helpcenter
 Conflicts:	kttsd <= 040609
 
 %description core
@@ -538,6 +527,7 @@ Podstawowe aplikacje ¶rodowiska KDE. Pakiet ten zawiera:
 Summary:	KDesktop - handling of desktop icons, popup menus etc.
 Summary(pl):	KDesktop - obs³uga ikon na pulpicie, menu itp.
 Group:		X11/Applications
+Provides:	kdebase-kicker
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kdialog = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kfind = %{epoch}:%{version}-%{release}
@@ -550,8 +540,7 @@ Requires:	kde-logoutpic
 Requires:	kde-splash-Default
 Requires:	konqueror = %{epoch}:%{version}-%{release}
 Requires:	pam >= 0.79.0
-Provides:	kdebase-kicker
-Obsoletes:	kde-decoration-plastik
+Requires:	xcursor >= 1.1.0
 Obsoletes:	kde-theme-keramik
 Obsoletes:	kdebase
 Obsoletes:	kdebase-fonts
@@ -572,6 +561,7 @@ Obsoletes:	kdebase-screensaver
 Obsoletes:	kdebase-static
 Obsoletes:	kdebase-wallpapers
 Obsoletes:	khotkeys
+Obsoletes:	kde-decoration-plastik
 Conflicts:	kdeedu-libkdeeduui < 8:3.4.0
 
 %description desktop
@@ -931,15 +921,15 @@ Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	kde-kgreet
 Requires:	pam >= 0.79.0
 Requires:	rc-scripts
+Requires:	sessreg
 Requires:	xinitrc-ng >= 0.4
-Requires:	xorg-app-sessreg
 Obsoletes:	X11-xdm
 Obsoletes:	entrance
 Obsoletes:	gdm
-Obsoletes:	kdebase-kdm
-Obsoletes:	kdebase-pam
 Obsoletes:	wdm
 Obsoletes:	xdm
+Obsoletes:	kdebase-kdm
+Obsoletes:	kdebase-pam
 
 %description -n kdm
 A program used for managing X11 sessions on local or remote computers.
@@ -1004,10 +994,10 @@ Summary(pl):	Biblioteki wspó³dzielone konquerora
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase-konqueror-libs
 Obsoletes:	kdebase-libkickermain
 Obsoletes:	kdebase-libkonq
 Obsoletes:	kdebase-libkonqsidebarplugin
+Obsoletes:	kdebase-konqueror-libs
 Obsoletes:	konqueror < 9:3.1.92.031006
 
 %description -n konqueror-libs
@@ -1037,7 +1027,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 %prep
 %setup -q
-%patch100 -p0
+#%patch100 -p0
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -1060,6 +1050,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 #%patch19 -p1
 %patch20 -p1
 %patch21 -p1
+%patch22 -p0
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
 for i in  google*.desktop
@@ -1769,6 +1760,7 @@ fi
 %attr(755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kicker-3.4-reverseLayout
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
+%attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_default_rules
 # New
 %attr(755,root,root) %{_bindir}/kbookmarkmerger
 %attr(755,root,root) %{_bindir}/kcheckrunning
