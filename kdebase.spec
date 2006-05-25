@@ -72,7 +72,6 @@ BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	awk
 BuildRequires:	bzip2-devel
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
@@ -84,7 +83,6 @@ BuildRequires:	ed
 %{?with_hidden_visibility:BuildRequires:	gcc-c++ >= 5:4.1.0-0.20051206r108118.1}
 BuildRequires:	gettext-devel
 %{?with_apidocs:BuildRequires:	graphviz}
-BuildRequires:	grep
 BuildRequires:	hal-devel
 %{?with_kerberos5:BuildRequires: heimdal-devel}
 BuildRequires:	jasper-devel
