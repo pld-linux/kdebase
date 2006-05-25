@@ -24,13 +24,13 @@ Summary(ru):	K Desktop Environment - базовые файлы
 Summary(uk):	K Desktop Environment - базов╕ файли
 Summary(zh_CN):	KDE╨кпд
 Name:		kdebase
-Version:	3.5.2
+Version:	3.5.3
 Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	c5685e1be34e033286aa1f37002a0552
+# Source0-md5:	3a5029d525944a5dda1ca384fa15d9ab
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -1612,6 +1612,7 @@ fi
 /etc/xdg/menus/kde-settings.menu
 %attr(755,root,root) %{_bindir}/drkonqi
 %attr(755,root,root) %{_bindir}/kcminit
+%attr(755,root,root) %{_bindir}/kcminit_startup
 %attr(755,root,root) %{_bindir}/kcontrol
 %attr(755,root,root) %{_bindir}/kdebugdialog
 %attr(755,root,root) %{_bindir}/kdesu
@@ -1620,8 +1621,11 @@ fi
 %attr(755,root,root) %{_bindir}/knetattach
 %attr(755,root,root) %{_bindir}/kprinter
 %attr(2755,root,root) %{_bindir}/kdesud
+%attr(755,root,root) %{_bindir}/multiple-attachments-servicemenu
 %{_libdir}/libkdeinit_kcminit.la
 %attr(755,root,root) %{_libdir}/libkdeinit_kcminit.so
+%{_libdir}/libkdeinit_kcminit_startup.la
+%attr(755,root,root) %{_libdir}/libkdeinit_kcminit_startup.so
 %{_libdir}/libkdeinit_kcontrol.la
 %attr(755,root,root) %{_libdir}/libkdeinit_kcontrol.so
 %{_libdir}/libkdeinit_khelpcenter.la
@@ -1642,6 +1646,8 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/kcm_printmgr.so
 %{_libdir}/kde3/kcminit.la
 %attr(755,root,root) %{_libdir}/kde3/kcminit.so
+%{_libdir}/kde3/kcminit_startup.la
+%attr(755,root,root) %{_libdir}/kde3/kcminit_startup.so
 %{_libdir}/kde3/kcontrol.la
 %attr(755,root,root) %{_libdir}/kde3/kcontrol.so
 %{_libdir}/kde3/khelpcenter.la
@@ -2439,6 +2445,7 @@ fi
 %{_datadir}/applnk/.hidden/kcmkonsole.desktop
 %{_desktopdir}/kde/konsole*.desktop
 %{_iconsdir}/*/*/apps/konsole.png
+%{_iconsdir}/*/*/apps/konsole.svgz
 
 %files kpager -f kpager.lang
 %defattr(644,root,root,755)
