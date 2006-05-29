@@ -24,13 +24,13 @@ Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
-Version:	3.5.2
-Release:	2
+Version:	3.5.3
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	c5685e1be34e033286aa1f37002a0552
+# Source0-md5:	9cb6b8291c4f3f986e16f72129e8fcd0
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -72,7 +72,6 @@ BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	awk
 BuildRequires:	bzip2-devel
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
@@ -84,7 +83,6 @@ BuildRequires:	ed
 %{?with_hidden_visibility:BuildRequires:	gcc-c++ >= 5:4.1.0-0.20051206r108118.1}
 BuildRequires:	gettext-devel
 %{?with_apidocs:BuildRequires:	graphviz}
-BuildRequires:	grep
 BuildRequires:	hal-devel
 %{?with_kerberos5:BuildRequires: heimdal-devel}
 BuildRequires:	jasper-devel
@@ -378,9 +376,9 @@ Obs³uga protoko³u SMTP.
 Summary:	Default kicker sidebar
 Summary(pl):	Domy¶lny boczny pasek do menu KDE
 Group:		Themes
+Requires:	kdebase-desktop >= 9:3.2.90.040424-2
 Provides:	kde-kside
 Obsoletes:	kde-kside
-Requires:	kdebase-desktop >= 9:3.2.90.040424-2
 
 %description -n kde-kside-default
 Default kicker sidebar with a gear and the K Desktop Environment text.
@@ -393,9 +391,9 @@ Environment.
 Summary:	KDE "Logout" picture
 Summary(pl):	Obrazek okna "Wyloguj" KDE
 Group:		X11/Amusements
+Requires:	%{name}-desktop
 Provides:	kde-logoutpic
 Obsoletes:	kde-logoutpic-PLD
-Requires:	%{name}-desktop
 
 %description -n kde-logoutpic-default
 Default "Logout" picture with a KDE logo.
@@ -502,9 +500,9 @@ Group:		X11/Applications
 Requires:	applnk >= 1.9.0
 Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdebase < 8:3.2-0.030428.1
+Obsoletes:	kdebase-helpcenter
 Obsoletes:	kdebase-kcontrol
 Obsoletes:	kdebase-khelpcenter
-Obsoletes:	kdebase-helpcenter
 Conflicts:	kttsd <= 040609
 
 %description core
@@ -527,7 +525,6 @@ Podstawowe aplikacje ¶rodowiska KDE. Pakiet ten zawiera:
 Summary:	KDesktop - handling of desktop icons, popup menus etc.
 Summary(pl):	KDesktop - obs³uga ikon na pulpicie, menu itp.
 Group:		X11/Applications
-Provides:	kdebase-kicker
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kdialog = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kfind = %{epoch}:%{version}-%{release}
@@ -541,6 +538,8 @@ Requires:	kde-splash-Default
 Requires:	konqueror = %{epoch}:%{version}-%{release}
 Requires:	pam >= 0.79.0
 Requires:	xcursor >= 1.1.0
+Provides:	kdebase-kicker
+Obsoletes:	kde-decoration-plastik
 Obsoletes:	kde-theme-keramik
 Obsoletes:	kdebase
 Obsoletes:	kdebase-fonts
@@ -561,7 +560,6 @@ Obsoletes:	kdebase-screensaver
 Obsoletes:	kdebase-static
 Obsoletes:	kdebase-wallpapers
 Obsoletes:	khotkeys
-Obsoletes:	kde-decoration-plastik
 Conflicts:	kdeedu-libkdeeduui < 8:3.4.0
 
 %description desktop
@@ -926,10 +924,10 @@ Requires:	xinitrc-ng >= 0.4
 Obsoletes:	X11-xdm
 Obsoletes:	entrance
 Obsoletes:	gdm
-Obsoletes:	wdm
-Obsoletes:	xdm
 Obsoletes:	kdebase-kdm
 Obsoletes:	kdebase-pam
+Obsoletes:	wdm
+Obsoletes:	xdm
 
 %description -n kdm
 A program used for managing X11 sessions on local or remote computers.
@@ -994,10 +992,10 @@ Summary(pl):	Biblioteki wspó³dzielone konquerora
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	kdelibs >= %{_minlibsevr}
+Obsoletes:	kdebase-konqueror-libs
 Obsoletes:	kdebase-libkickermain
 Obsoletes:	kdebase-libkonq
 Obsoletes:	kdebase-libkonqsidebarplugin
-Obsoletes:	kdebase-konqueror-libs
 Obsoletes:	konqueror < 9:3.1.92.031006
 
 %description -n konqueror-libs
@@ -1082,7 +1080,7 @@ cd -
 	kcontrol/kcontrol/KControl.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;X-KDE-settings-desktop;/' \
 	kcontrol/konq/desktoppath.desktop
-%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Utility;/' \
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Utility;TrayIcon;/' \
 	kcontrol/randr/krandrtray.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;X-Help;/' \
 	-e 's/Name=/Name=KDE/g' -e s'/Name[pl]=Pomoc/Name[pl]=Pomoc KDE/g' \
@@ -1603,6 +1601,7 @@ fi
 /etc/xdg/menus/kde-settings.menu
 %attr(755,root,root) %{_bindir}/drkonqi
 %attr(755,root,root) %{_bindir}/kcminit
+%attr(755,root,root) %{_bindir}/kcminit_startup
 %attr(755,root,root) %{_bindir}/kcontrol
 %attr(755,root,root) %{_bindir}/kdebugdialog
 %attr(755,root,root) %{_bindir}/kdesu
@@ -1611,8 +1610,11 @@ fi
 %attr(755,root,root) %{_bindir}/knetattach
 %attr(755,root,root) %{_bindir}/kprinter
 %attr(2755,root,root) %{_bindir}/kdesud
+%attr(755,root,root) %{_bindir}/multiple-attachments-servicemenu
 %{_libdir}/libkdeinit_kcminit.la
 %attr(755,root,root) %{_libdir}/libkdeinit_kcminit.so
+%{_libdir}/libkdeinit_kcminit_startup.la
+%attr(755,root,root) %{_libdir}/libkdeinit_kcminit_startup.so
 %{_libdir}/libkdeinit_kcontrol.la
 %attr(755,root,root) %{_libdir}/libkdeinit_kcontrol.so
 %{_libdir}/libkdeinit_khelpcenter.la
@@ -1633,6 +1635,8 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/kcm_printmgr.so
 %{_libdir}/kde3/kcminit.la
 %attr(755,root,root) %{_libdir}/kde3/kcminit.so
+%{_libdir}/kde3/kcminit_startup.la
+%attr(755,root,root) %{_libdir}/kde3/kcminit_startup.so
 %{_libdir}/kde3/kcontrol.la
 %attr(755,root,root) %{_libdir}/kde3/kcontrol.so
 %{_libdir}/kde3/khelpcenter.la
@@ -2430,6 +2434,7 @@ fi
 %{_datadir}/applnk/.hidden/kcmkonsole.desktop
 %{_desktopdir}/kde/konsole*.desktop
 %{_iconsdir}/*/*/apps/konsole.png
+%{_iconsdir}/*/*/apps/konsole.svgz
 
 %files kpager -f kpager.lang
 %defattr(644,root,root,755)
