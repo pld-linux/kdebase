@@ -25,7 +25,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.5.3
-Release:	1
+Release:	3
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -41,7 +41,7 @@ Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-searchproviders.tar.bz2
 # Source8-md5:	582b29204e85c01a91799ed72f845312
 Source10:	%{name}-servicemenus.tar.bz2
-# Source10-md5:	b8ce7213a7f54c97874f1ea9cb7973b3
+# Source10-md5:	f48ac7af286f4c87961de4bb24d07772
 Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
 Patch100:	%{name}-branch.diff
@@ -1025,7 +1025,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 %prep
 %setup -q
-#%patch100 -p0
+%patch100 -p0
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
