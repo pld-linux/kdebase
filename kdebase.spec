@@ -24,13 +24,13 @@ Summary(ru):	K Desktop Environment - базовые файлы
 Summary(uk):	K Desktop Environment - базов╕ файли
 Summary(zh_CN):	KDE╨кпд
 Name:		kdebase
-Version:	3.5.3
-Release:	5
+Version:	3.5.4
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	9cb6b8291c4f3f986e16f72129e8fcd0
+# Source0-md5:	882a9729c08b197caef2c8712c980d9c
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -1034,7 +1034,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 %prep
 %setup -q
-%patch100 -p0
+#%patch100 -p0
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -1923,6 +1923,7 @@ fi
 %{_datadir}/apps/kwin/plastik.desktop
 %dir %{_datadir}/apps/kwin/pics
 %{_datadir}/apps/kwin/pics/*
+%{_datadir}/apps/kwin/default_rules/fsp_workarounds_1
 %{_datadir}/autostart/kdesktop.desktop
 %{_datadir}/autostart/khotkeys.desktop
 %{_datadir}/autostart/ktip.desktop
@@ -1945,6 +1946,7 @@ fi
 %{_datadir}/services/ksplashdefault.desktop
 %{_datadir}/services/kxkb.desktop
 %{_datadir}/services/kfile_trash_system.desktop
+%{_datadir}/services/media_propsdlgplugin.desktop
 %{_datadir}/services/home.protocol
 %{_datadir}/services/kded/homedirnotify.desktop
 %{_datadir}/services/kded/medianotifier.desktop
@@ -2192,6 +2194,8 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/lockout_panelapplet.so
 %{_libdir}/kde3/media_panelapplet.la
 %attr(755,root,root) %{_libdir}/kde3/media_panelapplet.so
+%{_libdir}/kde3/media_propsdlgplugin.la
+%attr(755,root,root) %{_libdir}/kde3/media_propsdlgplugin.so
 %{_libdir}/kde3/menu_panelapplet.la
 %attr(755,root,root) %{_libdir}/kde3/menu_panelapplet.so
 %{_libdir}/kde3/minipager_panelapplet.la
@@ -2224,6 +2228,7 @@ fi
 %{_datadir}/applnk/.hidden/kicker_config_appearance.desktop
 %{_datadir}/config.kcfg/taskbar.kcfg
 %{_datadir}/config.kcfg/launcherapplet.kcfg
+%{_desktopdir}/kde/cdinfo.desktop
 %{_desktopdir}/kde/kcm_kdnssd.desktop
 %{_desktopdir}/kde/kcmtaskbar.desktop
 %{_desktopdir}/kde/panel.desktop
