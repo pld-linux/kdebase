@@ -1599,8 +1599,8 @@ fi
 %lang(en) %{_kdedocdir}/en/kcontrol/helpindex.html
 %lang(en) %{_kdedocdir}/en/kcontrol/index.*
 %lang(en) %{_kdedocdir}/en/kcontrol/screenshot.png
-/etc/xdg/menus/applications-merged/kde-essential.menu
-/etc/xdg/menus/kde-settings.menu
+%{_sysconfdir}/xdg/menus/applications-merged/kde-essential.menu
+%{_sysconfdir}/xdg/menus/kde-settings.menu
 %attr(755,root,root) %{_bindir}/drkonqi
 %attr(755,root,root) %{_bindir}/kcminit
 %attr(755,root,root) %{_bindir}/kcminit_startup
@@ -2274,7 +2274,7 @@ fi
 
 %files infocenter -f kinfocenter.lang
 %defattr(644,root,root,755)
-/etc/xdg/menus/kde-information.menu
+%{_sysconfdir}/xdg/menus/kde-information.menu
 %attr(755,root,root) %{_bindir}/kinfocenter
 %{_libdir}/kde3/kcm_info.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_info.so
