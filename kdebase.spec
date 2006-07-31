@@ -1141,7 +1141,7 @@ sed -i -e 's#krb5/##g' configure* */configure* */*.c */*/*.c
 %if %{with apidocs}
 	if [ ! -f "%{_kdedocdir}/en/common/kde-common.css" ]; then
 		echo "ERROR: Building kdebase with apidocs requires kdelibs"
-		echo "       to be installed _without_ excluding docummentation."
+		echo "       to be installed _without_ excluding documentation."
 		exit 1
 	fi
 %endif
