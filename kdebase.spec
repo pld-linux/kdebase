@@ -1916,6 +1916,7 @@ fi
 %{_datadir}/apps/kwin/plastik.desktop
 %dir %{_datadir}/apps/kwin/pics
 %{_datadir}/apps/kwin/pics/*
+%dir %{_datadir}/apps/kwin/default_rules
 %{_datadir}/apps/kwin/default_rules/fsp_workarounds_1
 %{_datadir}/autostart/kdesktop.desktop
 %{_datadir}/autostart/khotkeys.desktop
