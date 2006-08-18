@@ -25,7 +25,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.5.4
-Release:	2
+Release:	2.1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -67,6 +67,7 @@ Patch19:	%{name}-konsole-default-keytab.patch
 Patch20:	%{name}-seesar.patch
 Patch21:	%{name}-konsole-wordseps.patch
 Patch22:	%{name}-tango.patch
+Patch23:	%{name}-dbus-qt3.patch
 BuildRequires:	OpenEXR-devel >= 1.2.2
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
@@ -77,7 +78,7 @@ BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
 BuildRequires:	cyrus-sasl-devel
 BuildRequires:	db-devel
-BuildRequires:	dbus-qt-devel >= 0.60
+BuildRequires:	dbus-qt3-devel
 %{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	ed
 %{?with_hidden_visibility:BuildRequires:	gcc-c++ >= 5:4.1.0-0.20051206r108118.1}
@@ -1058,6 +1059,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch20 -p1
 %patch21 -p1
 %patch22 -p0
+%patch23 -p1
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
 for i in  google*.desktop
