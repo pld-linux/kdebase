@@ -1,0 +1,11 @@
+--- kdebase-3.5.4/configure.in.orig	2006-08-18 11:47:38.000000000 +0200
++++ kdebase-3.5.4/configure.in	2006-08-18 14:00:24.332329750 +0200
+@@ -1463,7 +1463,7 @@
+   dbus_lib=NOTFOUND
+   dbus=NOTFOUND
+ 
+-  search_incs="$kde_includes $kde_extra_includes /usr/include /usr/include/dbus-1.0 /usr/local/include /usr/local/include/dbus-1.0"
++  search_incs="$kde_includes $kde_extra_includes /usr/include /usr/include/dbus-1.0/qt3 /usr/local/include /usr/local/include/dbus-1.0"
+   AC_FIND_FILE(dbus/dbus.h, $search_incs, dbus_incdir)
+ 
+   search_incs_arch_deps="$kde_includes $kde_extra_includes /usr/lib$kdelibsuff/dbus-1.0/include /usr/local/lib$kdelibsuff/dbus-1.0/include"
