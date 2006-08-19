@@ -25,7 +25,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.5.4
-Release:	2.1
+Release:	2.2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -733,6 +733,8 @@ Summary:	K Font Installer
 Summary(pl):	Instalator fontów dla KDE
 Group:		X11/Applications
 #Requires:	konqueror = %{epoch}:%{version}-%{release}
+# for /usr/share/doc/kde/HTML/en/kcontrol, probably stupid
+Requires:	kdebase-core = %{epoch}:%{version}-%{release}
 Obsoletes:	kdebase-desktop < 3.1.90.030720
 
 %description kfontinst
