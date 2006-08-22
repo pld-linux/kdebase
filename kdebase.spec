@@ -725,6 +725,8 @@ Summary:	K Font Installer
 Summary(pl):	Instalator fontów dla KDE
 Group:		X11/Applications
 #Requires:	konqueror = %{epoch}:%{version}-%{release}
+# for /usr/share/doc/kde/HTML/en/kcontrol, probably stupid
+Requires:	kdebase-core = %{epoch}:%{version}-%{release}
 Obsoletes:	kdebase-desktop < 3.1.90.030720
 
 %description kfontinst
