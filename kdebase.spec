@@ -930,7 +930,6 @@ Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	kde-kgreet
 Requires:	pam >= 0.79.0
 Requires:	rc-scripts
-Requires:	xinitrc-ng >= 0.4
 Requires:	xorg-app-sessreg
 Obsoletes:	X11-xdm
 Obsoletes:	entrance
