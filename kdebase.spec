@@ -507,7 +507,7 @@ Schematy kolorów, ikony, czcionki oraz profile sesji dla konsole.
 Summary:	KDE Core Apps
 Summary(pl):	Podstawowe aplikacje KDE
 Group:		X11/Applications
-Requires:	applnk >= 1.9.0
+Requires:	xdg-menus
 Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdebase < 8:3.2-0.030428.1
 Obsoletes:	kdebase-helpcenter
