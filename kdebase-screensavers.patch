@@ -30,7 +30,7 @@
 -                                     KGlobal::dirs()->kde_default("apps") +
 -                                     relPath);
 -
-     readSettings();
+     readSettings( false );
  
      mSetupProc = new KProcess;
 --- kdebase-3.1.1/kscreensaver/Makefile.am~	Sun Oct 27 00:07:04 2002
