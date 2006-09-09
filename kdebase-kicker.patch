@@ -1,8 +1,0 @@
---- ./kicker/kicker/core/default-apps~	2005-11-21 19:13:15.000000000 +0200
-+++ ./kicker/kicker/core/default-apps	2005-11-21 19:13:17.000000000 +0200
-@@ -1,2 +1,4 @@
- Home.desktop
--Internet/konqbrowser.desktop
-+Network/WWW/konqbrowser.desktop
-+Network/Mail/KMail.desktop
-+Help/Help.desktop
