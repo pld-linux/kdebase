@@ -25,7 +25,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.5.4
-Release:	2.4
+Release:	3
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -68,6 +68,7 @@ Patch20:	%{name}-seesar.patch
 Patch21:	%{name}-konsole-wordseps.patch
 Patch22:	%{name}-tango.patch
 Patch23:	%{name}-konsole-bold.patch
+Patch24:	kde-ac260-lt.patch
 BuildRequires:	OpenEXR-devel >= 1.2.2
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
@@ -1061,6 +1062,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch21 -p1
 %patch22 -p0
 %patch23 -p1
+%patch24 -p1
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
 for i in  google*.desktop
