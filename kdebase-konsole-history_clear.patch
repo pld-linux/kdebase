@@ -1,0 +1,11 @@
+--- kdebase-3.5.4/konsole/konsole/konsole.cpp.wordseps	2006-09-20 14:03:11.000000000 +0200
++++ kdebase-3.5.4/konsole/konsole/konsole.cpp	2006-09-20 14:39:42.000000000 +0200
+@@ -1066,7 +1066,7 @@
+                               SLOT(slotSaveHistory()), m_shortcuts, "save_history");
+   m_saveHistory->setEnabled(b_histEnabled );
+ 
+-  m_clearHistory = new KAction(i18n("Clear &History"), "history_clear", 0, this,
++  m_clearHistory = new KAction(i18n("Clear &History"), "history_clear", Qt::CTRL+Qt::ALT+Qt::Key_W, this,
+                                SLOT(slotClearHistory()), m_shortcuts, "clear_history");
+   m_clearHistory->setEnabled(b_histEnabled);
+ 
