@@ -179,7 +179,7 @@
 +Default: Logo
  User: greeter
 -Instance: */Logo
-+Instance: */Clock
++Instance: #*/Logo
  Comment:
   What should be shown in the greeter's logo are:
  Description:
@@ -211,6 +211,168 @@
  # will be overwritten
  Instance: #*/
 @@ -2094,7 +2094,7 @@
+ 
+ Key: FaceDir
+ Type: string
+-Default: *KDMDATA "/faces"
++Default: *KDMCONF "/faces"
+ User: greeter
+ Instance: #*/"/usr/share/faces"
+ Update: upd_facedir
+--- kdebase-3.5.4/kdm/config.def.orig	2005-10-10 17:04:31.000000000 +0200
++++ kdebase-3.5.4/kdm/config.def	2006-10-01 13:13:08.000000000 +0200
+@@ -29,7 +29,7 @@
+ #define RCVERMAJOR 2
+ #define RCVERMINOR 3
+ 
+-#define KDMCONF KDE_CONFDIR "/kdm"
++#define KDMCONF "/etc/X11/kdm"
+ #define KDMDATA KDE_DATADIR "/kdm"
+ 
+ #ifdef _AIX
+@@ -1164,7 +1164,7 @@
+ 
+ Key: Willing
+ Type: string
+-Default: ""
++Default: KDMCONF "/Xwilling"
+ User: core
+ # will be overwritten
+ Instance: #
+@@ -1581,7 +1581,7 @@
+ 
+ Key: Setup
+ Type: string
+-Default: ""
++Default: KDMCONF "/Xsetup"
+ User: core
+ # will be overwritten
+ Instance: #*/""
+@@ -1602,7 +1602,7 @@
+ 
+ Key: Startup
+ Type: string
+-Default: ""
++Default: KDMCONF "/Xstartup"
+ User: core
+ # will be overwritten
+ Instance: #*/""
+@@ -1620,7 +1620,7 @@
+ 
+ Key: Reset
+ Type: string
+-Default: ""
++Default: KDMCONF "/Xreset"
+ User: core
+ # will be overwritten
+ Instance: #*/""
+@@ -1638,7 +1638,7 @@
+ 
+ Key: Session
+ Type: string
+-Default: XBINDIR "/xterm -ls -T"
++Default: KDMCONF "/Xsession"
+ #Merge: xdm - incompatible!
+ User: core
+ # will be overwritten
+@@ -1746,10 +1746,10 @@
+ 
+ Key: AllowRootLogin
+ Type: bool
+-Default: true
++Default: false
+ User: core
+ User: greeter(showRoot)
+-Instance: */false
++Instance: #*/true
+ Merge: xdm
+ Comment:
+  Allow root logins?
+@@ -1759,11 +1759,11 @@
+ 
+ Key: AllowNullPasswd
+ Type: bool
+-Default: true
++Default: false
+ User: core
+ # sensible?
+-Instance: */false
+-Instance: :*/true
++Instance: #*/true
++Instance: #:*/true
+ Merge: xdm
+ Comment:
+  Allow to log in, when user has set an empty password?
+@@ -1921,10 +1921,10 @@
+ 
+ Key: SessionsDirs
+ Type: list
+-Default: KDMDATA "/sessions"
++Default: "/usr/share/xsessions"
+ User: core
+ User: greeter-c
+-Instance: #*/"/etc/X11/sessions,/usr/share/xsessions"
++Instance: #*/"/etc/X11/sessions"
+ Comment:
+  The directories containing session type definitions in .desktop format.
+ Description:
+@@ -1933,10 +1933,10 @@
+ 
+ Key: ClientLogFile
+ Type: string
+-Default: ".xsession-errors"
++Default: ""
+ User: core
+-Instance: */".xsession-errors-%s"
+-Instance: :0/".xsession-errors"
++Instance: #*/".xsession-errors-%s"
++Instance: #:0/".xsession-errors"
+ Comment:
+  The file (relative to $HOME) to redirect the session output to. This is
+  a printf format string; one %s will be replaced with the display name.
+@@ -1997,9 +1997,9 @@
+  None/LOGO_NONE: nothing
+  Logo/LOGO_LOGO: the image specified by <option>LogoPixmap</option>
+  Clock/LOGO_CLOCK: a neat analog clock
+-Default: Clock
++Default: Logo
+ User: greeter
+-Instance: */Logo
++Instance: #*/Clock
+ Comment:
+  What should be shown in the greeter's logo are:
+ Description:
+@@ -2009,9 +2009,9 @@
+ 
+ Key: LogoPixmap
+ Type: string
+-Default: ""
++Default: KDMDATA "/pics/pldlogo.png"
+ User: greeter(logo)
+-Instance: */KDMDATA "/pics/kdelogo.png"
++Instance: #*/KDMDATA "/pics/kdelogo.png"
+ Comment:
+  The image to show when LogoArea=Logo.
+ Description:
+@@ -2044,7 +2044,7 @@
+ 
+ Key: GreetString
+ Type: string
+-Default: "Welcome to %s at %n"
++Default: "Welcome to PLD Linux at %n"
+ User: greeter
+ Instance: #*/"K Desktop Environment (%n)"
+ Comment:
+@@ -2227,7 +2227,7 @@
+ 
+ Key: MinShowUID
+ Type: int
+-Default: 0
++Default: 500
+ User: greeter(lowUserId)
+ # will be overwritten
+ Instance: #*/
+@@ -2288,7 +2288,7 @@
  
  Key: FaceDir
  Type: string
