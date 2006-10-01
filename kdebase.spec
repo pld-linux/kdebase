@@ -25,7 +25,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.5.4
-Release:	8
+Release:	9
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -49,7 +49,6 @@ Source14:	%{name}-Metric-Monospace-14.png
 Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-fontdir.patch
-Patch2:		%{name}-kcm_background.patch
 Patch3:		%{name}-kdm_utmpx.patch
 Patch4:		%{name}-kdmconfig.patch
 Patch5:		%{name}-kicker.patch
@@ -60,7 +59,6 @@ Patch10:	%{name}-kdesukonsole.patch
 Patch12:	%{name}-screensavers.patch
 Patch13:	%{name}-prefmenu.patch
 Patch14:	%{name}-session.patch
-Patch15:	%{name}-bgdefaults.patch
 Patch16:	%{name}-vmenus.patch
 Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
@@ -69,6 +67,7 @@ Patch21:	%{name}-konsole-wordseps.patch
 Patch22:	%{name}-tango.patch
 Patch24:	kde-ac260-lt.patch
 Patch25:	%{name}-konsole-history_clear.patch
+Patch26:	%{name}-kdm-default_background.patch
 BuildRequires:	OpenEXR-devel >= 1.2.2
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
@@ -1040,8 +1039,6 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch100 -p0
 %patch0 -p1
 %patch1 -p1
-# Temporary disabled (for test)
-#%patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
@@ -1054,8 +1051,6 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch12 -p1
 %patch13 -p1
 %patch14 -p1
-# Temporary disabled (for test)
-#%patch15 -p1
 %patch16 -p1
 %patch18 -p1
 # FIXME (still needed?)
@@ -1065,6 +1060,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch22 -p0
 %patch24 -p1
 %patch25 -p1
+%patch26 -p1
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
 for i in  google*.desktop
