@@ -25,7 +25,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.5.4
-Release:	6
+Release:	8
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -62,7 +62,6 @@ Patch13:	%{name}-prefmenu.patch
 Patch14:	%{name}-session.patch
 Patch15:	%{name}-bgdefaults.patch
 Patch16:	%{name}-vmenus.patch
-Patch17:	%{name}-sasl-includes.patch
 Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
 Patch20:	%{name}-seesar.patch
@@ -1041,7 +1040,8 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch100 -p0
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
+# Temporary disabled (for test)
+#%patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
@@ -1054,7 +1054,8 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch12 -p1
 %patch13 -p1
 %patch14 -p1
-%patch15 -p1
+# Temporary disabled (for test)
+#%patch15 -p1
 %patch16 -p1
 %patch18 -p1
 # FIXME (still needed?)
@@ -1084,12 +1085,10 @@ cd -
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;TerminalEmulator;/' \
 	konsole/konsole-script.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;TerminalEmulator;/' \
-	-e 's/Terminal=0/Terminal=false/' \
 	konsole/konsole.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Amusement;/' \
 	ksplashml/ksplash.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;System;Monitor;/' \
-	-e 's/Terminal=0/Terminal=false/' \
 	ksysguard/gui/ksysguard.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Settings;/' \
 	kcontrol/kcontrol/KControl.desktop
@@ -1099,37 +1098,16 @@ cd -
 	kcontrol/randr/krandrtray.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;X-Help;/' \
 	-e 's/Name=/Name=KDE/g' -e s'/Name[pl]=Pomoc/Name[pl]=Pomoc KDE/g' \
-	-e 's/Terminal=0/Terminal=false/' -e 's/OnlyShowIn=KDE;//g' \
-	khelpcenter/Help.desktop
+	-e 's/OnlyShowIn=KDE;//g' khelpcenter/Help.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Utility;/' \
-	-e 's/Terminal=0/Terminal=false/' -e 's/OnlyShowIn=KDE;//g' \
-	kfind/Kfind.desktop
-%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;System;X-administration;/' \
+	-e 's/OnlyShowIn=KDE;//g' kfind/Kfind.desktop
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;SystemSetup;/' \
 	konqueror/konquerorsu.desktop
-%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;System;X-administration;/' \
-	-e 's/Terminal=0/Terminal=false/' \
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;SystemSetup;/' \
 	konsole/konsolesu.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Network;WebBrowser;/' \
 	konqueror/konqbrowser.desktop
-%{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
-	khotkeys/kcontrol/khotkeys.desktop \
-	kioslave/cgi/kcmcgi/kcmcgi.desktop
-%{__sed} -i -e 's/Terminal=0/Terminal=false/' \
-	kappfinder/kappfinder.desktop \
-	kate/data/kate.desktop \
-	kdeprint/kdeprintfax/kdeprintfax.desktop \
-	kcontrol/kfontinst/viewpart/kfontview.desktop \
-	kdeprint/kjobviewer/kjobviewer.desktop \
-	klipper/klipper.desktop \
-	kpager/kpager.desktop \
-	kpersonalizer/kpersonalizer.desktop \
-	ktip/ktip.desktop \
-	kate/data/kwrite.desktop \
-	konqueror/Home.desktop \
-	konqueror/kfmclient.desktop \
-	konqueror/kfmclient_dir.desktop \
-	konqueror/kfmclient_html.desktop \
-	konqueror/kfmclient_war.desktop
+
 for f in `find . -name \*.desktop`; do
 	if grep -q '^Categories=.*[^;]$' $f; then
 		sed -i -e 's/\(^Categories=.*$\)/\1;/' $f
@@ -1163,19 +1141,16 @@ sed -i -e 's#krb5/##g' configure* */configure* */*.c */*/*.c
 %if "%{_lib}" == "lib64"
 	--enable-libsuffix=64 \
 %endif
-	--without-java \
+	--with-distribution="PLD Linux Distribution" \
 	--with-kdm-pam=kdm \
 	--with-pam=kdesktop \
+	--with-openexr \
 	--with-qt-libraries=%{_libdir} \
 	--with%{!?with_kerberos5:out}-krb5auth \
-	%{!?with_ldap:--without-ldap} \
-	--with-openexr \
-	--with-distribution="PLD Linux Distribution"
+	--without-java \
+	%{!?with_ldap:--without-ldap}
 
-#cd kwin/kcmkwin/kwinrules
-#%%{__make} ruleswidgetbase.h
-#%%{__make} ruleswidgetbase.cpp
-#cd -
+
 
 %{__make}
 
