@@ -19,10 +19,7 @@ if [ -f /etc/sysconfig/kdm ]; then
 	. /etc/sysconfig/kdm
 fi
 
-RETVAL=0
-# See how we were called.
-case "$1" in
-  start)
+start() {
 	# Check if the service is already running?
 	if [ ! -f /var/lock/subsys/kdm ]; then
 		msg_starting "KDE Display Manager"
@@ -32,8 +29,9 @@ case "$1" in
 	else
 		msg_already_running "KDE Display Manager"
 	fi
-	;;
-  stop)
+}
+
+stop() {
 	# Check if the service is already running?
 	if [ -f /var/lock/subsys/kdm ]; then
 		msg_stopping "KDE Display Manager"
@@ -42,15 +40,24 @@ case "$1" in
 	else
 		msg_not_running "KDE Display Manager"
 	fi
+}
+
+RETVAL=0
+# See how we were called.
+case "$1" in
+  start)
+  	start
+	;;
+  stop)
+  	stop
 	;;
   status)
 	status kdm
 	exit $?
 	;;
   restart|force-reload)
-	$0 stop
-	$0 start
-	exit $?
+	stop
+	start
 	;;
   *)
 	msg_usage "$0 {start|stop|restart|force-reload|status}"
