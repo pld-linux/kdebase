@@ -9,7 +9,7 @@
 %bcond_without	apidocs		# Do not prepare API documentation
 %bcond_without	ldap		# build or not ldap ioslave
 %bcond_with	kerberos5	# kerberos 5 support
-%bcond_without	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
+%bcond_with	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
 #
 %define		_state		stable
 %define		_minlibsevr	9:%{version}
@@ -24,13 +24,13 @@ Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
-Version:	3.5.3
+Version:	3.5.4
 Release:	2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	9cb6b8291c4f3f986e16f72129e8fcd0
+# Source0-md5:	882a9729c08b197caef2c8712c980d9c
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -41,7 +41,7 @@ Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-searchproviders.tar.bz2
 # Source8-md5:	582b29204e85c01a91799ed72f845312
 Source10:	%{name}-servicemenus.tar.bz2
-# Source10-md5:	b8ce7213a7f54c97874f1ea9cb7973b3
+# Source10-md5:	f48ac7af286f4c87961de4bb24d07772
 Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
 Patch100:	%{name}-branch.diff
@@ -101,8 +101,10 @@ BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	lm_sensors-devel
 BuildRequires:	motif-devel
-%{?with_ldap:BuildRequires:	openldap-devel >= 2.3.0}
 BuildRequires:	openssl-devel >= 0.9.7c
+# kde requires libXext and more stuff that is X11-only juz grep X11 `find -name configure.in.in`
+BuildRequires:	X11-devel >= 1:6.8.1
+%{?with_ldap:BuildRequires:	openldap-devel >= 2.3.0}
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig
 %{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
@@ -111,19 +113,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	sed >= 4.0
 #BuildRequires:	unsermake >= 040511
-BuildRequires:	xorg-app-bdftopcf
-BuildRequires:	xorg-cf-files
-BuildRequires:	xorg-lib-libXcomposite-devel
-BuildRequires:	xorg-lib-libXcursor-devel
-BuildRequires:	xorg-lib-libXdamage-devel
-BuildRequires:	xorg-lib-libXft-devel
-BuildRequires:	xorg-lib-libXinerama-devel
-BuildRequires:	xorg-lib-libXmu-devel
-BuildRequires:	xorg-lib-libXtst-devel
-BuildRequires:	xorg-lib-libfontenc-devel
-BuildRequires:	xorg-lib-libxkbfile-devel
-BuildRequires:	xorg-proto-scrnsaverproto-devel
-BuildRequires:	xorg-util-imake
+BuildRequires:	xcursor-devel >= 1.1.0
 BuildConflicts:	kdebase-konqueror-libs
 Conflicts:	kdelibs < 9:3.1.94.040110-1
 # TODO: sensors
@@ -132,6 +122,8 @@ BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_xdgdatadir	%{_datadir}/desktop-directories
+# openexr detection fails
+%undefine	configure_cache
 
 %description
 This package contains KDE base system which includes:
@@ -547,6 +539,7 @@ Requires:	kde-logoutpic
 Requires:	kde-splash-Default
 Requires:	konqueror = %{epoch}:%{version}-%{release}
 Requires:	pam >= 0.79.0
+Requires:	xcursor >= 1.1.0
 Provides:	kdebase-kicker
 Obsoletes:	kde-decoration-plastik
 Obsoletes:	kde-theme-keramik
@@ -732,6 +725,8 @@ Summary:	K Font Installer
 Summary(pl):	Instalator fontów dla KDE
 Group:		X11/Applications
 #Requires:	konqueror = %{epoch}:%{version}-%{release}
+# for /usr/share/doc/kde/HTML/en/kcontrol, probably stupid
+Requires:	kdebase-core = %{epoch}:%{version}-%{release}
 Obsoletes:	kdebase-desktop < 3.1.90.030720
 
 %description kfontinst
@@ -928,8 +923,8 @@ Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	kde-kgreet
 Requires:	pam >= 0.79.0
 Requires:	rc-scripts
+Requires:	sessreg
 Requires:	xinitrc-ng >= 0.4
-Requires:	xorg-app-sessreg
 Obsoletes:	X11-xdm
 Obsoletes:	entrance
 Obsoletes:	gdm
@@ -1141,7 +1136,7 @@ sed -i -e 's#krb5/##g' configure* */configure* */*.c */*/*.c
 %if %{with apidocs}
 	if [ ! -f "%{_kdedocdir}/en/common/kde-common.css" ]; then
 		echo "ERROR: Building kdebase with apidocs requires kdelibs"
-		echo "       to be installed _without_ excluding docummentation."
+		echo "       to be installed _without_ excluding documentation."
 		exit 1
 	fi
 %endif
@@ -1606,8 +1601,8 @@ fi
 %lang(en) %{_kdedocdir}/en/kcontrol/helpindex.html
 %lang(en) %{_kdedocdir}/en/kcontrol/index.*
 %lang(en) %{_kdedocdir}/en/kcontrol/screenshot.png
-/etc/xdg/menus/applications-merged/kde-essential.menu
-/etc/xdg/menus/kde-settings.menu
+%{_sysconfdir}/xdg/menus/applications-merged/kde-essential.menu
+%{_sysconfdir}/xdg/menus/kde-settings.menu
 %attr(755,root,root) %{_bindir}/drkonqi
 %attr(755,root,root) %{_bindir}/kcminit
 %attr(755,root,root) %{_bindir}/kcminit_startup
@@ -1923,6 +1918,8 @@ fi
 %{_datadir}/apps/kwin/plastik.desktop
 %dir %{_datadir}/apps/kwin/pics
 %{_datadir}/apps/kwin/pics/*
+%dir %{_datadir}/apps/kwin/default_rules
+%{_datadir}/apps/kwin/default_rules/fsp_workarounds_1
 %{_datadir}/autostart/kdesktop.desktop
 %{_datadir}/autostart/khotkeys.desktop
 %{_datadir}/autostart/ktip.desktop
@@ -1945,6 +1942,7 @@ fi
 %{_datadir}/services/ksplashdefault.desktop
 %{_datadir}/services/kxkb.desktop
 %{_datadir}/services/kfile_trash_system.desktop
+%{_datadir}/services/media_propsdlgplugin.desktop
 %{_datadir}/services/home.protocol
 %{_datadir}/services/kded/homedirnotify.desktop
 %{_datadir}/services/kded/medianotifier.desktop
@@ -2192,6 +2190,8 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/lockout_panelapplet.so
 %{_libdir}/kde3/media_panelapplet.la
 %attr(755,root,root) %{_libdir}/kde3/media_panelapplet.so
+%{_libdir}/kde3/media_propsdlgplugin.la
+%attr(755,root,root) %{_libdir}/kde3/media_propsdlgplugin.so
 %{_libdir}/kde3/menu_panelapplet.la
 %attr(755,root,root) %{_libdir}/kde3/menu_panelapplet.so
 %{_libdir}/kde3/minipager_panelapplet.la
@@ -2224,6 +2224,7 @@ fi
 %{_datadir}/applnk/.hidden/kicker_config_appearance.desktop
 %{_datadir}/config.kcfg/taskbar.kcfg
 %{_datadir}/config.kcfg/launcherapplet.kcfg
+%{_desktopdir}/kde/cdinfo.desktop
 %{_desktopdir}/kde/kcm_kdnssd.desktop
 %{_desktopdir}/kde/kcmtaskbar.desktop
 %{_desktopdir}/kde/panel.desktop
@@ -2276,7 +2277,7 @@ fi
 
 %files infocenter -f kinfocenter.lang
 %defattr(644,root,root,755)
-/etc/xdg/menus/kde-information.menu
+%{_sysconfdir}/xdg/menus/kde-information.menu
 %attr(755,root,root) %{_bindir}/kinfocenter
 %{_libdir}/kde3/kcm_info.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_info.so

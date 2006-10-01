@@ -1,5 +1,5 @@
---- kdelibs/admin/acinclude.m4.in.orig	2005-06-20 14:13:25.000000000 +0200
-+++ kdelibs/admin/acinclude.m4.in	2005-06-20 15:08:08.000000000 +0200
+--- kdelibs-3.5.3.or/admin/acinclude.m4.in	2006-05-23 13:02:06.000000000 +0000
++++ kdelibs-3.5.3/admin/acinclude.m4.in	2006-07-01 14:55:49.345359250 +0000
 @@ -428,7 +428,7 @@
  if test "$1" = "default"; then
  
@@ -9,7 +9,7 @@
    fi
    if test -z "$kde_appsdir"; then
      kde_appsdir='\${datadir}/applnk'
-@@ -2907,41 +2907,6 @@
+@@ -2977,41 +2977,6 @@
  
  AC_DEFUN([KDE_CHECK_FOR_BAD_COMPILER],
  [
@@ -51,7 +51,7 @@
  
  ])
  
-@@ -3054,8 +3019,6 @@
+@@ -3153,8 +3118,6 @@
  
    AC_PROG_CXX
  
@@ -60,7 +60,7 @@
    if test "$GXX" = "yes" || test "$CXX" = "KCC"; then
      if test "$kde_use_debug_code" != "no"; then
        if test "$CXX" = "KCC"; then
-@@ -4403,9 +4366,9 @@
+@@ -4579,9 +4542,9 @@
    LIBPYTHON=-lpython$version
  fi
  
@@ -72,7 +72,7 @@
    python_moddir=no
  fi
  
-@@ -4552,32 +4515,11 @@
+@@ -4728,32 +4691,11 @@
  [
      AC_MSG_CHECKING([for utmp file])
  
@@ -109,7 +109,7 @@
  ])
  
  
-@@ -5360,7 +5302,7 @@
+@@ -5536,7 +5478,7 @@
    kde_qtdir="$with_qt_dir"
  fi
  
@@ -118,3 +118,32 @@
  AC_MSG_RESULT($QTDOCDIR)
  
  AC_SUBST(QTDOCDIR)
+--- kdelibs-3.5.4/admin/am_edit	2006-07-24 10:18:33.000000000 +0300
++++ gwenview-1.4.0/admin/am_edit	2006-09-25 00:04:55.213036950 +0300
+@@ -499,6 +499,11 @@
+         }
+     }
+ 
++    $lookup = '(CXXLINK = \$\(LIBTOOL\) --mode=link --tag=CXX) \$\(CXXLD\)';
++    if ($MakefileData =~ m/$lookup/) {
++        substituteLine($lookup, "$1 \"\$\(CXXLD\)\"");
++    }
++
+     $MakefileData =~ s/\$\(KCXXFLAGS\)/\$\(CXXFLAGS\)/g;
+ 
+     $lookup = '(.*)cp -pr \$\$/\$\$file \$\(distdir\)/\$\$file(.*)';
+@@ -578,6 +583,14 @@
+         local @kde_options = split(/[\034\s]+/, $kde_options_str);
+         if (grep(/^foreign$/, @kde_options)) {
+             push(@foreignfiles, $makefileDir . "/");
++
++            # always do this. don't care if it's foreign file. we *need* CXXLD quoted for libtool argument.
++            $lookup = '(CXXLINK = \$\(LIBTOOL\).*--mode=link) \$\(CXXLD\)';
++            if ($MakefileData =~ m/$lookup/) {
++                substituteLine($lookup, "$1 \"\$\(CXXLD\)\"");
++                updateMakefile ();
++            }
++
+             return 0; # don't touch me
+         }
+         for $opt (@kde_options) {
