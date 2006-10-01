@@ -9,20 +9,6 @@
      m_background = new BGDialog( this, m_simpleConf, false );
  
      connect(m_background, SIGNAL(changed(bool)), SIGNAL(changed(bool)));
-@@ -105,7 +105,7 @@
- {
-     m_pCBEnable->setChecked( true );
-     slotEnableChanged();
--    m_background->defaults();
-+    m_background->kdmdefaults();
-     emit changed(true);
- }
- 
--void KBackground::defaults()
-+void KBackground::kdmdefaults()
- {
-     m_pCBEnable->setChecked( true );
-     slotEnableChanged();
 --- kdebase-031010/kcontrol/kdm/kdm-appear.cpp.orig	2003-09-23 21:46:11.000000000 +0200
 +++ kdebase-031010/kcontrol/kdm/kdm-appear.cpp	2003-10-10 19:41:03.000000000 +0200
 @@ -385,7 +385,7 @@
@@ -85,36 +71,6 @@
  
  messages:
  	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
---- kdebase/kdm/kfrontend/genkdmconf.c.orig	2004-03-23 14:55:38.000000000 +0100
-+++ kdebase/kdm/kfrontend/genkdmconf.c	2004-03-25 21:55:08.236691776 +0100
-@@ -793,14 +791,15 @@
- "esac\n"
- "exec xmessage -center -buttons OK:0 -default OK \"Sorry, cannot execute $1. Check $DESKTOP_SESSION.desktop.\"\n";
- 
-+/* Keep in sync with bgdefaults.h & BGDialog::kdmdefaults() */
- static const char def_background[] =
- "[Desktop0]\n"
--"BackgroundMode=Flat\n"
-+"BackgroundMode=VerticalGradient\n"
- "BlendBalance=100\n"
- "BlendMode=NoBlending\n"
- "ChangeInterval=60\n"
--"Color1=0,0,200\n"
--"Color2=192,192,192\n"
-+"Color1=57,55,75\n"
-+"Color2=66,82,143\n"
- "CurrentWallpaper=0\n"
- "LastChange=0\n"
- "MinOptimizationDepth=1\n"
-@@ -809,7 +808,7 @@
- "Program=\n"
- "ReverseBlending=false\n"
- "UseSHM=false\n"
--"Wallpaper=default_blue.jpg\n"
-+"Wallpaper=kdm_pld.png\n"
- "WallpaperList=\n"
- "WallpaperMode=Scaled\n";
- 
 --- kdebase-040724/kdm/config.def.orig	2004-07-24 12:50:04.000000000 +0200
 +++ kdebase-040724/kdm/config.def	2004-07-24 13:09:38.487484896 +0200
 @@ -3,7 +3,7 @@
