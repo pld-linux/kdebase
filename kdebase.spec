@@ -24,13 +24,13 @@ Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
-Version:	3.5.4
-Release:	2
+Version:	3.5.5
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	882a9729c08b197caef2c8712c980d9c
+# Source0-md5:	7c16b95c5281dccdc9e917e74bff4029
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -44,14 +44,14 @@ Source10:	%{name}-servicemenus.tar.bz2
 # Source10-md5:	f48ac7af286f4c87961de4bb24d07772
 Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
-Patch100:	%{name}-branch.diff
+# Temporary taken from kde svn
+Source14:	%{name}-Metric-Monospace-14.png
+#Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-fontdir.patch
-Patch2:		%{name}-kcm_background.patch
 Patch3:		%{name}-kdm_utmpx.patch
 Patch4:		%{name}-kdmconfig.patch
 Patch5:		%{name}-kicker.patch
-Patch6:		%{name}-konsole_all.patch
 Patch7:		%{name}-nsplugins_dirs.patch
 Patch8:		%{name}-startkde.patch
 Patch9:		%{name}-kcm_fonts.patch
@@ -59,14 +59,15 @@ Patch10:	%{name}-kdesukonsole.patch
 Patch12:	%{name}-screensavers.patch
 Patch13:	%{name}-prefmenu.patch
 Patch14:	%{name}-session.patch
-Patch15:	%{name}-bgdefaults.patch
 Patch16:	%{name}-vmenus.patch
-Patch17:	%{name}-sasl-includes.patch
 Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
 Patch20:	%{name}-seesar.patch
 Patch21:	%{name}-konsole-wordseps.patch
 Patch22:	%{name}-tango.patch
+Patch24:	kde-ac260-lt.patch
+Patch25:	%{name}-konsole-history_clear.patch
+Patch26:	%{name}-kdm-default_background.patch
 BuildRequires:	OpenEXR-devel >= 1.2.2
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
@@ -1032,27 +1033,28 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 #%patch100 -p0
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-# DROPME?
-# %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+# Outdated but some things
+# must be revised (AA default settings)
 #%patch9 -p1
 %patch10 -p1
 %patch12 -p1
 %patch13 -p1
 %patch14 -p1
-%patch15 -p1
 %patch16 -p1
 %patch18 -p1
-# FIXME
+# FIXME (still needed?)
 #%patch19 -p1
 %patch20 -p1
 %patch21 -p1
 %patch22 -p0
+%patch24 -p1
+%patch25 -p1
+%patch26 -p1
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
 for i in  google*.desktop
@@ -1073,12 +1075,10 @@ cd -
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;TerminalEmulator;/' \
 	konsole/konsole-script.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;TerminalEmulator;/' \
-	-e 's/Terminal=0/Terminal=false/' \
 	konsole/konsole.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Amusement;/' \
 	ksplashml/ksplash.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;System;Monitor;/' \
-	-e 's/Terminal=0/Terminal=false/' \
 	ksysguard/gui/ksysguard.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Settings;/' \
 	kcontrol/kcontrol/KControl.desktop
@@ -1088,37 +1088,16 @@ cd -
 	kcontrol/randr/krandrtray.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;X-Help;/' \
 	-e 's/Name=/Name=KDE/g' -e s'/Name[pl]=Pomoc/Name[pl]=Pomoc KDE/g' \
-	-e 's/Terminal=0/Terminal=false/' -e 's/OnlyShowIn=KDE;//g' \
-	khelpcenter/Help.desktop
+	-e 's/OnlyShowIn=KDE;//g' khelpcenter/Help.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Utility;/' \
-	-e 's/Terminal=0/Terminal=false/' -e 's/OnlyShowIn=KDE;//g' \
-	kfind/Kfind.desktop
-%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;System;X-administration;/' \
+	-e 's/OnlyShowIn=KDE;//g' kfind/Kfind.desktop
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;SystemSetup;/' \
 	konqueror/konquerorsu.desktop
-%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;System;X-administration;/' \
-	-e 's/Terminal=0/Terminal=false/' \
+%{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;SystemSetup;/' \
 	konsole/konsolesu.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Network;WebBrowser;/' \
 	konqueror/konqbrowser.desktop
-%{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
-	khotkeys/kcontrol/khotkeys.desktop \
-	kioslave/cgi/kcmcgi/kcmcgi.desktop
-%{__sed} -i -e 's/Terminal=0/Terminal=false/' \
-	kappfinder/kappfinder.desktop \
-	kate/data/kate.desktop \
-	kdeprint/kdeprintfax/kdeprintfax.desktop \
-	kcontrol/kfontinst/viewpart/kfontview.desktop \
-	kdeprint/kjobviewer/kjobviewer.desktop \
-	klipper/klipper.desktop \
-	kpager/kpager.desktop \
-	kpersonalizer/kpersonalizer.desktop \
-	ktip/ktip.desktop \
-	kate/data/kwrite.desktop \
-	konqueror/Home.desktop \
-	konqueror/kfmclient.desktop \
-	konqueror/kfmclient_dir.desktop \
-	konqueror/kfmclient_html.desktop \
-	konqueror/kfmclient_war.desktop
+
 for f in `find . -name \*.desktop`; do
 	if grep -q '^Categories=.*[^;]$' $f; then
 		sed -i -e 's/\(^Categories=.*$\)/\1;/' $f
@@ -1127,6 +1106,9 @@ for f in `find . -name \*.desktop`; do
 		sed -i -e 's/\[ven\]/[ve]/' $f
 	fi
 done
+
+cp %{SOURCE14} konsole/other/wallpapers/Metric-Monospace-14.png
+
 cp /usr/share/automake/config.sub admin
 %{__make} -f admin/Makefile.common cvs
 
@@ -1149,19 +1131,16 @@ sed -i -e 's#krb5/##g' configure* */configure* */*.c */*/*.c
 %if "%{_lib}" == "lib64"
 	--enable-libsuffix=64 \
 %endif
-	--without-java \
+	--with-distribution="PLD Linux Distribution" \
 	--with-kdm-pam=kdm \
 	--with-pam=kdesktop \
+	--with-openexr \
 	--with-qt-libraries=%{_libdir} \
 	--with%{!?with_kerberos5:out}-krb5auth \
-	%{!?with_ldap:--without-ldap} \
-	--with-openexr \
-	--with-distribution="PLD Linux Distribution"
+	--without-java \
+	%{!?with_ldap:--without-ldap}
 
-#cd kwin/kcmkwin/kwinrules
-#%%{__make} ruleswidgetbase.h
-#%%{__make} ruleswidgetbase.cpp
-#cd -
+
 
 %{__make}
 
@@ -1196,10 +1175,12 @@ install %{SOURCE4}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE5}	$RPM_BUILD_ROOT/etc/X11/kdm/Xsession
 install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
+
 %{__tar} xfj %{SOURCE8} -C $RPM_BUILD_ROOT%{_datadir}/services/searchproviders/
 %{__tar} xfj %{SOURCE10} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/
 mv $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts/* $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts
+%{__tar} xfj %{SOURCE13} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/
 
 # Needed for pam support
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
@@ -1210,37 +1191,8 @@ cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/default1.png \
 cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
 	$RPM_BUILD_ROOT/etc/X11/kdm/faces/root.face.icon
 
-# konqsidebartng PLD entries
-cd $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders
-bzip2 -dc %{SOURCE13} | tar xf -
-cd -
-
 # konqueror/dirtree no longer supported
-mv $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop \
-	$RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/remote
-
-# Some desktop appearance defaults
-#cat > $RPM_BUILD_ROOT%{_datadir}/config/kdesktoprc << EOF
-#[FMSettings]
-#NormalTextColor=255,255,255
-#ShadowEnabled=true
-#StandardFont=Helvetica,13,-1,5,75,0,0,0,0,0
-#EOF
-
-# Some kicker appearance defaults
-#cat > $RPM_BUILD_ROOT%{_datadir}/config/kickerrc << EOF
-#[General]
-#Alignment=1
-#SizePercentage=50
-#UseBackgroundTheme=false
-#EOF
-
-# Some order with desktop files
-#mv $RPM_BUILD_ROOT%{_datadir}/applnk/System/kinfocenter.desktop \
-#	$RPM_BUILD_ROOT%{_desktopdir}/kde
-
-# TODO
-mv $RPM_BUILD_ROOT%{_desktopdir}/kde/print{ers,mgr}.desktop
+rm $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop
 
 # Workaround for gnome menu which maps all these to "Others" dir
 cd $RPM_BUILD_ROOT%{_desktopdir}/kde
@@ -1705,7 +1657,7 @@ fi
 %{_desktopdir}/kde/colors.desktop
 %{_desktopdir}/kde/fonts.desktop
 %{_desktopdir}/kde/style.desktop
-%{_desktopdir}/kde/printmgr.desktop
+%{_desktopdir}/kde/printers.desktop
 %{_desktopdir}/kde/Help.desktop
 %{_desktopdir}/kde/KControl.desktop
 %{_iconsdir}/*/*/apps/colors.png
@@ -1722,6 +1674,7 @@ fi
 %{_iconsdir}/*/*/apps/looknfeel.png
 %{_iconsdir}/*/*/apps/multimedia.png
 %{_iconsdir}/*/*/apps/personal.png
+%{_iconsdir}/*/*/apps/pinguin.png
 %{_iconsdir}/*/*/apps/printmgr.*
 %{_iconsdir}/*/*/apps/style.png
 # infocenter & konqueror need it:
