@@ -24,13 +24,14 @@ Summary(ru):	K Desktop Environment - базовые файлы
 Summary(uk):	K Desktop Environment - базов╕ файли
 Summary(zh_CN):	KDE╨кпд
 Name:		kdebase
-Version:	3.5.4
-Release:	9
+Version:	3.5.5
+Release:	0.1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	882a9729c08b197caef2c8712c980d9c
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ep09.pld-linux.org/software/kde/%{name}-%{version}.tar.bz2
+# Source0-md5:	7c16b95c5281dccdc9e917e74bff4029
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -45,8 +46,7 @@ Source10:	%{name}-servicemenus.tar.bz2
 Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
 # Temporary taken from kde svn
-Source14:	%{name}-Metric-Monospace-14.png
-Patch100:	%{name}-branch.diff
+#Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-fontdir.patch
 Patch3:		%{name}-kdm_utmpx.patch
@@ -1036,7 +1036,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 %prep
 %setup -q
-%patch100 -p0
+#%patch100 -p0
 %patch0 -p1
 %patch1 -p1
 %patch3 -p1
@@ -1112,8 +1112,6 @@ for f in `find . -name \*.desktop`; do
 		sed -i -e 's/\[ven\]/[ve]/' $f
 	fi
 done
-
-cp %{SOURCE14} konsole/other/wallpapers/Metric-Monospace-14.png
 
 cp /usr/share/automake/config.sub admin
 %{__make} -f admin/Makefile.common cvs
