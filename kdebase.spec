@@ -25,7 +25,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.5.5
-Release:	0.1
+Release:	0.2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -59,6 +59,7 @@ Patch10:	%{name}-kdesukonsole.patch
 Patch12:	%{name}-screensavers.patch
 Patch13:	%{name}-prefmenu.patch
 Patch14:	%{name}-session.patch
+Patch15:	%{name}-pager.patch
 Patch16:	%{name}-vmenus.patch
 Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
@@ -1051,6 +1052,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch12 -p1
 %patch13 -p1
 %patch14 -p1
+%patch15 -p1
 %patch16 -p1
 %patch18 -p1
 # FIXME (still needed?)
