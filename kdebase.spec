@@ -25,13 +25,12 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.5.5
-Release:	0.3
+Release:	0.4
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-Source0:	ftp://ep09.pld-linux.org/software/kde/%{name}-%{version}.tar.bz2
-# Source0-md5:	7c16b95c5281dccdc9e917e74bff4029
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	2ad67fde6d979b7441ac15f46afaec01
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -59,7 +58,6 @@ Patch10:	%{name}-kdesukonsole.patch
 Patch12:	%{name}-screensavers.patch
 Patch13:	%{name}-prefmenu.patch
 Patch14:	%{name}-session.patch
-Patch15:	%{name}-pager.patch
 Patch16:	%{name}-vmenus.patch
 Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
@@ -1052,7 +1050,6 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch12 -p1
 %patch13 -p1
 %patch14 -p1
-%patch15 -p1
 %patch16 -p1
 %patch18 -p1
 # FIXME (still needed?)
