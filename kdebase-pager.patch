@@ -1,6 +1,5 @@
-diff -Nur kdebase-3.5.5/kicker/applets/minipager/pagerapplet.cpp kdebase-3.5.5.new/kicker/applets/minipager/pagerapplet.cpp
---- kdebase-3.5.5/kicker/applets/minipager/pagerapplet.cpp	2006-10-01 19:31:52.000000000 +0200
-+++ kdebase-3.5.5.new/kicker/applets/minipager/pagerapplet.cpp	2006-10-04 14:44:46.000000000 +0200
+--- kdebase-3.5.5/kicker/applets/minipager/pagerapplet.cpp.org	2006-10-05 06:43:59.241437000 +0000
++++ kdebase-3.5.5/kicker/applets/minipager/pagerapplet.cpp	2006-10-05 06:45:14.378132750 +0000
 @@ -124,7 +124,7 @@
      desktopLayoutY = -1;
  
@@ -10,17 +9,16 @@ diff -Nur kdebase-3.5.5/kicker/applets/minipager/pagerapplet.cpp kdebase-3.5.5.n
  
      drawButtons();
  
-@@ -223,7 +223,8 @@
+@@ -223,7 +223,7 @@
  
  void KMiniPager::slotButtonSelected( int desk )
  {
 -    if (m_kwin->numberOfViewports(0).width()+m_kwin->numberOfViewports(0).height() > 1)
-+    if (m_kwin->numberOfViewports(m_kwin->currentDesktop()).width() *
-+        m_kwin->numberOfViewports(m_kwin->currentDesktop()).height() > 1)
++    if (m_kwin->numberOfViewports(0).width() * m_kwin->numberOfViewports(0).height() > 1)
      {
          QPoint p;
  
-@@ -435,7 +436,7 @@
+@@ -435,7 +435,7 @@
  {
      int newDesk;
      int desktops = KWin::numberOfDesktops();
@@ -29,27 +27,28 @@ diff -Nur kdebase-3.5.5/kicker/applets/minipager/pagerapplet.cpp kdebase-3.5.5.n
          desktops = m_kwin->numberOfViewports(0).width() * m_kwin->numberOfViewports(0).height();
      if (e->delta() < 0)
      {
-diff -Nur kdebase-3.5.5/kicker/applets/minipager/pagerbutton.cpp kdebase-3.5.5.new/kicker/applets/minipager/pagerbutton.cpp
---- kdebase-3.5.5/kicker/applets/minipager/pagerbutton.cpp	2006-10-01 19:31:52.000000000 +0200
-+++ kdebase-3.5.5.new/kicker/applets/minipager/pagerbutton.cpp	2006-10-04 14:44:46.000000000 +0200
+--- kdebase-3.5.5/kicker/applets/minipager/pagerbutton.cpp.org	2006-10-05 06:44:04.849787500 +0000
++++ kdebase-3.5.5/kicker/applets/minipager/pagerbutton.cpp	2006-10-05 06:46:36.743280250 +0000
 @@ -116,12 +116,17 @@
        return false;
  
      if (m_useViewports) {
 -        QPoint windowSpot = info->frameGeometry().topLeft();
-+        QPoint windowTopLeft = info->frameGeometry().topLeft();
-+        QPoint windowBottomRight = info->frameGeometry().bottomRight();
++	QPoint windowTopLeft = info->frameGeometry().topLeft();
++	QPoint windowBottomRight = info->frameGeometry().bottomRight();
  
 -        windowSpot += QPoint((m_desktop - m_pager->kwin()->currentViewport(0).x()) *
-+        windowTopLeft += QPoint((m_desktop - m_pager->kwin()->currentViewport(0).x()) *
-+                QApplication::desktop()->width(), 0);
-+        windowBottomRight += QPoint((m_desktop - m_pager->kwin()->currentViewport(0).x()) *
-                 QApplication::desktop()->width(), 0);
- 
+-                QApplication::desktop()->width(), 0);
+-
 -        if (!QApplication::desktop()->screenGeometry().contains(windowSpot))
-+        if (!(info->state() & NET::Sticky) &&
-+            !QApplication::desktop()->geometry().contains(windowTopLeft) &&
-+            !QApplication::desktop()->geometry().contains(windowBottomRight))
++	windowTopLeft += QPoint((m_desktop - m_pager->kwin()->currentViewport(0).x()) *
++			QApplication::desktop()->width(), 0);
++	windowBottomRight += QPoint((m_desktop - m_pager->kwin()->currentViewport(0).x()) *
++			QApplication::desktop()->width(), 0);
++
++	if (!(info->state() & NET::Sticky) &&
++			!QApplication::desktop()->geometry().contains(windowTopLeft) &&
++			!QApplication::desktop()->geometry().contains(windowBottomRight))
              return false;
      }
  
