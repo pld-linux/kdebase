@@ -25,12 +25,12 @@ Summary(uk):	K Desktop Environment - базов╕ файли
 Summary(zh_CN):	KDE╨кпд
 Name:		kdebase
 Version:	3.5.5
-Release:	0.4
+Release:	0.5
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	2ad67fde6d979b7441ac15f46afaec01
+# Source0-md5:	0c685af1cbca75f9c77b3ed231ba0468
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
