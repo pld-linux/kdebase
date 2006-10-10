@@ -25,12 +25,12 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.5.5
-Release:	1
+Release:	0.5
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	7c16b95c5281dccdc9e917e74bff4029
+# Source0-md5:	0c685af1cbca75f9c77b3ed231ba0468
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -45,8 +45,7 @@ Source10:	%{name}-servicemenus.tar.bz2
 Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
 # Temporary taken from kde svn
-Source14:	%{name}-Metric-Monospace-14.png
-#Patch100:	%{name}-branch.diff
+Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-fontdir.patch
 Patch3:		%{name}-kdm_utmpx.patch
@@ -1030,7 +1029,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 %prep
 %setup -q
-#%patch100 -p0
+%patch100 -p0
 %patch0 -p1
 %patch1 -p1
 %patch3 -p1
@@ -1097,17 +1096,12 @@ cd -
 	konsole/konsolesu.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Network;WebBrowser;/' \
 	konqueror/konqbrowser.desktop
-
+%{__sed} -i -e 's/\(^Categories=.*$\)/\1;/' kioslave/media/kcmodule/media.desktop
 for f in `find . -name \*.desktop`; do
-	if grep -q '^Categories=.*[^;]$' $f; then
-		sed -i -e 's/\(^Categories=.*$\)/\1;/' $f
-	fi
 	if grep -q '\[ven\]' $f; then
 		sed -i -e 's/\[ven\]/[ve]/' $f
 	fi
 done
-
-cp %{SOURCE14} konsole/other/wallpapers/Metric-Monospace-14.png
 
 cp /usr/share/automake/config.sub admin
 %{__make} -f admin/Makefile.common cvs
@@ -1152,8 +1146,7 @@ rm -rf *.lang
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	kde_htmldir=%{_kdedocdir} \
-	kde_libs_htmldir=%{_kdedocdir}
+	kde_htmldir=%{_kdedocdir}
 
 install -d \
 	$RPM_BUILD_ROOT/etc/{X11/kdm/faces,pam.d,rc.d/init.d,security} \
@@ -1522,8 +1515,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/imagethumbnail.so
 %{_libdir}/kde3/libkonsolepart.la
 %attr(755,root,root) %{_libdir}/kde3/libkonsolepart.so
-#%{_libdir}/kde3/picturethumbnail.la
-#%attr(755,root,root) %{_libdir}/kde3/picturethumbnail.so
 %{_libdir}/kde3/textthumbnail.la
 %attr(755,root,root) %{_libdir}/kde3/textthumbnail.so
 %{_datadir}/services/djvuthumbnail.desktop
@@ -1737,8 +1728,6 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit_kdesktop.so
 %{_libdir}/libkdeinit_khotkeys.la
 %attr(755,root,root) %{_libdir}/libkdeinit_khotkeys.so
-#%{_libdir}/libkdeinit_krandrinithack.la
-#%attr(755,root,root) %{_libdir}/libkdeinit_krandrinithack.so
 %{_libdir}/libkdeinit_ksmserver.la
 %attr(755,root,root) %{_libdir}/libkdeinit_ksmserver.so
 %{_libdir}/libkdeinit_kwin.la
@@ -1767,8 +1756,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/kcm_display.so
 %{_libdir}/kde3/kcm_energy.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_energy.so
-#%{_libdir}/kde3/kcm_fileshare.la
-#%attr(755,root,root) %{_libdir}/kde3/kcm_fileshare.so
 %{_libdir}/kde3/kcm_input.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_input.so
 %{_libdir}/kde3/kcm_joystick.la
@@ -1797,8 +1784,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/kcm_launch.so
 %{_libdir}/kde3/kcm_nsplugins.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_nsplugins.so
-#%{_libdir}/kde3/kcm_passwords.la
-#%attr(755,root,root) %{_libdir}/kde3/kcm_passwords.so
 %{_libdir}/kde3/kcm_privacy.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_privacy.so
 %{_libdir}/kde3/kcm_randr.la
@@ -1815,8 +1800,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/kdesktop.so
 %{_libdir}/kde3/khotkeys.la
 %attr(755,root,root) %{_libdir}/kde3/khotkeys.so
-#%{_libdir}/kde3/krandrinithack.la
-#%attr(755,root,root) %{_libdir}/kde3/krandrinithack.so
 %{_libdir}/kde3/ksmserver.la
 %attr(755,root,root) %{_libdir}/kde3/ksmserver.so
 %{_libdir}/kde3/ksplashdefault.la
@@ -1876,7 +1859,6 @@ fi
 %{_datadir}/autostart/kdesktop.desktop
 %{_datadir}/autostart/khotkeys.desktop
 %{_datadir}/autostart/ktip.desktop
-#%{_datadir}/config/kdesktoprc
 %{_datadir}/config/kdesktop_custom_menu1
 %{_datadir}/config/kdesktop_custom_menu2
 %{_datadir}/config/kxkb_groups
@@ -1904,15 +1886,9 @@ fi
 %{_datadir}/sounds/*
 %{_datadir}/templates
 %{_datadir}/wallpapers/All-Good-People-1.jpg
-#%{_datadir}/wallpapers/Blkmarble.jpg
 %{_datadir}/wallpapers/Chicken-Songs-2.jpg
-#%{_datadir}/wallpapers/Circuit.jpg
-#%{_datadir}/wallpapers/Foggy1.jpg
 %{_datadir}/wallpapers/KDE34.png
-#%{_datadir}/wallpapers/Marble01.jpg
 %{_datadir}/wallpapers/No-Ones-Laughing-3.jpg
-#%{_datadir}/wallpapers/Paper01.jpg
-#%{_datadir}/wallpapers/Planning-And-Probing-1.jpg
 %{_datadir}/wallpapers/Time-For-Lunch-2.jpg
 %{_datadir}/wallpapers/Totally-New-Product-1.jpg
 %{_datadir}/wallpapers/Won-Ton-Soup-3.jpg
@@ -1923,14 +1899,9 @@ fi
 %{_datadir}/wallpapers/soft-green.jpg
 %{_datadir}/wallpapers/stelvio.jpg
 %{_datadir}/wallpapers/sunshine-after-the-rain.jpg
-#%{_datadir}/wallpapers/fulmine.jpg
-#%{_datadir}/wallpapers/kde_box.png
-#%{_datadir}/wallpapers/kde_passion.jpg
-#%{_datadir}/wallpapers/only_k.jpg
 %{_datadir}/wallpapers/seaofconero.jpg
 %{_datadir}/wallpapers/triplegears.jpg
 %{_datadir}/wallpapers/blue-bend.jpg
-#%{_datadir}/wallpapers/Island-of-Elba.jpg
 %{_datadir}/wallpapers/*.svgz
 %{_datadir}/wallpapers/*.desktop
 %{_datadir}/xsessions/kde.desktop
@@ -1963,7 +1934,6 @@ fi
 %{_desktopdir}/kde/desktopbehavior.desktop
 %{_desktopdir}/kde/desktoppath.desktop
 %{_desktopdir}/kde/display.desktop
-#%{_desktopdir}/kde/fileshare.desktop
 %{_desktopdir}/kde/joystick.desktop
 %{_desktopdir}/kde/kcmaccess.desktop
 %{_desktopdir}/kde/kcmlaunch.desktop
@@ -2028,7 +1998,6 @@ fi
 %{_iconsdir}/*/*/apps/nedit.png
 %{_iconsdir}/*/*/apps/netscape.png
 %{_iconsdir}/*/*/apps/opera.png
-#%{_iconsdir}/*/*/apps/password.png
 %{_iconsdir}/*/*/apps/penguin.png
 %{_iconsdir}/*/*/apps/phppg.png
 %{_iconsdir}/*/*/apps/plan.png
@@ -2201,7 +2170,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/kmenuedit.so
 %{_datadir}/apps/kmenuedit
 %{_desktopdir}/kde/kmenuedit.desktop
-#%{_iconsdir}/*/*/apps/kmenu.png
 %{_iconsdir}/*/*/apps/kmenuedit.png
 # thememgr is back?
 %attr(755,root,root) %{_bindir}/kdeinstallktheme
@@ -2292,19 +2260,9 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit_kate.so
 %{_libdir}/kde3/kate.la
 %attr(755,root,root) %{_libdir}/kde3/kate.so
-#%{_libdir}/kde3/katedefaultprojectplugin.la
-#%attr(755,root,root) %{_libdir}/kde3/katedefaultprojectplugin.so
-#%{_libdir}/kde3/katekttsdplugin.la
-#%attr(755,root,root) %{_libdir}/kde3/katekttsdplugin.so
 %{_datadir}/apps/kate
-#%{_datadir}/apps/katepart
 %{_datadir}/config/katerc
-#%{_datadir}/mimelnk/application/x-kate-project.desktop
-#%{_datadir}/services/katedefaultproject.desktop
-#%{_datadir}/services/katekttsd.desktop
-#%{_datadir}/servicetypes/kateinitplugin.desktop
 %{_datadir}/servicetypes/kateplugin.desktop
-#%{_datadir}/servicetypes/kateprojectplugin.desktop
 %{_desktopdir}/kde/kate.desktop
 # konqueror needs it ?
 %{_iconsdir}/*/*/apps/kate*
@@ -2346,7 +2304,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/kcm_fontinst.so
 %{_libdir}/kde3/kio_fonts.la
 %attr(755,root,root) %{_libdir}/kde3/kio_fonts.so
-#%{_datadir}/apps/konqsidebartng/virtual_folders/services/fonts.desktop
 %{_datadir}/apps/kfontview
 %dir %{_datadir}/mimelnk/fonts
 %{_datadir}/mimelnk/fonts/folder.desktop
@@ -2392,7 +2349,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/kcm_konsole.so
 %{_libdir}/kde3/konsole.la
 %attr(755,root,root) %{_libdir}/kde3/konsole.so
-#%{_datadir}/config/konsolerc
 %{_datadir}/services/konsole-script.desktop
 %{_datadir}/applnk/.hidden/kcmkonsole.desktop
 %{_desktopdir}/kde/konsole*.desktop
@@ -2438,13 +2394,8 @@ fi
 
 %files kwrited
 %defattr(644,root,root,755)
-#%attr(755,root,root) %{_bindir}/kwrited
-#%{_libdir}/libkdeinit_kwrited.la
-#%attr(755,root,root) %{_libdir}/libkdeinit_kwrited.so
 %{_libdir}/kde3/kded_kwrited.la
 %attr(755,root,root) %{_libdir}/kde3/kded_kwrited.so
-#%{_datadir}/autostart/kwrited.desktop
-#%{_datadir}/config/kwritedrc
 %{_datadir}/services/kded/kwrited.desktop
 %{_datadir}/services/kwrited.desktop
 
@@ -2454,15 +2405,11 @@ fi
 %attr(755,root,root) %{_libdir}/libkateinterfaces.so.*.*.*
 %{_libdir}/libkateutils.la
 %attr(755,root,root) %{_libdir}/libkateutils.so.*.*.*
-#%{_libdir}/kde3/libkatepartkttsdplugin.la
-#%attr(755,root,root) %{_libdir}/kde3/libkatepartkttsdplugin.so
 
 %files libksgrd
 %defattr(644,root,root,755)
 %{_libdir}/libksgrd.la
 %attr(755,root,root) %{_libdir}/libksgrd.so.*.*.*
-#%{_libdir}/libsensordisplays.la
-#%attr(755,root,root) %{_libdir}/libsensordisplays.so.*.*.*
 
 %files screensavers -f screensaver.lang
 %defattr(644,root,root,755)
@@ -2501,7 +2448,6 @@ fi
 %attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xstartup
 %attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xwilling
 %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xaccess
-#%config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xservers
 %dir /etc/X11/kdm/faces
 %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/faces/.default.face.icon
 %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/faces/root.face.icon
@@ -2530,8 +2476,6 @@ fi
 %attr(755,root,root) %{_bindir}/konqueror
 %attr(755,root,root) %{_bindir}/nspluginscan
 %attr(755,root,root) %{_bindir}/nspluginviewer
-#%attr(755,root,root) %{_bindir}/iconvert
-#%attr(755,root,root) %{_bindir}/attach-to-email
 %{_libdir}/libkdeinit_appletproxy.la
 %attr(755,root,root) %{_libdir}/libkdeinit_appletproxy.so
 %{_libdir}/libkdeinit_extensionproxy.la
@@ -2542,8 +2486,6 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit_kfmclient.so
 %{_libdir}/libkdeinit_konqueror.la
 %attr(755,root,root) %{_libdir}/libkdeinit_konqueror.so
-#%{_libdir}/libkonq_sidebar_tree.la
-#%attr(755,root,root) %{_libdir}/libkonq_sidebar_tree.so
 %{_libdir}/kde3/appletproxy.la
 %attr(755,root,root) %{_libdir}/kde3/appletproxy.so
 %{_libdir}/kde3/extensionproxy.la
@@ -2644,10 +2586,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/konq_sound.so
 %{_libdir}/kde3/konqueror.la
 %attr(755,root,root) %{_libdir}/kde3/konqueror.so
-##%{_libdir}/kde3/konqsidebar_tree.la
-##%attr(755,root,root) %{_libdir}/kde3/konqsidebar_tree.so
-##%{_libdir}/kde3/konqsidebar_web.la
-##%attr(755,root,root) %{_libdir}/kde3/konqsidebar_web.so
 %{_libdir}/kde3/libkfindpart.la
 %attr(755,root,root) %{_libdir}/kde3/libkfindpart.so
 %{_libdir}/kde3/libkshorturifilter.la
@@ -2688,7 +2626,6 @@ fi
 #%{_datadir}/apps/konqsidebartng/virtual_folders/services/lisa.desktop
 #%{_datadir}/apps/konqsidebartng/virtual_folders/services/printsystem.desktop
 %{_datadir}/apps/konqueror/about
-#%{_datadir}/apps/konqueror/dirtree
 %{_datadir}/apps/konqueror/icons
 %{_datadir}/apps/konqueror/pics
 %{_datadir}/apps/konqueror/profiles
