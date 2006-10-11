@@ -1,7 +1,7 @@
 Index: kfind/kquery.cpp
 ===================================================================
---- kfind/kquery.cpp	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ kfind/kquery.cpp	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- kfind/kquery.cpp	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kfind/kquery.cpp	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -72,9 +72,10 @@
    m_fileItems.clear();
    if(m_useLocate) //use "locate" instead of the internal search method
@@ -14,10 +14,23 @@ Index: kfind/kquery.cpp
      bufferLocate=NULL;
      bufferLocateLength=0;
      processLocate->start(KProcess::NotifyOnExit,KProcess::AllOutput);
+Index: kcontrol/taskbar/kcmtaskbar.desktop
+===================================================================
+--- kcontrol/taskbar/kcmtaskbar.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kcontrol/taskbar/kcmtaskbar.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
+@@ -159,7 +159,7 @@
+ Keywords[es]=kicker,panel,kpanel,barra de tareas,barra de inicio,barra de lanzamiento,ventanas
+ Keywords[et]=kicker,paneel,kpanel,tegumiriba,käivitusriba,aknad
+ Keywords[eu]=kicker,panela,kpanela,ataza-barra,hasiera-barra,abiatze-barra,leihoak
+-Keywords[fa]=kicker، تابلو، kpanel، میله تکلیف، میله آغاز، میله راه اندازی، پنجره‌ها
++Keywords[fa]=kicker، تابلو، kpanel، میله تکلیف، میله آغاز، میله راه‌اندازی، پنجره‌ها
+ Keywords[fi]=kicker,paneeli,kpanel,tehtäväpalkki,käynnistys,käynnistyspalkki,ikkunat
+ Keywords[fr]=kicker,tableau de bord,kpanel,barre des tâches,barre de démarrage,barre de lancement,fenêtres
+ Keywords[fy]=kicker,panel,paniel,kpanel,taakbalke,startbalk,Begjinbalke,startmenu,finsters
 Index: kcontrol/info/memory.desktop
 ===================================================================
---- kcontrol/info/memory.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ kcontrol/info/memory.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- kcontrol/info/memory.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kcontrol/info/memory.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -179,7 +179,7 @@
  Keywords[es]=Memoria,RAM,Memoria virtual,Memoria física,Memoria compartida,Swap,Intercambio,Información del sistema
  Keywords[et]=Mälu,RAM,Virtuaalmälu,Füüsiline mälu,Jagatud mälu,Swap,Saaleala,Süsteemi info
@@ -29,8 +42,8 @@ Index: kcontrol/info/memory.desktop
  Keywords[fy]=memory,RAM,virtual memory,physical memory,shared memory,swap,systeemynformaasje,ûnthâld,wikselûnthâld,,virtueel ûnthâld,fysiek ûnthâld,dield ûnthâld,
 Index: kcontrol/info/cdinfo.desktop
 ===================================================================
---- kcontrol/info/cdinfo.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ kcontrol/info/cdinfo.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- kcontrol/info/cdinfo.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kcontrol/info/cdinfo.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -87,7 +87,7 @@
  Keywords[el]=Πληροφορίες CD-ROM,CD-ROM,CD,Οδηγός CD,Δυνατότητες εγγραφέα
  Keywords[es]=Información CD-ROM,CD-ROM,CD,Dispositivo CD,Capacidades de escritura
@@ -42,8 +55,8 @@ Index: kcontrol/info/cdinfo.desktop
  Keywords[he]=CD-ROM Information,CD-ROM,CD,CD Drive,Writer Capabilities, מידע אודות תקליטורים, תקליטור, תקליטור, צורב, סידי, סידי־רום, סידי-רום
 Index: kcontrol/joystick/joystick.desktop
 ===================================================================
---- kcontrol/joystick/joystick.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ kcontrol/joystick/joystick.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- kcontrol/joystick/joystick.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kcontrol/joystick/joystick.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -15,7 +15,7 @@
  Comment[es]=joystick - un módulo de kcontrol para probar joysticks
  Comment[et]=juhtpult - KDE juhtimiskeskuse moodul juhtpultide testimiseks
@@ -53,10 +66,32 @@ Index: kcontrol/joystick/joystick.desktop
  Comment[fi]=peliohjain - KDE:n ohjauskeskuksen moduuli peliohjainta varten
  Comment[fr]=Manettes de jeu - un module pour tester les manettes de jeu
  Comment[fy]=joystick - in Konfiguraasjemodule foar it teste fan joysticks
+Index: kcontrol/launch/kcmlaunch.desktop
+===================================================================
+--- kcontrol/launch/kcmlaunch.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kcontrol/launch/kcmlaunch.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
+@@ -94,7 +94,7 @@
+ Comment[es]=Elija el estilo de notificación de lanzamiento de las aplicaciones
+ Comment[et]=Rakenduste käivitamisel kasutajale antava tagasiside seadistamine
+ Comment[eu]=Aukeratu aplikazioen abiatze-jakinarazpenen estiloa
+-Comment[fa]=انتخاب سبک بازخورد راه اندازی کاربرد
++Comment[fa]=انتخاب سبک بازخورد راه‌اندازی کاربرد
+ Comment[fi]=Valitse ohjelmien käynnistymisestä kertovan tiedon tyyli
+ Comment[fr]=Définit le style du témoin de démarrage des applications
+ Comment[fy]=Hjir kinne jo bepale wat fisueel te sjen is by it begjinnen fan in tapassing.
+@@ -157,7 +157,7 @@
+ Keywords[es]=aplicación,iniciar,lanzar,ocupado,cursor,notificación,ratón,puntero,rotación,giro,disco,arrancar,programa,informar
+ Keywords[et]=rakendus,käivitamine,hõivatud,kursor,tagasiside,hiir,hiirekursor
+ Keywords[eu]=aplikazioa,abiatu,lanpetuta,kurtsorea,jakinarazpena,sagua,gezia,errotazioa,itzulbira,diskoa,programa,jakinarazi
+-Keywords[fa]=کاربرد، آغاز، راه انداختن، مشغول، مکان‌نما، بازخورد، موشی، اشاره‌گر، چرخش، دوار، دیسک، راه اندازی، برنامه، گزارش
++Keywords[fa]=کاربرد، آغاز، راه انداختن، مشغول، مکان‌نما، بازخورد، موشی، اشاره‌گر، چرخش، دوار، دیسک، راه‌اندازی، برنامه، گزارش
+ Keywords[fi]=sovellus,käynnistyminen,käynnistäminen,varattu,osoitin,palaute,hiiri, pyörivä,levy,ohjelma
+ Keywords[fr]=application,démarrage,occupé,curseur,souris,pointeur,rotation,disque,programme,rapport
+ Keywords[fy]=applikaasje,start,Begjinne,besich,rinnerke,feedback,mûs,wizer,rotaasje,rûndraaie,skiif,begjinne,programma,rapport
 Index: pics/wallpapers/aurora.svgz.desktop
 ===================================================================
---- pics/wallpapers/aurora.svgz.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ pics/wallpapers/aurora.svgz.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- pics/wallpapers/aurora.svgz.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ pics/wallpapers/aurora.svgz.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -6,7 +6,7 @@
  Name[br]=Sklerijenn an deiz
  Name[cs]=Jitřenka
@@ -66,10 +101,32 @@ Index: pics/wallpapers/aurora.svgz.desktop
  Name[fr]=Aurore
  Name[he]=אאורורה
  Name[is]=Norðurljós
+Index: klipper/klipperrc.desktop
+===================================================================
+--- klipper/klipperrc.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ klipper/klipperrc.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
+@@ -739,7 +739,7 @@
+ Description[es]=Iniciar &mutt
+ Description[et]=&Mutt'i käivitamine
+ Description[eu]=Abiarazi &mutt 
+-Description[fa]=راه اندازی &mutt
++Description[fa]=راه‌اندازی &mutt
+ Description[fi]=Käynistä &Mutt
+ Description[fr]=Démarrer &Mutt
+ Description[fy]=&Mutt útfiere
+@@ -966,7 +966,7 @@
+ Description[es]=Inicar K&Write
+ Description[et]=K&Write'i käivitamine
+ Description[eu]=Abiarazi K&Write 
+-Description[fa]=راه اندازی K&Write‌
++Description[fa]=راه‌اندازی K&Write‌
+ Description[fi]=Käynistä K&Write
+ Description[fr]=Démarrer K&Write
+ Description[fy]=K&Write útfiere
 Index: kicker/kicker/core/container_extension.cpp
 ===================================================================
---- kicker/kicker/core/container_extension.cpp	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ kicker/kicker/core/container_extension.cpp	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- kicker/kicker/core/container_extension.cpp	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kicker/kicker/core/container_extension.cpp	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -142,11 +142,11 @@
      _layout->setColStretch(1,10);
  
@@ -103,8 +160,8 @@ Index: kicker/kicker/core/container_extension.cpp
  void ExtensionContainer::enableMouseOverEffects()
 Index: kicker/kicker/core/container_extension.h
 ===================================================================
---- kicker/kicker/core/container_extension.h	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ kicker/kicker/core/container_extension.h	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- kicker/kicker/core/container_extension.h	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kicker/kicker/core/container_extension.h	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -114,7 +114,6 @@
  
  signals:
@@ -113,10 +170,23 @@ Index: kicker/kicker/core/container_extension.h
  
  protected slots:
      virtual void showPanelMenu( const QPoint& pos );
+Index: kicker/applets/launcher/quicklauncher.desktop
+===================================================================
+--- kicker/applets/launcher/quicklauncher.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kicker/applets/launcher/quicklauncher.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
+@@ -19,7 +19,7 @@
+ Name[es]=Lanzador rápido
+ Name[et]=Kiirkäivitaja
+ Name[eu]=Abiarazle bizkorra
+-Name[fa]=راه انداز سریع
++Name[fa]=راه‌انداز سریع
+ Name[fi]=Sovellusten pikakäynnistin
+ Name[fr]=Lanceur d'applications
+ Name[fy]=Snel útfierder
 Index: kicker/applets/swallow/swallowapplet.desktop
 ===================================================================
---- kicker/applets/swallow/swallowapplet.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ kicker/applets/swallow/swallowapplet.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- kicker/applets/swallow/swallowapplet.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kicker/applets/swallow/swallowapplet.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -17,7 +17,7 @@
  Name[es]=Applet contenedor
  Name[et]=Põimimise aplett
@@ -137,8 +207,8 @@ Index: kicker/applets/swallow/swallowapplet.desktop
  Comment[fy]=Applet foar it ynlúte fan X-toepassingen
 Index: kioslave/media/mediamanager/halbackend.cpp
 ===================================================================
---- kioslave/media/mediamanager/halbackend.cpp	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ kioslave/media/mediamanager/halbackend.cpp	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- kioslave/media/mediamanager/halbackend.cpp	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kioslave/media/mediamanager/halbackend.cpp	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -215,11 +215,6 @@
               !libhal_device_get_property_bool(m_halContext, udi, "volume.disc.is_blank", NULL) )
              return;
@@ -193,8 +263,8 @@ Index: kioslave/media/mediamanager/halbackend.cpp
              QStringList opts = (*it)->mountOptions();
 Index: kdesktop/lock/lockprocess.cc
 ===================================================================
---- kdesktop/lock/lockprocess.cc	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ kdesktop/lock/lockprocess.cc	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- kdesktop/lock/lockprocess.cc	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kdesktop/lock/lockprocess.cc	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -681,7 +681,7 @@
  void LockProcess::stopSaver()
  {
@@ -240,8 +310,8 @@ Index: kdesktop/lock/lockprocess.cc
                      stayOnTop();
 Index: kdesktop/lock/lockprocess.h
 ===================================================================
---- kdesktop/lock/lockprocess.h	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ kdesktop/lock/lockprocess.h	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- kdesktop/lock/lockprocess.h	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kdesktop/lock/lockprocess.h	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -68,7 +68,6 @@
      void signalPipeSignal();
      bool startLock();
@@ -260,8 +330,8 @@ Index: kdesktop/lock/lockprocess.h
      bool        mLocked;
 Index: kdesktop/patterns/stonewall2.desktop
 ===================================================================
---- kdesktop/patterns/stonewall2.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ kdesktop/patterns/stonewall2.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- kdesktop/patterns/stonewall2.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kdesktop/patterns/stonewall2.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -15,7 +15,7 @@
  Comment[es]=Fuerte 2 por Tigert
  Comment[et]=Stonewall 2 (Tigert)
@@ -273,8 +343,8 @@ Index: kdesktop/patterns/stonewall2.desktop
  Comment[fy]=Stienen muorre 2, troch Tigert
 Index: kdesktop/minicli.cpp
 ===================================================================
---- kdesktop/minicli.cpp	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ kdesktop/minicli.cpp	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- kdesktop/minicli.cpp	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kdesktop/minicli.cpp	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -868,9 +868,11 @@
     FILE *fs = popen(QFile::encodeName(cmd).data(), "r");
     if (fs)
@@ -292,8 +362,8 @@ Index: kdesktop/minicli.cpp
  }
 Index: applnk/kde-utilities-accessibility.directory
 ===================================================================
---- applnk/kde-utilities-accessibility.directory	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ applnk/kde-utilities-accessibility.directory	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- applnk/kde-utilities-accessibility.directory	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ applnk/kde-utilities-accessibility.directory	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -98,6 +98,7 @@
  Comment[fy]=Tagonklikens
  Comment[ga]=Inrochtaineacht
@@ -304,8 +374,8 @@ Index: applnk/kde-utilities-accessibility.directory
  Comment[is]=Aðgengi
 Index: applnk/compat/email.desktop
 ===================================================================
---- applnk/compat/email.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ applnk/compat/email.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- applnk/compat/email.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ applnk/compat/email.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -162,7 +162,7 @@
  Keywords[cy]=EBost,Post,E-Bost,Cyfeiriad,Gweinydd ebost,IMAP,POP3,Blwch e-bost lleol,blwch e-bost,Gwybodaeth Defnyddiwr,Cyfeiriad Ateb,Gwybodaeth gweinydd,Enw Defnyddiwr,Cyfrineiriau,Gwesteiwr,Proffil Cyffredol,Proffil,Corff,Gwesteiwr Mewn,Gwesteiwr Allan,Dibynnydd Ebost
  Keywords[da]=E-mail,Post,Adresse,Postserver,IMAP,POP3,Lokal postkasse,postkasse,Brugerinformation,Svaradresse,Serverinformation,Brugernavn,Kodeord,Vært, Denne profil,Profil,Organisation,Indkommende vært,Udgående vært, E-mail-klient
@@ -315,10 +385,36 @@ Index: applnk/compat/email.desktop
  Keywords[en_GB]=EMail,Mail,E-Mail,email,e-mail,Address,Email server,IMAP,POP3,Local mailbox,mailbox,User Information,Reply Address,Server information,User Name,Passwords,Host,Current Profile,Profile,Organisation,Organization,Incoming Host,Outgoing Host,Email Client
  Keywords[eo]=retpoŝto,poŝto,adreso,servilo,IMAP,POP,poŝtkesto,uzanto, respondadreso,servilo,pasvorto,agordo,organizaĵo,ricevo,sendo
  Keywords[es]=Correo electrónico,Correo,E-Mail,Dirección,Servidor de correo,IMAP,POP3,Buzón local,buzón,Información del usuario,Dirección de respuesta,Información del servidor,Nombre de usuario,Contraseñas,Máquina,Perfil actual,Perfil,Organización,Máquina entrante,Máquina saliente,Cliente de correo
+Index: konqueror/preloader/konqy_preloader.desktop
+===================================================================
+--- konqueror/preloader/konqy_preloader.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ konqueror/preloader/konqy_preloader.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
+@@ -76,7 +76,7 @@
+ Comment[es]=Reduce el tiempo de inicio de Konqueror
+ Comment[et]=Kahandab Konquerori käivitamise aega
+ Comment[eu]=Konquerorren abiatze denbora laburtzen du
+-Comment[fa]=زمان راه اندازی Konqueror را کاهش می‌دهد
++Comment[fa]=زمان راه‌اندازی Konqueror را کاهش می‌دهد
+ Comment[fi]=Vähentää Konquerorin käynnistysaikaa
+ Comment[fr]=Réduit le temps de démarrage de Konqueror
+ Comment[fy]=Redusearret de begjintiid fan Konqueror
+Index: ksplashml/kcmksplash/ksplashthememgr.desktop
+===================================================================
+--- ksplashml/kcmksplash/ksplashthememgr.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ ksplashml/kcmksplash/ksplashthememgr.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
+@@ -157,7 +157,7 @@
+ Keywords[es]=pantalla de inicio,tema de inicio,inicio
+ Keywords[et]=käivitusekraan,käivutusteema,käivitamine
+ Keywords[eu]=splash pantaila,splash gaia,abioa
+-Keywords[fa]=رنگ‌پاشی پرده، چهره لکه، راه اندازی
++Keywords[fa]=رنگ‌پاشی پرده، چهره لکه، راه‌اندازی
+ Keywords[fi]=aloitusruutu,aloitusruututeema,käynnistys
+ Keywords[fr]=écran de démarrage,thème de démarrage,démarrage,splash screen
+ Keywords[fy]=opstartscherm,begjinskerm,splash screen
 Index: libkonq/konq_popupmenu.cc
 ===================================================================
---- libkonq/konq_popupmenu.cc	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ libkonq/konq_popupmenu.cc	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- libkonq/konq_popupmenu.cc	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ libkonq/konq_popupmenu.cc	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -851,9 +851,25 @@
                  KTrader::OfferList::ConstIterator it = offers.begin();
                  for( ; it != offers.end(); it++ )
@@ -349,8 +445,8 @@ Index: libkonq/konq_popupmenu.cc
  
 Index: libkonq/favicons/favicons.desktop
 ===================================================================
---- libkonq/favicons/favicons.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ libkonq/favicons/favicons.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- libkonq/favicons/favicons.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ libkonq/favicons/favicons.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -18,7 +18,7 @@
  Name[es]=Módulo Favicon de KDED
  Name[et]=KDED favicon moodul
@@ -362,8 +458,8 @@ Index: libkonq/favicons/favicons.desktop
  Name[gl]=Módulo de Faviconas de KDED
 Index: kwin/kcmkwin/kwindecoration/kwindecoration.desktop
 ===================================================================
---- kwin/kcmkwin/kwindecoration/kwindecoration.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ kwin/kcmkwin/kwindecoration/kwindecoration.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- kwin/kcmkwin/kwindecoration/kwindecoration.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kwin/kcmkwin/kwindecoration/kwindecoration.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -161,7 +161,7 @@
  Keywords[es]=kwin,ventana,administrador,borde,estilo,tema,aspecto,comportamiento,disposición,botón,asa,esquina,kwm,decoración
  Keywords[et]=kwin,aken,haldur,piire,stiil,teema,välimus,kasutamine,nupud,serv,kwm,dekoratsioon
@@ -375,8 +471,8 @@ Index: kwin/kcmkwin/kwindecoration/kwindecoration.desktop
  Keywords[fy]=kwin,window,manager,rand,stijl,theme,tema,look,uiterlijk,gedrag,feel,layout,opmaak,button,knoppen,handle,rand,kwm,decoratie,windowmanager,venster,vensterbeheer,finster,râne,kader,styltema,uterlik,gedrach,finsterbehear
 Index: kwin/kcmkwin/kwinrules/kwinrules.desktop
 ===================================================================
---- kwin/kcmkwin/kwinrules/kwinrules.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ kwin/kcmkwin/kwinrules/kwinrules.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- kwin/kcmkwin/kwinrules/kwinrules.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kwin/kcmkwin/kwinrules/kwinrules.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -81,7 +81,7 @@
  Comment[es]=Configurar parámetros específicos de una ventana
  Comment[et]=Spetsiaalselt akendega seotud seadistused
@@ -388,8 +484,8 @@ Index: kwin/kcmkwin/kwinrules/kwinrules.desktop
  Comment[fy]=Hjir kinne jo ynstellings kieze spesifyk foar ien finster
 Index: kwin/kcmkwin/kwinoptions/kwinmoving.desktop
 ===================================================================
---- kwin/kcmkwin/kwinoptions/kwinmoving.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ kwin/kcmkwin/kwinoptions/kwinmoving.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- kwin/kcmkwin/kwinoptions/kwinmoving.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kwin/kcmkwin/kwinoptions/kwinmoving.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -161,7 +161,7 @@
  Keywords[es]=moviendo,inteligente,cascada,maximizar,zona de adhesión,adhesión,adherir,borde 
  Keywords[et]=liigutamine,tark,kaskaad,maksimeerimine,haaramise tsoon,haaramine,piire
@@ -401,8 +497,8 @@ Index: kwin/kcmkwin/kwinoptions/kwinmoving.desktop
  Keywords[fy]=verplaatsing,ferpleatse,intelligen,yntelligint,tûk,plaatsing,pleatsing,trapsgewijs,trepfoarm,maximaliseren,maksimalisearje,randen magnetisch,magnetisch veld,rand,râne,magnetische randen
 Index: kwin/kcmkwin/kwinoptions/kwinadvanced.desktop
 ===================================================================
---- kwin/kcmkwin/kwinoptions/kwinadvanced.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ kwin/kcmkwin/kwinoptions/kwinadvanced.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- kwin/kcmkwin/kwinoptions/kwinadvanced.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kwin/kcmkwin/kwinoptions/kwinadvanced.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -166,7 +166,7 @@
  Keywords[es]=recogiendo,borde,ratón sobre,bordes activos
  Keywords[et]=varjamine,piire,hover,aktiivsed piirded
@@ -414,8 +510,8 @@ Index: kwin/kcmkwin/kwinoptions/kwinadvanced.desktop
  Keywords[fy]=oprollen,oprôlje,afrollen,ôfrôlje,hoover,actieve randen,aktive rânen,randen magnetisch,magnetische randen
 Index: kwin/client.cpp
 ===================================================================
---- kwin/client.cpp	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ kwin/client.cpp	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- kwin/client.cpp	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kwin/client.cpp	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -477,17 +477,30 @@
      // calls it or when the decoration is created/destroyed
  
@@ -455,8 +551,8 @@ Index: kwin/client.cpp
  
 Index: kwin/eventsrc
 ===================================================================
---- kwin/eventsrc	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ kwin/eventsrc	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- kwin/eventsrc	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kwin/eventsrc	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -4413,7 +4413,7 @@
  Comment[es]=Desaparece una ventana transitoria (un diálogo)
  Comment[et]=Ajutine aken (dialoog) on eemaldatud
@@ -468,8 +564,8 @@ Index: kwin/eventsrc
  Comment[fy]=In dialooch is slúten
 Index: konsole/eventsrc
 ===================================================================
---- konsole/eventsrc	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ konsole/eventsrc	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- konsole/eventsrc	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ konsole/eventsrc	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -609,7 +609,7 @@
  Comment[es]=Ha terminado una sesión con estado no cero
  Comment[et]=Seanss väljus nullist erineva staatusega
@@ -481,8 +577,8 @@ Index: konsole/eventsrc
  Comment[fy]=In sesje is einige mei in non-zero tastân
 Index: l10n/ch/entry.desktop
 ===================================================================
---- l10n/ch/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/ch/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/ch/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/ch/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -18,7 +18,7 @@
  Name[es]=Suiza
  Name[et]=Šveits
@@ -494,8 +590,8 @@ Index: l10n/ch/entry.desktop
  Name[fy]=Switserlân
 Index: l10n/sh/entry.desktop
 ===================================================================
---- l10n/sh/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/sh/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/sh/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/sh/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -15,7 +15,7 @@
  Name[el]=Αγία Ελένη
  Name[eo]=Sent-Heleno
@@ -507,8 +603,8 @@ Index: l10n/sh/entry.desktop
  Name[ga]=San Héilin
 Index: l10n/sv/entry.desktop
 ===================================================================
---- l10n/sv/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/sv/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/sv/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/sv/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -10,7 +10,7 @@
  Name[el]=Ελ Σαλβαντόρ
  Name[eo]=Salvadoro
@@ -520,8 +616,8 @@ Index: l10n/sv/entry.desktop
  Name[gl]=O Salvador
 Index: l10n/sz/entry.desktop
 ===================================================================
---- l10n/sz/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/sz/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/sz/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/sz/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -15,7 +15,7 @@
  Name[es]=Swazilandia
  Name[et]=Svaasimaa
@@ -533,8 +629,8 @@ Index: l10n/sz/entry.desktop
  Name[gl]=Suacilándia
 Index: l10n/lc/entry.desktop
 ===================================================================
---- l10n/lc/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/lc/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/lc/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/lc/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -10,7 +10,7 @@
  Name[el]=Σάντα Λουτσία
  Name[eo]=Sent-Lucio
@@ -546,8 +642,8 @@ Index: l10n/lc/entry.desktop
  Name[ga]=San Lúisia
 Index: l10n/tk/entry.desktop
 ===================================================================
---- l10n/tk/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/tk/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/tk/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/tk/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -8,7 +8,7 @@
  Name[cy]=Tocelaw
  Name[el]=Τοκελάου
@@ -559,8 +655,8 @@ Index: l10n/tk/entry.desktop
  Name[hi]=तोकेलाऊ
 Index: l10n/lt/entry.desktop
 ===================================================================
---- l10n/lt/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/lt/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/lt/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/lt/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -18,7 +18,7 @@
  Name[es]=Lituania
  Name[et]=Leedu
@@ -572,8 +668,8 @@ Index: l10n/lt/entry.desktop
  Name[fy]=Litouwen
 Index: l10n/tz/entry.desktop
 ===================================================================
---- l10n/tz/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/tz/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/tz/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/tz/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -17,7 +17,7 @@
  Name[es]=Tanzania, Republica de
  Name[et]=Tansaania
@@ -585,8 +681,8 @@ Index: l10n/tz/entry.desktop
  Name[fy]=Tanzanië, Ferienigd republyk fan
 Index: l10n/mo/entry.desktop
 ===================================================================
---- l10n/mo/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/mo/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/mo/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/mo/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -12,7 +12,7 @@
  Name[el]=Μακάο SAR (Κίνα)
  Name[et]=Macau
@@ -598,8 +694,8 @@ Index: l10n/mo/entry.desktop
  Name[ga]=Macao SAR(An tSín)
 Index: l10n/nc/entry.desktop
 ===================================================================
---- l10n/nc/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/nc/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/nc/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/nc/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -17,7 +17,7 @@
  Name[es]=Nueva Caledonia
  Name[et]=Uus-Kaledoonia
@@ -611,8 +707,8 @@ Index: l10n/nc/entry.desktop
  Name[fy]=Nij Caledonië
 Index: l10n/nf/entry.desktop
 ===================================================================
---- l10n/nf/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/nf/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/nf/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/nf/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -16,7 +16,7 @@
  Name[es]=Isla Norfolk
  Name[et]=Norfolki saar
@@ -624,8 +720,8 @@ Index: l10n/nf/entry.desktop
  Name[fy]=Norfolk Eilân
 Index: l10n/va/entry.desktop
 ===================================================================
---- l10n/va/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/va/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/va/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/va/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -18,7 +18,7 @@
  Name[es]=Vaticano
  Name[et]=Vatikan
@@ -637,8 +733,8 @@ Index: l10n/va/entry.desktop
  Name[fy]=Vaticaanstad
 Index: l10n/vg/entry.desktop
 ===================================================================
---- l10n/vg/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/vg/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/vg/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/vg/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -16,7 +16,7 @@
  Name[es]=Islas Vírgenes Británicas
  Name[et]=Briti Neitsisaared
@@ -650,8 +746,8 @@ Index: l10n/vg/entry.desktop
  Name[fy]=Virgin Eilannen, Britse
 Index: l10n/vi/entry.desktop
 ===================================================================
---- l10n/vi/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/vi/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/vi/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/vi/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -17,7 +17,7 @@
  Name[es]=Islas Vírgenes Americanas
  Name[et]=USA Neitsisaared
@@ -663,8 +759,8 @@ Index: l10n/vi/entry.desktop
  Name[fy]=Virgin Eilannen, U.S.
 Index: l10n/gp/entry.desktop
 ===================================================================
---- l10n/gp/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/gp/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/gp/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/gp/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -12,7 +12,7 @@
  Name[eo]=Gvadelupo
  Name[es]=Guadalupe
@@ -676,8 +772,8 @@ Index: l10n/gp/entry.desktop
  Name[he]=גאודלופה
 Index: l10n/wf/entry.desktop
 ===================================================================
---- l10n/wf/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/wf/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/wf/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/wf/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -18,7 +18,7 @@
  Name[es]=Wallis y Futuna
  Name[et]=Wallis ja Futuna
@@ -689,8 +785,8 @@ Index: l10n/wf/entry.desktop
  Name[fy]=Wallis en Futuna
 Index: l10n/hk/entry.desktop
 ===================================================================
---- l10n/hk/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/hk/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/hk/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/hk/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -11,7 +11,7 @@
  Name[el]=Χονγκ Κονγκ SAR (Κίνα)
  Name[et]=Hongkong
@@ -702,8 +798,8 @@ Index: l10n/hk/entry.desktop
  Name[ga]=Hong Cong SAR(An tSín)
 Index: l10n/pg/entry.desktop
 ===================================================================
---- l10n/pg/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/pg/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/pg/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/pg/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -16,7 +16,7 @@
  Name[es]=Papua Nueva Guinea
  Name[et]=Paapua Uus-Guinea
@@ -715,8 +811,8 @@ Index: l10n/pg/entry.desktop
  Name[fy]=Papua Nij Guinea
 Index: l10n/pm/entry.desktop
 ===================================================================
---- l10n/pm/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/pm/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/pm/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/pm/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -18,7 +18,7 @@
  Name[es]=Saint Pierre y Miquelon
  Name[et]=Saint Pierre ja Miquelon
@@ -728,8 +824,8 @@ Index: l10n/pm/entry.desktop
  Name[fy]=Saint Pierre en Miquelon
 Index: l10n/pn/entry.desktop
 ===================================================================
---- l10n/pn/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/pn/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/pn/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/pn/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -8,7 +8,7 @@
  Name[cy]=Ynys Pitcairn
  Name[el]=Πίτκαιρν
@@ -741,8 +837,8 @@ Index: l10n/pn/entry.desktop
  Name[ja]=英領ピトケアン諸島
 Index: l10n/pw/entry.desktop
 ===================================================================
---- l10n/pw/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ l10n/pw/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- l10n/pw/entry.desktop	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ l10n/pw/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -7,7 +7,7 @@
  Name[cy]=Palaw
  Name[el]=Παλάου
@@ -754,8 +850,8 @@ Index: l10n/pw/entry.desktop
  Name[is]=Palá
 Index: kdm/kfrontend/genkdmconf.c
 ===================================================================
---- kdm/kfrontend/genkdmconf.c	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ kdm/kfrontend/genkdmconf.c	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- kdm/kfrontend/genkdmconf.c	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ kdm/kfrontend/genkdmconf.c	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -1684,7 +1684,7 @@
  		linkfile( ce );
  	else {
@@ -767,8 +863,8 @@ Index: kdm/kfrontend/genkdmconf.c
  		               "$HOME/.xsession-env-$DISPLAY";
 Index: ksysguard/example/eventsrc
 ===================================================================
---- ksysguard/example/eventsrc	(.../tags/KDE/3.5.5/kdebase)	(revision 594231)
-+++ ksysguard/example/eventsrc	(.../branches/KDE/3.5/kdebase)	(revision 594231)
+--- ksysguard/example/eventsrc	(.../tags/KDE/3.5.5/kdebase)	(revision 594434)
++++ ksysguard/example/eventsrc	(.../branches/KDE/3.5/kdebase)	(revision 594434)
 @@ -225,7 +225,7 @@
  Comment[es]=El sensor excedió el límite crítico
  Comment[et]=Sensor ületas kriitilise piiri
