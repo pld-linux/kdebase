@@ -4,6 +4,8 @@
 #   * builting console (--with-kdm-xconsole)
 #   * afs support (--with afs)
 # - fix kerberos support (kdm segfaults)
+# - warning: Installed (but unpackaged) file(s) found:
+#   /etc/xdg/menus/kde-screensavers.menu
 
 # Conditional build:
 %bcond_without	apidocs		# Do not prepare API documentation
@@ -25,7 +27,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.5.5
-Release:	0.5
+Release:	0.9
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -1106,13 +1108,13 @@ done
 cp /usr/share/automake/config.sub admin
 %{__make} -f admin/Makefile.common cvs
 
-sed -i -e 's#krb5/##g' configure* */configure* */*.c */*/*.c
+%{__sed} -i -e 's#krb5/##g' configure* */configure* */*.c */*/*.c
 
 %build
 %if %{with apidocs}
 	if [ ! -f "%{_kdedocdir}/en/common/kde-common.css" ]; then
 		echo "ERROR: Building kdebase with apidocs requires kdelibs"
-		echo "       to be installed _without_ excluding documentation."
+		echo "	   to be installed _without_ excluding documentation."
 		exit 1
 	fi
 %endif
@@ -1291,10 +1293,61 @@ cat kioslave.lang	>> kinfocenter.lang
 # Omit apidocs entries
 sed -i 's/.*apidocs.*//' *.lang
 
-
 if [ -d "$RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-%{version}-apidocs" ] ; then
 	mv -f $RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-{%{version}-,}apidocs
 fi
+
+rm -f $RPM_BUILD_ROOT/etc/X11/kdm/README
+rm -f $RPM_BUILD_ROOT%{_docdir}/kdm/README
+rm -f $RPM_BUILD_ROOT%{_desktopdir}/kde/kcmkicker.desktop # see r1.328
+rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/Internet/keditbookmarks.desktop
+rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/LookNFeel/Themes/iconthemes.desktop
+rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/LookNFeel/kcmtaskbar.desktop
+rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/LookNFeel/panel.desktop
+rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/LookNFeel/panel_appearance.desktop
+rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/WebBrowsing/khtml_appearance.desktop
+rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/WebBrowsing/nsplugin.desktop
+rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/WebBrowsing/smb.desktop
+rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/System/kappfinder.desktop
+rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/System/kmenuedit.desktop
+rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/System/kpersonalizer.desktop
+rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/Toys/ktip.desktop
+rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/Utilities/kpager.desktop
+rm -f $RPM_BUILD_ROOT%{_datadir}/fonts/override/fonts.dir
+rm -f $RPM_BUILD_ROOT%{_datadir}/apps/kdisplay/app-defaults/*.ad # dunno. not packaged
+# apparently in applnk package
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-development-translation.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-development-webdevelopment.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-development.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-editors.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-edutainment.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games-arcade.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games-board.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games-card.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games-kids.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games-roguelikes.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games-strategy.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-graphics.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-internet-terminal.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-internet.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-main.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-more.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-multimedia.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-office.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-science.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-system-screensavers.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-system-terminal.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-system.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-toys.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-unknown.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities-accessibility.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities-desktop.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities-file.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities-peripherals.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities-pim.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities-xutils.directory
+rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities.directory
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -2152,8 +2205,6 @@ fi
 %{_desktopdir}/kde/panel.desktop
 %{_desktopdir}/kde/panel_appearance.desktop
 %{_desktopdir}/kde/clock.desktop
-# Do not include this!
-#%{_desktopdir}/kde/kcmkicker.desktop
 %{_desktopdir}/kde/knetattach.desktop
 %{_iconsdir}/*/*/apps/clock.png
 %{_iconsdir}/*/*/apps/date.png
