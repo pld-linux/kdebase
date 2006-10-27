@@ -1,0 +1,96 @@
+--- kdebase-3.5.4/kcontrol/background/bgdialog.cpp.orig	2006-09-30 23:07:48.000000000 +0200
++++ kdebase-3.5.4/kcontrol/background/bgdialog.cpp	2006-10-01 14:23:52.000000000 +0200
+@@ -362,6 +362,48 @@
+ 	load( true );
+ }
+ 
++void BGDialog::kdmdefaults()
++{
++   m_pGlobals->setCommonScreenBackground(_defCommonScreen);
++   m_pGlobals->setCommonDeskBackground(_defCommonDesk);
++   m_pGlobals->setLimitCache(_defLimitCache);
++   m_pGlobals->setCacheSize(_defCacheSize);
++   m_comboWallpaperPos->setCurrentItem( 0 );
++   m_eDesk = _defCommonDesk ? 0 : m_desk;
++   getEScreen();
++
++   for ( unsigned i = 0; i < m_numDesks; ++i )
++      m_pGlobals->setDrawBackgroundPerScreen( i, false );
++
++   KBackgroundRenderer *r = eRenderer();
++
++   if (r->isActive())
++      r->stop();
++
++   if (QPixmap::defaultDepth() > 8)
++   {
++      r->setBackgroundMode(_defBackgroundMode);
++   }
++   else
++   {
++      r->setBackgroundMode(KBackgroundSettings::Flat);
++   }
++
++   r->setColorA(_defColorA);
++   r->setColorB(_defColorB);
++   r->setWallpaper("default_blue.jpg");
++   r->setWallpaperMode(KBackgroundSettings::Scaled);
++   r->setMultiWallpaperMode(_defMultiMode);
++   m_slideShowRandom = _defMultiMode;
++   r->setBlendMode(_defBlendMode);
++   r->setBlendBalance(_defBlendBalance);
++   r->setReverseBlending(_defReverseBlending);
++
++   updateUI();
++
++   emit changed(true);
++}
++
+ QString BGDialog::quickHelp() const
+ {
+    return i18n("<h1>Background</h1> This module allows you to control the"
+--- kdebase-030317/kcontrol/background/bgdialog.h~	Thu Feb  6 00:35:39 2003
++++ kdebase-030317/kcontrol/background/bgdialog.h	Tue Mar 18 18:12:35 2003
+@@ -41,6 +41,7 @@
+    void load();
+    void save();
+    void defaults();
++   void kdmdefaults();
+ 
+    void makeReadOnly();
+                
+--- kdebase-030924/kcontrol/background/main.cpp~	2003-09-23 21:46:09.000000000 +0200
++++ kdebase-030924/kcontrol/background/main.cpp	2003-09-23 21:56:35.000000000 +0200
+@@ -100,4 +100,9 @@
+     m_base->defaults();
+ }
+ 
++void KBackground::kdmdefaults()
++{
++    m_base->kdmdefaults();
++}
++
+ #include "main.moc"
+--- kdebase-030317/kcontrol/background/main.h~	Sat Jan 25 00:35:46 2003
++++ kdebase-030317/kcontrol/background/main.h	Tue Mar 18 18:00:49 2003
+@@ -31,6 +31,7 @@
+     virtual void load();
+     virtual void save();
+     virtual void defaults();
++    virtual void kdmdefaults();
+ 
+     QString quickHelp() const;
+     const KAboutData* aboutData() const;
+--- kdebase-3.5.4/kdm/kfrontend/genkdmconf.c.orig	2006-09-30 23:32:51.000000000 +0200
++++ kdebase-3.5.4/kdm/kfrontend/genkdmconf.c	2006-10-01 14:42:31.000000000 +0200
+@@ -711,8 +711,8 @@
+ "BlendBalance=100\n"
+ "BlendMode=NoBlending\n"
+ "ChangeInterval=60\n"
+-"Color1=0,0,200\n"
+-"Color2=192,192,192\n"
++"Color1=#003082\n"
++"Color2=#C0C0C0\n"
+ "CurrentWallpaper=0\n"
+ "LastChange=0\n"
+ "MinOptimizationDepth=1\n"
