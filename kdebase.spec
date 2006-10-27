@@ -66,6 +66,7 @@ Patch19:	%{name}-konsole-default-keytab.patch
 Patch20:	%{name}-seesar.patch
 Patch21:	%{name}-konsole-wordseps.patch
 Patch22:	%{name}-tango.patch
+Patch23:	kde-am.patch
 Patch24:	kde-ac260-lt.patch
 Patch25:	%{name}-konsole-history_clear.patch
 Patch26:	%{name}-kdm-default_background.patch
@@ -1061,6 +1062,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch20 -p1
 %patch21 -p1
 %patch22 -p0
+%patch23 -p1
 %patch24 -p1
 %patch25 -p1
 %patch26 -p1
