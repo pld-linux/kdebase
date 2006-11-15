@@ -11,7 +11,7 @@
 %bcond_without	apidocs		# Do not prepare API documentation
 %bcond_without	ldap		# build or not ldap ioslave
 %bcond_with	kerberos5	# kerberos 5 support
-%bcond_without	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
+%bcond_with	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
 #
 %define		_state		stable
 %define		_minlibsevr	9:%{version}
@@ -27,7 +27,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.5.5
-Release:	3
+Release:	4
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -80,7 +80,7 @@ BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
 BuildRequires:	cyrus-sasl-devel
 BuildRequires:	db-devel
-BuildRequires:	dbus-qt-devel >= 0.70
+BuildRequires:	dbus-qt-devel >= 0.60
 %{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	ed
 %{?with_hidden_visibility:BuildRequires:	gcc-c++ >= 5:4.1.0-0.20051206r108118.1}
@@ -104,8 +104,10 @@ BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	lm_sensors-devel
 BuildRequires:	motif-devel
-%{?with_ldap:BuildRequires:	openldap-devel >= 2.3.0}
 BuildRequires:	openssl-devel >= 0.9.7c
+# kde requires libXext and more stuff that is X11-only juz grep X11 `find -name configure.in.in`
+BuildRequires:	X11-devel >= 1:6.8.1
+%{?with_ldap:BuildRequires:	openldap-devel >= 2.3.0}
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig
 %{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
@@ -114,19 +116,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	sed >= 4.0
 #BuildRequires:	unsermake >= 040511
-BuildRequires:	xorg-app-bdftopcf
-BuildRequires:	xorg-cf-files
-BuildRequires:	xorg-lib-libXcomposite-devel
-BuildRequires:	xorg-lib-libXcursor-devel
-BuildRequires:	xorg-lib-libXdamage-devel
-BuildRequires:	xorg-lib-libXft-devel
-BuildRequires:	xorg-lib-libXinerama-devel
-BuildRequires:	xorg-lib-libXmu-devel
-BuildRequires:	xorg-lib-libXtst-devel
-BuildRequires:	xorg-lib-libfontenc-devel
-BuildRequires:	xorg-lib-libxkbfile-devel
-BuildRequires:	xorg-proto-scrnsaverproto-devel
-BuildRequires:	xorg-util-imake
+BuildRequires:	xcursor-devel >= 1.1.0
 BuildConflicts:	kdebase-konqueror-libs
 Conflicts:	kdelibs < 9:3.1.94.040110-1
 # TODO: sensors
@@ -512,8 +502,9 @@ Schematy kolorów, ikony, czcionki oraz profile sesji dla konsole.
 Summary:	KDE Core Apps
 Summary(pl):	Podstawowe aplikacje KDE
 Group:		X11/Applications
-Requires:	xdg-menus
+Requires:	applnk >= 1.9.0
 Requires:	kdelibs >= %{_minlibsevr}
+Requires:	sudo
 Obsoletes:	kdebase < 8:3.2-0.030428.1
 Obsoletes:	kdebase-helpcenter
 Obsoletes:	kdebase-kcontrol
@@ -552,6 +543,7 @@ Requires:	kde-logoutpic
 Requires:	kde-splash-Default
 Requires:	konqueror = %{epoch}:%{version}-%{release}
 Requires:	pam >= 0.79.0
+Requires:	xcursor >= 1.1.0
 Provides:	kdebase-kicker
 Obsoletes:	kde-decoration-plastik
 Obsoletes:	kde-theme-keramik
@@ -935,7 +927,8 @@ Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	kde-kgreet
 Requires:	pam >= 0.79.0
 Requires:	rc-scripts
-Requires:	xorg-app-sessreg
+Requires:	sessreg
+Requires:	xinitrc-ng >= 0.4
 Obsoletes:	X11-xdm
 Obsoletes:	entrance
 Obsoletes:	gdm
