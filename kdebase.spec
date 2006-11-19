@@ -70,6 +70,7 @@ Patch23:	kde-am.patch
 Patch24:	kde-ac260-lt.patch
 Patch25:	%{name}-konsole-history_clear.patch
 Patch26:	%{name}-kdm-default_background.patch
+Patch27:	kde-bug-124895.patch
 BuildRequires:	OpenEXR-devel >= 1.2.2
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
@@ -1067,6 +1068,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch24 -p1
 %patch25 -p1
 %patch26 -p1
+%patch27 -p0
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
 for i in  google*.desktop
