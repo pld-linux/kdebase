@@ -27,7 +27,7 @@ Summary(uk):	K Desktop Environment - базов╕ файли
 Summary(zh_CN):	KDE╨кпд
 Name:		kdebase
 Version:	3.5.5
-Release:	4.2
+Release:	4.3
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -135,6 +135,7 @@ Conflicts:	kdelibs < 9:3.1.94.040110-1
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define		_noautoreq	libtool(.*)
 %define		_xdgdatadir	%{_datadir}/desktop-directories
 # openexr detection fails
 %undefine	configure_cache
