@@ -27,7 +27,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.5.5
-Release:	4.3
+Release:	4.4
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -50,6 +50,8 @@ Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entrie
 Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-fontdir.patch
+# http://www.icefox.net/articles/kdeosx/grouplayer.diff
+Patch2:		%{name}-grouplayer.patch
 Patch3:		%{name}-kdm_utmpx.patch
 Patch4:		%{name}-kdmconfig.patch
 Patch5:		%{name}-kicker.patch
@@ -1046,6 +1048,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch100 -p0
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
