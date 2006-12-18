@@ -6,7 +6,9 @@
 # - fix kerberos support (kdm segfaults)
 # - warning: Installed (but unpackaged) file(s) found:
 #   /etc/xdg/menus/kde-screensavers.menu
-
+#   /usr/lib*/kde3/kickermenu_kate.la
+#   /usr/lib*/kde3/kickermenu_kate.so
+#
 # Conditional build:
 %bcond_without	apidocs		# Do not prepare API documentation
 %bcond_without	ldap		# build or not ldap ioslave
@@ -27,7 +29,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.5.5
-Release:	4.4
+Release:	4.5
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -119,6 +121,7 @@ BuildRequires:	sed >= 4.0
 #BuildRequires:	unsermake >= 040511
 BuildRequires:	xorg-app-bdftopcf
 BuildRequires:	xorg-cf-files
+BuildRequires:	xorg-lib-libXScrnSaver-devel
 BuildRequires:	xorg-lib-libXcomposite-devel
 BuildRequires:	xorg-lib-libXcursor-devel
 BuildRequires:	xorg-lib-libXdamage-devel
@@ -137,7 +140,6 @@ Conflicts:	kdelibs < 9:3.1.94.040110-1
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_noautoreq	libtool(.*)
 %define		_xdgdatadir	%{_datadir}/desktop-directories
 # openexr detection fails
 %undefine	configure_cache
