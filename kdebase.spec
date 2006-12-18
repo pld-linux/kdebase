@@ -6,7 +6,6 @@
 # - fix kerberos support (kdm segfaults)
 # - warning: Installed (but unpackaged) file(s) found:
 #   /etc/xdg/menus/kde-screensavers.menu
-#   /usr/lib*/kde3/kickermenu_kate.so
 #
 # Conditional build:
 %bcond_without	apidocs		# Do not prepare API documentation
@@ -28,7 +27,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.5.5
-Release:	4.5
+Release:	4.6
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -1434,33 +1433,18 @@ fi
 %{_includedir}/ksplash
 %{_includedir}/kwin
 %{_libdir}/libkasbar.la
-%{_libdir}/libkasbar.so
 %{_libdir}/libkateinterfaces.la
-%{_libdir}/libkateinterfaces.so
 %{_libdir}/libkateutils.la
-%{_libdir}/libkateutils.so
 %{_libdir}/libkdecorations.la
-%{_libdir}/libkdecorations.so
 %{_libdir}/libkfontinst.la
-%{_libdir}/libkfontinst.so
-# for desktop-libs
 %{_libdir}/libkhotkeys_shared.la
-#
 %{_libdir}/libkickermain.la
-%{_libdir}/libkickermain.so
 %{_libdir}/libkonq.la
-%{_libdir}/libkonq.so
 %{_libdir}/libkonqsidebarplugin.la
-%{_libdir}/libkonqsidebarplugin.so
 %{_libdir}/libksgrd.la
-%{_libdir}/libksgrd.so
 %{_libdir}/libksplashthemes.la
-%{_libdir}/libksplashthemes.so
-#{_libdir}/libsensordisplays.so
 %{_libdir}/libtaskbar.la
-%{_libdir}/libtaskbar.so
 %{_libdir}/libtaskmanager.la
-%{_libdir}/libtaskmanager.so
 
 %if %{with apidocs}
 %files apidocs
@@ -2069,6 +2053,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/kcm_taskbar.so
 %attr(755,root,root) %{_libdir}/kde3/kicker.so*
 %attr(755,root,root) %{_libdir}/kde3/kickermenu_find.so
+%attr(755,root,root) %{_libdir}/kde3/kickermenu_kate.so
 %attr(755,root,root) %{_libdir}/kde3/kickermenu_kdeprint.so
 %attr(755,root,root) %{_libdir}/kde3/kickermenu_konqueror.so
 %attr(755,root,root) %{_libdir}/kde3/kickermenu_konsole.so
@@ -2135,12 +2120,18 @@ fi
 
 %files desktop-libs
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libkhotkeys_shared.so
 %attr(755,root,root) %{_libdir}/libkhotkeys_shared.so.*.*.*
+%attr(755,root,root) %{_libdir}/libkasbar.so
 %attr(755,root,root) %{_libdir}/libkasbar.so.*.*.*
+%attr(755,root,root) %{_libdir}/libkdecorations.so
 %attr(755,root,root) %{_libdir}/libkdecorations.so.*.*.*
+%attr(755,root,root) %{_libdir}/libksplashthemes.so
 %attr(755,root,root) %{_libdir}/libksplashthemes.so.*.*.*
 # Merged kicker
+%attr(755,root,root) %{_libdir}/libtaskbar.so
 %attr(755,root,root) %{_libdir}/libtaskbar.so.*.*.*
+%attr(755,root,root) %{_libdir}/libtaskmanager.so
 %attr(755,root,root) %{_libdir}/libtaskmanager.so.*.*.*
 
 %files infocenter -f kinfocenter.lang
@@ -2235,7 +2226,7 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kfontinst
 %attr(755,root,root) %{_bindir}/kfontview
-%{_libdir}/libkfontinst.la
+%attr(755,root,root) %{_libdir}/libkfontinst.so
 %attr(755,root,root) %{_libdir}/libkfontinst.so.*.*.*
 %attr(755,root,root) %{_libdir}/kde3/libkfontviewpart.so
 %attr(755,root,root) %{_libdir}/kde3/kcm_fontinst.so
@@ -2325,14 +2316,14 @@ fi
 
 %files libkate
 %defattr(644,root,root,755)
-%{_libdir}/libkateinterfaces.la
+%attr(755,root,root) %{_libdir}/libkateinterfaces.so
 %attr(755,root,root) %{_libdir}/libkateinterfaces.so.*.*.*
-%{_libdir}/libkateutils.la
+%attr(755,root,root) %{_libdir}/libkateutils.so
 %attr(755,root,root) %{_libdir}/libkateutils.so.*.*.*
 
 %files libksgrd
 %defattr(644,root,root,755)
-%{_libdir}/libksgrd.la
+%attr(755,root,root) %{_libdir}/libksgrd.so
 %attr(755,root,root) %{_libdir}/libksgrd.so.*.*.*
 
 %files screensavers -f screensaver.lang
@@ -2607,9 +2598,9 @@ fi
 
 %files -n konqueror-libs
 %defattr(644,root,root,755)
-%{_libdir}/libkickermain.la
+%attr(755,root,root) %{_libdir}/libkickermain.so
 %attr(755,root,root) %{_libdir}/libkickermain.so.*.*.*
-%{_libdir}/libkonq.la
+%attr(755,root,root) %{_libdir}/libkonq.so
 %attr(755,root,root) %{_libdir}/libkonq.so.*.*.*
-%{_libdir}/libkonqsidebarplugin.la
+%attr(755,root,root) %{_libdir}/libkonqsidebarplugin.so
 %attr(755,root,root) %{_libdir}/libkonqsidebarplugin.so.*.*.*
