@@ -78,6 +78,7 @@ BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	samba-devel
 BuildRequires:	bzip2-devel
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
