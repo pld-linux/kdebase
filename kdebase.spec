@@ -6,6 +6,7 @@
 # - fix kerberos support (kdm segfaults)
 # - warning: Installed (but unpackaged) file(s) found:
 #   /etc/xdg/menus/kde-screensavers.menu
+# - libxklavier >= 2.91
 
 # Conditional build:
 %bcond_without	apidocs		# Do not prepare API documentation
@@ -50,17 +51,17 @@ Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entrie
 BuildRequires:	OpenEXR-devel >= 1.2.2
 BuildRequires:	OpenGL-devel
 %{?with_hidden_visibility:BuildRequires:	QtCore-devel >= 4.2.0}
-BuildRequires:	QtNetwork-devel <= 4.2.1
 BuildRequires:	QtNetwork-devel >= 4.2.0
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	samba-devel
 BuildRequires:	bzip2-devel
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
 BuildRequires:	cyrus-sasl-devel
 BuildRequires:	db-devel
-BuildRequires:	dbus-qt-devel >= 0.70
+#BuildRequires:	dbus-qt-devel >= 0.70
 %{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	ed
 %{?with_hidden_visibility:BuildRequires:	gcc-c++ >= 5:4.1.0-0.20051206r108118.1}
