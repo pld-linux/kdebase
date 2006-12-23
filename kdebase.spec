@@ -946,6 +946,7 @@ Obsoletes:	entrance
 Obsoletes:	gdm
 Obsoletes:	kdebase-kdm
 Obsoletes:	kdebase-pam
+Obsoletes:	slim
 Obsoletes:	wdm
 Obsoletes:	xdm
 
