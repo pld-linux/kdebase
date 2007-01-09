@@ -27,7 +27,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.5.5
-Release:	7
+Release:	8
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -109,6 +109,7 @@ BuildRequires:	lm_sensors-devel
 BuildRequires:	motif-devel
 %{?with_ldap:BuildRequires:	openldap-devel >= 2.3.0}
 BuildRequires:	openssl-devel >= 0.9.7c
+BuildRequires:	rpmbuild(macros) >= 1.356
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig
 %{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
@@ -1172,8 +1173,10 @@ install -d \
 	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror \
 	$RPM_BUILD_ROOT%{_datadir}/apps/kate/{scripts,plugins}
 
+%browser_plugins_add_browser konqueror -p %{_libdir}/kde3/plugins/konqueror
+
 if [ -d "$RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-%{version}-apidocs" ] ; then
-mv -f $RPM_BUILD_ROOT{%{_kdedocdir}/en/%{name}-%{version}-apidocs,%{_kdedocdir}/en/%{name}-apidocs}
+	mv -f $RPM_BUILD_ROOT{%{_kdedocdir}/en/%{name}-%{version}-apidocs,%{_kdedocdir}/en/%{name}-apidocs}
 fi
 
 # Drop generated Xsession file (we have own one)
@@ -1204,7 +1207,7 @@ cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
 	$RPM_BUILD_ROOT/etc/X11/kdm/faces/root.face.icon
 
 # konqueror/dirtree no longer supported
-rm $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop
+rm -f $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop
 
 # Workaround for gnome menu which maps all these to "Others" dir
 cd $RPM_BUILD_ROOT%{_desktopdir}/kde
@@ -1423,6 +1426,14 @@ fi
 if [ "$1" = "0" ]; then
 	%service kdm stop
 	/sbin/chkconfig --del kdm
+fi
+
+%post -n konqueror
+%update_browser_plugins
+
+%postun -n konqueror
+if [ "$1" = 0 ]; then
+	%update_browser_plugins
 fi
 
 %files devel
@@ -2381,6 +2392,11 @@ fi
 
 %files -n konqueror -f konqueror.lang
 %defattr(644,root,root,755)
+
+# browser plugins v2
+%{_browserpluginsconfdir}/browsers.d/konqueror.*
+%config(noreplace) %verify(not md5 mtime size) %{_browserpluginsconfdir}/blacklist.d/konqueror.*.blacklist
+
 %attr(755,root,root) %{_bindir}/appletproxy
 %attr(755,root,root) %{_bindir}/extensionproxy
 %attr(755,root,root) %{_bindir}/keditbookmarks
