@@ -1173,7 +1173,10 @@ install -d \
 	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror \
 	$RPM_BUILD_ROOT%{_datadir}/apps/kate/{scripts,plugins}
 
-%browser_plugins_add_browser konqueror -p %{_libdir}/kde3/plugins/konqueror
+%browser_plugins_add_browser konqueror -p %{_libdir}/kde3/plugins/konqueror -b <<'EOF'
+# konqueror does not work
+npwrapper.libflashplayer.so
+EOF
 
 if [ -d "$RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-%{version}-apidocs" ] ; then
 	mv -f $RPM_BUILD_ROOT{%{_kdedocdir}/en/%{name}-%{version}-apidocs,%{_kdedocdir}/en/%{name}-apidocs}
