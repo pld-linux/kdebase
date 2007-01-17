@@ -26,13 +26,13 @@ Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
-Version:	3.5.5
-Release:	5
+Version:	3.5.6
+Release:	0.2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	0c685af1cbca75f9c77b3ed231ba0468
+# Source0-md5:	a53f589f58012e655a52220a6a151019
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -46,10 +46,11 @@ Source10:	%{name}-servicemenus.tar.bz2
 # Source10-md5:	f48ac7af286f4c87961de4bb24d07772
 Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
-# Temporary taken from kde svn
-Patch100:	%{name}-branch.diff
+#Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-fontdir.patch
+# http://www.icefox.net/articles/kdeosx/grouplayer.diff -- group all windows belonging to single app
+Patch2:		%{name}-grouplayer.patch
 Patch3:		%{name}-kdm_utmpx.patch
 Patch4:		%{name}-kdmconfig.patch
 Patch5:		%{name}-kicker.patch
@@ -66,17 +67,16 @@ Patch19:	%{name}-konsole-default-keytab.patch
 Patch20:	%{name}-seesar.patch
 Patch21:	%{name}-konsole-wordseps.patch
 Patch22:	%{name}-tango.patch
-Patch23:	kde-am.patch
 Patch24:	kde-ac260-lt.patch
 Patch25:	%{name}-konsole-history_clear.patch
 Patch26:	%{name}-kdm-default_background.patch
-Patch27:	kde-bug-124895.patch
 BuildRequires:	OpenEXR-devel >= 1.2.2
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	samba-devel
+BuildRequires:	samba-devel >= 1:3.0.23d-2.3
+BuildRequires:	libsmbclient-devel >= 1:3.0.23d-2.3
 BuildRequires:	bzip2-devel
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
@@ -1036,9 +1036,10 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 %prep
 %setup -q
-%patch100 -p0
+#%patch100 -p0
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
@@ -1058,11 +1059,9 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch20 -p1
 %patch21 -p1
 %patch22 -p0
-%patch23 -p1
 %patch24 -p1
 %patch25 -p1
 %patch26 -p1
-%patch27 -p0
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
 for i in  google*.desktop
@@ -2052,9 +2051,6 @@ fi
 %{_iconsdir}/*/*/apps/linuxconf.png
 %{_iconsdir}/*/*/apps/lyx.png
 %{_iconsdir}/*/*/apps/mathematica.png
-%{_iconsdir}/*/*/apps/mozilla.png
-%{_iconsdir}/*/*/apps/mozilla_m.png
-%{_iconsdir}/*/*/apps/mozilla_mail.png
 %{_iconsdir}/*/*/apps/nedit.png
 %{_iconsdir}/*/*/apps/netscape.png
 %{_iconsdir}/*/*/apps/opera.png
@@ -2103,7 +2099,6 @@ fi
 %{_iconsdir}/crystalsvg/*/apps/eclipse.png
 %{_iconsdir}/crystalsvg/*/apps/edu_*.png
 %{_iconsdir}/crystalsvg/*/apps/evolution.png
-%{_iconsdir}/crystalsvg/*/apps/firefox.png
 %{_iconsdir}/crystalsvg/*/apps/gabber.png
 %{_iconsdir}/crystalsvg/*/apps/gaim.png
 %{_iconsdir}/crystalsvg/*/apps/gnomemeeting.png
@@ -2114,7 +2109,6 @@ fi
 %{_iconsdir}/crystalsvg/*/apps/planner.png
 %{_iconsdir}/crystalsvg/*/apps/scribus.png
 %{_iconsdir}/crystalsvg/*/apps/sodipodi.png
-%{_iconsdir}/crystalsvg/*/apps/thunderbird.png
 %{_iconsdir}/crystalsvg/*/apps/wine.png
 %{_iconsdir}/crystalsvg/scalable/apps
 # New
@@ -2154,6 +2148,8 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/kickermenu_find.so
 %{_libdir}/kde3/kickermenu_kdeprint.la
 %attr(755,root,root) %{_libdir}/kde3/kickermenu_kdeprint.so
+%{_libdir}/kde3/kickermenu_kate.la
+%attr(755,root,root) %{_libdir}/kde3/kickermenu_kate.so
 %{_libdir}/kde3/kickermenu_konqueror.la
 %attr(755,root,root) %{_libdir}/kde3/kickermenu_konqueror.so
 %{_libdir}/kde3/kickermenu_konsole.la
