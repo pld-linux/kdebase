@@ -76,7 +76,6 @@ BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	samba-devel
 BuildRequires:	bzip2-devel
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
@@ -96,7 +95,7 @@ BuildRequires:	lame-libs-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	libraw1394-devel >= 1.2.0
-BuildRequires:	libsmbclient-devel >= 3.0.0
+BuildRequires:	libsmbclient-devel >= 1:3.0.23d-3
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool
@@ -108,13 +107,13 @@ BuildRequires:	lm_sensors-devel
 BuildRequires:	motif-devel
 %{?with_ldap:BuildRequires:	openldap-devel >= 2.3.0}
 BuildRequires:	openssl-devel >= 0.9.7c
-BuildRequires:	rpmbuild(macros) >= 1.356
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig
 %{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
 %{?with_apidocs:BuildRequires:	qt-doc}
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.268
+BuildRequires:	rpmbuild(macros) >= 1.356
+BuildRequires:	samba-devel
 BuildRequires:	sed >= 4.0
 #BuildRequires:	unsermake >= 040511
 BuildRequires:	xorg-app-bdftopcf
