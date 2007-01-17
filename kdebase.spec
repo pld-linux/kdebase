@@ -75,8 +75,6 @@ BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	samba-devel >= 1:3.0.23d-2.3
-BuildRequires:	libsmbclient-devel >= 1:3.0.23d-2.3
 BuildRequires:	bzip2-devel
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
@@ -96,7 +94,7 @@ BuildRequires:	lame-libs-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	libraw1394-devel >= 1.2.0
-BuildRequires:	libsmbclient-devel >= 3.0.0
+BuildRequires:	libsmbclient-devel >= 1:3.0.23d-2.3
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool
