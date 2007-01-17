@@ -113,7 +113,6 @@ BuildRequires:	pkgconfig
 %{?with_apidocs:BuildRequires:	qt-doc}
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.356
-BuildRequires:	samba-devel
 BuildRequires:	sed >= 4.0
 #BuildRequires:	unsermake >= 040511
 BuildRequires:	xorg-app-bdftopcf
