@@ -27,7 +27,7 @@ Summary(uk):	K Desktop Environment - базов╕ файли
 Summary(zh_CN):	KDE╨кпд
 Name:		kdebase
 Version:	3.5.6
-Release:	0.3
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
