@@ -27,7 +27,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.5.6
-Release:	1
+Release:	2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -113,7 +113,7 @@ BuildRequires:	pkgconfig
 %{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
 %{?with_apidocs:BuildRequires:	qt-doc}
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.268
+BuildRequires:	rpmbuild(macros) >= 1.356
 BuildRequires:	sed >= 4.0
 #BuildRequires:	unsermake >= 040511
 BuildRequires:	xcursor-devel >= 1.1.0
@@ -1159,8 +1159,13 @@ install -d \
 	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror \
 	$RPM_BUILD_ROOT%{_datadir}/apps/kate/{scripts,plugins}
 
+%browser_plugins_add_browser konqueror -p %{_libdir}/kde3/plugins/konqueror -b <<'EOF'
+# konqueror does not work
+npwrapper.libflashplayer.so
+EOF
+
 if [ -d "$RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-%{version}-apidocs" ] ; then
-mv -f $RPM_BUILD_ROOT{%{_kdedocdir}/en/%{name}-%{version}-apidocs,%{_kdedocdir}/en/%{name}-apidocs}
+	mv -f $RPM_BUILD_ROOT{%{_kdedocdir}/en/%{name}-%{version}-apidocs,%{_kdedocdir}/en/%{name}-apidocs}
 fi
 
 # Drop generated Xsession file (we have own one)
@@ -1408,6 +1413,14 @@ if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del kdm
 fi
 
+%post -n konqueror
+%update_browser_plugins
+
+%postun -n konqueror
+if [ "$1" = 0 ]; then
+	%update_browser_plugins
+fi
+
 %files devel
 %defattr(644,root,root,755)
 %{_includedir}/*.h
@@ -1594,7 +1607,7 @@ fi
 %{_iconsdir}/[!l]*/*/apps/bell.png
 %{_iconsdir}/*/*/apps/key_bindings.png
 
-%files core  -f core.lang
+%files core -f core.lang
 %defattr(644,root,root,755)
 %lang(en) %dir %{_kdedocdir}/en/kcontrol
 %lang(en) %{_kdedocdir}/en/kcontrol/common
@@ -2518,6 +2531,11 @@ fi
 
 %files -n konqueror -f konqueror.lang
 %defattr(644,root,root,755)
+
+# browser plugins v2
+%{_browserpluginsconfdir}/browsers.d/konqueror.*
+%config(noreplace) %verify(not md5 mtime size) %{_browserpluginsconfdir}/blacklist.d/konqueror.*.blacklist
+
 %attr(755,root,root) %{_bindir}/appletproxy
 %attr(755,root,root) %{_bindir}/extensionproxy
 %attr(755,root,root) %{_bindir}/keditbookmarks
