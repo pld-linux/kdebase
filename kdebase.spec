@@ -27,7 +27,7 @@ Summary(uk):	K Desktop Environment - базов╕ файли
 Summary(zh_CN):	KDE╨кпд
 Name:		kdebase
 Version:	3.5.6
-Release:	2
+Release:	3
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -1169,10 +1169,7 @@ install -d \
 	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror \
 	$RPM_BUILD_ROOT%{_datadir}/apps/kate/{scripts,plugins}
 
-%browser_plugins_add_browser konqueror -p %{_libdir}/kde3/plugins/konqueror -b <<'EOF'
-# konqueror does not work
-npwrapper.libflashplayer.so
-EOF
+%browser_plugins_add_browser konqueror -p %{_libdir}/kde3/plugins/konqueror
 
 if [ -d "$RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-%{version}-apidocs" ] ; then
 	mv -f $RPM_BUILD_ROOT{%{_kdedocdir}/en/%{name}-%{version}-apidocs,%{_kdedocdir}/en/%{name}-apidocs}
