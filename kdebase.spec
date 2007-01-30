@@ -27,7 +27,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.5.6
-Release:	3
+Release:	4
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -955,6 +955,7 @@ Requires:	konqueror-libs = %{epoch}:%{version}-%{release}
 Provides:	wwwbrowser
 Obsoletes:	kdebase-konqueror
 Obsoletes:	kdebase-libkmultitabbar
+Requires(post):	browser-plugins
 
 %description -n konqueror
 Konqueror is the file manager for the K Desktop Environment. It
