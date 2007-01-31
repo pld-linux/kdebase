@@ -950,12 +950,12 @@ sesjami X11. Udostêpnia tak¿e graficzny tryb logowania.
 Summary:	Konqueror - web browser and file manager
 Summary(pl):	Konqueror - przegl±darka WWW i zarz±dca plików
 Group:		X11/Applications
+Requires(post,postun):	browser-plugins >= 2.0
 Requires:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
 Requires:	konqueror-libs = %{epoch}:%{version}-%{release}
 Provides:	wwwbrowser
 Obsoletes:	kdebase-konqueror
 Obsoletes:	kdebase-libkmultitabbar
-Requires(post):	browser-plugins
 
 %description -n konqueror
 Konqueror is the file manager for the K Desktop Environment. It
