@@ -27,7 +27,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.5.6
-Release:	4
+Release:	5
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -960,8 +960,8 @@ sesjami X11. Udostêpnia tak¿e graficzny tryb logowania.
 Summary:	Konqueror - web browser and file manager
 Summary(pl):	Konqueror - przegl±darka WWW i zarz±dca plików
 Group:		X11/Applications
-Requires(post,postun):	browser-plugins >= 2.0
 Requires:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
+Requires:	browser-plugins >= 2.0
 Requires:	konqueror-libs = %{epoch}:%{version}-%{release}
 Provides:	wwwbrowser
 Obsoletes:	kdebase-konqueror
