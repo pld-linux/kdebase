@@ -12,6 +12,7 @@
 %bcond_without	ldap		# build or not ldap ioslave
 %bcond_with	kerberos5	# kerberos 5 support
 %bcond_without	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
+%bcond_with	groupwindows	# raise all windows belonging to program together
 #
 %define		_state		stable
 %define		_minlibsevr	9:%{version}
@@ -1048,7 +1049,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch100 -p0
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
+%{?with_groupwindows:%patch2 -p1}
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
