@@ -1731,6 +1731,7 @@ fi
 %{_iconsdir}/*/*/apps/input_devices_settings.png
 %{_iconsdir}/*/*/apps/kcmdrkonqi.png
 %{_iconsdir}/*/*/apps/khelpcenter.*
+%{_iconsdir}/*/*/apps/knetattach.*
 %{_iconsdir}/*/*/apps/kcmsystem.png
 %{_iconsdir}/*/*/apps/kcontrol.png
 %{_iconsdir}/*/*/apps/locale.png
@@ -2051,9 +2052,6 @@ fi
 %{_iconsdir}/*/*/apps/keyboard_layout.png
 %{_iconsdir}/*/*/apps/keyboard.png
 %{_iconsdir}/*/*/apps/khotkeys.png
-# New (to konqueror?)
-%{_iconsdir}/*/*/apps/knetattach.*
-#
 %{_iconsdir}/*/*/apps/knotify.png
 %{_iconsdir}/*/*/apps/ksplash.png
 %{_iconsdir}/*/*/apps/ktip.*
