@@ -1198,84 +1198,87 @@ rm $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop
 
 # Workaround for gnome menu which maps all these to "Others" dir
 cd $RPM_BUILD_ROOT%{_desktopdir}/kde
-for f in `grep -El 'X-KDE-settings|X-KDE-information' *`; do
+for f in $(grep -El 'X-KDE-settings|X-KDE-information' *); do
 	echo "OnlyShowIn=KDE" >> $f
 done
 cd -
 
 # find_lang
 > core.lang
-programs=" \
-	colors \
-	fonts \
-	kcmstyle \
-	kdebugdialog \
-	kdeprint \
-	kdesu \
-	khelpcenter \
-	knetattach \
-	kompmgr \
-	language"
-
+programs="
+colors
+fonts
+kcmstyle
+kdebugdialog
+kdeprint
+kdesu
+khelpcenter
+knetattach
+kompmgr
+language
+"
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> core.lang
+	rm -f $i.lang
 done
 
 > %{name}.lang
-programs=" \
-	arts \
-	background \
-	bell \
-	clock \
-	desktop \
-	desktopbehavior \
-	energy \
-	kcmaccess \
-	kcmlaunch \
-	kcmnotify \
-	kcmsmserver \
-	kcmtaskbar \
-	keyboard \
-	keys \
-	kicker \
-	kmenuedit \
-	ksplashml \
-	kwindecoration \
-	kxkb \
-	mouse \
-	panel \
-	panelappearance \
-	passwords \
-	performance \
-	spellchecking \
-	windowmanagement"
-
+programs="
+arts
+background
+bell
+clock
+desktop
+desktopbehavior
+energy
+kcmaccess
+kcmlaunch
+kcmnotify
+kcmsmserver
+kcmtaskbar
+keyboard
+keys
+kicker
+kmenuedit
+ksplashml
+kwindecoration
+kxkb
+mouse
+panel
+panelappearance
+passwords
+performance
+spellchecking
+windowmanagement
+"
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> %{name}.lang
+	rm -f $i.lang
 done
 
 %find_lang konqueror	--with-kde
-programs="\
-	cache \
-	cookies \
-	crypto \
-	ebrowsing \
-	email \
-	filemanager \
-	filetypes \
-	icons \
-	kcmcss \
-	khtml \
-	netpref \
-	proxy \
-	smb \
-	useragent"
-
+programs="
+cache
+cookies
+crypto
+ebrowsing
+email
+filemanager
+filetypes
+icons
+kcmcss
+khtml
+netpref
+proxy
+smb
+useragent
+"
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> konqueror.lang
+	rm -f $i.lang
 done
 
 %find_lang kappfinder	--with-kde
@@ -1293,9 +1296,10 @@ done
 %find_lang kpager	--with-kde
 %find_lang kwrite	--with-kde
 %find_lang screensaver	--with-kde
-
 cat kcmkonsole.lang	>> konsole.lang
+rm -f kcmkonsole.lang
 cat kioslave.lang	>> kinfocenter.lang
+rm -f kioslave.lang
 
 # Omit apidocs entries
 sed -i 's/.*apidocs.*//' *.lang
