@@ -28,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.5.6
-Release:	5
+Release:	6
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -555,7 +555,7 @@ Requires:	kde-kside
 Requires:	kde-logoutpic
 Requires:	kde-splash-Default
 Requires:	konqueror = %{epoch}:%{version}-%{release}
-Requires:	pam >= 0.79.0
+Requires:	pam >= 0.99.7.1
 Provides:	kdebase-kicker
 Obsoletes:	kde-decoration-plastik
 Obsoletes:	kde-theme-keramik
@@ -937,7 +937,7 @@ Group:		X11/Applications
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	kde-kgreet
-Requires:	pam >= 0.79.0
+Requires:	pam >= 0.99.7.1
 Requires:	rc-scripts
 Requires:	xorg-app-sessreg
 Obsoletes:	X11-xdm
