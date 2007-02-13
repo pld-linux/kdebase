@@ -18,14 +18,14 @@
 %define		_minlibsevr	9:%{version}
 
 Summary:	K Desktop Environment - core files
-Summary(es.UTF-8):   K Desktop Environment - archivos básicos
-Summary(ja.UTF-8):   KDEデスクトップ環境 - 基本ファイル
-Summary(ko.UTF-8):   KDE - 기본 파일
-Summary(pl.UTF-8):   K Desktop Environment - pliki środowiska
-Summary(pt_BR.UTF-8):   K Desktop Environment - arquivos básicos
-Summary(ru.UTF-8):   K Desktop Environment - базовые файлы
-Summary(uk.UTF-8):   K Desktop Environment - базові файли
-Summary(zh_CN.UTF-8):   KDE核心
+Summary(es.UTF-8):	K Desktop Environment - archivos básicos
+Summary(ja.UTF-8):	KDEデスクトップ環境 - 基本ファイル
+Summary(ko.UTF-8):	KDE - 기본 파일
+Summary(pl.UTF-8):	K Desktop Environment - pliki środowiska
+Summary(pt_BR.UTF-8):	K Desktop Environment - arquivos básicos
+Summary(ru.UTF-8):	K Desktop Environment - базовые файлы
+Summary(uk.UTF-8):	K Desktop Environment - базові файли
+Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.6
 Release:	6
@@ -185,8 +185,8 @@ kfontmanager, kmenuedit, kappfinder).
 
 %package devel
 Summary:	Include files to develop KDE applications
-Summary(pl.UTF-8):   Pliki nagłówkowe potrzebne do tworzenia aplikacji KDE
-Summary(pt_BR.UTF-8):   Arquivos de inclusão para compilar aplicativos que usem bibliotecas do kdebase
+Summary(pl.UTF-8):	Pliki nagłówkowe potrzebne do tworzenia aplikacji KDE
+Summary(pt_BR.UTF-8):	Arquivos de inclusão para compilar aplicativos que usem bibliotecas do kdebase
 Group:		X11/Development/Libraries
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kfontinst = %{epoch}:%{version}-%{release}
@@ -208,7 +208,7 @@ compilar aplicativos que usem bibliotecas do kdebase.
 
 %package -n kde-decoration-b2
 Summary:	KDE Window Decoration - B2
-Summary(pl.UTF-8):   Dekoracja okna dla KDE - B2
+Summary(pl.UTF-8):	Dekoracja okna dla KDE - B2
 Group:		X11/Amusements
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
@@ -226,7 +226,7 @@ siebie.
 
 %package -n kde-decoration-keramik
 Summary:	KDE Window Decoration - keramik
-Summary(pl.UTF-8):   Dekoracja okna dla KDE - keramik
+Summary(pl.UTF-8):	Dekoracja okna dla KDE - keramik
 Group:		X11/Amusements
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 Conflicts:	kdebase-desktop < 9:3.3.91
@@ -239,7 +239,7 @@ Dekoracja okna dla KDE - keramik.
 
 %package -n kde-decoration-laptop
 Summary:	KDE Window Decoration - Laptop
-Summary(pl.UTF-8):   Dekoracja okna dla KDE - Laptop
+Summary(pl.UTF-8):	Dekoracja okna dla KDE - Laptop
 Group:		X11/Amusements
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
@@ -253,7 +253,7 @@ przyciskami okna.
 
 %package -n kde-decoration-modernsys
 Summary:	KDE Window Decoration - ModernSys
-Summary(pl.UTF-8):   Dekoracja okna dla KDE - ModernSys
+Summary(pl.UTF-8):	Dekoracja okna dla KDE - ModernSys
 Group:		X11/Amusements
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
@@ -269,7 +269,7 @@ służący do zmiany rozmiaru w prawym dolnym rogu okna.
 
 %package -n kde-decoration-quartz
 Summary:	KDE Window Decoration - Quartz
-Summary(pl.UTF-8):   Dekoracja okna dla KDE - Quartz
+Summary(pl.UTF-8):	Dekoracja okna dla KDE - Quartz
 Group:		X11/Amusements
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
@@ -285,7 +285,7 @@ obszarami jest stylowy przejście.
 
 %package -n kde-decoration-redmond
 Summary:	KDE Window Decoration - Redmond
-Summary(pl.UTF-8):   Dekoracja okna dla KDE - Redmond
+Summary(pl.UTF-8):	Dekoracja okna dla KDE - Redmond
 Group:		X11/Amusements
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
@@ -297,7 +297,7 @@ Dekoracja okna przypominająca tę z Windows 98.
 
 %package -n kde-decoration-web
 Summary:	KDE Window Decoration - Web
-Summary(pl.UTF-8):   Dekoracja okna dla KDE - Web
+Summary(pl.UTF-8):	Dekoracja okna dla KDE - Web
 Group:		X11/Amusements
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
@@ -311,7 +311,7 @@ widocznymi, cienkimi krawędziami.
 
 %package -n kde-kgreet-classic
 Summary:	KDE greeter libraries
-Summary(pl.UTF-8):   Biblioteki służące do zapytań o hasło
+Summary(pl.UTF-8):	Biblioteki służące do zapytań o hasło
 Group:		X11/Libraries
 Requires:	kdelibs >= %{_minlibsevr}
 Provides:	kde-kgreet
@@ -326,7 +326,7 @@ wyglądu.
 
 %package -n kde-kgreet-winbind
 Summary:	KDE greeter libraries
-Summary(pl.UTF-8):   Biblioteki służące do zapytań o hasło
+Summary(pl.UTF-8):	Biblioteki służące do zapytań o hasło
 Group:		X11/Libraries
 Requires:	kdelibs >= %{_minlibsevr}
 Provides:	kde-kgreet
@@ -340,7 +340,7 @@ Narzędzia służące do zapytań o hasło - winbind.
 
 %package -n kde-kio-ldap
 Summary:	KDE LDAP protocol service
-Summary(pl.UTF-8):   Obsługa protokołu LDAP
+Summary(pl.UTF-8):	Obsługa protokołu LDAP
 Group:		X11/Libraries
 Requires:	kdelibs >= %{_minlibsevr}
 Conflicts:	konqueror < 9:3.2.90.040210
@@ -353,7 +353,7 @@ Obsługa protokołu LDAP.
 
 %package -n kde-kio-nntp
 Summary:	KDE NNTP protocol service
-Summary(pl.UTF-8):   Obsługa protokołu NNTP
+Summary(pl.UTF-8):	Obsługa protokołu NNTP
 Group:		X11/Libraries
 Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdebase-mailnews
@@ -366,7 +366,7 @@ Obsługa protokołu NNTP.
 
 %package -n kde-kio-pop3
 Summary:	KDE POP3 protocol service
-Summary(pl.UTF-8):   Obsługa protokołu POP3
+Summary(pl.UTF-8):	Obsługa protokołu POP3
 Group:		X11/Libraries
 Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdebase-mailnews
@@ -379,7 +379,7 @@ Obsługa protokołu POP3.
 
 %package -n kde-kio-smtp
 Summary:	KDE SMTP protocol service
-Summary(pl.UTF-8):   Obsługa protokołu SMTP
+Summary(pl.UTF-8):	Obsługa protokołu SMTP
 Group:		X11/Libraries
 Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdebase-mailnews
@@ -392,7 +392,7 @@ Obsługa protokołu SMTP.
 
 %package -n kde-kside-default
 Summary:	Default kicker sidebar
-Summary(pl.UTF-8):   Domyślny boczny pasek do menu KDE
+Summary(pl.UTF-8):	Domyślny boczny pasek do menu KDE
 Group:		Themes
 Requires:	kdebase-desktop >= 9:3.2.90.040424-2
 Provides:	kde-kside
@@ -407,7 +407,7 @@ Environment.
 
 %package -n kde-logoutpic-default
 Summary:	KDE "Logout" picture
-Summary(pl.UTF-8):   Obrazek okna "Wyloguj" KDE
+Summary(pl.UTF-8):	Obrazek okna "Wyloguj" KDE
 Group:		X11/Amusements
 Requires:	%{name}-desktop
 Provides:	kde-logoutpic
@@ -421,7 +421,7 @@ Standardowy obrazek okna "Wyloguj" z logiem KDE.
 
 %package -n kde-splash-Default
 Summary:	Default clasic KDE splashscreen
-Summary(pl.UTF-8):   Domyślny klasyczny ekran startowy KDE
+Summary(pl.UTF-8):	Domyślny klasyczny ekran startowy KDE
 Group:		X11/Amusements
 # DONT PUT STRICT R: HERE
 Requires:	%{name}-desktop >= %{epoch}:%{version}-%{release}
@@ -436,7 +436,7 @@ Domyślny ekran powitalny dostarczony w tej wersji KDE.
 
 %package -n kde-splash-blue-bend
 Summary:	KDE blue-bend splashscreen
-Summary(pl.UTF-8):   Ekran powitalny KDE blue-bend
+Summary(pl.UTF-8):	Ekran powitalny KDE blue-bend
 Group:		X11/Amusements
 # DONT PUT STRICT R: HERE
 Requires:	%{name}-desktop >= %{epoch}:%{version}-%{release}
@@ -449,7 +449,7 @@ Ekran powitalny KDE blue-bend.
 
 %package -n kde-splashplugin-Redmond
 Summary:	ksplash plugin Redmond
-Summary(pl.UTF-8):   Wtyczka ksplash Redmond
+Summary(pl.UTF-8):	Wtyczka ksplash Redmond
 Group:		X11/Amusements
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 Obsoletes:	kde-splashplugin-XpLike
@@ -464,7 +464,7 @@ XP mają miejsce po zalogowaniu.
 
 %package -n kde-splashplugin-Standard
 Summary:	ksplash plugin Standard
-Summary(pl.UTF-8):   Wtyczka ksplash Standard
+Summary(pl.UTF-8):	Wtyczka ksplash Standard
 Group:		X11/Amusements
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
@@ -484,7 +484,7 @@ inna ikona.
 
 %package common-filemanagement
 Summary:	Common Files for kate and konqueror
-Summary(pl.UTF-8):   Pliki wspólne dla kate i konquerora
+Summary(pl.UTF-8):	Pliki wspólne dla kate i konquerora
 Group:		X11/Libraries
 Requires:	%{name}-common-konsole = %{epoch}:%{version}-%{release}
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
@@ -498,7 +498,7 @@ konquerora.
 
 %package common-konsole
 Summary:	Common files for konsole and konsolepart
-Summary(pl.UTF-8):   Pliki wspólne dla konsole i konsolepart
+Summary(pl.UTF-8):	Pliki wspólne dla konsole i konsolepart
 Group:		X11/Applications
 Requires(post,postun):	fontpostinst
 Requires:	kdelibs >= %{_minlibsevr}
@@ -513,7 +513,7 @@ Schematy kolorów, ikony, czcionki oraz profile sesji dla konsole.
 
 %package core
 Summary:	KDE Core Apps
-Summary(pl.UTF-8):   Podstawowe aplikacje KDE
+Summary(pl.UTF-8):	Podstawowe aplikacje KDE
 Group:		X11/Applications
 Requires:	kdelibs >= %{_minlibsevr}
 Requires:	sudo
@@ -542,7 +542,7 @@ Podstawowe aplikacje środowiska KDE. Pakiet ten zawiera:
 
 %package desktop
 Summary:	KDesktop - handling of desktop icons, popup menus etc.
-Summary(pl.UTF-8):   KDesktop - obsługa ikon na pulpicie, menu itp.
+Summary(pl.UTF-8):	KDesktop - obsługa ikon na pulpicie, menu itp.
 Group:		X11/Applications
 Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kdialog = %{epoch}:%{version}-%{release}
@@ -590,7 +590,7 @@ pasek menu oraz system wygaszacza ekranu.
 
 %package desktop-libs
 Summary:	KDesktop libraries
-Summary(pl.UTF-8):   Biblioteki KDesktop
+Summary(pl.UTF-8):	Biblioteki KDesktop
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	konqueror-libs = %{epoch}:%{version}-%{release}
@@ -606,7 +606,7 @@ i dekoracji okna).
 
 %package infocenter
 Summary:	KDE Info Center
-Summary(pl.UTF-8):   Centrum informacji o systemie dla KDE
+Summary(pl.UTF-8):	Centrum informacji o systemie dla KDE
 Group:		X11/Applications
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	pciutils
@@ -619,7 +619,7 @@ Centrum informacji o systemie dla KDE.
 
 %package kappfinder
 Summary:	Menu Updating Tool
-Summary(pl.UTF-8):   Narzędzie do aktualizacji menu
+Summary(pl.UTF-8):	Narzędzie do aktualizacji menu
 Group:		X11/Applications
 Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdebase =< 8:3.2-0.030418.2
@@ -634,7 +634,7 @@ menu.
 
 %package kate
 Summary:	KDE Advanced Text Editor
-Summary(pl.UTF-8):   Zaawansowany edytor tekstu dla KDE
+Summary(pl.UTF-8):	Zaawansowany edytor tekstu dla KDE
 Group:		X11/Applications/Editors
 Requires:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
@@ -681,7 +681,7 @@ możliwościach obejmujących m.in.:
 
 %package kdeprintfax
 Summary:	KDE Fax Tool
-Summary(pl.UTF-8):   Narzędzie do faksowania dla KDE
+Summary(pl.UTF-8):	Narzędzie do faksowania dla KDE
 Group:		X11/Applications
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	efax
@@ -695,7 +695,7 @@ Wsparcie wysyłania faksów dla systemu drukowania KDE.
 
 %package kdcop
 Summary:	Graphic DCOP browser/client
-Summary(pl.UTF-8):   Graficzna przegladarka/klient DCOP
+Summary(pl.UTF-8):	Graficzna przegladarka/klient DCOP
 Group:		X11/Applications
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Obsoletes:	kdebase-desktop < 9:3.1.91.030911
@@ -710,7 +710,7 @@ bardzo zaawansowanym użytkownikom.
 
 %package kdialog
 Summary:	A KDE version of dialog
-Summary(pl.UTF-8):   Wersja KDE dialogu
+Summary(pl.UTF-8):	Wersja KDE dialogu
 Group:		X11/Applications
 Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdebase < 8:3.2-0.030423.2
@@ -725,7 +725,7 @@ skryptów powłoki.
 
 %package kfind
 Summary:	KDE Find Tool
-Summary(pl.UTF-8):   Narzędzie do wyszukiwania plików dla KDE
+Summary(pl.UTF-8):	Narzędzie do wyszukiwania plików dla KDE
 Group:		X11/Applications
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Obsoletes:	kfind
@@ -738,7 +738,7 @@ Narzędzie do wyszukiwania plików dla KDE.
 
 %package kfontinst
 Summary:	K Font Installer
-Summary(pl.UTF-8):   Instalator fontów dla KDE
+Summary(pl.UTF-8):	Instalator fontów dla KDE
 Group:		X11/Applications
 #Requires:	konqueror = %{epoch}:%{version}-%{release}
 # for /usr/share/doc/kde/HTML/en/kcontrol, probably stupid
@@ -753,7 +753,7 @@ Instalator czcionek dla KDE.
 
 %package kjobviewer
 Summary:	Print Job Viewer
-Summary(pl.UTF-8):   Podgląd zadań drukowania
+Summary(pl.UTF-8):	Podgląd zadań drukowania
 Group:		X11/Applications
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 
@@ -765,7 +765,7 @@ Przeglądarka kolejki drukowania dla KDE.
 
 %package klipper
 Summary:	Clipboard Tool
-Summary(pl.UTF-8):   Narzędzie schowka
+Summary(pl.UTF-8):	Narzędzie schowka
 Group:		X11/Applications
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
@@ -779,7 +779,7 @@ systemu.
 
 %package konsole
 Summary:	KDE Terminal Emulator
-Summary(pl.UTF-8):   Emulator terminala dla KDE
+Summary(pl.UTF-8):	Emulator terminala dla KDE
 Group:		X11/Applications
 Requires:	%{name}-common-konsole = %{epoch}:%{version}-%{release}
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
@@ -793,7 +793,7 @@ Emulator terminala dla KDE.
 
 %package kpager
 Summary:	Desktop Pager
-Summary(pl.UTF-8):   Przełącznik biurek
+Summary(pl.UTF-8):	Przełącznik biurek
 Group:		X11/Applications
 Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdebase =< 8:3.2-0.030418.2
@@ -806,7 +806,7 @@ Przełącznik biurek dla KDE.
 
 %package kpersonalizer
 Summary:	KDE desktop settings wizard
-Summary(pl.UTF-8):   Kreator ustawień środowiska KDE
+Summary(pl.UTF-8):	Kreator ustawień środowiska KDE
 Group:		X11/Applications
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 Requires:	%{name}-klipper = %{epoch}:%{version}-%{release}
@@ -820,7 +820,7 @@ Kreator ustawień środowiska KDE.
 
 %package ksysguard
 Summary:	System Guard
-Summary(pl.UTF-8):   Strażnik systemu
+Summary(pl.UTF-8):	Strażnik systemu
 Group:		X11/Applications
 Requires(post,postun):	/sbin/ldconfig
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
@@ -834,7 +834,7 @@ Strażnik systemu dla KDE.
 
 %package kwrite
 Summary:	KDE Text Editor
-Summary(pl.UTF-8):   Edytor tekstu dla KDE
+Summary(pl.UTF-8):	Edytor tekstu dla KDE
 Group:		X11/Applications/Editors
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
@@ -852,7 +852,7 @@ szybszą dla mniejszych zadań.
 
 %package kwrited
 Summary:	KDE write messaging daemon
-Summary(pl.UTF-8):   Demon do KDE obsługujący wymianę wiadomości za pomocą write
+Summary(pl.UTF-8):	Demon do KDE obsługujący wymianę wiadomości za pomocą write
 Group:		X11/Applications
 # With functional reasons
 Requires:	kdebase-core = %{epoch}:%{version}-%{release}
@@ -868,7 +868,7 @@ wysyłają za pomocą komend write lub wall.
 
 %package libkate
 Summary:	A libraries for KDE text editors
-Summary(pl.UTF-8):   Biblioteki dla edytorów tekstu KDE
+Summary(pl.UTF-8):	Biblioteki dla edytorów tekstu KDE
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	kdelibs >= %{_minlibsevr}
@@ -885,7 +885,7 @@ interfejs kate, który można osadzać w innych aplikacjach.
 
 %package libksgrd
 Summary:	ksgrd library
-Summary(pl.UTF-8):   Biblioteka ksgrd
+Summary(pl.UTF-8):	Biblioteka ksgrd
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	kdelibs >= %{_minlibsevr}
@@ -900,9 +900,9 @@ Biblioteka zawierające funkcje monitora systemu - KSysGuard.
 
 %package screensavers
 Summary:	KDE screensavers
-Summary(pl.UTF-8):   Wygaszacze ekranu desktopu KDE
-Summary(ru.UTF-8):   хранители экрана для KDE
-Summary(uk.UTF-8):   зберігачі екрану для KDE
+Summary(pl.UTF-8):	Wygaszacze ekranu desktopu KDE
+Summary(ru.UTF-8):	хранители экрана для KDE
+Summary(uk.UTF-8):	зберігачі екрану для KDE
 Group:		X11/Applications
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
@@ -917,7 +917,7 @@ Wygaszacze ekranu desktopu KDE.
 
 %package useraccount
 Summary:	User Account
-Summary(pl.UTF-8):   Konto użytkownika
+Summary(pl.UTF-8):	Konto użytkownika
 Group:		X11/Applications
 Obsoletes:	kdeutils-kdepasswd
 Obsoletes:	kdeutils-userinfo
@@ -932,7 +932,7 @@ funkcjonalność programu kdepasswd.
 
 %package -n kdm
 Summary:	KDE Display Manager
-Summary(pl.UTF-8):   Zarządca ekranów KDE
+Summary(pl.UTF-8):	Zarządca ekranów KDE
 Group:		X11/Applications
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
@@ -959,7 +959,7 @@ sesjami X11. Udostępnia także graficzny tryb logowania.
 
 %package -n konqueror
 Summary:	Konqueror - web browser and file manager
-Summary(pl.UTF-8):   Konqueror - przeglądarka WWW i zarządca plików
+Summary(pl.UTF-8):	Konqueror - przeglądarka WWW i zarządca plików
 Group:		X11/Applications
 Requires:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
 Requires:	browser-plugins >= 2.0
@@ -1009,7 +1009,7 @@ uruchamiania innej aplikacji.
 
 %package -n konqueror-libs
 Summary:	konqueror shared libraries
-Summary(pl.UTF-8):   Biblioteki współdzielone konquerora
+Summary(pl.UTF-8):	Biblioteki współdzielone konquerora
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	kdelibs >= %{_minlibsevr}
@@ -1027,7 +1027,7 @@ Biblioteki współdzielone konquerora.
 
 %package apidocs
 Summary:	API documentation
-Summary(pl.UTF-8):   Dokumentacja API
+Summary(pl.UTF-8):	Dokumentacja API
 Group:		Documentation
 Requires:	kdelibs >= 9:3.2.90
 
