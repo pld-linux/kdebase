@@ -28,7 +28,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.6
-Release:	8
+Release:	9
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -89,7 +89,7 @@ BuildRequires:	ed
 BuildRequires:	gettext-devel
 %{?with_apidocs:BuildRequires:	graphviz}
 BuildRequires:	hal-devel
-%{?with_kerberos5:BuildRequires: heimdal-devel}
+%{?with_kerberos5:BuildRequires: krb5-devel}
 BuildRequires:	jasper-devel
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	lame-libs-devel
