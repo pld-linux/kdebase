@@ -1124,8 +1124,6 @@ done
 cp /usr/share/automake/config.sub admin
 %{__make} -f admin/Makefile.common cvs
 
-%{__sed} -i -e 's#krb5/##g' configure* */configure* */*.c */*/*.c
-
 %build
 %if %{with apidocs}
 	if [ ! -f "%{_kdedocdir}/en/common/kde-common.css" ]; then
