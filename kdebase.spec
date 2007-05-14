@@ -27,13 +27,13 @@ Summary(ru.UTF-8):	K Desktop Environment - базовые файлы
 Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
-Version:	3.5.6
-Release:	10
+Version:	3.5.7
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	a53f589f58012e655a52220a6a151019
+# Source0-md5:	b421e01b3ee712549ee967f58ed24de0
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -1046,7 +1046,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 %prep
 %setup -q
-%patch100 -p0
+#%patch100 -p0
 %patch0 -p1
 %patch1 -p1
 %{?with_groupwindows:%patch2 -p1}
@@ -1852,7 +1852,7 @@ fi
 %dir %{_datadir}/apps/kwin/pics
 %{_datadir}/apps/kwin/pics/*
 %dir %{_datadir}/apps/kwin/default_rules
-%{_datadir}/apps/kwin/default_rules/fsp_workarounds_1
+%{_datadir}/apps/kwin/default_rules/fsp_workarounds_1.kwinrules
 %{_datadir}/autostart/kdesktop.desktop
 %{_datadir}/autostart/khotkeys.desktop
 %{_datadir}/autostart/ktip.desktop
