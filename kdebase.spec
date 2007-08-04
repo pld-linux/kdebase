@@ -28,7 +28,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.7
-Release:	2
+Release:	3
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -941,13 +941,8 @@ Requires:	pam >= 0.99.7.1
 Requires:	rc-scripts
 Requires:	xorg-app-sessreg
 Obsoletes:	X11-xdm
-Obsoletes:	entrance
-Obsoletes:	gdm
 Obsoletes:	kdebase-kdm
 Obsoletes:	kdebase-pam
-Obsoletes:	slim
-Obsoletes:	wdm
-Obsoletes:	xdm
 
 %description -n kdm
 A program used for managing X11 sessions on local or remote computers.
