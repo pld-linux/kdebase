@@ -28,7 +28,7 @@ Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
 Version:	3.5.7
-Release:	1
+Release:	2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -71,6 +71,7 @@ Patch22:	%{name}-tango.patch
 Patch24:	kde-ac260-lt.patch
 Patch25:	%{name}-konsole-history_clear.patch
 Patch26:	%{name}-kdm-default_background.patch
+Patch27:	ftp://ftp.kde.org/pub/kde/security_patches/post-3.5.7-kdebase-konqueror.diff
 BuildRequires:	OpenEXR-devel >= 1.2.2
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
@@ -1062,6 +1063,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch24 -p1
 %patch25 -p1
 %patch26 -p1
+%patch27 -p0
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
 for i in  google*.desktop
