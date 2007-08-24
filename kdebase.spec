@@ -11,7 +11,8 @@
 %bcond_without	apidocs		# Do not prepare API documentation
 %bcond_without	ldap		# build or not ldap ioslave
 %bcond_with	kerberos5	# kerberos 5 support
-%bcond_without	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
+%bcond_with	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
+%bcond_with	groupwindows	# raise all windows belonging to program together
 #
 %define		_state		stable
 %define		_minlibsevr	9:%{version}
@@ -26,13 +27,13 @@ Summary(ru):	K Desktop Environment - ÂÁÚÏ×ÙÅ ÆÁÊÌÙ
 Summary(uk):	K Desktop Environment - ÂÁÚÏ×¦ ÆÁÊÌÉ
 Summary(zh_CN):	KDEºËÐÄ
 Name:		kdebase
-Version:	3.5.5
-Release:	4.4
+Version:	3.5.7
+Release:	2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	0c685af1cbca75f9c77b3ed231ba0468
+# Source0-md5:	b421e01b3ee712549ee967f58ed24de0
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -46,11 +47,10 @@ Source10:	%{name}-servicemenus.tar.bz2
 # Source10-md5:	f48ac7af286f4c87961de4bb24d07772
 Source13:	ftp://ftp.pld-linux.org/software/kde/%{name}-konqsidebartng-PLD-entries-0.1.tar.bz2
 # Source13-md5:	c8b947bc3e8a2ac050d9e9548cf585fc
-# Temporary taken from kde svn
-Patch100:	%{name}-branch.diff
+#Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-fontdir.patch
-# http://www.icefox.net/articles/kdeosx/grouplayer.diff
+# http://www.icefox.net/articles/kdeosx/grouplayer.diff -- group all windows belonging to single app
 Patch2:		%{name}-grouplayer.patch
 Patch3:		%{name}-kdm_utmpx.patch
 Patch4:		%{name}-kdmconfig.patch
@@ -68,11 +68,10 @@ Patch19:	%{name}-konsole-default-keytab.patch
 Patch20:	%{name}-seesar.patch
 Patch21:	%{name}-konsole-wordseps.patch
 Patch22:	%{name}-tango.patch
-Patch23:	kde-am.patch
 Patch24:	kde-ac260-lt.patch
 Patch25:	%{name}-konsole-history_clear.patch
 Patch26:	%{name}-kdm-default_background.patch
-Patch27:	kde-bug-124895.patch
+Patch27:	ftp://ftp.kde.org/pub/kde/security_patches/post-3.5.7-kdebase-konqueror.diff
 BuildRequires:	OpenEXR-devel >= 1.2.2
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
@@ -83,7 +82,7 @@ BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
 BuildRequires:	cyrus-sasl-devel
 BuildRequires:	db-devel
-BuildRequires:	dbus-qt-devel >= 0.70
+BuildRequires:	dbus-qt-devel >= 0.60
 %{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	ed
 %{?with_hidden_visibility:BuildRequires:	gcc-c++ >= 5:4.1.0-0.20051206r108118.1}
@@ -97,7 +96,7 @@ BuildRequires:	lame-libs-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	libraw1394-devel >= 1.2.0
-BuildRequires:	libsmbclient-devel >= 3.0.0
+BuildRequires:	libsmbclient-devel >= 1:3.0.23d-2.3
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool
@@ -107,29 +106,19 @@ BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	lm_sensors-devel
 BuildRequires:	motif-devel
-%{?with_ldap:BuildRequires:	openldap-devel >= 2.3.0}
 BuildRequires:	openssl-devel >= 0.9.7c
+# kde requires libXext and more stuff that is X11-only juz grep X11 `find -name configure.in.in`
+BuildRequires:	X11-devel >= 1:6.8.1
+%{?with_ldap:BuildRequires:	openldap-devel >= 2.3.0}
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig
 %{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
 %{?with_apidocs:BuildRequires:	qt-doc}
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.268
+BuildRequires:	rpmbuild(macros) >= 1.356
 BuildRequires:	sed >= 4.0
 #BuildRequires:	unsermake >= 040511
-BuildRequires:	xorg-app-bdftopcf
-BuildRequires:	xorg-cf-files
-BuildRequires:	xorg-lib-libXcomposite-devel
-BuildRequires:	xorg-lib-libXcursor-devel
-BuildRequires:	xorg-lib-libXdamage-devel
-BuildRequires:	xorg-lib-libXft-devel
-BuildRequires:	xorg-lib-libXinerama-devel
-BuildRequires:	xorg-lib-libXmu-devel
-BuildRequires:	xorg-lib-libXtst-devel
-BuildRequires:	xorg-lib-libfontenc-devel
-BuildRequires:	xorg-lib-libxkbfile-devel
-BuildRequires:	xorg-proto-scrnsaverproto-devel
-BuildRequires:	xorg-util-imake
+BuildRequires:	xcursor-devel >= 1.1.0
 BuildConflicts:	kdebase-konqueror-libs
 Conflicts:	kdelibs < 9:3.1.94.040110-1
 # TODO: sensors
@@ -137,7 +126,6 @@ Conflicts:	kdelibs < 9:3.1.94.040110-1
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_noautoreq	libtool(.*)
 %define		_xdgdatadir	%{_datadir}/desktop-directories
 # openexr detection fails
 %undefine	configure_cache
@@ -516,9 +504,9 @@ Schematy kolorów, ikony, czcionki oraz profile sesji dla konsole.
 Summary:	KDE Core Apps
 Summary(pl):	Podstawowe aplikacje KDE
 Group:		X11/Applications
+Requires:	applnk >= 1.9.0
 Requires:	kdelibs >= %{_minlibsevr}
 Requires:	sudo
-Requires:	xdg-menus
 Obsoletes:	kdebase < 8:3.2-0.030428.1
 Obsoletes:	kdebase-helpcenter
 Obsoletes:	kdebase-kcontrol
@@ -557,6 +545,7 @@ Requires:	kde-logoutpic
 Requires:	kde-splash-Default
 Requires:	konqueror = %{epoch}:%{version}-%{release}
 Requires:	pam >= 0.79.0
+Requires:	xcursor >= 1.1.0
 Provides:	kdebase-kicker
 Obsoletes:	kde-decoration-plastik
 Obsoletes:	kde-theme-keramik
@@ -940,12 +929,14 @@ Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	kde-kgreet
 Requires:	pam >= 0.79.0
 Requires:	rc-scripts
-Requires:	xorg-app-sessreg
+Requires:	sessreg
+Requires:	xinitrc-ng >= 0.4
 Obsoletes:	X11-xdm
 Obsoletes:	entrance
 Obsoletes:	gdm
 Obsoletes:	kdebase-kdm
 Obsoletes:	kdebase-pam
+Obsoletes:	slim
 Obsoletes:	wdm
 Obsoletes:	xdm
 
@@ -962,6 +953,7 @@ Summary:	Konqueror - web browser and file manager
 Summary(pl):	Konqueror - przegl±darka WWW i zarz±dca plików
 Group:		X11/Applications
 Requires:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
+Requires:	browser-plugins >= 2.0
 Requires:	konqueror-libs = %{epoch}:%{version}-%{release}
 Provides:	wwwbrowser
 Obsoletes:	kdebase-konqueror
@@ -1045,10 +1037,10 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 %prep
 %setup -q
-%patch100 -p0
+#%patch100 -p0
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
+%{?with_groupwindows:%patch2 -p1}
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
@@ -1068,7 +1060,6 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch20 -p1
 %patch21 -p1
 %patch22 -p0
-%patch23 -p1
 %patch24 -p1
 %patch25 -p1
 %patch26 -p1
@@ -1172,8 +1163,13 @@ install -d \
 	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror \
 	$RPM_BUILD_ROOT%{_datadir}/apps/kate/{scripts,plugins}
 
+%browser_plugins_add_browser konqueror -p %{_libdir}/kde3/plugins/konqueror -b <<'EOF'
+# konqueror does not have new NPAPI
+npwrapper.libflashplayer.so
+EOF
+
 if [ -d "$RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-%{version}-apidocs" ] ; then
-mv -f $RPM_BUILD_ROOT{%{_kdedocdir}/en/%{name}-%{version}-apidocs,%{_kdedocdir}/en/%{name}-apidocs}
+	mv -f $RPM_BUILD_ROOT{%{_kdedocdir}/en/%{name}-%{version}-apidocs,%{_kdedocdir}/en/%{name}-apidocs}
 fi
 
 # Drop generated Xsession file (we have own one)
@@ -1208,84 +1204,87 @@ rm $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop
 
 # Workaround for gnome menu which maps all these to "Others" dir
 cd $RPM_BUILD_ROOT%{_desktopdir}/kde
-for f in `grep -El 'X-KDE-settings|X-KDE-information' *`; do
+for f in $(grep -El 'X-KDE-settings|X-KDE-information' *); do
 	echo "OnlyShowIn=KDE" >> $f
 done
 cd -
 
 # find_lang
 > core.lang
-programs=" \
-	colors \
-	fonts \
-	kcmstyle \
-	kdebugdialog \
-	kdeprint \
-	kdesu \
-	khelpcenter \
-	knetattach \
-	kompmgr \
-	language"
-
+programs="
+colors
+fonts
+kcmstyle
+kdebugdialog
+kdeprint
+kdesu
+khelpcenter
+knetattach
+kompmgr
+language
+"
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> core.lang
+	rm -f $i.lang
 done
 
 > %{name}.lang
-programs=" \
-	arts \
-	background \
-	bell \
-	clock \
-	desktop \
-	desktopbehavior \
-	energy \
-	kcmaccess \
-	kcmlaunch \
-	kcmnotify \
-	kcmsmserver \
-	kcmtaskbar \
-	keyboard \
-	keys \
-	kicker \
-	kmenuedit \
-	ksplashml \
-	kwindecoration \
-	kxkb \
-	mouse \
-	panel \
-	panelappearance \
-	passwords \
-	performance \
-	spellchecking \
-	windowmanagement"
-
+programs="
+arts
+background
+bell
+clock
+desktop
+desktopbehavior
+energy
+kcmaccess
+kcmlaunch
+kcmnotify
+kcmsmserver
+kcmtaskbar
+keyboard
+keys
+kicker
+kmenuedit
+ksplashml
+kwindecoration
+kxkb
+mouse
+panel
+panelappearance
+passwords
+performance
+spellchecking
+windowmanagement
+"
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> %{name}.lang
+	rm -f $i.lang
 done
 
 %find_lang konqueror	--with-kde
-programs="\
-	cache \
-	cookies \
-	crypto \
-	ebrowsing \
-	email \
-	filemanager \
-	filetypes \
-	icons \
-	kcmcss \
-	khtml \
-	netpref \
-	proxy \
-	smb \
-	useragent"
-
+programs="
+cache
+cookies
+crypto
+ebrowsing
+email
+filemanager
+filetypes
+icons
+kcmcss
+khtml
+netpref
+proxy
+smb
+useragent
+"
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> konqueror.lang
+	rm -f $i.lang
 done
 
 %find_lang kappfinder	--with-kde
@@ -1303,9 +1302,10 @@ done
 %find_lang kpager	--with-kde
 %find_lang kwrite	--with-kde
 %find_lang screensaver	--with-kde
-
 cat kcmkonsole.lang	>> konsole.lang
+rm -f kcmkonsole.lang
 cat kioslave.lang	>> kinfocenter.lang
+rm -f kioslave.lang
 
 # Omit apidocs entries
 sed -i 's/.*apidocs.*//' *.lang
@@ -1419,6 +1419,14 @@ fi
 if [ "$1" = "0" ]; then
 	%service kdm stop
 	/sbin/chkconfig --del kdm
+fi
+
+%post -n konqueror
+%update_browser_plugins
+
+%postun -n konqueror
+if [ "$1" = 0 ]; then
+	%update_browser_plugins
 fi
 
 %files devel
@@ -1607,7 +1615,7 @@ fi
 %{_iconsdir}/[!l]*/*/apps/bell.png
 %{_iconsdir}/*/*/apps/key_bindings.png
 
-%files core  -f core.lang
+%files core -f core.lang
 %defattr(644,root,root,755)
 %lang(en) %dir %{_kdedocdir}/en/kcontrol
 %lang(en) %{_kdedocdir}/en/kcontrol/common
@@ -1729,6 +1737,7 @@ fi
 %{_iconsdir}/*/*/apps/input_devices_settings.png
 %{_iconsdir}/*/*/apps/kcmdrkonqi.png
 %{_iconsdir}/*/*/apps/khelpcenter.*
+%{_iconsdir}/*/*/apps/knetattach.*
 %{_iconsdir}/*/*/apps/kcmsystem.png
 %{_iconsdir}/*/*/apps/kcontrol.png
 %{_iconsdir}/*/*/apps/locale.png
@@ -1925,7 +1934,7 @@ fi
 %dir %{_datadir}/apps/kwin/pics
 %{_datadir}/apps/kwin/pics/*
 %dir %{_datadir}/apps/kwin/default_rules
-%{_datadir}/apps/kwin/default_rules/fsp_workarounds_1
+%{_datadir}/apps/kwin/default_rules/fsp_workarounds_1.kwinrules
 %{_datadir}/autostart/kdesktop.desktop
 %{_datadir}/autostart/khotkeys.desktop
 %{_datadir}/autostart/ktip.desktop
@@ -2049,9 +2058,6 @@ fi
 %{_iconsdir}/*/*/apps/keyboard_layout.png
 %{_iconsdir}/*/*/apps/keyboard.png
 %{_iconsdir}/*/*/apps/khotkeys.png
-# New (to konqueror?)
-%{_iconsdir}/*/*/apps/knetattach.*
-#
 %{_iconsdir}/*/*/apps/knotify.png
 %{_iconsdir}/*/*/apps/ksplash.png
 %{_iconsdir}/*/*/apps/ktip.*
@@ -2062,9 +2068,6 @@ fi
 %{_iconsdir}/*/*/apps/linuxconf.png
 %{_iconsdir}/*/*/apps/lyx.png
 %{_iconsdir}/*/*/apps/mathematica.png
-%{_iconsdir}/*/*/apps/mozilla.png
-%{_iconsdir}/*/*/apps/mozilla_m.png
-%{_iconsdir}/*/*/apps/mozilla_mail.png
 %{_iconsdir}/*/*/apps/nedit.png
 %{_iconsdir}/*/*/apps/netscape.png
 %{_iconsdir}/*/*/apps/opera.png
@@ -2113,7 +2116,6 @@ fi
 %{_iconsdir}/crystalsvg/*/apps/eclipse.png
 %{_iconsdir}/crystalsvg/*/apps/edu_*.png
 %{_iconsdir}/crystalsvg/*/apps/evolution.png
-%{_iconsdir}/crystalsvg/*/apps/firefox.png
 %{_iconsdir}/crystalsvg/*/apps/gabber.png
 %{_iconsdir}/crystalsvg/*/apps/gaim.png
 %{_iconsdir}/crystalsvg/*/apps/gnomemeeting.png
@@ -2124,7 +2126,6 @@ fi
 %{_iconsdir}/crystalsvg/*/apps/planner.png
 %{_iconsdir}/crystalsvg/*/apps/scribus.png
 %{_iconsdir}/crystalsvg/*/apps/sodipodi.png
-%{_iconsdir}/crystalsvg/*/apps/thunderbird.png
 %{_iconsdir}/crystalsvg/*/apps/wine.png
 %{_iconsdir}/crystalsvg/scalable/apps
 # New
@@ -2164,6 +2165,8 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/kickermenu_find.so
 %{_libdir}/kde3/kickermenu_kdeprint.la
 %attr(755,root,root) %{_libdir}/kde3/kickermenu_kdeprint.so
+%{_libdir}/kde3/kickermenu_kate.la
+%attr(755,root,root) %{_libdir}/kde3/kickermenu_kate.so
 %{_libdir}/kde3/kickermenu_konqueror.la
 %attr(755,root,root) %{_libdir}/kde3/kickermenu_konqueror.so
 %{_libdir}/kde3/kickermenu_konsole.la
@@ -2534,6 +2537,11 @@ fi
 
 %files -n konqueror -f konqueror.lang
 %defattr(644,root,root,755)
+
+# browser plugins v2
+%{_browserpluginsconfdir}/browsers.d/konqueror.*
+%config(noreplace) %verify(not md5 mtime size) %{_browserpluginsconfdir}/blacklist.d/konqueror.*.blacklist
+
 %attr(755,root,root) %{_bindir}/appletproxy
 %attr(755,root,root) %{_bindir}/extensionproxy
 %attr(755,root,root) %{_bindir}/keditbookmarks
