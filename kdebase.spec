@@ -556,6 +556,8 @@ Requires:	kde-logoutpic
 Requires:	kde-splash-Default
 Requires:	konqueror = %{epoch}:%{version}-%{release}
 Requires:	pam >= 0.99.7.1
+Requires:	xorg-app-xmessage
+Requires:	xorg-app-xprop
 Provides:	kdebase-kicker
 Obsoletes:	kde-decoration-plastik
 Obsoletes:	kde-theme-keramik
