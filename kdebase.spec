@@ -942,7 +942,7 @@ Requires:	kde-kgreet
 Requires:	pam >= 0.99.7.1
 Requires:	rc-scripts
 Requires:	xorg-app-sessreg
-Obsoletes:	X11-xdm
+Provides:	XDM
 Obsoletes:	kdebase-kdm
 Obsoletes:	kdebase-pam
 
