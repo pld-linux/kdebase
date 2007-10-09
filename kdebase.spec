@@ -27,13 +27,13 @@ Summary(ru.UTF-8):	K Desktop Environment - базовые файлы
 Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
-Version:	3.5.7
-Release:	4
+Version:	3.5.8
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	b421e01b3ee712549ee967f58ed24de0
+# Source0-md5:	9990c669229daaaa8fca4c5e354441fd
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -1043,7 +1043,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 %prep
 %setup -q
-%patch100 -p0
+#%patch100 -p0
 %patch0 -p1
 %patch1 -p1
 %{?with_groupwindows:%patch2 -p1}
