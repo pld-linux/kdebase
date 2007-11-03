@@ -106,7 +106,7 @@ BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	lm_sensors-devel
 BuildRequires:	motif-devel
-%{?with_ldap:BuildRequires:	openldap-devel >= 2.3.0}
+%{?with_ldap:BuildRequires:	openldap-devel >= 2.4.6}
 BuildRequires:	openssl-devel >= 0.9.7c
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig
