@@ -28,7 +28,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.8
-Release:	4
+Release:	5
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -518,8 +518,8 @@ Summary:	KDE Core Apps
 Summary(pl.UTF-8):	Podstawowe aplikacje KDE
 Group:		X11/Applications
 Requires:	kdelibs >= %{_minlibsevr}
-Requires:	sudo
 Requires:	xdg-menus
+Suggests:	sudo
 Obsoletes:	kdebase < 8:3.2-0.030428.1
 Obsoletes:	kdebase-helpcenter
 Obsoletes:	kdebase-kcontrol
@@ -532,7 +532,7 @@ KDE Core apps. This package contains:
 - Help Center;
 - Print System;
 - Crash Handlers;
-- A Frontend for "su" program.
+- A Frontend for "su" (or "sudo") program.
 
 %description core -l pl.UTF-8
 Podstawowe aplikacje środowiska KDE. Pakiet ten zawiera:
@@ -540,7 +540,7 @@ Podstawowe aplikacje środowiska KDE. Pakiet ten zawiera:
 - System drukowania;
 - System pomocy;
 - Programy obsługi błędów;
-- Frontend dla programu "su".
+- Frontend dla programu "su" (lub "sudo").
 
 %package desktop
 Summary:	KDesktop - handling of desktop icons, popup menus etc.
