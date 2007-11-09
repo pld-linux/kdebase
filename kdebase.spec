@@ -28,7 +28,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.8
-Release:	3
+Release:	4
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -72,6 +72,7 @@ Patch22:	%{name}-tango.patch
 Patch24:	kde-ac260-lt.patch
 Patch25:	%{name}-konsole-history_clear.patch
 Patch26:	%{name}-kdm-default_background.patch
+Patch27:	%{name}-consolekit.patch
 BuildRequires:	OpenEXR-devel >= 1.4.0.a
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
@@ -82,6 +83,7 @@ BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cups-devel
 BuildRequires:	cyrus-sasl-devel
 BuildRequires:	db-devel
+BuildRequires:	dbus-devel
 BuildRequires:	dbus-qt-devel >= 0.70
 %{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	ed
@@ -1069,6 +1071,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch24 -p1
 %patch25 -p1
 %patch26 -p1
+%patch27 -p1
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
 for i in  google*.desktop
