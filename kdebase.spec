@@ -6,6 +6,7 @@
 # - fix kerberos support (kdm segfaults)
 # - warning: Installed (but unpackaged) file(s) found:
 #   /etc/xdg/menus/kde-screensavers.menu
+# - intergrate && keep eye on new flash support: https://bugzilla.novell.com/show_bug.cgi?id=348088
 #
 # Conditional build:
 %bcond_without	apidocs		# Do not prepare API documentation
