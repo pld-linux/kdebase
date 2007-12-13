@@ -1,0 +1,581 @@
+--- nsplugins/viewer/nsplugin.h.sav	2007-12-05 16:02:28.000000000 +0100
++++ nsplugins/viewer/nsplugin.h	2007-12-12 13:37:52.000000000 +0100
+@@ -165,13 +165,13 @@ public:
+   // constructor, destructor
+   NSPluginInstance( NPP privateData, NPPluginFuncs *pluginFuncs, KLibrary *handle,
+ 		    int width, int height, QString src, QString mime,
+-                    QString appId, QString callbackId, bool embed,
++                    QString appId, QString callbackId, bool embed, WId xembed,
+ 		    QObject *parent, const char* name=0 );
+   ~NSPluginInstance();
+ 
+   // DCOP functions
+   void shutdown();
+-  int winId() { return XtWindow(_form); }
++  int winId() { return _form != 0 ? XtWindow(_form) : 0; }
+   int setWindow(int remove=0);
+   void resizePlugin(int w, int h);
+   void javascriptResult(int id, QString result);
+@@ -232,6 +232,7 @@ private:
+   NPPluginFuncs _pluginFuncs;
+ 
+   Widget _area, _form, _toplevel;
++  WId _xembed_window;
+   QString _baseURL;
+   int _width, _height;
+ 
+@@ -281,7 +282,7 @@ public:
+   DCOPRef newInstance(QString url, QString mimeType, bool embed,
+                       QStringList argn, QStringList argv,
+                       QString appId, QString callbackId, bool reload, bool post,
+-                      QByteArray postData );
++                      QByteArray postData, long xembed );
+   void destroyInstance( NSPluginInstance* inst );
+   bool error() { return _error; }
+ 
+--- nsplugins/viewer/Makefile.am.sav	2007-04-11 16:25:04.000000000 +0200
++++ nsplugins/viewer/Makefile.am	2007-12-11 19:30:13.000000000 +0100
+@@ -1,12 +1,11 @@
+-INCLUDES = -I$(top_srcdir)/nsplugins -I$(top_builddir)/nsplugins $(all_includes)
++INCLUDES = -I$(top_srcdir)/nsplugins -I$(top_builddir)/nsplugins $(all_includes) `pkg-config --cflags glib-2.0`
+ METASOURCES = AUTO
+ 
+ bin_PROGRAMS = nspluginviewer 
+ 
+ nspluginviewer_SOURCES = NSPluginCallbackIface.stub NSPluginClassIface.skel \
+-	nsplugin.cpp viewer.cpp kxt.cpp qxteventloop.cpp
+-nspluginviewer_LDFLAGS = $(all_libraries) $(KDE_RPATH) -export-dynamic
++	nsplugin.cpp viewer.cpp kxt.cpp qxteventloop.cpp glibevents.cpp
++nspluginviewer_LDFLAGS = $(all_libraries) $(KDE_RPATH) -export-dynamic `pkg-config --libs glib-2.0`
+ nspluginviewer_LDADD = $(LIB_KIO) $(LIB_KPARTS) -lXt
+ 
+ NSPluginCallbackIface_DIR = $(srcdir)/..
+-
+--- nsplugins/viewer/viewer.cpp.sav	2007-12-11 15:56:33.000000000 +0100
++++ nsplugins/viewer/viewer.cpp	2007-12-11 19:30:34.000000000 +0100
+@@ -87,6 +86,7 @@ static int x_errhandler(Display *dpy, XE
+  */
+ 
+ static QCString g_dcopId;
++int nspluginwrapper_windowId;
+ 
+ /**
+  * parseCommandLine - get command line parameters
+@@ -101,6 +101,11 @@ void parseCommandLine(int argc, char *ar
+          g_dcopId = argv[i+1];
+          i++;
+       }
++      if (!strcmp(argv[i], "-windowid") && (i+1 < argc))
++      {
++         nspluginwrapper_windowId = atoi(argv[i+1]);// long, atol
++         i++;
++      }
+    }
+ }
+ 
+--- nsplugins/viewer/glibevents.h.sav	2007-12-11 11:37:25.000000000 +0100
++++ nsplugins/viewer/glibevents.h	2007-12-11 15:56:05.000000000 +0100
+@@ -0,0 +1,41 @@
++/*
++  Copyright (c) 2007 Lubos Lunak <l.lunak@suse.cz>
++ 
++  This program is free software; you can redistribute it and/or modify
++  it under the terms of the GNU General Public License as published by
++  the Free Software Foundation; either version 2 of the License, or
++  (at your option) any later version.
++ 
++  This program is distributed in the hope that it will be useful,
++  but WITHOUT ANY WARRANTY; without even the implied warranty of
++  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++  GNU General Public License for more details.
++ 
++  You should have received a copy of the GNU General Public License
++  along with this program; if not, write to the Free Software
++  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
++ 
++*/                                                                            
++
++#ifndef GLIBEVENTS_H
++#define GLIBEVENTS_H
++
++#include <qwidget.h>
++#include <qtimer.h>
++
++#include <glib.h>
++
++class GlibEvents
++    : public QWidget
++    {
++    Q_OBJECT
++    public:
++        GlibEvents();
++        virtual ~GlibEvents();
++    private slots:
++        void process();
++    private:
++        QTimer timer;
++    };
++
++#endif
+--- nsplugins/viewer/glibevents.cpp.sav	2007-12-11 11:37:33.000000000 +0100
++++ nsplugins/viewer/glibevents.cpp	2007-12-11 16:15:06.000000000 +0100
+@@ -0,0 +1,43 @@
++/*
++  Copyright (c) 2007 Lubos Lunak <l.lunak@suse.cz>
++ 
++  This program is free software; you can redistribute it and/or modify
++  it under the terms of the GNU General Public License as published by
++  the Free Software Foundation; either version 2 of the License, or
++  (at your option) any later version.
++ 
++  This program is distributed in the hope that it will be useful,
++  but WITHOUT ANY WARRANTY; without even the implied warranty of
++  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++  GNU General Public License for more details.
++ 
++  You should have received a copy of the GNU General Public License
++  along with this program; if not, write to the Free Software
++  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
++ 
++*/                                                                            
++
++#include "glibevents.h"
++
++#include <qapplication.h>
++
++GlibEvents::GlibEvents()
++    {
++    g_main_context_ref( g_main_context_default());
++    connect( &timer, SIGNAL( timeout()), SLOT( process()));
++    // TODO Poll for now
++    timer.start( 10 );
++    }
++
++GlibEvents::~GlibEvents()
++    {
++    g_main_context_unref( g_main_context_default());
++    }
++
++void GlibEvents::process()
++    {
++    while( g_main_context_pending( g_main_context_default()))
++        g_main_context_iteration( g_main_context_default(), false );
++    }
++
++#include "glibevents.moc"
+--- nsplugins/viewer/nsplugin.cpp.sav	2007-12-11 11:58:43.000000000 +0100
++++ nsplugins/viewer/nsplugin.cpp	2007-12-12 15:25:21.000000000 +0100
+@@ -180,6 +180,12 @@ NPError g_NPN_GetValue(NPP /*instance*/,
+          // Offline browsing - no thanks
+          *(bool*)value = false;
+          return NPERR_NO_ERROR;
++      case 13: // NPNVToolkit
++         *(int*)value = 2; // (NPNToolkitType)NPNVGtk2
++         return NPERR_NO_ERROR;
++      case 14: // NPNVSupportsXEmbedBool
++         *(bool*)value = true;
++         return NPERR_NO_ERROR;
+       default:
+          return NPERR_INVALID_PARAM;
+    }
+@@ -583,7 +589,7 @@ NSPluginInstance::NSPluginInstance(NPP p
+                                    KLibrary *handle, int width, int height,
+                                    QString src, QString /*mime*/,
+                                    QString appId, QString callbackId,
+-                                   bool embed,
++                                   bool embed, WId xembed,
+                                    QObject *parent, const char* name )
+    : DCOPObject(), QObject( parent, name ) 
+ {
+@@ -599,6 +605,8 @@ NSPluginInstance::NSPluginInstance(NPP p
+    _streams.setAutoDelete( true );
+    _waitingRequests.setAutoDelete( true );
+    _callback = new NSPluginCallbackIface_stub( appId.latin1(), callbackId.latin1() );
++   _xembed_window = xembed;
++   _toplevel = _form = 0;
+ 
+    KURL base(src);
+    base.setFileName( QString::null );
+@@ -619,51 +627,53 @@ NSPluginInstance::NSPluginInstance(NPP p
+    if (height == 0)
+       height = 1200;
+ 
+-   // create drawing area
+-   Arg args[7];
+-   Cardinal nargs = 0;
+-   XtSetArg(args[nargs], XtNwidth, width); nargs++;
+-   XtSetArg(args[nargs], XtNheight, height); nargs++;
+-   XtSetArg(args[nargs], XtNborderWidth, 0); nargs++;
+-
+-   String n, c;
+-   XtGetApplicationNameAndClass(qt_xdisplay(), &n, &c);
+-
+-   _toplevel = XtAppCreateShell("drawingArea", c, applicationShellWidgetClass,
+-                                qt_xdisplay(), args, nargs);
+-
+-   // What exactly does widget mapping mean? Without this call the widget isn't
+-   // embedded correctly. With it the viewer doesn't show anything in standalone mode.
+-   //if (embed)
+-      XtSetMappedWhenManaged(_toplevel, False);
+-   XtRealizeWidget(_toplevel);
+-
+-   // Create form window that is searched for by flash plugin
+-   _form = XtVaCreateWidget("form", compositeWidgetClass, _toplevel, NULL);
+-   XtSetArg(args[nargs], XtNvisual, QPaintDevice::x11AppVisual()); nargs++;
+-   XtSetArg(args[nargs], XtNdepth, QPaintDevice::x11AppDepth()); nargs++;
+-   XtSetArg(args[nargs], XtNcolormap, QPaintDevice::x11AppColormap()); nargs++;
+-   XtSetValues(_form, args, nargs);
+-   XSync(qt_xdisplay(), false);
++   if( _xembed_window == 0 ) {
++      // create drawing area
++      Arg args[7];
++      Cardinal nargs = 0;
++      XtSetArg(args[nargs], XtNwidth, width); nargs++;
++      XtSetArg(args[nargs], XtNheight, height); nargs++;
++      XtSetArg(args[nargs], XtNborderWidth, 0); nargs++;
++
++      String n, c;
++      XtGetApplicationNameAndClass(qt_xdisplay(), &n, &c);
++
++      _toplevel = XtAppCreateShell("drawingArea", c, applicationShellWidgetClass,
++                                   qt_xdisplay(), args, nargs);
++
++      // What exactly does widget mapping mean? Without this call the widget isn't
++      // embedded correctly. With it the viewer doesn't show anything in standalone mode.
++      //if (embed)
++         XtSetMappedWhenManaged(_toplevel, False);
++      XtRealizeWidget(_toplevel);
++
++      // Create form window that is searched for by flash plugin
++      _form = XtVaCreateWidget("form", compositeWidgetClass, _toplevel, NULL);
++      XtSetArg(args[nargs], XtNvisual, QPaintDevice::x11AppVisual()); nargs++;
++      XtSetArg(args[nargs], XtNdepth, QPaintDevice::x11AppDepth()); nargs++;
++      XtSetArg(args[nargs], XtNcolormap, QPaintDevice::x11AppColormap()); nargs++;
++      XtSetValues(_form, args, nargs);
++      XSync(qt_xdisplay(), false);
+ 
+-   // From mozilla - not sure if it's needed yet, nor what to use for embedder
++      // From mozilla - not sure if it's needed yet, nor what to use for embedder
+ #if 0
+-   /* this little trick seems to finish initializing the widget */
++      /* this little trick seems to finish initializing the widget */
+ #if XlibSpecificationRelease >= 6
+-   XtRegisterDrawable(qt_xdisplay(), embedderid, _toplevel);
++      XtRegisterDrawable(qt_xdisplay(), embedderid, _toplevel);
+ #else
+-   _XtRegisterWindow(embedderid, _toplevel);
++      _XtRegisterWindow(embedderid, _toplevel);
+ #endif
+ #endif
+-   XtRealizeWidget(_form);
+-   XtManageChild(_form);
++      XtRealizeWidget(_form);
++      XtManageChild(_form);
+ 
+-   // Register forwarder
+-   XtAddEventHandler(_toplevel, (KeyPressMask|KeyReleaseMask), 
+-                     False, forwarder, (XtPointer)this );
+-   XtAddEventHandler(_form, (KeyPressMask|KeyReleaseMask), 
+-                     False, forwarder, (XtPointer)this );
+-   XSync(qt_xdisplay(), false);
++      // Register forwarder
++      XtAddEventHandler(_toplevel, (KeyPressMask|KeyReleaseMask), 
++                        False, forwarder, (XtPointer)this );
++      XtAddEventHandler(_form, (KeyPressMask|KeyReleaseMask), 
++                        False, forwarder, (XtPointer)this );
++      XSync(qt_xdisplay(), false);
++   }
+ }
+ 
+ NSPluginInstance::~NSPluginInstance()
+@@ -714,14 +724,16 @@ void NSPluginInstance::destroy()
+         if (saved)
+           g_NPN_MemFree(saved);
+ 
+-        XtRemoveEventHandler(_form, (KeyPressMask|KeyReleaseMask), 
+-                             False, forwarder, (XtPointer)this);
+-        XtRemoveEventHandler(_toplevel, (KeyPressMask|KeyReleaseMask), 
+-                             False, forwarder, (XtPointer)this);
+-        XtDestroyWidget(_form);
+-	_form = 0;
+-        XtDestroyWidget(_toplevel);
+-	_toplevel = 0;
++        if( _form != 0 ) {
++            XtRemoveEventHandler(_form, (KeyPressMask|KeyReleaseMask), 
++                                 False, forwarder, (XtPointer)this);
++            XtRemoveEventHandler(_toplevel, (KeyPressMask|KeyReleaseMask), 
++                                 False, forwarder, (XtPointer)this);
++            XtDestroyWidget(_form);
++    	    _form = 0;
++            XtDestroyWidget(_toplevel);
++	    _toplevel = 0;
++        }
+ 
+         if (_npp) {
+             ::free(_npp);   // matched with malloc() in newInstance
+@@ -902,7 +914,6 @@ void NSPluginInstance::streamFinished( N
+    _timer->start( 100, true );
+ }
+ 
+-
+ int NSPluginInstance::setWindow(int remove)
+ {
+    if (remove)
+@@ -926,14 +937,24 @@ int NSPluginInstance::setWindow(int remo
+    _win.clipRect.bottom = _height;
+    _win.clipRect.right = _width;
+ 
+-   _win.window = (void*) XtWindow(_form);
+-   kdDebug(1431) << "Window ID = " << _win.window << endl;
++   if( _xembed_window ) {
++      _win.window = (void*) _xembed_window;
++      _win_info.type = NP_SETWINDOW;
++      _win_info.display = qt_xdisplay();
++      _win_info.visual = DefaultVisualOfScreen(DefaultScreenOfDisplay(qt_xdisplay()));
++      _win_info.colormap = DefaultColormapOfScreen(DefaultScreenOfDisplay(qt_xdisplay()));
++      _win_info.depth = DefaultDepthOfScreen(DefaultScreenOfDisplay(qt_xdisplay()));
++   } else {
++      _win.window = (void*) XtWindow(_form);
+ 
+-   _win_info.type = NP_SETWINDOW;
+-   _win_info.display = XtDisplay(_form);
+-   _win_info.visual = DefaultVisualOfScreen(XtScreen(_form));
+-   _win_info.colormap = DefaultColormapOfScreen(XtScreen(_form));
+-   _win_info.depth = DefaultDepthOfScreen(XtScreen(_form));
++      _win_info.type = NP_SETWINDOW;
++      _win_info.display = XtDisplay(_form);
++      _win_info.visual = DefaultVisualOfScreen(XtScreen(_form));
++      _win_info.colormap = DefaultColormapOfScreen(XtScreen(_form));
++      _win_info.depth = DefaultDepthOfScreen(XtScreen(_form));
++   }
++
++   kdDebug(1431) << "Window ID = " << _win.window << endl;
+ 
+    _win.ws_info = &_win_info;
+ 
+@@ -959,9 +980,6 @@ static void resizeWidgets(Window w, int 
+ 
+ void NSPluginInstance::resizePlugin(int w, int h)
+ {
+-   if (!_visible)
+-      return;
+-
+    if (w == _width && h == _height)
+       return;
+ 
+@@ -970,22 +988,30 @@ void NSPluginInstance::resizePlugin(int 
+    _width = w;
+    _height = h;
+ 
+-   XResizeWindow(qt_xdisplay(), XtWindow(_form), w, h);
+-   XResizeWindow(qt_xdisplay(), XtWindow(_toplevel), w, h);
+-
+-   Arg args[7];
+-   Cardinal nargs = 0;
+-   XtSetArg(args[nargs], XtNwidth, _width); nargs++;
+-   XtSetArg(args[nargs], XtNheight, _height); nargs++;
+-   XtSetArg(args[nargs], XtNvisual, QPaintDevice::x11AppVisual()); nargs++;
+-   XtSetArg(args[nargs], XtNdepth, QPaintDevice::x11AppDepth()); nargs++;
+-   XtSetArg(args[nargs], XtNcolormap, QPaintDevice::x11AppColormap()); nargs++;
+-   XtSetArg(args[nargs], XtNborderWidth, 0); nargs++;
+-
+-   XtSetValues(_toplevel, args, nargs);
+-   XtSetValues(_form, args, nargs);
+-
+-   resizeWidgets(XtWindow(_form), _width, _height);
++   if( _form != 0 ) {
++      XResizeWindow(qt_xdisplay(), XtWindow(_form), w, h);
++      XResizeWindow(qt_xdisplay(), XtWindow(_toplevel), w, h);
++
++      Arg args[7];
++      Cardinal nargs = 0;
++      XtSetArg(args[nargs], XtNwidth, _width); nargs++;
++      XtSetArg(args[nargs], XtNheight, _height); nargs++;
++      XtSetArg(args[nargs], XtNvisual, QPaintDevice::x11AppVisual()); nargs++;
++      XtSetArg(args[nargs], XtNdepth, QPaintDevice::x11AppDepth()); nargs++;
++      XtSetArg(args[nargs], XtNcolormap, QPaintDevice::x11AppColormap()); nargs++;
++      XtSetArg(args[nargs], XtNborderWidth, 0); nargs++;
++ 
++      XtSetValues(_toplevel, args, nargs);
++      XtSetValues(_form, args, nargs);
++
++      resizeWidgets(XtWindow(_form), _width, _height);
++   }
++
++   // If not visible yet, displayWindow() will call setWindow() again anyway, so avoid this.
++   // This also handled plugins that are broken and cannot handle repeated setWindow() calls
++   // very well.
++   if (!_visible)
++      return;
+ 
+    setWindow();
+ 
+@@ -1405,7 +1431,7 @@ void NSPluginClass::shutdown()
+ DCOPRef NSPluginClass::newInstance( QString url, QString mimeType, bool embed,
+                                     QStringList argn, QStringList argv,
+                                     QString appId, QString callbackId,
+-                                    bool reload, bool doPost, QByteArray postData )
++                                    bool reload, bool doPost, QByteArray postData, long xembed )
+ {
+    kdDebug(1431) << "-> NSPluginClass::NewInstance" << endl;
+ 
+@@ -1449,16 +1475,25 @@ DCOPRef NSPluginClass::newInstance( QStr
+    memset(npp, 0, sizeof(NPP_t));
+    npp->ndata = NULL;
+ 
+-   // Create plugin instance object
+-   NSPluginInstance *inst = new NSPluginInstance( npp, &_pluginFuncs, _handle,
+-                                                  width, height, baseURL, mimeType,
+-                                                  appId, callbackId, embed, this );
+-
+    // create plugin instance
+    NPError error = _pluginFuncs.newp(mime, npp, embed ? NP_EMBED : NP_FULL,
+                                      argc, _argn, _argv, 0);
+    kdDebug(1431) << "NPP_New = " << (int)error << endl;
+ 
++   // don't use bool here, it can be 1 byte, but some plugins write it as int, and I can't find what the spec says
++   int wants_xembed = false;
++   if (_pluginFuncs.getvalue) {
++      NPError error = _pluginFuncs.getvalue(npp, (NPPVariable)14/*NPPVpluginNeedsXEmbed*/, &wants_xembed );
++      if( error != NPERR_NO_ERROR )
++         wants_xembed = false;
++   }
++   kdDebug(1431) << "Plugin requires XEmbed:" << (bool)wants_xembed << endl;
++
++   // Create plugin instance object
++   NSPluginInstance *inst = new NSPluginInstance( npp, &_pluginFuncs, _handle,
++                                                  width, height, baseURL, mimeType,
++                                                  appId, callbackId, embed, wants_xembed ? xembed : 0, this );
++
+    // free arrays with arguments
+    delete [] _argn;
+    delete [] _argv;
+@@ -1493,7 +1528,6 @@ void NSPluginClass::destroyInstance( NSP
+     timer(); //_timer->start( 0, TRUE );
+ }
+ 
+-
+ /****************************************************************************/
+ 
+ NSPluginStreamBase::NSPluginStreamBase( NSPluginInstance *instance )
+--- nsplugins/viewer/NSPluginClassIface.h.sav	2007-12-05 16:02:28.000000000 +0100
++++ nsplugins/viewer/NSPluginClassIface.h	2007-12-12 13:29:34.000000000 +0100
+@@ -50,7 +50,7 @@ k_dcop:
+   virtual DCOPRef newInstance(QString url, QString mimeType, bool embed,
+                               QStringList argn, QStringList argv,
+                               QString appId, QString callbackId, bool reload,
+-                              bool doPost, QByteArray postData) = 0;
++                              bool doPost, QByteArray postData, long xembed) = 0;
+   virtual QString getMIMEDescription() = 0;
+ 
+ };
+--- nsplugins/nspluginloader.cpp.sav	2007-12-10 19:32:39.000000000 +0100
++++ nsplugins/nspluginloader.cpp	2007-12-12 15:23:29.000000000 +0100
+@@ -54,11 +54,16 @@ NSPluginLoader *NSPluginLoader::s_instan
+ int NSPluginLoader::s_refCount = 0;
+ 
+ 
+-NSPluginInstance::NSPluginInstance(QWidget *parent, const QCString& app, const QCString& id)
+-  : DCOPStub(app, id), NSPluginInstanceIface_stub(app, id), EMBEDCLASS(parent)
++NSPluginInstance::NSPluginInstance(QWidget *parent)
++  : EMBEDCLASS(parent), stub( NULL )
+ {
+     _loader = 0L;
+     shown = false;
++}
++
++void NSPluginInstance::init(const QCString& app, const QCString& obj)
++{
++    stub = new NSPluginInstanceIface_stub( app, obj );
+     QGridLayout *_layout = new QGridLayout(this, 1, 1);
+     KConfig cfg("kcmnspluginrc", false);
+     cfg.setGroup("Misc");
+@@ -80,12 +85,19 @@ void NSPluginInstance::doLoadPlugin() {
+         _button = 0L;
+         _loader = NSPluginLoader::instance();
+         setBackgroundMode(QWidget::NoBackground);
+-        setProtocol(QXEmbed::XPLAIN);
+-        embed( NSPluginInstanceIface_stub::winId() );
++        WId winid = stub->winId();
++        if( winid != 0 ) {
++            setProtocol(QXEmbed::XPLAIN);
++            embed( winid );
++        } else {
++            setProtocol(QXEmbed::XEMBED);
++        }
++        // resize before showing, some plugins are stupid and can't handle repeated
++        // NPSetWindow() calls very well
++        resizePlugin(width(), height());
+         displayPlugin();
+         show();
+         shown = true;
+-        if (isVisible()) resizePlugin(width(), height());
+     }
+ }
+ 
+@@ -97,6 +109,7 @@ NSPluginInstance::~NSPluginInstance()
+    kdDebug() << "release" << endl;
+    _loader->release();
+    kdDebug() << "<- NSPluginInstance::~NSPluginInstance" << endl;
++   delete stub;
+ }
+ 
+ 
+@@ -445,19 +458,19 @@ NSPluginInstance *NSPluginLoader::newIns
+    if ( mime=="application/x-shockwave-flash" )
+        embed = true; // flash doesn't work in full mode :(
+ 
++   NSPluginInstance *plugin = new NSPluginInstance( parent );
++   kdDebug() << "<- NSPluginLoader::NewInstance = " << (void*)plugin << endl;
+ 
+    // get plugin instance
+-   DCOPRef inst_ref = cls->newInstance( url, mime, embed, argn, argv, appId, callbackId, reload, doPost, postData);
++   DCOPRef inst_ref = cls->newInstance( url, mime, embed, argn, argv, appId, callbackId, reload, doPost, postData, plugin->winId());
+    if ( inst_ref.isNull() )
+    {
+       kdDebug() << "Couldn't create plugin instance" << endl;
++      delete plugin;
+       return 0;
+    }
+ 
+-   NSPluginInstance *plugin = new NSPluginInstance( parent, inst_ref.app(),
+-                                                    inst_ref.object() );
+-
+-   kdDebug() << "<- NSPluginLoader::NewInstance = " << (void*)plugin << endl;
++   plugin->init( inst_ref.app(), inst_ref.object() );
+ 
+    return plugin;
+ }
+--- nsplugins/nspluginloader.h.sav	2007-12-10 19:32:39.000000000 +0100
++++ nsplugins/nspluginloader.h	2007-12-12 13:31:51.000000000 +0100
+@@ -43,13 +43,16 @@ class KProcess;
+ class QPushButton;
+ class QGridLayout;
+ 
+-class NSPluginInstance : public EMBEDCLASS, virtual public NSPluginInstanceIface_stub
++class NSPluginInstance : public EMBEDCLASS
+ {
+   Q_OBJECT
+ 
+ public:
+-    NSPluginInstance(QWidget *parent, const QCString& app, const QCString& id);
++    NSPluginInstance(QWidget *parent);
++    void init( const QCString& app, const QCString& obj );
+     ~NSPluginInstance();
++public: // wrappers
++    void javascriptResult( int id, QString result ) { stub->javascriptResult( id, result ); }
+ 
+ private slots:
+     void doLoadPlugin();
+@@ -62,6 +65,11 @@ protected:
+     bool shown;
+     QPushButton *_button;
+     QGridLayout *_layout;
++    NSPluginInstanceIface_stub* stub;
++private: // wrappers
++    void displayPlugin() { stub->displayPlugin(); }
++    void resizePlugin( int w, int h ) { stub->resizePlugin( w, h ); }
++    void shutdown() { if( stub ) stub->shutdown(); }
+ };
+ 
+ 
