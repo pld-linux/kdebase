@@ -29,7 +29,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.8
-Release:	7
+Release:	8
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
