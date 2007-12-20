@@ -1,7 +1,7 @@
 Index: ksmserver/legacy.cpp
 ===================================================================
---- ksmserver/legacy.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ ksmserver/legacy.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- ksmserver/legacy.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ ksmserver/legacy.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -272,6 +272,10 @@
      for ( int i = 1; i <= count; i++ ) {
          QString n = QString::number(i);
@@ -15,8 +15,8 @@ Index: ksmserver/legacy.cpp
                            config->readEntry( QString("userId")+n ));
 Index: ksmserver/server.cpp
 ===================================================================
---- ksmserver/server.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ ksmserver/server.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- ksmserver/server.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ ksmserver/server.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -903,12 +903,16 @@
  
  bool KSMServer::isWM( const KSMClient* client ) const
@@ -38,8 +38,8 @@ Index: ksmserver/server.cpp
  bool KSMServer::defaultSession() const
 Index: ksmserver/server.h
 ===================================================================
---- ksmserver/server.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ ksmserver/server.h	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- ksmserver/server.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ ksmserver/server.h	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -138,6 +138,7 @@
      void executeCommand( const QStringList& command );
      
@@ -50,8 +50,8 @@ Index: ksmserver/server.h
  
 Index: kcontrol/ebrowsing/plugins/ikws/searchproviders/dmoz.desktop
 ===================================================================
---- kcontrol/ebrowsing/plugins/ikws/searchproviders/dmoz.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/ebrowsing/plugins/ikws/searchproviders/dmoz.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/ebrowsing/plugins/ikws/searchproviders/dmoz.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/ebrowsing/plugins/ikws/searchproviders/dmoz.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -27,7 +27,6 @@
  Name[ne]=डाइरेक्टरी खोल्नुहोस्
  Name[pa]=ਖੁੱਲੀ ਡਾਇਰੈਕਟਰੀ
@@ -62,8 +62,8 @@ Index: kcontrol/ebrowsing/plugins/ikws/searchproviders/dmoz.desktop
  Name[rw]= Gufungura Inkoranyamagambo
 Index: kcontrol/locale/default/entry.desktop
 ===================================================================
---- kcontrol/locale/default/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/locale/default/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/locale/default/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/locale/default/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -14,7 +14,7 @@
  Name[da]=Engelsk US
  Name[de]=US-Englisch
@@ -75,8 +75,8 @@ Index: kcontrol/locale/default/entry.desktop
  Name[eu]=EEBBetako ingelesa
 Index: kcontrol/filetypes/filetypes.desktop
 ===================================================================
---- kcontrol/filetypes/filetypes.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/filetypes/filetypes.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/filetypes/filetypes.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/filetypes/filetypes.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -202,7 +202,7 @@
  Keywords[nds]=Dateitypen,Datei-Tohören,Mime Typen,Dateimuster,Datei,Muster
  Keywords[ne]=फाइल प्रकार, फाइल संयोजन, माइम प्रकार, फाइल बाँन्की, फाइलहरू, बाँन्की
@@ -88,8 +88,8 @@ Index: kcontrol/filetypes/filetypes.desktop
  Keywords[pl]=Typy plików,skojarzenia plików,typy MIME,wzorce plików,pliki,wzorzec
 Index: kcontrol/smserver/kcmsmserver.desktop
 ===================================================================
---- kcontrol/smserver/kcmsmserver.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/smserver/kcmsmserver.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/smserver/kcmsmserver.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/smserver/kcmsmserver.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -65,7 +65,7 @@
  Name[pt]=Gestor de Sessões
  Name[pt_BR]=Gerenciador de Sessão
@@ -110,8 +110,8 @@ Index: kcontrol/smserver/kcmsmserver.desktop
  Comment[sk]=Nastavenie správcu sedení a odhlásenia
 Index: kcontrol/kded/kcmkded.desktop
 ===================================================================
---- kcontrol/kded/kcmkded.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/kded/kcmkded.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/kded/kcmkded.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/kded/kcmkded.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -126,7 +126,7 @@
  Comment[mn]=Системийн үйлчилгээний тохируулга
  Comment[ms]=Konfigurasi Servis Sistem
@@ -123,8 +123,8 @@ Index: kcontrol/kded/kcmkded.desktop
  Comment[nl]=KDE-systeemdiensten instellen
 Index: kcontrol/kicker/kicker_config_appearance.desktop
 ===================================================================
---- kcontrol/kicker/kicker_config_appearance.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/kicker/kicker_config_appearance.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/kicker/kicker_config_appearance.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/kicker/kicker_config_appearance.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -173,7 +173,7 @@
  Keywords[cy]=ciciwr,kicker,panel,kpanel,bar tasgau,bar cychwyn,bar lansio,lleoliad,maint,awto-guddio,hunan-guddio,cuddio,botymau,animeiddiad,cefndir,themâu,storfa dewislen, storfa,cache,celc,cudd,K-Menu,nodau tudalen,dogfenni diweddar,porydd cyflym,dewislen porydd,dewislen,eiconau,teiliau,rhaglenigion,ymcychwyn,amlygu,carnau,eiconau chwyddo
  Keywords[da]=kicker,panel,kpanel,opgavelinje,startlinje,sted,størrelse,autogem,gem,knapper,animering,baggrund,temaer,menucache,cache,skjult,K-Menu,bogmærker,nylige dokumenter,hurtigsøger,søgemenu,menu,ikoner,fliser,panelprogrammer,opstart,markér,håndterer,ikoner
@@ -136,8 +136,8 @@ Index: kcontrol/kicker/kicker_config_appearance.desktop
  Keywords[et]=kicker,paneel,kpanel,tegumiriba,käivitusriba,asukoht,suurus,terminal,automaatne peitmine,peitmine,nupud,animatsioon,taust,teemad,menüü vahemälu,vahemälu,peidetud,K-menüü,järjehoidjad,viimati kasutatud dokumendid, kiirbrauser,lehitsemise menüü,menüü,ikoonid,apletid,käivitamine,esiletõstmine,piirded,ikoonide suurendamine,usaldusväärsed apletid,turvatase
 Index: kcontrol/kicker/kicker_config_arrangement.desktop
 ===================================================================
---- kcontrol/kicker/kicker_config_arrangement.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/kicker/kicker_config_arrangement.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/kicker/kicker_config_arrangement.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/kicker/kicker_config_arrangement.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -156,7 +156,7 @@
  Keywords[cy]=ciciwr,kicker,panel,kpanel,bar tasgau,bar cychwyn,bar lansio,lleoliad,maint,awto-guddio,hunan-guddio,cuddio,botymau,animeiddiad,cefndir,themâu,storfa dewislen, storfa,cache,celc,cudd,K-Menu,nodau tudalen,dogfenni diweddar,porydd cyflym,dewislen porydd,dewislen,eiconau,teiliau,rhaglenigion,ymcychwyn,amlygu,carnau,eiconau chwyddo
  Keywords[da]=kicker,panel,kpanel,opgavelinje,startlinje,sted,størrelse,autogem,gem,knapper,animering,baggrund,temaer,menucache,cache,skjult,K-Menu,bogmærker,nylige dokumenter,hurtigsøger,søgemenu,menu,ikoner,fliser,panelprogrammer,opstart,markér,håndterer,ikoner
@@ -149,8 +149,8 @@ Index: kcontrol/kicker/kicker_config_arrangement.desktop
  Keywords[et]=kicker,paneel,kpanel,tegumiriba,käivitusriba,asukoht,suurus,terminal,automaatne peitmine,peitmine,nupud,animatsioon,taust,teemad,menüü vahemälu,vahemälu,peidetud,K-menüü,järjehoidjad,viimati kasutatud dokumendid, kiirbrauser,lehitsemise menüü,menüü,ikoonid,apletid,käivitamine,esiletõstmine,piirded,ikoonide suurendamine,usaldusväärsed apletid,turvatase
 Index: kcontrol/kicker/kicker_config.desktop
 ===================================================================
---- kcontrol/kicker/kicker_config.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/kicker/kicker_config.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/kicker/kicker_config.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/kicker/kicker_config.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -167,7 +167,7 @@
  Keywords[cy]=ciciwr,kicker,panel,kpanel,bar tasgau,bar cychwyn,bar lansio,lleoliad,maint,awto-guddio,hunan-guddio,cuddio,botymau,animeiddiad,cefndir,themâu,storfa dewislen, storfa,cache,celc,cudd,K-Menu,nodau tudalen,dogfenni diweddar,porydd cyflym,dewislen porydd,dewislen,eiconau,teiliau,rhaglenigion,ymcychwyn,amlygu,carnau,eiconau chwyddo
  Keywords[da]=kicker,panel,kpanel,opgavelinje,startlinje,sted,størrelse,autogem,gem,knapper,animering,baggrund,temaer,menucache,cache,skjult,K-Menu,bogmærker,nylige dokumenter,hurtigsøger,søgemenu,menu,ikoner,fliser,panelprogrammer,opstart,markér,håndterer,ikoner
@@ -162,8 +162,8 @@ Index: kcontrol/kicker/kicker_config.desktop
  Keywords[et]=kicker,paneel,kpanel,tegumiriba,käivitusriba,asukoht,suurus,terminal,automaatne peitmine,peitmine,nupud,animatsioon,taust,teemad,menüü vahemälu,vahemälu,peidetud,K-menüü,järjehoidjad,viimati kasutatud dokumendid, kiirbrauser,lehitsemise menüü,menüü,ikoonid,apletid,käivitamine,esiletõstmine,piirded,ikoonide suurendamine,usaldusväärsed apletid,turvatase
 Index: kcontrol/kicker/panel.desktop
 ===================================================================
---- kcontrol/kicker/panel.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/kicker/panel.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/kicker/panel.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/kicker/panel.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -166,7 +166,7 @@
  Keywords[cy]=ciciwr,kicker,panel,kpanel,bar tasgau,bar cychwyn,bar lansio,lleoliad,maint,awto-guddio,hunan-guddio,cuddio,botymau,animeiddiad,cefndir,themâu,storfa dewislen, storfa,cache,celc,cudd,K-Menu,nodau tudalen,dogfenni diweddar,porydd cyflym,dewislen porydd,dewislen,eiconau,teiliau,rhaglenigion,ymcychwyn,amlygu,carnau,eiconau chwyddo
  Keywords[da]=kicker,panel,kpanel,opgavelinje,startlinje,sted,størrelse,autogem,gem,knapper,animering,baggrund,temaer,menucache,cache,skjult,K-Menu,bogmærker,nylige dokumenter,hurtigsøger,søgemenu,menu,ikoner,fliser,panelprogrammer,opstart,markér,håndterer,ikoner
@@ -175,8 +175,8 @@ Index: kcontrol/kicker/panel.desktop
  Keywords[et]=kicker,paneel,kpanel,tegumiriba,käivitusriba,asukoht,suurus,terminal,automaatne peitmine,peitmine,nupud,animatsioon,taust,teemad,menüü vahemälu,vahemälu,peidetud,K-menüü,järjehoidjad,viimati kasutatud dokumendid, kiirbrauser,lehitsemise menüü,menüü,ikoonid,apletid,käivitamine,esiletõstmine,piirded,ikoonide suurendamine,usaldusväärsed apletid,turvatase
 Index: kcontrol/kicker/kicker_config_hiding.desktop
 ===================================================================
---- kcontrol/kicker/kicker_config_hiding.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/kicker/kicker_config_hiding.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/kicker/kicker_config_hiding.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/kicker/kicker_config_hiding.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -146,7 +146,7 @@
  Keywords[cy]=ciciwr,kicker,panel,kpanel,bar tasgau,bar cychwyn,bar lansio,lleoliad,maint,awto-guddio,hunan-guddio,cuddio,botymau,animeiddiad,cefndir,themâu,storfa dewislen, storfa,cache,celc,cudd,K-Menu,nodau tudalen,dogfenni diweddar,porydd cyflym,dewislen porydd,dewislen,eiconau,teiliau,rhaglenigion,ymcychwyn,amlygu,carnau,eiconau chwyddo
  Keywords[da]=kicker,panel,kpanel,opgavelinje,startlinje,sted,størrelse,autogem,gem,knapper,animering,baggrund,temaer,menucache,cache,skjult,K-Menu,bogmærker,nylige dokumenter,hurtigsøger,søgemenu,menu,ikoner,fliser,panelprogrammer,opstart,markér,håndterer,ikoner
@@ -188,8 +188,8 @@ Index: kcontrol/kicker/kicker_config_hiding.desktop
  Keywords[et]=kicker,paneel,kpanel,tegumiriba,käivitusriba,asukoht,suurus,terminal,automaatne peitmine,peitmine,nupud,animatsioon,taust,teemad,menüü vahemälu,vahemälu,peidetud,K-menüü,järjehoidjad,viimati kasutatud dokumendid, kiirbrauser,lehitsemise menüü,menüü,ikoonid,apletid,käivitamine,esiletõstmine,piirded,ikoonide suurendamine,usaldusväärsed apletid,turvatase
 Index: kcontrol/kicker/kicker_config_menus.desktop
 ===================================================================
---- kcontrol/kicker/kicker_config_menus.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/kicker/kicker_config_menus.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/kicker/kicker_config_menus.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/kicker/kicker_config_menus.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -143,7 +143,7 @@
  Keywords[cy]=ciciwr,kicker,panel,kpanel,bar tasgau,bar cychwyn,bar lansio,lleoliad,maint,awto-guddio,hunan-guddio,cuddio,botymau,animeiddiad,cefndir,themâu,storfa dewislen, storfa,cache,celc,cudd,K-Menu,nodau tudalen,dogfenni diweddar,porydd cyflym,dewislen porydd,dewislen,eiconau,teiliau,rhaglenigion,ymcychwyn,amlygu,carnau,eiconau chwyddo
  Keywords[da]=kicker,panel,kpanel,opgavelinje,startlinje,sted,størrelse,autogem,gem,knapper,animering,baggrund,temaer,menucache,cache,skjult,K-Menu,bogmærker,nylige dokumenter,hurtigsøger,søgemenu,menu,ikoner,fliser,panelprogrammer,opstart,markér,håndterer,ikoner
@@ -201,8 +201,8 @@ Index: kcontrol/kicker/kicker_config_menus.desktop
  Keywords[et]=kicker,paneel,kpanel,tegumiriba,käivitusriba,asukoht,suurus,terminal,automaatne peitmine,peitmine,nupud,animatsioon,taust,teemad,menüü vahemälu,vahemälu,peidetud,K-menüü,järjehoidjad,viimati kasutatud dokumendid, kiirbrauser,lehitsemise menüü,menüü,ikoonid,apletid,käivitamine,esiletõstmine,piirded,ikoonide suurendamine,usaldusväärsed apletid,turvatase
 Index: kcontrol/privacy/privacy.desktop
 ===================================================================
---- kcontrol/privacy/privacy.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/privacy/privacy.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/privacy/privacy.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/privacy/privacy.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -38,7 +38,7 @@
  Comment[mk]=Приватност - kcontrol модул кој ги чисти несаканите траги кои ги остава корисникот на системот
  Comment[mn]=Privacy - систем дэх хэрэглэгчийн хэрэглэхгүй охрисон хог цэвэрлэгчийн хяналтын модул
@@ -223,8 +223,8 @@ Index: kcontrol/privacy/privacy.desktop
  Comment[sr]=Приватност — kcontrol модул који уклања трагове активности корисника на систему
 Index: kcontrol/kio/cache.desktop
 ===================================================================
---- kcontrol/kio/cache.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/kio/cache.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/kio/cache.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/kio/cache.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -172,7 +172,7 @@
  Keywords[hi]=कैश,इतिहास,ब्राउज़िंग इतिहास,पोर्ट,आकार
  Keywords[hr]=Cache,Pohrana,History,Povijest,Browsing History,Ports,Portovi,Size,Veličina,Povijest pretraživanja
@@ -236,8 +236,8 @@ Index: kcontrol/kio/cache.desktop
  Keywords[km]=ឃ្លាំង​សម្ងាត់,ប្រវត្តិ,ប្រវត្តិ​ការ​រុករក,ច្រក,ទំហំ
 Index: kcontrol/kio/netpref.desktop
 ===================================================================
---- kcontrol/kio/netpref.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/kio/netpref.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/kio/netpref.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/kio/netpref.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -41,7 +41,7 @@
  Comment[mn]=Ерөнхий сүлжээ-Тохируулга тохируулах Ж.нь.Хугацаа хэтрэлтийн хугацаа
  Comment[ms]=Konfigur keutamaan rangkaian generik, seperti nilai waktu rehat
@@ -249,8 +249,8 @@ Index: kcontrol/kio/netpref.desktop
  Comment[nl]=Instellen van algemene netwerkvoorkeuren, zoals tijdslimietwaarden
 Index: kcontrol/clock/clock.desktop
 ===================================================================
---- kcontrol/clock/clock.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/clock/clock.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/clock/clock.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/clock/clock.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -56,7 +56,7 @@
  Name[mn]=Огноо & Цаг
  Name[ms]=Tarikh & Masa
@@ -276,8 +276,8 @@ Index: kcontrol/clock/clock.desktop
  Comment[pa]=ਮਿਤੀ ਅਤੇ ਸਮਾਂ ਸੈਟਿੰਗ
 Index: kcontrol/konqhtml/appearance.cpp
 ===================================================================
---- kcontrol/konqhtml/appearance.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/konqhtml/appearance.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/konqhtml/appearance.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/konqhtml/appearance.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -357,6 +357,11 @@
  
      updateGUI();
@@ -292,8 +292,8 @@ Index: kcontrol/konqhtml/appearance.cpp
  void KAppearanceOptions::defaults()
 Index: kcontrol/konqhtml/khtml_fonts.desktop
 ===================================================================
---- kcontrol/konqhtml/khtml_fonts.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/konqhtml/khtml_fonts.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/konqhtml/khtml_fonts.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/konqhtml/khtml_fonts.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -186,7 +186,7 @@
  Keywords[is]=vafri,vefur,vefurinn,vefsíður,letur,litir,kóðun,stafatafla, bendill,myndir,www,html,stafir
  Keywords[it]=konqueror,kfm,browser,html,web,www,caratteri,colori,set di caratteri,charset,codifica
@@ -305,8 +305,8 @@ Index: kcontrol/konqhtml/khtml_fonts.desktop
  Keywords[mk]=konqueror,kfm,browser,html,web,www,fonts,charsets,character sets,encoding,прелистувач,веб,фонтови,знаковни множества,кодирање
 Index: kcontrol/konqhtml/htmlopts.cpp
 ===================================================================
---- kcontrol/konqhtml/htmlopts.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/konqhtml/htmlopts.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/konqhtml/htmlopts.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/konqhtml/htmlopts.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -277,6 +277,10 @@
      m_pOnlyMarkedBookmarksCheckBox->setChecked( config.readBoolEntry("FilteredToolbar", false) );
  
@@ -320,8 +320,8 @@ Index: kcontrol/konqhtml/htmlopts.cpp
  void KMiscHTMLOptions::defaults()
 Index: kcontrol/style/style.desktop
 ===================================================================
---- kcontrol/style/style.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/style/style.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/style/style.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/style/style.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -173,7 +173,7 @@
  Keywords[da]=stil,udseende,kontrol,ikoner,værktøjslinjer,tekst,fremhæv,prog,KDE-programmer
  Keywords[de]=Stile,Design,Themes,Schema,Elemente,Bildschirmelemente,Icons,Bedienelemente,Schriften,Symbole,Werkzeugleisten,Text,Hervorhebungen,Knöpfe,Anwendungen,Programme,KDE-Programme
@@ -333,8 +333,8 @@ Index: kcontrol/style/style.desktop
  Keywords[eu]=estiloa,estiloak,itxura,widget-a,ikonoak,tresna-barrak,testua, nabarmenketa,aplikazioak,KDE aplikazioak
 Index: kcontrol/konsole/kcmkonsole.desktop
 ===================================================================
---- kcontrol/konsole/kcmkonsole.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/konsole/kcmkonsole.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/konsole/kcmkonsole.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/konsole/kcmkonsole.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -34,7 +34,6 @@
  Name[pa]=ਕੰਨਸੋਲ
  Name[pl]=Konsola
@@ -345,8 +345,8 @@ Index: kcontrol/konsole/kcmkonsole.desktop
  Name[sl]=Konzola
 Index: kcontrol/kdm/kdm-users.cpp
 ===================================================================
---- kcontrol/kdm/kdm-users.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/kdm/kdm-users.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/kdm/kdm-users.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/kdm/kdm-users.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -418,7 +418,8 @@
  	      setOn(selectedUsers.find(*name) != selectedUsers.end());
        (new QCheckListItem(optoutlv, *name, QCheckListItem::CheckBox))->
@@ -359,8 +359,8 @@ Index: kcontrol/kdm/kdm-users.cpp
      optoutlv->sort();
 Index: kcontrol/kdm/kdm-appear.cpp
 ===================================================================
---- kcontrol/kdm/kdm-appear.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/kdm/kdm-appear.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/kdm/kdm-appear.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/kdm/kdm-appear.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -172,6 +172,7 @@
    guicombo = new KBackedComboBox(group);
    guicombo->insertItem( "", i18n("<default>") );
@@ -379,8 +379,8 @@ Index: kcontrol/kdm/kdm-appear.cpp
    hglay->addWidget(label, 1, 0);
 Index: kcontrol/dnssd/configdialog.ui
 ===================================================================
---- kcontrol/dnssd/configdialog.ui	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kcontrol/dnssd/configdialog.ui	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kcontrol/dnssd/configdialog.ui	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kcontrol/dnssd/configdialog.ui	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -289,6 +289,9 @@
  <slots>
      <slot>radioButton2_2_toggled(bool)</slot>
@@ -393,8 +393,8 @@ Index: kcontrol/dnssd/configdialog.ui
      <includehint>kcmodule.h</includehint>
 Index: pics/wallpapers/stelvio.jpg.desktop
 ===================================================================
---- pics/wallpapers/stelvio.jpg.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ pics/wallpapers/stelvio.jpg.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- pics/wallpapers/stelvio.jpg.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ pics/wallpapers/stelvio.jpg.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -12,6 +12,7 @@
  Name[ru]=Национальный парк Стельвио
  Name[sr]=Стелвио
@@ -403,10 +403,22 @@ Index: pics/wallpapers/stelvio.jpg.desktop
  Name[uz]=Стелвио
  Name[zh_CN]=孤堡
  ImageType=pixmap
+Index: kdmlib/kgreet_classic.cpp
+===================================================================
+--- kdmlib/kgreet_classic.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdmlib/kgreet_classic.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
+@@ -213,6 +213,7 @@
+ 	curUser = user;
+ 	loginEdit->setText( user );
+ 	passwdEdit->setFocus();
++	passwdEdit->selectAll();
+ }
+ 
+ void // virtual
 Index: kdmlib/dmctl.cpp
 ===================================================================
---- kdmlib/dmctl.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdmlib/dmctl.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdmlib/dmctl.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdmlib/dmctl.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -65,21 +65,28 @@
  		if ((fd = ::socket( PF_UNIX, SOCK_STREAM, 0 )) < 0)
  			return;
@@ -446,10 +458,22 @@ Index: kdmlib/dmctl.cpp
  		break;
  	case OldKDM:
  		{
+Index: kdmlib/kgreet_winbind.cpp
+===================================================================
+--- kdmlib/kgreet_winbind.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdmlib/kgreet_winbind.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
+@@ -293,6 +293,7 @@
+ 	slotChangedDomain( dom );
+ 	loginEdit->setText( usr );
+ 	passwdEdit->setFocus();
++	passwdEdit->selectAll();
+ }
+ 
+ void // virtual
 Index: khelpcenter/plugins/applets.desktop
 ===================================================================
---- khelpcenter/plugins/applets.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ khelpcenter/plugins/applets.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- khelpcenter/plugins/applets.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ khelpcenter/plugins/applets.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -14,7 +14,7 @@
  Name[cy]=Llawlyfr Rhaglennig
  Name[da]=Panelprogrammanualer
@@ -461,8 +485,8 @@ Index: khelpcenter/plugins/applets.desktop
  Name[et]=Aplettide käsiraamatud
 Index: khelpcenter/plugins/Tutorials/.directory
 ===================================================================
---- khelpcenter/plugins/Tutorials/.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ khelpcenter/plugins/Tutorials/.directory	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- khelpcenter/plugins/Tutorials/.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ khelpcenter/plugins/Tutorials/.directory	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -15,7 +15,9 @@
  Name[fo]=Skeið
  Name[fr]=Didactitiels
@@ -501,8 +525,8 @@ Index: khelpcenter/plugins/Tutorials/.directory
  Comment[sr]=Туторијали и уводни документи.
 Index: khelpcenter/plugins/Applications/.directory
 ===================================================================
---- khelpcenter/plugins/Applications/.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ khelpcenter/plugins/Applications/.directory	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- khelpcenter/plugins/Applications/.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ khelpcenter/plugins/Applications/.directory	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -16,6 +16,8 @@
  Name[fr]=Manuels des applications
  Name[hi]=अनुप्रयोग निर्देशिका
@@ -522,8 +546,8 @@ Index: khelpcenter/plugins/Applications/.directory
  Name[sr]=Упутства за програме
 Index: khelpcenter/plugins/Manpages/.directory
 ===================================================================
---- khelpcenter/plugins/Manpages/.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ khelpcenter/plugins/Manpages/.directory	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- khelpcenter/plugins/Manpages/.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ khelpcenter/plugins/Manpages/.directory	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -15,6 +15,8 @@
  Name[fr]=Pages du manuel UNIX
  Name[hi]=यूनिक्स निर्देशिका पृष्ठ
@@ -543,8 +567,8 @@ Index: khelpcenter/plugins/Manpages/.directory
  Name[sr]=UNIX упутне стране
 Index: doc/faq/about.docbook
 ===================================================================
---- doc/faq/about.docbook	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ doc/faq/about.docbook	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- doc/faq/about.docbook	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ doc/faq/about.docbook	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -18,8 +18,7 @@
  <para>First, send us any errors that you may find.  Also, any
  suggestions that you might have, are appreciated.  Better yet, send us
@@ -565,8 +589,8 @@ Index: doc/faq/about.docbook
 +
 Index: klipper/klipperrc.desktop
 ===================================================================
---- klipper/klipperrc.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ klipper/klipperrc.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- klipper/klipperrc.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ klipper/klipperrc.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -430,7 +430,7 @@
  Description[mn]=&URL илгээх
  Description[ms]=Hantar &URL
@@ -614,8 +638,8 @@ Index: klipper/klipperrc.desktop
  URLGrabberEnabled=false
 Index: kicker/menuext/kdeprint/printmenu.desktop
 ===================================================================
---- kicker/menuext/kdeprint/printmenu.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kicker/menuext/kdeprint/printmenu.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kicker/menuext/kdeprint/printmenu.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kicker/menuext/kdeprint/printmenu.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -36,6 +36,7 @@
  Name[kk]=Басып шығару
  Name[km]=ប្រព័ន្ធ​បោះពុម្ព
@@ -626,8 +650,8 @@ Index: kicker/menuext/kdeprint/printmenu.desktop
  Name[lv]=Drukas Sistēma
 Index: kicker/extensions/kasbar/kasbarextension.desktop
 ===================================================================
---- kicker/extensions/kasbar/kasbarextension.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kicker/extensions/kasbar/kasbarextension.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kicker/extensions/kasbar/kasbarextension.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kicker/extensions/kasbar/kasbarextension.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -41,7 +41,7 @@
  Comment[cy]=Rhaglennig bar tasgau arall i'r panel
  Comment[da]=Et alternativt opgavelinjepanelprogram.
@@ -639,8 +663,8 @@ Index: kicker/extensions/kasbar/kasbarextension.desktop
  Comment[et]=Teistsugune paneelil töötav tegumiriba aplett
 Index: kicker/kicker/panel.desktop
 ===================================================================
---- kicker/kicker/panel.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kicker/kicker/panel.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kicker/kicker/panel.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kicker/kicker/panel.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -36,6 +36,7 @@
  Name[kk]=KDE панелі
  Name[km]=បន្ទះ KDE
@@ -651,8 +675,8 @@ Index: kicker/kicker/panel.desktop
  Name[lv]=KDE Panelis
 Index: kicker/applets/menu/menuapplet.desktop
 ===================================================================
---- kicker/applets/menu/menuapplet.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kicker/applets/menu/menuapplet.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kicker/applets/menu/menuapplet.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kicker/applets/menu/menuapplet.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -70,7 +70,7 @@
  Comment[cy]=Rhaglennig sy'n mewn-adeiladu bariau dewislen unigol
  Comment[da]=Applet der indlejrer alenestående menulinjer
@@ -664,8 +688,8 @@ Index: kicker/applets/menu/menuapplet.desktop
  Comment[et]=Aplett, mis põimib endasse isseisvaid menüüribasid
 Index: kicker/applets/systemtray/systemtrayapplet.desktop
 ===================================================================
---- kicker/applets/systemtray/systemtrayapplet.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kicker/applets/systemtray/systemtrayapplet.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kicker/applets/systemtray/systemtrayapplet.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kicker/applets/systemtray/systemtrayapplet.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -94,7 +94,7 @@
  Comment[cy]=Rhaglennig bar tasgau i'r panel
  Comment[da]=Statusfelt-panelprogrammet
@@ -677,8 +701,8 @@ Index: kicker/applets/systemtray/systemtrayapplet.desktop
  Comment[et]=Paneelil töötav süsteemse doki aplett
 Index: kicker/applets/swallow/swallowapplet.desktop
 ===================================================================
---- kicker/applets/swallow/swallowapplet.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kicker/applets/swallow/swallowapplet.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kicker/applets/swallow/swallowapplet.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kicker/applets/swallow/swallowapplet.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -14,7 +14,7 @@
  Name[cy]=Rhaglennig Llyncu
  Name[da]=Swallow-panelprogram
@@ -699,8 +723,8 @@ Index: kicker/applets/swallow/swallowapplet.desktop
  Comment[et]=Paneelil töötav põimimise aplett
 Index: kioslave/media/services/media_unmount.desktop
 ===================================================================
---- kioslave/media/services/media_unmount.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kioslave/media/services/media_unmount.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kioslave/media/services/media_unmount.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kioslave/media/services/media_unmount.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -79,7 +79,7 @@
  Name[wa]=Dismonter
  Name[xh]=Sukuyilayisha
@@ -712,8 +736,8 @@ Index: kioslave/media/services/media_unmount.desktop
  
 Index: kioslave/media/mediamanager/halbackend.cpp
 ===================================================================
---- kioslave/media/mediamanager/halbackend.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kioslave/media/mediamanager/halbackend.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kioslave/media/mediamanager/halbackend.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kioslave/media/mediamanager/halbackend.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -74,7 +74,10 @@
          const QPtrList<Medium> medlist = m_mediaList.list();
          QPtrListIterator<Medium> it (medlist);
@@ -844,8 +868,8 @@ Index: kioslave/media/mediamanager/halbackend.cpp
      return true;
 Index: kioslave/media/mediamanager/halbackend.h
 ===================================================================
---- kioslave/media/mediamanager/halbackend.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kioslave/media/mediamanager/halbackend.h	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kioslave/media/mediamanager/halbackend.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kioslave/media/mediamanager/halbackend.h	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -128,7 +128,7 @@
  	/**
  	* Reset properties for the given medium
@@ -857,8 +881,8 @@ Index: kioslave/media/mediamanager/halbackend.h
  	* Find the medium that is concerned with device udi
 Index: kioslave/ldap/kio_ldap.cpp
 ===================================================================
---- kioslave/ldap/kio_ldap.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kioslave/ldap/kio_ldap.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kioslave/ldap/kio_ldap.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kioslave/ldap/kio_ldap.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -269,6 +269,7 @@
        }
        ldap_value_free_len(bvals);
@@ -869,8 +893,8 @@ Index: kioslave/ldap/kio_ldap.cpp
    }
 Index: kioslave/thumbnail/thumbnail.cpp
 ===================================================================
---- kioslave/thumbnail/thumbnail.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kioslave/thumbnail/thumbnail.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kioslave/thumbnail/thumbnail.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kioslave/thumbnail/thumbnail.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -404,6 +404,8 @@
              shmdt((char*)shmaddr);
              return;
@@ -882,8 +906,8 @@ Index: kioslave/thumbnail/thumbnail.cpp
          memcpy(shmaddr, img.bits(), img.numBytes());
 Index: kioslave/home/homeimpl.h
 ===================================================================
---- kioslave/home/homeimpl.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kioslave/home/homeimpl.h	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kioslave/home/homeimpl.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kioslave/home/homeimpl.h	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -40,9 +40,6 @@
  	bool listHomes(QValueList<KIO::UDSEntry> &list);
  	
@@ -908,8 +932,8 @@ Index: kioslave/home/homeimpl.h
  
 Index: kioslave/home/kio_home.cpp
 ===================================================================
---- kioslave/home/kio_home.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kioslave/home/kio_home.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kioslave/home/kio_home.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kioslave/home/kio_home.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -79,7 +79,7 @@
  
  	if ( !m_impl.realURL(name, path, newUrl) )
@@ -933,8 +957,8 @@ Index: kioslave/home/kio_home.cpp
  
 Index: kdeprint/printmgr/printers.desktop
 ===================================================================
---- kdeprint/printmgr/printers.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdeprint/printmgr/printers.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdeprint/printmgr/printers.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdeprint/printmgr/printers.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -126,11 +126,11 @@
  Comment[mn]=Хэвлэх системийн тохируулга(Хэвлэгч,Даалгавар, Ангиуд...)
  Comment[ms]=Konfigurasi sistem pencetakan [pencetak, kerja, kelas, ...)
@@ -949,11 +973,1483 @@ Index: kdeprint/printmgr/printers.desktop
  Comment[nso]=Peakanyo ya system ya kgatiso (digatisi, mesomo, maemo,...)
  Comment[pa]=ਪਰਿੰਟਿੰਗ ਸਿਸਟਮ ਸੰਰਚਨਾ (ਪਰਿੰਟਰ, ਕੰਮ, ਕਲਾਸ, ...)
  Comment[pl]=Konfiguracja systemu drukowania (drukarki, zadania, klasy, ...)
+Index: nsplugins/sdk/prcpucfg.h
+===================================================================
+--- nsplugins/sdk/prcpucfg.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ nsplugins/sdk/prcpucfg.h	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
+@@ -276,7 +276,7 @@
+ #define PR_BYTES_PER_WORD_LOG2   2
+ #define PR_BYTES_PER_DWORD_LOG2  3
+ 
+-#elif defined(__sparc__)
++#elif defined(__sparc__) || (defined(__SUNPRO_CC) && defined(__sparc))
+ 
+ #undef	IS_LITTLE_ENDIAN
+ #define	IS_BIG_ENDIAN 1
+@@ -321,7 +321,7 @@
+ #define PR_BYTES_PER_WORD_LOG2   2
+ #define PR_BYTES_PER_DWORD_LOG2  3
+ 
+-#elif defined(__i386__)
++#elif defined(__i386__) || (defined(__SUNPRO_CC) && defined(__i386))
+ 
+ #define IS_LITTLE_ENDIAN 1
+ #undef  IS_BIG_ENDIAN
+Index: nsplugins/sdk/npruntime.h
+===================================================================
+--- nsplugins/sdk/npruntime.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 0)
++++ nsplugins/sdk/npruntime.h	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
+@@ -0,0 +1,399 @@
++/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
++/*
++ * Copyright � 2004, Apple Computer, Inc. and The Mozilla Foundation. 
++ * All rights reserved.
++ * 
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions are
++ * met:
++ * 
++ * 1. Redistributions of source code must retain the above copyright
++ * notice, this list of conditions and the following disclaimer.
++ * 2. Redistributions in binary form must reproduce the above copyright
++ * notice, this list of conditions and the following disclaimer in the
++ * documentation and/or other materials provided with the distribution.
++ * 3. Neither the names of Apple Computer, Inc. ("Apple") or The Mozilla
++ * Foundation ("Mozilla") nor the names of their contributors may be used
++ * to endorse or promote products derived from this software without
++ * specific prior written permission.
++ * 
++ * THIS SOFTWARE IS PROVIDED BY APPLE, MOZILLA AND THEIR CONTRIBUTORS "AS
++ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
++ * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
++ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL APPLE, MOZILLA OR
++ * THEIR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
++ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
++ * TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
++ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
++ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
++ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
++ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ *
++ * Revision 1 (March 4, 2004):
++ * Initial proposal.
++ *
++ * Revision 2 (March 10, 2004):
++ * All calls into script were made asynchronous.  Results are
++ * provided via the NPScriptResultFunctionPtr callback.
++ *
++ * Revision 3 (March 10, 2004):
++ * Corrected comments to not refer to class retain/release FunctionPtrs.
++ *
++ * Revision 4 (March 11, 2004):
++ * Added additional convenience NPN_SetExceptionWithUTF8().
++ * Changed NPHasPropertyFunctionPtr and NPHasMethodFunctionPtr to take NPClass
++ * pointers instead of NPObject pointers.
++ * Added NPIsValidIdentifier().
++ *
++ * Revision 5 (March 17, 2004):
++ * Added context parameter to result callbacks from ScriptObject functions.
++ *
++ * Revision 6 (March 29, 2004):
++ * Renamed functions implemented by user agent to NPN_*.  Removed _ from
++ * type names.
++ * Renamed "JavaScript" types to "Script".
++ *
++ * Revision 7 (April 21, 2004):
++ * NPIdentifier becomes a void*, was int32_t
++ * Remove NP_IsValidIdentifier, renamed NP_IdentifierFromUTF8 to NP_GetIdentifier
++ * Added NPVariant and modified functions to use this new type.
++ *
++ * Revision 8 (July 9, 2004):
++ * Updated to joint Apple-Mozilla license.
++ *
++ */
++#ifndef _NP_RUNTIME_H_
++#define _NP_RUNTIME_H_
++
++#include <qglobal.h>
++typedef Q_UINT32 uint32_t;
++
++#ifdef __cplusplus
++extern "C" {
++#endif
++
++
++/*
++    This API is used to facilitate binding code written in C to script
++    objects.  The API in this header does not assume the presence of a
++    user agent.  That is, it can be used to bind C code to scripting
++    environments outside of the context of a user agent.
++    
++    However, the normal use of the this API is in the context of a
++    scripting environment running in a browser or other user agent.
++    In particular it is used to support the extended Netscape
++    script-ability API for plugins (NP-SAP).  NP-SAP is an extension
++    of the Netscape plugin API.  As such we have adopted the use of
++    the "NP" prefix for this API.
++
++    The following NP{N|P}Variables were added to the Netscape plugin
++    API (in npapi.h):
++
++    NPNVWindowNPObject
++    NPNVPluginElementNPObject
++    NPPVpluginScriptableNPObject
++
++    These variables are exposed through NPN_GetValue() and
++    NPP_GetValue() (respectively) and are used to establish the
++    initial binding between the user agent and native code.  The DOM
++    objects in the user agent can be examined and manipulated using
++    the NPN_ functions that operate on NPObjects described in this
++    header.
++
++    To the extent possible the assumptions about the scripting
++    language used by the scripting environment have been minimized.
++*/
++
++#define NP_BEGIN_MACRO  do {
++#define NP_END_MACRO    } while (0)
++
++/*
++    Objects (non-primitive data) passed between 'C' and script is
++    always wrapped in an NPObject.  The 'interface' of an NPObject is
++    described by an NPClass.
++*/
++typedef struct NPObject NPObject;
++typedef struct NPClass NPClass;
++
++typedef char NPUTF8;
++typedef struct _NPString {
++    const NPUTF8 *utf8characters;
++    uint32_t utf8length;
++} NPString;
++
++typedef enum {
++    NPVariantType_Void,
++    NPVariantType_Null,
++    NPVariantType_Bool,
++    NPVariantType_Int32,
++    NPVariantType_Double,
++    NPVariantType_String,
++    NPVariantType_Object
++} NPVariantType;
++
++typedef struct _NPVariant {
++    NPVariantType type;
++    union {
++        bool boolValue;
++        uint32_t intValue;
++        double doubleValue;
++        NPString stringValue;
++        NPObject *objectValue;
++    } value;
++} NPVariant;
++
++/*
++    NPN_ReleaseVariantValue is called on all 'out' parameters
++    references.  Specifically it is to be called on variants that own
++    their value, as is the case with all non-const NPVariant*
++    arguments after a successful call to any methods (except this one)
++    in this API.
++
++    After calling NPN_ReleaseVariantValue, the type of the variant
++    will be NPVariantType_Void.
++*/
++void NPN_ReleaseVariantValue(NPVariant *variant);
++
++#define NPVARIANT_IS_VOID(_v)    ((_v).type == NPVariantType_Void)
++#define NPVARIANT_IS_NULL(_v)    ((_v).type == NPVariantType_Null)
++#define NPVARIANT_IS_BOOLEAN(_v) ((_v).type == NPVariantType_Bool)
++#define NPVARIANT_IS_INT32(_v)   ((_v).type == NPVariantType_Int32)
++#define NPVARIANT_IS_DOUBLE(_v)  ((_v).type == NPVariantType_Double)
++#define NPVARIANT_IS_STRING(_v)  ((_v).type == NPVariantType_String)
++#define NPVARIANT_IS_OBJECT(_v)  ((_v).type == NPVariantType_Object)
++
++#define NPVARIANT_TO_BOOLEAN(_v) ((_v).value.boolValue)
++#define NPVARIANT_TO_INT32(_v)   ((_v).value.intValue)
++#define NPVARIANT_TO_DOUBLE(_v)  ((_v).value.doubleValue)
++#define NPVARIANT_TO_STRING(_v)  ((_v).value.stringValue)
++#define NPVARIANT_TO_OBJECT(_v)  ((_v).value.objectValue)
++
++#define VOID_TO_NPVARIANT(_v)                                                 \
++NP_BEGIN_MACRO                                                                \
++    (_v).type = NPVariantType_Void;                                           \
++    (_v).value.objectValue = NULL;                                            \
++NP_END_MACRO
++
++#define NULL_TO_NPVARIANT(_v)                                                 \
++NP_BEGIN_MACRO                                                                \
++    (_v).type = NPVariantType_Null;                                           \
++    (_v).value.objectValue = NULL;                                            \
++NP_END_MACRO
++
++#define BOOLEAN_TO_NPVARIANT(_val, _v)                                        \
++NP_BEGIN_MACRO                                                                \
++    (_v).type = NPVariantType_Bool;                                           \
++    (_v).value.boolValue = !!(_val);                                          \
++NP_END_MACRO
++
++#define INT32_TO_NPVARIANT(_val, _v)                                          \
++NP_BEGIN_MACRO                                                                \
++    (_v).type = NPVariantType_Int32;                                          \
++    (_v).value.intValue = _val;                                               \
++NP_END_MACRO
++
++#define DOUBLE_TO_NPVARIANT(_val, _v)                                         \
++NP_BEGIN_MACRO                                                                \
++    (_v).type = NPVariantType_Double;                                         \
++    (_v).value.doubleValue = _val;                                            \
++NP_END_MACRO
++
++#define STRINGZ_TO_NPVARIANT(_val, _v)                                        \
++NP_BEGIN_MACRO                                                                \
++    (_v).type = NPVariantType_String;                                         \
++    NPString str = { _val, strlen(_val) };                                    \
++    (_v).value.stringValue = str;                                             \
++NP_END_MACRO
++
++#define STRINGN_TO_NPVARIANT(_val, _len, _v)                                  \
++NP_BEGIN_MACRO                                                                \
++    (_v).type = NPVariantType_String;                                         \
++    NPString str = { _val, _len };                                            \
++    (_v).value.stringValue = str;                                             \
++NP_END_MACRO
++
++#define OBJECT_TO_NPVARIANT(_val, _v)                                         \
++NP_BEGIN_MACRO                                                                \
++    (_v).type = NPVariantType_Object;                                         \
++    (_v).value.objectValue = _val;                                            \
++NP_END_MACRO
++
++
++/*
++	Type mappings (JavaScript types have been used for illustration
++    purposes):
++
++	JavaScript       to             C (NPVariant with type:)
++	undefined                       NPVariantType_Void
++	null                            NPVariantType_Null
++	Boolean                         NPVariantType_Bool
++	Number                          NPVariantType_Double or NPVariantType_Int32
++	String                          NPVariantType_String
++	Object                          NPVariantType_Object
++
++	C (NPVariant with type:)   to   JavaScript
++	NPVariantType_Void              undefined
++	NPVariantType_Null              null
++	NPVariantType_Bool              Boolean	
++	NPVariantType_Int32             Number
++	NPVariantType_Double            Number
++	NPVariantType_String            String
++	NPVariantType_Object            Object
++*/
++
++typedef void *NPIdentifier;
++
++/*
++    NPObjects have methods and properties.  Methods and properties are
++    identified with NPIdentifiers.  These identifiers may be reflected
++    in script.  NPIdentifiers can be either strings or integers, IOW,
++    methods and properties can be identified by either strings or
++    integers (i.e. foo["bar"] vs foo[1]). NPIdentifiers can be
++    compared using ==.  In case of any errors, the requested
++    NPIdentifier(s) will be NULL.
++*/
++NPIdentifier NPN_GetStringIdentifier(const NPUTF8 *name);
++void NPN_GetStringIdentifiers(const NPUTF8 **names, int32_t nameCount,
++                              NPIdentifier *identifiers);
++NPIdentifier NPN_GetIntIdentifier(int32_t intid);
++bool NPN_IdentifierIsString(NPIdentifier identifier);
++
++/*
++    The NPUTF8 returned from NPN_UTF8FromIdentifier SHOULD be freed.
++*/
++NPUTF8 *NPN_UTF8FromIdentifier(NPIdentifier identifier);
++
++/*
++    Get the integer represented by identifier. If identifier is not an
++    integer identifier, the behaviour is undefined.
++*/
++int32_t NPN_IntFromIdentifier(NPIdentifier identifier);
++
++/*
++    NPObject behavior is implemented using the following set of
++    callback functions.
++
++    The NPVariant *result argument of these functions (where
++    applicable) should be released using NPN_ReleaseVariantValue().
++*/
++typedef NPObject *(*NPAllocateFunctionPtr)(NPP npp, NPClass *aClass);
++typedef void (*NPDeallocateFunctionPtr)(NPObject *npobj);
++typedef void (*NPInvalidateFunctionPtr)(NPObject *npobj);
++typedef bool (*NPHasMethodFunctionPtr)(NPObject *npobj, NPIdentifier name);
++typedef bool (*NPInvokeFunctionPtr)(NPObject *npobj, NPIdentifier name,
++                                    const NPVariant *args, uint32_t argCount,
++                                    NPVariant *result);
++typedef bool (*NPInvokeDefaultFunctionPtr)(NPObject *npobj,
++                                           const NPVariant *args,
++                                           uint32_t argCount,
++                                           NPVariant *result);
++typedef bool (*NPHasPropertyFunctionPtr)(NPObject *npobj, NPIdentifier name);
++typedef bool (*NPGetPropertyFunctionPtr)(NPObject *npobj, NPIdentifier name,
++                                         NPVariant *result);
++typedef bool (*NPSetPropertyFunctionPtr)(NPObject *npobj, NPIdentifier name,
++                                         const NPVariant *value);
++typedef bool (*NPRemovePropertyFunctionPtr)(NPObject *npobj,
++                                            NPIdentifier name);
++
++/*
++    NPObjects returned by create, retain, invoke, and getProperty pass
++    a reference count to the caller.  That is, the callee adds a
++    reference count which passes to the caller.  It is the caller's
++    responsibility to release the returned object.
++
++    NPInvokeFunctionPtr function may return 0 to indicate a void
++    result.
++
++    NPInvalidateFunctionPtr is called by the scripting environment
++    when the native code is shutdown.  Any attempt to message a
++    NPObject instance after the invalidate callback has been
++    called will result in undefined behavior, even if the native code
++    is still retaining those NPObject instances.  (The runtime
++    will typically return immediately, with 0 or NULL, from an attempt
++    to dispatch to a NPObject, but this behavior should not be
++    depended upon.)
++*/
++struct NPClass
++{
++    uint32_t structVersion;
++    NPAllocateFunctionPtr allocate;
++    NPDeallocateFunctionPtr deallocate;
++    NPInvalidateFunctionPtr invalidate;
++    NPHasMethodFunctionPtr hasMethod;
++    NPInvokeFunctionPtr invoke;
++    NPInvokeDefaultFunctionPtr invokeDefault;
++    NPHasPropertyFunctionPtr hasProperty;
++    NPGetPropertyFunctionPtr getProperty;
++    NPSetPropertyFunctionPtr setProperty;
++    NPRemovePropertyFunctionPtr removeProperty;
++};
++
++#define NP_CLASS_STRUCT_VERSION 1
++
++struct NPObject {
++    NPClass *_class;
++    uint32_t referenceCount;
++    /*
++     * Additional space may be allocated here by types of NPObjects
++     */
++};
++
++/*
++    If the class has an allocate function, NPN_CreateObject invokes
++    that function, otherwise a NPObject is allocated and
++    returned. This method will initialize the referenceCount member of
++    the NPObject to 1.
++*/
++NPObject *NPN_CreateObject(NPP npp, NPClass *aClass);
++
++/*
++    Increment the NPObject's reference count.
++*/
++NPObject *NPN_RetainObject(NPObject *npobj);
++
++/*
++    Decremented the NPObject's reference count.  If the reference
++    count goes to zero, the class's destroy function is invoke if
++    specified, otherwise the object is freed directly.
++*/
++void NPN_ReleaseObject(NPObject *npobj);
++
++/*
++    Functions to access script objects represented by NPObject.
++
++    Calls to script objects are synchronous.  If a function returns a
++    value, it will be supplied via the result NPVariant
++    argument. Successful calls will return true, false will be
++    returned in case of an error.
++    
++    Calls made from plugin code to script must be made from the thread
++    on which the plugin was initialized.
++*/
++
++bool NPN_Invoke(NPP npp, NPObject *npobj, NPIdentifier methodName,
++                const NPVariant *args, uint32_t argCount, NPVariant *result);
++bool NPN_InvokeDefault(NPP npp, NPObject *npobj, const NPVariant *args,
++                       uint32_t argCount, NPVariant *result);
++bool NPN_Evaluate(NPP npp, NPObject *npobj, NPString *script,
++                  NPVariant *result);
++bool NPN_GetProperty(NPP npp, NPObject *npobj, NPIdentifier propertyName,
++                     NPVariant *result);
++bool NPN_SetProperty(NPP npp, NPObject *npobj, NPIdentifier propertyName,
++                     const NPVariant *value);
++bool NPN_RemoveProperty(NPP npp, NPObject *npobj, NPIdentifier propertyName);
++bool NPN_HasProperty(NPP npp, NPObject *npobj, NPIdentifier propertyName);
++bool NPN_HasMethod(NPP npp, NPObject *npobj, NPIdentifier methodName);
++
++/*
++    NPN_SetException may be called to trigger a script exception upon
++    return from entry points into NPObjects.  Typical usage:
++
++    NPN_SetException (npobj, message);
++*/
++void NPN_SetException(NPObject *npobj, const NPUTF8 *message);
++
++#ifdef __cplusplus
++}
++#endif
++
++#endif
+Index: nsplugins/sdk/npupp.h
+===================================================================
+--- nsplugins/sdk/npupp.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ nsplugins/sdk/npupp.h	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
+@@ -1,11 +1,11 @@
+-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
++/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
+ /* ***** BEGIN LICENSE BLOCK *****
+- * Version: NPL 1.1/GPL 2.0/LGPL 2.1
++ * Version: MPL 1.1/GPL 2.0/LGPL 2.1
+  *
+- * The contents of this file are subject to the Netscape Public License
+- * Version 1.1 (the "License"); you may not use this file except in
+- * compliance with the License. You may obtain a copy of the License at
+- * http://www.mozilla.org/NPL/
++ * The contents of this file are subject to the Mozilla Public License Version
++ * 1.1 (the "License"); you may not use this file except in compliance with
++ * the License. You may obtain a copy of the License at
++ * http://www.mozilla.org/MPL/
+  *
+  * Software distributed under the License is distributed on an "AS IS" basis,
+  * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+@@ -14,25 +14,24 @@
+  *
+  * The Original Code is mozilla.org code.
+  *
+- * The Initial Developer of the Original Code is 
++ * The Initial Developer of the Original Code is
+  * Netscape Communications Corporation.
+  * Portions created by the Initial Developer are Copyright (C) 1998
+  * the Initial Developer. All Rights Reserved.
+  *
+  * Contributor(s):
+  *
+- *
+  * Alternatively, the contents of this file may be used under the terms of
+  * either the GNU General Public License Version 2 or later (the "GPL"), or
+  * the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+  * in which case the provisions of the GPL or the LGPL are applicable instead
+  * of those above. If you wish to allow use of your version of this file only
+  * under the terms of either the GPL or the LGPL, and not to allow others to
+- * use your version of this file under the terms of the NPL, indicate your
++ * use your version of this file under the terms of the MPL, indicate your
+  * decision by deleting the provisions above and replace them with the notice
+  * and other provisions required by the GPL or the LGPL. If you do not delete
+  * the provisions above, a recipient may use your version of this file under
+- * the terms of any one of the NPL, the GPL or the LGPL.
++ * the terms of any one of the MPL, the GPL or the LGPL.
+  *
+  * ***** END LICENSE BLOCK ***** */
+ 
+@@ -58,6 +57,8 @@
+ #include "npapi.h"
+ #endif
+ 
++#include "npruntime.h"
++
+ #include "jri.h"
+ 
+ /******************************************************************************************
+@@ -72,7 +73,6 @@
+ 
+ /* NPP_Initialize */
+ 
+-/*#define _NPUPP_USE_UPP_ (TARGET_RT_MAC_CFM && !TARGET_API_MAC_CARBON)*/
+ #define _NPUPP_USE_UPP_ 0
+ 
+ #if _NPUPP_USE_UPP_
+@@ -488,8 +488,6 @@
+ #endif
+ 
+ 
+-
+-
+ /*
+  *  Netscape entry points
+  */
+@@ -1063,7 +1061,585 @@
+ 
+ #endif
+ 
++/* NPN_GetStringIdentifier */
+ 
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_GetStringIdentifierUPP;
++enum {
++	uppNPN_GetStringIdentifierProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(const NPUTF8*)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(NPIdentifier)))
++};
++
++#define NewNPN_GetStringIdentifierProc(FUNC)		\
++		(NPN_GetStringIdentifierUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_GetStringIdentifierProcInfo, GetCurrentArchitecture())
++#define CallNPN_GetStringIdentifierProc(FUNC, ARG1)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_GetStringIdentifierProcInfo, (ARG1))	
++
++#else
++
++typedef NPIdentifier (* NP_LOADDS NPN_GetStringIdentifierUPP)(const NPUTF8* name);
++#define NewNPN_GetStringIdentifierProc(FUNC)		\
++		((NPN_GetStringIdentifierUPP) (FUNC))
++#define CallNPN_GetStringIdentifierProc(FUNC, ARG1)		\
++		(*(FUNC))((ARG1))
++
++#endif
++
++/* NPN_GetStringIdentifiers */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_GetStringIdentifiersUPP;
++enum {
++	uppNPN_GetStringIdentifiersProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(const NPUTF8**)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(int32_t)))
++		| STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(NPIdentifier*)))
++        | RESULT_SIZE(SIZE_CODE(0))
++};
++
++#define NewNPN_GetStringIdentifiersProc(FUNC)		\
++		(NPN_GetStringIdentifiersUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_GetStringIdentifiersProcInfo, GetCurrentArchitecture())
++#define CallNPN_GetStringIdentifiersProc(FUNC, ARG1, ARG2, ARG3)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_GetStringIdentifiersProcInfo, (ARG1), (ARG2), (ARG3))	
++
++#else
++
++typedef void (* NP_LOADDS NPN_GetStringIdentifiersUPP)(const NPUTF8** names,
++                                                 int32_t nameCount,
++                                                 NPIdentifier* identifiers);
++#define NewNPN_GetStringIdentifiersProc(FUNC)		\
++		((NPN_GetStringIdentifiersUPP) (FUNC))
++#define CallNPN_GetStringIdentifiersProc(FUNC, ARG1, ARG2, ARG3)		\
++		(*(FUNC))((ARG1), (ARG2), (ARG3))
++
++#endif
++
++/* NPN_GetIntIdentifier */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_GetIntIdentifierUPP;
++enum {
++	uppNPN_GetIntIdentifierProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(int32_t)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(NPIdentifier)))
++};
++
++#define NewNPN_GetIntIdentifierProc(FUNC)		\
++		(NPN_GetIntIdentifierUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_GetIntIdentifierProcInfo, GetCurrentArchitecture())
++#define CallNPN_GetIntIdentifierProc(FUNC, ARG1)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_GetIntIdentifierProcInfo, (ARG1))	
++
++#else
++
++typedef NPIdentifier (* NP_LOADDS NPN_GetIntIdentifierUPP)(int32_t intid);
++#define NewNPN_GetIntIdentifierProc(FUNC)		\
++		((NPN_GetIntIdentifierUPP) (FUNC))
++#define CallNPN_GetIntIdentifierProc(FUNC, ARG1)		\
++		(*(FUNC))((ARG1))
++
++#endif
++
++/* NPN_IdentifierIsString */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_IdentifierIsStringUPP;
++enum {
++	uppNPN_IdentifierIsStringProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPIdentifier identifier)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(bool)))
++};
++
++#define NewNPN_IdentifierIsStringProc(FUNC)		\
++		(NPN_IdentifierIsStringUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_IdentifierIsStringProcInfo, GetCurrentArchitecture())
++#define CallNPN_IdentifierIsStringProc(FUNC, ARG1)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_IdentifierIsStringProcInfo, (ARG1))	
++
++#else
++
++typedef bool (* NP_LOADDS NPN_IdentifierIsStringUPP)(NPIdentifier identifier);
++#define NewNPN_IdentifierIsStringProc(FUNC)		\
++		((NPN_IdentifierIsStringUPP) (FUNC))
++#define CallNPN_IdentifierIsStringProc(FUNC, ARG1)		\
++		(*(FUNC))((ARG1))
++
++#endif
++
++/* NPN_UTF8FromIdentifier */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_UTF8FromIdentifierUPP;
++enum {
++	uppNPN_UTF8FromIdentifierProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPIdentifier)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(NPUTF8*)))
++};
++
++#define NewNPN_UTF8FromIdentifierProc(FUNC)		\
++		(NPN_UTF8FromIdentifierUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_UTF8FromIdentifierProcInfo, GetCurrentArchitecture())
++#define CallNPN_UTF8FromIdentifierProc(FUNC, ARG1)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_UTF8FromIdentifierProcInfo, (ARG1))	
++
++#else
++
++typedef NPUTF8* (* NP_LOADDS NPN_UTF8FromIdentifierUPP)(NPIdentifier identifier);
++#define NewNPN_UTF8FromIdentifierProc(FUNC)		\
++		((NPN_UTF8FromIdentifierUPP) (FUNC))
++#define CallNPN_UTF8FromIdentifierProc(FUNC, ARG1)		\
++		(*(FUNC))((ARG1))
++
++#endif
++
++/* NPN_IntFromIdentifier */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_IntFromIdentifierUPP;
++enum {
++	uppNPN_IntFromIdentifierProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPIdentifier)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(int32_t)))
++};
++
++#define NewNPN_IntFromIdentifierProc(FUNC)		\
++		(NPN_IntFromIdentifierUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_IntFromIdentifierProcInfo, GetCurrentArchitecture())
++#define CallNPN_IntFromIdentifierProc(FUNC, ARG1)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_IntFromIdentifierProcInfo, (ARG1))	
++
++#else
++
++typedef int32_t (* NP_LOADDS NPN_IntFromIdentifierUPP)(NPIdentifier identifier);
++#define NewNPN_IntFromIdentifierProc(FUNC)		\
++		((NPN_IntFromIdentifierUPP) (FUNC))
++#define CallNPN_IntFromIdentifierProc(FUNC, ARG1)		\
++		(*(FUNC))((ARG1))
++
++#endif
++
++/* NPN_CreateObject */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_CreateObjectUPP;
++enum {
++	uppNPN_CreateObjectProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(NPClass*)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(NPObject*)))
++};
++
++#define NewNPN_CreateObjectProc(FUNC)		\
++		(NPN_CreateObjectUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_CreateObjectProcInfo, GetCurrentArchitecture())
++#define CallNPN_CreateObjectProc(FUNC, ARG1, ARG2)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_CreateObjectProcInfo, (ARG1), (ARG2))	
++
++#else
++
++typedef NPObject* (* NP_LOADDS NPN_CreateObjectUPP)(NPP npp, NPClass *aClass);
++#define NewNPN_CreateObjectProc(FUNC)		\
++		((NPN_CreateObjectUPP) (FUNC))
++#define CallNPN_CreateObjectProc(FUNC, ARG1, ARG2)		\
++		(*(FUNC))((ARG1), (ARG2))
++
++#endif
++
++/* NPN_RetainObject */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_RetainObjectUPP;
++enum {
++	uppNPN_RetainObjectProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPObject*)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(NPObject*)))
++};
++
++#define NewNPN_RetainObjectProc(FUNC)		\
++		(NPN_RetainObjectUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_RetainObjectProcInfo, GetCurrentArchitecture())
++#define CallNPN_RetainObjectProc(FUNC, ARG1)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_RetainObjectProcInfo, (ARG1))	
++
++#else
++
++typedef NPObject* (* NP_LOADDS NPN_RetainObjectUPP)(NPObject *obj);
++#define NewNPN_RetainObjectProc(FUNC)		\
++		((NPN_RetainObjectUPP) (FUNC))
++#define CallNPN_RetainObjectProc(FUNC, ARG1)		\
++		(*(FUNC))((ARG1))
++
++#endif
++
++/* NPN_ReleaseObject */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_ReleaseObjectUPP;
++enum {
++	uppNPN_ReleaseObjectProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPObject*)))
++		| RESULT_SIZE(SIZE_CODE(0))
++};
++
++#define NewNPN_ReleaseObjectProc(FUNC)		\
++		(NPN_ReleaseObjectUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_ReleaseObjectProcInfo, GetCurrentArchitecture())
++#define CallNPN_ReleaseObjectProc(FUNC, ARG1)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_ReleaseObjectProcInfo, (ARG1))
++
++#else
++
++typedef void (* NP_LOADDS NPN_ReleaseObjectUPP)(NPObject *obj);
++#define NewNPN_ReleaseObjectProc(FUNC)		\
++		((NPN_ReleaseObjectUPP) (FUNC))
++#define CallNPN_ReleaseObjectProc(FUNC, ARG1)		\
++		(*(FUNC))((ARG1))
++
++#endif
++
++/* NPN_Invoke */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_InvokeUPP;
++enum {
++	uppNPN_InvokeProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(NPObject*)))
++		| STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(NPIdentifier)))
++		| STACK_ROUTINE_PARAMETER(4, SIZE_CODE(sizeof(const NPVariant*)))
++		| STACK_ROUTINE_PARAMETER(5, SIZE_CODE(sizeof(uint32_t)))
++		| STACK_ROUTINE_PARAMETER(6, SIZE_CODE(sizeof(NPVariant*)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(bool)))
++};
++
++#define NewNPN_InvokeProc(FUNC)		\
++		(NPN_InvokeUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_InvokeProcInfo, GetCurrentArchitecture())
++#define CallNPN_InvokeProc(FUNC, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_InvokeProcInfo, (ARG1), (ARG2), (ARG3), (ARG4), (ARG5), (ARG6))
++
++#else
++
++typedef bool (* NP_LOADDS NPN_InvokeUPP)(NPP npp, NPObject* obj, NPIdentifier methodName, const NPVariant *args, uint32_t argCount, NPVariant *result);
++#define NewNPN_InvokeProc(FUNC)		\
++		((NPN_InvokeUPP) (FUNC))
++#define CallNPN_InvokeProc(FUNC, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6)		\
++		(*(FUNC))((ARG1), (ARG2), (ARG3), (ARG4), (ARG5), (ARG6))
++
++#endif
++
++/* NPN_InvokeDefault */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_InvokeDefaultUPP;
++enum {
++	uppNPN_InvokeDefaultProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(NPObject*)))
++		| STACK_ROUTINE_PARAMETER(4, SIZE_CODE(sizeof(const NPVariant*)))
++		| STACK_ROUTINE_PARAMETER(5, SIZE_CODE(sizeof(uint32_t)))
++		| STACK_ROUTINE_PARAMETER(6, SIZE_CODE(sizeof(NPVariant*)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(bool)))
++};
++
++#define NewNPN_InvokeDefaultProc(FUNC)		\
++		(NPN_InvokeDefaultUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_InvokeDefaultProcInfo, GetCurrentArchitecture())
++#define CallNPN_InvokeDefaultProc(FUNC, ARG1, ARG2, ARG3, ARG4, ARG5)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_InvokeDefaultProcInfo, (ARG1), (ARG2), (ARG3), (ARG4), (ARG5))
++
++#else
++
++typedef bool (* NP_LOADDS NPN_InvokeDefaultUPP)(NPP npp, NPObject* obj, const NPVariant *args, uint32_t argCount, NPVariant *result);
++#define NewNPN_InvokeDefaultProc(FUNC)		\
++		((NPN_InvokeDefaultUPP) (FUNC))
++#define CallNPN_InvokeDefaultProc(FUNC, ARG1, ARG2, ARG3, ARG4, ARG5)		\
++		(*(FUNC))((ARG1), (ARG2), (ARG3), (ARG4), (ARG5))
++
++#endif
++
++/* NPN_Evaluate */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_EvaluateUPP;
++enum {
++	uppNPN_EvaluateProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(NPObject*)))
++		| STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(NPString*)))
++		| STACK_ROUTINE_PARAMETER(4, SIZE_CODE(sizeof(NPVariant*)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(bool)))
++};
++
++#define NewNPN_EvaluateProc(FUNC)		\
++		(NPN_EvaluateUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_EvaluateProcInfo, GetCurrentArchitecture())
++#define CallNPN_EvaluateProc(FUNC, ARG1, ARG2, ARG3, ARG4)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_EvaluateProcInfo, (ARG1), (ARG2), (ARG3), (ARG4))
++
++#else
++
++typedef bool (* NP_LOADDS NPN_EvaluateUPP)(NPP npp, NPObject *obj, NPString *script, NPVariant *result);
++#define NewNPN_EvaluateProc(FUNC)		\
++		((NPN_EvaluateUPP) (FUNC))
++#define CallNPN_EvaluateProc(FUNC, ARG1, ARG2, ARG3, ARG4)		\
++		(*(FUNC))((ARG1), (ARG2), (ARG3), (ARG4))
++
++#endif
++
++/* NPN_GetProperty */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_GetPropertyUPP;
++enum {
++	uppNPN_GetPropertyProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(NPObject*)))
++		| STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(NPIdentifier)))
++		| STACK_ROUTINE_PARAMETER(4, SIZE_CODE(sizeof(NPVariant*)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(bool)))
++};
++
++#define NewNPN_GetPropertyProc(FUNC)		\
++		(NPN_GetPropertyUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_GetPropertyProcInfo, GetCurrentArchitecture())
++#define CallNPN_GetPropertyProc(FUNC, ARG1, ARG2, ARG3, ARG4)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_GetPropertyProcInfo, (ARG1), (ARG2), (ARG3), (ARG4))
++
++#else
++
++typedef bool (* NP_LOADDS NPN_GetPropertyUPP)(NPP npp, NPObject *obj, NPIdentifier propertyName, NPVariant *result);
++#define NewNPN_GetPropertyProc(FUNC)		\
++		((NPN_GetPropertyUPP) (FUNC))
++#define CallNPN_GetPropertyProc(FUNC, ARG1, ARG2, ARG3, ARG4)		\
++		(*(FUNC))((ARG1), (ARG2), (ARG3), (ARG4))
++
++#endif
++
++/* NPN_SetProperty */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_SetPropertyUPP;
++enum {
++	uppNPN_SetPropertyProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(NPObject*)))
++		| STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(NPIdentifier)))
++		| STACK_ROUTINE_PARAMETER(4, SIZE_CODE(sizeof(const NPVariant*)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(bool)))
++};
++
++#define NewNPN_SetPropertyProc(FUNC)		\
++		(NPN_SetPropertyUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_SetPropertyProcInfo, GetCurrentArchitecture())
++#define CallNPN_SetPropertyProc(FUNC, ARG1, ARG2, ARG3, ARG4)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_SetPropertyProcInfo, (ARG1), (ARG2), (ARG3), (ARG4))
++
++#else
++
++typedef bool (* NP_LOADDS NPN_SetPropertyUPP)(NPP npp, NPObject *obj, NPIdentifier propertyName, const NPVariant *value);
++#define NewNPN_SetPropertyProc(FUNC)		\
++		((NPN_SetPropertyUPP) (FUNC))
++#define CallNPN_SetPropertyProc(FUNC, ARG1, ARG2, ARG3, ARG4)		\
++		(*(FUNC))((ARG1), (ARG2), (ARG3), (ARG4))
++
++#endif
++
++/* NPN_RemoveProperty */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_RemovePropertyUPP;
++enum {
++	uppNPN_RemovePropertyProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(NPObject*)))
++		| STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(NPIdentifier)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(bool)))
++};
++
++#define NewNPN_RemovePropertyProc(FUNC)		\
++		(NPN_RemovePropertyUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_RemovePropertyProcInfo, GetCurrentArchitecture())
++#define CallNPN_RemovePropertyProc(FUNC, ARG1, ARG2, ARG3)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_RemovePropertyProcInfo, (ARG1), (ARG2), (ARG3))
++
++#else
++
++typedef bool (* NP_LOADDS NPN_RemovePropertyUPP)(NPP npp, NPObject *obj, NPIdentifier propertyName);
++#define NewNPN_RemovePropertyProc(FUNC)		\
++		((NPN_RemovePropertyUPP) (FUNC))
++#define CallNPN_RemovePropertyProc(FUNC, ARG1, ARG2, ARG3)		\
++		(*(FUNC))((ARG1), (ARG2), (ARG3))
++
++#endif
++
++/* NPN_HasProperty */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_HasPropertyUPP;
++enum {
++	uppNPN_HasPropertyProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(NPObject*)))
++		| STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(NPIdentifier)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(bool)))
++};
++
++#define NewNPN_HasPropertyProc(FUNC)		\
++		(NPN_HasPropertyUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_HasPropertyProcInfo, GetCurrentArchitecture())
++#define CallNPN_HasPropertyProc(FUNC, ARG1, ARG2, ARG3)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_HasPropertyProcInfo, (ARG1), (ARG2), (ARG3))
++
++#else
++
++typedef bool (* NP_LOADDS NPN_HasPropertyUPP)(NPP npp, NPObject *obj, NPIdentifier propertyName);
++#define NewNPN_HasPropertyProc(FUNC)		\
++		((NPN_HasPropertyUPP) (FUNC))
++#define CallNPN_HasPropertyProc(FUNC, ARG1, ARG2, ARG3)		\
++		(*(FUNC))((ARG1), (ARG2), (ARG3))
++
++#endif
++
++/* NPN_HasMethod */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_HasMethodUPP;
++enum {
++	uppNPN_HasMethodProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(NPObject*)))
++		| STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(NPIdentifier)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(bool)))
++};
++
++#define NewNPN_HasMethodProc(FUNC)		\
++		(NPN_HasMethodUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_HasMethodProcInfo, GetCurrentArchitecture())
++#define CallNPN_HasMethodProc(FUNC, ARG1, ARG2, ARG3)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_HasMethodProcInfo, (ARG1), (ARG2), (ARG3))
++
++#else
++
++typedef bool (* NP_LOADDS NPN_HasMethodUPP)(NPP npp, NPObject *obj, NPIdentifier propertyName);
++#define NewNPN_HasMethodProc(FUNC)		\
++		((NPN_HasMethodUPP) (FUNC))
++#define CallNPN_HasMethodProc(FUNC, ARG1, ARG2, ARG3)		\
++		(*(FUNC))((ARG1), (ARG2), (ARG3))
++
++#endif
++
++/* NPN_ReleaseVariantValue */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_ReleaseVariantValue;
++enum {
++	uppNPN_ReleaseVariantValueProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPVariant*)))
++		| RESULT_SIZE(SIZE_CODE(0))
++};
++
++#define NewNPN_ReleaseVariantValueProc(FUNC)		\
++		(NPN_ReleaseVariantValueUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_ReleaseVariantValueProcInfo, GetCurrentArchitecture())
++#define CallNPN_ReleaseVariantValueProc(FUNC, ARG1)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_ReleaseVariantValueProcInfo, (ARG1))	
++
++#else
++
++typedef void (* NP_LOADDS NPN_ReleaseVariantValueUPP)(NPVariant *variant);
++#define NewNPN_ReleaseVariantValueProc(FUNC)		\
++		((NPN_ReleaseVariantValueUPP) (FUNC))
++#define CallNPN_ReleaseVariantValueProc(FUNC, ARG1)		\
++		(*(FUNC))((ARG1))
++
++#endif
++
++/* NPN_SetException */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_SetExceptionUPP;
++enum {
++	uppNPN_SetExceptionProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPObject*)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(const NPUTF8*)))
++		| RESULT_SIZE(SIZE_CODE(0))
++};
++
++#define NewNPN_SetExceptionProc(FUNC)		\
++		(NPN_SetExceptionUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_SetExceptionProcInfo, GetCurrentArchitecture())
++#define CallNPN_SetExceptionProc(FUNC, ARG1, ARG2)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_SetExceptionProcInfo, (ARG1), (ARG2))	
++
++#else
++
++typedef void (* NP_LOADDS NPN_SetExceptionUPP)(NPObject *obj, const NPUTF8 *message);
++#define NewNPN_SetExceptionProc(FUNC)		\
++		((NPN_SetExceptionUPP) (FUNC))
++#define CallNPN_SetExceptionProc(FUNC, ARG1, ARG2)		\
++		(*(FUNC))((ARG1), (ARG2))	
++
++#endif
++
++/* NPN_PushPopupsEnabledStateUPP */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_PushPopupsEnabledStateUPP;
++enum {
++	uppNPN_PushPopupsEnabledStateProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++        | STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(NPBool)))
++		| RESULT_SIZE(SIZE_CODE(0))
++};
++
++#define NewNPN_PushPopupsEnabledStateProc(FUNC)		\
++		(NPN_PushPopupsEnabledStateUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_PushPopupsEnabledStateProcInfo, GetCurrentArchitecture())
++#define CallNPN_PushPopupsEnabledStateProc(FUNC, ARG1, ARG2)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_PushPopupsEnabledStateProcInfo, (ARG1), (ARG2))
++
++#else
++
++typedef bool (* NP_LOADDS NPN_PushPopupsEnabledStateUPP)(NPP npp, NPBool enabled);
++#define NewNPN_PushPopupsEnabledStateProc(FUNC)		\
++		((NPN_PushPopupsEnabledStateUPP) (FUNC))
++#define CallNPN_PushPopupsEnabledStateProc(FUNC, ARG1, ARG2)		\
++		(*(FUNC))((ARG1), (ARG2))
++
++#endif
++
++/* NPN_PopPopupsEnabledState */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_PopPopupsEnabledStateUPP;
++enum {
++	uppNPN_PopPopupsEnabledStateProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++		| RESULT_SIZE(SIZE_CODE(0))
++};
++
++#define NewNPN_PopPopupsEnabledStateProc(FUNC)		\
++		(NPN_PopPopupsEnabledStateUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_PopPopupsEnabledStateProcInfo, GetCurrentArchitecture())
++#define CallNPN_PopPopupsEnabledStateProc(FUNC, ARG1)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_PopPopupsEnabledStateProcInfo, (ARG1))
++
++#else
++
++typedef bool (* NP_LOADDS NPN_PopPopupsEnabledStateUPP)(NPP npp);
++#define NewNPN_PopPopupsEnabledStateProc(FUNC)		\
++		((NPN_PopPopupsEnabledStateUPP) (FUNC))
++#define CallNPN_PopPopupsEnabledStateProc(FUNC, ARG1)		\
++		(*(FUNC))((ARG1))
++
++#endif
++
++
++
+ /******************************************************************************************
+  * The actual plugin function table definitions
+  *******************************************************************************************/
+@@ -1117,6 +1693,27 @@
+     NPN_InvalidateRectUPP invalidaterect;
+     NPN_InvalidateRegionUPP invalidateregion;
+     NPN_ForceRedrawUPP forceredraw;
++    NPN_GetStringIdentifierUPP getstringidentifier;
++    NPN_GetStringIdentifiersUPP getstringidentifiers;
++    NPN_GetIntIdentifierUPP getintidentifier;
++    NPN_IdentifierIsStringUPP identifierisstring;
++    NPN_UTF8FromIdentifierUPP utf8fromidentifier;
++    NPN_IntFromIdentifierUPP intfromidentifier;
++    NPN_CreateObjectUPP createobject;
++    NPN_RetainObjectUPP retainobject;
++    NPN_ReleaseObjectUPP releaseobject;
++    NPN_InvokeUPP invoke;
++    NPN_InvokeDefaultUPP invokeDefault;
++    NPN_EvaluateUPP evaluate;
++    NPN_GetPropertyUPP getproperty;
++    NPN_SetPropertyUPP setproperty;
++    NPN_RemovePropertyUPP removeproperty;
++    NPN_HasPropertyUPP hasproperty;
++    NPN_HasMethodUPP hasmethod;
++    NPN_ReleaseVariantValueUPP releasevariantvalue;
++    NPN_SetExceptionUPP setexception;
++    NPN_PushPopupsEnabledStateUPP pushpopupsenabledstate;
++    NPN_PopPopupsEnabledStateUPP poppopupsenabledstate;
+ } NPNetscapeFuncs;
+ 
+ #ifdef XP_MAC
+Index: nsplugins/sdk/npapi.h
+===================================================================
+--- nsplugins/sdk/npapi.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ nsplugins/sdk/npapi.h	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
+@@ -126,11 +126,11 @@
+ /*----------------------------------------------------------------------*/
+ 
+ #define NP_VERSION_MAJOR 0
+-#define NP_VERSION_MINOR 11
++#define NP_VERSION_MINOR 13
+ 
+ 
+ /* The OS/2 version of Netscape uses RC_DATA to define the
+-   mime types, file extentions, etc that are required.
++   mime types, file extensions, etc that are required.
+    Use a vertical bar to separate types, end types with \0.
+    FileVersion and ProductVersion are 32bit ints, all other
+    entries are strings the MUST be terminated wwith a \0.
+@@ -387,7 +387,8 @@
+ 
+   /* 12 and over are available on Mozilla builds starting with 0.9.9 */
+   NPPVjavascriptPushCallerBool = 12,
+-  NPPVpluginKeepLibraryInMemory = 13   /* available in Mozilla 1.0 */
++  NPPVpluginKeepLibraryInMemory = 13,   /* available in Mozilla 1.0 */
++  NPPVpluginNeedsXEmbed         = 14
+ } NPPVariable;
+ 
+ /*
+@@ -404,10 +405,20 @@
+   /* 10 and over are available on Mozilla builds starting with 0.9.4 */
+   NPNVserviceManager = (10 | NP_ABI_MASK),
+   NPNVDOMElement     = (11 | NP_ABI_MASK),   /* available in Mozilla 1.2 */
+-  NPNVDOMWindow      = (12 | NP_ABI_MASK)
++  NPNVDOMWindow      = (12 | NP_ABI_MASK),
++  NPNVToolkit        = (13 | NP_ABI_MASK),
++  NPNVSupportsXEmbedBool = 14
+ } NPNVariable;
+ 
+ /*
++ * The type of Tookkit the widgets use
++ */
++typedef enum {
++  NPNVGtk12 = 1,
++  NPNVGtk2
++} NPNToolkitType;
++
++/*
+  * The type of a NPWindow - it specifies the type of the data structure
+  * returned in the window field.
+  */
+@@ -428,7 +439,7 @@
+   NPRect clipRect; /* Clipping rectangle in port coordinates */
+                    /* Used by MAC only.			  */
+ #if defined(XP_UNIX) && !defined(XP_MACOSX)
+-  void * ws_info; /* Platform-dependent additonal data */
++  void * ws_info; /* Platform-dependent additional data */
+ #endif /* XP_UNIX */
+   NPWindowType type; /* Is this a window or a drawable? */
+ } NPWindow;
 Index: nsplugins/viewer/nsplugin.cpp
 ===================================================================
---- nsplugins/viewer/nsplugin.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ nsplugins/viewer/nsplugin.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
-@@ -1516,8 +1516,6 @@
+--- nsplugins/viewer/nsplugin.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ nsplugins/viewer/nsplugin.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
+@@ -180,6 +180,12 @@
+          // Offline browsing - no thanks
+          *(bool*)value = false;
+          return NPERR_NO_ERROR;
++      case NPNVToolkit:
++         *(NPNToolkitType*)value = NPNVGtk2;
++         return NPERR_NO_ERROR;
++      case NPNVSupportsXEmbedBool:
++         *(bool*)value = true;
++         return NPERR_NO_ERROR;
+       default:
+          return NPERR_INVALID_PARAM;
+    }
+@@ -484,6 +490,8 @@
+     KProtocolManager kpm;
+     QString agent = kpm.userAgentForHost("nspluginviewer");
+     kdDebug(1431) << "g_NPN_UserAgent() = " << agent << endl;
++    // flash crashes without Firefox UA
++    agent = "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.10) Gecko/2007101500 Firefox/2.0.0.10";
+     return agent.latin1();
+ }
+ 
+@@ -583,7 +591,7 @@
+                                    KLibrary *handle, int width, int height,
+                                    QString src, QString /*mime*/,
+                                    QString appId, QString callbackId,
+-                                   bool embed,
++                                   bool embed, WId xembed,
+                                    QObject *parent, const char* name )
+    : DCOPObject(), QObject( parent, name ) 
+ {
+@@ -599,6 +607,8 @@
+    _streams.setAutoDelete( true );
+    _waitingRequests.setAutoDelete( true );
+    _callback = new NSPluginCallbackIface_stub( appId.latin1(), callbackId.latin1() );
++   _xembed_window = xembed;
++   _toplevel = _form = 0;
+ 
+    KURL base(src);
+    base.setFileName( QString::null );
+@@ -619,51 +629,53 @@
+    if (height == 0)
+       height = 1200;
+ 
+-   // create drawing area
+-   Arg args[7];
+-   Cardinal nargs = 0;
+-   XtSetArg(args[nargs], XtNwidth, width); nargs++;
+-   XtSetArg(args[nargs], XtNheight, height); nargs++;
+-   XtSetArg(args[nargs], XtNborderWidth, 0); nargs++;
++   if( _xembed_window == 0 ) {
++      // create drawing area
++      Arg args[7];
++      Cardinal nargs = 0;
++      XtSetArg(args[nargs], XtNwidth, width); nargs++;
++      XtSetArg(args[nargs], XtNheight, height); nargs++;
++      XtSetArg(args[nargs], XtNborderWidth, 0); nargs++;
+ 
+-   String n, c;
+-   XtGetApplicationNameAndClass(qt_xdisplay(), &n, &c);
++      String n, c;
++      XtGetApplicationNameAndClass(qt_xdisplay(), &n, &c);
+ 
+-   _toplevel = XtAppCreateShell("drawingArea", c, applicationShellWidgetClass,
+-                                qt_xdisplay(), args, nargs);
++      _toplevel = XtAppCreateShell("drawingArea", c, applicationShellWidgetClass,
++                                   qt_xdisplay(), args, nargs);
+ 
+-   // What exactly does widget mapping mean? Without this call the widget isn't
+-   // embedded correctly. With it the viewer doesn't show anything in standalone mode.
+-   //if (embed)
+-      XtSetMappedWhenManaged(_toplevel, False);
+-   XtRealizeWidget(_toplevel);
++      // What exactly does widget mapping mean? Without this call the widget isn't
++      // embedded correctly. With it the viewer doesn't show anything in standalone mode.
++      //if (embed)
++         XtSetMappedWhenManaged(_toplevel, False);
++      XtRealizeWidget(_toplevel);
+ 
+-   // Create form window that is searched for by flash plugin
+-   _form = XtVaCreateWidget("form", compositeWidgetClass, _toplevel, NULL);
+-   XtSetArg(args[nargs], XtNvisual, QPaintDevice::x11AppVisual()); nargs++;
+-   XtSetArg(args[nargs], XtNdepth, QPaintDevice::x11AppDepth()); nargs++;
+-   XtSetArg(args[nargs], XtNcolormap, QPaintDevice::x11AppColormap()); nargs++;
+-   XtSetValues(_form, args, nargs);
+-   XSync(qt_xdisplay(), false);
++      // Create form window that is searched for by flash plugin
++      _form = XtVaCreateWidget("form", compositeWidgetClass, _toplevel, NULL);
++      XtSetArg(args[nargs], XtNvisual, QPaintDevice::x11AppVisual()); nargs++;
++      XtSetArg(args[nargs], XtNdepth, QPaintDevice::x11AppDepth()); nargs++;
++      XtSetArg(args[nargs], XtNcolormap, QPaintDevice::x11AppColormap()); nargs++;
++      XtSetValues(_form, args, nargs);
++      XSync(qt_xdisplay(), false);
+ 
+-   // From mozilla - not sure if it's needed yet, nor what to use for embedder
++      // From mozilla - not sure if it's needed yet, nor what to use for embedder
+ #if 0
+-   /* this little trick seems to finish initializing the widget */
++      /* this little trick seems to finish initializing the widget */
+ #if XlibSpecificationRelease >= 6
+-   XtRegisterDrawable(qt_xdisplay(), embedderid, _toplevel);
++      XtRegisterDrawable(qt_xdisplay(), embedderid, _toplevel);
+ #else
+-   _XtRegisterWindow(embedderid, _toplevel);
++      _XtRegisterWindow(embedderid, _toplevel);
+ #endif
+ #endif
+-   XtRealizeWidget(_form);
+-   XtManageChild(_form);
++      XtRealizeWidget(_form);
++      XtManageChild(_form);
+ 
+-   // Register forwarder
+-   XtAddEventHandler(_toplevel, (KeyPressMask|KeyReleaseMask), 
+-                     False, forwarder, (XtPointer)this );
+-   XtAddEventHandler(_form, (KeyPressMask|KeyReleaseMask), 
+-                     False, forwarder, (XtPointer)this );
+-   XSync(qt_xdisplay(), false);
++      // Register forwarder
++      XtAddEventHandler(_toplevel, (KeyPressMask|KeyReleaseMask), 
++                        False, forwarder, (XtPointer)this );
++      XtAddEventHandler(_form, (KeyPressMask|KeyReleaseMask), 
++                        False, forwarder, (XtPointer)this );
++      XSync(qt_xdisplay(), false);
++   }
+ }
+ 
+ NSPluginInstance::~NSPluginInstance()
+@@ -714,14 +726,16 @@
+         if (saved)
+           g_NPN_MemFree(saved);
+ 
+-        XtRemoveEventHandler(_form, (KeyPressMask|KeyReleaseMask), 
+-                             False, forwarder, (XtPointer)this);
+-        XtRemoveEventHandler(_toplevel, (KeyPressMask|KeyReleaseMask), 
+-                             False, forwarder, (XtPointer)this);
+-        XtDestroyWidget(_form);
+-	_form = 0;
+-        XtDestroyWidget(_toplevel);
+-	_toplevel = 0;
++        if( _form != 0 ) {
++            XtRemoveEventHandler(_form, (KeyPressMask|KeyReleaseMask), 
++                                 False, forwarder, (XtPointer)this);
++            XtRemoveEventHandler(_toplevel, (KeyPressMask|KeyReleaseMask), 
++                                 False, forwarder, (XtPointer)this);
++            XtDestroyWidget(_form);
++    	    _form = 0;
++            XtDestroyWidget(_toplevel);
++	    _toplevel = 0;
++        }
+ 
+         if (_npp) {
+             ::free(_npp);   // matched with malloc() in newInstance
+@@ -902,7 +916,6 @@
+    _timer->start( 100, true );
+ }
+ 
+-
+ int NSPluginInstance::setWindow(int remove)
+ {
+    if (remove)
+@@ -926,15 +939,25 @@
+    _win.clipRect.bottom = _height;
+    _win.clipRect.right = _width;
+ 
+-   _win.window = (void*) XtWindow(_form);
++   if( _xembed_window ) {
++      _win.window = (void*) _xembed_window;
++      _win_info.type = NP_SETWINDOW;
++      _win_info.display = qt_xdisplay();
++      _win_info.visual = DefaultVisualOfScreen(DefaultScreenOfDisplay(qt_xdisplay()));
++      _win_info.colormap = DefaultColormapOfScreen(DefaultScreenOfDisplay(qt_xdisplay()));
++      _win_info.depth = DefaultDepthOfScreen(DefaultScreenOfDisplay(qt_xdisplay()));
++   } else {
++      _win.window = (void*) XtWindow(_form);
++
++      _win_info.type = NP_SETWINDOW;
++      _win_info.display = XtDisplay(_form);
++      _win_info.visual = DefaultVisualOfScreen(XtScreen(_form));
++      _win_info.colormap = DefaultColormapOfScreen(XtScreen(_form));
++      _win_info.depth = DefaultDepthOfScreen(XtScreen(_form));
++   }
++
+    kdDebug(1431) << "Window ID = " << _win.window << endl;
+ 
+-   _win_info.type = NP_SETWINDOW;
+-   _win_info.display = XtDisplay(_form);
+-   _win_info.visual = DefaultVisualOfScreen(XtScreen(_form));
+-   _win_info.colormap = DefaultColormapOfScreen(XtScreen(_form));
+-   _win_info.depth = DefaultDepthOfScreen(XtScreen(_form));
+-
+    _win.ws_info = &_win_info;
+ 
+    NPError error = NPSetWindow( &_win );
+@@ -959,9 +982,6 @@
+ 
+ void NSPluginInstance::resizePlugin(int w, int h)
+ {
+-   if (!_visible)
+-      return;
+-
+    if (w == _width && h == _height)
+       return;
+ 
+@@ -970,22 +990,30 @@
+    _width = w;
+    _height = h;
+ 
+-   XResizeWindow(qt_xdisplay(), XtWindow(_form), w, h);
+-   XResizeWindow(qt_xdisplay(), XtWindow(_toplevel), w, h);
++   if( _form != 0 ) {
++      XResizeWindow(qt_xdisplay(), XtWindow(_form), w, h);
++      XResizeWindow(qt_xdisplay(), XtWindow(_toplevel), w, h);
+ 
+-   Arg args[7];
+-   Cardinal nargs = 0;
+-   XtSetArg(args[nargs], XtNwidth, _width); nargs++;
+-   XtSetArg(args[nargs], XtNheight, _height); nargs++;
+-   XtSetArg(args[nargs], XtNvisual, QPaintDevice::x11AppVisual()); nargs++;
+-   XtSetArg(args[nargs], XtNdepth, QPaintDevice::x11AppDepth()); nargs++;
+-   XtSetArg(args[nargs], XtNcolormap, QPaintDevice::x11AppColormap()); nargs++;
+-   XtSetArg(args[nargs], XtNborderWidth, 0); nargs++;
++      Arg args[7];
++      Cardinal nargs = 0;
++      XtSetArg(args[nargs], XtNwidth, _width); nargs++;
++      XtSetArg(args[nargs], XtNheight, _height); nargs++;
++      XtSetArg(args[nargs], XtNvisual, QPaintDevice::x11AppVisual()); nargs++;
++      XtSetArg(args[nargs], XtNdepth, QPaintDevice::x11AppDepth()); nargs++;
++      XtSetArg(args[nargs], XtNcolormap, QPaintDevice::x11AppColormap()); nargs++;
++      XtSetArg(args[nargs], XtNborderWidth, 0); nargs++;
++ 
++      XtSetValues(_toplevel, args, nargs);
++      XtSetValues(_form, args, nargs);
+ 
+-   XtSetValues(_toplevel, args, nargs);
+-   XtSetValues(_form, args, nargs);
++      resizeWidgets(XtWindow(_form), _width, _height);
++   }
+ 
+-   resizeWidgets(XtWindow(_form), _width, _height);
++   // If not visible yet, displayWindow() will call setWindow() again anyway, so avoid this.
++   // This also handled plugins that are broken and cannot handle repeated setWindow() calls
++   // very well.
++   if (!_visible)
++      return;
+ 
+    setWindow();
+ 
+@@ -1405,7 +1433,7 @@
+ DCOPRef NSPluginClass::newInstance( QString url, QString mimeType, bool embed,
+                                     QStringList argn, QStringList argv,
+                                     QString appId, QString callbackId,
+-                                    bool reload, bool doPost, QByteArray postData )
++                                    bool reload, bool doPost, QByteArray postData, long xembed )
+ {
+    kdDebug(1431) << "-> NSPluginClass::NewInstance" << endl;
+ 
+@@ -1449,16 +1477,25 @@
+    memset(npp, 0, sizeof(NPP_t));
+    npp->ndata = NULL;
+ 
+-   // Create plugin instance object
+-   NSPluginInstance *inst = new NSPluginInstance( npp, &_pluginFuncs, _handle,
+-                                                  width, height, baseURL, mimeType,
+-                                                  appId, callbackId, embed, this );
+-
+    // create plugin instance
+    NPError error = _pluginFuncs.newp(mime, npp, embed ? NP_EMBED : NP_FULL,
+                                      argc, _argn, _argv, 0);
+    kdDebug(1431) << "NPP_New = " << (int)error << endl;
+ 
++   // don't use bool here, it can be 1 byte, but some plugins write it as int, and I can't find what the spec says
++   int wants_xembed = false;
++   if (_pluginFuncs.getvalue) {
++      NPError error = _pluginFuncs.getvalue(npp, (NPPVariable)14/*NPPVpluginNeedsXEmbed*/, &wants_xembed );
++      if( error != NPERR_NO_ERROR )
++         wants_xembed = false;
++   }
++   kdDebug(1431) << "Plugin requires XEmbed:" << (bool)wants_xembed << endl;
++
++   // Create plugin instance object
++   NSPluginInstance *inst = new NSPluginInstance( npp, &_pluginFuncs, _handle,
++                                                  width, height, baseURL, mimeType,
++                                                  appId, callbackId, embed, wants_xembed ? xembed : 0, this );
++
+    // free arrays with arguments
+    delete [] _argn;
+    delete [] _argv;
+@@ -1493,7 +1530,6 @@
+     timer(); //_timer->start( 0, TRUE );
+ }
+ 
+-
+ /****************************************************************************/
+ 
+ NSPluginStreamBase::NSPluginStreamBase( NSPluginInstance *instance )
+@@ -1516,8 +1552,6 @@
  
     delete _tempFile;
     _tempFile = 0;
@@ -962,10 +2458,334 @@ Index: nsplugins/viewer/nsplugin.cpp
  }
  
  
+Index: nsplugins/viewer/viewer.cpp
+===================================================================
+--- nsplugins/viewer/viewer.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ nsplugins/viewer/viewer.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
+@@ -52,6 +52,7 @@
+ #include <X11/Shell.h>
+ #else
+ #include "qxteventloop.h"
++#include "glibevents.h"
+ #endif
+ 
+ /**
+@@ -249,6 +250,7 @@
+ 
+    kdDebug(1430) << "4 - create KApplication" << endl;
+    KApplication app( argc,  argv, "nspluginviewer" );
++   GlibEvents glibevents;
+ #endif
+ 
+    {
+Index: nsplugins/viewer/NSPluginClassIface.h
+===================================================================
+--- nsplugins/viewer/NSPluginClassIface.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ nsplugins/viewer/NSPluginClassIface.h	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
+@@ -50,7 +50,7 @@
+   virtual DCOPRef newInstance(QString url, QString mimeType, bool embed,
+                               QStringList argn, QStringList argv,
+                               QString appId, QString callbackId, bool reload,
+-                              bool doPost, QByteArray postData) = 0;
++                              bool doPost, QByteArray postData, long xembed) = 0;
+   virtual QString getMIMEDescription() = 0;
+ 
+ };
+Index: nsplugins/viewer/glibevents.cpp
+===================================================================
+--- nsplugins/viewer/glibevents.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 0)
++++ nsplugins/viewer/glibevents.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
+@@ -0,0 +1,43 @@
++/*
++  Copyright (c) 2007 Lubos Lunak <l.lunak@suse.cz>
++ 
++  This program is free software; you can redistribute it and/or modify
++  it under the terms of the GNU General Public License as published by
++  the Free Software Foundation; either version 2 of the License, or
++  (at your option) any later version.
++ 
++  This program is distributed in the hope that it will be useful,
++  but WITHOUT ANY WARRANTY; without even the implied warranty of
++  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++  GNU General Public License for more details.
++ 
++  You should have received a copy of the GNU General Public License
++  along with this program; if not, write to the Free Software
++  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
++ 
++*/                                                                            
++
++#include "glibevents.h"
++
++#include <qapplication.h>
++
++GlibEvents::GlibEvents()
++    {
++    g_main_context_ref( g_main_context_default());
++    connect( &timer, SIGNAL( timeout()), SLOT( process()));
++    // TODO Poll for now
++    timer.start( 10 );
++    }
++
++GlibEvents::~GlibEvents()
++    {
++    g_main_context_unref( g_main_context_default());
++    }
++
++void GlibEvents::process()
++    {
++    while( g_main_context_pending( g_main_context_default()))
++        g_main_context_iteration( g_main_context_default(), false );
++    }
++
++#include "glibevents.moc"
+Index: nsplugins/viewer/nsplugin.h
+===================================================================
+--- nsplugins/viewer/nsplugin.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ nsplugins/viewer/nsplugin.h	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
+@@ -165,13 +165,13 @@
+   // constructor, destructor
+   NSPluginInstance( NPP privateData, NPPluginFuncs *pluginFuncs, KLibrary *handle,
+ 		    int width, int height, QString src, QString mime,
+-                    QString appId, QString callbackId, bool embed,
++                    QString appId, QString callbackId, bool embed, WId xembed,
+ 		    QObject *parent, const char* name=0 );
+   ~NSPluginInstance();
+ 
+   // DCOP functions
+   void shutdown();
+-  int winId() { return XtWindow(_form); }
++  int winId() { return _form != 0 ? XtWindow(_form) : 0; }
+   int setWindow(int remove=0);
+   void resizePlugin(int w, int h);
+   void javascriptResult(int id, QString result);
+@@ -232,6 +232,7 @@
+   NPPluginFuncs _pluginFuncs;
+ 
+   Widget _area, _form, _toplevel;
++  WId _xembed_window;
+   QString _baseURL;
+   int _width, _height;
+ 
+@@ -281,7 +282,7 @@
+   DCOPRef newInstance(QString url, QString mimeType, bool embed,
+                       QStringList argn, QStringList argv,
+                       QString appId, QString callbackId, bool reload, bool post,
+-                      QByteArray postData );
++                      QByteArray postData, long xembed );
+   void destroyInstance( NSPluginInstance* inst );
+   bool error() { return _error; }
+ 
+Index: nsplugins/viewer/glibevents.h
+===================================================================
+--- nsplugins/viewer/glibevents.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 0)
++++ nsplugins/viewer/glibevents.h	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
+@@ -0,0 +1,41 @@
++/*
++  Copyright (c) 2007 Lubos Lunak <l.lunak@suse.cz>
++ 
++  This program is free software; you can redistribute it and/or modify
++  it under the terms of the GNU General Public License as published by
++  the Free Software Foundation; either version 2 of the License, or
++  (at your option) any later version.
++ 
++  This program is distributed in the hope that it will be useful,
++  but WITHOUT ANY WARRANTY; without even the implied warranty of
++  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++  GNU General Public License for more details.
++ 
++  You should have received a copy of the GNU General Public License
++  along with this program; if not, write to the Free Software
++  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
++ 
++*/                                                                            
++
++#ifndef GLIBEVENTS_H
++#define GLIBEVENTS_H
++
++#include <qwidget.h>
++#include <qtimer.h>
++
++#include <glib.h>
++
++class GlibEvents
++    : public QWidget
++    {
++    Q_OBJECT
++    public:
++        GlibEvents();
++        virtual ~GlibEvents();
++    private slots:
++        void process();
++    private:
++        QTimer timer;
++    };
++
++#endif
+Index: nsplugins/viewer/Makefile.am
+===================================================================
+--- nsplugins/viewer/Makefile.am	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ nsplugins/viewer/Makefile.am	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
+@@ -1,12 +1,11 @@
+-INCLUDES = -I$(top_srcdir)/nsplugins -I$(top_builddir)/nsplugins $(all_includes)
++INCLUDES = -I$(top_srcdir)/nsplugins -I$(top_builddir)/nsplugins $(all_includes) `pkg-config --cflags glib-2.0`
+ METASOURCES = AUTO
+ 
+ bin_PROGRAMS = nspluginviewer 
+ 
+ nspluginviewer_SOURCES = NSPluginCallbackIface.stub NSPluginClassIface.skel \
+-	nsplugin.cpp viewer.cpp kxt.cpp qxteventloop.cpp
+-nspluginviewer_LDFLAGS = $(all_libraries) $(KDE_RPATH) -export-dynamic
++	nsplugin.cpp viewer.cpp kxt.cpp qxteventloop.cpp glibevents.cpp
++nspluginviewer_LDFLAGS = $(all_libraries) $(KDE_RPATH) -export-dynamic `pkg-config --libs glib-2.0`
+ nspluginviewer_LDADD = $(LIB_KIO) $(LIB_KPARTS) -lXt
+ 
+ NSPluginCallbackIface_DIR = $(srcdir)/..
+-
+Index: nsplugins/nspluginloader.cpp
+===================================================================
+--- nsplugins/nspluginloader.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ nsplugins/nspluginloader.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
+@@ -54,11 +54,16 @@
+ int NSPluginLoader::s_refCount = 0;
+ 
+ 
+-NSPluginInstance::NSPluginInstance(QWidget *parent, const QCString& app, const QCString& id)
+-  : DCOPStub(app, id), NSPluginInstanceIface_stub(app, id), EMBEDCLASS(parent)
++NSPluginInstance::NSPluginInstance(QWidget *parent)
++  : EMBEDCLASS(parent), stub( NULL )
+ {
+     _loader = 0L;
+     shown = false;
++}
++
++void NSPluginInstance::init(const QCString& app, const QCString& obj)
++{
++    stub = new NSPluginInstanceIface_stub( app, obj );
+     QGridLayout *_layout = new QGridLayout(this, 1, 1);
+     KConfig cfg("kcmnspluginrc", false);
+     cfg.setGroup("Misc");
+@@ -80,12 +85,19 @@
+         _button = 0L;
+         _loader = NSPluginLoader::instance();
+         setBackgroundMode(QWidget::NoBackground);
+-        setProtocol(QXEmbed::XPLAIN);
+-        embed( NSPluginInstanceIface_stub::winId() );
++        WId winid = stub->winId();
++        if( winid != 0 ) {
++            setProtocol(QXEmbed::XPLAIN);
++            embed( winid );
++        } else {
++            setProtocol(QXEmbed::XEMBED);
++        }
++        // resize before showing, some plugins are stupid and can't handle repeated
++        // NPSetWindow() calls very well
++        resizePlugin(width(), height());
+         displayPlugin();
+         show();
+         shown = true;
+-        if (isVisible()) resizePlugin(width(), height());
+     }
+ }
+ 
+@@ -97,6 +109,7 @@
+    kdDebug() << "release" << endl;
+    _loader->release();
+    kdDebug() << "<- NSPluginInstance::~NSPluginInstance" << endl;
++   delete stub;
+ }
+ 
+ 
+@@ -127,6 +140,24 @@
+   resizePlugin(width(), height());
+ }
+ 
++void NSPluginInstance::displayPlugin()
++{
++  qApp->syncX(); // process pending X commands
++  stub->displayPlugin();
++}
++
++void NSPluginInstance::resizePlugin( int w, int h )
++{
++  qApp->syncX();
++  stub->resizePlugin( w, h );
++}
++
++void NSPluginInstance::shutdown()
++{
++  if( stub )
++    stub->shutdown();
++}
++
+ /*******************************************************************************/
+ 
+ 
+@@ -445,20 +476,20 @@
+    if ( mime=="application/x-shockwave-flash" )
+        embed = true; // flash doesn't work in full mode :(
+ 
++   NSPluginInstance *plugin = new NSPluginInstance( parent );
++   kdDebug() << "<- NSPluginLoader::NewInstance = " << (void*)plugin << endl;
+ 
+    // get plugin instance
+-   DCOPRef inst_ref = cls->newInstance( url, mime, embed, argn, argv, appId, callbackId, reload, doPost, postData);
++   DCOPRef inst_ref = cls->newInstance( url, mime, embed, argn, argv, appId, callbackId, reload, doPost, postData, plugin->winId());
+    if ( inst_ref.isNull() )
+    {
+       kdDebug() << "Couldn't create plugin instance" << endl;
++      delete plugin;
+       return 0;
+    }
+ 
+-   NSPluginInstance *plugin = new NSPluginInstance( parent, inst_ref.app(),
+-                                                    inst_ref.object() );
++   plugin->init( inst_ref.app(), inst_ref.object() );
+ 
+-   kdDebug() << "<- NSPluginLoader::NewInstance = " << (void*)plugin << endl;
+-
+    return plugin;
+ }
+ 
+Index: nsplugins/nspluginloader.h
+===================================================================
+--- nsplugins/nspluginloader.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ nsplugins/nspluginloader.h	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
+@@ -43,13 +43,16 @@
+ class QPushButton;
+ class QGridLayout;
+ 
+-class NSPluginInstance : public EMBEDCLASS, virtual public NSPluginInstanceIface_stub
++class NSPluginInstance : public EMBEDCLASS
+ {
+   Q_OBJECT
+ 
+ public:
+-    NSPluginInstance(QWidget *parent, const QCString& app, const QCString& id);
++    NSPluginInstance(QWidget *parent);
++    void init( const QCString& app, const QCString& obj );
+     ~NSPluginInstance();
++public: // wrappers
++    void javascriptResult( int id, QString result ) { stub->javascriptResult( id, result ); }
+ 
+ private slots:
+     void doLoadPlugin();
+@@ -62,6 +65,11 @@
+     bool shown;
+     QPushButton *_button;
+     QGridLayout *_layout;
++    NSPluginInstanceIface_stub* stub;
++private: // wrappers
++    void displayPlugin();
++    void resizePlugin( int w, int h );
++    void shutdown();
+ };
+ 
+ 
 Index: kappfinder/apps/Graphics/blender.desktop
 ===================================================================
---- kappfinder/apps/Graphics/blender.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kappfinder/apps/Graphics/blender.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kappfinder/apps/Graphics/blender.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kappfinder/apps/Graphics/blender.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -4,7 +4,7 @@
  Name[bn]=ব্লেণ্ডার
  Name[fa]=مخلوط‌کن
@@ -986,8 +2806,8 @@ Index: kappfinder/apps/Graphics/blender.desktop
  GenericName[kk]=3D Үлгілеу/Көрсету
 Index: kdesktop/xautolock_engine.c
 ===================================================================
---- kdesktop/xautolock_engine.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesktop/xautolock_engine.c	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesktop/xautolock_engine.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesktop/xautolock_engine.c	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -157,7 +157,7 @@
  #if 0
            newTrigger = now + (useRedelay ? cornerRedelay : cornerDelay) - 1;
@@ -999,8 +2819,8 @@ Index: kdesktop/xautolock_engine.c
  #if 0
 Index: kdesktop/lockeng.cc
 ===================================================================
---- kdesktop/lockeng.cc	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesktop/lockeng.cc	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesktop/lockeng.cc	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesktop/lockeng.cc	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -156,7 +156,7 @@
  	    connect(mXAutoLock, SIGNAL(timeout()), SLOT(idleTimeout()));
  	}
@@ -1064,8 +2884,8 @@ Index: kdesktop/lockeng.cc
  //---------------------------------------------------------------------------
 Index: kdesktop/kdiconview.cc
 ===================================================================
---- kdesktop/kdiconview.cc	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesktop/kdiconview.cc	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesktop/kdiconview.cc	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesktop/kdiconview.cc	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -485,7 +485,7 @@
  
      // Auto line-up icons
@@ -1089,8 +2909,8 @@ Index: kdesktop/kdiconview.cc
          if ( !name.isEmpty() )
 Index: kdesktop/kdesktop.kcfg
 ===================================================================
---- kdesktop/kdesktop.kcfg	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesktop/kdesktop.kcfg	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesktop/kdesktop.kcfg	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesktop/kdesktop.kcfg	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -232,8 +232,10 @@
      </entry>
      <entry name="DpmsDependent" key="DPMS-dependent" type="Bool">
@@ -1106,8 +2926,8 @@ Index: kdesktop/kdesktop.kcfg
        <default>0</default>
 Index: kdesktop/xautolock.cc
 ===================================================================
---- kdesktop/xautolock.cc	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesktop/xautolock.cc	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesktop/xautolock.cc	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesktop/xautolock.cc	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -43,10 +43,12 @@
  
  static XAutoLock* self = NULL;
@@ -1177,8 +2997,8 @@ Index: kdesktop/xautolock.cc
  
 Index: kdesktop/init/Templates/linkDVDROM.desktop
 ===================================================================
---- kdesktop/init/Templates/linkDVDROM.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesktop/init/Templates/linkDVDROM.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesktop/init/Templates/linkDVDROM.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesktop/init/Templates/linkDVDROM.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -40,11 +40,11 @@
  Name[mn]=DVD-ROM төхөөрөмж...
  Name[ms]=Peranti DVD-ROM...
@@ -1195,8 +3015,8 @@ Index: kdesktop/init/Templates/linkDVDROM.desktop
  Name[pt]=Leitor de DVD-ROMs...
 Index: kdesktop/init/Templates/linkHD.desktop
 ===================================================================
---- kdesktop/init/Templates/linkHD.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesktop/init/Templates/linkHD.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesktop/init/Templates/linkHD.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesktop/init/Templates/linkHD.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -40,11 +40,11 @@
  Name[mn]=Хатуу диск...
  Name[ms]=Peranti Cakera Keras...
@@ -1213,8 +3033,8 @@ Index: kdesktop/init/Templates/linkHD.desktop
  Name[pt]=Disco Rígido...
 Index: kdesktop/init/Templates/linkURL.desktop
 ===================================================================
---- kdesktop/init/Templates/linkURL.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesktop/init/Templates/linkURL.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesktop/init/Templates/linkURL.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesktop/init/Templates/linkURL.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -40,11 +40,11 @@
  Name[mn]=Хаягтай (URL) холбох...
  Name[ms]=Paut ke Aplikasi (URL)...
@@ -1231,8 +3051,8 @@ Index: kdesktop/init/Templates/linkURL.desktop
  Name[pt]=Atalho para Localização (URL)...
 Index: kdesktop/init/Templates/linkZIP.desktop
 ===================================================================
---- kdesktop/init/Templates/linkZIP.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesktop/init/Templates/linkZIP.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesktop/init/Templates/linkZIP.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesktop/init/Templates/linkZIP.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -40,11 +40,11 @@
  Name[mn]=ZIP Төхөөрөмж..
  Name[ms]=Peranti ZIP...
@@ -1249,8 +3069,8 @@ Index: kdesktop/init/Templates/linkZIP.desktop
  Name[pt]=Dispositivo ZIP...
 Index: kdesktop/init/Templates/linkCDROM.desktop
 ===================================================================
---- kdesktop/init/Templates/linkCDROM.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesktop/init/Templates/linkCDROM.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesktop/init/Templates/linkCDROM.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesktop/init/Templates/linkCDROM.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -40,11 +40,11 @@
  Name[mn]=КД-ROM төхөөрөмж...
  Name[ms]=Peranti CD-ROM...
@@ -1267,8 +3087,8 @@ Index: kdesktop/init/Templates/linkCDROM.desktop
  Name[pt]=Dispositivo de CD-ROM...
 Index: kdesktop/init/Templates/TextFile.desktop
 ===================================================================
---- kdesktop/init/Templates/TextFile.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesktop/init/Templates/TextFile.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesktop/init/Templates/TextFile.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesktop/init/Templates/TextFile.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -40,11 +40,11 @@
  Name[mn]=Текст файл...
  Name[ms]=Fail Teks...
@@ -1285,8 +3105,8 @@ Index: kdesktop/init/Templates/TextFile.desktop
  Name[pt]=Ficheiro de Texto...
 Index: kdesktop/init/Templates/linkProgram.desktop
 ===================================================================
---- kdesktop/init/Templates/linkProgram.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesktop/init/Templates/linkProgram.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesktop/init/Templates/linkProgram.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesktop/init/Templates/linkProgram.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -40,11 +40,11 @@
  Name[mn]=Програмтай холбох...
  Name[ms]=Paut ke Aplikasi...
@@ -1303,8 +3123,8 @@ Index: kdesktop/init/Templates/linkProgram.desktop
  Name[pt]=Atalho para Aplicação...
 Index: kdesktop/init/Templates/linkFloppy.desktop
 ===================================================================
---- kdesktop/init/Templates/linkFloppy.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesktop/init/Templates/linkFloppy.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesktop/init/Templates/linkFloppy.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesktop/init/Templates/linkFloppy.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -40,11 +40,11 @@
  Name[mn]=Уян диск...
  Name[ms]=Peranti Liut...
@@ -1321,8 +3141,8 @@ Index: kdesktop/init/Templates/linkFloppy.desktop
  Name[pt]=Leitor de Disquetes...
 Index: kdesktop/init/Templates/linkMO.desktop
 ===================================================================
---- kdesktop/init/Templates/linkMO.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesktop/init/Templates/linkMO.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesktop/init/Templates/linkMO.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesktop/init/Templates/linkMO.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -40,11 +40,11 @@
  Name[mn]=MO Төхөөрөмж...
  Name[ms]=Peranti MO...
@@ -1339,8 +3159,8 @@ Index: kdesktop/init/Templates/linkMO.desktop
  Name[pt]=Dispositivo MO...
 Index: kdesktop/init/Templates/linkCDWRITER.desktop
 ===================================================================
---- kdesktop/init/Templates/linkCDWRITER.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesktop/init/Templates/linkCDWRITER.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesktop/init/Templates/linkCDWRITER.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesktop/init/Templates/linkCDWRITER.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -44,7 +44,7 @@
  Name[nds]=CD-Brenner...
  Name[ne]=CDWRITER यन्त्र...
@@ -1352,8 +3172,8 @@ Index: kdesktop/init/Templates/linkCDWRITER.desktop
  Name[pt]=Gravador de CDs...
 Index: kdesktop/init/Templates/HTMLFile.desktop
 ===================================================================
---- kdesktop/init/Templates/HTMLFile.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesktop/init/Templates/HTMLFile.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesktop/init/Templates/HTMLFile.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesktop/init/Templates/HTMLFile.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -40,11 +40,11 @@
  Name[mn]=HTML-Файл...
  Name[ms]=Fail HTML...
@@ -1370,8 +3190,8 @@ Index: kdesktop/init/Templates/HTMLFile.desktop
  Name[pt]=Ficheiro HTML...
 Index: kdesktop/init/Templates/Directory.desktop
 ===================================================================
---- kdesktop/init/Templates/Directory.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesktop/init/Templates/Directory.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesktop/init/Templates/Directory.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesktop/init/Templates/Directory.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -39,11 +39,11 @@
  Name[mk]=Папка...
  Name[mn]=Хавтас...
@@ -1388,8 +3208,8 @@ Index: kdesktop/init/Templates/Directory.desktop
  Name[pt]=Pasta...
 Index: kdesktop/init/Templates/linkNFS.desktop
 ===================================================================
---- kdesktop/init/Templates/linkNFS.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesktop/init/Templates/linkNFS.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesktop/init/Templates/linkNFS.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesktop/init/Templates/linkNFS.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -7,8 +7,8 @@
  Name[de]=NFS ...
  Name[hi]=एनएफ़एस...
@@ -1403,8 +3223,8 @@ Index: kdesktop/init/Templates/linkNFS.desktop
  Name[sl]=NFS ...
 Index: kdesktop/init/Templates/linkCAMERA.desktop
 ===================================================================
---- kdesktop/init/Templates/linkCAMERA.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesktop/init/Templates/linkCAMERA.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesktop/init/Templates/linkCAMERA.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesktop/init/Templates/linkCAMERA.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -40,11 +40,11 @@
  Name[mn]=Камерын Төхөөрөмж...
  Name[ms]=Peranti Kamera...
@@ -1421,8 +3241,8 @@ Index: kdesktop/init/Templates/linkCAMERA.desktop
  Name[pt]=Máquina Fotográfica...
 Index: kdesktop/lockeng.h
 ===================================================================
---- kdesktop/lockeng.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesktop/lockeng.h	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesktop/lockeng.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesktop/lockeng.h	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -93,7 +93,6 @@
  protected:
      enum State { Waiting, Preparing, Saving };
@@ -1433,8 +3253,8 @@ Index: kdesktop/lockeng.h
      XAutoLock   *mXAutoLock;
 Index: applnk/kde-utilities-file.directory
 ===================================================================
---- applnk/kde-utilities-file.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ applnk/kde-utilities-file.directory	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- applnk/kde-utilities-file.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ applnk/kde-utilities-file.directory	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -34,6 +34,7 @@
  Name[ja]=ファイル
  Name[kk]=Файл
@@ -1453,8 +3273,8 @@ Index: applnk/kde-utilities-file.directory
  Comment[ms]=Fail
 Index: konqueror/remoteencodingplugin/kremoteencodingplugin.desktop
 ===================================================================
---- konqueror/remoteencodingplugin/kremoteencodingplugin.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/remoteencodingplugin/kremoteencodingplugin.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/remoteencodingplugin/kremoteencodingplugin.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/remoteencodingplugin/kremoteencodingplugin.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -41,7 +41,7 @@
  Name[it]=Plugin codifica remota
  Name[ja]=リモートエンコーディングプラグイン
@@ -1475,8 +3295,8 @@ Index: konqueror/remoteencodingplugin/kremoteencodingplugin.desktop
  Comment[ms]=Plugin Pengekodan Jauh untuk Konqueror
 Index: konqueror/profile_tabbedbrowsing.desktop
 ===================================================================
---- konqueror/profile_tabbedbrowsing.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/profile_tabbedbrowsing.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/profile_tabbedbrowsing.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/profile_tabbedbrowsing.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -39,11 +39,11 @@
  Name[mk]=Прелистување со ливчиња
  Name[ms]=Pelayaran Bertab
@@ -1493,8 +3313,8 @@ Index: konqueror/profile_tabbedbrowsing.desktop
  Name[pt]=Navegação por Páginas
 Index: konqueror/quickprint/text-tex-print.desktop
 ===================================================================
---- konqueror/quickprint/text-tex-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/quickprint/text-tex-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/quickprint/text-tex-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/quickprint/text-tex-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -1511,8 +3331,8 @@ Index: konqueror/quickprint/text-tex-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-xml-print.desktop
 ===================================================================
---- konqueror/quickprint/text-xml-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/quickprint/text-xml-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/quickprint/text-xml-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/quickprint/text-xml-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -1529,8 +3349,8 @@ Index: konqueror/quickprint/text-xml-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-print.desktop
 ===================================================================
---- konqueror/quickprint/text-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/quickprint/text-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/quickprint/text-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/quickprint/text-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -1547,8 +3367,8 @@ Index: konqueror/quickprint/text-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-perl-print.desktop
 ===================================================================
---- konqueror/quickprint/text-perl-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/quickprint/text-perl-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/quickprint/text-perl-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/quickprint/text-perl-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -1565,8 +3385,8 @@ Index: konqueror/quickprint/text-perl-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-html-print.desktop
 ===================================================================
---- konqueror/quickprint/text-html-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/quickprint/text-html-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/quickprint/text-html-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/quickprint/text-html-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -1583,8 +3403,8 @@ Index: konqueror/quickprint/text-html-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-diff-print.desktop
 ===================================================================
---- konqueror/quickprint/text-diff-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/quickprint/text-diff-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/quickprint/text-diff-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/quickprint/text-diff-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -1601,8 +3421,8 @@ Index: konqueror/quickprint/text-diff-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-c++-print.desktop
 ===================================================================
---- konqueror/quickprint/text-c++-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/quickprint/text-c++-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/quickprint/text-c++-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/quickprint/text-c++-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -1619,8 +3439,8 @@ Index: konqueror/quickprint/text-c++-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-makefile-print.desktop
 ===================================================================
---- konqueror/quickprint/text-makefile-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/quickprint/text-makefile-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/quickprint/text-makefile-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/quickprint/text-makefile-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -1637,8 +3457,8 @@ Index: konqueror/quickprint/text-makefile-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-c++h-print.desktop
 ===================================================================
---- konqueror/quickprint/text-c++h-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/quickprint/text-c++h-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/quickprint/text-c++h-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/quickprint/text-c++h-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -1655,8 +3475,8 @@ Index: konqueror/quickprint/text-c++h-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-log-print.desktop
 ===================================================================
---- konqueror/quickprint/text-log-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/quickprint/text-log-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/quickprint/text-log-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/quickprint/text-log-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -1673,8 +3493,8 @@ Index: konqueror/quickprint/text-log-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-java-print.desktop
 ===================================================================
---- konqueror/quickprint/text-java-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/quickprint/text-java-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/quickprint/text-java-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/quickprint/text-java-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -1691,8 +3511,8 @@ Index: konqueror/quickprint/text-java-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-python-print.desktop
 ===================================================================
---- konqueror/quickprint/text-python-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/quickprint/text-python-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/quickprint/text-python-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/quickprint/text-python-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -1709,8 +3529,8 @@ Index: konqueror/quickprint/text-python-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-c-print.desktop
 ===================================================================
---- konqueror/quickprint/text-c-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/quickprint/text-c-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/quickprint/text-c-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/quickprint/text-c-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -1727,8 +3547,8 @@ Index: konqueror/quickprint/text-c-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-tcl-print.desktop
 ===================================================================
---- konqueror/quickprint/text-tcl-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/quickprint/text-tcl-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/quickprint/text-tcl-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/quickprint/text-tcl-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -1745,8 +3565,8 @@ Index: konqueror/quickprint/text-tcl-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-pas-print.desktop
 ===================================================================
---- konqueror/quickprint/text-pas-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/quickprint/text-pas-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/quickprint/text-pas-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/quickprint/text-pas-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -1763,8 +3583,8 @@ Index: konqueror/quickprint/text-pas-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-ada-print.desktop
 ===================================================================
---- konqueror/quickprint/text-ada-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/quickprint/text-ada-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/quickprint/text-ada-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/quickprint/text-ada-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -1781,8 +3601,8 @@ Index: konqueror/quickprint/text-ada-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-css-print.desktop
 ===================================================================
---- konqueror/quickprint/text-css-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/quickprint/text-css-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/quickprint/text-css-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/quickprint/text-css-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -1799,8 +3619,8 @@ Index: konqueror/quickprint/text-css-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-ch-print.desktop
 ===================================================================
---- konqueror/quickprint/text-ch-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/quickprint/text-ch-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/quickprint/text-ch-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/quickprint/text-ch-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -1817,8 +3637,8 @@ Index: konqueror/quickprint/text-ch-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-xslt-print.desktop
 ===================================================================
---- konqueror/quickprint/text-xslt-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/quickprint/text-xslt-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/quickprint/text-xslt-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/quickprint/text-xslt-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -1835,8 +3655,8 @@ Index: konqueror/quickprint/text-xslt-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/sidebar/trees/init/remote/ftp/.directory
 ===================================================================
---- konqueror/sidebar/trees/init/remote/ftp/.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/sidebar/trees/init/remote/ftp/.directory	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/sidebar/trees/init/remote/ftp/.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/sidebar/trees/init/remote/ftp/.directory	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -17,7 +17,9 @@
  Name[fr]=Archives FTP
  Name[hi]=एफ़टीपी आर्काइव
@@ -1857,8 +3677,8 @@ Index: konqueror/sidebar/trees/init/remote/ftp/.directory
  Name[sr]=FTP архиве
 Index: konqueror/sidebar/trees/init/remote/ftp/kde_ftp.desktop
 ===================================================================
---- konqueror/sidebar/trees/init/remote/ftp/kde_ftp.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/sidebar/trees/init/remote/ftp/kde_ftp.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/sidebar/trees/init/remote/ftp/kde_ftp.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/sidebar/trees/init/remote/ftp/kde_ftp.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -8,7 +8,7 @@
  Name[ar]=ميفاق نقل الملفات الرسمي لِــ KDE
  Name[az]=KDE FTP vericisi
@@ -1870,8 +3690,8 @@ Index: konqueror/sidebar/trees/init/remote/ftp/kde_ftp.desktop
  Name[bs]=KDE službeni FTP
 Index: konqueror/sidebar/trees/init/remote/web/.directory
 ===================================================================
---- konqueror/sidebar/trees/init/remote/web/.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/sidebar/trees/init/remote/web/.directory	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/sidebar/trees/init/remote/web/.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/sidebar/trees/init/remote/web/.directory	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -17,7 +17,9 @@
  Name[fr]=Sites Web
  Name[hi]=वेब साइट्स
@@ -1892,8 +3712,8 @@ Index: konqueror/sidebar/trees/init/remote/web/.directory
  Name[sr]=Веб сајтови
 Index: konqueror/sidebar/trees/init/remote/web/kde_web.desktop
 ===================================================================
---- konqueror/sidebar/trees/init/remote/web/kde_web.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/sidebar/trees/init/remote/web/kde_web.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/sidebar/trees/init/remote/web/kde_web.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/sidebar/trees/init/remote/web/kde_web.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -58,7 +58,7 @@
  Name[pt]=Página do KDE
  Name[pt_BR]=Página principal do KDE
@@ -1905,8 +3725,8 @@ Index: konqueror/sidebar/trees/init/remote/web/kde_web.desktop
  Name[sk]=Domovská stránka KDE
 Index: konqueror/sidebar/trees/init/system.desktop
 ===================================================================
---- konqueror/sidebar/trees/init/system.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konqueror/sidebar/trees/init/system.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konqueror/sidebar/trees/init/system.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konqueror/sidebar/trees/init/system.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -103,7 +103,7 @@
  Comment[he]=תיקייה זו מאפשרת לך לגשת את המקומות המועדפים עליך במערכת שלך
  Comment[hr]=Ova mapa omogućuje pristup uobičajenim lokacijama na računalu
@@ -1918,8 +3738,8 @@ Index: konqueror/sidebar/trees/init/system.desktop
  Comment[kk]=Бұл қапшық компьютердегі ортақ орындарға қатынауға мүмкіндік береді
 Index: knetattach/knetattach.ui
 ===================================================================
---- knetattach/knetattach.ui	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ knetattach/knetattach.ui	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- knetattach/knetattach.ui	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ knetattach/knetattach.ui	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -415,6 +415,8 @@
      <include location="global" impldecl="in implementation">kapplication.h</include>
      <include location="global" impldecl="in implementation">kstandarddirs.h</include>
@@ -1931,8 +3751,8 @@ Index: knetattach/knetattach.ui
  </includes>
 Index: kscreensaver/KRandom.desktop
 ===================================================================
---- kscreensaver/KRandom.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kscreensaver/KRandom.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kscreensaver/KRandom.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kscreensaver/KRandom.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -129,11 +129,11 @@
  Name[mk]=Постави...
  Name[mn]=Тохируулга...
@@ -1949,8 +3769,8 @@ Index: kscreensaver/KRandom.desktop
  Name[pa]=ਸੈੱਟਅੱਪ...
 Index: kscreensaver/KBlankscreen.desktop
 ===================================================================
---- kscreensaver/KBlankscreen.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kscreensaver/KBlankscreen.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kscreensaver/KBlankscreen.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kscreensaver/KBlankscreen.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -131,11 +131,11 @@
  Name[mk]=Постави...
  Name[mn]=Тохируулга...
@@ -1967,8 +3787,8 @@ Index: kscreensaver/KBlankscreen.desktop
  Name[pa]=ਸੈੱਟਅੱਪ...
 Index: kxkb/kcmmiscwidget.ui
 ===================================================================
---- kxkb/kcmmiscwidget.ui	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kxkb/kcmmiscwidget.ui	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kxkb/kcmmiscwidget.ui	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kxkb/kcmmiscwidget.ui	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -337,6 +337,7 @@
  </tabstops>
  <includes>
@@ -1979,8 +3799,8 @@ Index: kxkb/kcmmiscwidget.ui
  <layoutfunctions spacing="KDialog::spacingHint" margin="KDialog::marginHint"/>
 Index: libkonq/konqpopupmenuplugin.desktop
 ===================================================================
---- libkonq/konqpopupmenuplugin.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ libkonq/konqpopupmenuplugin.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- libkonq/konqpopupmenuplugin.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ libkonq/konqpopupmenuplugin.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -42,11 +42,11 @@
  Comment[mn]=Конкюрорын тагтан-цэсний Плугин
  Comment[ms]=Plugin untuk Menu Popuo Konqueror
@@ -1997,8 +3817,8 @@ Index: libkonq/konqpopupmenuplugin.desktop
  Comment[pl]=Wtyczka do menu (otwieranego przyciskiem myszy) Konquerora
 Index: khotkeys/shared/actions.cpp
 ===================================================================
---- khotkeys/shared/actions.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ khotkeys/shared/actions.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- khotkeys/shared/actions.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ khotkeys/shared/actions.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -118,6 +118,12 @@
          return;
      KURIFilterData uri;
@@ -2014,8 +3834,8 @@ Index: khotkeys/shared/actions.cpp
  //        && command_url()[ space_pos - 1 ] != '\\' )
 Index: khotkeys/data/konqueror_gestures_kde321.khotkeys
 ===================================================================
---- khotkeys/data/konqueror_gestures_kde321.khotkeys	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ khotkeys/data/konqueror_gestures_kde321.khotkeys	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- khotkeys/data/konqueror_gestures_kde321.khotkeys	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ khotkeys/data/konqueror_gestures_kde321.khotkeys	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -98,6 +98,7 @@
  Comment[fy]=Konqueror finster
  Comment[hr]=Konqueror prozor
@@ -2255,8 +4075,8 @@ Index: khotkeys/data/konqueror_gestures_kde321.khotkeys
  Comment[nb]=Bevegelsestarer
 Index: khotkeys/data/printscreen.khotkeys
 ===================================================================
---- khotkeys/data/printscreen.khotkeys	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ khotkeys/data/printscreen.khotkeys	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- khotkeys/data/printscreen.khotkeys	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ khotkeys/data/printscreen.khotkeys	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -49,6 +49,7 @@
  Name[fy]=Foarynstelde aksjes
  Name[hr]=Unaprijed zadane aktivnosti
@@ -2275,8 +4095,8 @@ Index: khotkeys/data/printscreen.khotkeys
  Name[nb]=Skriv skjermdump
 Index: khotkeys/kcontrol/khotkeys.desktop
 ===================================================================
---- khotkeys/kcontrol/khotkeys.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ khotkeys/kcontrol/khotkeys.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- khotkeys/kcontrol/khotkeys.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ khotkeys/kcontrol/khotkeys.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -34,7 +34,7 @@
  Name[he]=פעולות קלט
  Name[hr]=Aktivnosti unosa
@@ -2288,8 +4108,8 @@ Index: khotkeys/kcontrol/khotkeys.desktop
  Name[kk]=Енгізу әрекеттері
 Index: drkonqi/presets/developerrc
 ===================================================================
---- drkonqi/presets/developerrc	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ drkonqi/presets/developerrc	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- drkonqi/presets/developerrc	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ drkonqi/presets/developerrc	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -703,6 +703,7 @@
  Name[kk]=Беймәлім
  Name[km]=មិន​ស្គាល់
@@ -2300,8 +4120,8 @@ Index: drkonqi/presets/developerrc
  Name[lv]=Nezināms
 Index: drkonqi/presets/enduserrc
 ===================================================================
---- drkonqi/presets/enduserrc	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ drkonqi/presets/enduserrc	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- drkonqi/presets/enduserrc	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ drkonqi/presets/enduserrc	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -690,6 +690,7 @@
  Name[kk]=Беймәлім
  Name[km]=មិន​ស្គាល់
@@ -2312,8 +4132,8 @@ Index: drkonqi/presets/enduserrc
  Name[lv]=Nezināms
 Index: kwin/kcmkwin/kwinrules/kwinrules.desktop
 ===================================================================
---- kwin/kcmkwin/kwinrules/kwinrules.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kwin/kcmkwin/kwinrules/kwinrules.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kwin/kcmkwin/kwinrules/kwinrules.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kwin/kcmkwin/kwinrules/kwinrules.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -77,7 +77,7 @@
  Comment[af]=Stel spesifieke venster instellings op
  Comment[ar]=إعداد التعيينات الخاصة بنافذة
@@ -2325,8 +4145,8 @@ Index: kwin/kcmkwin/kwinrules/kwinrules.desktop
  Comment[ca]=Configura l'arranjament específicament per a una finestra
 Index: kwin/geometry.cpp
 ===================================================================
---- kwin/geometry.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kwin/geometry.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kwin/geometry.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kwin/geometry.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -1437,6 +1437,7 @@
          if ( value_mask & CWHeight )
              nh = rh;
@@ -2335,10 +4155,23 @@ Index: kwin/geometry.cpp
  
          // TODO what to do with maximized windows?
          if ( maximizeMode() != MaximizeFull
+Index: kwin/group.cpp
+===================================================================
+--- kwin/group.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kwin/group.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
+@@ -816,7 +816,7 @@
+         if( pos == NULL )
+             break;
+         loop_pos = pos->transient_for_id;
+-        if( --count == 0 )
++        if( --count == 0 || pos == this )
+             {
+             kdWarning( 1216 ) << "Client " << this << " caused WM_TRANSIENT_FOR loop." << endl;
+             new_transient_for = workspace()->rootWin();
 Index: kwin/data/fsp_workarounds_1.kwinrules
 ===================================================================
---- kwin/data/fsp_workarounds_1.kwinrules	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kwin/data/fsp_workarounds_1.kwinrules	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kwin/data/fsp_workarounds_1.kwinrules	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kwin/data/fsp_workarounds_1.kwinrules	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -11,6 +11,7 @@
  Description[fr]=(Défaut) Désactive le vol du focus pour XV
  Description[fy]=(standert) Foarkomme fan ôfpakke fan toetseboerdfokus foar XV
@@ -2357,8 +4190,8 @@ Index: kwin/data/fsp_workarounds_1.kwinrules
  Description[sr]=(Подразумевано) Искључи спречавање преузимања фокуса за XV
 Index: konsole/konsole.desktop
 ===================================================================
---- konsole/konsole.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konsole/konsole.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konsole/konsole.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konsole/konsole.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -34,7 +34,6 @@
  Name[pa]=ਕੰਨਸੋਲ
  Name[pl]=Konsola
@@ -2369,8 +4202,8 @@ Index: konsole/konsole.desktop
  Name[sl]=Konzola
 Index: konsole/konsole-script.desktop
 ===================================================================
---- konsole/konsole-script.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konsole/konsole-script.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konsole/konsole-script.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konsole/konsole-script.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -34,7 +34,6 @@
  Name[pa]=ਕੰਨਸੋਲ
  Name[pl]=Konsola
@@ -2381,8 +4214,8 @@ Index: konsole/konsole-script.desktop
  Name[sl]=Konzola
 Index: konsole/konsolehere.desktop
 ===================================================================
---- konsole/konsolehere.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konsole/konsolehere.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konsole/konsolehere.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konsole/konsolehere.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -32,7 +32,6 @@
  Name[pa]=ਕੰਨਸੋਲ
  Name[pl]=Konsola
@@ -2393,8 +4226,8 @@ Index: konsole/konsolehere.desktop
  Name[sl]=Konzola
 Index: konsole/eventsrc
 ===================================================================
---- konsole/eventsrc	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konsole/eventsrc	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konsole/eventsrc	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konsole/eventsrc	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -23,7 +23,6 @@
  Comment[nn]=Konsoll
  Comment[pa]=ਕੰਨਸੋਲ
@@ -2405,8 +4238,8 @@ Index: konsole/eventsrc
  Comment[te]=కాన్సొల్
 Index: konsole/kcmkonsole.desktop
 ===================================================================
---- konsole/kcmkonsole.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ konsole/kcmkonsole.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- konsole/kcmkonsole.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ konsole/kcmkonsole.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -124,7 +124,7 @@
  GenericName[mn]=Консолын бүх тохируулга
  GenericName[ms]=Semua Seting Konsol
@@ -2435,8 +4268,8 @@ Index: konsole/kcmkonsole.desktop
  Keywords[sk]=konsole,konzola,terminál
 Index: l10n/rs/entry.desktop
 ===================================================================
---- l10n/rs/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/rs/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/rs/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/rs/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -13,6 +13,7 @@
  Name[fr]=Serbie
  Name[hr]=Srbija
@@ -2447,8 +4280,8 @@ Index: l10n/rs/entry.desktop
  Name[km]=សែប៊ី
 Index: l10n/rw/entry.desktop
 ===================================================================
---- l10n/rw/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/rw/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/rw/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/rw/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -11,6 +11,7 @@
  Name[de]=Ruanda
  Name[el]=Ρουάντα
@@ -2459,8 +4292,8 @@ Index: l10n/rw/entry.desktop
  Name[fi]=Ruanda
 Index: l10n/kg/entry.desktop
 ===================================================================
---- l10n/kg/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/kg/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/kg/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/kg/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -14,7 +14,7 @@
  Name[de]=Kirgisien
  Name[el]=Κιργιζιστάν
@@ -2472,8 +4305,8 @@ Index: l10n/kg/entry.desktop
  Name[fr]=Kirghizstan
 Index: l10n/kh/entry.desktop
 ===================================================================
---- l10n/kh/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/kh/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/kh/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/kh/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -13,6 +13,7 @@
  Name[de]=Kambodscha
  Name[el]=Καμπότζη
@@ -2484,8 +4317,8 @@ Index: l10n/kh/entry.desktop
  Name[fa]=کامبوج
 Index: l10n/km/entry.desktop
 ===================================================================
---- l10n/km/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/km/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/km/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/km/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -13,6 +13,7 @@
  Name[de]=Komoren
  Name[el]=Κομόρες
@@ -2496,8 +4329,8 @@ Index: l10n/km/entry.desktop
  Name[fi]=Komorit
 Index: l10n/kn/entry.desktop
 ===================================================================
---- l10n/kn/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/kn/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/kn/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/kn/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -15,7 +15,7 @@
  Name[de]=St. Kitts und Nevis
  Name[el]=Άγιος Χριστόφορος (Σαιντ Κιτς) και Νέβις
@@ -2509,8 +4342,8 @@ Index: l10n/kn/entry.desktop
  Name[fa]=سنت کیتس و نویس
 Index: l10n/kz/entry.desktop
 ===================================================================
---- l10n/kz/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/kz/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/kz/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/kz/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -12,7 +12,7 @@
  Name[de]=Kasachstan
  Name[el]=Καζακστάν
@@ -2522,8 +4355,8 @@ Index: l10n/kz/entry.desktop
  Name[fi]=Kazakstan
 Index: l10n/sr/entry.desktop
 ===================================================================
---- l10n/sr/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/sr/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/sr/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/sr/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -13,6 +13,7 @@
  Name[de]=Surinam
  Name[el]=Σουρινάμ
@@ -2534,8 +4367,8 @@ Index: l10n/sr/entry.desktop
  Name[fa]=سورینام
 Index: l10n/st/entry.desktop
 ===================================================================
---- l10n/st/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/st/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/st/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/st/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -16,7 +16,7 @@
  Name[de]=Sao Tome und Principe
  Name[el]=Σάο Τομέ και Πρίνσιπε
@@ -2547,8 +4380,8 @@ Index: l10n/st/entry.desktop
  Name[fa]=سائوتومه و پرنسیپ
 Index: l10n/sz/entry.desktop
 ===================================================================
---- l10n/sz/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/sz/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/sz/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/sz/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -13,7 +13,7 @@
  Name[de]=Swasiland
  Name[el]=Σουαζιλάνδη
@@ -2560,8 +4393,8 @@ Index: l10n/sz/entry.desktop
  Name[fa]=سوآزیلند
 Index: l10n/tc/entry.desktop
 ===================================================================
---- l10n/tc/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/tc/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/tc/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/tc/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -16,7 +16,7 @@
  Name[de]=Turks- und Caicos-Inseln
  Name[el]=Νήσοι Τερκς και Κάικος
@@ -2573,8 +4406,8 @@ Index: l10n/tc/entry.desktop
  Name[fa]=جزایر ترکها و کایکوها
 Index: l10n/tj/entry.desktop
 ===================================================================
---- l10n/tj/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/tj/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/tj/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/tj/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -14,7 +14,7 @@
  Name[de]=Tadschikistan
  Name[el]=Τατζικιστάν
@@ -2586,8 +4419,8 @@ Index: l10n/tj/entry.desktop
  Name[fr]=Tadjikistan
 Index: l10n/lu/entry.desktop
 ===================================================================
---- l10n/lu/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/lu/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/lu/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/lu/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -40,6 +40,7 @@
  Name[mk]=Луксембург
  Name[mn]=Люксембүрг
@@ -2598,8 +4431,8 @@ Index: l10n/lu/entry.desktop
  Name[nl]=Luxemburg
 Index: l10n/tp/entry.desktop
 ===================================================================
---- l10n/tp/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/tp/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/tp/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/tp/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -16,7 +16,7 @@
  Name[de]=Ost-Timor
  Name[el]=Ανατολικό Τιμόρ
@@ -2611,8 +4444,8 @@ Index: l10n/tp/entry.desktop
  Name[fa]=تیمور شرقی
 Index: l10n/tr/entry.desktop
 ===================================================================
---- l10n/tr/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/tr/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/tr/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/tr/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -37,6 +37,7 @@
  Name[kk]=Түркия
  Name[km]=ទួរគី
@@ -2623,8 +4456,8 @@ Index: l10n/tr/entry.desktop
  Name[lv]=Turcija
 Index: l10n/tz/entry.desktop
 ===================================================================
---- l10n/tz/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/tz/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/tz/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/tz/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -16,7 +16,7 @@
  Name[de]=Tansania, vereinigte Republik
  Name[el]=Τανζανία, Ενωμένη δημοκρατία της
@@ -2636,8 +4469,8 @@ Index: l10n/tz/entry.desktop
  Name[fa]=جمهوری متحدۀ تانزانیا
 Index: l10n/me/entry.desktop
 ===================================================================
---- l10n/me/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/me/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/me/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/me/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -9,6 +9,7 @@
  Name[fr]=Montenégro
  Name[hr]=Crna Gora
@@ -2648,8 +4481,8 @@ Index: l10n/me/entry.desktop
  Name[km]=ម៉ុង​តេ​ណេ​រ៉ូ
 Index: l10n/northafrica.desktop
 ===================================================================
---- l10n/northafrica.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/northafrica.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/northafrica.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/northafrica.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -15,7 +15,7 @@
  Name[de]=Afrika, Nördliches
  Name[el]=Αφρική, Βόρεια
@@ -2661,8 +4494,8 @@ Index: l10n/northafrica.desktop
  Name[fa]=آفریقای شمالی
 Index: l10n/mo/entry.desktop
 ===================================================================
---- l10n/mo/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/mo/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/mo/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/mo/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -14,6 +14,7 @@
  Name[de]=Macao SAR (China)
  Name[el]=Μακάο SAR (Κίνα)
@@ -2673,8 +4506,8 @@ Index: l10n/mo/entry.desktop
  Name[fa]=منطقۀ صنعتی ویژۀ ماکائو )چین(
 Index: l10n/va/entry.desktop
 ===================================================================
---- l10n/va/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/va/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/va/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/va/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -16,7 +16,7 @@
  Name[de]=Vatikanstadt
  Name[el]=Βατικανό
@@ -2686,8 +4519,8 @@ Index: l10n/va/entry.desktop
  Name[fa]=واتیکان سیتی
 Index: l10n/nr/entry.desktop
 ===================================================================
---- l10n/nr/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/nr/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/nr/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/nr/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -8,7 +8,6 @@
  Name[cy]=Nawrw
  Name[el]=Ναουρού
@@ -2698,8 +4531,8 @@ Index: l10n/nr/entry.desktop
  Name[ga]=Nárúis
 Index: l10n/westafrica.desktop
 ===================================================================
---- l10n/westafrica.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/westafrica.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/westafrica.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/westafrica.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -16,7 +16,7 @@
  Name[de]=Afrika, Westliches
  Name[el]=Αφρική, Δυτική
@@ -2711,8 +4544,8 @@ Index: l10n/westafrica.desktop
  Name[fa]=افریقای غربی
 Index: l10n/gq/entry.desktop
 ===================================================================
---- l10n/gq/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/gq/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/gq/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/gq/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -15,7 +15,7 @@
  Name[de]=Äquatorial-Guinea
  Name[el]=Ισημερινή Γουινέα
@@ -2724,8 +4557,8 @@ Index: l10n/gq/entry.desktop
  Name[fa]=گینه استوایی
 Index: l10n/southafrica.desktop
 ===================================================================
---- l10n/southafrica.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/southafrica.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/southafrica.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/southafrica.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -16,7 +16,7 @@
  Name[de]=Afrika, Südliches
  Name[el]=Αφρική, Νότια
@@ -2737,8 +4570,8 @@ Index: l10n/southafrica.desktop
  Name[fa]=آفریقای جنوبی
 Index: l10n/middleeast.desktop
 ===================================================================
---- l10n/middleeast.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/middleeast.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/middleeast.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/middleeast.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -37,7 +37,7 @@
  Name[lv]=Vidējie austrumi
  Name[mk]=Среден Исток
@@ -2750,8 +4583,8 @@ Index: l10n/middleeast.desktop
  Name[nl]=Midden-Oosten
 Index: l10n/pf/entry.desktop
 ===================================================================
---- l10n/pf/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/pf/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/pf/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/pf/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -15,7 +15,7 @@
  Name[de]=Französisch Polynesien
  Name[el]=Γαλλική Πολυνησία
@@ -2763,8 +4596,8 @@ Index: l10n/pf/entry.desktop
  Name[fa]=پلی‌نزی فرانسوی
 Index: l10n/pg/entry.desktop
 ===================================================================
---- l10n/pg/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/pg/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/pg/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/pg/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -14,7 +14,7 @@
  Name[de]=Papua Neu-Guinea
  Name[el]=Παπούα Νέα Γουινέα
@@ -2776,8 +4609,8 @@ Index: l10n/pg/entry.desktop
  Name[fa]=گینه نو پاپوا
 Index: l10n/pk/entry.desktop
 ===================================================================
---- l10n/pk/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/pk/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/pk/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/pk/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -10,6 +10,7 @@
  Name[cy]=Pacistan
  Name[el]=Πακιστάν
@@ -2788,8 +4621,8 @@ Index: l10n/pk/entry.desktop
  Name[gl]=Paquistán
 Index: l10n/pm/entry.desktop
 ===================================================================
---- l10n/pm/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/pm/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/pm/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/pm/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -16,7 +16,7 @@
  Name[de]=Saint Pierre und Miquelon
  Name[el]=Σαιν Πιέρ (Άγιος Πέτρος) και Μικελόν
@@ -2801,8 +4634,8 @@ Index: l10n/pm/entry.desktop
  Name[fa]=سنت پیر و میکلون
 Index: l10n/ps/entry.desktop
 ===================================================================
---- l10n/ps/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/ps/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/ps/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/ps/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -15,7 +15,7 @@
  Name[de]=Palästinensisches Gebiet
  Name[el]=Παλαιστίνη
@@ -2814,8 +4647,8 @@ Index: l10n/ps/entry.desktop
  Name[fa]=سرزمین فلسطین
 Index: l10n/pw/entry.desktop
 ===================================================================
---- l10n/pw/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/pw/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/pw/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/pw/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -7,6 +7,7 @@
  Name[cy]=Palaw
  Name[el]=Παλάου
@@ -2826,8 +4659,8 @@ Index: l10n/pw/entry.desktop
  Name[hi]=पलाऊ
 Index: l10n/ie/entry.desktop
 ===================================================================
---- l10n/ie/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/ie/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/ie/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/ie/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -15,7 +15,7 @@
  Name[da]=Irland
  Name[de]=Irland
@@ -2839,8 +4672,8 @@ Index: l10n/ie/entry.desktop
  Name[eu]=Irlanda
 Index: l10n/ir/entry.desktop
 ===================================================================
---- l10n/ir/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ l10n/ir/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- l10n/ir/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ l10n/ir/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -7,6 +7,7 @@
  Name[cs]=Írán
  Name[el]=Ιράν
@@ -2851,8 +4684,8 @@ Index: l10n/ir/entry.desktop
  Name[ga]=An Iaráin
 Index: kdm/backend/client.c
 ===================================================================
---- kdm/backend/client.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdm/backend/client.c	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdm/backend/client.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdm/backend/client.c	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -1623,6 +1623,8 @@
  	int pretc;
  #endif
@@ -2864,8 +4697,8 @@ Index: kdm/backend/client.c
  			LogError( "Cannot execute reset script %\"s\n", td->reset );
 Index: kdm/backend/inifile.c
 ===================================================================
---- kdm/backend/inifile.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdm/backend/inifile.c	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdm/backend/inifile.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdm/backend/inifile.c	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -37,6 +37,7 @@
  #include "dm_error.h"
  
@@ -2906,8 +4739,8 @@ Index: kdm/backend/inifile.c
  		free( data );
 Index: kdm/backend/session.c
 ===================================================================
---- kdm/backend/session.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdm/backend/session.c	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdm/backend/session.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdm/backend/session.c	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -145,7 +145,10 @@
  		ReStr( &curtype, "classic" );
  		cursource = (td->hstent->rLogin == 1) ? PWSRC_RELOGIN : PWSRC_MANUAL;
@@ -2930,8 +4763,8 @@ Index: kdm/backend/session.c
  
 Index: kdm/kfrontend/kdm_config.c
 ===================================================================
---- kdm/kfrontend/kdm_config.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdm/kfrontend/kdm_config.c	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdm/kfrontend/kdm_config.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdm/kfrontend/kdm_config.c	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -1072,6 +1072,9 @@
  		if (!((**hostPtr)->entry.displayAddress.hostAddress =
  		      Malloc( addr_len )))
@@ -2962,8 +4795,8 @@ Index: kdm/kfrontend/kdm_config.c
  			break;
 Index: kdm/kfrontend/kgreeter.cpp
 ===================================================================
---- kdm/kfrontend/kgreeter.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdm/kfrontend/kgreeter.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdm/kfrontend/kgreeter.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdm/kfrontend/kgreeter.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -42,6 +42,8 @@
  #undef Unsorted // x headers suck - make qdir.h work with --enable-final
  #include <qdir.h>
@@ -3047,8 +4880,8 @@ Index: kdm/kfrontend/kgreeter.cpp
    gotit:
 Index: kdm/kfrontend/genkdmconf.c
 ===================================================================
---- kdm/kfrontend/genkdmconf.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdm/kfrontend/genkdmconf.c	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdm/kfrontend/genkdmconf.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdm/kfrontend/genkdmconf.c	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -673,7 +673,7 @@
  "    xsess_tmp=";
  static const char def_session2[] =
@@ -3060,8 +4893,8 @@ Index: kdm/kfrontend/genkdmconf.c
  "    ;;\n"
 Index: kdesu/kdesu/kdesu.cpp
 ===================================================================
---- kdesu/kdesu/kdesu.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 748145)
-+++ kdesu/kdesu/kdesu.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 748145)
+--- kdesu/kdesu/kdesu.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 750987)
++++ kdesu/kdesu/kdesu.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 750987)
 @@ -113,7 +113,10 @@
      unsetenv( "SESSION_MANAGER" );
      KApplication app;
