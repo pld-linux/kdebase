@@ -1736,7 +1736,7 @@ fi
 %attr(755,root,root) %{_bindir}/kaccess
 %attr(755,root,root) %{_bindir}/kasbar
 %attr(755,root,root) %{_bindir}/kapplymousetheme
-%attr(755,root,root) %{_bindir}/kcheckpass
+%attr(4755,root,root) %{_bindir}/kcheckpass
 %attr(755,root,root) %{_bindir}/kdeeject
 %attr(755,root,root) %{_bindir}/kdesktop
 %attr(755,root,root) %{_bindir}/kdesktop_lock
