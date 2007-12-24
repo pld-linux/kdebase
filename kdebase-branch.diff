@@ -1,7 +1,7 @@
 Index: ksmserver/legacy.cpp
 ===================================================================
---- ksmserver/legacy.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ ksmserver/legacy.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- ksmserver/legacy.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ ksmserver/legacy.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -272,6 +272,10 @@
      for ( int i = 1; i <= count; i++ ) {
          QString n = QString::number(i);
@@ -15,8 +15,8 @@ Index: ksmserver/legacy.cpp
                            config->readEntry( QString("userId")+n ));
 Index: ksmserver/server.cpp
 ===================================================================
---- ksmserver/server.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ ksmserver/server.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- ksmserver/server.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ ksmserver/server.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -903,12 +903,16 @@
  
  bool KSMServer::isWM( const KSMClient* client ) const
@@ -38,8 +38,8 @@ Index: ksmserver/server.cpp
  bool KSMServer::defaultSession() const
 Index: ksmserver/server.h
 ===================================================================
---- ksmserver/server.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ ksmserver/server.h	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- ksmserver/server.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ ksmserver/server.h	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -138,6 +138,7 @@
      void executeCommand( const QStringList& command );
      
@@ -50,8 +50,8 @@ Index: ksmserver/server.h
  
 Index: kcontrol/ebrowsing/plugins/ikws/searchproviders/dmoz.desktop
 ===================================================================
---- kcontrol/ebrowsing/plugins/ikws/searchproviders/dmoz.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/ebrowsing/plugins/ikws/searchproviders/dmoz.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/ebrowsing/plugins/ikws/searchproviders/dmoz.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/ebrowsing/plugins/ikws/searchproviders/dmoz.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -27,7 +27,6 @@
  Name[ne]=डाइरेक्टरी खोल्नुहोस्
  Name[pa]=ਖੁੱਲੀ ਡਾਇਰੈਕਟਰੀ
@@ -62,8 +62,8 @@ Index: kcontrol/ebrowsing/plugins/ikws/searchproviders/dmoz.desktop
  Name[rw]= Gufungura Inkoranyamagambo
 Index: kcontrol/locale/default/entry.desktop
 ===================================================================
---- kcontrol/locale/default/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/locale/default/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/locale/default/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/locale/default/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -14,7 +14,7 @@
  Name[da]=Engelsk US
  Name[de]=US-Englisch
@@ -75,8 +75,8 @@ Index: kcontrol/locale/default/entry.desktop
  Name[eu]=EEBBetako ingelesa
 Index: kcontrol/filetypes/filetypes.desktop
 ===================================================================
---- kcontrol/filetypes/filetypes.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/filetypes/filetypes.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/filetypes/filetypes.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/filetypes/filetypes.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -202,7 +202,7 @@
  Keywords[nds]=Dateitypen,Datei-Tohören,Mime Typen,Dateimuster,Datei,Muster
  Keywords[ne]=फाइल प्रकार, फाइल संयोजन, माइम प्रकार, फाइल बाँन्की, फाइलहरू, बाँन्की
@@ -88,8 +88,8 @@ Index: kcontrol/filetypes/filetypes.desktop
  Keywords[pl]=Typy plików,skojarzenia plików,typy MIME,wzorce plików,pliki,wzorzec
 Index: kcontrol/smserver/kcmsmserver.desktop
 ===================================================================
---- kcontrol/smserver/kcmsmserver.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/smserver/kcmsmserver.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/smserver/kcmsmserver.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/smserver/kcmsmserver.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -65,7 +65,7 @@
  Name[pt]=Gestor de Sessões
  Name[pt_BR]=Gerenciador de Sessão
@@ -110,8 +110,8 @@ Index: kcontrol/smserver/kcmsmserver.desktop
  Comment[sk]=Nastavenie správcu sedení a odhlásenia
 Index: kcontrol/kded/kcmkded.desktop
 ===================================================================
---- kcontrol/kded/kcmkded.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/kded/kcmkded.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/kded/kcmkded.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/kded/kcmkded.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -126,7 +126,7 @@
  Comment[mn]=Системийн үйлчилгээний тохируулга
  Comment[ms]=Konfigurasi Servis Sistem
@@ -123,8 +123,8 @@ Index: kcontrol/kded/kcmkded.desktop
  Comment[nl]=KDE-systeemdiensten instellen
 Index: kcontrol/kicker/kicker_config_appearance.desktop
 ===================================================================
---- kcontrol/kicker/kicker_config_appearance.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/kicker/kicker_config_appearance.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/kicker/kicker_config_appearance.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/kicker/kicker_config_appearance.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -173,7 +173,7 @@
  Keywords[cy]=ciciwr,kicker,panel,kpanel,bar tasgau,bar cychwyn,bar lansio,lleoliad,maint,awto-guddio,hunan-guddio,cuddio,botymau,animeiddiad,cefndir,themâu,storfa dewislen, storfa,cache,celc,cudd,K-Menu,nodau tudalen,dogfenni diweddar,porydd cyflym,dewislen porydd,dewislen,eiconau,teiliau,rhaglenigion,ymcychwyn,amlygu,carnau,eiconau chwyddo
  Keywords[da]=kicker,panel,kpanel,opgavelinje,startlinje,sted,størrelse,autogem,gem,knapper,animering,baggrund,temaer,menucache,cache,skjult,K-Menu,bogmærker,nylige dokumenter,hurtigsøger,søgemenu,menu,ikoner,fliser,panelprogrammer,opstart,markér,håndterer,ikoner
@@ -136,8 +136,8 @@ Index: kcontrol/kicker/kicker_config_appearance.desktop
  Keywords[et]=kicker,paneel,kpanel,tegumiriba,käivitusriba,asukoht,suurus,terminal,automaatne peitmine,peitmine,nupud,animatsioon,taust,teemad,menüü vahemälu,vahemälu,peidetud,K-menüü,järjehoidjad,viimati kasutatud dokumendid, kiirbrauser,lehitsemise menüü,menüü,ikoonid,apletid,käivitamine,esiletõstmine,piirded,ikoonide suurendamine,usaldusväärsed apletid,turvatase
 Index: kcontrol/kicker/kicker_config_arrangement.desktop
 ===================================================================
---- kcontrol/kicker/kicker_config_arrangement.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/kicker/kicker_config_arrangement.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/kicker/kicker_config_arrangement.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/kicker/kicker_config_arrangement.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -156,7 +156,7 @@
  Keywords[cy]=ciciwr,kicker,panel,kpanel,bar tasgau,bar cychwyn,bar lansio,lleoliad,maint,awto-guddio,hunan-guddio,cuddio,botymau,animeiddiad,cefndir,themâu,storfa dewislen, storfa,cache,celc,cudd,K-Menu,nodau tudalen,dogfenni diweddar,porydd cyflym,dewislen porydd,dewislen,eiconau,teiliau,rhaglenigion,ymcychwyn,amlygu,carnau,eiconau chwyddo
  Keywords[da]=kicker,panel,kpanel,opgavelinje,startlinje,sted,størrelse,autogem,gem,knapper,animering,baggrund,temaer,menucache,cache,skjult,K-Menu,bogmærker,nylige dokumenter,hurtigsøger,søgemenu,menu,ikoner,fliser,panelprogrammer,opstart,markér,håndterer,ikoner
@@ -149,8 +149,8 @@ Index: kcontrol/kicker/kicker_config_arrangement.desktop
  Keywords[et]=kicker,paneel,kpanel,tegumiriba,käivitusriba,asukoht,suurus,terminal,automaatne peitmine,peitmine,nupud,animatsioon,taust,teemad,menüü vahemälu,vahemälu,peidetud,K-menüü,järjehoidjad,viimati kasutatud dokumendid, kiirbrauser,lehitsemise menüü,menüü,ikoonid,apletid,käivitamine,esiletõstmine,piirded,ikoonide suurendamine,usaldusväärsed apletid,turvatase
 Index: kcontrol/kicker/kicker_config.desktop
 ===================================================================
---- kcontrol/kicker/kicker_config.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/kicker/kicker_config.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/kicker/kicker_config.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/kicker/kicker_config.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -167,7 +167,7 @@
  Keywords[cy]=ciciwr,kicker,panel,kpanel,bar tasgau,bar cychwyn,bar lansio,lleoliad,maint,awto-guddio,hunan-guddio,cuddio,botymau,animeiddiad,cefndir,themâu,storfa dewislen, storfa,cache,celc,cudd,K-Menu,nodau tudalen,dogfenni diweddar,porydd cyflym,dewislen porydd,dewislen,eiconau,teiliau,rhaglenigion,ymcychwyn,amlygu,carnau,eiconau chwyddo
  Keywords[da]=kicker,panel,kpanel,opgavelinje,startlinje,sted,størrelse,autogem,gem,knapper,animering,baggrund,temaer,menucache,cache,skjult,K-Menu,bogmærker,nylige dokumenter,hurtigsøger,søgemenu,menu,ikoner,fliser,panelprogrammer,opstart,markér,håndterer,ikoner
@@ -162,8 +162,8 @@ Index: kcontrol/kicker/kicker_config.desktop
  Keywords[et]=kicker,paneel,kpanel,tegumiriba,käivitusriba,asukoht,suurus,terminal,automaatne peitmine,peitmine,nupud,animatsioon,taust,teemad,menüü vahemälu,vahemälu,peidetud,K-menüü,järjehoidjad,viimati kasutatud dokumendid, kiirbrauser,lehitsemise menüü,menüü,ikoonid,apletid,käivitamine,esiletõstmine,piirded,ikoonide suurendamine,usaldusväärsed apletid,turvatase
 Index: kcontrol/kicker/panel.desktop
 ===================================================================
---- kcontrol/kicker/panel.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/kicker/panel.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/kicker/panel.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/kicker/panel.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -166,7 +166,7 @@
  Keywords[cy]=ciciwr,kicker,panel,kpanel,bar tasgau,bar cychwyn,bar lansio,lleoliad,maint,awto-guddio,hunan-guddio,cuddio,botymau,animeiddiad,cefndir,themâu,storfa dewislen, storfa,cache,celc,cudd,K-Menu,nodau tudalen,dogfenni diweddar,porydd cyflym,dewislen porydd,dewislen,eiconau,teiliau,rhaglenigion,ymcychwyn,amlygu,carnau,eiconau chwyddo
  Keywords[da]=kicker,panel,kpanel,opgavelinje,startlinje,sted,størrelse,autogem,gem,knapper,animering,baggrund,temaer,menucache,cache,skjult,K-Menu,bogmærker,nylige dokumenter,hurtigsøger,søgemenu,menu,ikoner,fliser,panelprogrammer,opstart,markér,håndterer,ikoner
@@ -175,8 +175,8 @@ Index: kcontrol/kicker/panel.desktop
  Keywords[et]=kicker,paneel,kpanel,tegumiriba,käivitusriba,asukoht,suurus,terminal,automaatne peitmine,peitmine,nupud,animatsioon,taust,teemad,menüü vahemälu,vahemälu,peidetud,K-menüü,järjehoidjad,viimati kasutatud dokumendid, kiirbrauser,lehitsemise menüü,menüü,ikoonid,apletid,käivitamine,esiletõstmine,piirded,ikoonide suurendamine,usaldusväärsed apletid,turvatase
 Index: kcontrol/kicker/kicker_config_hiding.desktop
 ===================================================================
---- kcontrol/kicker/kicker_config_hiding.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/kicker/kicker_config_hiding.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/kicker/kicker_config_hiding.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/kicker/kicker_config_hiding.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -146,7 +146,7 @@
  Keywords[cy]=ciciwr,kicker,panel,kpanel,bar tasgau,bar cychwyn,bar lansio,lleoliad,maint,awto-guddio,hunan-guddio,cuddio,botymau,animeiddiad,cefndir,themâu,storfa dewislen, storfa,cache,celc,cudd,K-Menu,nodau tudalen,dogfenni diweddar,porydd cyflym,dewislen porydd,dewislen,eiconau,teiliau,rhaglenigion,ymcychwyn,amlygu,carnau,eiconau chwyddo
  Keywords[da]=kicker,panel,kpanel,opgavelinje,startlinje,sted,størrelse,autogem,gem,knapper,animering,baggrund,temaer,menucache,cache,skjult,K-Menu,bogmærker,nylige dokumenter,hurtigsøger,søgemenu,menu,ikoner,fliser,panelprogrammer,opstart,markér,håndterer,ikoner
@@ -188,8 +188,8 @@ Index: kcontrol/kicker/kicker_config_hiding.desktop
  Keywords[et]=kicker,paneel,kpanel,tegumiriba,käivitusriba,asukoht,suurus,terminal,automaatne peitmine,peitmine,nupud,animatsioon,taust,teemad,menüü vahemälu,vahemälu,peidetud,K-menüü,järjehoidjad,viimati kasutatud dokumendid, kiirbrauser,lehitsemise menüü,menüü,ikoonid,apletid,käivitamine,esiletõstmine,piirded,ikoonide suurendamine,usaldusväärsed apletid,turvatase
 Index: kcontrol/kicker/kicker_config_menus.desktop
 ===================================================================
---- kcontrol/kicker/kicker_config_menus.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/kicker/kicker_config_menus.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/kicker/kicker_config_menus.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/kicker/kicker_config_menus.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -143,7 +143,7 @@
  Keywords[cy]=ciciwr,kicker,panel,kpanel,bar tasgau,bar cychwyn,bar lansio,lleoliad,maint,awto-guddio,hunan-guddio,cuddio,botymau,animeiddiad,cefndir,themâu,storfa dewislen, storfa,cache,celc,cudd,K-Menu,nodau tudalen,dogfenni diweddar,porydd cyflym,dewislen porydd,dewislen,eiconau,teiliau,rhaglenigion,ymcychwyn,amlygu,carnau,eiconau chwyddo
  Keywords[da]=kicker,panel,kpanel,opgavelinje,startlinje,sted,størrelse,autogem,gem,knapper,animering,baggrund,temaer,menucache,cache,skjult,K-Menu,bogmærker,nylige dokumenter,hurtigsøger,søgemenu,menu,ikoner,fliser,panelprogrammer,opstart,markér,håndterer,ikoner
@@ -201,8 +201,8 @@ Index: kcontrol/kicker/kicker_config_menus.desktop
  Keywords[et]=kicker,paneel,kpanel,tegumiriba,käivitusriba,asukoht,suurus,terminal,automaatne peitmine,peitmine,nupud,animatsioon,taust,teemad,menüü vahemälu,vahemälu,peidetud,K-menüü,järjehoidjad,viimati kasutatud dokumendid, kiirbrauser,lehitsemise menüü,menüü,ikoonid,apletid,käivitamine,esiletõstmine,piirded,ikoonide suurendamine,usaldusväärsed apletid,turvatase
 Index: kcontrol/privacy/privacy.desktop
 ===================================================================
---- kcontrol/privacy/privacy.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/privacy/privacy.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/privacy/privacy.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/privacy/privacy.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -38,7 +38,7 @@
  Comment[mk]=Приватност - kcontrol модул кој ги чисти несаканите траги кои ги остава корисникот на системот
  Comment[mn]=Privacy - систем дэх хэрэглэгчийн хэрэглэхгүй охрисон хог цэвэрлэгчийн хяналтын модул
@@ -221,10 +221,23 @@ Index: kcontrol/privacy/privacy.desktop
  Comment[sk]=Modul pre vyčistenie nežiadúcich infomácií, ktoré užívateľ necháva v systéme
  Comment[sl]=Zasebnost - nadzorni modul, ki počisti nezaželene sledi, ki jih uporabnik pusti na sistemu
  Comment[sr]=Приватност — kcontrol модул који уклања трагове активности корисника на систему
+Index: kcontrol/kio/cache.cpp
+===================================================================
+--- kcontrol/kio/cache.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/kio/cache.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
+@@ -98,8 +98,6 @@
+   m_dlg->cbUseCache->setChecked( true );
+   m_dlg->rbVerifyCache->setChecked( true );
+   m_dlg->sbMaxCacheSize->setValue( DEFAULT_MAX_CACHE_SIZE );
+-
+-  emit changed( true );
+ }
+ 
+ QString KCacheConfigDialog::quickHelp() const
 Index: kcontrol/kio/cache.desktop
 ===================================================================
---- kcontrol/kio/cache.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/kio/cache.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/kio/cache.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/kio/cache.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -172,7 +172,7 @@
  Keywords[hi]=कैश,इतिहास,ब्राउज़िंग इतिहास,पोर्ट,आकार
  Keywords[hr]=Cache,Pohrana,History,Povijest,Browsing History,Ports,Portovi,Size,Veličina,Povijest pretraživanja
@@ -236,8 +249,8 @@ Index: kcontrol/kio/cache.desktop
  Keywords[km]=ឃ្លាំង​សម្ងាត់,ប្រវត្តិ,ប្រវត្តិ​ការ​រុករក,ច្រក,ទំហំ
 Index: kcontrol/kio/netpref.desktop
 ===================================================================
---- kcontrol/kio/netpref.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/kio/netpref.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/kio/netpref.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/kio/netpref.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -41,7 +41,7 @@
  Comment[mn]=Ерөнхий сүлжээ-Тохируулга тохируулах Ж.нь.Хугацаа хэтрэлтийн хугацаа
  Comment[ms]=Konfigur keutamaan rangkaian generik, seperti nilai waktu rehat
@@ -249,8 +262,8 @@ Index: kcontrol/kio/netpref.desktop
  Comment[nl]=Instellen van algemene netwerkvoorkeuren, zoals tijdslimietwaarden
 Index: kcontrol/clock/clock.desktop
 ===================================================================
---- kcontrol/clock/clock.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/clock/clock.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/clock/clock.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/clock/clock.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -56,7 +56,7 @@
  Name[mn]=Огноо & Цаг
  Name[ms]=Tarikh & Masa
@@ -276,8 +289,8 @@ Index: kcontrol/clock/clock.desktop
  Comment[pa]=ਮਿਤੀ ਅਤੇ ਸਮਾਂ ਸੈਟਿੰਗ
 Index: kcontrol/konqhtml/appearance.cpp
 ===================================================================
---- kcontrol/konqhtml/appearance.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/konqhtml/appearance.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/konqhtml/appearance.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/konqhtml/appearance.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -357,6 +357,11 @@
  
      updateGUI();
@@ -292,8 +305,8 @@ Index: kcontrol/konqhtml/appearance.cpp
  void KAppearanceOptions::defaults()
 Index: kcontrol/konqhtml/khtml_fonts.desktop
 ===================================================================
---- kcontrol/konqhtml/khtml_fonts.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/konqhtml/khtml_fonts.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/konqhtml/khtml_fonts.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/konqhtml/khtml_fonts.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -186,7 +186,7 @@
  Keywords[is]=vafri,vefur,vefurinn,vefsíður,letur,litir,kóðun,stafatafla, bendill,myndir,www,html,stafir
  Keywords[it]=konqueror,kfm,browser,html,web,www,caratteri,colori,set di caratteri,charset,codifica
@@ -305,8 +318,8 @@ Index: kcontrol/konqhtml/khtml_fonts.desktop
  Keywords[mk]=konqueror,kfm,browser,html,web,www,fonts,charsets,character sets,encoding,прелистувач,веб,фонтови,знаковни множества,кодирање
 Index: kcontrol/konqhtml/htmlopts.cpp
 ===================================================================
---- kcontrol/konqhtml/htmlopts.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/konqhtml/htmlopts.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/konqhtml/htmlopts.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/konqhtml/htmlopts.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -277,6 +277,10 @@
      m_pOnlyMarkedBookmarksCheckBox->setChecked( config.readBoolEntry("FilteredToolbar", false) );
  
@@ -320,8 +333,8 @@ Index: kcontrol/konqhtml/htmlopts.cpp
  void KMiscHTMLOptions::defaults()
 Index: kcontrol/style/style.desktop
 ===================================================================
---- kcontrol/style/style.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/style/style.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/style/style.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/style/style.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -173,7 +173,7 @@
  Keywords[da]=stil,udseende,kontrol,ikoner,værktøjslinjer,tekst,fremhæv,prog,KDE-programmer
  Keywords[de]=Stile,Design,Themes,Schema,Elemente,Bildschirmelemente,Icons,Bedienelemente,Schriften,Symbole,Werkzeugleisten,Text,Hervorhebungen,Knöpfe,Anwendungen,Programme,KDE-Programme
@@ -333,8 +346,8 @@ Index: kcontrol/style/style.desktop
  Keywords[eu]=estiloa,estiloak,itxura,widget-a,ikonoak,tresna-barrak,testua, nabarmenketa,aplikazioak,KDE aplikazioak
 Index: kcontrol/konsole/kcmkonsole.desktop
 ===================================================================
---- kcontrol/konsole/kcmkonsole.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/konsole/kcmkonsole.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/konsole/kcmkonsole.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/konsole/kcmkonsole.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -34,7 +34,6 @@
  Name[pa]=ਕੰਨਸੋਲ
  Name[pl]=Konsola
@@ -345,8 +358,8 @@ Index: kcontrol/konsole/kcmkonsole.desktop
  Name[sl]=Konzola
 Index: kcontrol/kdm/kdm-users.cpp
 ===================================================================
---- kcontrol/kdm/kdm-users.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/kdm/kdm-users.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/kdm/kdm-users.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/kdm/kdm-users.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -418,7 +418,8 @@
  	      setOn(selectedUsers.find(*name) != selectedUsers.end());
        (new QCheckListItem(optoutlv, *name, QCheckListItem::CheckBox))->
@@ -359,8 +372,8 @@ Index: kcontrol/kdm/kdm-users.cpp
      optoutlv->sort();
 Index: kcontrol/kdm/kdm-appear.cpp
 ===================================================================
---- kcontrol/kdm/kdm-appear.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/kdm/kdm-appear.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/kdm/kdm-appear.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/kdm/kdm-appear.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -172,6 +172,7 @@
    guicombo = new KBackedComboBox(group);
    guicombo->insertItem( "", i18n("<default>") );
@@ -379,8 +392,8 @@ Index: kcontrol/kdm/kdm-appear.cpp
    hglay->addWidget(label, 1, 0);
 Index: kcontrol/dnssd/configdialog.ui
 ===================================================================
---- kcontrol/dnssd/configdialog.ui	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kcontrol/dnssd/configdialog.ui	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kcontrol/dnssd/configdialog.ui	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kcontrol/dnssd/configdialog.ui	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -289,6 +289,9 @@
  <slots>
      <slot>radioButton2_2_toggled(bool)</slot>
@@ -393,8 +406,8 @@ Index: kcontrol/dnssd/configdialog.ui
      <includehint>kcmodule.h</includehint>
 Index: pics/wallpapers/stelvio.jpg.desktop
 ===================================================================
---- pics/wallpapers/stelvio.jpg.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ pics/wallpapers/stelvio.jpg.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- pics/wallpapers/stelvio.jpg.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ pics/wallpapers/stelvio.jpg.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -12,6 +12,7 @@
  Name[ru]=Национальный парк Стельвио
  Name[sr]=Стелвио
@@ -405,8 +418,8 @@ Index: pics/wallpapers/stelvio.jpg.desktop
  ImageType=pixmap
 Index: kdmlib/kgreet_classic.cpp
 ===================================================================
---- kdmlib/kgreet_classic.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdmlib/kgreet_classic.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdmlib/kgreet_classic.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdmlib/kgreet_classic.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -213,6 +213,7 @@
  	curUser = user;
  	loginEdit->setText( user );
@@ -417,8 +430,8 @@ Index: kdmlib/kgreet_classic.cpp
  void // virtual
 Index: kdmlib/dmctl.cpp
 ===================================================================
---- kdmlib/dmctl.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdmlib/dmctl.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdmlib/dmctl.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdmlib/dmctl.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -65,21 +65,28 @@
  		if ((fd = ::socket( PF_UNIX, SOCK_STREAM, 0 )) < 0)
  			return;
@@ -460,8 +473,8 @@ Index: kdmlib/dmctl.cpp
  		{
 Index: kdmlib/kgreet_winbind.cpp
 ===================================================================
---- kdmlib/kgreet_winbind.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdmlib/kgreet_winbind.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdmlib/kgreet_winbind.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdmlib/kgreet_winbind.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -293,6 +293,7 @@
  	slotChangedDomain( dom );
  	loginEdit->setText( usr );
@@ -472,8 +485,8 @@ Index: kdmlib/kgreet_winbind.cpp
  void // virtual
 Index: khelpcenter/plugins/applets.desktop
 ===================================================================
---- khelpcenter/plugins/applets.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ khelpcenter/plugins/applets.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- khelpcenter/plugins/applets.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ khelpcenter/plugins/applets.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -14,7 +14,7 @@
  Name[cy]=Llawlyfr Rhaglennig
  Name[da]=Panelprogrammanualer
@@ -485,8 +498,8 @@ Index: khelpcenter/plugins/applets.desktop
  Name[et]=Aplettide käsiraamatud
 Index: khelpcenter/plugins/Tutorials/.directory
 ===================================================================
---- khelpcenter/plugins/Tutorials/.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ khelpcenter/plugins/Tutorials/.directory	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- khelpcenter/plugins/Tutorials/.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ khelpcenter/plugins/Tutorials/.directory	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -15,7 +15,9 @@
  Name[fo]=Skeið
  Name[fr]=Didactitiels
@@ -525,8 +538,8 @@ Index: khelpcenter/plugins/Tutorials/.directory
  Comment[sr]=Туторијали и уводни документи.
 Index: khelpcenter/plugins/Applications/.directory
 ===================================================================
---- khelpcenter/plugins/Applications/.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ khelpcenter/plugins/Applications/.directory	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- khelpcenter/plugins/Applications/.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ khelpcenter/plugins/Applications/.directory	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -16,6 +16,8 @@
  Name[fr]=Manuels des applications
  Name[hi]=अनुप्रयोग निर्देशिका
@@ -546,8 +559,8 @@ Index: khelpcenter/plugins/Applications/.directory
  Name[sr]=Упутства за програме
 Index: khelpcenter/plugins/Manpages/.directory
 ===================================================================
---- khelpcenter/plugins/Manpages/.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ khelpcenter/plugins/Manpages/.directory	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- khelpcenter/plugins/Manpages/.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ khelpcenter/plugins/Manpages/.directory	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -15,6 +15,8 @@
  Name[fr]=Pages du manuel UNIX
  Name[hi]=यूनिक्स निर्देशिका पृष्ठ
@@ -567,8 +580,8 @@ Index: khelpcenter/plugins/Manpages/.directory
  Name[sr]=UNIX упутне стране
 Index: doc/faq/about.docbook
 ===================================================================
---- doc/faq/about.docbook	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ doc/faq/about.docbook	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- doc/faq/about.docbook	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ doc/faq/about.docbook	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -18,8 +18,7 @@
  <para>First, send us any errors that you may find.  Also, any
  suggestions that you might have, are appreciated.  Better yet, send us
@@ -589,8 +602,8 @@ Index: doc/faq/about.docbook
 +
 Index: klipper/klipperrc.desktop
 ===================================================================
---- klipper/klipperrc.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ klipper/klipperrc.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- klipper/klipperrc.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ klipper/klipperrc.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -430,7 +430,7 @@
  Description[mn]=&URL илгээх
  Description[ms]=Hantar &URL
@@ -638,8 +651,8 @@ Index: klipper/klipperrc.desktop
  URLGrabberEnabled=false
 Index: kicker/menuext/kdeprint/printmenu.desktop
 ===================================================================
---- kicker/menuext/kdeprint/printmenu.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kicker/menuext/kdeprint/printmenu.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kicker/menuext/kdeprint/printmenu.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kicker/menuext/kdeprint/printmenu.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -36,6 +36,7 @@
  Name[kk]=Басып шығару
  Name[km]=ប្រព័ន្ធ​បោះពុម្ព
@@ -650,8 +663,8 @@ Index: kicker/menuext/kdeprint/printmenu.desktop
  Name[lv]=Drukas Sistēma
 Index: kicker/extensions/kasbar/kasbarextension.desktop
 ===================================================================
---- kicker/extensions/kasbar/kasbarextension.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kicker/extensions/kasbar/kasbarextension.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kicker/extensions/kasbar/kasbarextension.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kicker/extensions/kasbar/kasbarextension.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -41,7 +41,7 @@
  Comment[cy]=Rhaglennig bar tasgau arall i'r panel
  Comment[da]=Et alternativt opgavelinjepanelprogram.
@@ -663,8 +676,8 @@ Index: kicker/extensions/kasbar/kasbarextension.desktop
  Comment[et]=Teistsugune paneelil töötav tegumiriba aplett
 Index: kicker/kicker/panel.desktop
 ===================================================================
---- kicker/kicker/panel.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kicker/kicker/panel.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kicker/kicker/panel.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kicker/kicker/panel.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -36,6 +36,7 @@
  Name[kk]=KDE панелі
  Name[km]=បន្ទះ KDE
@@ -675,8 +688,8 @@ Index: kicker/kicker/panel.desktop
  Name[lv]=KDE Panelis
 Index: kicker/applets/menu/menuapplet.desktop
 ===================================================================
---- kicker/applets/menu/menuapplet.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kicker/applets/menu/menuapplet.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kicker/applets/menu/menuapplet.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kicker/applets/menu/menuapplet.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -70,7 +70,7 @@
  Comment[cy]=Rhaglennig sy'n mewn-adeiladu bariau dewislen unigol
  Comment[da]=Applet der indlejrer alenestående menulinjer
@@ -688,8 +701,8 @@ Index: kicker/applets/menu/menuapplet.desktop
  Comment[et]=Aplett, mis põimib endasse isseisvaid menüüribasid
 Index: kicker/applets/systemtray/systemtrayapplet.desktop
 ===================================================================
---- kicker/applets/systemtray/systemtrayapplet.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kicker/applets/systemtray/systemtrayapplet.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kicker/applets/systemtray/systemtrayapplet.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kicker/applets/systemtray/systemtrayapplet.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -94,7 +94,7 @@
  Comment[cy]=Rhaglennig bar tasgau i'r panel
  Comment[da]=Statusfelt-panelprogrammet
@@ -701,8 +714,8 @@ Index: kicker/applets/systemtray/systemtrayapplet.desktop
  Comment[et]=Paneelil töötav süsteemse doki aplett
 Index: kicker/applets/swallow/swallowapplet.desktop
 ===================================================================
---- kicker/applets/swallow/swallowapplet.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kicker/applets/swallow/swallowapplet.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kicker/applets/swallow/swallowapplet.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kicker/applets/swallow/swallowapplet.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -14,7 +14,7 @@
  Name[cy]=Rhaglennig Llyncu
  Name[da]=Swallow-panelprogram
@@ -723,8 +736,8 @@ Index: kicker/applets/swallow/swallowapplet.desktop
  Comment[et]=Paneelil töötav põimimise aplett
 Index: kioslave/media/services/media_unmount.desktop
 ===================================================================
---- kioslave/media/services/media_unmount.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kioslave/media/services/media_unmount.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kioslave/media/services/media_unmount.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kioslave/media/services/media_unmount.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -79,7 +79,7 @@
  Name[wa]=Dismonter
  Name[xh]=Sukuyilayisha
@@ -736,8 +749,8 @@ Index: kioslave/media/services/media_unmount.desktop
  
 Index: kioslave/media/mediamanager/halbackend.cpp
 ===================================================================
---- kioslave/media/mediamanager/halbackend.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kioslave/media/mediamanager/halbackend.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kioslave/media/mediamanager/halbackend.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kioslave/media/mediamanager/halbackend.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -74,7 +74,10 @@
          const QPtrList<Medium> medlist = m_mediaList.list();
          QPtrListIterator<Medium> it (medlist);
@@ -868,8 +881,8 @@ Index: kioslave/media/mediamanager/halbackend.cpp
      return true;
 Index: kioslave/media/mediamanager/halbackend.h
 ===================================================================
---- kioslave/media/mediamanager/halbackend.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kioslave/media/mediamanager/halbackend.h	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kioslave/media/mediamanager/halbackend.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kioslave/media/mediamanager/halbackend.h	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -128,7 +128,7 @@
  	/**
  	* Reset properties for the given medium
@@ -881,8 +894,8 @@ Index: kioslave/media/mediamanager/halbackend.h
  	* Find the medium that is concerned with device udi
 Index: kioslave/ldap/kio_ldap.cpp
 ===================================================================
---- kioslave/ldap/kio_ldap.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kioslave/ldap/kio_ldap.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kioslave/ldap/kio_ldap.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kioslave/ldap/kio_ldap.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -269,6 +269,7 @@
        }
        ldap_value_free_len(bvals);
@@ -893,8 +906,8 @@ Index: kioslave/ldap/kio_ldap.cpp
    }
 Index: kioslave/thumbnail/thumbnail.cpp
 ===================================================================
---- kioslave/thumbnail/thumbnail.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kioslave/thumbnail/thumbnail.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kioslave/thumbnail/thumbnail.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kioslave/thumbnail/thumbnail.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -404,6 +404,8 @@
              shmdt((char*)shmaddr);
              return;
@@ -906,8 +919,8 @@ Index: kioslave/thumbnail/thumbnail.cpp
          memcpy(shmaddr, img.bits(), img.numBytes());
 Index: kioslave/home/homeimpl.h
 ===================================================================
---- kioslave/home/homeimpl.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kioslave/home/homeimpl.h	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kioslave/home/homeimpl.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kioslave/home/homeimpl.h	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -40,9 +40,6 @@
  	bool listHomes(QValueList<KIO::UDSEntry> &list);
  	
@@ -932,8 +945,8 @@ Index: kioslave/home/homeimpl.h
  
 Index: kioslave/home/kio_home.cpp
 ===================================================================
---- kioslave/home/kio_home.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kioslave/home/kio_home.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kioslave/home/kio_home.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kioslave/home/kio_home.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -79,7 +79,7 @@
  
  	if ( !m_impl.realURL(name, path, newUrl) )
@@ -957,8 +970,8 @@ Index: kioslave/home/kio_home.cpp
  
 Index: kdeprint/printmgr/printers.desktop
 ===================================================================
---- kdeprint/printmgr/printers.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdeprint/printmgr/printers.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdeprint/printmgr/printers.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdeprint/printmgr/printers.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -126,11 +126,11 @@
  Comment[mn]=Хэвлэх системийн тохируулга(Хэвлэгч,Даалгавар, Ангиуд...)
  Comment[ms]=Konfigurasi sistem pencetakan [pencetak, kerja, kelas, ...)
@@ -975,8 +988,8 @@ Index: kdeprint/printmgr/printers.desktop
  Comment[pl]=Konfiguracja systemu drukowania (drukarki, zadania, klasy, ...)
 Index: nsplugins/sdk/prcpucfg.h
 ===================================================================
---- nsplugins/sdk/prcpucfg.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ nsplugins/sdk/prcpucfg.h	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- nsplugins/sdk/prcpucfg.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ nsplugins/sdk/prcpucfg.h	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -276,7 +276,7 @@
  #define PR_BYTES_PER_WORD_LOG2   2
  #define PR_BYTES_PER_DWORD_LOG2  3
@@ -997,8 +1010,8 @@ Index: nsplugins/sdk/prcpucfg.h
  #undef  IS_BIG_ENDIAN
 Index: nsplugins/sdk/jni_md.h
 ===================================================================
---- nsplugins/sdk/jni_md.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ nsplugins/sdk/jni_md.h	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- nsplugins/sdk/jni_md.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ nsplugins/sdk/jni_md.h	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -1,25 +1,42 @@
  /* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
   *
@@ -1058,7 +1071,7 @@ Index: nsplugins/sdk/jni_md.h
 Index: nsplugins/sdk/npruntime.h
 ===================================================================
 --- nsplugins/sdk/npruntime.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 0)
-+++ nsplugins/sdk/npruntime.h	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
++++ nsplugins/sdk/npruntime.h	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -0,0 +1,399 @@
 +/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 +/*
@@ -1461,8 +1474,8 @@ Index: nsplugins/sdk/npruntime.h
 +#endif
 Index: nsplugins/sdk/npupp.h
 ===================================================================
---- nsplugins/sdk/npupp.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ nsplugins/sdk/npupp.h	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- nsplugins/sdk/npupp.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ nsplugins/sdk/npupp.h	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -1,11 +1,11 @@
 -/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
 +/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
@@ -2159,8 +2172,8 @@ Index: nsplugins/sdk/npupp.h
  #ifdef XP_MAC
 Index: nsplugins/sdk/npapi.h
 ===================================================================
---- nsplugins/sdk/npapi.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ nsplugins/sdk/npapi.h	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- nsplugins/sdk/npapi.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ nsplugins/sdk/npapi.h	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -38,7 +38,7 @@
  
  
@@ -2227,8 +2240,8 @@ Index: nsplugins/sdk/npapi.h
  } NPWindow;
 Index: nsplugins/viewer/nsplugin.cpp
 ===================================================================
---- nsplugins/viewer/nsplugin.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ nsplugins/viewer/nsplugin.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- nsplugins/viewer/nsplugin.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ nsplugins/viewer/nsplugin.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -180,6 +180,12 @@
           // Offline browsing - no thanks
           *(bool*)value = false;
@@ -2536,8 +2549,8 @@ Index: nsplugins/viewer/nsplugin.cpp
  
 Index: nsplugins/viewer/viewer.cpp
 ===================================================================
---- nsplugins/viewer/viewer.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ nsplugins/viewer/viewer.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- nsplugins/viewer/viewer.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ nsplugins/viewer/viewer.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -52,6 +52,7 @@
  #include <X11/Shell.h>
  #else
@@ -2556,8 +2569,8 @@ Index: nsplugins/viewer/viewer.cpp
     {
 Index: nsplugins/viewer/NSPluginClassIface.h
 ===================================================================
---- nsplugins/viewer/NSPluginClassIface.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ nsplugins/viewer/NSPluginClassIface.h	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- nsplugins/viewer/NSPluginClassIface.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ nsplugins/viewer/NSPluginClassIface.h	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -50,7 +50,7 @@
    virtual DCOPRef newInstance(QString url, QString mimeType, bool embed,
                                QStringList argn, QStringList argv,
@@ -2570,7 +2583,7 @@ Index: nsplugins/viewer/NSPluginClassIface.h
 Index: nsplugins/viewer/glibevents.cpp
 ===================================================================
 --- nsplugins/viewer/glibevents.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 0)
-+++ nsplugins/viewer/glibevents.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
++++ nsplugins/viewer/glibevents.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -0,0 +1,43 @@
 +/*
 +  Copyright (c) 2007 Lubos Lunak <l.lunak@suse.cz>
@@ -2617,8 +2630,8 @@ Index: nsplugins/viewer/glibevents.cpp
 +#include "glibevents.moc"
 Index: nsplugins/viewer/nsplugin.h
 ===================================================================
---- nsplugins/viewer/nsplugin.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ nsplugins/viewer/nsplugin.h	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- nsplugins/viewer/nsplugin.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ nsplugins/viewer/nsplugin.h	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -165,13 +165,13 @@
    // constructor, destructor
    NSPluginInstance( NPP privateData, NPPluginFuncs *pluginFuncs, KLibrary *handle,
@@ -2655,7 +2668,7 @@ Index: nsplugins/viewer/nsplugin.h
 Index: nsplugins/viewer/glibevents.h
 ===================================================================
 --- nsplugins/viewer/glibevents.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 0)
-+++ nsplugins/viewer/glibevents.h	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
++++ nsplugins/viewer/glibevents.h	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -0,0 +1,41 @@
 +/*
 +  Copyright (c) 2007 Lubos Lunak <l.lunak@suse.cz>
@@ -2700,8 +2713,8 @@ Index: nsplugins/viewer/glibevents.h
 +#endif
 Index: nsplugins/viewer/Makefile.am
 ===================================================================
---- nsplugins/viewer/Makefile.am	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ nsplugins/viewer/Makefile.am	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- nsplugins/viewer/Makefile.am	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ nsplugins/viewer/Makefile.am	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -1,12 +1,11 @@
 -INCLUDES = -I$(top_srcdir)/nsplugins -I$(top_builddir)/nsplugins $(all_includes)
 +INCLUDES = -I$(top_srcdir)/nsplugins -I$(top_builddir)/nsplugins $(all_includes) `pkg-config --cflags glib-2.0`
@@ -2720,8 +2733,8 @@ Index: nsplugins/viewer/Makefile.am
 -
 Index: nsplugins/nspluginloader.cpp
 ===================================================================
---- nsplugins/nspluginloader.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ nsplugins/nspluginloader.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- nsplugins/nspluginloader.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ nsplugins/nspluginloader.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -41,6 +41,7 @@
  #include <qpushbutton.h>
  #include <qxembed.h>
@@ -2886,8 +2899,8 @@ Index: nsplugins/nspluginloader.cpp
  
 Index: nsplugins/nspluginloader.h
 ===================================================================
---- nsplugins/nspluginloader.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ nsplugins/nspluginloader.h	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- nsplugins/nspluginloader.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ nsplugins/nspluginloader.h	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,13 +43,16 @@
  class QPushButton;
  class QGridLayout;
@@ -2925,8 +2938,8 @@ Index: nsplugins/nspluginloader.h
  
 Index: kappfinder/apps/Graphics/blender.desktop
 ===================================================================
---- kappfinder/apps/Graphics/blender.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kappfinder/apps/Graphics/blender.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kappfinder/apps/Graphics/blender.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kappfinder/apps/Graphics/blender.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -4,7 +4,7 @@
  Name[bn]=ব্লেণ্ডার
  Name[fa]=مخلوط‌کن
@@ -2947,8 +2960,8 @@ Index: kappfinder/apps/Graphics/blender.desktop
  GenericName[kk]=3D Үлгілеу/Көрсету
 Index: kdesktop/xautolock_engine.c
 ===================================================================
---- kdesktop/xautolock_engine.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesktop/xautolock_engine.c	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesktop/xautolock_engine.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesktop/xautolock_engine.c	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -157,7 +157,7 @@
  #if 0
            newTrigger = now + (useRedelay ? cornerRedelay : cornerDelay) - 1;
@@ -2960,8 +2973,8 @@ Index: kdesktop/xautolock_engine.c
  #if 0
 Index: kdesktop/lockeng.cc
 ===================================================================
---- kdesktop/lockeng.cc	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesktop/lockeng.cc	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesktop/lockeng.cc	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesktop/lockeng.cc	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -156,7 +156,7 @@
  	    connect(mXAutoLock, SIGNAL(timeout()), SLOT(idleTimeout()));
  	}
@@ -3025,8 +3038,8 @@ Index: kdesktop/lockeng.cc
  //---------------------------------------------------------------------------
 Index: kdesktop/kdiconview.cc
 ===================================================================
---- kdesktop/kdiconview.cc	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesktop/kdiconview.cc	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesktop/kdiconview.cc	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesktop/kdiconview.cc	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -485,7 +485,7 @@
  
      // Auto line-up icons
@@ -3050,8 +3063,8 @@ Index: kdesktop/kdiconview.cc
          if ( !name.isEmpty() )
 Index: kdesktop/kdesktop.kcfg
 ===================================================================
---- kdesktop/kdesktop.kcfg	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesktop/kdesktop.kcfg	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesktop/kdesktop.kcfg	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesktop/kdesktop.kcfg	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -232,8 +232,10 @@
      </entry>
      <entry name="DpmsDependent" key="DPMS-dependent" type="Bool">
@@ -3067,8 +3080,8 @@ Index: kdesktop/kdesktop.kcfg
        <default>0</default>
 Index: kdesktop/xautolock.cc
 ===================================================================
---- kdesktop/xautolock.cc	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesktop/xautolock.cc	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesktop/xautolock.cc	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesktop/xautolock.cc	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,10 +43,12 @@
  
  static XAutoLock* self = NULL;
@@ -3138,8 +3151,8 @@ Index: kdesktop/xautolock.cc
  
 Index: kdesktop/init/Templates/linkDVDROM.desktop
 ===================================================================
---- kdesktop/init/Templates/linkDVDROM.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesktop/init/Templates/linkDVDROM.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesktop/init/Templates/linkDVDROM.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesktop/init/Templates/linkDVDROM.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -40,11 +40,11 @@
  Name[mn]=DVD-ROM төхөөрөмж...
  Name[ms]=Peranti DVD-ROM...
@@ -3156,8 +3169,8 @@ Index: kdesktop/init/Templates/linkDVDROM.desktop
  Name[pt]=Leitor de DVD-ROMs...
 Index: kdesktop/init/Templates/linkHD.desktop
 ===================================================================
---- kdesktop/init/Templates/linkHD.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesktop/init/Templates/linkHD.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesktop/init/Templates/linkHD.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesktop/init/Templates/linkHD.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -40,11 +40,11 @@
  Name[mn]=Хатуу диск...
  Name[ms]=Peranti Cakera Keras...
@@ -3174,8 +3187,8 @@ Index: kdesktop/init/Templates/linkHD.desktop
  Name[pt]=Disco Rígido...
 Index: kdesktop/init/Templates/linkURL.desktop
 ===================================================================
---- kdesktop/init/Templates/linkURL.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesktop/init/Templates/linkURL.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesktop/init/Templates/linkURL.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesktop/init/Templates/linkURL.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -40,11 +40,11 @@
  Name[mn]=Хаягтай (URL) холбох...
  Name[ms]=Paut ke Aplikasi (URL)...
@@ -3192,8 +3205,8 @@ Index: kdesktop/init/Templates/linkURL.desktop
  Name[pt]=Atalho para Localização (URL)...
 Index: kdesktop/init/Templates/linkZIP.desktop
 ===================================================================
---- kdesktop/init/Templates/linkZIP.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesktop/init/Templates/linkZIP.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesktop/init/Templates/linkZIP.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesktop/init/Templates/linkZIP.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -40,11 +40,11 @@
  Name[mn]=ZIP Төхөөрөмж..
  Name[ms]=Peranti ZIP...
@@ -3210,8 +3223,8 @@ Index: kdesktop/init/Templates/linkZIP.desktop
  Name[pt]=Dispositivo ZIP...
 Index: kdesktop/init/Templates/linkCDROM.desktop
 ===================================================================
---- kdesktop/init/Templates/linkCDROM.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesktop/init/Templates/linkCDROM.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesktop/init/Templates/linkCDROM.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesktop/init/Templates/linkCDROM.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -40,11 +40,11 @@
  Name[mn]=КД-ROM төхөөрөмж...
  Name[ms]=Peranti CD-ROM...
@@ -3228,8 +3241,8 @@ Index: kdesktop/init/Templates/linkCDROM.desktop
  Name[pt]=Dispositivo de CD-ROM...
 Index: kdesktop/init/Templates/TextFile.desktop
 ===================================================================
---- kdesktop/init/Templates/TextFile.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesktop/init/Templates/TextFile.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesktop/init/Templates/TextFile.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesktop/init/Templates/TextFile.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -40,11 +40,11 @@
  Name[mn]=Текст файл...
  Name[ms]=Fail Teks...
@@ -3246,8 +3259,8 @@ Index: kdesktop/init/Templates/TextFile.desktop
  Name[pt]=Ficheiro de Texto...
 Index: kdesktop/init/Templates/linkProgram.desktop
 ===================================================================
---- kdesktop/init/Templates/linkProgram.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesktop/init/Templates/linkProgram.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesktop/init/Templates/linkProgram.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesktop/init/Templates/linkProgram.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -40,11 +40,11 @@
  Name[mn]=Програмтай холбох...
  Name[ms]=Paut ke Aplikasi...
@@ -3264,8 +3277,8 @@ Index: kdesktop/init/Templates/linkProgram.desktop
  Name[pt]=Atalho para Aplicação...
 Index: kdesktop/init/Templates/linkFloppy.desktop
 ===================================================================
---- kdesktop/init/Templates/linkFloppy.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesktop/init/Templates/linkFloppy.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesktop/init/Templates/linkFloppy.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesktop/init/Templates/linkFloppy.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -40,11 +40,11 @@
  Name[mn]=Уян диск...
  Name[ms]=Peranti Liut...
@@ -3282,8 +3295,8 @@ Index: kdesktop/init/Templates/linkFloppy.desktop
  Name[pt]=Leitor de Disquetes...
 Index: kdesktop/init/Templates/linkMO.desktop
 ===================================================================
---- kdesktop/init/Templates/linkMO.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesktop/init/Templates/linkMO.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesktop/init/Templates/linkMO.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesktop/init/Templates/linkMO.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -40,11 +40,11 @@
  Name[mn]=MO Төхөөрөмж...
  Name[ms]=Peranti MO...
@@ -3300,8 +3313,8 @@ Index: kdesktop/init/Templates/linkMO.desktop
  Name[pt]=Dispositivo MO...
 Index: kdesktop/init/Templates/linkCDWRITER.desktop
 ===================================================================
---- kdesktop/init/Templates/linkCDWRITER.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesktop/init/Templates/linkCDWRITER.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesktop/init/Templates/linkCDWRITER.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesktop/init/Templates/linkCDWRITER.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -44,7 +44,7 @@
  Name[nds]=CD-Brenner...
  Name[ne]=CDWRITER यन्त्र...
@@ -3313,8 +3326,8 @@ Index: kdesktop/init/Templates/linkCDWRITER.desktop
  Name[pt]=Gravador de CDs...
 Index: kdesktop/init/Templates/HTMLFile.desktop
 ===================================================================
---- kdesktop/init/Templates/HTMLFile.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesktop/init/Templates/HTMLFile.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesktop/init/Templates/HTMLFile.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesktop/init/Templates/HTMLFile.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -40,11 +40,11 @@
  Name[mn]=HTML-Файл...
  Name[ms]=Fail HTML...
@@ -3331,8 +3344,8 @@ Index: kdesktop/init/Templates/HTMLFile.desktop
  Name[pt]=Ficheiro HTML...
 Index: kdesktop/init/Templates/Directory.desktop
 ===================================================================
---- kdesktop/init/Templates/Directory.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesktop/init/Templates/Directory.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesktop/init/Templates/Directory.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesktop/init/Templates/Directory.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -39,11 +39,11 @@
  Name[mk]=Папка...
  Name[mn]=Хавтас...
@@ -3349,8 +3362,8 @@ Index: kdesktop/init/Templates/Directory.desktop
  Name[pt]=Pasta...
 Index: kdesktop/init/Templates/linkNFS.desktop
 ===================================================================
---- kdesktop/init/Templates/linkNFS.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesktop/init/Templates/linkNFS.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesktop/init/Templates/linkNFS.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesktop/init/Templates/linkNFS.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -7,8 +7,8 @@
  Name[de]=NFS ...
  Name[hi]=एनएफ़एस...
@@ -3364,8 +3377,8 @@ Index: kdesktop/init/Templates/linkNFS.desktop
  Name[sl]=NFS ...
 Index: kdesktop/init/Templates/linkCAMERA.desktop
 ===================================================================
---- kdesktop/init/Templates/linkCAMERA.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesktop/init/Templates/linkCAMERA.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesktop/init/Templates/linkCAMERA.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesktop/init/Templates/linkCAMERA.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -40,11 +40,11 @@
  Name[mn]=Камерын Төхөөрөмж...
  Name[ms]=Peranti Kamera...
@@ -3382,8 +3395,8 @@ Index: kdesktop/init/Templates/linkCAMERA.desktop
  Name[pt]=Máquina Fotográfica...
 Index: kdesktop/lockeng.h
 ===================================================================
---- kdesktop/lockeng.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesktop/lockeng.h	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesktop/lockeng.h	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesktop/lockeng.h	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -93,7 +93,6 @@
  protected:
      enum State { Waiting, Preparing, Saving };
@@ -3394,8 +3407,8 @@ Index: kdesktop/lockeng.h
      XAutoLock   *mXAutoLock;
 Index: applnk/kde-utilities-file.directory
 ===================================================================
---- applnk/kde-utilities-file.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ applnk/kde-utilities-file.directory	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- applnk/kde-utilities-file.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ applnk/kde-utilities-file.directory	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -34,6 +34,7 @@
  Name[ja]=ファイル
  Name[kk]=Файл
@@ -3414,8 +3427,8 @@ Index: applnk/kde-utilities-file.directory
  Comment[ms]=Fail
 Index: konqueror/remoteencodingplugin/kremoteencodingplugin.desktop
 ===================================================================
---- konqueror/remoteencodingplugin/kremoteencodingplugin.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/remoteencodingplugin/kremoteencodingplugin.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/remoteencodingplugin/kremoteencodingplugin.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/remoteencodingplugin/kremoteencodingplugin.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -41,7 +41,7 @@
  Name[it]=Plugin codifica remota
  Name[ja]=リモートエンコーディングプラグイン
@@ -3436,8 +3449,8 @@ Index: konqueror/remoteencodingplugin/kremoteencodingplugin.desktop
  Comment[ms]=Plugin Pengekodan Jauh untuk Konqueror
 Index: konqueror/profile_tabbedbrowsing.desktop
 ===================================================================
---- konqueror/profile_tabbedbrowsing.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/profile_tabbedbrowsing.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/profile_tabbedbrowsing.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/profile_tabbedbrowsing.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -39,11 +39,11 @@
  Name[mk]=Прелистување со ливчиња
  Name[ms]=Pelayaran Bertab
@@ -3454,8 +3467,8 @@ Index: konqueror/profile_tabbedbrowsing.desktop
  Name[pt]=Navegação por Páginas
 Index: konqueror/quickprint/text-tex-print.desktop
 ===================================================================
---- konqueror/quickprint/text-tex-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/quickprint/text-tex-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/quickprint/text-tex-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/quickprint/text-tex-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -3472,8 +3485,8 @@ Index: konqueror/quickprint/text-tex-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-xml-print.desktop
 ===================================================================
---- konqueror/quickprint/text-xml-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/quickprint/text-xml-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/quickprint/text-xml-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/quickprint/text-xml-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -3490,8 +3503,8 @@ Index: konqueror/quickprint/text-xml-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-print.desktop
 ===================================================================
---- konqueror/quickprint/text-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/quickprint/text-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/quickprint/text-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/quickprint/text-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -3508,8 +3521,8 @@ Index: konqueror/quickprint/text-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-perl-print.desktop
 ===================================================================
---- konqueror/quickprint/text-perl-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/quickprint/text-perl-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/quickprint/text-perl-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/quickprint/text-perl-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -3526,8 +3539,8 @@ Index: konqueror/quickprint/text-perl-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-html-print.desktop
 ===================================================================
---- konqueror/quickprint/text-html-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/quickprint/text-html-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/quickprint/text-html-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/quickprint/text-html-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -3544,8 +3557,8 @@ Index: konqueror/quickprint/text-html-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-diff-print.desktop
 ===================================================================
---- konqueror/quickprint/text-diff-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/quickprint/text-diff-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/quickprint/text-diff-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/quickprint/text-diff-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -3562,8 +3575,8 @@ Index: konqueror/quickprint/text-diff-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-c++-print.desktop
 ===================================================================
---- konqueror/quickprint/text-c++-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/quickprint/text-c++-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/quickprint/text-c++-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/quickprint/text-c++-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -3580,8 +3593,8 @@ Index: konqueror/quickprint/text-c++-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-makefile-print.desktop
 ===================================================================
---- konqueror/quickprint/text-makefile-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/quickprint/text-makefile-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/quickprint/text-makefile-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/quickprint/text-makefile-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -3598,8 +3611,8 @@ Index: konqueror/quickprint/text-makefile-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-c++h-print.desktop
 ===================================================================
---- konqueror/quickprint/text-c++h-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/quickprint/text-c++h-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/quickprint/text-c++h-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/quickprint/text-c++h-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -3616,8 +3629,8 @@ Index: konqueror/quickprint/text-c++h-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-log-print.desktop
 ===================================================================
---- konqueror/quickprint/text-log-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/quickprint/text-log-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/quickprint/text-log-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/quickprint/text-log-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -3634,8 +3647,8 @@ Index: konqueror/quickprint/text-log-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-java-print.desktop
 ===================================================================
---- konqueror/quickprint/text-java-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/quickprint/text-java-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/quickprint/text-java-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/quickprint/text-java-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -3652,8 +3665,8 @@ Index: konqueror/quickprint/text-java-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-python-print.desktop
 ===================================================================
---- konqueror/quickprint/text-python-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/quickprint/text-python-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/quickprint/text-python-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/quickprint/text-python-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -3670,8 +3683,8 @@ Index: konqueror/quickprint/text-python-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-c-print.desktop
 ===================================================================
---- konqueror/quickprint/text-c-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/quickprint/text-c-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/quickprint/text-c-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/quickprint/text-c-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -3688,8 +3701,8 @@ Index: konqueror/quickprint/text-c-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-tcl-print.desktop
 ===================================================================
---- konqueror/quickprint/text-tcl-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/quickprint/text-tcl-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/quickprint/text-tcl-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/quickprint/text-tcl-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -3706,8 +3719,8 @@ Index: konqueror/quickprint/text-tcl-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-pas-print.desktop
 ===================================================================
---- konqueror/quickprint/text-pas-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/quickprint/text-pas-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/quickprint/text-pas-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/quickprint/text-pas-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -3724,8 +3737,8 @@ Index: konqueror/quickprint/text-pas-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-ada-print.desktop
 ===================================================================
---- konqueror/quickprint/text-ada-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/quickprint/text-ada-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/quickprint/text-ada-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/quickprint/text-ada-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -3742,8 +3755,8 @@ Index: konqueror/quickprint/text-ada-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-css-print.desktop
 ===================================================================
---- konqueror/quickprint/text-css-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/quickprint/text-css-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/quickprint/text-css-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/quickprint/text-css-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -3760,8 +3773,8 @@ Index: konqueror/quickprint/text-css-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-ch-print.desktop
 ===================================================================
---- konqueror/quickprint/text-ch-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/quickprint/text-ch-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/quickprint/text-ch-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/quickprint/text-ch-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -3778,8 +3791,8 @@ Index: konqueror/quickprint/text-ch-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/quickprint/text-xslt-print.desktop
 ===================================================================
---- konqueror/quickprint/text-xslt-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/quickprint/text-xslt-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/quickprint/text-xslt-print.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/quickprint/text-xslt-print.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -43,11 +43,11 @@
  Name[mk]=Печати...
  Name[ms]=Cetak...
@@ -3796,8 +3809,8 @@ Index: konqueror/quickprint/text-xslt-print.desktop
  Name[pt]=Imprimir...
 Index: konqueror/sidebar/trees/init/remote/ftp/.directory
 ===================================================================
---- konqueror/sidebar/trees/init/remote/ftp/.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/sidebar/trees/init/remote/ftp/.directory	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/sidebar/trees/init/remote/ftp/.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/sidebar/trees/init/remote/ftp/.directory	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -17,7 +17,9 @@
  Name[fr]=Archives FTP
  Name[hi]=एफ़टीपी आर्काइव
@@ -3818,8 +3831,8 @@ Index: konqueror/sidebar/trees/init/remote/ftp/.directory
  Name[sr]=FTP архиве
 Index: konqueror/sidebar/trees/init/remote/ftp/kde_ftp.desktop
 ===================================================================
---- konqueror/sidebar/trees/init/remote/ftp/kde_ftp.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/sidebar/trees/init/remote/ftp/kde_ftp.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/sidebar/trees/init/remote/ftp/kde_ftp.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/sidebar/trees/init/remote/ftp/kde_ftp.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -8,7 +8,7 @@
  Name[ar]=ميفاق نقل الملفات الرسمي لِــ KDE
  Name[az]=KDE FTP vericisi
@@ -3831,8 +3844,8 @@ Index: konqueror/sidebar/trees/init/remote/ftp/kde_ftp.desktop
  Name[bs]=KDE službeni FTP
 Index: konqueror/sidebar/trees/init/remote/web/.directory
 ===================================================================
---- konqueror/sidebar/trees/init/remote/web/.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/sidebar/trees/init/remote/web/.directory	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/sidebar/trees/init/remote/web/.directory	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/sidebar/trees/init/remote/web/.directory	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -17,7 +17,9 @@
  Name[fr]=Sites Web
  Name[hi]=वेब साइट्स
@@ -3853,8 +3866,8 @@ Index: konqueror/sidebar/trees/init/remote/web/.directory
  Name[sr]=Веб сајтови
 Index: konqueror/sidebar/trees/init/remote/web/kde_web.desktop
 ===================================================================
---- konqueror/sidebar/trees/init/remote/web/kde_web.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/sidebar/trees/init/remote/web/kde_web.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/sidebar/trees/init/remote/web/kde_web.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/sidebar/trees/init/remote/web/kde_web.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -58,7 +58,7 @@
  Name[pt]=Página do KDE
  Name[pt_BR]=Página principal do KDE
@@ -3866,8 +3879,8 @@ Index: konqueror/sidebar/trees/init/remote/web/kde_web.desktop
  Name[sk]=Domovská stránka KDE
 Index: konqueror/sidebar/trees/init/system.desktop
 ===================================================================
---- konqueror/sidebar/trees/init/system.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konqueror/sidebar/trees/init/system.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konqueror/sidebar/trees/init/system.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konqueror/sidebar/trees/init/system.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -103,7 +103,7 @@
  Comment[he]=תיקייה זו מאפשרת לך לגשת את המקומות המועדפים עליך במערכת שלך
  Comment[hr]=Ova mapa omogućuje pristup uobičajenim lokacijama na računalu
@@ -3879,8 +3892,8 @@ Index: konqueror/sidebar/trees/init/system.desktop
  Comment[kk]=Бұл қапшық компьютердегі ортақ орындарға қатынауға мүмкіндік береді
 Index: knetattach/knetattach.ui
 ===================================================================
---- knetattach/knetattach.ui	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ knetattach/knetattach.ui	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- knetattach/knetattach.ui	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ knetattach/knetattach.ui	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -415,6 +415,8 @@
      <include location="global" impldecl="in implementation">kapplication.h</include>
      <include location="global" impldecl="in implementation">kstandarddirs.h</include>
@@ -3892,8 +3905,8 @@ Index: knetattach/knetattach.ui
  </includes>
 Index: kscreensaver/KRandom.desktop
 ===================================================================
---- kscreensaver/KRandom.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kscreensaver/KRandom.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kscreensaver/KRandom.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kscreensaver/KRandom.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -129,11 +129,11 @@
  Name[mk]=Постави...
  Name[mn]=Тохируулга...
@@ -3910,8 +3923,8 @@ Index: kscreensaver/KRandom.desktop
  Name[pa]=ਸੈੱਟਅੱਪ...
 Index: kscreensaver/KBlankscreen.desktop
 ===================================================================
---- kscreensaver/KBlankscreen.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kscreensaver/KBlankscreen.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kscreensaver/KBlankscreen.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kscreensaver/KBlankscreen.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -131,11 +131,11 @@
  Name[mk]=Постави...
  Name[mn]=Тохируулга...
@@ -3928,8 +3941,8 @@ Index: kscreensaver/KBlankscreen.desktop
  Name[pa]=ਸੈੱਟਅੱਪ...
 Index: kxkb/kcmmiscwidget.ui
 ===================================================================
---- kxkb/kcmmiscwidget.ui	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kxkb/kcmmiscwidget.ui	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kxkb/kcmmiscwidget.ui	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kxkb/kcmmiscwidget.ui	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -337,6 +337,7 @@
  </tabstops>
  <includes>
@@ -3940,8 +3953,8 @@ Index: kxkb/kcmmiscwidget.ui
  <layoutfunctions spacing="KDialog::spacingHint" margin="KDialog::marginHint"/>
 Index: libkonq/konqpopupmenuplugin.desktop
 ===================================================================
---- libkonq/konqpopupmenuplugin.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ libkonq/konqpopupmenuplugin.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- libkonq/konqpopupmenuplugin.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ libkonq/konqpopupmenuplugin.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -42,11 +42,11 @@
  Comment[mn]=Конкюрорын тагтан-цэсний Плугин
  Comment[ms]=Plugin untuk Menu Popuo Konqueror
@@ -3958,8 +3971,8 @@ Index: libkonq/konqpopupmenuplugin.desktop
  Comment[pl]=Wtyczka do menu (otwieranego przyciskiem myszy) Konquerora
 Index: khotkeys/shared/actions.cpp
 ===================================================================
---- khotkeys/shared/actions.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ khotkeys/shared/actions.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- khotkeys/shared/actions.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ khotkeys/shared/actions.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -118,6 +118,12 @@
          return;
      KURIFilterData uri;
@@ -3975,8 +3988,8 @@ Index: khotkeys/shared/actions.cpp
  //        && command_url()[ space_pos - 1 ] != '\\' )
 Index: khotkeys/data/konqueror_gestures_kde321.khotkeys
 ===================================================================
---- khotkeys/data/konqueror_gestures_kde321.khotkeys	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ khotkeys/data/konqueror_gestures_kde321.khotkeys	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- khotkeys/data/konqueror_gestures_kde321.khotkeys	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ khotkeys/data/konqueror_gestures_kde321.khotkeys	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -98,6 +98,7 @@
  Comment[fy]=Konqueror finster
  Comment[hr]=Konqueror prozor
@@ -4216,8 +4229,8 @@ Index: khotkeys/data/konqueror_gestures_kde321.khotkeys
  Comment[nb]=Bevegelsestarer
 Index: khotkeys/data/printscreen.khotkeys
 ===================================================================
---- khotkeys/data/printscreen.khotkeys	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ khotkeys/data/printscreen.khotkeys	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- khotkeys/data/printscreen.khotkeys	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ khotkeys/data/printscreen.khotkeys	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -49,6 +49,7 @@
  Name[fy]=Foarynstelde aksjes
  Name[hr]=Unaprijed zadane aktivnosti
@@ -4236,8 +4249,8 @@ Index: khotkeys/data/printscreen.khotkeys
  Name[nb]=Skriv skjermdump
 Index: khotkeys/kcontrol/khotkeys.desktop
 ===================================================================
---- khotkeys/kcontrol/khotkeys.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ khotkeys/kcontrol/khotkeys.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- khotkeys/kcontrol/khotkeys.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ khotkeys/kcontrol/khotkeys.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -34,7 +34,7 @@
  Name[he]=פעולות קלט
  Name[hr]=Aktivnosti unosa
@@ -4249,8 +4262,8 @@ Index: khotkeys/kcontrol/khotkeys.desktop
  Name[kk]=Енгізу әрекеттері
 Index: drkonqi/presets/developerrc
 ===================================================================
---- drkonqi/presets/developerrc	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ drkonqi/presets/developerrc	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- drkonqi/presets/developerrc	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ drkonqi/presets/developerrc	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -703,6 +703,7 @@
  Name[kk]=Беймәлім
  Name[km]=មិន​ស្គាល់
@@ -4261,8 +4274,8 @@ Index: drkonqi/presets/developerrc
  Name[lv]=Nezināms
 Index: drkonqi/presets/enduserrc
 ===================================================================
---- drkonqi/presets/enduserrc	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ drkonqi/presets/enduserrc	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- drkonqi/presets/enduserrc	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ drkonqi/presets/enduserrc	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -690,6 +690,7 @@
  Name[kk]=Беймәлім
  Name[km]=មិន​ស្គាល់
@@ -4273,8 +4286,8 @@ Index: drkonqi/presets/enduserrc
  Name[lv]=Nezināms
 Index: kwin/kcmkwin/kwinrules/kwinrules.desktop
 ===================================================================
---- kwin/kcmkwin/kwinrules/kwinrules.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kwin/kcmkwin/kwinrules/kwinrules.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kwin/kcmkwin/kwinrules/kwinrules.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kwin/kcmkwin/kwinrules/kwinrules.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -77,7 +77,7 @@
  Comment[af]=Stel spesifieke venster instellings op
  Comment[ar]=إعداد التعيينات الخاصة بنافذة
@@ -4286,8 +4299,8 @@ Index: kwin/kcmkwin/kwinrules/kwinrules.desktop
  Comment[ca]=Configura l'arranjament específicament per a una finestra
 Index: kwin/geometry.cpp
 ===================================================================
---- kwin/geometry.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kwin/geometry.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kwin/geometry.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kwin/geometry.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -1437,6 +1437,7 @@
          if ( value_mask & CWHeight )
              nh = rh;
@@ -4298,8 +4311,8 @@ Index: kwin/geometry.cpp
          if ( maximizeMode() != MaximizeFull
 Index: kwin/group.cpp
 ===================================================================
---- kwin/group.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kwin/group.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kwin/group.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kwin/group.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -816,7 +816,7 @@
          if( pos == NULL )
              break;
@@ -4311,8 +4324,8 @@ Index: kwin/group.cpp
              new_transient_for = workspace()->rootWin();
 Index: kwin/data/fsp_workarounds_1.kwinrules
 ===================================================================
---- kwin/data/fsp_workarounds_1.kwinrules	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kwin/data/fsp_workarounds_1.kwinrules	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kwin/data/fsp_workarounds_1.kwinrules	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kwin/data/fsp_workarounds_1.kwinrules	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -11,6 +11,7 @@
  Description[fr]=(Défaut) Désactive le vol du focus pour XV
  Description[fy]=(standert) Foarkomme fan ôfpakke fan toetseboerdfokus foar XV
@@ -4331,8 +4344,8 @@ Index: kwin/data/fsp_workarounds_1.kwinrules
  Description[sr]=(Подразумевано) Искључи спречавање преузимања фокуса за XV
 Index: konsole/konsole.desktop
 ===================================================================
---- konsole/konsole.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konsole/konsole.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konsole/konsole.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konsole/konsole.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -34,7 +34,6 @@
  Name[pa]=ਕੰਨਸੋਲ
  Name[pl]=Konsola
@@ -4343,8 +4356,8 @@ Index: konsole/konsole.desktop
  Name[sl]=Konzola
 Index: konsole/konsole-script.desktop
 ===================================================================
---- konsole/konsole-script.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konsole/konsole-script.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konsole/konsole-script.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konsole/konsole-script.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -34,7 +34,6 @@
  Name[pa]=ਕੰਨਸੋਲ
  Name[pl]=Konsola
@@ -4355,8 +4368,8 @@ Index: konsole/konsole-script.desktop
  Name[sl]=Konzola
 Index: konsole/konsolehere.desktop
 ===================================================================
---- konsole/konsolehere.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konsole/konsolehere.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konsole/konsolehere.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konsole/konsolehere.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -32,7 +32,6 @@
  Name[pa]=ਕੰਨਸੋਲ
  Name[pl]=Konsola
@@ -4367,8 +4380,8 @@ Index: konsole/konsolehere.desktop
  Name[sl]=Konzola
 Index: konsole/eventsrc
 ===================================================================
---- konsole/eventsrc	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konsole/eventsrc	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konsole/eventsrc	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konsole/eventsrc	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -23,7 +23,6 @@
  Comment[nn]=Konsoll
  Comment[pa]=ਕੰਨਸੋਲ
@@ -4379,8 +4392,8 @@ Index: konsole/eventsrc
  Comment[te]=కాన్సొల్
 Index: konsole/kcmkonsole.desktop
 ===================================================================
---- konsole/kcmkonsole.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ konsole/kcmkonsole.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- konsole/kcmkonsole.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ konsole/kcmkonsole.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -124,7 +124,7 @@
  GenericName[mn]=Консолын бүх тохируулга
  GenericName[ms]=Semua Seting Konsol
@@ -4409,8 +4422,8 @@ Index: konsole/kcmkonsole.desktop
  Keywords[sk]=konsole,konzola,terminál
 Index: l10n/rs/entry.desktop
 ===================================================================
---- l10n/rs/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/rs/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/rs/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/rs/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -13,6 +13,7 @@
  Name[fr]=Serbie
  Name[hr]=Srbija
@@ -4421,8 +4434,8 @@ Index: l10n/rs/entry.desktop
  Name[km]=សែប៊ី
 Index: l10n/rw/entry.desktop
 ===================================================================
---- l10n/rw/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/rw/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/rw/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/rw/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -11,6 +11,7 @@
  Name[de]=Ruanda
  Name[el]=Ρουάντα
@@ -4433,8 +4446,8 @@ Index: l10n/rw/entry.desktop
  Name[fi]=Ruanda
 Index: l10n/kg/entry.desktop
 ===================================================================
---- l10n/kg/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/kg/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/kg/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/kg/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -14,7 +14,7 @@
  Name[de]=Kirgisien
  Name[el]=Κιργιζιστάν
@@ -4446,8 +4459,8 @@ Index: l10n/kg/entry.desktop
  Name[fr]=Kirghizstan
 Index: l10n/kh/entry.desktop
 ===================================================================
---- l10n/kh/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/kh/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/kh/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/kh/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -13,6 +13,7 @@
  Name[de]=Kambodscha
  Name[el]=Καμπότζη
@@ -4458,8 +4471,8 @@ Index: l10n/kh/entry.desktop
  Name[fa]=کامبوج
 Index: l10n/km/entry.desktop
 ===================================================================
---- l10n/km/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/km/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/km/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/km/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -13,6 +13,7 @@
  Name[de]=Komoren
  Name[el]=Κομόρες
@@ -4470,8 +4483,8 @@ Index: l10n/km/entry.desktop
  Name[fi]=Komorit
 Index: l10n/kn/entry.desktop
 ===================================================================
---- l10n/kn/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/kn/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/kn/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/kn/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -15,7 +15,7 @@
  Name[de]=St. Kitts und Nevis
  Name[el]=Άγιος Χριστόφορος (Σαιντ Κιτς) και Νέβις
@@ -4483,8 +4496,8 @@ Index: l10n/kn/entry.desktop
  Name[fa]=سنت کیتس و نویس
 Index: l10n/kz/entry.desktop
 ===================================================================
---- l10n/kz/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/kz/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/kz/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/kz/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -12,7 +12,7 @@
  Name[de]=Kasachstan
  Name[el]=Καζακστάν
@@ -4496,8 +4509,8 @@ Index: l10n/kz/entry.desktop
  Name[fi]=Kazakstan
 Index: l10n/sr/entry.desktop
 ===================================================================
---- l10n/sr/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/sr/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/sr/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/sr/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -13,6 +13,7 @@
  Name[de]=Surinam
  Name[el]=Σουρινάμ
@@ -4508,8 +4521,8 @@ Index: l10n/sr/entry.desktop
  Name[fa]=سورینام
 Index: l10n/st/entry.desktop
 ===================================================================
---- l10n/st/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/st/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/st/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/st/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -16,7 +16,7 @@
  Name[de]=Sao Tome und Principe
  Name[el]=Σάο Τομέ και Πρίνσιπε
@@ -4521,8 +4534,8 @@ Index: l10n/st/entry.desktop
  Name[fa]=سائوتومه و پرنسیپ
 Index: l10n/sz/entry.desktop
 ===================================================================
---- l10n/sz/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/sz/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/sz/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/sz/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -13,7 +13,7 @@
  Name[de]=Swasiland
  Name[el]=Σουαζιλάνδη
@@ -4534,8 +4547,8 @@ Index: l10n/sz/entry.desktop
  Name[fa]=سوآزیلند
 Index: l10n/tc/entry.desktop
 ===================================================================
---- l10n/tc/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/tc/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/tc/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/tc/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -16,7 +16,7 @@
  Name[de]=Turks- und Caicos-Inseln
  Name[el]=Νήσοι Τερκς και Κάικος
@@ -4547,8 +4560,8 @@ Index: l10n/tc/entry.desktop
  Name[fa]=جزایر ترکها و کایکوها
 Index: l10n/tj/entry.desktop
 ===================================================================
---- l10n/tj/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/tj/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/tj/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/tj/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -14,7 +14,7 @@
  Name[de]=Tadschikistan
  Name[el]=Τατζικιστάν
@@ -4560,8 +4573,8 @@ Index: l10n/tj/entry.desktop
  Name[fr]=Tadjikistan
 Index: l10n/lu/entry.desktop
 ===================================================================
---- l10n/lu/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/lu/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/lu/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/lu/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -40,6 +40,7 @@
  Name[mk]=Луксембург
  Name[mn]=Люксембүрг
@@ -4572,8 +4585,8 @@ Index: l10n/lu/entry.desktop
  Name[nl]=Luxemburg
 Index: l10n/tp/entry.desktop
 ===================================================================
---- l10n/tp/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/tp/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/tp/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/tp/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -16,7 +16,7 @@
  Name[de]=Ost-Timor
  Name[el]=Ανατολικό Τιμόρ
@@ -4585,8 +4598,8 @@ Index: l10n/tp/entry.desktop
  Name[fa]=تیمور شرقی
 Index: l10n/tr/entry.desktop
 ===================================================================
---- l10n/tr/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/tr/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/tr/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/tr/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -37,6 +37,7 @@
  Name[kk]=Түркия
  Name[km]=ទួរគី
@@ -4597,8 +4610,8 @@ Index: l10n/tr/entry.desktop
  Name[lv]=Turcija
 Index: l10n/tz/entry.desktop
 ===================================================================
---- l10n/tz/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/tz/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/tz/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/tz/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -16,7 +16,7 @@
  Name[de]=Tansania, vereinigte Republik
  Name[el]=Τανζανία, Ενωμένη δημοκρατία της
@@ -4610,8 +4623,8 @@ Index: l10n/tz/entry.desktop
  Name[fa]=جمهوری متحدۀ تانزانیا
 Index: l10n/me/entry.desktop
 ===================================================================
---- l10n/me/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/me/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/me/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/me/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -9,6 +9,7 @@
  Name[fr]=Montenégro
  Name[hr]=Crna Gora
@@ -4622,8 +4635,8 @@ Index: l10n/me/entry.desktop
  Name[km]=ម៉ុង​តេ​ណេ​រ៉ូ
 Index: l10n/northafrica.desktop
 ===================================================================
---- l10n/northafrica.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/northafrica.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/northafrica.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/northafrica.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -15,7 +15,7 @@
  Name[de]=Afrika, Nördliches
  Name[el]=Αφρική, Βόρεια
@@ -4635,8 +4648,8 @@ Index: l10n/northafrica.desktop
  Name[fa]=آفریقای شمالی
 Index: l10n/mo/entry.desktop
 ===================================================================
---- l10n/mo/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/mo/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/mo/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/mo/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -14,6 +14,7 @@
  Name[de]=Macao SAR (China)
  Name[el]=Μακάο SAR (Κίνα)
@@ -4647,8 +4660,8 @@ Index: l10n/mo/entry.desktop
  Name[fa]=منطقۀ صنعتی ویژۀ ماکائو )چین(
 Index: l10n/va/entry.desktop
 ===================================================================
---- l10n/va/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/va/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/va/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/va/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -16,7 +16,7 @@
  Name[de]=Vatikanstadt
  Name[el]=Βατικανό
@@ -4660,8 +4673,8 @@ Index: l10n/va/entry.desktop
  Name[fa]=واتیکان سیتی
 Index: l10n/nr/entry.desktop
 ===================================================================
---- l10n/nr/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/nr/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/nr/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/nr/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -8,7 +8,6 @@
  Name[cy]=Nawrw
  Name[el]=Ναουρού
@@ -4672,8 +4685,8 @@ Index: l10n/nr/entry.desktop
  Name[ga]=Nárúis
 Index: l10n/westafrica.desktop
 ===================================================================
---- l10n/westafrica.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/westafrica.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/westafrica.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/westafrica.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -16,7 +16,7 @@
  Name[de]=Afrika, Westliches
  Name[el]=Αφρική, Δυτική
@@ -4685,8 +4698,8 @@ Index: l10n/westafrica.desktop
  Name[fa]=افریقای غربی
 Index: l10n/gq/entry.desktop
 ===================================================================
---- l10n/gq/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/gq/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/gq/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/gq/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -15,7 +15,7 @@
  Name[de]=Äquatorial-Guinea
  Name[el]=Ισημερινή Γουινέα
@@ -4698,8 +4711,8 @@ Index: l10n/gq/entry.desktop
  Name[fa]=گینه استوایی
 Index: l10n/southafrica.desktop
 ===================================================================
---- l10n/southafrica.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/southafrica.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/southafrica.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/southafrica.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -16,7 +16,7 @@
  Name[de]=Afrika, Südliches
  Name[el]=Αφρική, Νότια
@@ -4711,8 +4724,8 @@ Index: l10n/southafrica.desktop
  Name[fa]=آفریقای جنوبی
 Index: l10n/middleeast.desktop
 ===================================================================
---- l10n/middleeast.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/middleeast.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/middleeast.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/middleeast.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -37,7 +37,7 @@
  Name[lv]=Vidējie austrumi
  Name[mk]=Среден Исток
@@ -4724,8 +4737,8 @@ Index: l10n/middleeast.desktop
  Name[nl]=Midden-Oosten
 Index: l10n/pf/entry.desktop
 ===================================================================
---- l10n/pf/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/pf/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/pf/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/pf/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -15,7 +15,7 @@
  Name[de]=Französisch Polynesien
  Name[el]=Γαλλική Πολυνησία
@@ -4737,8 +4750,8 @@ Index: l10n/pf/entry.desktop
  Name[fa]=پلی‌نزی فرانسوی
 Index: l10n/pg/entry.desktop
 ===================================================================
---- l10n/pg/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/pg/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/pg/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/pg/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -14,7 +14,7 @@
  Name[de]=Papua Neu-Guinea
  Name[el]=Παπούα Νέα Γουινέα
@@ -4750,8 +4763,8 @@ Index: l10n/pg/entry.desktop
  Name[fa]=گینه نو پاپوا
 Index: l10n/pk/entry.desktop
 ===================================================================
---- l10n/pk/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/pk/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/pk/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/pk/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -10,6 +10,7 @@
  Name[cy]=Pacistan
  Name[el]=Πακιστάν
@@ -4762,8 +4775,8 @@ Index: l10n/pk/entry.desktop
  Name[gl]=Paquistán
 Index: l10n/pm/entry.desktop
 ===================================================================
---- l10n/pm/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/pm/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/pm/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/pm/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -16,7 +16,7 @@
  Name[de]=Saint Pierre und Miquelon
  Name[el]=Σαιν Πιέρ (Άγιος Πέτρος) και Μικελόν
@@ -4775,8 +4788,8 @@ Index: l10n/pm/entry.desktop
  Name[fa]=سنت پیر و میکلون
 Index: l10n/ps/entry.desktop
 ===================================================================
---- l10n/ps/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/ps/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/ps/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/ps/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -15,7 +15,7 @@
  Name[de]=Palästinensisches Gebiet
  Name[el]=Παλαιστίνη
@@ -4788,8 +4801,8 @@ Index: l10n/ps/entry.desktop
  Name[fa]=سرزمین فلسطین
 Index: l10n/pw/entry.desktop
 ===================================================================
---- l10n/pw/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/pw/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/pw/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/pw/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -7,6 +7,7 @@
  Name[cy]=Palaw
  Name[el]=Παλάου
@@ -4800,8 +4813,8 @@ Index: l10n/pw/entry.desktop
  Name[hi]=पलाऊ
 Index: l10n/ie/entry.desktop
 ===================================================================
---- l10n/ie/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/ie/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/ie/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/ie/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -15,7 +15,7 @@
  Name[da]=Irland
  Name[de]=Irland
@@ -4813,8 +4826,8 @@ Index: l10n/ie/entry.desktop
  Name[eu]=Irlanda
 Index: l10n/ir/entry.desktop
 ===================================================================
---- l10n/ir/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ l10n/ir/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- l10n/ir/entry.desktop	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ l10n/ir/entry.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -7,6 +7,7 @@
  Name[cs]=Írán
  Name[el]=Ιράν
@@ -4825,8 +4838,8 @@ Index: l10n/ir/entry.desktop
  Name[ga]=An Iaráin
 Index: kdm/backend/client.c
 ===================================================================
---- kdm/backend/client.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdm/backend/client.c	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdm/backend/client.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdm/backend/client.c	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -1623,6 +1623,8 @@
  	int pretc;
  #endif
@@ -4838,8 +4851,8 @@ Index: kdm/backend/client.c
  			LogError( "Cannot execute reset script %\"s\n", td->reset );
 Index: kdm/backend/inifile.c
 ===================================================================
---- kdm/backend/inifile.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdm/backend/inifile.c	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdm/backend/inifile.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdm/backend/inifile.c	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -37,6 +37,7 @@
  #include "dm_error.h"
  
@@ -4880,8 +4893,8 @@ Index: kdm/backend/inifile.c
  		free( data );
 Index: kdm/backend/session.c
 ===================================================================
---- kdm/backend/session.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdm/backend/session.c	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdm/backend/session.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdm/backend/session.c	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -145,7 +145,10 @@
  		ReStr( &curtype, "classic" );
  		cursource = (td->hstent->rLogin == 1) ? PWSRC_RELOGIN : PWSRC_MANUAL;
@@ -4904,8 +4917,8 @@ Index: kdm/backend/session.c
  
 Index: kdm/kfrontend/kdm_config.c
 ===================================================================
---- kdm/kfrontend/kdm_config.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdm/kfrontend/kdm_config.c	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdm/kfrontend/kdm_config.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdm/kfrontend/kdm_config.c	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -1072,6 +1072,9 @@
  		if (!((**hostPtr)->entry.displayAddress.hostAddress =
  		      Malloc( addr_len )))
@@ -4936,8 +4949,8 @@ Index: kdm/kfrontend/kdm_config.c
  			break;
 Index: kdm/kfrontend/kgreeter.cpp
 ===================================================================
---- kdm/kfrontend/kgreeter.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdm/kfrontend/kgreeter.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdm/kfrontend/kgreeter.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdm/kfrontend/kgreeter.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -42,6 +42,8 @@
  #undef Unsorted // x headers suck - make qdir.h work with --enable-final
  #include <qdir.h>
@@ -5021,8 +5034,8 @@ Index: kdm/kfrontend/kgreeter.cpp
    gotit:
 Index: kdm/kfrontend/genkdmconf.c
 ===================================================================
---- kdm/kfrontend/genkdmconf.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdm/kfrontend/genkdmconf.c	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdm/kfrontend/genkdmconf.c	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdm/kfrontend/genkdmconf.c	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -673,7 +673,7 @@
  "    xsess_tmp=";
  static const char def_session2[] =
@@ -5034,8 +5047,8 @@ Index: kdm/kfrontend/genkdmconf.c
  "    ;;\n"
 Index: kdesu/kdesu/kdesu.cpp
 ===================================================================
---- kdesu/kdesu/kdesu.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 751484)
-+++ kdesu/kdesu/kdesu.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 751484)
+--- kdesu/kdesu/kdesu.cpp	(.../tags/KDE/3.5.8/kdebase)	(wersja 752389)
++++ kdesu/kdesu/kdesu.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 752389)
 @@ -113,7 +113,10 @@
      unsetenv( "SESSION_MANAGER" );
      KApplication app;
