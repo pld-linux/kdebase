@@ -9,11 +9,11 @@
 # - intergrate && keep eye on new flash support: https://bugzilla.novell.com/show_bug.cgi?id=348088
 #
 # Conditional build:
-%bcond_without	apidocs		# Do not prepare API documentation
-%bcond_without	ldap		# build or not ldap ioslave
-%bcond_with	kerberos5	# kerberos 5 support
-%bcond_without	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
-%bcond_with	groupwindows	# raise all windows belonging to program together
+%bcond_without	apidocs			# Do not prepare API documentation
+%bcond_without	ldap			# build or not ldap ioslave
+%bcond_with	kerberos5		# kerberos 5 support
+%bcond_without	hidden_visibility	# no gcc hidden visibility
+%bcond_with	groupwindows		# raise all windows belonging to program together
 #
 %define		_state		stable
 %define		_minlibsevr	9:%{version}
