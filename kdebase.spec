@@ -64,7 +64,6 @@ Patch10:	%{name}-kdesukonsole.patch
 Patch12:	%{name}-screensavers.patch
 Patch13:	%{name}-prefmenu.patch
 Patch14:	%{name}-session.patch
-Patch15:	%{name}-xembed.patch
 Patch16:	%{name}-vmenus.patch
 Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
@@ -1051,7 +1050,6 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch12 -p1
 %patch13 -p1
 %patch14 -p1
-%patch15 -p0
 %patch16 -p1
 %patch18 -p1
 # FIXME (still needed?)
@@ -1150,74 +1148,86 @@ cp /usr/share/automake/config.sub admin
 %{?with_apidocs:%{__make} apidox}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-rm -rf *.lang
+if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
+	rm -rf makeinstall.stamp installed.stamp $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	kde_htmldir=%{_kdedocdir}
+	%{__make} install \
+		DESTDIR=$RPM_BUILD_ROOT \
+		kde_htmldir=%{_kdedocdir}
 
-install -d \
-	$RPM_BUILD_ROOT/etc/{X11/kdm/faces,pam.d,rc.d/init.d,security} \
-	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror \
-	$RPM_BUILD_ROOT%{_datadir}/apps/kate/{scripts,plugins}
-
-%browser_plugins_add_browser konqueror -p %{_libdir}/kde3/plugins/konqueror
-
-if [ -d "$RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-%{version}-apidocs" ] ; then
-	mv -f $RPM_BUILD_ROOT{%{_kdedocdir}/en/%{name}-%{version}-apidocs,%{_kdedocdir}/en/%{name}-apidocs}
+	touch makeinstall.stamp
 fi
 
-# Drop generated Xsession file (we have own one)
-rm -f $RPM_BUILD_ROOT/etc/X11/kdm/Xsession
+if [ ! -f installed.stamp ]; then
+	install -d \
+		$RPM_BUILD_ROOT/etc/{X11/kdm/faces,pam.d,rc.d/init.d,security} \
+		$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror \
+		$RPM_BUILD_ROOT%{_datadir}/apps/kate/{scripts,plugins}
 
-# Install miscleanous PLD files
-install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
-install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
-install %{SOURCE3}	$RPM_BUILD_ROOT/etc/pam.d/kdm-np
-install %{SOURCE4}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
-install %{SOURCE5}	$RPM_BUILD_ROOT/etc/X11/kdm/Xsession
-install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
-install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
+	%browser_plugins_add_browser konqueror -p %{_libdir}/kde3/plugins/konqueror
 
-%{__tar} xfj %{SOURCE8} -C $RPM_BUILD_ROOT%{_datadir}/services/searchproviders/
-%{__tar} xfj %{SOURCE10} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/
-mv $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts/* $RPM_BUILD_ROOT%{_bindir}
-rm -rf $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts
-%{__tar} xfj %{SOURCE13} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/
+	if [ -d "$RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-%{version}-apidocs" ] ; then
+		mv -f $RPM_BUILD_ROOT{%{_kdedocdir}/en/%{name}-%{version}-apidocs,%{_kdedocdir}/en/%{name}-apidocs}
+	fi
 
-# Needed for pam support
-touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
+	# Drop generated Xsession file (we have own one)
+	rm -f $RPM_BUILD_ROOT/etc/X11/kdm/Xsession
 
-# Copying default faces to kdm config dir
-cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/default1.png \
-	$RPM_BUILD_ROOT/etc/X11/kdm/faces/.default.face.icon
-cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
-	$RPM_BUILD_ROOT/etc/X11/kdm/faces/root.face.icon
+	# Install miscleanous PLD files
+	install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
+	install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
+	install %{SOURCE3}	$RPM_BUILD_ROOT/etc/pam.d/kdm-np
+	install %{SOURCE4}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
+	install %{SOURCE5}	$RPM_BUILD_ROOT/etc/X11/kdm/Xsession
+	install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
+	install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
 
-# konqueror/dirtree no longer supported
-rm $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop
+	%{__tar} xfj %{SOURCE8} -C $RPM_BUILD_ROOT%{_datadir}/services/searchproviders/
+	%{__tar} xfj %{SOURCE10} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/
+	mv $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts/* $RPM_BUILD_ROOT%{_bindir}
+	rm -rf $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts
+	%{__tar} xfj %{SOURCE13} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/
 
-# Workaround for gnome menu which maps all these to "Others" dir
-cd $RPM_BUILD_ROOT%{_desktopdir}/kde
-for f in $(grep -El 'X-KDE-settings|X-KDE-information' *); do
-	echo "OnlyShowIn=KDE" >> $f
-done
-cd -
+	# Needed for pam support
+	touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
+
+	# Copying default faces to kdm config dir
+	cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/default1.png \
+		$RPM_BUILD_ROOT/etc/X11/kdm/faces/.default.face.icon
+	cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
+		$RPM_BUILD_ROOT/etc/X11/kdm/faces/root.face.icon
+
+	# konqueror/dirtree no longer supported
+	rm $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop
+
+	# Workaround for gnome menu which maps all these to "Others" dir
+	cd $RPM_BUILD_ROOT%{_desktopdir}/kde
+	for f in $(grep -El 'X-KDE-settings|X-KDE-information' *.desktop); do
+		echo "OnlyShowIn=KDE" >> $f
+	done
+	cd -
+
+	touch installed.stamp
+fi
+
+
+rm -f *.lang
+
+# kcontrol/
+#colors
+#fonts
+#kcmstyle
+#language
 
 # find_lang
 > core.lang
 programs="
-colors
-fonts
-kcmstyle
 kdebugdialog
 kdeprint
 kdesu
 khelpcenter
 knetattach
 kompmgr
-language
 "
 for i in $programs; do
 	%find_lang $i --with-kde
@@ -1225,34 +1235,34 @@ for i in $programs; do
 	rm -f $i.lang
 done
 
+#clock
+#arts
+#background
+#bell
+#desktop
+#desktopbehavior
+#energy
+#kcmaccess
+#kcmlaunch
+#kcmnotify
+#kcmsmserver
+#kcmtaskbar
+#keyboard
+#keys
+#kwindecoration
+#mouse
+#panel
+#panelappearance
+#passwords
+#performance
+#spellchecking
+#windowmanagement
 > %{name}.lang
 programs="
-arts
-background
-bell
-clock
-desktop
-desktopbehavior
-energy
-kcmaccess
-kcmlaunch
-kcmnotify
-kcmsmserver
-kcmtaskbar
-keyboard
-keys
 kicker
 kmenuedit
 ksplashml
-kwindecoration
 kxkb
-mouse
-panel
-panelappearance
-passwords
-performance
-spellchecking
-windowmanagement
 "
 for i in $programs; do
 	%find_lang $i --with-kde
@@ -1260,22 +1270,22 @@ for i in $programs; do
 	rm -f $i.lang
 done
 
+#cache
+#cookies
+#crypto
+#ebrowsing
+#email
+#filemanager
+#filetypes
+#icons
+#kcmcss
+#khtml
+#netpref
+#proxy
+#smb
+#useragent
 %find_lang konqueror	--with-kde
 programs="
-cache
-cookies
-crypto
-ebrowsing
-email
-filemanager
-filetypes
-icons
-kcmcss
-khtml
-netpref
-proxy
-smb
-useragent
 "
 for i in $programs; do
 	%find_lang $i --with-kde
@@ -1285,10 +1295,10 @@ done
 
 %find_lang kappfinder	--with-kde
 %find_lang kate		--with-kde
-%find_lang kcmkonsole	--with-kde
 %find_lang kdm		--with-kde
 %find_lang kfind	--with-kde
-%find_lang kcmfontinst	--with-kde
+#%find_lang kcmfontinst	--with-kde
+>kcmfontinst.lang
 %find_lang kdcop	--with-kde
 %find_lang kinfocenter	--with-kde
 %find_lang kioslave	--with-kde
@@ -1297,7 +1307,10 @@ done
 %find_lang ksysguard	--with-kde
 %find_lang kpager	--with-kde
 %find_lang kwrite	--with-kde
-%find_lang screensaver	--with-kde
+#%find_lang screensaver	--with-kde
+>screensaver.lang
+#%find_lang kcmkonsole	--with-kde
+>kcmkonsole.lang
 cat kcmkonsole.lang	>> konsole.lang
 rm -f kcmkonsole.lang
 cat kioslave.lang	>> kinfocenter.lang
