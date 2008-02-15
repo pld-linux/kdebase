@@ -7,23 +7,6 @@
 # - warning: Installed (but unpackaged) file(s) found:
 #   /etc/xdg/menus/kde-screensavers.menu
 # - intergrate && keep eye on new flash support: https://bugzilla.novell.com/show_bug.cgi?id=348088
-# - unpackaged:
-#   /usr/lib/libkasbar.so.1
-#   /usr/lib/libkateinterfaces.so.0
-#   /usr/lib/libkateutils.so.0
-#   /usr/lib/libkdecorations.so.1
-#   /usr/lib/libkfontinst.so.0
-#   /usr/lib/libkhotkeys_shared.so.1
-#   /usr/lib/libkickermain.so.1
-#   /usr/lib/libkonq.so.4
-#   /usr/lib/libkonqsidebarplugin.so.1
-#   /usr/lib/libksgrd.so.1
-#   /usr/lib/libksplashthemes.so.0
-#   /usr/lib/libtaskbar.so.1
-#   /usr/lib/libtaskmanager.so.1
-#   /usr/share/doc/kde/HTML/en/kcontrol/kdm/common
-#   /usr/share/doc/kde/HTML/en/kcontrol/kdm/index.cache.bz2
-#   /usr/share/doc/kde/HTML/en/kcontrol/kdm/index.docbook
 #
 # Conditional build:
 %bcond_without	apidocs			# Do not prepare API documentation
@@ -46,7 +29,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.9
-Release:	0.1
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -136,7 +119,7 @@ BuildRequires:	pkgconfig
 %{?with_apidocs:BuildRequires:	qt-doc}
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(find_lang) >= 1.32
-BuildRequires:	rpmbuild(macros) >= 1.356
+BuildRequires:	rpmbuild(macros) >= 1.426
 BuildRequires:	sed >= 4.0
 BuildRequires:	xcursor-devel >= 1.1.0
 BuildConflicts:	kdebase-konqueror-libs
@@ -1348,6 +1331,7 @@ rm -f *.lang
 %find_lang kappfinder --with-kde
 %find_lang kate --with-kde
 %find_lang kdm --with-kde
+%find_lang kcontrol/kdm --with-kde -a kdm.lang
 %find_lang kfind --with-kde
 %find_lang kcontrol/kcmfontinst	--with-kde -o kcmfontinst.lang
 %find_lang kdcop --with-kde
@@ -2130,12 +2114,18 @@ fi
 %files desktop-libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libkhotkeys_shared.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkhotkeys_shared.so.1
 %attr(755,root,root) %{_libdir}/libkasbar.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkasbar.so.1
 %attr(755,root,root) %{_libdir}/libkdecorations.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkdecorations.so.1
 %attr(755,root,root) %{_libdir}/libksplashthemes.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libksplashthemes.so.0
 # Merged kicker
 %attr(755,root,root) %{_libdir}/libtaskbar.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libtaskbar.so.1
 %attr(755,root,root) %{_libdir}/libtaskmanager.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libtaskmanager.so.1
 
 %files infocenter -f kinfocenter.lang
 %defattr(644,root,root,755)
@@ -2230,6 +2220,7 @@ fi
 %attr(755,root,root) %{_bindir}/kfontinst
 %attr(755,root,root) %{_bindir}/kfontview
 %attr(755,root,root) %{_libdir}/libkfontinst.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkfontinst.so.0
 %attr(755,root,root) %{_libdir}/kde3/libkfontviewpart.so
 %attr(755,root,root) %{_libdir}/kde3/kcm_fontinst.so
 %attr(755,root,root) %{_libdir}/kde3/kio_fonts.so
@@ -2319,11 +2310,14 @@ fi
 %files libkate
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libkateinterfaces.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkateinterfaces.so.0
 %attr(755,root,root) %{_libdir}/libkateutils.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkateutils.so.0
 
 %files libksgrd
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libksgrd.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libksgrd.so.1
 
 %files screensavers -f screensaver.lang
 %defattr(644,root,root,755)
@@ -2603,5 +2597,8 @@ fi
 %files -n konqueror-libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libkickermain.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkickermain.so.1
 %attr(755,root,root) %{_libdir}/libkonq.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkonq.so.4
 %attr(755,root,root) %{_libdir}/libkonqsidebarplugin.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkonqsidebarplugin.so.1
