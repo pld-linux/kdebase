@@ -74,7 +74,7 @@ Patch24:	kde-ac260-lt.patch
 Patch25:	%{name}-konsole-history_clear.patch
 Patch26:	%{name}-kdm-default_background.patch
 Patch27:	%{name}-consolekit.patch
-BuildRequires:	OpenEXR-devel >= 1.2.2
+BuildRequires:	OpenEXR-devel >= 1.4.0.a
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
