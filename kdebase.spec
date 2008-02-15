@@ -28,13 +28,13 @@ Summary(ru.UTF-8):	K Desktop Environment - базовые файлы
 Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
-Version:	3.5.8
-Release:	10
+Version:	3.5.9
+Release:	2
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	9990c669229daaaa8fca4c5e354441fd
+# Source0-md5:	c8c35389a238aa1b73e68ef5298eadf8
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -49,7 +49,7 @@ Source10:	%{name}-servicemenus.tar.bz2
 Source13:	%{name}-konqsidebartng-PLD-entries-0.2.tar.bz2
 # Source13-md5:	aa373b561e1cedb78b652f43e19fc122
 # Temporary taken from kde svn
-Patch100:	%{name}-branch.diff
+#Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-fontdir.patch
 # http://www.icefox.net/articles/kdeosx/grouplayer.diff
@@ -64,7 +64,6 @@ Patch10:	%{name}-kdesukonsole.patch
 Patch12:	%{name}-screensavers.patch
 Patch13:	%{name}-prefmenu.patch
 Patch14:	%{name}-session.patch
-Patch15:	%{name}-xembed.patch
 Patch16:	%{name}-vmenus.patch
 Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
@@ -110,14 +109,15 @@ BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	lm_sensors-devel
 BuildRequires:	motif-devel
-%{?with_ldap:BuildRequires:	openldap-devel >= 2.4.6}
+%{?with_ldap:BuildRequires:	openldap-devel >= 2.3.0}
 BuildRequires:	openssl-devel >= 0.9.7c
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig
 %{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
 %{?with_apidocs:BuildRequires:	qt-doc}
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.356
+BuildRequires:	rpmbuild(find_lang) >= 1.32
+BuildRequires:	rpmbuild(macros) >= 1.426
 BuildRequires:	sed >= 4.0
 #BuildRequires:	unsermake >= 040511
 BuildRequires:	xorg-app-bdftopcf
@@ -1063,7 +1063,6 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch12 -p1
 %patch13 -p1
 %patch14 -p1
-%patch15 -p0
 %patch16 -p1
 %patch18 -p1
 # FIXME (still needed?)
@@ -1160,221 +1159,206 @@ cp /usr/share/automake/config.sub admin
 %{?with_apidocs:%{__make} apidox}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-rm -rf *.lang
+if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
+	rm -rf makeinstall.stamp installed.stamp $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	kde_htmldir=%{_kdedocdir}
+	%{__make} install \
+		DESTDIR=$RPM_BUILD_ROOT \
+		kde_htmldir=%{_kdedocdir}
 
-install -d \
-	$RPM_BUILD_ROOT/etc/{X11/kdm/faces,pam.d,rc.d/init.d,security} \
-	$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror \
-	$RPM_BUILD_ROOT%{_datadir}/apps/kate/{scripts,plugins}
-
-%browser_plugins_add_browser konqueror -p %{_libdir}/kde3/plugins/konqueror
-
-if [ -d "$RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-%{version}-apidocs" ] ; then
-	mv -f $RPM_BUILD_ROOT{%{_kdedocdir}/en/%{name}-%{version}-apidocs,%{_kdedocdir}/en/%{name}-apidocs}
+	touch makeinstall.stamp
 fi
 
-# Drop generated Xsession file (we have own one)
-rm -f $RPM_BUILD_ROOT/etc/X11/kdm/Xsession
+if [ ! -f installed.stamp ]; then
+	install -d \
+		$RPM_BUILD_ROOT/etc/{X11/kdm/faces,pam.d,rc.d/init.d,security} \
+		$RPM_BUILD_ROOT%{_libdir}/kde3/plugins/konqueror \
+		$RPM_BUILD_ROOT%{_datadir}/apps/kate/{scripts,plugins}
 
-# Install miscleanous PLD files
-install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
-install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
-install %{SOURCE3}	$RPM_BUILD_ROOT/etc/pam.d/kdm-np
-install %{SOURCE4}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
-install %{SOURCE5}	$RPM_BUILD_ROOT/etc/X11/kdm/Xsession
-install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
-install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
+	%browser_plugins_add_browser konqueror -p %{_libdir}/kde3/plugins/konqueror
 
-%{__tar} xfj %{SOURCE8} -C $RPM_BUILD_ROOT%{_datadir}/services/searchproviders/
-%{__tar} xfj %{SOURCE10} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/
-mv $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts/* $RPM_BUILD_ROOT%{_bindir}
-rm -rf $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts
-%{__tar} xfj %{SOURCE13} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/
+	if [ -d "$RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-%{version}-apidocs" ] ; then
+		mv -f $RPM_BUILD_ROOT{%{_kdedocdir}/en/%{name}-%{version}-apidocs,%{_kdedocdir}/en/%{name}-apidocs}
+	fi
 
-# Needed for pam support
-touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
+	# Drop generated Xsession file (we have own one)
+	%{__rm} $RPM_BUILD_ROOT/etc/X11/kdm/Xsession
 
-# Copying default faces to kdm config dir
-cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/default1.png \
-	$RPM_BUILD_ROOT/etc/X11/kdm/faces/.default.face.icon
-cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
-	$RPM_BUILD_ROOT/etc/X11/kdm/faces/root.face.icon
+	# Install miscleanous PLD files
+	install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
+	install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
+	install %{SOURCE3}	$RPM_BUILD_ROOT/etc/pam.d/kdm-np
+	install %{SOURCE4}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
+	install %{SOURCE5}	$RPM_BUILD_ROOT/etc/X11/kdm/Xsession
+	install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
+	install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
 
-# konqueror/dirtree no longer supported
-rm $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop
+	%{__tar} xfj %{SOURCE8} -C $RPM_BUILD_ROOT%{_datadir}/services/searchproviders/
+	%{__tar} xfj %{SOURCE10} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/
+	mv $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts/* $RPM_BUILD_ROOT%{_bindir}
+	rm -rf $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts
+	%{__tar} xfj %{SOURCE13} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/
 
-# Workaround for gnome menu which maps all these to "Others" dir
-cd $RPM_BUILD_ROOT%{_desktopdir}/kde
-for f in $(grep -El 'X-KDE-settings|X-KDE-information' *); do
-	echo "OnlyShowIn=KDE" >> $f
-done
-cd -
+	# Needed for pam support
+	touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
-# find_lang
+	# Copying default faces to kdm config dir
+	cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/default1.png \
+		$RPM_BUILD_ROOT/etc/X11/kdm/faces/.default.face.icon
+	cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
+		$RPM_BUILD_ROOT/etc/X11/kdm/faces/root.face.icon
+
+	# konqueror/dirtree no longer supported
+	rm $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop
+
+	# Workaround for gnome menu which maps all these to "Others" dir
+	cd $RPM_BUILD_ROOT%{_desktopdir}/kde
+	for f in $(grep -El 'X-KDE-settings|X-KDE-information' *.desktop); do
+		echo "OnlyShowIn=KDE" >> $f
+	done
+	cd -
+
+	if [ -d $RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-%{version}-apidocs ]; then
+		mv -f $RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-{%{version}-,}apidocs
+	fi
+
+	%{__rm} $RPM_BUILD_ROOT/etc/X11/kdm/README
+	%{__rm} $RPM_BUILD_ROOT%{_docdir}/kdm/README
+	%{__rm} $RPM_BUILD_ROOT%{_desktopdir}/kde/kcmkicker.desktop # see r1.328
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Internet/keditbookmarks.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/LookNFeel/Themes/iconthemes.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/LookNFeel/kcmtaskbar.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/LookNFeel/panel.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/LookNFeel/panel_appearance.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/WebBrowsing/khtml_appearance.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/WebBrowsing/nsplugin.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/WebBrowsing/smb.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/System/kappfinder.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/System/kmenuedit.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/System/kpersonalizer.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Toys/ktip.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Utilities/kpager.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/fonts/override/fonts.dir
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/apps/kdisplay/app-defaults/*.ad # dunno. not packaged
+	# apparently in applnk package
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-development-translation.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-development-webdevelopment.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-development.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-editors.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-edutainment.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games-arcade.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games-board.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games-card.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games-kids.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games-roguelikes.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games-strategy.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-graphics.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-internet-terminal.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-internet.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-main.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-more.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-multimedia.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-office.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-science.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-system-screensavers.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-system-terminal.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-system.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-toys.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-unknown.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities-accessibility.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities-desktop.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities-file.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities-peripherals.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities-pim.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities-xutils.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities.directory
+
+	# cleanup *.la
+	%{__rm} $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+	%{__rm} $RPM_BUILD_ROOT%{_libdir}/libkdeinit_*.la
+
+	touch installed.stamp
+fi
+
+rm -f *.lang
+
 > core.lang
-programs="
-colors
-fonts
-kcmstyle
-kdebugdialog
-kdeprint
-kdesu
-khelpcenter
-knetattach
-kompmgr
-language
-"
-for i in $programs; do
-	%find_lang $i --with-kde
-	cat $i.lang >> core.lang
-	rm -f $i.lang
-done
+%find_lang kdebugdialog --with-kde -a core.lang
+%find_lang kdeprint --with-kde -a core.lang
+%find_lang kdesu --with-kde -a core.lang
+%find_lang khelpcenter --with-kde -a core.lang
+%find_lang knetattach --with-kde -a core.lang
+%find_lang kompmgr --with-kde -a core.lang
+%find_lang kcontrol/colors --with-kde -a core.lang
+%find_lang kcontrol/fonts --with-kde -a core.lang
+%find_lang kcontrol/kcmstyle --with-kde -a core.lang
+%find_lang kcontrol/language --with-kde -a core.lang
 
 > %{name}.lang
-programs="
-arts
-background
-bell
-clock
-desktop
-desktopbehavior
-energy
-kcmaccess
-kcmlaunch
-kcmnotify
-kcmsmserver
-kcmtaskbar
-keyboard
-keys
-kicker
-kmenuedit
-ksplashml
-kwindecoration
-kxkb
-mouse
-panel
-panelappearance
-passwords
-performance
-spellchecking
-windowmanagement
-"
-for i in $programs; do
-	%find_lang $i --with-kde
-	cat $i.lang >> %{name}.lang
-	rm -f $i.lang
-done
+%find_lang kicker --with-kde -a %{name}.lang
+%find_lang kmenuedit --with-kde -a %{name}.lang
+%find_lang ksplashml --with-kde -a %{name}.lang
+%find_lang kxkb --with-kde -a %{name}.lang
+%find_lang kcontrol/clock --with-kde -a %{name}.lang
+%find_lang kcontrol/arts --with-kde -a %{name}.lang
+%find_lang kcontrol/background --with-kde -a %{name}.lang
+%find_lang kcontrol/bell --with-kde -a %{name}.lang
+%find_lang kcontrol/desktop --with-kde -a %{name}.lang
+%find_lang kcontrol/desktopbehavior --with-kde -a %{name}.lang
+%find_lang kcontrol/energy --with-kde -a %{name}.lang
+%find_lang kcontrol/kcmaccess --with-kde -a %{name}.lang
+%find_lang kcontrol/kcmlaunch --with-kde -a %{name}.lang
+%find_lang kcontrol/kcmnotify --with-kde -a %{name}.lang
+%find_lang kcontrol/kcmsmserver --with-kde -a %{name}.lang
+%find_lang kcontrol/kcmtaskbar --with-kde -a %{name}.lang
+%find_lang kcontrol/keyboard --with-kde -a %{name}.lang
+%find_lang kcontrol/keys --with-kde -a %{name}.lang
+%find_lang kcontrol/kwindecoration --with-kde -a %{name}.lang
+%find_lang kcontrol/mouse --with-kde -a %{name}.lang
+%find_lang kcontrol/panel --with-kde -a %{name}.lang
+%find_lang kcontrol/panelappearance --with-kde -a %{name}.lang
+%find_lang kcontrol/passwords --with-kde -a %{name}.lang
+%find_lang kcontrol/performance --with-kde -a %{name}.lang
+%find_lang kcontrol/spellchecking --with-kde -a %{name}.lang
+%find_lang kcontrol/windowmanagement --with-kde -a %{name}.lang
 
-%find_lang konqueror	--with-kde
-programs="
-cache
-cookies
-crypto
-ebrowsing
-email
-filemanager
-filetypes
-icons
-kcmcss
-khtml
-netpref
-proxy
-smb
-useragent
-"
-for i in $programs; do
-	%find_lang $i --with-kde
-	cat $i.lang >> konqueror.lang
-	rm -f $i.lang
-done
+%find_lang konqueror --with-kde
+%find_lang kcontrol/cache --with-kde -a konqueror.lang
+%find_lang kcontrol/cookies --with-kde -a konqueror.lang
+%find_lang kcontrol/crypto --with-kde -a konqueror.lang
+%find_lang kcontrol/ebrowsing --with-kde -a konqueror.lang
+%find_lang kcontrol/email --with-kde -a konqueror.lang
+%find_lang kcontrol/filemanager --with-kde -a konqueror.lang
+%find_lang kcontrol/filetypes --with-kde -a konqueror.lang
+%find_lang kcontrol/icons --with-kde -a konqueror.lang
+%find_lang kcontrol/kcmcss --with-kde -a konqueror.lang
+%find_lang kcontrol/khtml --with-kde -a konqueror.lang
+%find_lang kcontrol/netpref --with-kde -a konqueror.lang
+%find_lang kcontrol/proxy --with-kde -a konqueror.lang
+%find_lang kcontrol/smb --with-kde -a konqueror.lang
+%find_lang kcontrol/useragent --with-kde -a konqueror.lang
 
-%find_lang kappfinder	--with-kde
-%find_lang kate		--with-kde
-%find_lang kcmkonsole	--with-kde
-%find_lang kdm		--with-kde
-%find_lang kfind	--with-kde
-%find_lang kcmfontinst	--with-kde
-%find_lang kdcop	--with-kde
-%find_lang kinfocenter	--with-kde
-%find_lang kioslave	--with-kde
-%find_lang klipper	--with-kde
-%find_lang konsole	--with-kde
-%find_lang ksysguard	--with-kde
-%find_lang kpager	--with-kde
-%find_lang kwrite	--with-kde
-%find_lang screensaver	--with-kde
-cat kcmkonsole.lang	>> konsole.lang
-rm -f kcmkonsole.lang
-cat kioslave.lang	>> kinfocenter.lang
-rm -f kioslave.lang
+%find_lang kappfinder --with-kde
+%find_lang kate --with-kde
+%find_lang kdm --with-kde
+%find_lang kcontrol/kdm --with-kde -a kdm.lang
+%find_lang kfind --with-kde
+%find_lang kcontrol/kcmfontinst	--with-kde -o kcmfontinst.lang
+%find_lang kdcop --with-kde
+%find_lang kinfocenter --with-kde
+%find_lang kioslave --with-kde -a kinfocenter.lang
+%find_lang klipper --with-kde
+%find_lang konsole --with-kde
+%find_lang kcontrol/kcmkonsole --with-kde -a konsole.lang
+%find_lang ksysguard --with-kde
+%find_lang kpager --with-kde
+%find_lang kwrite --with-kde
+%find_lang kcontrol/screensaver --with-kde -o screensaver.lang
 
 # Omit apidocs entries
-sed -i 's/.*apidocs.*//' *.lang
+%{__sed} -i -e '/apidocs/d' *.lang
 
-if [ -d "$RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-%{version}-apidocs" ] ; then
-	mv -f $RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-{%{version}-,}apidocs
-fi
-
-rm -f $RPM_BUILD_ROOT/etc/X11/kdm/README
-rm -f $RPM_BUILD_ROOT%{_docdir}/kdm/README
-rm -f $RPM_BUILD_ROOT%{_desktopdir}/kde/kcmkicker.desktop # see r1.328
-rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/Internet/keditbookmarks.desktop
-rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/LookNFeel/Themes/iconthemes.desktop
-rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/LookNFeel/kcmtaskbar.desktop
-rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/LookNFeel/panel.desktop
-rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/LookNFeel/panel_appearance.desktop
-rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/WebBrowsing/khtml_appearance.desktop
-rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/WebBrowsing/nsplugin.desktop
-rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/WebBrowsing/smb.desktop
-rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/System/kappfinder.desktop
-rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/System/kmenuedit.desktop
-rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/System/kpersonalizer.desktop
-rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/Toys/ktip.desktop
-rm -f $RPM_BUILD_ROOT%{_datadir}/applnk/Utilities/kpager.desktop
-rm -f $RPM_BUILD_ROOT%{_datadir}/fonts/override/fonts.dir
-rm -f $RPM_BUILD_ROOT%{_datadir}/apps/kdisplay/app-defaults/*.ad # dunno. not packaged
-# apparently in applnk package
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-development-translation.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-development-webdevelopment.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-development.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-editors.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-edutainment.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games-arcade.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games-board.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games-card.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games-kids.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games-roguelikes.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games-strategy.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-games.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-graphics.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-internet-terminal.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-internet.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-main.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-more.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-multimedia.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-office.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-science.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-system-screensavers.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-system-terminal.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-system.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-toys.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-unknown.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities-accessibility.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities-desktop.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities-file.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities-peripherals.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities-pim.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities-xutils.directory
-rm -f $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-utilities.directory
-
-# cleanup *.la
-rm $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
-rm $RPM_BUILD_ROOT%{_libdir}/libkdeinit_*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -1598,7 +1582,6 @@ fi
 %{_datadir}/services/imagethumbnail.desktop
 %{_datadir}/services/konsolepart.desktop
 %{_datadir}/services/textthumbnail.desktop
-#%{_datadir}/services/picturethumbnail.desktop
 %{_datadir}/services/thumbnail.protocol
 %{_datadir}/servicetypes/terminalemulator.desktop
 %{_datadir}/servicetypes/thumbcreator.desktop
@@ -1608,7 +1591,7 @@ fi
 %{_fontsdir}/misc/console*.gz
 %{_datadir}/apps/konsole
 %{_datadir}/mimelnk/application/x-konsole.desktop
-%{_iconsdir}/[!l]*/*/apps/bell.png
+%{_iconsdir}/crystalsvg/*/apps/bell.png
 %{_iconsdir}/*/*/apps/key_bindings.png
 
 %files core -f core.lang
@@ -1761,10 +1744,6 @@ fi
 %attr(755,root,root) %{_bindir}/kwin_rules_dialog
 %attr(755,root,root) %{_bindir}/kxkb
 %attr(755,root,root) %{_bindir}/startkde
-%attr(755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
-%attr(755,root,root) %{_libdir}/kconf_update_bin/kicker-3.4-reverseLayout
-%attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
-%attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_default_rules
 # New
 %attr(755,root,root) %{_bindir}/kbookmarkmerger
 %attr(755,root,root) %{_bindir}/kcheckrunning
@@ -1834,9 +1813,13 @@ fi
 %{_datadir}/apps/kcminput/pics
 %{_datadir}/apps/kcmkeys
 %{_datadir}/apps/kcmlocale
+%{_datadir}/apps/kconf_update/*.upd
 %attr(755,root,root) %{_datadir}/apps/kconf_update/*.pl
 %attr(755,root,root) %{_datadir}/apps/kconf_update/*.sh
-%{_datadir}/apps/kconf_update/*.upd
+%attr(755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
+%attr(755,root,root) %{_libdir}/kconf_update_bin/kicker-3.4-reverseLayout
+%attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
+%attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_default_rules
 %{_datadir}/apps/kdesktop
 %{_datadir}/apps/kdewizard
 # Do not include this!
@@ -2141,12 +2124,18 @@ fi
 %files desktop-libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libkhotkeys_shared.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkhotkeys_shared.so.1
 %attr(755,root,root) %{_libdir}/libkasbar.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkasbar.so.1
 %attr(755,root,root) %{_libdir}/libkdecorations.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkdecorations.so.1
 %attr(755,root,root) %{_libdir}/libksplashthemes.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libksplashthemes.so.0
 # Merged kicker
 %attr(755,root,root) %{_libdir}/libtaskbar.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libtaskbar.so.1
 %attr(755,root,root) %{_libdir}/libtaskmanager.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libtaskmanager.so.1
 
 %files infocenter -f kinfocenter.lang
 %defattr(644,root,root,755)
@@ -2241,6 +2230,7 @@ fi
 %attr(755,root,root) %{_bindir}/kfontinst
 %attr(755,root,root) %{_bindir}/kfontview
 %attr(755,root,root) %{_libdir}/libkfontinst.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkfontinst.so.0
 %attr(755,root,root) %{_libdir}/kde3/libkfontviewpart.so
 %attr(755,root,root) %{_libdir}/kde3/kcm_fontinst.so
 %attr(755,root,root) %{_libdir}/kde3/kio_fonts.so
@@ -2330,11 +2320,14 @@ fi
 %files libkate
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libkateinterfaces.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkateinterfaces.so.0
 %attr(755,root,root) %{_libdir}/libkateutils.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkateutils.so.0
 
 %files libksgrd
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libksgrd.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libksgrd.so.1
 
 %files screensavers -f screensaver.lang
 %defattr(644,root,root,755)
@@ -2614,5 +2607,8 @@ fi
 %files -n konqueror-libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libkickermain.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkickermain.so.1
 %attr(755,root,root) %{_libdir}/libkonq.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkonq.so.4
 %attr(755,root,root) %{_libdir}/libkonqsidebarplugin.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkonqsidebarplugin.so.1
