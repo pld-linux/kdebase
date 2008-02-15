@@ -1571,7 +1571,6 @@ fi
 %{_datadir}/services/imagethumbnail.desktop
 %{_datadir}/services/konsolepart.desktop
 %{_datadir}/services/textthumbnail.desktop
-#%{_datadir}/services/picturethumbnail.desktop
 %{_datadir}/services/thumbnail.protocol
 %{_datadir}/servicetypes/terminalemulator.desktop
 %{_datadir}/servicetypes/thumbcreator.desktop
@@ -1581,7 +1580,7 @@ fi
 %{_fontsdir}/misc/console*.gz
 %{_datadir}/apps/konsole
 %{_datadir}/mimelnk/application/x-konsole.desktop
-%{_iconsdir}/[!l]*/*/apps/bell.png
+%{_iconsdir}/crystalsvg/*/apps/bell.png
 %{_iconsdir}/*/*/apps/key_bindings.png
 
 %files core -f core.lang
