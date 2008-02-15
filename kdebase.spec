@@ -1734,10 +1734,6 @@ fi
 %attr(755,root,root) %{_bindir}/kwin_rules_dialog
 %attr(755,root,root) %{_bindir}/kxkb
 %attr(755,root,root) %{_bindir}/startkde
-%attr(755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
-%attr(755,root,root) %{_libdir}/kconf_update_bin/kicker-3.4-reverseLayout
-%attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
-%attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_default_rules
 # New
 %attr(755,root,root) %{_bindir}/kbookmarkmerger
 %attr(755,root,root) %{_bindir}/kcheckrunning
@@ -1807,9 +1803,13 @@ fi
 %{_datadir}/apps/kcminput/pics
 %{_datadir}/apps/kcmkeys
 %{_datadir}/apps/kcmlocale
+%{_datadir}/apps/kconf_update/*.upd
 %attr(755,root,root) %{_datadir}/apps/kconf_update/*.pl
 %attr(755,root,root) %{_datadir}/apps/kconf_update/*.sh
-%{_datadir}/apps/kconf_update/*.upd
+%attr(755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
+%attr(755,root,root) %{_libdir}/kconf_update_bin/kicker-3.4-reverseLayout
+%attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
+%attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_default_rules
 %{_datadir}/apps/kdesktop
 %{_datadir}/apps/kdewizard
 # Do not include this!
