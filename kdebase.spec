@@ -49,7 +49,7 @@ Source10:	%{name}-servicemenus.tar.bz2
 Source13:	%{name}-konqsidebartng-PLD-entries-0.2.tar.bz2
 # Source13-md5:	aa373b561e1cedb78b652f43e19fc122
 # Temporary taken from kde svn
-#Patch100:	%{name}-branch.diff
+Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-fontdir.patch
 # http://www.icefox.net/articles/kdeosx/grouplayer.diff
@@ -1047,7 +1047,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 %prep
 %setup -q
-#%patch100 -p0
+%patch100 -p0
 %patch0 -p1
 %patch1 -p1
 %{?with_groupwindows:%patch2 -p1}
