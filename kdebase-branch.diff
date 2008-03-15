@@ -1,7 +1,7 @@
 Index: kcontrol/ebrowsing/plugins/ikws/searchproviders/fsd.desktop
 ===================================================================
---- kcontrol/ebrowsing/plugins/ikws/searchproviders/fsd.desktop	(.../tags/KDE/3.5.9/kdebase)	(wersja 781012)
-+++ kcontrol/ebrowsing/plugins/ikws/searchproviders/fsd.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 781012)
+--- kcontrol/ebrowsing/plugins/ikws/searchproviders/fsd.desktop	(.../tags/KDE/3.5.9/kdebase)	(wersja 786050)
++++ kcontrol/ebrowsing/plugins/ikws/searchproviders/fsd.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 786050)
 @@ -60,6 +60,7 @@
  Name[zh_TW]=FSF/UNESCO 自由軟體目錄
  ServiceTypes=SearchProvider
@@ -11,10 +11,113 @@ Index: kcontrol/ebrowsing/plugins/ikws/searchproviders/fsd.desktop
 +Query[nds]=http://directory.fsf.org/search/fsd-search.py?q=\\{@}
  
  
+Index: kcontrol/kio/kcookiesmanagement.cpp
+===================================================================
+--- kcontrol/kio/kcookiesmanagement.cpp	(.../tags/KDE/3.5.9/kdebase)	(wersja 786050)
++++ kcontrol/kio/kcookiesmanagement.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 786050)
+@@ -149,7 +149,7 @@
+     {
+       QString caption = i18n ("DCOP Communication Error");
+       QString message = i18n ("Unable to delete all the cookies as requested.");
+-      KMessageBox::sorry (this, caption, message);
++      KMessageBox::sorry (this, message,caption);
+       return;
+     }
+     m_bDeleteAll = false; // deleted[Cookies|Domains] have been cleared yet    
+@@ -169,7 +169,7 @@
+     {
+       QString caption = i18n ("DCOP Communication Error");
+       QString message = i18n ("Unable to delete cookies as requested.");
+-      KMessageBox::sorry (this, caption, message);
++      KMessageBox::sorry (this, message,caption);
+       return;
+     }
+ 
+@@ -250,7 +250,7 @@
+     QString caption = i18n ("Information Lookup Failure");
+     QString message = i18n ("Unable to retrieve information about the "
+                             "cookies stored on your computer.");
+-    KMessageBox::sorry (this, caption, message);
++    KMessageBox::sorry (this, message, caption);
+     return;
+   }
+ 
+Index: kicker/extensions/taskbar/taskbarextension.desktop
+===================================================================
+--- kicker/extensions/taskbar/taskbarextension.desktop	(.../tags/KDE/3.5.9/kdebase)	(wersja 786050)
++++ kicker/extensions/taskbar/taskbarextension.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 786050)
+@@ -54,7 +54,7 @@
+ Name[pt]=Barra de Tarefas Externa
+ Name[pt_BR]=Barra de Tarefas Externa
+ Name[ro]=Bară de procese externă
+-Name[ru]=Расширенная панель задач
++Name[ru]=Внешняя панель задач
+ Name[rw]=Umurongoibikorwa w'Inyuma
+ Name[se]=Olgguldas bargoholga
+ Name[sk]=Externý taskbar
+@@ -119,7 +119,7 @@
+ Comment[pt]=Extensão do painel de barra de tarefas externa
+ Comment[pt_BR]=Extensão do painel para a barra de tarefas externa
+ Comment[ro]=Extensie pentru bară de procese externă
+-Comment[ru]=Расширение панели задач KDE
++Comment[ru]=Внешняя панель задач KDE
+ Comment[se]=Olgguldas bargoholga viiddádus
+ Comment[sk]=Rozšírenie externého panelu úloh
+ Comment[sl]=Zunanja razširitev opravilne vrstice
+Index: kioslave/media/mediamanager/halbackend.cpp
+===================================================================
+--- kioslave/media/mediamanager/halbackend.cpp	(.../tags/KDE/3.5.9/kdebase)	(wersja 786050)
++++ kioslave/media/mediamanager/halbackend.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 786050)
+@@ -849,6 +849,13 @@
+         result << tmp;
+     }
+ 
++	if ( valids.contains("locale") )
++	{
++		value = config.readBoolEntry( "locale", true );
++		tmp = QString( "locale=%1" ).arg( value ? "true" : "false" );
++		result << tmp;
++	}
++
+     if (valids.contains("utf8"))
+     {
+         value = config.readBoolEntry("utf8", true);
+@@ -922,7 +929,7 @@
+ 
+     QMap<QString,QString> valids = MediaManagerUtils::splitOptions(options);
+ 
+-    const char *names[] = { "ro", "quiet", "atime", "uid", "utf8", "flush", "sync", 0 };
++    const char *names[] = { "ro", "quiet", "atime", "uid", "utf8", "flush", "sync", "locale", 0 };
+     for (int index = 0; names[index]; ++index)
+         if (valids.contains(names[index]))
+             config.writeEntry(names[index], valids[names[index]] == "true");
+@@ -942,6 +949,10 @@
+         config.writeEntry("automount", valids["automount"]);
+     }
+ 
++	if (valids.contains("locale") ) {
++		config.writeEntry("locale", valids["locale"]);
++	}
++
+     return true;
+ }
+ 
+@@ -1140,6 +1151,11 @@
+         soptions << QString("uid=%1").arg(getuid());
+     }
+ 
++    if (valids["locale"] == "true")
++	{
++		soptions << QString("locale=%1").arg( KGlobal::locale()->language() ); 
++	}
++
+     if (valids["ro"] == "true")
+         soptions << "ro";
+ 
 Index: konqueror/konquerorsu.desktop
 ===================================================================
---- konqueror/konquerorsu.desktop	(.../tags/KDE/3.5.9/kdebase)	(wersja 781012)
-+++ konqueror/konquerorsu.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 781012)
+--- konqueror/konquerorsu.desktop	(.../tags/KDE/3.5.9/kdebase)	(wersja 786050)
++++ konqueror/konquerorsu.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 786050)
 @@ -60,7 +60,7 @@
  Name[pt]=Gestor de Ficheiros - Modo de Super Utilizador
  Name[pt_BR]=Gerenciador de Arquivos (Modo Super-Usuário)
@@ -24,10 +127,188 @@ Index: konqueror/konquerorsu.desktop
  Name[rw]=Mucungadosiye - Uburyo Ukoresha Mukuru
  Name[se]=Fiilagieđahalli – Supergeavaheaddjemodus
  Name[sk]=Správca súborov - Super-používateľský mód
+Index: khotkeys/kcontrol/actions_listview_widget.cpp
+===================================================================
+--- khotkeys/kcontrol/actions_listview_widget.cpp	(.../tags/KDE/3.5.9/kdebase)	(wersja 786050)
++++ khotkeys/kcontrol/actions_listview_widget.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 786050)
+@@ -110,6 +110,7 @@
+ //    if( nw == NULL )
+ //        nw = current_action()->itemBelow();
+     delete saved_current_item;
++    saved_current_item = NULL;
+     recent_item = NULL;
+ //    if( nw != NULL )
+ //        {
+Index: khotkeys/kcontrol/action_list_widget.cpp
+===================================================================
+--- khotkeys/kcontrol/action_list_widget.cpp	(.../tags/KDE/3.5.9/kdebase)	(wersja 786050)
++++ khotkeys/kcontrol/action_list_widget.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 786050)
+@@ -148,6 +148,8 @@
+ 
+ void Action_list_widget::copy_pressed()
+     {
++        if ( !selected_item )
++            return;
+     actions_listview->setSelected( create_listview_item( selected_item->action(),
+         selected_item->parent() ? NULL : actions_listview, selected_item->parent(),
+         selected_item, true ), true );
+@@ -156,11 +158,14 @@
+ void Action_list_widget::delete_pressed()
+     {
+     delete selected_item; // CHECKME snad vyvola signaly pro enable()
++    selected_item = NULL;
+     }
+ 
+ void Action_list_widget::modify_pressed()
+     {
+-    edit_listview_item( selected_item );
++        if ( !selected_item )
++            return;
++        edit_listview_item( selected_item );
+     }
+ 
+ void Action_list_widget::current_changed( QListViewItem* item_P )
+Index: khotkeys/kcontrol/triggers_tab.cpp
+===================================================================
+--- khotkeys/kcontrol/triggers_tab.cpp	(.../tags/KDE/3.5.9/kdebase)	(wersja 786050)
++++ khotkeys/kcontrol/triggers_tab.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 786050)
+@@ -151,19 +151,23 @@
+ 
+ void Triggers_tab::copy_pressed()
+     {
+-    triggers_listview->setSelected( create_listview_item( selected_item->trigger(),
+-        triggers_listview, selected_item, true ), true );
++        if ( selected_item )
++        {
++            triggers_listview->setSelected( create_listview_item( selected_item->trigger(),triggers_listview, selected_item, true ), true );
++        }
+     }
+ 
+ void Triggers_tab::delete_pressed()
+     {
+     delete selected_item; // CHECKME snad vyvola signaly pro enable()
++    selected_item = NULL;
+     }
+ 
+ void Triggers_tab::modify_pressed()
+-    {
+-    edit_listview_item( selected_item );
+-    }
++{
++    if ( selected_item )
++        edit_listview_item( selected_item );
++}
+ 
+ void Triggers_tab::current_changed( QListViewItem* item_P )
+     {
+Index: khotkeys/kcontrol/condition_list_widget.cpp
+===================================================================
+--- khotkeys/kcontrol/condition_list_widget.cpp	(.../tags/KDE/3.5.9/kdebase)	(wersja 786050)
++++ khotkeys/kcontrol/condition_list_widget.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 786050)
+@@ -213,6 +213,8 @@
+ 
+ void Condition_list_widget::copy_pressed()
+     {
++        if ( !selected_item )
++            return;
+     conditions_listview->setSelected( create_listview_item(
+         selected_item->condition()->copy( selected_item->condition()->parent()),
+         selected_item->parent() ? NULL : conditions_listview,
+@@ -221,13 +223,19 @@
+     }
+ 
+ void Condition_list_widget::delete_pressed()
++{
++    if ( selected_item )
+     {
+-    conditions.remove( selected_item->condition()); // we own it
+-    delete selected_item; // CHECKME snad vyvola signaly pro enable()
++        conditions.remove( selected_item->condition()); // we own it
++        delete selected_item; // CHECKME snad vyvola signaly pro enable()
++        selected_item = NULL;
+     }
++}
+ 
+ void Condition_list_widget::modify_pressed()
+     {
++        if ( !selected_item )
++            return;
+     edit_listview_item( selected_item );
+     }
+ 
+Index: kwin/main.cpp
+===================================================================
+--- kwin/main.cpp	(.../tags/KDE/3.5.9/kdebase)	(wersja 786050)
++++ kwin/main.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 786050)
+@@ -16,10 +16,12 @@
+ 
+ #include <klocale.h>
+ #include <kglobal.h>
++#include <kdebug.h>
+ #include <stdlib.h>
+ #include <kcmdlineargs.h>
+ #include <kaboutdata.h>
+ #include <dcopclient.h>
++#include <dcopref.h>
+ #include <unistd.h>
+ #include <signal.h>
+ #include <fcntl.h>
+@@ -115,12 +117,15 @@
+ 
+     options = new Options;
+     atoms = new Atoms;
+-    
++
+     // create workspace.
+     (void) new Workspace( isSessionRestored() );
+ 
+     syncX(); // trigger possible errors, there's still a chance to abort
+ 
++    DCOPRef ref( "kded", "kded" );
++    ref.send( "unloadModule", QCString( "kdetrayproxy" ));
++    
+     initting = FALSE; // startup done, we are up and running now.
+        
+     dcopClient()->send( "ksplash", "", "upAndRunning(QString)", QString("wm started"));
+@@ -138,7 +143,12 @@
+     {
+     delete Workspace::self();
+     if( owner.ownerWindow() != None ) // if there was no --replace (no new WM)
++        {
+         XSetInputFocus( qt_xdisplay(), PointerRoot, RevertToPointerRoot, qt_x_time );
++        DCOPRef ref( "kded", "kded" );
++        if( !ref.send( "loadModule", QCString( "kdetrayproxy" )))
++            kdWarning( 176 ) << "Loading of kdetrayproxy failed." << endl;
++        }
+     delete options;
+     }
+ 
+@@ -147,6 +157,9 @@
+     delete Workspace::self();
+     // remove windowmanager privileges
+     XSelectInput(qt_xdisplay(), qt_xrootwin(), PropertyChangeMask );
++    DCOPRef ref( "kded", "kded" );
++    if( !ref.send( "loadModule", QCString( "kdetrayproxy" )))
++        kdWarning( 176 ) << "Loading of kdetrayproxy failed." << endl;
+     quit();
+     }
+ 
+Index: kwin/workspace.cpp
+===================================================================
+--- kwin/workspace.cpp	(.../tags/KDE/3.5.9/kdebase)	(wersja 786050)
++++ kwin/workspace.cpp	(.../branches/KDE/3.5/kdebase)	(wersja 786050)
+@@ -1608,6 +1608,7 @@
+             }
+         }
+     systemTrayWins.remove( w );
++    XRemoveFromSaveSet (qt_xdisplay (), w);
+     propagateSystemTrayWins();
+     return TRUE;
+     }
 Index: konsole/other/sumc.desktop
 ===================================================================
---- konsole/other/sumc.desktop	(.../tags/KDE/3.5.9/kdebase)	(wersja 781012)
-+++ konsole/other/sumc.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 781012)
+--- konsole/other/sumc.desktop	(.../tags/KDE/3.5.9/kdebase)	(wersja 786050)
++++ konsole/other/sumc.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 786050)
 @@ -45,6 +45,7 @@
  Name[pt]=Midnight Commander como Root
  Name[pt_BR]=Midnight Commander - Root
@@ -47,8 +328,8 @@ Index: konsole/other/sumc.desktop
  Comment[sk]=Nový root Midnight Commander
 Index: konsole/other/su.desktop
 ===================================================================
---- konsole/other/su.desktop	(.../tags/KDE/3.5.9/kdebase)	(wersja 781012)
-+++ konsole/other/su.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 781012)
+--- konsole/other/su.desktop	(.../tags/KDE/3.5.9/kdebase)	(wersja 786050)
++++ konsole/other/su.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 786050)
 @@ -43,6 +43,7 @@
  Name[pt]=Linha de Comandos Root
  Name[pt_BR]=Shell do Root
@@ -68,8 +349,8 @@ Index: konsole/other/su.desktop
  Comment[sk]=Nový Root shell
 Index: konsole/other/shell.desktop
 ===================================================================
---- konsole/other/shell.desktop	(.../tags/KDE/3.5.9/kdebase)	(wersja 781012)
-+++ konsole/other/shell.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 781012)
+--- konsole/other/shell.desktop	(.../tags/KDE/3.5.9/kdebase)	(wersja 786050)
++++ konsole/other/shell.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 786050)
 @@ -44,6 +44,7 @@
  Name[pl]=Powłoka
  Name[pt]=Linha de Comandos
@@ -89,8 +370,8 @@ Index: konsole/other/shell.desktop
  Comment[sk]=Nový shell
 Index: konsole/other/linux.desktop
 ===================================================================
---- konsole/other/linux.desktop	(.../tags/KDE/3.5.9/kdebase)	(wersja 781012)
-+++ konsole/other/linux.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 781012)
+--- konsole/other/linux.desktop	(.../tags/KDE/3.5.9/kdebase)	(wersja 786050)
++++ konsole/other/linux.desktop	(.../branches/KDE/3.5/kdebase)	(wersja 786050)
 @@ -125,7 +125,7 @@
  Comment[pt]=Nova Consola de Linux
  Comment[pt_BR]=Novo Console do Linux
@@ -102,8 +383,8 @@ Index: konsole/other/linux.desktop
  Comment[sk]=Nová linuxová konzola
 Index: ksysguard/ksysguardd/Linux/lmsensors.c
 ===================================================================
---- ksysguard/ksysguardd/Linux/lmsensors.c	(.../tags/KDE/3.5.9/kdebase)	(wersja 781012)
-+++ ksysguard/ksysguardd/Linux/lmsensors.c	(.../branches/KDE/3.5/kdebase)	(wersja 781012)
+--- ksysguard/ksysguardd/Linux/lmsensors.c	(.../tags/KDE/3.5.9/kdebase)	(wersja 786050)
++++ ksysguard/ksysguardd/Linux/lmsensors.c	(.../branches/KDE/3.5/kdebase)	(wersja 786050)
 @@ -29,7 +29,7 @@
  
  #include "lmsensors.h"
