@@ -74,6 +74,7 @@ Patch24:	kde-ac260-lt.patch
 Patch25:	%{name}-konsole-history_clear.patch
 Patch26:	%{name}-kdm-default_background.patch
 Patch27:	%{name}-consolekit.patch
+Patch28:	%{name}-no_mkfontdir.patch
 BuildRequires:	OpenEXR-devel >= 1.4.0.a
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
@@ -1074,6 +1075,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch25 -p1
 %patch26 -p1
 %patch27 -p1
+%patch28 -p1
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
 for i in  google*.desktop
@@ -1238,7 +1240,6 @@ if [ ! -f installed.stamp ]; then
 	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/System/kpersonalizer.desktop
 	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Toys/ktip.desktop
 	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Utilities/kpager.desktop
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/fonts/override/fonts.dir
 	%{__rm} $RPM_BUILD_ROOT%{_datadir}/apps/kdisplay/app-defaults/*.ad # dunno. not packaged
 	# apparently in applnk package
 	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-development-translation.directory
