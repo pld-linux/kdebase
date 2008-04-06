@@ -946,6 +946,7 @@ Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	kde-kgreet
 Requires:	pam >= 0.99.7.1
 Requires:	rc-scripts
+Requires:	xinitrc
 Requires:	xorg-app-sessreg
 Provides:	XDM
 Obsoletes:	kdebase-kdm
