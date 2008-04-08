@@ -29,7 +29,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.9
-Release:	3
+Release:	4
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -1609,6 +1609,7 @@ fi
 %attr(755,root,root) %{_bindir}/kcminit
 %attr(755,root,root) %{_bindir}/kcminit_startup
 %attr(755,root,root) %{_bindir}/kcontrol
+%attr(755,root,root) %{_bindir}/kde3
 %attr(755,root,root) %{_bindir}/kdebugdialog
 %attr(755,root,root) %{_bindir}/kdesu
 %attr(755,root,root) %{_bindir}/khc_indexbuilder
