@@ -93,9 +93,9 @@ BuildRequires:	ed
 BuildRequires:	gettext-devel
 %{?with_apidocs:BuildRequires:	graphviz}
 BuildRequires:	hal-devel
-%{?with_kerberos5:BuildRequires: krb5-devel}
 BuildRequires:	jasper-devel
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
+%{?with_kerberos5:BuildRequires: krb5-devel}
 BuildRequires:	lame-libs-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
@@ -561,6 +561,7 @@ Requires:	kde-logoutpic
 Requires:	kde-splash-Default
 Requires:	konqueror = %{epoch}:%{version}-%{release}
 Requires:	pam >= 0.99.7.1
+Requires:	xorg-app-setxkbmap
 Requires:	xorg-app-xmessage
 Requires:	xorg-app-xprop
 Requires:	xorg-app-xset
