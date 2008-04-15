@@ -949,6 +949,8 @@ Requires:	kde-kgreet
 Requires:	pam >= 0.99.7.1
 Requires:	rc-scripts
 Requires:	xinitrc
+# xorg-app-xinit-xinitrc-1.0.8-1 doesn't provide it. this should pull xinitrc-ng in
+Requires:	/etc/X11/xinit/Xclients
 Requires:	xorg-app-sessreg
 Provides:	XDM
 Obsoletes:	kdebase-kdm
