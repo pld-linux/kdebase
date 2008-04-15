@@ -29,7 +29,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.9
-Release:	4
+Release:	5
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -563,6 +563,8 @@ Requires:	konqueror = %{epoch}:%{version}-%{release}
 Requires:	pam >= 0.99.7.1
 Requires:	xorg-app-xmessage
 Requires:	xorg-app-xprop
+Requires:	xorg-app-xset
+Requires:	xorg-app-xsetroot
 Provides:	kdebase-kicker
 Obsoletes:	kde-decoration-plastik
 Obsoletes:	kde-theme-keramik
