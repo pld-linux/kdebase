@@ -2,15 +2,15 @@
 #
 # kdm:		Starts the KDE Display Manager
 #
-# Version:	@(#) /etc/rc.d/init.d/kdm 0.1
-#
 # description:	Starts and stops the KDE Display Manager at startup and \
 #		shutdown..
 #
-# chkconfig:	5 99 1
+# chkconfig:	5 99 01
 #
 # probe:	true
 # hide:		true
+#
+# $Id$
 
 . /etc/rc.d/init.d/functions
 
@@ -42,6 +42,16 @@ stop() {
 	fi
 }
 
+condrestart() {
+	if [ -f /var/lock/subsys/kdm ]; then
+		stop
+		start
+	else
+		msg_not_running "KDE Display Manager"
+		RETVAL=$1
+	fi
+}
+
 RETVAL=0
 # See how we were called.
 case "$1" in
@@ -51,16 +61,22 @@ case "$1" in
   stop)
   	stop
 	;;
+  restart)
+	stop
+	start
+	;;
+  try-restart)
+	condrestart 0
+	;;
+  force-reload)
+	condrestart 7
+	;;
   status)
 	status kdm
 	exit $?
 	;;
-  restart|force-reload)
-	stop
-	start
-	;;
   *)
-	msg_usage "$0 {start|stop|restart|force-reload|status}"
+	msg_usage "$0 {start|stop|restart|try-restart|force-reload|status}"
 	exit 3
 esac
 
