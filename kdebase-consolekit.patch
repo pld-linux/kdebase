@@ -637,7 +637,7 @@ diff -up /dev/null kdebase-3.5.8/kdm/backend/consolekit.c
 +	add_param_string (&iter_struct, "x11-display", d->name);
 +	add_param_boolean (&iter_struct, "is-local", ((d->displayType & d_location) == dLocal));
 +#ifdef XDMCP
-+	if ((d->displayType & d_location) != dLocal) {
++	if ((d->displayType & d_location) != dLocal && d->remoteHost) {
 +		add_param_string (&iter_struct, "remote-host-name", d->remoteHost);
 +	}
 +#endif
