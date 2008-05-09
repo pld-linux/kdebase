@@ -43,7 +43,7 @@ Source5:	%{name}-kdm.Xsession
 Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-searchproviders.tar.bz2
-# Source8-md5:	582b29204e85c01a91799ed72f845312
+# Source8-md5:	126c3524b5367f5096a628acbf9dc86f
 Source10:	%{name}-servicemenus.tar.bz2
 # Source10-md5:	f48ac7af286f4c87961de4bb24d07772
 Source13:	%{name}-konqsidebartng-PLD-entries-0.2.tar.bz2
