@@ -1,0 +1,1769 @@
+--- nsplugins/sdk/npapi.h.sav	2007-12-07 16:50:16.000000000 +0100
++++ nsplugins/sdk/npapi.h	2007-12-14 13:54:58.000000000 +0100
+@@ -38,7 +38,7 @@
+ 
+ 
+ /*
+- *  npapi.h $Revision$
++ *  npapi.h $Revision$
+  *  Netscape client plug-in API spec
+  */
+ 
+@@ -126,11 +126,11 @@
+ /*----------------------------------------------------------------------*/
+ 
+ #define NP_VERSION_MAJOR 0
+-#define NP_VERSION_MINOR 11
++#define NP_VERSION_MINOR 13
+ 
+ 
+ /* The OS/2 version of Netscape uses RC_DATA to define the
+-   mime types, file extentions, etc that are required.
++   mime types, file extensions, etc that are required.
+    Use a vertical bar to separate types, end types with \0.
+    FileVersion and ProductVersion are 32bit ints, all other
+    entries are strings the MUST be terminated wwith a \0.
+@@ -387,7 +387,8 @@ typedef enum {
+ 
+   /* 12 and over are available on Mozilla builds starting with 0.9.9 */
+   NPPVjavascriptPushCallerBool = 12,
+-  NPPVpluginKeepLibraryInMemory = 13   /* available in Mozilla 1.0 */
++  NPPVpluginKeepLibraryInMemory = 13,   /* available in Mozilla 1.0 */
++  NPPVpluginNeedsXEmbed         = 14
+ } NPPVariable;
+ 
+ /*
+@@ -404,10 +405,20 @@ typedef enum {
+   /* 10 and over are available on Mozilla builds starting with 0.9.4 */
+   NPNVserviceManager = (10 | NP_ABI_MASK),
+   NPNVDOMElement     = (11 | NP_ABI_MASK),   /* available in Mozilla 1.2 */
+-  NPNVDOMWindow      = (12 | NP_ABI_MASK)
++  NPNVDOMWindow      = (12 | NP_ABI_MASK),
++  NPNVToolkit        = (13 | NP_ABI_MASK),
++  NPNVSupportsXEmbedBool = 14
+ } NPNVariable;
+ 
+ /*
++ * The type of Tookkit the widgets use
++ */
++typedef enum {
++  NPNVGtk12 = 1,
++  NPNVGtk2
++} NPNToolkitType;
++
++/*
+  * The type of a NPWindow - it specifies the type of the data structure
+  * returned in the window field.
+  */
+@@ -428,7 +439,7 @@ typedef struct _NPWindow
+   NPRect clipRect; /* Clipping rectangle in port coordinates */
+                    /* Used by MAC only.			  */
+ #if defined(XP_UNIX) && !defined(XP_MACOSX)
+-  void * ws_info; /* Platform-dependent additonal data */
++  void * ws_info; /* Platform-dependent additional data */
+ #endif /* XP_UNIX */
+   NPWindowType type; /* Is this a window or a drawable? */
+ } NPWindow;
+--- nsplugins/sdk/npupp.h.sav	2007-05-16 16:20:29.000000000 +0200
++++ nsplugins/sdk/npupp.h	2007-12-14 14:33:56.000000000 +0100
+@@ -1,11 +1,11 @@
+-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
++/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
+ /* ***** BEGIN LICENSE BLOCK *****
+- * Version: NPL 1.1/GPL 2.0/LGPL 2.1
++ * Version: MPL 1.1/GPL 2.0/LGPL 2.1
+  *
+- * The contents of this file are subject to the Netscape Public License
+- * Version 1.1 (the "License"); you may not use this file except in
+- * compliance with the License. You may obtain a copy of the License at
+- * http://www.mozilla.org/NPL/
++ * The contents of this file are subject to the Mozilla Public License Version
++ * 1.1 (the "License"); you may not use this file except in compliance with
++ * the License. You may obtain a copy of the License at
++ * http://www.mozilla.org/MPL/
+  *
+  * Software distributed under the License is distributed on an "AS IS" basis,
+  * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+@@ -14,31 +14,30 @@
+  *
+  * The Original Code is mozilla.org code.
+  *
+- * The Initial Developer of the Original Code is 
++ * The Initial Developer of the Original Code is
+  * Netscape Communications Corporation.
+  * Portions created by the Initial Developer are Copyright (C) 1998
+  * the Initial Developer. All Rights Reserved.
+  *
+  * Contributor(s):
+  *
+- *
+  * Alternatively, the contents of this file may be used under the terms of
+  * either the GNU General Public License Version 2 or later (the "GPL"), or
+  * the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+  * in which case the provisions of the GPL or the LGPL are applicable instead
+  * of those above. If you wish to allow use of your version of this file only
+  * under the terms of either the GPL or the LGPL, and not to allow others to
+- * use your version of this file under the terms of the NPL, indicate your
++ * use your version of this file under the terms of the MPL, indicate your
+  * decision by deleting the provisions above and replace them with the notice
+  * and other provisions required by the GPL or the LGPL. If you do not delete
+  * the provisions above, a recipient may use your version of this file under
+- * the terms of any one of the NPL, the GPL or the LGPL.
++ * the terms of any one of the MPL, the GPL or the LGPL.
+  *
+  * ***** END LICENSE BLOCK ***** */
+ 
+ 
+ /*
+- *  npupp.h $Revision$
++ *  npupp.h $Revision$
+  *  function call mecahnics needed by platform specific glue code.
+  */
+ 
+@@ -58,6 +57,8 @@
+ #include "npapi.h"
+ #endif
+ 
++#include "npruntime.h"
++
+ #include "jri.h"
+ 
+ /******************************************************************************************
+@@ -72,7 +73,6 @@
+ 
+ /* NPP_Initialize */
+ 
+-/*#define _NPUPP_USE_UPP_ (TARGET_RT_MAC_CFM && !TARGET_API_MAC_CARBON)*/
+ #define _NPUPP_USE_UPP_ 0
+ 
+ #if _NPUPP_USE_UPP_
+@@ -488,8 +488,6 @@ typedef NPError	(* NP_LOADDS NPP_SetValu
+ #endif
+ 
+ 
+-
+-
+ /*
+  *  Netscape entry points
+  */
+@@ -1063,6 +1061,584 @@ typedef void (* NP_LOADDS NPN_ForceRedra
+ 
+ #endif
+ 
++/* NPN_GetStringIdentifier */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_GetStringIdentifierUPP;
++enum {
++	uppNPN_GetStringIdentifierProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(const NPUTF8*)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(NPIdentifier)))
++};
++
++#define NewNPN_GetStringIdentifierProc(FUNC)		\
++		(NPN_GetStringIdentifierUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_GetStringIdentifierProcInfo, GetCurrentArchitecture())
++#define CallNPN_GetStringIdentifierProc(FUNC, ARG1)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_GetStringIdentifierProcInfo, (ARG1))	
++
++#else
++
++typedef NPIdentifier (* NP_LOADDS NPN_GetStringIdentifierUPP)(const NPUTF8* name);
++#define NewNPN_GetStringIdentifierProc(FUNC)		\
++		((NPN_GetStringIdentifierUPP) (FUNC))
++#define CallNPN_GetStringIdentifierProc(FUNC, ARG1)		\
++		(*(FUNC))((ARG1))
++
++#endif
++
++/* NPN_GetStringIdentifiers */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_GetStringIdentifiersUPP;
++enum {
++	uppNPN_GetStringIdentifiersProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(const NPUTF8**)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(int32_t)))
++		| STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(NPIdentifier*)))
++        | RESULT_SIZE(SIZE_CODE(0))
++};
++
++#define NewNPN_GetStringIdentifiersProc(FUNC)		\
++		(NPN_GetStringIdentifiersUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_GetStringIdentifiersProcInfo, GetCurrentArchitecture())
++#define CallNPN_GetStringIdentifiersProc(FUNC, ARG1, ARG2, ARG3)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_GetStringIdentifiersProcInfo, (ARG1), (ARG2), (ARG3))	
++
++#else
++
++typedef void (* NP_LOADDS NPN_GetStringIdentifiersUPP)(const NPUTF8** names,
++                                                 int32_t nameCount,
++                                                 NPIdentifier* identifiers);
++#define NewNPN_GetStringIdentifiersProc(FUNC)		\
++		((NPN_GetStringIdentifiersUPP) (FUNC))
++#define CallNPN_GetStringIdentifiersProc(FUNC, ARG1, ARG2, ARG3)		\
++		(*(FUNC))((ARG1), (ARG2), (ARG3))
++
++#endif
++
++/* NPN_GetIntIdentifier */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_GetIntIdentifierUPP;
++enum {
++	uppNPN_GetIntIdentifierProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(int32_t)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(NPIdentifier)))
++};
++
++#define NewNPN_GetIntIdentifierProc(FUNC)		\
++		(NPN_GetIntIdentifierUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_GetIntIdentifierProcInfo, GetCurrentArchitecture())
++#define CallNPN_GetIntIdentifierProc(FUNC, ARG1)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_GetIntIdentifierProcInfo, (ARG1))	
++
++#else
++
++typedef NPIdentifier (* NP_LOADDS NPN_GetIntIdentifierUPP)(int32_t intid);
++#define NewNPN_GetIntIdentifierProc(FUNC)		\
++		((NPN_GetIntIdentifierUPP) (FUNC))
++#define CallNPN_GetIntIdentifierProc(FUNC, ARG1)		\
++		(*(FUNC))((ARG1))
++
++#endif
++
++/* NPN_IdentifierIsString */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_IdentifierIsStringUPP;
++enum {
++	uppNPN_IdentifierIsStringProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPIdentifier identifier)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(bool)))
++};
++
++#define NewNPN_IdentifierIsStringProc(FUNC)		\
++		(NPN_IdentifierIsStringUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_IdentifierIsStringProcInfo, GetCurrentArchitecture())
++#define CallNPN_IdentifierIsStringProc(FUNC, ARG1)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_IdentifierIsStringProcInfo, (ARG1))	
++
++#else
++
++typedef bool (* NP_LOADDS NPN_IdentifierIsStringUPP)(NPIdentifier identifier);
++#define NewNPN_IdentifierIsStringProc(FUNC)		\
++		((NPN_IdentifierIsStringUPP) (FUNC))
++#define CallNPN_IdentifierIsStringProc(FUNC, ARG1)		\
++		(*(FUNC))((ARG1))
++
++#endif
++
++/* NPN_UTF8FromIdentifier */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_UTF8FromIdentifierUPP;
++enum {
++	uppNPN_UTF8FromIdentifierProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPIdentifier)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(NPUTF8*)))
++};
++
++#define NewNPN_UTF8FromIdentifierProc(FUNC)		\
++		(NPN_UTF8FromIdentifierUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_UTF8FromIdentifierProcInfo, GetCurrentArchitecture())
++#define CallNPN_UTF8FromIdentifierProc(FUNC, ARG1)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_UTF8FromIdentifierProcInfo, (ARG1))	
++
++#else
++
++typedef NPUTF8* (* NP_LOADDS NPN_UTF8FromIdentifierUPP)(NPIdentifier identifier);
++#define NewNPN_UTF8FromIdentifierProc(FUNC)		\
++		((NPN_UTF8FromIdentifierUPP) (FUNC))
++#define CallNPN_UTF8FromIdentifierProc(FUNC, ARG1)		\
++		(*(FUNC))((ARG1))
++
++#endif
++
++/* NPN_IntFromIdentifier */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_IntFromIdentifierUPP;
++enum {
++	uppNPN_IntFromIdentifierProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPIdentifier)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(int32_t)))
++};
++
++#define NewNPN_IntFromIdentifierProc(FUNC)		\
++		(NPN_IntFromIdentifierUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_IntFromIdentifierProcInfo, GetCurrentArchitecture())
++#define CallNPN_IntFromIdentifierProc(FUNC, ARG1)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_IntFromIdentifierProcInfo, (ARG1))	
++
++#else
++
++typedef int32_t (* NP_LOADDS NPN_IntFromIdentifierUPP)(NPIdentifier identifier);
++#define NewNPN_IntFromIdentifierProc(FUNC)		\
++		((NPN_IntFromIdentifierUPP) (FUNC))
++#define CallNPN_IntFromIdentifierProc(FUNC, ARG1)		\
++		(*(FUNC))((ARG1))
++
++#endif
++
++/* NPN_CreateObject */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_CreateObjectUPP;
++enum {
++	uppNPN_CreateObjectProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(NPClass*)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(NPObject*)))
++};
++
++#define NewNPN_CreateObjectProc(FUNC)		\
++		(NPN_CreateObjectUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_CreateObjectProcInfo, GetCurrentArchitecture())
++#define CallNPN_CreateObjectProc(FUNC, ARG1, ARG2)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_CreateObjectProcInfo, (ARG1), (ARG2))	
++
++#else
++
++typedef NPObject* (* NP_LOADDS NPN_CreateObjectUPP)(NPP npp, NPClass *aClass);
++#define NewNPN_CreateObjectProc(FUNC)		\
++		((NPN_CreateObjectUPP) (FUNC))
++#define CallNPN_CreateObjectProc(FUNC, ARG1, ARG2)		\
++		(*(FUNC))((ARG1), (ARG2))
++
++#endif
++
++/* NPN_RetainObject */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_RetainObjectUPP;
++enum {
++	uppNPN_RetainObjectProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPObject*)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(NPObject*)))
++};
++
++#define NewNPN_RetainObjectProc(FUNC)		\
++		(NPN_RetainObjectUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_RetainObjectProcInfo, GetCurrentArchitecture())
++#define CallNPN_RetainObjectProc(FUNC, ARG1)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_RetainObjectProcInfo, (ARG1))	
++
++#else
++
++typedef NPObject* (* NP_LOADDS NPN_RetainObjectUPP)(NPObject *obj);
++#define NewNPN_RetainObjectProc(FUNC)		\
++		((NPN_RetainObjectUPP) (FUNC))
++#define CallNPN_RetainObjectProc(FUNC, ARG1)		\
++		(*(FUNC))((ARG1))
++
++#endif
++
++/* NPN_ReleaseObject */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_ReleaseObjectUPP;
++enum {
++	uppNPN_ReleaseObjectProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPObject*)))
++		| RESULT_SIZE(SIZE_CODE(0))
++};
++
++#define NewNPN_ReleaseObjectProc(FUNC)		\
++		(NPN_ReleaseObjectUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_ReleaseObjectProcInfo, GetCurrentArchitecture())
++#define CallNPN_ReleaseObjectProc(FUNC, ARG1)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_ReleaseObjectProcInfo, (ARG1))
++
++#else
++
++typedef void (* NP_LOADDS NPN_ReleaseObjectUPP)(NPObject *obj);
++#define NewNPN_ReleaseObjectProc(FUNC)		\
++		((NPN_ReleaseObjectUPP) (FUNC))
++#define CallNPN_ReleaseObjectProc(FUNC, ARG1)		\
++		(*(FUNC))((ARG1))
++
++#endif
++
++/* NPN_Invoke */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_InvokeUPP;
++enum {
++	uppNPN_InvokeProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(NPObject*)))
++		| STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(NPIdentifier)))
++		| STACK_ROUTINE_PARAMETER(4, SIZE_CODE(sizeof(const NPVariant*)))
++		| STACK_ROUTINE_PARAMETER(5, SIZE_CODE(sizeof(uint32_t)))
++		| STACK_ROUTINE_PARAMETER(6, SIZE_CODE(sizeof(NPVariant*)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(bool)))
++};
++
++#define NewNPN_InvokeProc(FUNC)		\
++		(NPN_InvokeUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_InvokeProcInfo, GetCurrentArchitecture())
++#define CallNPN_InvokeProc(FUNC, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_InvokeProcInfo, (ARG1), (ARG2), (ARG3), (ARG4), (ARG5), (ARG6))
++
++#else
++
++typedef bool (* NP_LOADDS NPN_InvokeUPP)(NPP npp, NPObject* obj, NPIdentifier methodName, const NPVariant *args, uint32_t argCount, NPVariant *result);
++#define NewNPN_InvokeProc(FUNC)		\
++		((NPN_InvokeUPP) (FUNC))
++#define CallNPN_InvokeProc(FUNC, ARG1, ARG2, ARG3, ARG4, ARG5, ARG6)		\
++		(*(FUNC))((ARG1), (ARG2), (ARG3), (ARG4), (ARG5), (ARG6))
++
++#endif
++
++/* NPN_InvokeDefault */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_InvokeDefaultUPP;
++enum {
++	uppNPN_InvokeDefaultProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(NPObject*)))
++		| STACK_ROUTINE_PARAMETER(4, SIZE_CODE(sizeof(const NPVariant*)))
++		| STACK_ROUTINE_PARAMETER(5, SIZE_CODE(sizeof(uint32_t)))
++		| STACK_ROUTINE_PARAMETER(6, SIZE_CODE(sizeof(NPVariant*)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(bool)))
++};
++
++#define NewNPN_InvokeDefaultProc(FUNC)		\
++		(NPN_InvokeDefaultUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_InvokeDefaultProcInfo, GetCurrentArchitecture())
++#define CallNPN_InvokeDefaultProc(FUNC, ARG1, ARG2, ARG3, ARG4, ARG5)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_InvokeDefaultProcInfo, (ARG1), (ARG2), (ARG3), (ARG4), (ARG5))
++
++#else
++
++typedef bool (* NP_LOADDS NPN_InvokeDefaultUPP)(NPP npp, NPObject* obj, const NPVariant *args, uint32_t argCount, NPVariant *result);
++#define NewNPN_InvokeDefaultProc(FUNC)		\
++		((NPN_InvokeDefaultUPP) (FUNC))
++#define CallNPN_InvokeDefaultProc(FUNC, ARG1, ARG2, ARG3, ARG4, ARG5)		\
++		(*(FUNC))((ARG1), (ARG2), (ARG3), (ARG4), (ARG5))
++
++#endif
++
++/* NPN_Evaluate */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_EvaluateUPP;
++enum {
++	uppNPN_EvaluateProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(NPObject*)))
++		| STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(NPString*)))
++		| STACK_ROUTINE_PARAMETER(4, SIZE_CODE(sizeof(NPVariant*)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(bool)))
++};
++
++#define NewNPN_EvaluateProc(FUNC)		\
++		(NPN_EvaluateUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_EvaluateProcInfo, GetCurrentArchitecture())
++#define CallNPN_EvaluateProc(FUNC, ARG1, ARG2, ARG3, ARG4)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_EvaluateProcInfo, (ARG1), (ARG2), (ARG3), (ARG4))
++
++#else
++
++typedef bool (* NP_LOADDS NPN_EvaluateUPP)(NPP npp, NPObject *obj, NPString *script, NPVariant *result);
++#define NewNPN_EvaluateProc(FUNC)		\
++		((NPN_EvaluateUPP) (FUNC))
++#define CallNPN_EvaluateProc(FUNC, ARG1, ARG2, ARG3, ARG4)		\
++		(*(FUNC))((ARG1), (ARG2), (ARG3), (ARG4))
++
++#endif
++
++/* NPN_GetProperty */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_GetPropertyUPP;
++enum {
++	uppNPN_GetPropertyProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(NPObject*)))
++		| STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(NPIdentifier)))
++		| STACK_ROUTINE_PARAMETER(4, SIZE_CODE(sizeof(NPVariant*)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(bool)))
++};
++
++#define NewNPN_GetPropertyProc(FUNC)		\
++		(NPN_GetPropertyUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_GetPropertyProcInfo, GetCurrentArchitecture())
++#define CallNPN_GetPropertyProc(FUNC, ARG1, ARG2, ARG3, ARG4)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_GetPropertyProcInfo, (ARG1), (ARG2), (ARG3), (ARG4))
++
++#else
++
++typedef bool (* NP_LOADDS NPN_GetPropertyUPP)(NPP npp, NPObject *obj, NPIdentifier propertyName, NPVariant *result);
++#define NewNPN_GetPropertyProc(FUNC)		\
++		((NPN_GetPropertyUPP) (FUNC))
++#define CallNPN_GetPropertyProc(FUNC, ARG1, ARG2, ARG3, ARG4)		\
++		(*(FUNC))((ARG1), (ARG2), (ARG3), (ARG4))
++
++#endif
++
++/* NPN_SetProperty */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_SetPropertyUPP;
++enum {
++	uppNPN_SetPropertyProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(NPObject*)))
++		| STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(NPIdentifier)))
++		| STACK_ROUTINE_PARAMETER(4, SIZE_CODE(sizeof(const NPVariant*)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(bool)))
++};
++
++#define NewNPN_SetPropertyProc(FUNC)		\
++		(NPN_SetPropertyUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_SetPropertyProcInfo, GetCurrentArchitecture())
++#define CallNPN_SetPropertyProc(FUNC, ARG1, ARG2, ARG3, ARG4)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_SetPropertyProcInfo, (ARG1), (ARG2), (ARG3), (ARG4))
++
++#else
++
++typedef bool (* NP_LOADDS NPN_SetPropertyUPP)(NPP npp, NPObject *obj, NPIdentifier propertyName, const NPVariant *value);
++#define NewNPN_SetPropertyProc(FUNC)		\
++		((NPN_SetPropertyUPP) (FUNC))
++#define CallNPN_SetPropertyProc(FUNC, ARG1, ARG2, ARG3, ARG4)		\
++		(*(FUNC))((ARG1), (ARG2), (ARG3), (ARG4))
++
++#endif
++
++/* NPN_RemoveProperty */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_RemovePropertyUPP;
++enum {
++	uppNPN_RemovePropertyProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(NPObject*)))
++		| STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(NPIdentifier)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(bool)))
++};
++
++#define NewNPN_RemovePropertyProc(FUNC)		\
++		(NPN_RemovePropertyUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_RemovePropertyProcInfo, GetCurrentArchitecture())
++#define CallNPN_RemovePropertyProc(FUNC, ARG1, ARG2, ARG3)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_RemovePropertyProcInfo, (ARG1), (ARG2), (ARG3))
++
++#else
++
++typedef bool (* NP_LOADDS NPN_RemovePropertyUPP)(NPP npp, NPObject *obj, NPIdentifier propertyName);
++#define NewNPN_RemovePropertyProc(FUNC)		\
++		((NPN_RemovePropertyUPP) (FUNC))
++#define CallNPN_RemovePropertyProc(FUNC, ARG1, ARG2, ARG3)		\
++		(*(FUNC))((ARG1), (ARG2), (ARG3))
++
++#endif
++
++/* NPN_HasProperty */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_HasPropertyUPP;
++enum {
++	uppNPN_HasPropertyProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(NPObject*)))
++		| STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(NPIdentifier)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(bool)))
++};
++
++#define NewNPN_HasPropertyProc(FUNC)		\
++		(NPN_HasPropertyUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_HasPropertyProcInfo, GetCurrentArchitecture())
++#define CallNPN_HasPropertyProc(FUNC, ARG1, ARG2, ARG3)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_HasPropertyProcInfo, (ARG1), (ARG2), (ARG3))
++
++#else
++
++typedef bool (* NP_LOADDS NPN_HasPropertyUPP)(NPP npp, NPObject *obj, NPIdentifier propertyName);
++#define NewNPN_HasPropertyProc(FUNC)		\
++		((NPN_HasPropertyUPP) (FUNC))
++#define CallNPN_HasPropertyProc(FUNC, ARG1, ARG2, ARG3)		\
++		(*(FUNC))((ARG1), (ARG2), (ARG3))
++
++#endif
++
++/* NPN_HasMethod */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_HasMethodUPP;
++enum {
++	uppNPN_HasMethodProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(NPObject*)))
++		| STACK_ROUTINE_PARAMETER(3, SIZE_CODE(sizeof(NPIdentifier)))
++		| RESULT_SIZE(SIZE_CODE(sizeof(bool)))
++};
++
++#define NewNPN_HasMethodProc(FUNC)		\
++		(NPN_HasMethodUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_HasMethodProcInfo, GetCurrentArchitecture())
++#define CallNPN_HasMethodProc(FUNC, ARG1, ARG2, ARG3)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_HasMethodProcInfo, (ARG1), (ARG2), (ARG3))
++
++#else
++
++typedef bool (* NP_LOADDS NPN_HasMethodUPP)(NPP npp, NPObject *obj, NPIdentifier propertyName);
++#define NewNPN_HasMethodProc(FUNC)		\
++		((NPN_HasMethodUPP) (FUNC))
++#define CallNPN_HasMethodProc(FUNC, ARG1, ARG2, ARG3)		\
++		(*(FUNC))((ARG1), (ARG2), (ARG3))
++
++#endif
++
++/* NPN_ReleaseVariantValue */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_ReleaseVariantValue;
++enum {
++	uppNPN_ReleaseVariantValueProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPVariant*)))
++		| RESULT_SIZE(SIZE_CODE(0))
++};
++
++#define NewNPN_ReleaseVariantValueProc(FUNC)		\
++		(NPN_ReleaseVariantValueUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_ReleaseVariantValueProcInfo, GetCurrentArchitecture())
++#define CallNPN_ReleaseVariantValueProc(FUNC, ARG1)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_ReleaseVariantValueProcInfo, (ARG1))	
++
++#else
++
++typedef void (* NP_LOADDS NPN_ReleaseVariantValueUPP)(NPVariant *variant);
++#define NewNPN_ReleaseVariantValueProc(FUNC)		\
++		((NPN_ReleaseVariantValueUPP) (FUNC))
++#define CallNPN_ReleaseVariantValueProc(FUNC, ARG1)		\
++		(*(FUNC))((ARG1))
++
++#endif
++
++/* NPN_SetException */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_SetExceptionUPP;
++enum {
++	uppNPN_SetExceptionProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPObject*)))
++		| STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(const NPUTF8*)))
++		| RESULT_SIZE(SIZE_CODE(0))
++};
++
++#define NewNPN_SetExceptionProc(FUNC)		\
++		(NPN_SetExceptionUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_SetExceptionProcInfo, GetCurrentArchitecture())
++#define CallNPN_SetExceptionProc(FUNC, ARG1, ARG2)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_SetExceptionProcInfo, (ARG1), (ARG2))	
++
++#else
++
++typedef void (* NP_LOADDS NPN_SetExceptionUPP)(NPObject *obj, const NPUTF8 *message);
++#define NewNPN_SetExceptionProc(FUNC)		\
++		((NPN_SetExceptionUPP) (FUNC))
++#define CallNPN_SetExceptionProc(FUNC, ARG1, ARG2)		\
++		(*(FUNC))((ARG1), (ARG2))	
++
++#endif
++
++/* NPN_PushPopupsEnabledStateUPP */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_PushPopupsEnabledStateUPP;
++enum {
++	uppNPN_PushPopupsEnabledStateProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++        | STACK_ROUTINE_PARAMETER(2, SIZE_CODE(sizeof(NPBool)))
++		| RESULT_SIZE(SIZE_CODE(0))
++};
++
++#define NewNPN_PushPopupsEnabledStateProc(FUNC)		\
++		(NPN_PushPopupsEnabledStateUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_PushPopupsEnabledStateProcInfo, GetCurrentArchitecture())
++#define CallNPN_PushPopupsEnabledStateProc(FUNC, ARG1, ARG2)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_PushPopupsEnabledStateProcInfo, (ARG1), (ARG2))
++
++#else
++
++typedef bool (* NP_LOADDS NPN_PushPopupsEnabledStateUPP)(NPP npp, NPBool enabled);
++#define NewNPN_PushPopupsEnabledStateProc(FUNC)		\
++		((NPN_PushPopupsEnabledStateUPP) (FUNC))
++#define CallNPN_PushPopupsEnabledStateProc(FUNC, ARG1, ARG2)		\
++		(*(FUNC))((ARG1), (ARG2))
++
++#endif
++
++/* NPN_PopPopupsEnabledState */
++
++#if _NPUPP_USE_UPP_
++
++typedef UniversalProcPtr NPN_PopPopupsEnabledStateUPP;
++enum {
++	uppNPN_PopPopupsEnabledStateProcInfo = kThinkCStackBased
++		| STACK_ROUTINE_PARAMETER(1, SIZE_CODE(sizeof(NPP)))
++		| RESULT_SIZE(SIZE_CODE(0))
++};
++
++#define NewNPN_PopPopupsEnabledStateProc(FUNC)		\
++		(NPN_PopPopupsEnabledStateUPP) NewRoutineDescriptor((ProcPtr)(FUNC), uppNPN_PopPopupsEnabledStateProcInfo, GetCurrentArchitecture())
++#define CallNPN_PopPopupsEnabledStateProc(FUNC, ARG1)		\
++		(jref)CallUniversalProc((UniversalProcPtr)(FUNC), uppNPN_PopPopupsEnabledStateProcInfo, (ARG1))
++
++#else
++
++typedef bool (* NP_LOADDS NPN_PopPopupsEnabledStateUPP)(NPP npp);
++#define NewNPN_PopPopupsEnabledStateProc(FUNC)		\
++		((NPN_PopPopupsEnabledStateUPP) (FUNC))
++#define CallNPN_PopPopupsEnabledStateProc(FUNC, ARG1)		\
++		(*(FUNC))((ARG1))
++
++#endif
++
++
+ 
+ /******************************************************************************************
+  * The actual plugin function table definitions
+@@ -1117,6 +1693,27 @@ typedef struct _NPNetscapeFuncs {
+     NPN_InvalidateRectUPP invalidaterect;
+     NPN_InvalidateRegionUPP invalidateregion;
+     NPN_ForceRedrawUPP forceredraw;
++    NPN_GetStringIdentifierUPP getstringidentifier;
++    NPN_GetStringIdentifiersUPP getstringidentifiers;
++    NPN_GetIntIdentifierUPP getintidentifier;
++    NPN_IdentifierIsStringUPP identifierisstring;
++    NPN_UTF8FromIdentifierUPP utf8fromidentifier;
++    NPN_IntFromIdentifierUPP intfromidentifier;
++    NPN_CreateObjectUPP createobject;
++    NPN_RetainObjectUPP retainobject;
++    NPN_ReleaseObjectUPP releaseobject;
++    NPN_InvokeUPP invoke;
++    NPN_InvokeDefaultUPP invokeDefault;
++    NPN_EvaluateUPP evaluate;
++    NPN_GetPropertyUPP getproperty;
++    NPN_SetPropertyUPP setproperty;
++    NPN_RemovePropertyUPP removeproperty;
++    NPN_HasPropertyUPP hasproperty;
++    NPN_HasMethodUPP hasmethod;
++    NPN_ReleaseVariantValueUPP releasevariantvalue;
++    NPN_SetExceptionUPP setexception;
++    NPN_PushPopupsEnabledStateUPP pushpopupsenabledstate;
++    NPN_PopPopupsEnabledStateUPP poppopupsenabledstate;
+ } NPNetscapeFuncs;
+ 
+ #ifdef XP_MAC
+--- nsplugins/sdk/prcpucfg.h.sav	2007-05-16 16:20:29.000000000 +0200
++++ nsplugins/sdk/prcpucfg.h	2007-12-14 13:54:58.000000000 +0100
+@@ -276,7 +276,7 @@
+ #define PR_BYTES_PER_WORD_LOG2   2
+ #define PR_BYTES_PER_DWORD_LOG2  3
+ 
+-#elif defined(__sparc__)
++#elif defined(__sparc__) || (defined(__SUNPRO_CC) && defined(__sparc))
+ 
+ #undef	IS_LITTLE_ENDIAN
+ #define	IS_BIG_ENDIAN 1
+@@ -321,7 +321,7 @@
+ #define PR_BYTES_PER_WORD_LOG2   2
+ #define PR_BYTES_PER_DWORD_LOG2  3
+ 
+-#elif defined(__i386__)
++#elif defined(__i386__) || (defined(__SUNPRO_CC) && defined(__i386))
+ 
+ #define IS_LITTLE_ENDIAN 1
+ #undef  IS_BIG_ENDIAN
+--- nsplugins/sdk/npruntime.h.sav	2007-12-14 15:52:48.000000000 +0100
++++ nsplugins/sdk/npruntime.h	2007-12-14 14:33:34.000000000 +0100
+@@ -0,0 +1,399 @@
++/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
++/*
++ * Copyright � 2004, Apple Computer, Inc. and The Mozilla Foundation. 
++ * All rights reserved.
++ * 
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions are
++ * met:
++ * 
++ * 1. Redistributions of source code must retain the above copyright
++ * notice, this list of conditions and the following disclaimer.
++ * 2. Redistributions in binary form must reproduce the above copyright
++ * notice, this list of conditions and the following disclaimer in the
++ * documentation and/or other materials provided with the distribution.
++ * 3. Neither the names of Apple Computer, Inc. ("Apple") or The Mozilla
++ * Foundation ("Mozilla") nor the names of their contributors may be used
++ * to endorse or promote products derived from this software without
++ * specific prior written permission.
++ * 
++ * THIS SOFTWARE IS PROVIDED BY APPLE, MOZILLA AND THEIR CONTRIBUTORS "AS
++ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
++ * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
++ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL APPLE, MOZILLA OR
++ * THEIR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
++ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
++ * TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
++ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
++ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
++ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
++ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ *
++ * Revision 1 (March 4, 2004):
++ * Initial proposal.
++ *
++ * Revision 2 (March 10, 2004):
++ * All calls into script were made asynchronous.  Results are
++ * provided via the NPScriptResultFunctionPtr callback.
++ *
++ * Revision 3 (March 10, 2004):
++ * Corrected comments to not refer to class retain/release FunctionPtrs.
++ *
++ * Revision 4 (March 11, 2004):
++ * Added additional convenience NPN_SetExceptionWithUTF8().
++ * Changed NPHasPropertyFunctionPtr and NPHasMethodFunctionPtr to take NPClass
++ * pointers instead of NPObject pointers.
++ * Added NPIsValidIdentifier().
++ *
++ * Revision 5 (March 17, 2004):
++ * Added context parameter to result callbacks from ScriptObject functions.
++ *
++ * Revision 6 (March 29, 2004):
++ * Renamed functions implemented by user agent to NPN_*.  Removed _ from
++ * type names.
++ * Renamed "JavaScript" types to "Script".
++ *
++ * Revision 7 (April 21, 2004):
++ * NPIdentifier becomes a void*, was int32_t
++ * Remove NP_IsValidIdentifier, renamed NP_IdentifierFromUTF8 to NP_GetIdentifier
++ * Added NPVariant and modified functions to use this new type.
++ *
++ * Revision 8 (July 9, 2004):
++ * Updated to joint Apple-Mozilla license.
++ *
++ */
++#ifndef _NP_RUNTIME_H_
++#define _NP_RUNTIME_H_
++
++#include <qglobal.h>
++typedef Q_UINT32 uint32_t;
++
++#ifdef __cplusplus
++extern "C" {
++#endif
++
++
++/*
++    This API is used to facilitate binding code written in C to script
++    objects.  The API in this header does not assume the presence of a
++    user agent.  That is, it can be used to bind C code to scripting
++    environments outside of the context of a user agent.
++    
++    However, the normal use of the this API is in the context of a
++    scripting environment running in a browser or other user agent.
++    In particular it is used to support the extended Netscape
++    script-ability API for plugins (NP-SAP).  NP-SAP is an extension
++    of the Netscape plugin API.  As such we have adopted the use of
++    the "NP" prefix for this API.
++
++    The following NP{N|P}Variables were added to the Netscape plugin
++    API (in npapi.h):
++
++    NPNVWindowNPObject
++    NPNVPluginElementNPObject
++    NPPVpluginScriptableNPObject
++
++    These variables are exposed through NPN_GetValue() and
++    NPP_GetValue() (respectively) and are used to establish the
++    initial binding between the user agent and native code.  The DOM
++    objects in the user agent can be examined and manipulated using
++    the NPN_ functions that operate on NPObjects described in this
++    header.
++
++    To the extent possible the assumptions about the scripting
++    language used by the scripting environment have been minimized.
++*/
++
++#define NP_BEGIN_MACRO  do {
++#define NP_END_MACRO    } while (0)
++
++/*
++    Objects (non-primitive data) passed between 'C' and script is
++    always wrapped in an NPObject.  The 'interface' of an NPObject is
++    described by an NPClass.
++*/
++typedef struct NPObject NPObject;
++typedef struct NPClass NPClass;
++
++typedef char NPUTF8;
++typedef struct _NPString {
++    const NPUTF8 *utf8characters;
++    uint32_t utf8length;
++} NPString;
++
++typedef enum {
++    NPVariantType_Void,
++    NPVariantType_Null,
++    NPVariantType_Bool,
++    NPVariantType_Int32,
++    NPVariantType_Double,
++    NPVariantType_String,
++    NPVariantType_Object
++} NPVariantType;
++
++typedef struct _NPVariant {
++    NPVariantType type;
++    union {
++        bool boolValue;
++        uint32_t intValue;
++        double doubleValue;
++        NPString stringValue;
++        NPObject *objectValue;
++    } value;
++} NPVariant;
++
++/*
++    NPN_ReleaseVariantValue is called on all 'out' parameters
++    references.  Specifically it is to be called on variants that own
++    their value, as is the case with all non-const NPVariant*
++    arguments after a successful call to any methods (except this one)
++    in this API.
++
++    After calling NPN_ReleaseVariantValue, the type of the variant
++    will be NPVariantType_Void.
++*/
++void NPN_ReleaseVariantValue(NPVariant *variant);
++
++#define NPVARIANT_IS_VOID(_v)    ((_v).type == NPVariantType_Void)
++#define NPVARIANT_IS_NULL(_v)    ((_v).type == NPVariantType_Null)
++#define NPVARIANT_IS_BOOLEAN(_v) ((_v).type == NPVariantType_Bool)
++#define NPVARIANT_IS_INT32(_v)   ((_v).type == NPVariantType_Int32)
++#define NPVARIANT_IS_DOUBLE(_v)  ((_v).type == NPVariantType_Double)
++#define NPVARIANT_IS_STRING(_v)  ((_v).type == NPVariantType_String)
++#define NPVARIANT_IS_OBJECT(_v)  ((_v).type == NPVariantType_Object)
++
++#define NPVARIANT_TO_BOOLEAN(_v) ((_v).value.boolValue)
++#define NPVARIANT_TO_INT32(_v)   ((_v).value.intValue)
++#define NPVARIANT_TO_DOUBLE(_v)  ((_v).value.doubleValue)
++#define NPVARIANT_TO_STRING(_v)  ((_v).value.stringValue)
++#define NPVARIANT_TO_OBJECT(_v)  ((_v).value.objectValue)
++
++#define VOID_TO_NPVARIANT(_v)                                                 \
++NP_BEGIN_MACRO                                                                \
++    (_v).type = NPVariantType_Void;                                           \
++    (_v).value.objectValue = NULL;                                            \
++NP_END_MACRO
++
++#define NULL_TO_NPVARIANT(_v)                                                 \
++NP_BEGIN_MACRO                                                                \
++    (_v).type = NPVariantType_Null;                                           \
++    (_v).value.objectValue = NULL;                                            \
++NP_END_MACRO
++
++#define BOOLEAN_TO_NPVARIANT(_val, _v)                                        \
++NP_BEGIN_MACRO                                                                \
++    (_v).type = NPVariantType_Bool;                                           \
++    (_v).value.boolValue = !!(_val);                                          \
++NP_END_MACRO
++
++#define INT32_TO_NPVARIANT(_val, _v)                                          \
++NP_BEGIN_MACRO                                                                \
++    (_v).type = NPVariantType_Int32;                                          \
++    (_v).value.intValue = _val;                                               \
++NP_END_MACRO
++
++#define DOUBLE_TO_NPVARIANT(_val, _v)                                         \
++NP_BEGIN_MACRO                                                                \
++    (_v).type = NPVariantType_Double;                                         \
++    (_v).value.doubleValue = _val;                                            \
++NP_END_MACRO
++
++#define STRINGZ_TO_NPVARIANT(_val, _v)                                        \
++NP_BEGIN_MACRO                                                                \
++    (_v).type = NPVariantType_String;                                         \
++    NPString str = { _val, strlen(_val) };                                    \
++    (_v).value.stringValue = str;                                             \
++NP_END_MACRO
++
++#define STRINGN_TO_NPVARIANT(_val, _len, _v)                                  \
++NP_BEGIN_MACRO                                                                \
++    (_v).type = NPVariantType_String;                                         \
++    NPString str = { _val, _len };                                            \
++    (_v).value.stringValue = str;                                             \
++NP_END_MACRO
++
++#define OBJECT_TO_NPVARIANT(_val, _v)                                         \
++NP_BEGIN_MACRO                                                                \
++    (_v).type = NPVariantType_Object;                                         \
++    (_v).value.objectValue = _val;                                            \
++NP_END_MACRO
++
++
++/*
++	Type mappings (JavaScript types have been used for illustration
++    purposes):
++
++	JavaScript       to             C (NPVariant with type:)
++	undefined                       NPVariantType_Void
++	null                            NPVariantType_Null
++	Boolean                         NPVariantType_Bool
++	Number                          NPVariantType_Double or NPVariantType_Int32
++	String                          NPVariantType_String
++	Object                          NPVariantType_Object
++
++	C (NPVariant with type:)   to   JavaScript
++	NPVariantType_Void              undefined
++	NPVariantType_Null              null
++	NPVariantType_Bool              Boolean	
++	NPVariantType_Int32             Number
++	NPVariantType_Double            Number
++	NPVariantType_String            String
++	NPVariantType_Object            Object
++*/
++
++typedef void *NPIdentifier;
++
++/*
++    NPObjects have methods and properties.  Methods and properties are
++    identified with NPIdentifiers.  These identifiers may be reflected
++    in script.  NPIdentifiers can be either strings or integers, IOW,
++    methods and properties can be identified by either strings or
++    integers (i.e. foo["bar"] vs foo[1]). NPIdentifiers can be
++    compared using ==.  In case of any errors, the requested
++    NPIdentifier(s) will be NULL.
++*/
++NPIdentifier NPN_GetStringIdentifier(const NPUTF8 *name);
++void NPN_GetStringIdentifiers(const NPUTF8 **names, int32_t nameCount,
++                              NPIdentifier *identifiers);
++NPIdentifier NPN_GetIntIdentifier(int32_t intid);
++bool NPN_IdentifierIsString(NPIdentifier identifier);
++
++/*
++    The NPUTF8 returned from NPN_UTF8FromIdentifier SHOULD be freed.
++*/
++NPUTF8 *NPN_UTF8FromIdentifier(NPIdentifier identifier);
++
++/*
++    Get the integer represented by identifier. If identifier is not an
++    integer identifier, the behaviour is undefined.
++*/
++int32_t NPN_IntFromIdentifier(NPIdentifier identifier);
++
++/*
++    NPObject behavior is implemented using the following set of
++    callback functions.
++
++    The NPVariant *result argument of these functions (where
++    applicable) should be released using NPN_ReleaseVariantValue().
++*/
++typedef NPObject *(*NPAllocateFunctionPtr)(NPP npp, NPClass *aClass);
++typedef void (*NPDeallocateFunctionPtr)(NPObject *npobj);
++typedef void (*NPInvalidateFunctionPtr)(NPObject *npobj);
++typedef bool (*NPHasMethodFunctionPtr)(NPObject *npobj, NPIdentifier name);
++typedef bool (*NPInvokeFunctionPtr)(NPObject *npobj, NPIdentifier name,
++                                    const NPVariant *args, uint32_t argCount,
++                                    NPVariant *result);
++typedef bool (*NPInvokeDefaultFunctionPtr)(NPObject *npobj,
++                                           const NPVariant *args,
++                                           uint32_t argCount,
++                                           NPVariant *result);
++typedef bool (*NPHasPropertyFunctionPtr)(NPObject *npobj, NPIdentifier name);
++typedef bool (*NPGetPropertyFunctionPtr)(NPObject *npobj, NPIdentifier name,
++                                         NPVariant *result);
++typedef bool (*NPSetPropertyFunctionPtr)(NPObject *npobj, NPIdentifier name,
++                                         const NPVariant *value);
++typedef bool (*NPRemovePropertyFunctionPtr)(NPObject *npobj,
++                                            NPIdentifier name);
++
++/*
++    NPObjects returned by create, retain, invoke, and getProperty pass
++    a reference count to the caller.  That is, the callee adds a
++    reference count which passes to the caller.  It is the caller's
++    responsibility to release the returned object.
++
++    NPInvokeFunctionPtr function may return 0 to indicate a void
++    result.
++
++    NPInvalidateFunctionPtr is called by the scripting environment
++    when the native code is shutdown.  Any attempt to message a
++    NPObject instance after the invalidate callback has been
++    called will result in undefined behavior, even if the native code
++    is still retaining those NPObject instances.  (The runtime
++    will typically return immediately, with 0 or NULL, from an attempt
++    to dispatch to a NPObject, but this behavior should not be
++    depended upon.)
++*/
++struct NPClass
++{
++    uint32_t structVersion;
++    NPAllocateFunctionPtr allocate;
++    NPDeallocateFunctionPtr deallocate;
++    NPInvalidateFunctionPtr invalidate;
++    NPHasMethodFunctionPtr hasMethod;
++    NPInvokeFunctionPtr invoke;
++    NPInvokeDefaultFunctionPtr invokeDefault;
++    NPHasPropertyFunctionPtr hasProperty;
++    NPGetPropertyFunctionPtr getProperty;
++    NPSetPropertyFunctionPtr setProperty;
++    NPRemovePropertyFunctionPtr removeProperty;
++};
++
++#define NP_CLASS_STRUCT_VERSION 1
++
++struct NPObject {
++    NPClass *_class;
++    uint32_t referenceCount;
++    /*
++     * Additional space may be allocated here by types of NPObjects
++     */
++};
++
++/*
++    If the class has an allocate function, NPN_CreateObject invokes
++    that function, otherwise a NPObject is allocated and
++    returned. This method will initialize the referenceCount member of
++    the NPObject to 1.
++*/
++NPObject *NPN_CreateObject(NPP npp, NPClass *aClass);
++
++/*
++    Increment the NPObject's reference count.
++*/
++NPObject *NPN_RetainObject(NPObject *npobj);
++
++/*
++    Decremented the NPObject's reference count.  If the reference
++    count goes to zero, the class's destroy function is invoke if
++    specified, otherwise the object is freed directly.
++*/
++void NPN_ReleaseObject(NPObject *npobj);
++
++/*
++    Functions to access script objects represented by NPObject.
++
++    Calls to script objects are synchronous.  If a function returns a
++    value, it will be supplied via the result NPVariant
++    argument. Successful calls will return true, false will be
++    returned in case of an error.
++    
++    Calls made from plugin code to script must be made from the thread
++    on which the plugin was initialized.
++*/
++
++bool NPN_Invoke(NPP npp, NPObject *npobj, NPIdentifier methodName,
++                const NPVariant *args, uint32_t argCount, NPVariant *result);
++bool NPN_InvokeDefault(NPP npp, NPObject *npobj, const NPVariant *args,
++                       uint32_t argCount, NPVariant *result);
++bool NPN_Evaluate(NPP npp, NPObject *npobj, NPString *script,
++                  NPVariant *result);
++bool NPN_GetProperty(NPP npp, NPObject *npobj, NPIdentifier propertyName,
++                     NPVariant *result);
++bool NPN_SetProperty(NPP npp, NPObject *npobj, NPIdentifier propertyName,
++                     const NPVariant *value);
++bool NPN_RemoveProperty(NPP npp, NPObject *npobj, NPIdentifier propertyName);
++bool NPN_HasProperty(NPP npp, NPObject *npobj, NPIdentifier propertyName);
++bool NPN_HasMethod(NPP npp, NPObject *npobj, NPIdentifier methodName);
++
++/*
++    NPN_SetException may be called to trigger a script exception upon
++    return from entry points into NPObjects.  Typical usage:
++
++    NPN_SetException (npobj, message);
++*/
++void NPN_SetException(NPObject *npobj, const NPUTF8 *message);
++
++#ifdef __cplusplus
++}
++#endif
++
++#endif
+--- nsplugins/viewer/glibevents.cpp.sav	2007-12-14 15:51:46.000000000 +0100
++++ nsplugins/viewer/glibevents.cpp	2007-12-14 15:52:15.000000000 +0100
+@@ -0,0 +1,43 @@
++/*
++  Copyright (c) 2007 Lubos Lunak <l.lunak@suse.cz>
++ 
++  This program is free software; you can redistribute it and/or modify
++  it under the terms of the GNU General Public License as published by
++  the Free Software Foundation; either version 2 of the License, or
++  (at your option) any later version.
++ 
++  This program is distributed in the hope that it will be useful,
++  but WITHOUT ANY WARRANTY; without even the implied warranty of
++  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++  GNU General Public License for more details.
++ 
++  You should have received a copy of the GNU General Public License
++  along with this program; if not, write to the Free Software
++  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
++ 
++*/                                                                            
++
++#include "glibevents.h"
++
++#include <qapplication.h>
++
++GlibEvents::GlibEvents()
++    {
++    g_main_context_ref( g_main_context_default());
++    connect( &timer, SIGNAL( timeout()), SLOT( process()));
++    // TODO Poll for now
++    timer.start( 10 );
++    }
++
++GlibEvents::~GlibEvents()
++    {
++    g_main_context_unref( g_main_context_default());
++    }
++
++void GlibEvents::process()
++    {
++    while( g_main_context_pending( g_main_context_default()))
++        g_main_context_iteration( g_main_context_default(), false );
++    }
++
++#include "glibevents.moc"
+--- nsplugins/viewer/glibevents.h.sav	2007-12-14 15:51:46.000000000 +0100
++++ nsplugins/viewer/glibevents.h	2007-12-14 15:52:15.000000000 +0100
+@@ -0,0 +1,41 @@
++/*
++  Copyright (c) 2007 Lubos Lunak <l.lunak@suse.cz>
++ 
++  This program is free software; you can redistribute it and/or modify
++  it under the terms of the GNU General Public License as published by
++  the Free Software Foundation; either version 2 of the License, or
++  (at your option) any later version.
++ 
++  This program is distributed in the hope that it will be useful,
++  but WITHOUT ANY WARRANTY; without even the implied warranty of
++  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++  GNU General Public License for more details.
++ 
++  You should have received a copy of the GNU General Public License
++  along with this program; if not, write to the Free Software
++  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
++ 
++*/                                                                            
++
++#ifndef GLIBEVENTS_H
++#define GLIBEVENTS_H
++
++#include <qwidget.h>
++#include <qtimer.h>
++
++#include <glib.h>
++
++class GlibEvents
++    : public QWidget
++    {
++    Q_OBJECT
++    public:
++        GlibEvents();
++        virtual ~GlibEvents();
++    private slots:
++        void process();
++    private:
++        QTimer timer;
++    };
++
++#endif
+--- nsplugins/viewer/viewer.cpp.sav	2007-12-14 15:51:46.000000000 +0100
++++ nsplugins/viewer/viewer.cpp	2007-12-14 15:52:15.000000000 +0100
+@@ -52,6 +52,7 @@
+ #include <X11/Shell.h>
+ #else
+ #include "qxteventloop.h"
++#include "glibevents.h"
+ #endif
+ 
+ /**
+@@ -249,6 +250,7 @@ int main(int argc, char** argv)
+ 
+    kdDebug(1430) << "4 - create KApplication" << endl;
+    KApplication app( argc,  argv, "nspluginviewer" );
++   GlibEvents glibevents;
+ #endif
+ 
+    {
+--- nsplugins/viewer/nsplugin.cpp.sav	2007-12-14 15:51:46.000000000 +0100
++++ nsplugins/viewer/nsplugin.cpp	2007-12-14 15:52:15.000000000 +0100
+@@ -180,6 +180,12 @@ NPError g_NPN_GetValue(NPP /*instance*/,
+          // Offline browsing - no thanks
+          *(bool*)value = false;
+          return NPERR_NO_ERROR;
++      case 13: // NPNVToolkit
++         *(int*)value = 2; // (NPNToolkitType)NPNVGtk2
++         return NPERR_NO_ERROR;
++      case 14: // NPNVSupportsXEmbedBool
++         *(bool*)value = true;
++         return NPERR_NO_ERROR;
+       default:
+          return NPERR_INVALID_PARAM;
+    }
+@@ -484,6 +490,8 @@ const char *g_NPN_UserAgent(NPP /*instan
+     KProtocolManager kpm;
+     QString agent = kpm.userAgentForHost("nspluginviewer");
+     kdDebug(1431) << "g_NPN_UserAgent() = " << agent << endl;
++    // flash crashes without Firefox UA
++    agent = "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.10) Gecko/2007101500 Firefox/2.0.0.10";
+     return agent.latin1();
+ }
+ 
+@@ -583,7 +591,7 @@ NSPluginInstance::NSPluginInstance(NPP p
+                                    KLibrary *handle, int width, int height,
+                                    QString src, QString /*mime*/,
+                                    QString appId, QString callbackId,
+-                                   bool embed,
++                                   bool embed, WId xembed,
+                                    QObject *parent, const char* name )
+    : DCOPObject(), QObject( parent, name ) 
+ {
+@@ -599,6 +607,8 @@ NSPluginInstance::NSPluginInstance(NPP p
+    _streams.setAutoDelete( true );
+    _waitingRequests.setAutoDelete( true );
+    _callback = new NSPluginCallbackIface_stub( appId.latin1(), callbackId.latin1() );
++   _xembed_window = xembed;
++   _toplevel = _form = 0;
+ 
+    KURL base(src);
+    base.setFileName( QString::null );
+@@ -619,51 +629,53 @@ NSPluginInstance::NSPluginInstance(NPP p
+    if (height == 0)
+       height = 1200;
+ 
+-   // create drawing area
+-   Arg args[7];
+-   Cardinal nargs = 0;
+-   XtSetArg(args[nargs], XtNwidth, width); nargs++;
+-   XtSetArg(args[nargs], XtNheight, height); nargs++;
+-   XtSetArg(args[nargs], XtNborderWidth, 0); nargs++;
+-
+-   String n, c;
+-   XtGetApplicationNameAndClass(qt_xdisplay(), &n, &c);
+-
+-   _toplevel = XtAppCreateShell("drawingArea", c, applicationShellWidgetClass,
+-                                qt_xdisplay(), args, nargs);
+-
+-   // What exactly does widget mapping mean? Without this call the widget isn't
+-   // embedded correctly. With it the viewer doesn't show anything in standalone mode.
+-   //if (embed)
+-      XtSetMappedWhenManaged(_toplevel, False);
+-   XtRealizeWidget(_toplevel);
+-
+-   // Create form window that is searched for by flash plugin
+-   _form = XtVaCreateWidget("form", compositeWidgetClass, _toplevel, NULL);
+-   XtSetArg(args[nargs], XtNvisual, QPaintDevice::x11AppVisual()); nargs++;
+-   XtSetArg(args[nargs], XtNdepth, QPaintDevice::x11AppDepth()); nargs++;
+-   XtSetArg(args[nargs], XtNcolormap, QPaintDevice::x11AppColormap()); nargs++;
+-   XtSetValues(_form, args, nargs);
+-   XSync(qt_xdisplay(), false);
++   if( _xembed_window == 0 ) {
++      // create drawing area
++      Arg args[7];
++      Cardinal nargs = 0;
++      XtSetArg(args[nargs], XtNwidth, width); nargs++;
++      XtSetArg(args[nargs], XtNheight, height); nargs++;
++      XtSetArg(args[nargs], XtNborderWidth, 0); nargs++;
++
++      String n, c;
++      XtGetApplicationNameAndClass(qt_xdisplay(), &n, &c);
++
++      _toplevel = XtAppCreateShell("drawingArea", c, applicationShellWidgetClass,
++                                   qt_xdisplay(), args, nargs);
++
++      // What exactly does widget mapping mean? Without this call the widget isn't
++      // embedded correctly. With it the viewer doesn't show anything in standalone mode.
++      //if (embed)
++         XtSetMappedWhenManaged(_toplevel, False);
++      XtRealizeWidget(_toplevel);
++
++      // Create form window that is searched for by flash plugin
++      _form = XtVaCreateWidget("form", compositeWidgetClass, _toplevel, NULL);
++      XtSetArg(args[nargs], XtNvisual, QPaintDevice::x11AppVisual()); nargs++;
++      XtSetArg(args[nargs], XtNdepth, QPaintDevice::x11AppDepth()); nargs++;
++      XtSetArg(args[nargs], XtNcolormap, QPaintDevice::x11AppColormap()); nargs++;
++      XtSetValues(_form, args, nargs);
++      XSync(qt_xdisplay(), false);
+ 
+-   // From mozilla - not sure if it's needed yet, nor what to use for embedder
++      // From mozilla - not sure if it's needed yet, nor what to use for embedder
+ #if 0
+-   /* this little trick seems to finish initializing the widget */
++      /* this little trick seems to finish initializing the widget */
+ #if XlibSpecificationRelease >= 6
+-   XtRegisterDrawable(qt_xdisplay(), embedderid, _toplevel);
++      XtRegisterDrawable(qt_xdisplay(), embedderid, _toplevel);
+ #else
+-   _XtRegisterWindow(embedderid, _toplevel);
++      _XtRegisterWindow(embedderid, _toplevel);
+ #endif
+ #endif
+-   XtRealizeWidget(_form);
+-   XtManageChild(_form);
++      XtRealizeWidget(_form);
++      XtManageChild(_form);
+ 
+-   // Register forwarder
+-   XtAddEventHandler(_toplevel, (KeyPressMask|KeyReleaseMask), 
+-                     False, forwarder, (XtPointer)this );
+-   XtAddEventHandler(_form, (KeyPressMask|KeyReleaseMask), 
+-                     False, forwarder, (XtPointer)this );
+-   XSync(qt_xdisplay(), false);
++      // Register forwarder
++      XtAddEventHandler(_toplevel, (KeyPressMask|KeyReleaseMask), 
++                        False, forwarder, (XtPointer)this );
++      XtAddEventHandler(_form, (KeyPressMask|KeyReleaseMask), 
++                        False, forwarder, (XtPointer)this );
++      XSync(qt_xdisplay(), false);
++   }
+ }
+ 
+ NSPluginInstance::~NSPluginInstance()
+@@ -714,14 +726,16 @@ void NSPluginInstance::destroy()
+         if (saved)
+           g_NPN_MemFree(saved);
+ 
+-        XtRemoveEventHandler(_form, (KeyPressMask|KeyReleaseMask), 
+-                             False, forwarder, (XtPointer)this);
+-        XtRemoveEventHandler(_toplevel, (KeyPressMask|KeyReleaseMask), 
+-                             False, forwarder, (XtPointer)this);
+-        XtDestroyWidget(_form);
+-	_form = 0;
+-        XtDestroyWidget(_toplevel);
+-	_toplevel = 0;
++        if( _form != 0 ) {
++            XtRemoveEventHandler(_form, (KeyPressMask|KeyReleaseMask), 
++                                 False, forwarder, (XtPointer)this);
++            XtRemoveEventHandler(_toplevel, (KeyPressMask|KeyReleaseMask), 
++                                 False, forwarder, (XtPointer)this);
++            XtDestroyWidget(_form);
++    	    _form = 0;
++            XtDestroyWidget(_toplevel);
++	    _toplevel = 0;
++        }
+ 
+         if (_npp) {
+             ::free(_npp);   // matched with malloc() in newInstance
+@@ -902,7 +916,6 @@ void NSPluginInstance::streamFinished( N
+    _timer->start( 100, true );
+ }
+ 
+-
+ int NSPluginInstance::setWindow(int remove)
+ {
+    if (remove)
+@@ -926,14 +939,24 @@ int NSPluginInstance::setWindow(int remo
+    _win.clipRect.bottom = _height;
+    _win.clipRect.right = _width;
+ 
+-   _win.window = (void*) XtWindow(_form);
+-   kdDebug(1431) << "Window ID = " << _win.window << endl;
++   if( _xembed_window ) {
++      _win.window = (void*) _xembed_window;
++      _win_info.type = NP_SETWINDOW;
++      _win_info.display = qt_xdisplay();
++      _win_info.visual = DefaultVisualOfScreen(DefaultScreenOfDisplay(qt_xdisplay()));
++      _win_info.colormap = DefaultColormapOfScreen(DefaultScreenOfDisplay(qt_xdisplay()));
++      _win_info.depth = DefaultDepthOfScreen(DefaultScreenOfDisplay(qt_xdisplay()));
++   } else {
++      _win.window = (void*) XtWindow(_form);
+ 
+-   _win_info.type = NP_SETWINDOW;
+-   _win_info.display = XtDisplay(_form);
+-   _win_info.visual = DefaultVisualOfScreen(XtScreen(_form));
+-   _win_info.colormap = DefaultColormapOfScreen(XtScreen(_form));
+-   _win_info.depth = DefaultDepthOfScreen(XtScreen(_form));
++      _win_info.type = NP_SETWINDOW;
++      _win_info.display = XtDisplay(_form);
++      _win_info.visual = DefaultVisualOfScreen(XtScreen(_form));
++      _win_info.colormap = DefaultColormapOfScreen(XtScreen(_form));
++      _win_info.depth = DefaultDepthOfScreen(XtScreen(_form));
++   }
++
++   kdDebug(1431) << "Window ID = " << _win.window << endl;
+ 
+    _win.ws_info = &_win_info;
+ 
+@@ -959,9 +982,6 @@ static void resizeWidgets(Window w, int 
+ 
+ void NSPluginInstance::resizePlugin(int w, int h)
+ {
+-   if (!_visible)
+-      return;
+-
+    if (w == _width && h == _height)
+       return;
+ 
+@@ -970,22 +990,30 @@ void NSPluginInstance::resizePlugin(int 
+    _width = w;
+    _height = h;
+ 
+-   XResizeWindow(qt_xdisplay(), XtWindow(_form), w, h);
+-   XResizeWindow(qt_xdisplay(), XtWindow(_toplevel), w, h);
+-
+-   Arg args[7];
+-   Cardinal nargs = 0;
+-   XtSetArg(args[nargs], XtNwidth, _width); nargs++;
+-   XtSetArg(args[nargs], XtNheight, _height); nargs++;
+-   XtSetArg(args[nargs], XtNvisual, QPaintDevice::x11AppVisual()); nargs++;
+-   XtSetArg(args[nargs], XtNdepth, QPaintDevice::x11AppDepth()); nargs++;
+-   XtSetArg(args[nargs], XtNcolormap, QPaintDevice::x11AppColormap()); nargs++;
+-   XtSetArg(args[nargs], XtNborderWidth, 0); nargs++;
+-
+-   XtSetValues(_toplevel, args, nargs);
+-   XtSetValues(_form, args, nargs);
+-
+-   resizeWidgets(XtWindow(_form), _width, _height);
++   if( _form != 0 ) {
++      XResizeWindow(qt_xdisplay(), XtWindow(_form), w, h);
++      XResizeWindow(qt_xdisplay(), XtWindow(_toplevel), w, h);
++
++      Arg args[7];
++      Cardinal nargs = 0;
++      XtSetArg(args[nargs], XtNwidth, _width); nargs++;
++      XtSetArg(args[nargs], XtNheight, _height); nargs++;
++      XtSetArg(args[nargs], XtNvisual, QPaintDevice::x11AppVisual()); nargs++;
++      XtSetArg(args[nargs], XtNdepth, QPaintDevice::x11AppDepth()); nargs++;
++      XtSetArg(args[nargs], XtNcolormap, QPaintDevice::x11AppColormap()); nargs++;
++      XtSetArg(args[nargs], XtNborderWidth, 0); nargs++;
++ 
++      XtSetValues(_toplevel, args, nargs);
++      XtSetValues(_form, args, nargs);
++
++      resizeWidgets(XtWindow(_form), _width, _height);
++   }
++
++   // If not visible yet, displayWindow() will call setWindow() again anyway, so avoid this.
++   // This also handled plugins that are broken and cannot handle repeated setWindow() calls
++   // very well.
++   if (!_visible)
++      return;
+ 
+    setWindow();
+ 
+@@ -1405,7 +1433,7 @@ void NSPluginClass::shutdown()
+ DCOPRef NSPluginClass::newInstance( QString url, QString mimeType, bool embed,
+                                     QStringList argn, QStringList argv,
+                                     QString appId, QString callbackId,
+-                                    bool reload, bool doPost, QByteArray postData )
++                                    bool reload, bool doPost, QByteArray postData, long xembed )
+ {
+    kdDebug(1431) << "-> NSPluginClass::NewInstance" << endl;
+ 
+@@ -1449,16 +1477,25 @@ DCOPRef NSPluginClass::newInstance( QStr
+    memset(npp, 0, sizeof(NPP_t));
+    npp->ndata = NULL;
+ 
+-   // Create plugin instance object
+-   NSPluginInstance *inst = new NSPluginInstance( npp, &_pluginFuncs, _handle,
+-                                                  width, height, baseURL, mimeType,
+-                                                  appId, callbackId, embed, this );
+-
+    // create plugin instance
+    NPError error = _pluginFuncs.newp(mime, npp, embed ? NP_EMBED : NP_FULL,
+                                      argc, _argn, _argv, 0);
+    kdDebug(1431) << "NPP_New = " << (int)error << endl;
+ 
++   // don't use bool here, it can be 1 byte, but some plugins write it as int, and I can't find what the spec says
++   int wants_xembed = false;
++   if (_pluginFuncs.getvalue) {
++      NPError error = _pluginFuncs.getvalue(npp, (NPPVariable)14/*NPPVpluginNeedsXEmbed*/, &wants_xembed );
++      if( error != NPERR_NO_ERROR )
++         wants_xembed = false;
++   }
++   kdDebug(1431) << "Plugin requires XEmbed:" << (bool)wants_xembed << endl;
++
++   // Create plugin instance object
++   NSPluginInstance *inst = new NSPluginInstance( npp, &_pluginFuncs, _handle,
++                                                  width, height, baseURL, mimeType,
++                                                  appId, callbackId, embed, wants_xembed ? xembed : 0, this );
++
+    // free arrays with arguments
+    delete [] _argn;
+    delete [] _argv;
+@@ -1493,7 +1530,6 @@ void NSPluginClass::destroyInstance( NSP
+     timer(); //_timer->start( 0, TRUE );
+ }
+ 
+-
+ /****************************************************************************/
+ 
+ NSPluginStreamBase::NSPluginStreamBase( NSPluginInstance *instance )
+--- nsplugins/viewer/nsplugin.h.sav	2007-12-14 15:51:46.000000000 +0100
++++ nsplugins/viewer/nsplugin.h	2007-12-14 15:52:15.000000000 +0100
+@@ -165,13 +165,13 @@ public:
+   // constructor, destructor
+   NSPluginInstance( NPP privateData, NPPluginFuncs *pluginFuncs, KLibrary *handle,
+ 		    int width, int height, QString src, QString mime,
+-                    QString appId, QString callbackId, bool embed,
++                    QString appId, QString callbackId, bool embed, WId xembed,
+ 		    QObject *parent, const char* name=0 );
+   ~NSPluginInstance();
+ 
+   // DCOP functions
+   void shutdown();
+-  int winId() { return XtWindow(_form); }
++  int winId() { return _form != 0 ? XtWindow(_form) : 0; }
+   int setWindow(int remove=0);
+   void resizePlugin(int w, int h);
+   void javascriptResult(int id, QString result);
+@@ -232,6 +232,7 @@ private:
+   NPPluginFuncs _pluginFuncs;
+ 
+   Widget _area, _form, _toplevel;
++  WId _xembed_window;
+   QString _baseURL;
+   int _width, _height;
+ 
+@@ -281,7 +282,7 @@ public:
+   DCOPRef newInstance(QString url, QString mimeType, bool embed,
+                       QStringList argn, QStringList argv,
+                       QString appId, QString callbackId, bool reload, bool post,
+-                      QByteArray postData );
++                      QByteArray postData, long xembed );
+   void destroyInstance( NSPluginInstance* inst );
+   bool error() { return _error; }
+ 
+--- nsplugins/viewer/Makefile.am.sav	2007-12-14 15:51:46.000000000 +0100
++++ nsplugins/viewer/Makefile.am	2007-12-14 15:52:15.000000000 +0100
+@@ -1,12 +1,11 @@
+-INCLUDES = -I$(top_srcdir)/nsplugins -I$(top_builddir)/nsplugins $(all_includes)
++INCLUDES = -I$(top_srcdir)/nsplugins -I$(top_builddir)/nsplugins $(all_includes) `pkg-config --cflags glib-2.0`
+ METASOURCES = AUTO
+ 
+ bin_PROGRAMS = nspluginviewer 
+ 
+ nspluginviewer_SOURCES = NSPluginCallbackIface.stub NSPluginClassIface.skel \
+-	nsplugin.cpp viewer.cpp kxt.cpp qxteventloop.cpp
+-nspluginviewer_LDFLAGS = $(all_libraries) $(KDE_RPATH) -export-dynamic
++	nsplugin.cpp viewer.cpp kxt.cpp qxteventloop.cpp glibevents.cpp
++nspluginviewer_LDFLAGS = $(all_libraries) $(KDE_RPATH) -export-dynamic `pkg-config --libs glib-2.0`
+ nspluginviewer_LDADD = $(LIB_KIO) $(LIB_KPARTS) -lXt
+ 
+ NSPluginCallbackIface_DIR = $(srcdir)/..
+-
+--- nsplugins/viewer/NSPluginClassIface.h.sav	2007-12-14 15:51:46.000000000 +0100
++++ nsplugins/viewer/NSPluginClassIface.h	2007-12-14 15:52:15.000000000 +0100
+@@ -50,7 +50,7 @@ k_dcop:
+   virtual DCOPRef newInstance(QString url, QString mimeType, bool embed,
+                               QStringList argn, QStringList argv,
+                               QString appId, QString callbackId, bool reload,
+-                              bool doPost, QByteArray postData) = 0;
++                              bool doPost, QByteArray postData, long xembed) = 0;
+   virtual QString getMIMEDescription() = 0;
+ 
+ };
+--- nsplugins/nspluginloader.h.sav	2007-12-14 15:51:46.000000000 +0100
++++ nsplugins/nspluginloader.h	2007-12-14 15:52:15.000000000 +0100
+@@ -43,13 +43,16 @@ class KProcess;
+ class QPushButton;
+ class QGridLayout;
+ 
+-class NSPluginInstance : public EMBEDCLASS, virtual public NSPluginInstanceIface_stub
++class NSPluginInstance : public EMBEDCLASS
+ {
+   Q_OBJECT
+ 
+ public:
+-    NSPluginInstance(QWidget *parent, const QCString& app, const QCString& id);
++    NSPluginInstance(QWidget *parent);
++    void init( const QCString& app, const QCString& obj );
+     ~NSPluginInstance();
++public: // wrappers
++    void javascriptResult( int id, QString result ) { stub->javascriptResult( id, result ); }
+ 
+ private slots:
+     void doLoadPlugin();
+@@ -62,6 +65,11 @@ protected:
+     bool shown;
+     QPushButton *_button;
+     QGridLayout *_layout;
++    NSPluginInstanceIface_stub* stub;
++private: // wrappers
++    void displayPlugin() { stub->displayPlugin(); }
++    void resizePlugin( int w, int h ) { stub->resizePlugin( w, h ); }
++    void shutdown() { if( stub ) stub->shutdown(); }
+ };
+ 
+ 
+--- nsplugins/nspluginloader.cpp.sav	2007-12-14 15:51:46.000000000 +0100
++++ nsplugins/nspluginloader.cpp	2007-12-14 15:52:15.000000000 +0100
+@@ -54,11 +54,16 @@ NSPluginLoader *NSPluginLoader::s_instan
+ int NSPluginLoader::s_refCount = 0;
+ 
+ 
+-NSPluginInstance::NSPluginInstance(QWidget *parent, const QCString& app, const QCString& id)
+-  : DCOPStub(app, id), NSPluginInstanceIface_stub(app, id), EMBEDCLASS(parent)
++NSPluginInstance::NSPluginInstance(QWidget *parent)
++  : EMBEDCLASS(parent), stub( NULL )
+ {
+     _loader = 0L;
+     shown = false;
++}
++
++void NSPluginInstance::init(const QCString& app, const QCString& obj)
++{
++    stub = new NSPluginInstanceIface_stub( app, obj );
+     QGridLayout *_layout = new QGridLayout(this, 1, 1);
+     KConfig cfg("kcmnspluginrc", false);
+     cfg.setGroup("Misc");
+@@ -80,12 +85,19 @@ void NSPluginInstance::doLoadPlugin() {
+         _button = 0L;
+         _loader = NSPluginLoader::instance();
+         setBackgroundMode(QWidget::NoBackground);
+-        setProtocol(QXEmbed::XPLAIN);
+-        embed( NSPluginInstanceIface_stub::winId() );
++        WId winid = stub->winId();
++        if( winid != 0 ) {
++            setProtocol(QXEmbed::XPLAIN);
++            embed( winid );
++        } else {
++            setProtocol(QXEmbed::XEMBED);
++        }
++        // resize before showing, some plugins are stupid and can't handle repeated
++        // NPSetWindow() calls very well
++        resizePlugin(width(), height());
+         displayPlugin();
+         show();
+         shown = true;
+-        if (isVisible()) resizePlugin(width(), height());
+     }
+ }
+ 
+@@ -97,6 +109,7 @@ NSPluginInstance::~NSPluginInstance()
+    kdDebug() << "release" << endl;
+    _loader->release();
+    kdDebug() << "<- NSPluginInstance::~NSPluginInstance" << endl;
++   delete stub;
+ }
+ 
+ 
+@@ -445,19 +458,19 @@ NSPluginInstance *NSPluginLoader::newIns
+    if ( mime=="application/x-shockwave-flash" )
+        embed = true; // flash doesn't work in full mode :(
+ 
++   NSPluginInstance *plugin = new NSPluginInstance( parent );
++   kdDebug() << "<- NSPluginLoader::NewInstance = " << (void*)plugin << endl;
+ 
+    // get plugin instance
+-   DCOPRef inst_ref = cls->newInstance( url, mime, embed, argn, argv, appId, callbackId, reload, doPost, postData);
++   DCOPRef inst_ref = cls->newInstance( url, mime, embed, argn, argv, appId, callbackId, reload, doPost, postData, plugin->winId());
+    if ( inst_ref.isNull() )
+    {
+       kdDebug() << "Couldn't create plugin instance" << endl;
++      delete plugin;
+       return 0;
+    }
+ 
+-   NSPluginInstance *plugin = new NSPluginInstance( parent, inst_ref.app(),
+-                                                    inst_ref.object() );
+-
+-   kdDebug() << "<- NSPluginLoader::NewInstance = " << (void*)plugin << endl;
++   plugin->init( inst_ref.app(), inst_ref.object() );
+ 
+    return plugin;
+ }

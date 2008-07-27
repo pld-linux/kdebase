@@ -1,0 +1,57 @@
+--- kdebase/kcontrol/konqhtml/pluginopts.cpp.org	2007-10-09 09:58:45.408911766 +0200
++++ kdebase/kcontrol/konqhtml/pluginopts.cpp	2007-10-09 09:59:40.350918314 +0200
+@@ -374,24 +374,8 @@
+     if ( config->hasKey( "scanPaths" ) && !useDefault )
+         paths = config->readListEntry( "scanPaths" );
+     else {//keep sync with kdebase/nsplugins
+-        paths.append("$HOME/.mozilla/plugins");
+-        paths.append("$HOME/.netscape/plugins");
+-        paths.append("/usr/lib/firefox/plugins");
+-        paths.append("/usr/lib64/browser-plugins");
+-        paths.append("/usr/lib/browser-plugins");
+-        paths.append("/usr/local/netscape/plugins");
+-        paths.append("/opt/mozilla/plugins");
+-	paths.append("/opt/mozilla/lib/plugins");
+-        paths.append("/opt/netscape/plugins");
+-        paths.append("/opt/netscape/communicator/plugins");
+-        paths.append("/usr/lib/netscape/plugins");
+-        paths.append("/usr/lib/netscape/plugins-libc5");
+-        paths.append("/usr/lib/netscape/plugins-libc6");
+-        paths.append("/usr/lib/mozilla/plugins");
+-	paths.append("/usr/lib64/netscape/plugins");
+-	paths.append("/usr/lib64/mozilla/plugins");
+-        paths.append("$MOZILLA_HOME/plugins");
+-
++	paths.append("/usr/lib/kde3/plugins/konqueror");
++	paths.append("/usr/lib64/kde3/plugins/konqueror");
+     }
+ 
+     // fill list
+--- kdebase/nsplugins/plugin_paths.cpp.org	2007-10-09 10:00:30.832761847 +0200
++++ kdebase/nsplugins/plugin_paths.cpp	2007-10-09 10:00:54.760302272 +0200
+@@ -39,23 +39,8 @@
+     if ( !config->hasKey("scanPaths") ) {
+         QStringList paths;
+         // keep sync with kdebase/kcontrol/konqhtml
+-        paths.append("$HOME/.mozilla/plugins");
+-        paths.append("$HOME/.netscape/plugins");
+-        paths.append("/usr/lib/firefox/plugins");
+-        paths.append("/usr/lib64/browser-plugins");
+-        paths.append("/usr/lib/browser-plugins");
+-        paths.append("/usr/local/netscape/plugins");
+-        paths.append("/opt/mozilla/plugins");
+-        paths.append("/opt/mozilla/lib/plugins");
+-        paths.append("/opt/netscape/plugins");
+-        paths.append("/opt/netscape/communicator/plugins");
+-        paths.append("/usr/lib/netscape/plugins");
+-        paths.append("/usr/lib/netscape/plugins-libc5");
+-        paths.append("/usr/lib/netscape/plugins-libc6");
+-        paths.append("/usr/lib/mozilla/plugins");
+-        paths.append("/usr/lib64/netscape/plugins");
+-        paths.append("/usr/lib64/mozilla/plugins");
+-        paths.append("$MOZILLA_HOME/plugins");
++	paths.append("/usr/lib/kde3/plugins/konqueror");
++	paths.append("/usr/lib64/kde3/plugins/konqueror");
+         config->writeEntry( "scanPaths", paths );
+     }
+ 

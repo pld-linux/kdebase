@@ -1,0 +1,10 @@
+--- kdebase/konsole/konsolesu.desktop~	2008-07-27 13:25:27.447181006 +0200
++++ kdebase/konsole/konsolesu.desktop	2008-07-27 13:26:27.883846731 +0200
+@@ -1,6 +1,6 @@
+ [Desktop Entry]
+ Type=Application
+-Exec=konsole --type su
++Exec=kdesu konsole
+ Icon=konsole
+ DocPath=konsole/index.html
+ MimeType=application/x-konsole;
