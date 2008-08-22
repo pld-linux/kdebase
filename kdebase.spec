@@ -28,13 +28,13 @@ Summary(ru.UTF-8):	K Desktop Environment - базовые файлы
 Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
-Version:	3.5.9
-Release:	3
+Version:	3.5.10
+Release:	1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	c8c35389a238aa1b73e68ef5298eadf8
+# Source0-md5:	88237188271fbf1e6bcd40180a75d953
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -43,7 +43,7 @@ Source5:	%{name}-kdm.Xsession
 Source6:	%{name}-kdm_pldlogo.png
 Source7:	%{name}-kdm_pldwallpaper.png
 Source8:	%{name}-searchproviders.tar.bz2
-# Source8-md5:	582b29204e85c01a91799ed72f845312
+# Source8-md5:	126c3524b5367f5096a628acbf9dc86f
 Source10:	%{name}-servicemenus.tar.bz2
 # Source10-md5:	f48ac7af286f4c87961de4bb24d07772
 Source13:	%{name}-konqsidebartng-PLD-entries-0.2.tar.bz2
@@ -74,6 +74,7 @@ Patch24:	kde-ac260-lt.patch
 Patch25:	%{name}-konsole-history_clear.patch
 Patch26:	%{name}-kdm-default_background.patch
 Patch27:	%{name}-consolekit.patch
+Patch28:	%{name}-no_mkfontdir.patch
 BuildRequires:	OpenEXR-devel >= 1.4.0.a
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
@@ -546,6 +547,7 @@ Requires:	kde-kgreet
 Requires:	kde-kside
 Requires:	kde-logoutpic
 Requires:	kde-splash-Default
+Requires:	kdelibs-libs
 Requires:	konqueror = %{epoch}:%{version}-%{release}
 Requires:	pam >= 0.79.0
 Requires:	xcursor >= 1.1.0
@@ -1061,6 +1063,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch25 -p1
 %patch26 -p1
 %patch27 -p1
+%patch28 -p1
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
 for i in  google*.desktop
@@ -1227,7 +1230,6 @@ if [ ! -f installed.stamp ]; then
 	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/System/kpersonalizer.desktop
 	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Toys/ktip.desktop
 	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Utilities/kpager.desktop
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/fonts/override/fonts.dir
 	%{__rm} $RPM_BUILD_ROOT%{_datadir}/apps/kdisplay/app-defaults/*.ad # dunno. not packaged
 	# apparently in applnk package
 	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-development-translation.directory
@@ -1596,6 +1598,7 @@ fi
 %attr(755,root,root) %{_bindir}/kcminit
 %attr(755,root,root) %{_bindir}/kcminit_startup
 %attr(755,root,root) %{_bindir}/kcontrol
+%attr(755,root,root) %{_bindir}/kde3
 %attr(755,root,root) %{_bindir}/kdebugdialog
 %attr(755,root,root) %{_bindir}/kdesu
 %attr(755,root,root) %{_bindir}/khc_indexbuilder
