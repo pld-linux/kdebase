@@ -973,7 +973,22 @@ Group:		X11/Applications
 Requires:	browser-plugins >= 2.0
 Requires:	konqueror-libs = %{epoch}:%{version}-%{release}
 Suggests:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
+Suggests:	kdeaddons-ark = %{epoch}:%{version}-%{release}
+Suggests:	kdeaddons-fsview = %{epoch}:%{version}-%{release}
+Suggests:	kdeaddons-konqueror = %{epoch}:%{version}-%{release}
+Suggests:	kdeaddons-lnkforward = %{epoch}:%{version}-%{release}
+Suggests:	kdebluetooth
+Suggests:	kdegraphics-kfile = %{epoch}:%{version}-%{release}
 Suggests:	kdemultimedia-audiocd = %{epoch}:%{version}-%{release}
+Suggests:	kdemultimedia-kfile = %{epoch}:%{version}-%{release}
+Suggests:	kdenetwork-kfile-torrent = %{epoch}:%{version}-%{release}
+Suggests:	kdenetwork-kget = %{epoch}:%{version}-%{release}
+Suggests:	kdenetwork-lanbrowser = %{epoch}:%{version}-%{release}
+Suggests:	kdesdk-kfile = %{epoch}:%{version}-%{release}
+Suggests:	kdesvn
+Suggests:	kdetoys-kweather = %{epoch}:%{version}-%{release}
+Suggests:	kdeutils-kfloppy = %{epoch}:%{version}-%{release}
+Suggests:	kdeutils-kgpg = %{epoch}:%{version}-%{release}
 Provides:	wwwbrowser
 Obsoletes:	kdebase-konqueror
 Obsoletes:	kdebase-libkmultitabbar
