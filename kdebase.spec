@@ -973,6 +973,7 @@ Group:		X11/Applications
 Requires:	browser-plugins >= 2.0
 Requires:	konqueror-libs = %{epoch}:%{version}-%{release}
 Suggests:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
+Suggests:	kdemultimedia-audiocd = %{epoch}:%{version}-%{release}
 Provides:	wwwbrowser
 Obsoletes:	kdebase-konqueror
 Obsoletes:	kdebase-libkmultitabbar
