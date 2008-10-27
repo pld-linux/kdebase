@@ -5,7 +5,7 @@
 # description:	Starts and stops the KDE Display Manager at startup and \
 #		shutdown..
 #
-# chkconfig:	5 99 01
+# chkconfig:	5 95 05
 #
 # probe:	true
 # hide:		true
