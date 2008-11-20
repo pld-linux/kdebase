@@ -29,7 +29,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.10
-Release:	6
+Release:	7
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -972,7 +972,7 @@ Summary(pl.UTF-8):	Konqueror - przeglądarka WWW i zarządca plików
 Group:		X11/Applications
 Requires:	browser-plugins >= 2.0
 Requires:	konqueror-libs = %{epoch}:%{version}-%{release}
-Suggests:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
+Suggests:	%{name}-common-filemanagement
 Suggests:	kdeaddons-ark
 Suggests:	kdeaddons-fsview
 Suggests:	kdeaddons-konqueror
