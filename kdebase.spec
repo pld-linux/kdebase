@@ -29,7 +29,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.10
-Release:	9
+Release:	10
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -48,7 +48,6 @@ Source10:	%{name}-servicemenus.tar.bz2
 # Source10-md5:	f48ac7af286f4c87961de4bb24d07772
 Source13:	%{name}-konqsidebartng-PLD-entries-0.2.tar.bz2
 # Source13-md5:	aa373b561e1cedb78b652f43e19fc122
-# Temporary taken from kde svn
 Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-fontdir.patch
@@ -1071,7 +1070,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 %prep
 %setup -q
-#%patch100 -p0
+%patch100 -p0
 %patch0 -p1
 %patch1 -p1
 %{?with_groupwindows:%patch2 -p1}
