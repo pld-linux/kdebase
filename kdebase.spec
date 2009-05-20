@@ -75,6 +75,7 @@ Patch26:	%{name}-kdm-default_background.patch
 Patch27:	%{name}-consolekit.patch
 Patch28:	%{name}-no_mkfontdir.patch
 Patch29:	kde-am.patch
+Patch30:	%{name}-gcc44.patch
 BuildRequires:	OpenEXR-devel >= 1.4.0.a
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
@@ -1100,6 +1101,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch27 -p1
 %patch28 -p1
 %patch29 -p1
+%patch30 -p1
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
 for i in  google*.desktop
@@ -1149,9 +1151,7 @@ for f in `find . -name \*.desktop`; do
 	fi
 done
 
-cp /usr/share/automake/config.sub admin
-%{__make} -f admin/Makefile.common cvs
-
+mv -f configure{,.dist}
 %build
 %if %{with apidocs}
 	if [ ! -f "%{_kdedocdir}/en/common/kde-common.css" ]; then
@@ -1160,6 +1160,11 @@ cp /usr/share/automake/config.sub admin
 		exit 1
 	fi
 %endif
+
+cp /usr/share/automake/config.sub admin
+if [ ! -f configure ]; then
+	%{__make} -f admin/Makefile.common cvs
+fi
 
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug%{?debug:=full} \
