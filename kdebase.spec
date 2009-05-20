@@ -74,6 +74,7 @@ Patch25:	%{name}-konsole-history_clear.patch
 Patch26:	%{name}-kdm-default_background.patch
 Patch27:	%{name}-consolekit.patch
 Patch28:	%{name}-no_mkfontdir.patch
+Patch29:	kde-am.patch
 BuildRequires:	OpenEXR-devel >= 1.4.0.a
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
@@ -1098,6 +1099,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch26 -p1
 %patch27 -p1
 %patch28 -p1
+%patch29 -p1
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
 for i in  google*.desktop
