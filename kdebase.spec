@@ -1155,8 +1155,7 @@ mv -f configure{,.dist}
 %build
 %if %{with apidocs}
 	if [ ! -f "%{_kdedocdir}/en/common/kde-common.css" ]; then
-		echo "ERROR: Building kdebase with apidocs requires kdelibs"
-		echo "	   to be installed _without_ excluding documentation."
+		echo >&2 "ERROR: Building kdebase with apidocs requires kdelibs to be installed _without_ excluding documentation."
 		exit 1
 	fi
 %endif
