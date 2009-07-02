@@ -29,7 +29,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.10
-Release:	10
+Release:	11
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -96,7 +96,7 @@ BuildRequires:	gettext-devel
 BuildRequires:	hal-devel
 BuildRequires:	jasper-devel
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
-%{?with_kerberos5:BuildRequires: krb5-devel}
+%{?with_kerberos5:BuildRequires: heimdal-devel}
 BuildRequires:	lame-libs-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
