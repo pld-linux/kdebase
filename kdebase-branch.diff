@@ -1,7 +1,7 @@
 Index: kcontrol/background/bgrender.cpp
 ===================================================================
---- kcontrol/background/bgrender.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kcontrol/background/bgrender.cpp	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kcontrol/background/bgrender.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kcontrol/background/bgrender.cpp	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -1163,9 +1163,8 @@
          m_pPixmap = new QPixmap(m_size);
          m_pPixmap->fill(Qt::black);
@@ -16,8 +16,8 @@ Index: kcontrol/background/bgrender.cpp
  
 Index: kcontrol/info/opengl.cpp
 ===================================================================
---- kcontrol/info/opengl.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kcontrol/info/opengl.cpp	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kcontrol/info/opengl.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kcontrol/info/opengl.cpp	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -608,7 +608,6 @@
     }
     else {
@@ -28,8 +28,8 @@ Index: kcontrol/info/opengl.cpp
     glXDestroyContext(dpy, ctx);
 Index: kcontrol/arts/arts.cpp
 ===================================================================
---- kcontrol/arts/arts.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kcontrol/arts/arts.cpp	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kcontrol/arts/arts.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kcontrol/arts/arts.cpp	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -214,7 +214,7 @@
  	config = new KConfig("kcmartsrc");
  	load();
@@ -39,10 +39,32 @@ Index: kcontrol/arts/arts.cpp
  
  	connect(startServer,SIGNAL(clicked()),this,SLOT(slotChanged()));
  	connect(networkTransparent,SIGNAL(clicked()),this,SLOT(slotChanged()));
+Index: kcontrol/kfontinst/kfontinst/Fontmap.cpp
+===================================================================
+--- kcontrol/kfontinst/kfontinst/Fontmap.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kcontrol/kfontinst/kfontinst/Fontmap.cpp	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
+@@ -44,7 +44,7 @@
+ 
+ using namespace std;
+ 
+-static char * findSpace(char *str)
++static const char * findSpace(const char *str)
+ {
+     while(str && *str!=' ' && *str!='\t')
+         str++;
+@@ -65,7 +65,7 @@
+     char a[constMaxLen+1],
+          b[constFileMaxLen+1];
+ 
+-    char *slash1=strchr(line, '/'),
++    const char *slash1=strchr(line, '/'),
+          *space1=slash1 ? findSpace(slash1) : NULL, //strchr(slash1, ' ') : NULL,
+          *ob=slash1 ? strchr(slash1, '(') : NULL,
+          *cb=ob ? strchr(ob, ')') : NULL,
 Index: kicker/taskbar/taskcontainer.cpp
 ===================================================================
---- kicker/taskbar/taskcontainer.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kicker/taskbar/taskcontainer.cpp	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kicker/taskbar/taskcontainer.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kicker/taskbar/taskcontainer.cpp	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -202,6 +202,8 @@
          }
          return;
@@ -216,8 +238,8 @@ Index: kicker/taskbar/taskcontainer.cpp
      data.icon = pixmap;
 Index: kicker/taskbar/taskbar.cpp
 ===================================================================
---- kicker/taskbar/taskbar.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kicker/taskbar/taskbar.cpp	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kicker/taskbar/taskbar.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kicker/taskbar/taskbar.cpp	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -61,8 +61,6 @@
        m_textShadowEngine(0),
        m_ignoreUpdates(false)
@@ -281,8 +303,8 @@ Index: kicker/taskbar/taskbar.cpp
          viewport()->setPaletteBackgroundColor(paletteBackgroundColor());
 Index: kicker/taskbar/taskbar.h
 ===================================================================
---- kicker/taskbar/taskbar.h	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kicker/taskbar/taskbar.h	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kicker/taskbar/taskbar.h	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kicker/taskbar/taskbar.h	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -63,12 +63,11 @@
  
      QImage* blendGradient(const QSize& size);
@@ -307,8 +329,8 @@ Index: kicker/taskbar/taskbar.h
      void resizeEvent( QResizeEvent* );
 Index: kicker/extensions/taskbar/taskbarextension.cpp
 ===================================================================
---- kicker/extensions/taskbar/taskbarextension.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kicker/extensions/taskbar/taskbarextension.cpp	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kicker/extensions/taskbar/taskbarextension.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kicker/extensions/taskbar/taskbarextension.cpp	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -170,7 +170,6 @@
      }
  
@@ -340,8 +362,8 @@ Index: kicker/extensions/taskbar/taskbarextension.cpp
  void TaskBarExtension::resizeEvent(QResizeEvent *e)
 Index: kicker/libkicker/panner.cpp
 ===================================================================
---- kicker/libkicker/panner.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kicker/libkicker/panner.cpp	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kicker/libkicker/panner.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kicker/libkicker/panner.cpp	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -35,28 +35,28 @@
  #include "panner.h"
  #include "panner.moc"
@@ -711,8 +733,8 @@ Index: kicker/libkicker/panner.cpp
 +}
 Index: kicker/libkicker/simplebutton.cpp
 ===================================================================
---- kicker/libkicker/simplebutton.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kicker/libkicker/simplebutton.cpp	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kicker/libkicker/simplebutton.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kicker/libkicker/simplebutton.cpp	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -32,6 +32,8 @@
  #include <kipc.h>
  #include <kstandarddirs.h>
@@ -742,8 +764,8 @@ Index: kicker/libkicker/simplebutton.cpp
      if (ph < (h - margin))
 Index: kicker/libkicker/kickertip.cpp
 ===================================================================
---- kicker/libkicker/kickertip.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kicker/libkicker/kickertip.cpp	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kicker/libkicker/kickertip.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kicker/libkicker/kickertip.cpp	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -128,8 +128,10 @@
      // Tickle the information out of the bastard.
      client->updateKickerTip(data);
@@ -944,8 +966,8 @@ Index: kicker/libkicker/kickertip.cpp
              break;
 Index: kicker/libkicker/panner.h
 ===================================================================
---- kicker/libkicker/panner.h	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kicker/libkicker/panner.h	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kicker/libkicker/panner.h	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kicker/libkicker/panner.h	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -24,14 +24,14 @@
  #ifndef __panner_h__
  #define __panner_h__
@@ -1038,8 +1060,8 @@ Index: kicker/libkicker/panner.h
  #endif
 Index: kicker/applets/systemtray/systemtrayapplet.h
 ===================================================================
---- kicker/applets/systemtray/systemtrayapplet.h	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kicker/applets/systemtray/systemtrayapplet.h	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kicker/applets/systemtray/systemtrayapplet.h	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kicker/applets/systemtray/systemtrayapplet.h	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -118,6 +118,7 @@
      TrayEmbed( bool kdeTray, QWidget* parent = NULL );
      bool kdeTray() const { return kde_tray; }
@@ -1050,8 +1072,8 @@ Index: kicker/applets/systemtray/systemtrayapplet.h
  };
 Index: kicker/applets/systemtray/systemtrayapplet.cpp
 ===================================================================
---- kicker/applets/systemtray/systemtrayapplet.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kicker/applets/systemtray/systemtrayapplet.cpp	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kicker/applets/systemtray/systemtrayapplet.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kicker/applets/systemtray/systemtrayapplet.cpp	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -54,6 +54,8 @@
  
  #include <X11/Xlib.h>
@@ -1263,8 +1285,8 @@ Index: kicker/applets/systemtray/systemtrayapplet.cpp
  
 Index: kicker/applets/clock/clock.h
 ===================================================================
---- kicker/applets/clock/clock.h	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kicker/applets/clock/clock.h	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kicker/applets/clock/clock.h	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kicker/applets/clock/clock.h	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -41,6 +41,7 @@
  
  #include <kickertip.h>
@@ -1302,8 +1324,8 @@ Index: kicker/applets/clock/clock.h
  
 Index: kicker/applets/clock/Makefile.am
 ===================================================================
---- kicker/applets/clock/Makefile.am	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kicker/applets/clock/Makefile.am	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kicker/applets/clock/Makefile.am	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kicker/applets/clock/Makefile.am	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -1,7 +1,7 @@
  pic_DATA = lcd.png
  picdir = $(kde_datadir)/clockapplet/pics
@@ -1315,8 +1337,8 @@ Index: kicker/applets/clock/Makefile.am
  
 Index: kicker/applets/clock/clock.cpp
 ===================================================================
---- kicker/applets/clock/clock.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kicker/applets/clock/clock.cpp	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kicker/applets/clock/clock.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kicker/applets/clock/clock.cpp	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -57,6 +57,7 @@
  
  #include <global.h> // libkickermain
@@ -1448,8 +1470,8 @@ Index: kicker/applets/clock/clock.cpp
      if (orientation() == Qt::Vertical)
 Index: kicker/kicker/core/container_extension.cpp
 ===================================================================
---- kicker/kicker/core/container_extension.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kicker/kicker/core/container_extension.cpp	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kicker/kicker/core/container_extension.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kicker/kicker/core/container_extension.cpp	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -126,6 +126,7 @@
      connect(Kicker::the()->kwinModule(), SIGNAL(currentDesktopChanged(int)),
              this, SLOT( currentDesktopChanged(int)));
@@ -1469,8 +1491,8 @@ Index: kicker/kicker/core/container_extension.cpp
          // if we have an extension, we need to grab the extension-specific
 Index: kicker/kicker/core/containerarea.cpp
 ===================================================================
---- kicker/kicker/core/containerarea.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kicker/kicker/core/containerarea.cpp	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kicker/kicker/core/containerarea.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kicker/kicker/core/containerarea.cpp	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -90,15 +90,12 @@
        m_addAppletDialog(0)
  {
@@ -1491,8 +1513,8 @@ Index: kicker/kicker/core/containerarea.cpp
      setBackground();
 Index: kicker/kicker/core/panelextension.cpp
 ===================================================================
---- kicker/kicker/core/panelextension.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kicker/kicker/core/panelextension.cpp	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kicker/kicker/core/panelextension.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kicker/kicker/core/panelextension.cpp	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -74,7 +74,6 @@
      connect(_containerArea, SIGNAL(maintainFocus(bool)), this, SIGNAL(maintainFocus(bool)));
      _layout->addWidget(_containerArea);
@@ -1503,8 +1525,8 @@ Index: kicker/kicker/core/panelextension.cpp
  
 Index: kioslave/media/mediamanager/halbackend.cpp
 ===================================================================
---- kioslave/media/mediamanager/halbackend.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kioslave/media/mediamanager/halbackend.cpp	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kioslave/media/mediamanager/halbackend.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kioslave/media/mediamanager/halbackend.cpp	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -851,13 +851,6 @@
          result << tmp;
      }
@@ -1583,8 +1605,8 @@ Index: kioslave/media/mediamanager/halbackend.cpp
          QString option = valids["journaling"];
 Index: kioslave/fish/fish.cpp
 ===================================================================
---- kioslave/fish/fish.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kioslave/fish/fish.cpp	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kioslave/fish/fish.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kioslave/fish/fish.cpp	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -2,7 +2,7 @@
                            fish.cpp  -  a FISH kioslave
                               -------------------
@@ -1605,8 +1627,8 @@ Index: kioslave/fish/fish.cpp
                  if (rc > 0) {
 Index: nsplugins/nspluginloader.cpp
 ===================================================================
---- nsplugins/nspluginloader.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ nsplugins/nspluginloader.cpp	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- nsplugins/nspluginloader.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ nsplugins/nspluginloader.cpp	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -69,7 +69,7 @@
      if (cfg.readBoolEntry("demandLoad", false)) {
          _button = new QPushButton(i18n("Start Plugin"), dynamic_cast<EMBEDCLASS*>(this));
@@ -1637,8 +1659,8 @@ Index: nsplugins/nspluginloader.cpp
          WId winid = stub->winId();
 Index: nsplugins/nspluginloader.h
 ===================================================================
---- nsplugins/nspluginloader.h	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ nsplugins/nspluginloader.h	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- nsplugins/nspluginloader.h	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ nsplugins/nspluginloader.h	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -55,6 +55,7 @@
      void javascriptResult( int id, QString result ) { stub->javascriptResult( id, result ); }
  
@@ -1649,8 +1671,8 @@ Index: nsplugins/nspluginloader.h
  protected:
 Index: knetattach/knetattach.ui
 ===================================================================
---- knetattach/knetattach.ui	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ knetattach/knetattach.ui	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- knetattach/knetattach.ui	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ knetattach/knetattach.ui	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -236,7 +236,7 @@
                      </sizepolicy>
                  </property>
@@ -1662,8 +1684,8 @@ Index: knetattach/knetattach.ui
                      <number>1</number>
 Index: kwin/atoms.cpp
 ===================================================================
---- kwin/atoms.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ kwin/atoms.cpp	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- kwin/atoms.cpp	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ kwin/atoms.cpp	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -85,6 +85,8 @@
      Atom fake;
      atoms[n] = &fake;
@@ -1675,8 +1697,8 @@ Index: kwin/atoms.cpp
      names[n++] = (char*) "XdndAware";
 Index: l10n/tr/entry.desktop
 ===================================================================
---- l10n/tr/entry.desktop	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ l10n/tr/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- l10n/tr/entry.desktop	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ l10n/tr/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -83,7 +83,7 @@
  Languages=tr
  DecimalSymbol=,
@@ -1688,8 +1710,8 @@ Index: l10n/tr/entry.desktop
  PositiveSign=
 Index: l10n/ec/entry.desktop
 ===================================================================
---- l10n/ec/entry.desktop	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ l10n/ec/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- l10n/ec/entry.desktop	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ l10n/ec/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -1,5 +1,5 @@
  [KCM Locale]
 -Name=Equador
@@ -1699,8 +1721,8 @@ Index: l10n/ec/entry.desktop
  Name[az]=Ekvator
 Index: l10n/es/entry.desktop
 ===================================================================
---- l10n/es/entry.desktop	(.../tags/KDE/3.5.10/kdebase)	(revision 958029)
-+++ l10n/es/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 958029)
+--- l10n/es/entry.desktop	(.../tags/KDE/3.5.10/kdebase)	(revision 1021033)
++++ l10n/es/entry.desktop	(.../branches/KDE/3.5/kdebase)	(revision 1021033)
 @@ -94,7 +94,8 @@
  NegativeMonetarySignPosition=1
  DateFormat[es]=%A, %e de %B de %Y
