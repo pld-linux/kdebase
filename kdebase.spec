@@ -29,7 +29,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.10
-Release:	11
+Release:	12
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -75,7 +75,7 @@ Patch26:	%{name}-kdm-default_background.patch
 Patch27:	%{name}-consolekit.patch
 Patch28:	%{name}-no_mkfontdir.patch
 Patch29:	kde-am.patch
-Patch30:	%{name}-gcc44.patch
+Patch30:	ac264.patch
 BuildRequires:	OpenEXR-devel >= 1.4.0.a
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel

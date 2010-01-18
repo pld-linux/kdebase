@@ -1,0 +1,22 @@
+--- kdebase-3.5.10/kdm/configure.in.in~	2010-01-18 21:59:26.000000000 +0200
++++ kdebase-3.5.10/kdm/configure.in.in	2010-01-18 23:39:03.889841065 +0200
+@@ -93,7 +93,7 @@
+ 	  $X_LDFLAGS -lX11 $LIBSOCKET)
+ 
+ AC_ARG_WITH(xdmcp,
+-        AC_HELP_STRING([--without-xdmcp],[build kdm without xdmcp support [default=with xdmcp]]), ,
++        AC_HELP_STRING([--without-xdmcp],[build kdm without xdmcp support (default=with xdmcp)]), ,
+ 	[with_xdmcp=yes])
+ if test "x$with_xdmcp" = xyes; then
+   AC_CHECK_LIB(Xdmcp, main, [LIBXDMCP="-lXdmcp"], , $X_LDFLAGS -lX11 $LIBSOCKET)
+--- kdebase-3.5.10/admin/acinclude.m4.in~	2010-01-19 00:23:09.000000000 +0200
++++ kdebase-3.5.10/admin/acinclude.m4.in	2010-01-19 00:25:25.115858232 +0200
+@@ -4065,7 +4065,7 @@
+ 
+   want_pam=
+   AC_ARG_WITH(pam,
+-    AC_HELP_STRING([--with-pam[=ARG]],[enable support for PAM: ARG=[yes|no|service name]]),
++    AC_HELP_STRING([--with-pam@<:@=ARG@:>@],[enable support for PAM: ARG=@<:@yes|no|service name@:>@]),
+     [ if test "x$withval" = "xyes"; then
+         want_pam=yes
+         pam_service=kde
