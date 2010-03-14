@@ -1182,11 +1182,9 @@ fi
 	--without-java \
 	%{!?with_ldap:--without-ldap}
 
-
-
 %{__make}
-
 %{?with_apidocs:%{__make} apidox}
+rm -f makeinstall.stamp
 
 %install
 if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
