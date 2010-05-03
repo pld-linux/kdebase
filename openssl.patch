@@ -1,0 +1,38 @@
+--- kdebase-3.5.10/kcontrol/crypto/crypto.cpp~	2010-05-03 14:04:15.993377732 +0300
++++ kdebase-3.5.10/kcontrol/crypto/crypto.cpp	2010-05-03 14:04:18.086082037 +0300
+@@ -2321,7 +2321,11 @@
+ unsigned int i;
+ SSL_CTX *ctx;
+ SSL *ssl;
++#if OPENSSL_VERSION_NUMBER >= 0x10000000L
++const SSL_METHOD *meth;
++#else
+ SSL_METHOD *meth;
++#endif
+ 
+   SSLv2Box->clear();
+   SSLv3Box->clear();
+@@ -2337,7 +2341,11 @@
+   CipherItem *item;
+   for (i=0; ; i++) {
+     int j, k;
++#if OPENSSL_VERSION_NUMBER >= 0x10000000L
++    const SSL_CIPHER *sc;
++#else
+     SSL_CIPHER *sc;
++#endif
+     sc = (meth->get_cipher)(i);
+     if (!sc)
+       break;
+@@ -2365,7 +2373,11 @@
+ 
+   for (i=0; ; i++) {
+     int j, k;
++#if OPENSSL_VERSION_NUMBER >= 0x10000000L
++    const SSL_CIPHER *sc;
++#else
+     SSL_CIPHER *sc;
++#endif
+     sc = (meth->get_cipher)(i);
+     if (!sc)
+       break;
