@@ -10,6 +10,7 @@
 #
 # Conditional build:
 %bcond_without	apidocs			# Do not prepare API documentation
+%bcond_with	arts			# build with aRts support
 %bcond_without	ldap			# build or not ldap ioslave
 %bcond_with	kerberos5		# kerberos 5 support
 %bcond_without	hidden_visibility	# no gcc hidden visibility
@@ -79,6 +80,7 @@ Patch30:	ac264.patch
 BuildRequires:	OpenEXR-devel >= 1.4.0.a
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
+%{?with_arts:BuildRequires:	artsc-devel >= %{artsver}}
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bzip2-devel
@@ -1178,6 +1180,7 @@ fi
 	--with-pam=kdesktop \
 	--with-openexr \
 	--with-qt-libraries=%{_libdir} \
+	--with%{!?with_arts:out}-arts \
 	--with%{!?with_kerberos5:out}-krb5auth \
 	--without-java \
 	%{!?with_ldap:--without-ldap}
