@@ -15,10 +15,9 @@
 %bcond_with	kerberos5		# kerberos 5 support
 %bcond_without	hidden_visibility	# no gcc hidden visibility
 %bcond_with	groupwindows		# raise all windows belonging to program together
-#
+
 %define		_state		stable
 %define		_minlibsevr	9:%{version}
-
 Summary:	K Desktop Environment - core files
 Summary(es.UTF-8):	K Desktop Environment - archivos básicos
 Summary(ja.UTF-8):	KDEデスクトップ環境 - 基本ファイル
@@ -30,7 +29,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.10
-Release:	13
+Release:	14
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -77,6 +76,7 @@ Patch27:	%{name}-consolekit.patch
 Patch28:	%{name}-no_mkfontdir.patch
 Patch29:	kde-am.patch
 Patch30:	ac264.patch
+Patch31:	openssl.patch
 BuildRequires:	OpenEXR-devel >= 1.4.0.a
 BuildRequires:	OpenGL-devel
 BuildRequires:	audiofile-devel
@@ -146,8 +146,12 @@ BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_xdgdatadir	%{_datadir}/desktop-directories
+
 # openexr detection fails
 %undefine	configure_cache
+
+# build broken with spaces in CC
+%undefine	with_ccache
 
 %description
 This package contains KDE base system which includes:
@@ -1104,6 +1108,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch28 -p1
 %patch29 -p1
 %patch30 -p1
+%patch31 -p1
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
 for i in  google*.desktop
@@ -1807,7 +1812,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/kcm_keys.so
 %attr(755,root,root) %{_libdir}/kde3/kcm_khotkeys.so
 %attr(755,root,root) %{_libdir}/kde3/kcm_khotkeys_init.so
-%attr(755,root,root) %{_libdir}/kde3/khotkeys_arts.so
+%{?with_arts:%attr(755,root,root) %{_libdir}/kde3/khotkeys_arts.so}
 %attr(755,root,root) %{_libdir}/kde3/kcm_knotify.so
 %attr(755,root,root) %{_libdir}/kde3/kcm_ksplashthemes.so
 %attr(755,root,root) %{_libdir}/kde3/kcm_kwindecoration.so
@@ -2480,7 +2485,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde3/konq_sidebartree_bookmarks.so
 %attr(755,root,root) %{_libdir}/kde3/konq_sidebartree_dirtree.so
 %attr(755,root,root) %{_libdir}/kde3/konq_sidebartree_history.so
-%attr(755,root,root) %{_libdir}/kde3/konq_sound.so
+%{?with_arts:%attr(755,root,root) %{_libdir}/kde3/konq_sound.so}
 %attr(755,root,root) %{_libdir}/kde3/konqueror.so
 %attr(755,root,root) %{_libdir}/kde3/libkfindpart.so
 %attr(755,root,root) %{_libdir}/kde3/libkshorturifilter.so
