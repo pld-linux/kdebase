@@ -877,7 +877,7 @@ Requires:	kdebase-core = %{epoch}:%{version}-%{release}
 Obsoletes:	kdebase < 8:3.2-0.030423.1
 
 %description kwrited
-A kde daeomn that watches for messages from local users sent with
+A kde daemon that watches for messages from local users sent with
 write or wall.
 
 %description kwrited -l pl.UTF-8
