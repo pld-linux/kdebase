@@ -9,12 +9,13 @@
 # - intergrate && keep eye on new flash support: https://bugzilla.novell.com/show_bug.cgi?id=348088
 #
 # Conditional build:
-%bcond_without	apidocs			# Do not prepare API documentation
+%bcond_with	apidocs			# Do not prepare API documentation
 %bcond_with	arts			# build with aRts support
 %bcond_without	ldap			# build or not ldap ioslave
 %bcond_with	kerberos5		# kerberos 5 support
 %bcond_without	hidden_visibility	# no gcc hidden visibility
 %bcond_with	groupwindows		# raise all windows belonging to program together
+%bcond_with	kdm				# build KDM
 
 %define		_state		stable
 %define		_minlibsevr	9:%{version}
@@ -1149,7 +1150,13 @@ export QTDIR=%{_prefix}
 install -d build
 cd build
 
+# HACK:
+CPPFLAGS="%{rpmcflags} $(pkg-config --cflags dbus-1 dbus-glib-1)"
+
 %cmake \
+	-DPLUGIN_INSTALL_DIR=%{_libexecdir} \
+	-DHTML_INSTALL_DIR=%{_kdedocdir} \
+	-DAPPS_INSTALL_DIR=%{_applnkdir} \
 	-DWITH_ALL_OPTIONS=ON \
 	-DWITH_SASL=ON \
 	-DWITH_LDAP=ON \
@@ -1182,6 +1189,12 @@ cd build
 	-DWITH_UPOWER=ON \
 	\
 	-DBUILD_ALL=ON \
+%if %{without kdm}
+	-DBUILD_KDM=OFF \
+	-DBUILD_KSMSERVER=OFF \
+	-DWITH_HAL=OFF \
+	-DWITH_KDESKTOP_LOCK_BACKTRACE=OFF \
+%endif
 	-DKCHECKPASS_PAM_SERVICE="xdm" \
 	-DTDM_PAM_SERVICE="xdm" \
 	-DTDESCREENSAVER_PAM_SERVICE="xdm" \
@@ -1192,10 +1205,12 @@ cd build
 rm -f makeinstall.stamp
 
 %install
+test -f makeinstall.stamp -a %{_specdir}/%{name}.spec -nt makeinstall.stamp && rm -f makeinstall.stamp
+
 if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
 	rm -rf makeinstall.stamp installed.stamp $RPM_BUILD_ROOT
 
-	%{__make} install \
+	%{__make} install -C build \
 		DESTDIR=$RPM_BUILD_ROOT \
 		kde_htmldir=%{_kdedocdir}
 
@@ -1214,8 +1229,10 @@ if [ ! -f installed.stamp ]; then
 		mv -f $RPM_BUILD_ROOT{%{_kdedocdir}/en/%{name}-%{version}-apidocs,%{_kdedocdir}/en/%{name}-apidocs}
 	fi
 
+%if %{with kdm}
 	# Drop generated Xsession file (we have own one)
 	%{__rm} $RPM_BUILD_ROOT/etc/X11/kdm/Xsession
+%endif
 
 	# Install miscleanous PLD files
 	install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
@@ -1235,11 +1252,13 @@ if [ ! -f installed.stamp ]; then
 	# Needed for pam support
 	touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
+%if %{with kdm}
 	# Copying default faces to kdm config dir
 	cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/default1.png \
 		$RPM_BUILD_ROOT/etc/X11/kdm/faces/.default.face.icon
 	cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
 		$RPM_BUILD_ROOT/etc/X11/kdm/faces/root.face.icon
+%endif
 
 	# konqueror/dirtree no longer supported
 	rm $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop
@@ -1255,10 +1274,12 @@ if [ ! -f installed.stamp ]; then
 		mv -f $RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-{%{version}-,}apidocs
 	fi
 
+%if %{with kdm}
 	%{__rm} $RPM_BUILD_ROOT/etc/X11/kdm/README
 	%{__rm} $RPM_BUILD_ROOT%{_docdir}/kdm/README
+%endif
 	%{__rm} $RPM_BUILD_ROOT%{_desktopdir}/kde/kcmkicker.desktop # see r1.328
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Internet/keditbookmarks.desktop
+#	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Internet/keditbookmarks.desktop
 	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/LookNFeel/Themes/iconthemes.desktop
 	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/LookNFeel/kcmtaskbar.desktop
 	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/LookNFeel/panel.desktop
@@ -1316,6 +1337,7 @@ fi
 rm -f *.lang
 
 > core.lang
+%if 0
 %find_lang kdebugdialog --with-kde -a core.lang
 %find_lang kdeprint --with-kde -a core.lang
 %find_lang kdesu --with-kde -a core.lang
@@ -1387,10 +1409,12 @@ rm -f *.lang
 %find_lang kpager --with-kde
 %find_lang kwrite --with-kde
 %find_lang kcontrol/screensaver --with-kde -o screensaver.lang
+%endif
+
+touch core.lang kdebase.lang kinfocenter.lang kappfinder.lang kate.lang kdcop.lang kfind.lang kcmfontinst.lang klipper.lang konsole.lang kpager.lang ksysguard.lang kwrite.lang screensaver.lang kdm.lang konqueror.lang
 
 # Omit apidocs entries
 %{__sed} -i -e '/apidocs/d' *.lang
-
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -1497,14 +1521,14 @@ fi
 
 %files -n kde-decoration-b2
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libexecdir}/kwin3_b2.so
-%attr(755,root,root) %{_libexecdir}/kwin_b2_config.so
+#%attr(755,root,root) %{_libexecdir}/kwin3_b2.so
+#%attr(755,root,root) %{_libexecdir}/kwin_b2_config.so
 %{_datadir}/apps/kwin/b2.desktop
 
 %files -n kde-decoration-keramik
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libexecdir}/kwin3_keramik.so
-%attr(755,root,root) %{_libexecdir}/kwin_keramik_config.so
+#%attr(755,root,root) %{_libexecdir}/kwin3_keramik.so
+#%attr(755,root,root) %{_libexecdir}/kwin_keramik_config.so
 %{_datadir}/apps/kwin/keramik.desktop
 
 %files -n kde-decoration-laptop
