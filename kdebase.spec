@@ -1144,38 +1144,50 @@ for f in `find . -name \*.desktop`; do
 done
 
 %build
-%if %{with apidocs}
-	if [ ! -f "%{_kdedocdir}/en/common/kde-common.css" ]; then
-		echo >&2 "ERROR: Building kdebase with apidocs requires kdelibs to be installed _without_ excluding documentation."
-		exit 1
-	fi
-%endif
+export QTDIR=%{_prefix}
+install -d build
+cd build
 
-cp /usr/share/automake/config.sub admin
-if [ ! -f configure ]; then
-	%{__make} -f admin/Makefile.common cvs
-fi
-
-%configure \
-	--%{?debug:en}%{!?debug:dis}able-debug%{?debug:=full} \
-	%{!?debug:--disable-rpath} \
-	--disable-final \
-	%{?with_hidden_visibility:--enable-gcc-hidden-visibility} \
-%if "%{_lib}" == "lib64"
-	--enable-libsuffix=64 \
-%endif
-	--with-distribution="PLD Linux Distribution" \
-	--with-kdm-pam=kdm \
-	--with-pam=kdesktop \
-	--with-openexr \
-	--with-qt-libraries=%{_libdir} \
-	--with%{!?with_arts:out}-arts \
-	--with%{!?with_kerberos5:out}-krb5auth \
-	--without-java \
-	%{!?with_ldap:--without-ldap}
+%cmake \
+	-DWITH_ALL_OPTIONS=ON \
+	-DWITH_SASL=ON \
+	-DWITH_LDAP=ON \
+	-DWITH_SAMBA=ON \
+	%{!?with_exr:-DWITH_OPENEXR=OFF} \
+	-DWITH_XCOMPOSITE=ON \
+	-DWITH_XCURSOR=ON \
+	-DWITH_XFIXES=ON \
+	%{!?with_xrandr:-DWITH_XRANDR=OFF} \
+	-DWITH_XRENDER=ON \
+	-DWITH_XDAMAGE=ON \
+	-DWITH_XEXT=ON \
+	%{!?with_xtest:-DWITH_XTEST=OFF} \
+	-DWITH_OPENGL=ON \
+	%{!?with_xscreensaver:-DWITH_XSCREENSAVER=OFF} \
+	%{!?with_libart:-DWITH_LIBART=OFF} \
+	-DWITH_LIBUSB=ON \
+	-DWITH_LIBRAW1394=ON \
+	-DWITH_SUDO_TDESU_BACKEND=OFF \
+	-DWITH_PAM=ON \
+	-DWITH_SHADOW=ON \
+	-DWITH_XDMCP=ON \
+	-DWITH_XINERAMA=ON \
+	-DWITH_ARTS=OFF \
+	-DWITH_I8K=ON \
+	-DWITH_SENSORS=ON \
+	-DWITH_HAL=OFF \
+	-DWITH_TDEHWLIB=ON \
+	-DWITH_ELFICON=OFF \
+	-DWITH_UPOWER=ON \
+	\
+	-DBUILD_ALL=ON \
+	-DKCHECKPASS_PAM_SERVICE="xdm" \
+	-DTDM_PAM_SERVICE="xdm" \
+	-DTDESCREENSAVER_PAM_SERVICE="xdm" \
+	%{!?with_tsak:-DBUILD_TSAK=OFF} \
+	..
 
 %{__make}
-%{?with_apidocs:%{__make} apidox}
 rm -f makeinstall.stamp
 
 %install
