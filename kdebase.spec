@@ -1230,17 +1230,8 @@ if [ ! -f installed.stamp ]; then
 		mv -f $RPM_BUILD_ROOT{%{_kdedocdir}/en/%{name}-%{version}-apidocs,%{_kdedocdir}/en/%{name}-apidocs}
 	fi
 
-%if %{with kdm}
-	# Drop generated Xsession file (we have own one)
-	%{__rm} $RPM_BUILD_ROOT/etc/X11/kdm/Xsession
-%endif
-
 	# Install miscleanous PLD files
 	install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
-	install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
-	install %{SOURCE3}	$RPM_BUILD_ROOT/etc/pam.d/kdm-np
-	install %{SOURCE4}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
-	install %{SOURCE5}	$RPM_BUILD_ROOT/etc/X11/kdm/Xsession
 	install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
 	install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
 
@@ -1250,14 +1241,22 @@ if [ ! -f installed.stamp ]; then
 	rm -rf $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts
 	%{__tar} xfj %{SOURCE13} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/
 
+
+%if %{with kdm}
+	# Drop generated Xsession file (we have own one)
+	%{__rm} $RPM_BUILD_ROOT/etc/X11/kdm/Xsession
+	install -p %{SOURCE5} $RPM_BUILD_ROOT/etc/X11/kdm/Xsession
+	cp -p %{SOURCE2} $RPM_BUILD_ROOT/etc/pam.d/kdm
+	cp -p %{SOURCE3} $RPM_BUILD_ROOT/etc/pam.d/kdm-np
+	install -p %{SOURCE4} $RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
+
 	# Needed for pam support
 	touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
-%if %{with kdm}
 	# Copying default faces to kdm config dir
-	cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/default1.png \
+	cp -p $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/default1.png \
 		$RPM_BUILD_ROOT/etc/X11/kdm/faces/.default.face.icon
-	cp $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
+	cp -p $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
 		$RPM_BUILD_ROOT/etc/X11/kdm/faces/root.face.icon
 %endif
 
