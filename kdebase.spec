@@ -28,13 +28,13 @@ Summary(ru.UTF-8):	K Desktop Environment - базовые файлы
 Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
-Version:	3.5.10
-Release:	14
+Version:	3.5.13.2
+Release:	0.1
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	88237188271fbf1e6bcd40180a75d953
+Source0:	http://ftp.fau.de/trinity/releases/%{version}/%{name}-trinity-%{version}.tar.xz
+# Source0-md5:	5687691f62ea0018047872d7b822fa1e
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -79,8 +79,8 @@ Patch30:	ac264.patch
 Patch31:	openssl.patch
 BuildRequires:	OpenEXR-devel >= 1.4.0.a
 BuildRequires:	OpenGL-devel
-BuildRequires:	audiofile-devel
 %{?with_arts:BuildRequires:	artsc-devel >= %{artsver}}
+BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bzip2-devel
@@ -96,9 +96,9 @@ BuildRequires:	ed
 BuildRequires:	gettext-devel
 %{?with_apidocs:BuildRequires:	graphviz}
 BuildRequires:	hal-devel
+%{?with_kerberos5:BuildRequires: heimdal-devel}
 BuildRequires:	jasper-devel
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
-%{?with_kerberos5:BuildRequires: heimdal-devel}
 BuildRequires:	lame-libs-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
@@ -123,6 +123,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(find_lang) >= 1.32
 BuildRequires:	rpmbuild(macros) >= 1.426
 BuildRequires:	sed >= 4.0
+BuildRequires:	tar >= 1:1.22
 #BuildRequires:	unsermake >= 040511
 BuildRequires:	xorg-app-bdftopcf
 BuildRequires:	xorg-cf-files
@@ -138,6 +139,7 @@ BuildRequires:	xorg-lib-libfontenc-devel
 BuildRequires:	xorg-lib-libxkbfile-devel
 BuildRequires:	xorg-proto-scrnsaverproto-devel
 BuildRequires:	xorg-util-imake
+BuildRequires:	xz
 BuildConflicts:	kdebase-konqueror-libs
 Conflicts:	kdelibs < 9:3.1.94.040110-1
 # TODO: sensors
@@ -146,12 +148,6 @@ BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_xdgdatadir	%{_datadir}/desktop-directories
-
-# openexr detection fails
-%undefine	configure_cache
-
-# build broken with spaces in CC
-%undefine	with_ccache
 
 %description
 This package contains KDE base system which includes:
@@ -1077,7 +1073,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 - listę przestrzeni nazw (namespace)
 
 %prep
-%setup -q
+%setup -q -n %{name}-trinity-%{version}
 %patch100 -p0
 %patch0 -p1
 %patch1 -p1
@@ -1702,8 +1698,8 @@ fi
 %dir %{_datadir}/apps/konqueror/servicemenus
 #
 %{_datadir}/config.kcfg/khelpcenter.kcfg
-%{_datadir}/locale/l10n
-%lang(en_US) %{_datadir}/locale/en_US/entry.desktop
+%{_localedir}/l10n
+%lang(en_US) %{_localedir}/en_US/entry.desktop
 %{_datadir}/mimelnk/print
 %{_datadir}/services/info.protocol
 %{_datadir}/services/khelpcenter.desktop
