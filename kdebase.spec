@@ -145,6 +145,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_xdgdatadir	%{_datadir}/desktop-directories
 %define		_libexecdir	%{_libdir}/kde3
+%define		_applnkdir	%{_datadir}/applnk
 
 %description
 This package contains KDE base system which includes:
@@ -1279,19 +1280,19 @@ if [ ! -f installed.stamp ]; then
 	%{__rm} $RPM_BUILD_ROOT%{_docdir}/kdm/README
 %endif
 	%{__rm} $RPM_BUILD_ROOT%{_desktopdir}/kde/kcmkicker.desktop # see r1.328
-#	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Internet/keditbookmarks.desktop
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/LookNFeel/Themes/iconthemes.desktop
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/LookNFeel/kcmtaskbar.desktop
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/LookNFeel/panel.desktop
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/LookNFeel/panel_appearance.desktop
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/WebBrowsing/khtml_appearance.desktop
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/WebBrowsing/nsplugin.desktop
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Settings/WebBrowsing/smb.desktop
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/System/kappfinder.desktop
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/System/kmenuedit.desktop
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/System/kpersonalizer.desktop
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Toys/ktip.desktop
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/applnk/Utilities/kpager.desktop
+#	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/Internet/keditbookmarks.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/Settings/LookNFeel/Themes/iconthemes.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/Settings/LookNFeel/kcmtaskbar.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/Settings/LookNFeel/panel.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/Settings/LookNFeel/panel_appearance.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/Settings/WebBrowsing/khtml_appearance.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/Settings/WebBrowsing/nsplugin.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/Settings/WebBrowsing/smb.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/System/kappfinder.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/System/kmenuedit.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/System/kpersonalizer.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/Toys/ktip.desktop
+	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/Utilities/kpager.desktop
 	%{__rm} $RPM_BUILD_ROOT%{_datadir}/apps/kdisplay/app-defaults/*.ad # dunno. not packaged
 	# apparently in applnk package
 	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-development-translation.directory
@@ -1945,27 +1946,27 @@ fi
 %{_datadir}/wallpapers/*.svgz
 %{_datadir}/wallpapers/*.desktop
 %{_datadir}/xsessions/kde.desktop
-%{_datadir}/applnk/.hidden/.directory
-%{_datadir}/applnk/.hidden/battery.desktop
-%{_datadir}/applnk/.hidden/bwarning.desktop
-%{_datadir}/applnk/.hidden/cwarning.desktop
-%{_datadir}/applnk/.hidden/email.desktop
-%{_datadir}/applnk/.hidden/energy.desktop
-%{_datadir}/applnk/.hidden/kcmkxmlrpcd.desktop
-%{_datadir}/applnk/.hidden/kicker_config_arrangement.desktop
-%{_datadir}/applnk/.hidden/kicker_config_hiding.desktop
-%{_datadir}/applnk/.hidden/kicker_config_menus.desktop
-%{_datadir}/applnk/.hidden/kwinactions.desktop
-%{_datadir}/applnk/.hidden/kwinadvanced.desktop
-%{_datadir}/applnk/.hidden/kwinfocus.desktop
-%{_datadir}/applnk/.hidden/kwinmoving.desktop
-%{_datadir}/applnk/.hidden/kwintranslucency.desktop
-%{_datadir}/applnk/.hidden/passwords.desktop
-%{_datadir}/applnk/.hidden/power.desktop
-%{_datadir}/applnk/.hidden/randr.desktop
-%{_datadir}/applnk/.hidden/socks.desktop
-%{_datadir}/applnk/.hidden/virtualdesktops.desktop
-%{_datadir}/applnk/.hidden/xinerama.desktop
+%{_applnkdir}/.hidden/.directory
+%{_applnkdir}/.hidden/battery.desktop
+%{_applnkdir}/.hidden/bwarning.desktop
+%{_applnkdir}/.hidden/cwarning.desktop
+%{_applnkdir}/.hidden/email.desktop
+%{_applnkdir}/.hidden/energy.desktop
+%{_applnkdir}/.hidden/kcmkxmlrpcd.desktop
+%{_applnkdir}/.hidden/kicker_config_arrangement.desktop
+%{_applnkdir}/.hidden/kicker_config_hiding.desktop
+%{_applnkdir}/.hidden/kicker_config_menus.desktop
+%{_applnkdir}/.hidden/kwinactions.desktop
+%{_applnkdir}/.hidden/kwinadvanced.desktop
+%{_applnkdir}/.hidden/kwinfocus.desktop
+%{_applnkdir}/.hidden/kwinmoving.desktop
+%{_applnkdir}/.hidden/kwintranslucency.desktop
+%{_applnkdir}/.hidden/passwords.desktop
+%{_applnkdir}/.hidden/power.desktop
+%{_applnkdir}/.hidden/randr.desktop
+%{_applnkdir}/.hidden/socks.desktop
+%{_applnkdir}/.hidden/virtualdesktops.desktop
+%{_applnkdir}/.hidden/xinerama.desktop
 %{_desktopdir}/kde/arts.desktop
 %{_desktopdir}/kde/background.desktop
 %{_desktopdir}/kde/bell.desktop
@@ -2145,8 +2146,8 @@ fi
 %{_datadir}/apps/kicker/wallpapers
 %{_datadir}/apps/naughtyapplet
 %{_datadir}/autostart/panel.desktop
-%{_datadir}/applnk/.hidden/kicker_config.desktop
-%{_datadir}/applnk/.hidden/kicker_config_appearance.desktop
+%{_applnkdir}/.hidden/kicker_config.desktop
+%{_applnkdir}/.hidden/kicker_config_appearance.desktop
 %{_datadir}/config.kcfg/taskbar.kcfg
 %{_datadir}/config.kcfg/launcherapplet.kcfg
 %{_desktopdir}/kde/cdinfo.desktop
@@ -2329,7 +2330,7 @@ fi
 %attr(755,root,root) %{_libexecdir}/kcm_konsole.so
 %attr(755,root,root) %{_libexecdir}/konsole.so
 %{_datadir}/services/konsole-script.desktop
-%{_datadir}/applnk/.hidden/kcmkonsole.desktop
+%{_applnkdir}/.hidden/kcmkonsole.desktop
 %{_desktopdir}/kde/konsole*.desktop
 %{_iconsdir}/*/*/apps/konsole.png
 %{_iconsdir}/*/*/apps/konsole.svgz
@@ -2398,7 +2399,7 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kdepasswd
 %attr(755,root,root) %{_libexecdir}/kcm_useraccount.so
-%{_datadir}/applnk/.hidden/userinfo.desktop
+%{_applnkdir}/.hidden/userinfo.desktop
 %{_datadir}/apps/kdm/pics/users/*
 %{_datadir}/config.kcfg/kcm_useraccount.kcfg
 %{_datadir}/config.kcfg/kcm_useraccount_pass.kcfg
@@ -2608,16 +2609,16 @@ fi
 %{_datadir}/servicetypes/konqpopupmenuplugin.desktop
 %{_datadir}/servicetypes/searchprovider.desktop
 %{_datadir}/servicetypes/uasprovider.desktop
-%{_datadir}/applnk/.hidden/fileappearance.desktop
-%{_datadir}/applnk/.hidden/filebehavior.desktop
-%{_datadir}/applnk/.hidden/filepreviews.desktop
-%{_datadir}/applnk/.hidden/kcmkonq.desktop
-%{_datadir}/applnk/.hidden/kcmkonqyperformance.desktop
-%{_datadir}/applnk/.hidden/konqfilemgr.desktop
-%{_datadir}/applnk/.hidden/konqhtml.desktop
-%{_datadir}/applnk/.hidden/smb.desktop
+%{_applnkdir}/.hidden/fileappearance.desktop
+%{_applnkdir}/.hidden/filebehavior.desktop
+%{_applnkdir}/.hidden/filepreviews.desktop
+%{_applnkdir}/.hidden/kcmkonq.desktop
+%{_applnkdir}/.hidden/kcmkonqyperformance.desktop
+%{_applnkdir}/.hidden/konqfilemgr.desktop
+%{_applnkdir}/.hidden/konqhtml.desktop
+%{_applnkdir}/.hidden/smb.desktop
 # Must be here!
-%{_datadir}/applnk/konqueror.desktop
+%{_applnkdir}/konqueror.desktop
 #
 %{_desktopdir}/kde/filebrowser.desktop
 %{_desktopdir}/kde/filetypes.desktop
