@@ -1,7 +1,7 @@
---- kdebase-3.5.4/kcontrol/background/bgdialog.cpp.orig	2006-09-30 23:07:48.000000000 +0200
-+++ kdebase-3.5.4/kcontrol/background/bgdialog.cpp	2006-10-01 14:23:52.000000000 +0200
-@@ -362,6 +362,48 @@
- 	load( true );
+--- kdebase-trinity-3.5.13.2/kcontrol/background/bgdialog.cpp~	2012-09-16 15:52:02.000000000 +0300
++++ kdebase-trinity-3.5.13.2/kcontrol/background/bgdialog.cpp	2014-05-27 14:55:13.858446285 +0300
+@@ -380,6 +380,48 @@
+    eRenderer()->setWallpaper( eRenderer()->wallpaper() );
  }
  
 +void BGDialog::kdmdefaults()
@@ -46,7 +46,7 @@
 +   emit changed(true);
 +}
 +
- QString BGDialog::quickHelp() const
+ TQString BGDialog::quickHelp() const
  {
     return i18n("<h1>Background</h1> This module allows you to control the"
 --- kdebase-030317/kcontrol/background/bgdialog.h~	Thu Feb  6 00:35:39 2003

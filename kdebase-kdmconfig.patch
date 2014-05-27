@@ -9,35 +9,35 @@
      m_background = new BGDialog( this, m_simpleConf, false );
  
      connect(m_background, SIGNAL(changed(bool)), SIGNAL(changed(bool)));
---- kdebase-031010/kcontrol/kdm/kdm-appear.cpp.orig	2003-09-23 21:46:11.000000000 +0200
-+++ kdebase-031010/kcontrol/kdm/kdm-appear.cpp	2003-10-10 19:41:03.000000000 +0200
-@@ -385,7 +385,7 @@
- bool KDMAppearanceWidget::setLogo(QString logo)
+--- kdebase-trinity-3.5.13.2/kcontrol/kdm/kdm-appear.cpp~	2012-09-16 15:52:02.000000000 +0300
++++ kdebase-trinity-3.5.13.2/kcontrol/kdm/kdm-appear.cpp	2014-05-27 13:58:32.057608488 +0300
+@@ -355,7 +355,7 @@
+ bool KDMAppearanceWidget::setLogo(TQString logo)
  {
-     QString flogo = logo.isEmpty() ?
--                    locate("data", QString::fromLatin1("kdm/pics/kdelogo.png") ) :
-+                    locate("data", QString::fromLatin1("kdm/pics/pldlogo.png") ) :
+     TQString flogo = logo.isEmpty() ?
+-                    locate("data", TQString::fromLatin1("kdm/pics/kdelogo.png") ) :
++                    locate("data", TQString::fromLatin1("kdm/pics/pldlogo.png") ) :
                      logo;
-     QPixmap p(flogo);
+     TQImage p(flogo);
      if (p.isNull())
-@@ -516,7 +516,7 @@
+@@ -502,7 +502,7 @@
    config->setGroup("X-*-Greeter");
  
    // Read the greeting string
--  greetstr_lined->setText(config->readEntry("GreetString", i18n("Welcome to %s at %n")));
+-  greetstr_lined->setText(config->readEntry("GreetString", i18n("Welcome to %n")));
 +  greetstr_lined->setText(config->readEntry("GreetString", i18n("Welcome to PLD Linux at %n")));
  
    // Regular logo or clock
-   QString logoArea = config->readEntry("LogoArea", "Logo" );
-@@ -566,7 +566,7 @@
+   TQString logoArea = config->readEntry("LogoArea", "Logo" );
+@@ -556,7 +556,7 @@
  
  void KDMAppearanceWidget::defaults()
  {
--  greetstr_lined->setText( i18n("Welcome to %s at %n") );
+-  greetstr_lined->setText( i18n("Welcome to %n") );
 +  greetstr_lined->setText( i18n("Welcome to PLD Linux at %n") );
    logoRadio->setChecked( true );
    slotAreaRadioClicked( KdmLogo );
-   posCenterRadio->setChecked( true );
+   setLogo( "" );
 --- kdebase-030924/kcontrol/kdm/kdm-users.cpp~	2003-09-23 21:46:11.000000000 +0200
 +++ kdebase-030924/kcontrol/kdm/kdm-users.cpp	2003-09-24 16:39:25.000000000 +0200
 @@ -65,7 +65,7 @@
@@ -49,17 +49,23 @@
      m_notFirst = false;
      QDir testDir( m_userPixDir );
      if ( !testDir.exists() && !testDir.mkdir( testDir.absPath() ))
---- kdebase-3.1/kcontrol/kdm/main.cpp.orig	Sun Oct 27 00:05:07 2002
-+++ kdebase-3.1/kcontrol/kdm/main.cpp	Thu Nov 21 02:51:19 2002
-@@ -92,7 +92,7 @@
-     usermap.insert( QString::fromLocal8Bit( ps->pw_name ), ps->pw_uid );
-   endpwent();
+--- kdebase-trinity-3.5.13.2/kcontrol/kdm/main.cpp~	2012-09-16 15:52:02.000000000 +0300
++++ kdebase-trinity-3.5.13.2/kcontrol/kdm/main.cpp	2014-05-27 14:03:23.136893424 +0300
+@@ -174,11 +174,11 @@
+ 	<< "' have unknown GID " << tgmapci.key() << endl;
  
--  config = new KSimpleConfig( QString::fromLatin1( KDE_CONFDIR "/kdm/kdmrc" ));
-+  config = new KSimpleConfig( QString::fromLatin1( "/etc/X11/kdm/kdmrc" ));
+   struct stat st;
+-  if( stat( KDE_CONFDIR "/kdm/kdmdistrc" ,&st ) == 0) {
+-    config = new KSimpleConfig( TQString::fromLatin1( KDE_CONFDIR "/kdm/kdmdistrc" ));
++  if( stat( "/etc/X11/kdm/kdmdistrc" ,&st ) == 0) {
++    config = new KSimpleConfig( TQString::fromLatin1( "/etc/X11/kdm/kdmdistrc" ));
+   }
+   else {
+-    config = new KSimpleConfig( TQString::fromLatin1( KDE_CONFDIR "/kdm/kdmrc" ));
++    config = new KSimpleConfig( TQString::fromLatin1( "/etc/X11/kdm/kdmrc" ));
+   }
  
-   QVBoxLayout *top = new QVBoxLayout(this);
-   tab = new QTabWidget(this);
+   TQVBoxLayout *top = new TQVBoxLayout(this);
 --- kdebase-030930/kdm/kfrontend/Makefile.am~	2003-09-30 00:47:50.000000000 +0200
 +++ kdebase-030930/kdm/kfrontend/Makefile.am	2003-09-30 10:06:29.000000000 +0200
 @@ -38,7 +38,7 @@
@@ -71,8 +77,8 @@
  
  messages:
  	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
---- kdebase-3.5.4/kdm/config.def.orig	2005-10-10 17:04:31.000000000 +0200
-+++ kdebase-3.5.4/kdm/config.def	2006-10-01 13:13:08.000000000 +0200
+--- kdebase-trinity-3.5.13.2/kdm/config.def~	2014-05-27 13:55:54.000000000 +0300
++++ kdebase-trinity-3.5.13.2/kdm/config.def	2014-05-27 14:35:25.710243084 +0300
 @@ -29,7 +29,7 @@
  #define RCVERMAJOR 2
  #define RCVERMINOR 3
@@ -155,16 +161,12 @@
  Merge: xdm
  Comment:
   Allow to log in, when user has set an empty password?
-@@ -1921,10 +1921,10 @@
- 
- Key: SessionsDirs
- Type: list
--Default: KDMDATA "/sessions"
-+Default: "/usr/share/xsessions"
+@@ -1931,7 +1931,7 @@
+ Default: "/usr/share/xsessions,/var/lib/menu-xdg/xsessions," KDMDATA "/sessions"
  User: core
  User: greeter-c
--Instance: #*/"/etc/X11/sessions,/usr/share/xsessions"
-+Instance: #*/"/etc/X11/sessions"
+-Instance: */"/usr/share/xsessions,/var/lib/menu-xdg/xsessions," KDMDATA "/sessions"
++Instance: */"/etc/X11/sessions,/usr/share/xsessions,/var/lib/menu-xdg/xsessions," KDMDATA "/sessions"
  Comment:
   The directories containing session type definitions in .desktop format.
  Description:
@@ -206,15 +208,18 @@
  Comment:
   The image to show when LogoArea=Logo.
  Description:
-@@ -2044,7 +2044,7 @@
+@@ -2092,9 +2092,9 @@
  
  Key: GreetString
  Type: string
--Default: "Welcome to %s at %n"
+-Default: "Welcome to Trinity at %n"
 +Default: "Welcome to PLD Linux at %n"
  User: greeter
- Instance: #*/"K Desktop Environment (%n)"
+-Instance: #*/"Welcome to Trinity at %n"
++Instance: #*/"Welcome to PLD Linux at %n"
  Comment:
+  The headline in the greeter. The following character pairs are replaced:
+  - %d -> current display
 @@ -2227,7 +2227,7 @@
  
  Key: MinShowUID

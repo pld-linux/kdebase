@@ -48,7 +48,7 @@ Source10:	%{name}-servicemenus.tar.bz2
 # Source10-md5:	f48ac7af286f4c87961de4bb24d07772
 Source13:	%{name}-konqsidebartng-PLD-entries-0.2.tar.bz2
 # Source13-md5:	aa373b561e1cedb78b652f43e19fc122
-Patch100:	%{name}-branch.diff
+#Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-fontdir.patch
 # http://www.icefox.net/articles/kdeosx/grouplayer.diff
@@ -57,7 +57,6 @@ Patch3:		%{name}-kdm_utmpx.patch
 Patch4:		%{name}-kdmconfig.patch
 Patch5:		%{name}-kicker.patch
 Patch7:		%{name}-nsplugins_dirs.patch
-Patch8:		%{name}-startkde.patch
 Patch9:		%{name}-kcm_fonts.patch
 Patch10:	%{name}-kdesukonsole.patch
 Patch12:	%{name}-screensavers.patch
@@ -68,15 +67,10 @@ Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
 Patch20:	%{name}-seesar.patch
 Patch21:	%{name}-konsole-wordseps.patch
-Patch22:	%{name}-tango.patch
-Patch24:	kde-ac260-lt.patch
 Patch25:	%{name}-konsole-history_clear.patch
 Patch26:	%{name}-kdm-default_background.patch
-Patch27:	%{name}-consolekit.patch
 Patch28:	%{name}-no_mkfontdir.patch
-Patch29:	kde-am.patch
 Patch30:	ac264.patch
-Patch31:	openssl.patch
 BuildRequires:	OpenEXR-devel >= 1.4.0.a
 BuildRequires:	OpenGL-devel
 %{?with_arts:BuildRequires:	artsc-devel >= %{artsver}}
@@ -85,6 +79,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bzip2-devel
 BuildRequires:	cdparanoia-III-devel
+BuildRequires:	cmake >= 2.8
 BuildRequires:	cups-devel
 BuildRequires:	cyrus-sasl-devel
 BuildRequires:	db-devel
@@ -95,7 +90,7 @@ BuildRequires:	ed
 %{?with_hidden_visibility:BuildRequires:	gcc-c++ >= 5:4.1.0-0.20051206r108118.1}
 BuildRequires:	gettext-devel
 %{?with_apidocs:BuildRequires:	graphviz}
-BuildRequires:	hal-devel
+#BuildRequires:	hal-devel
 %{?with_kerberos5:BuildRequires: heimdal-devel}
 BuildRequires:	jasper-devel
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
@@ -1074,7 +1069,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 
 %prep
 %setup -q -n %{name}-trinity-%{version}
-%patch100 -p0
+#%patch100 -p0
 %patch0 -p1
 %patch1 -p1
 %{?with_groupwindows:%patch2 -p1}
@@ -1082,7 +1077,6 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch4 -p1
 %patch5 -p1
 %patch7 -p1
-%patch8 -p1
 # Outdated but some things
 # must be revised (AA default settings)
 #%patch9 -p1
@@ -1096,15 +1090,10 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 #%patch19 -p1
 %patch20 -p1
 %patch21 -p1
-%patch22 -p0
-%patch24 -p1
 %patch25 -p1
 %patch26 -p1
-%patch27 -p1
 %patch28 -p1
-%patch29 -p1
 %patch30 -p1
-%patch31 -p1
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
 for i in  google*.desktop
@@ -1154,7 +1143,6 @@ for f in `find . -name \*.desktop`; do
 	fi
 done
 
-mv -f configure{,.dist}
 %build
 %if %{with apidocs}
 	if [ ! -f "%{_kdedocdir}/en/common/kde-common.css" ]; then

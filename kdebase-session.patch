@@ -1,9 +1,9 @@
---- kdebase-3.2.0/kdm/kfrontend/sessions/Makefile.am.orig	2004-01-28 09:13:08.000000000 +0100
-+++ kdebase-3.2.0/kdm/kfrontend/sessions/Makefile.am	2004-01-28 09:19:46.000000000 +0100
+--- kdebase-trinity-3.5.13.2/kdm/kfrontend/sessions/Makefile.am~	2012-09-16 15:52:03.000000000 +0300
++++ kdebase-trinity-3.5.13.2/kdm/kfrontend/sessions/Makefile.am	2014-05-27 14:47:14.574323666 +0300
 @@ -1,49 +1,3 @@
 -sessionsdir = $(kde_datadir)/kdm/sessions
 -sessions_DATA = \
--    kde.desktop gnome.desktop \
+-    admin.desktop tde.desktop gnome.desktop \
 -    9wm.desktop \
 -    aewm++.desktop \
 -    aewm.desktop \

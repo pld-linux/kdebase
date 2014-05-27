@@ -1,10 +1,10 @@
---- kdelibs-3.5.3.or/admin/acinclude.m4.in	2006-05-23 13:02:06.000000000 +0000
-+++ kdelibs-3.5.3/admin/acinclude.m4.in	2006-07-01 14:55:49.345359250 +0000
-@@ -428,7 +428,7 @@
+--- kdebase-trinity-3.5.13.2/admin/acinclude.m4.in~	2014-05-27 13:52:35.000000000 +0300
++++ kdebase-trinity-3.5.13.2/admin/acinclude.m4.in	2014-05-27 13:54:12.266346471 +0300
+@@ -468,7 +468,7 @@
  if test "$1" = "default"; then
  
    if test -z "$kde_htmldir"; then
--    kde_htmldir='\${datadir}/doc/HTML'
+-    kde_htmldir='\${datadir}/doc/tde/HTML'
 +    kde_htmldir='/usr/share/doc/kde/HTML'
    fi
    if test -z "$kde_appsdir"; then
@@ -152,23 +152,3 @@
          }
          for $opt (@kde_options) {
 
---- x/admin/acinclude.m4.in.orig	2008-10-08 10:18:48.844247699 +0200
-+++ x/admin/acinclude.m4.in	2008-10-08 10:21:26.884232831 +0200
-@@ -4612,7 +4612,8 @@
- 
- AC_DEFUN([KDE_CHECK_PYTHON],
- [
--  KDE_CHECK_PYTHON_INTERN("2.5",
-+ KDE_CHECK_PYTHON_INTERN("2.6",
-+  [KDE_CHECK_PYTHON_INTERN("2.5",
-     [KDE_CHECK_PYTHON_INTERN("2.4",
-      [KDE_CHECK_PYTHON_INTERN("2.3", 
-        [KDE_CHECK_PYTHON_INTERN("2.2", 
-@@ -4624,6 +4625,7 @@
-        ])
-      ])
-   ])
-+ ])
- ])
- 
- AC_DEFUN([KDE_CHECK_STL],

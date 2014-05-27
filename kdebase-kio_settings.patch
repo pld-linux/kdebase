@@ -1,12 +1,12 @@
---- kdebase-040519/kioslave/settings/kio_settings.cc.orig	2004-05-19 01:55:33.000000000 +0200
-+++ kdebase-040519/kioslave/settings/kio_settings.cc	2004-05-19 23:47:15.910694936 +0200
-@@ -120,7 +120,7 @@
- KServiceGroup::Ptr SettingsProtocol::findGroup(const QString &relPath)
+--- kdebase-trinity-3.5.13.2/kioslave/settings/kio_settings.cc~	2014-05-27 14:47:44.000000000 +0300
++++ kdebase-trinity-3.5.13.2/kioslave/settings/kio_settings.cc	2014-05-27 14:48:11.446790682 +0300
+@@ -122,7 +122,7 @@
+ KServiceGroup::Ptr SettingsProtocol::findGroup(const TQString &relPath)
  {
- 	QString nextPart;
--	QString alreadyFound("Settings/");
-+	QString alreadyFound("KDE-Settings/");
- 	QStringList rest = QStringList::split('/', relPath);
+ 	TQString nextPart;
+-	TQString alreadyFound("Settings/");
++	TQString alreadyFound("KDE-Settings/");
+ 	TQStringList rest = TQStringList::split('/', relPath);
  
  	kdDebug() << "Trying harder to find group " << relPath << endl;
 @@ -183,7 +183,7 @@
