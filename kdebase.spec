@@ -30,7 +30,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.13.2
-Release:	0.1
+Release:	0.8
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -1337,7 +1337,6 @@ fi
 rm -f *.lang
 
 > core.lang
-%if 0
 %find_lang kdebugdialog --with-kde -a core.lang
 %find_lang kdeprint --with-kde -a core.lang
 %find_lang kdesu --with-kde -a core.lang
@@ -1393,12 +1392,16 @@ rm -f *.lang
 %find_lang kcontrol/smb --with-kde -a konqueror.lang
 %find_lang kcontrol/useragent --with-kde -a konqueror.lang
 
-%find_lang kappfinder --with-kde
+#%find_lang kappfinder --with-kde
+touch kappfinder.lang
+
 %find_lang kate --with-kde
+
 %find_lang kdm --with-kde
 %find_lang kcontrol/kdm --with-kde -a kdm.lang
 %find_lang kfind --with-kde
 %find_lang kcontrol/kcmfontinst	--with-kde -o kcmfontinst.lang
+
 %find_lang kdcop --with-kde
 %find_lang kinfocenter --with-kde
 %find_lang kioslave --with-kde -a kinfocenter.lang
@@ -1409,9 +1412,7 @@ rm -f *.lang
 %find_lang kpager --with-kde
 %find_lang kwrite --with-kde
 %find_lang kcontrol/screensaver --with-kde -o screensaver.lang
-%endif
 
-touch core.lang kdebase.lang kinfocenter.lang kappfinder.lang kate.lang kdcop.lang kfind.lang kcmfontinst.lang klipper.lang konsole.lang kpager.lang ksysguard.lang kwrite.lang screensaver.lang kdm.lang konqueror.lang
 
 # Omit apidocs entries
 %{__sed} -i -e '/apidocs/d' *.lang
