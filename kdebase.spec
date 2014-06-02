@@ -103,6 +103,7 @@ BuildRequires:	libsmbclient-devel >= 1:3.0.23d-3
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool
+BuildRequires:	libtqtinterface-devel >= %{version}
 BuildRequires:	libusb-compat-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	libxml2-devel
@@ -1153,8 +1154,10 @@ cd build
 
 # HACK:
 CPPFLAGS="%{rpmcflags} $(pkg-config --cflags dbus-1 dbus-glib-1)"
+export CXXFLAGS="%{rpmcxxflags} $(pkg-config --cflags dbus-1 dbus-glib-1)"
 
 %cmake \
+	-Wno-dev \
 	-DPLUGIN_INSTALL_DIR=%{_libexecdir} \
 	-DHTML_INSTALL_DIR=%{_kdedocdir} \
 	-DAPPS_INSTALL_DIR=%{_applnkdir} \
@@ -1194,8 +1197,8 @@ CPPFLAGS="%{rpmcflags} $(pkg-config --cflags dbus-1 dbus-glib-1)"
 	-DBUILD_KDM=OFF \
 	-DBUILD_KSMSERVER=OFF \
 	-DWITH_HAL=OFF \
-	-DWITH_KDESKTOP_LOCK_BACKTRACE=OFF \
 %endif
+	-DWITH_KDESKTOP_LOCK_BACKTRACE=OFF \
 	-DKCHECKPASS_PAM_SERVICE="xdm" \
 	-DTDM_PAM_SERVICE="xdm" \
 	-DTDESCREENSAVER_PAM_SERVICE="xdm" \
@@ -1426,8 +1429,8 @@ rm -rf $RPM_BUILD_ROOT
 %postun common-konsole
 /usr/bin/fontpostinst misc
 
-%post core -p /sbin/ldconfig
-%postun core -p /sbin/ldconfig
+%post	core -p /sbin/ldconfig
+%postun	core -p /sbin/ldconfig
 
 %post	desktop-libs	-p /sbin/ldconfig
 %postun	desktop-libs	-p /sbin/ldconfig
