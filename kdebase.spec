@@ -1516,6 +1516,10 @@ fi
 %attr(755,root,root) %{_libdir}/libtaskbar.so
 %{_libdir}/libtaskmanager.la
 %attr(755,root,root) %{_libdir}/libtaskmanager.so
+%{_datadir}/cmake/kicker.cmake
+%{_datadir}/cmake/konqueror.cmake
+%{_datadir}/cmake/kwin.cmake
+%{_datadir}/cmake/libkonq.cmake
 
 %if %{with apidocs}
 %files apidocs
@@ -1525,14 +1529,14 @@ fi
 
 %files -n kde-decoration-b2
 %defattr(644,root,root,755)
-#%attr(755,root,root) %{_libexecdir}/kwin3_b2.so
-#%attr(755,root,root) %{_libexecdir}/kwin_b2_config.so
+%attr(755,root,root) %{_libexecdir}/kwin3_b2.so
+%attr(755,root,root) %{_libexecdir}/kwin_b2_config.so
 %{_datadir}/apps/kwin/b2.desktop
 
 %files -n kde-decoration-keramik
 %defattr(644,root,root,755)
-#%attr(755,root,root) %{_libexecdir}/kwin3_keramik.so
-#%attr(755,root,root) %{_libexecdir}/kwin_keramik_config.so
+%attr(755,root,root) %{_libexecdir}/kwin3_keramik.so
+%attr(755,root,root) %{_libexecdir}/kwin_keramik_config.so
 %{_datadir}/apps/kwin/keramik.desktop
 
 %files -n kde-decoration-laptop
@@ -1564,11 +1568,11 @@ fi
 
 %files -n kde-kgreet-classic
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libexecdir}/kgreet_classic.so
+#%attr(755,root,root) %{_libexecdir}/kgreet_classic.so
 
 %files -n kde-kgreet-winbind
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libexecdir}/kgreet_winbind.so
+#%attr(755,root,root) %{_libexecdir}/kgreet_winbind.so
 
 %if %{with ldap}
 %files -n kde-kio-ldap
@@ -1602,11 +1606,18 @@ fi
 
 %files -n kde-logoutpic-default
 %defattr(644,root,root,755)
-%{_datadir}/apps/ksmserver/pics/shutdownkonq.png
+#%{_datadir}/apps/ksmserver/pics/shutdownkonq.png
 
 %files -n kde-splash-Default
 %defattr(644,root,root,755)
 %{_datadir}/apps/ksplash/Themes/Default
+
+# Unified
+# TODO: subpackage?
+%dir %{_datadir}/apps/ksplash/Themes/Unified
+%{_datadir}/apps/ksplash/Themes/Unified/Theme.rc
+%{_datadir}/services/ksplashunified.desktop
+%attr(755,root,root) %{_libexecdir}/ksplashunified.so
 
 %files -n kde-splash-blue-bend
 %defattr(644,root,root,755)
@@ -1648,7 +1659,7 @@ fi
 
 %files common-konsole
 %defattr(644,root,root,755)
-%{_fontsdir}/misc/console*.gz
+#%{_fontsdir}/misc/console*.gz
 %{_datadir}/apps/konsole
 %{_datadir}/mimelnk/application/x-konsole.desktop
 %{_iconsdir}/crystalsvg/*/apps/bell.png
@@ -1656,6 +1667,9 @@ fi
 
 %files core -f core.lang
 %defattr(644,root,root,755)
+# TODO: use system pkg
+%{_datadir}/apps/usb.ids
+
 %lang(en) %dir %{_kdedocdir}/en/kcontrol
 %lang(en) %{_kdedocdir}/en/kcontrol/common
 %lang(en) %{_kdedocdir}/en/kcontrol/helpindex.html
@@ -1667,7 +1681,7 @@ fi
 %attr(755,root,root) %{_bindir}/kcminit
 %attr(755,root,root) %{_bindir}/kcminit_startup
 %attr(755,root,root) %{_bindir}/kcontrol
-%attr(755,root,root) %{_bindir}/kde3
+#%attr(755,root,root) %{_bindir}/kde3
 %attr(755,root,root) %{_bindir}/kdebugdialog
 %attr(755,root,root) %{_bindir}/kdesu
 %attr(755,root,root) %{_bindir}/khc_indexbuilder
@@ -1676,17 +1690,25 @@ fi
 %attr(755,root,root) %{_bindir}/kprinter
 %attr(2755,root,root) %{_bindir}/kdesud
 %attr(755,root,root) %{_bindir}/multiple-attachments-servicemenu
+%attr(755,root,root) %{_bindir}/crashtest
+%attr(755,root,root) %{_bindir}/khc_beagle_index.pl
+%attr(755,root,root) %{_bindir}/khc_beagle_search.pl
+%attr(755,root,root) %{_bindir}/krootbacking
+%attr(755,root,root) %{_bindir}/kxdglauncher
+%attr(755,root,root) %{_bindir}/migratekde3
 %attr(755,root,root) %{_libdir}/libkdeinit_kcminit.so
 %attr(755,root,root) %{_libdir}/libkdeinit_kcminit_startup.so
 %attr(755,root,root) %{_libdir}/libkdeinit_kcontrol.so
 %attr(755,root,root) %{_libdir}/libkdeinit_khelpcenter.so
 %attr(755,root,root) %{_libdir}/libkdeinit_kprinter.so
 %attr(755,root,root) %{_libexecdir}/kcm_colors.so
+%attr(755,root,root) %{_libexecdir}/kcm_displayconfig.so
 %attr(755,root,root) %{_libexecdir}/kcm_fonts.so
+%attr(755,root,root) %{_libexecdir}/kcm_iccconfig.so
 %attr(755,root,root) %{_libexecdir}/kcm_kded.so
-%attr(755,root,root) %{_libexecdir}/kcm_style.so
 %attr(755,root,root) %{_libexecdir}/kcm_locale.so
 %attr(755,root,root) %{_libexecdir}/kcm_printmgr.so
+%attr(755,root,root) %{_libexecdir}/kcm_style.so
 %attr(755,root,root) %{_libexecdir}/kcminit.so
 %attr(755,root,root) %{_libexecdir}/kcminit_startup.so
 %attr(755,root,root) %{_libexecdir}/kcontrol.so
@@ -1703,6 +1725,13 @@ fi
 %attr(755,root,root) %{_libexecdir}/libkdeprint_part.so
 %attr(755,root,root) %{_libexecdir}/libkhtmlkttsdplugin.so
 %attr(755,root,root) %{_libexecdir}/libkmanpart.so
+
+%dir %{_libexecdir}/plugins/integration
+%attr(755,root,root) %{_libexecdir}/plugins/integration/libqtkde.la
+%attr(755,root,root) %{_libexecdir}/plugins/integration/libqtkde.so
+%attr(755,root,root) %{_libexecdir}/plugins/integration/libqtkde.so.0
+%attr(755,root,root) %{_libexecdir}/plugins/integration/libqtkde.so.0.0.0
+
 %{_datadir}/apps/drkonqi
 %{_datadir}/apps/kcmview1394
 %{_datadir}/apps/kcontrol
@@ -1738,6 +1767,8 @@ fi
 %{_datadir}/services/settings.protocol
 %{_datadir}/services/system.protocol
 %{_xdgdatadir}/kde-settings*.directory
+%{_desktopdir}/kde/displayconfig.desktop
+%{_desktopdir}/kde/iccconfig.desktop
 %{_desktopdir}/kde/language.desktop
 %{_desktopdir}/kde/kcmkded.desktop
 %{_desktopdir}/kde/colors.desktop
@@ -1746,6 +1777,8 @@ fi
 %{_desktopdir}/kde/printers.desktop
 %{_desktopdir}/kde/Help.desktop
 %{_desktopdir}/kde/KControl.desktop
+%{_desktopdir}/kde/kcmusb.desktop
+%{_desktopdir}/kde/showdesktop.desktop
 %{_iconsdir}/*/*/apps/colors.png
 %{_iconsdir}/*/*/apps/energy.png
 %{_iconsdir}/*/*/apps/fonts.png
@@ -1794,7 +1827,7 @@ fi
 %attr(755,root,root) %{_bindir}/kreadconfig
 %attr(755,root,root) %{_bindir}/kwriteconfig
 %attr(755,root,root) %{_bindir}/krandrtray
-%attr(755,root,root) %{_bindir}/ksmserver
+#%attr(755,root,root) %{_bindir}/ksmserver
 %attr(755,root,root) %{_bindir}/ksplash
 %attr(755,root,root) %{_bindir}/ksplashsimple
 %attr(755,root,root) %{_bindir}/kstart
@@ -1817,7 +1850,7 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit_kaccess.so
 %attr(755,root,root) %{_libdir}/libkdeinit_kdesktop.so
 %attr(755,root,root) %{_libdir}/libkdeinit_khotkeys.so
-%attr(755,root,root) %{_libdir}/libkdeinit_ksmserver.so
+#%attr(755,root,root) %{_libdir}/libkdeinit_ksmserver.so
 %attr(755,root,root) %{_libdir}/libkdeinit_kwin.so
 %attr(755,root,root) %{_libdir}/libkdeinit_kwin_rules_dialog.so
 %attr(755,root,root) %{_libdir}/libkdeinit_kxkb.so
@@ -1851,9 +1884,10 @@ fi
 %attr(755,root,root) %{_libexecdir}/kcm_spellchecking.so
 %attr(755,root,root) %{_libexecdir}/kcm_xinerama.so
 %attr(755,root,root) %{_libexecdir}/kded_khotkeys.so
+%attr(755,root,root) %{_libexecdir}/kded_kdeintegration.so
 %attr(755,root,root) %{_libexecdir}/kdesktop.so
 %attr(755,root,root) %{_libexecdir}/khotkeys.so
-%attr(755,root,root) %{_libexecdir}/ksmserver.so
+#%attr(755,root,root) %{_libexecdir}/ksmserver.so
 %attr(755,root,root) %{_libexecdir}/ksplashdefault.so
 %attr(755,root,root) %{_libexecdir}/kwin.so
 %attr(755,root,root) %{_libexecdir}/kwin_default_config.so
@@ -1866,6 +1900,10 @@ fi
 %attr(755,root,root) %{_libexecdir}/kded_medianotifier.so
 %attr(755,root,root) %{_libexecdir}/kded_homedirnotify.so
 %attr(755,root,root) %{_libexecdir}/kio_home.so
+%{_libdir}/libkickoffsearch_interfaces.la
+%attr(755,root,root) %{_libdir}/libkickoffsearch_interfaces.so
+%attr(755,root,root) %{_libdir}/libkickoffsearch_interfaces.so.0
+%attr(755,root,root) %{_libdir}/libkickoffsearch_interfaces.so.0.0.0
 %{_datadir}/apps/clockapplet
 %{_datadir}/apps/kaccess
 %{_datadir}/apps/kcm_componentchooser/*
@@ -1886,8 +1924,8 @@ fi
 # Do not include this!
 #%{_datadir}/apps/kdisplay/app-defaults
 %{_datadir}/apps/khotkeys
-%dir %{_datadir}/apps/ksmserver
-%dir %{_datadir}/apps/ksmserver/pics
+#%dir %{_datadir}/apps/ksmserver
+#%dir %{_datadir}/apps/ksmserver/pics
 %dir %{_datadir}/apps/ksplash
 %dir %{_datadir}/apps/ksplash/Themes
 %dir %{_datadir}/apps/ksplash/pics
@@ -1914,6 +1952,7 @@ fi
 %{_datadir}/config.kcfg/kwebdesktop.kcfg
 %{_datadir}/config.kcfg/kwin.kcfg
 %{_datadir}/config.kcfg/mediamanagersettings.kcfg
+%{_datadir}/config.kcfg/pagersettings.kcfg
 %{_datadir}/services/cursorthumbnail.desktop
 %{_datadir}/services/kaccess.desktop
 %{_datadir}/services/kded/khotkeys.desktop
@@ -1921,17 +1960,18 @@ fi
 %{_datadir}/services/ksplashdefault.desktop
 %{_datadir}/services/kxkb.desktop
 %{_datadir}/services/kfile_trash_system.desktop
-%{_datadir}/services/media_propsdlgplugin.desktop
+#%{_datadir}/services/media_propsdlgplugin.desktop
 %{_datadir}/services/home.protocol
 %{_datadir}/services/kded/homedirnotify.desktop
 %{_datadir}/services/kded/medianotifier.desktop
 %{_datadir}/services/nxfish.protocol
 %{_datadir}/servicetypes/ksplashplugins.desktop
+%{_datadir}/servicetypes/kickoffsearchplugin.desktop
 %{_datadir}/sounds/*
 %{_datadir}/templates
 %{_datadir}/wallpapers/All-Good-People-1.jpg
 %{_datadir}/wallpapers/Chicken-Songs-2.jpg
-%{_datadir}/wallpapers/KDE34.png
+#%{_datadir}/wallpapers/KDE34.png
 %{_datadir}/wallpapers/No-Ones-Laughing-3.jpg
 %{_datadir}/wallpapers/Time-For-Lunch-2.jpg
 %{_datadir}/wallpapers/Totally-New-Product-1.jpg
@@ -1946,9 +1986,16 @@ fi
 %{_datadir}/wallpapers/seaofconero.jpg
 %{_datadir}/wallpapers/triplegears.jpg
 %{_datadir}/wallpapers/blue-bend.jpg
+%{_datadir}/wallpapers/Trinity4.png
+%{_datadir}/wallpapers/aghi.jpg
+%{_datadir}/wallpapers/green_curtain.jpg
+%{_datadir}/wallpapers/horse-head-nebula.png
+%{_datadir}/wallpapers/isadora.png
+%{_datadir}/wallpapers/stripes.jpg
+%{_datadir}/wallpapers/world-desktop.jpg
 %{_datadir}/wallpapers/*.svgz
 %{_datadir}/wallpapers/*.desktop
-%{_datadir}/xsessions/kde.desktop
+#%{_datadir}/xsessions/kde.desktop
 %{_applnkdir}/.hidden/.directory
 %{_applnkdir}/.hidden/battery.desktop
 %{_applnkdir}/.hidden/bwarning.desktop
@@ -2099,6 +2146,7 @@ fi
 %{_iconsdir}/crystalsvg/*/apps/runprocesscatcher.png
 %{_iconsdir}/crystalsvg/*/apps/systemtray.png
 %{_iconsdir}/crystalsvg/*/apps/taskbar.png
+%{_iconsdir}/crystalsvg/*/apps/kscreensaver.png
 %{_iconsdir}/crystalsvg/*/devices/laptop.*
 # kcontroledit
 %attr(755,root,root) %{_bindir}/kcontroledit
@@ -2128,7 +2176,7 @@ fi
 %attr(755,root,root) %{_libexecdir}/launcher_panelapplet.so*
 %attr(755,root,root) %{_libexecdir}/lockout_panelapplet.so
 %attr(755,root,root) %{_libexecdir}/media_panelapplet.so
-%attr(755,root,root) %{_libexecdir}/media_propsdlgplugin.so
+#%attr(755,root,root) %{_libexecdir}/media_propsdlgplugin.so
 %attr(755,root,root) %{_libexecdir}/menu_panelapplet.so
 %attr(755,root,root) %{_libexecdir}/minipager_panelapplet.so
 %attr(755,root,root) %{_libexecdir}/naughty_panelapplet.so
@@ -2140,15 +2188,24 @@ fi
 %{_datadir}/apps/kicker/applets/*.desktop
 %{_datadir}/apps/kicker/builtins
 %{_datadir}/apps/kicker/default-apps
+%{_datadir}/apps/kicker/default-favs
 %{_datadir}/apps/kicker/extensions
 %{_datadir}/apps/kicker/icons
 %{_datadir}/apps/kicker/menuext
 %dir %{_datadir}/apps/kicker/pics
 %{_datadir}/apps/kicker/pics/disk*.png
+%{_datadir}/apps/kicker/pics/kmenu_*.mng
+%{_datadir}/apps/kicker/pics/main_corner_*.png
+%{_datadir}/apps/kicker/pics/search-*.mng
+%{_datadir}/apps/kicker/pics/search-*.png
+%{_datadir}/apps/kicker/pics/*_triangle.png
+%{_datadir}/apps/kicker/pics/menu_separator.png
+%{_datadir}/apps/kicker/pics/resize_handle.png
 %{_datadir}/apps/kicker/tiles
 %{_datadir}/apps/kicker/wallpapers
 %{_datadir}/apps/naughtyapplet
 %{_datadir}/autostart/panel.desktop
+%{_datadir}/autostart/krandrtray-autostart.desktop
 %{_applnkdir}/.hidden/kicker_config.desktop
 %{_applnkdir}/.hidden/kicker_config_appearance.desktop
 %{_datadir}/config.kcfg/taskbar.kcfg
@@ -2208,14 +2265,14 @@ fi
 %attr(755,root,root) %{_libexecdir}/kcm_samba.so
 %attr(755,root,root) %{_libexecdir}/kcm_usb.so
 %attr(755,root,root) %{_libexecdir}/kcm_view1394.so
-%{_datadir}/apps/kcmusb
+#%{_datadir}/apps/kcmusb
 %{_datadir}/apps/kinfocenter
 %{_xdgdatadir}/kde-information.directory
 %{_desktopdir}/kde/devices.desktop
 %{_desktopdir}/kde/dma.desktop
 %{_desktopdir}/kde/interrupts.desktop
 %{_desktopdir}/kde/ioports.desktop
-%{_desktopdir}/kde/kcmusb.desktop
+#%{_desktopdir}/kde/kcmusb.desktop
 %{_desktopdir}/kde/kcmview1394.desktop
 %{_desktopdir}/kde/ioslaveinfo.desktop
 %{_desktopdir}/kde/memory.desktop
@@ -2394,23 +2451,28 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*.kss
 %attr(755,root,root) %{_libexecdir}/kcm_screensaver.so
-%{_datadir}/apps/kscreensaver
+#%{_datadir}/apps/kscreensaver
 %{_desktopdir}/kde/screensaver.desktop
-%{_iconsdir}/*/*/apps/kscreensaver.png
+#%{_iconsdir}/*/*/apps/kscreensaver.png
 
 %files useraccount
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kdepasswd
 %attr(755,root,root) %{_libexecdir}/kcm_useraccount.so
 %{_applnkdir}/.hidden/userinfo.desktop
+%dir %{_datadir}/apps/kdm
+%dir %{_datadir}/apps/kdm/pics
+%dir %{_datadir}/apps/kdm/pics/users
 %{_datadir}/apps/kdm/pics/users/*
 %{_datadir}/config.kcfg/kcm_useraccount.kcfg
 %{_datadir}/config.kcfg/kcm_useraccount_pass.kcfg
 %{_desktopdir}/kde/kcm_useraccount.desktop
 %{_desktopdir}/kde/kdepasswd.desktop
 
+%if %{with kdm}
 %files -n kdm -f kdm.lang
 %defattr(644,root,root,755)
+%{_datadir}/apps/kdm/pics/pldlogo.png
 %doc README.pam kdm/{ChangeLog,README,TODO}
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm-np
@@ -2431,14 +2493,17 @@ fi
 %attr(755,root,root) %{_bindir}/genkdmconf
 %attr(755,root,root) %{_bindir}/kdm
 %attr(755,root,root) %{_bindir}/kdmctl
+%attr(755,root,root) %{_bindir}/kdmtsak
 %attr(755,root,root) %{_bindir}/kdm_config
 %attr(755,root,root) %{_bindir}/kdm_greet
 %attr(755,root,root) %{_bindir}/krootimage
+%attr(755,root,root) %{_bindir}/tsak
 %attr(755,root,root) %{_libexecdir}/kcm_kdm.so
 %{_datadir}/apps/kdm
 %{_datadir}/wallpapers/kdm_pld.png
 %{_desktopdir}/kde/kdm.desktop
 %{_iconsdir}/*/*/apps/kdmconfig.png
+%endif
 
 %files -n konqueror -f konqueror.lang
 %defattr(644,root,root,755)
@@ -2452,7 +2517,7 @@ fi
 %attr(755,root,root) %{_bindir}/keditbookmarks
 %attr(755,root,root) %{_bindir}/keditfiletype
 %attr(755,root,root) %{_bindir}/kfmclient
-%attr(755,root,root) %{_bindir}/kio_system_documenthelper
+#%attr(755,root,root) %{_bindir}/kio_system_documenthelper
 %attr(755,root,root) %{_bindir}/klocaldomainurifilterhelper
 %attr(755,root,root) %{_bindir}/konqueror
 %attr(755,root,root) %{_bindir}/nspluginscan
@@ -2574,11 +2639,14 @@ fi
 %{_datadir}/services/fish.protocol
 %{_datadir}/services/floppy.protocol
 %{_datadir}/services/gzip.protocol
+%{_datadir}/services/lzma.protocol
+%{_datadir}/services/xz.protocol
 %{_datadir}/services/kded/favicons.desktop
 %{_datadir}/services/kded/konqy_preloader.desktop
 %{_datadir}/services/kded/mediamanager.desktop
 %{_datadir}/services/kded/remotedirnotify.desktop
 %{_datadir}/services/kded/systemdirnotify.desktop
+%{_datadir}/services/kded/kdeintegration.desktop
 %{_datadir}/services/kfile_font.desktop
 %{_datadir}/services/kfile_media.desktop
 %{_datadir}/services/kfile_trash.desktop
@@ -2622,7 +2690,7 @@ fi
 %{_applnkdir}/.hidden/smb.desktop
 # Must be here!
 %{_applnkdir}/konqueror.desktop
-#
+
 %{_desktopdir}/kde/filebrowser.desktop
 %{_desktopdir}/kde/filetypes.desktop
 %{_desktopdir}/kde/kcmperformance.desktop
