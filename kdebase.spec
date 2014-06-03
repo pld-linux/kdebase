@@ -15,7 +15,7 @@
 %bcond_with	kerberos5		# kerberos 5 support
 %bcond_without	hidden_visibility	# no gcc hidden visibility
 %bcond_with	groupwindows		# raise all windows belonging to program together
-%bcond_with	kdm				# build KDM
+%bcond_without	kdm				# build KDM
 
 %define		_state		stable
 %define		_minlibsevr	9:%{version}
@@ -30,7 +30,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.13.2
-Release:	0.8
+Release:	0.11
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -85,7 +85,8 @@ BuildRequires:	cups-devel
 BuildRequires:	cyrus-sasl-devel
 BuildRequires:	db-devel
 BuildRequires:	dbus-devel
-BuildRequires:	dbus-qt-devel >= 0.70
+#BuildRequires:	dbus-qt-devel >= 0.70
+#%{?with_kdm:BuildRequires:	    dbus-qt-devel}
 %{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	ed
 %{?with_hidden_visibility:BuildRequires:	gcc-c++ >= 5:4.1.0-0.20051206r108118.1}
@@ -1244,10 +1245,9 @@ if [ ! -f installed.stamp ]; then
 	rm -rf $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts
 	%{__tar} xfj %{SOURCE13} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/
 
-
 %if %{with kdm}
 	# Drop generated Xsession file (we have own one)
-	%{__rm} $RPM_BUILD_ROOT/etc/X11/kdm/Xsession
+#	%{__rm} $RPM_BUILD_ROOT/etc/X11/kdm/Xsession
 	install -p %{SOURCE5} $RPM_BUILD_ROOT/etc/X11/kdm/Xsession
 	cp -p %{SOURCE2} $RPM_BUILD_ROOT/etc/pam.d/kdm
 	cp -p %{SOURCE3} $RPM_BUILD_ROOT/etc/pam.d/kdm-np
@@ -1261,6 +1261,10 @@ if [ ! -f installed.stamp ]; then
 		$RPM_BUILD_ROOT/etc/X11/kdm/faces/.default.face.icon
 	cp -p $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
 		$RPM_BUILD_ROOT/etc/X11/kdm/faces/root.face.icon
+
+	# kdebase-session.patch patch removes these
+	%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/apps/kdm/sessions
+
 %endif
 
 	# konqueror/dirtree no longer supported
@@ -1277,10 +1281,6 @@ if [ ! -f installed.stamp ]; then
 		mv -f $RPM_BUILD_ROOT%{_kdedocdir}/en/%{name}-{%{version}-,}apidocs
 	fi
 
-%if %{with kdm}
-	%{__rm} $RPM_BUILD_ROOT/etc/X11/kdm/README
-	%{__rm} $RPM_BUILD_ROOT%{_docdir}/kdm/README
-%endif
 	%{__rm} $RPM_BUILD_ROOT%{_desktopdir}/kde/kcmkicker.desktop # see r1.328
 #	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/Internet/keditbookmarks.desktop
 	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/Settings/LookNFeel/Themes/iconthemes.desktop
@@ -1335,6 +1335,8 @@ if [ ! -f installed.stamp ]; then
 	%{__rm} $RPM_BUILD_ROOT%{_libdir}/libkdeinit_*.la
 
 	touch installed.stamp
+
+	rm -rfv $RPM_BUILD_ROOT%{_docdir}/kdebase-desktop-3.5.13.2
 fi
 
 rm -f *.lang
@@ -1416,9 +1418,14 @@ touch kappfinder.lang
 %find_lang kwrite --with-kde
 %find_lang kcontrol/screensaver --with-kde -o screensaver.lang
 
-
 # Omit apidocs entries
 %{__sed} -i -e '/apidocs/d' *.lang
+
+%if %{with kdm}
+mv $RPM_BUILD_ROOT{%{_datadir}/config/kdm/*,/etc/X11/kdm}
+%{__rm} $RPM_BUILD_ROOT/etc/X11/kdm/README
+#%{__rm} $RPM_BUILD_ROOT%{_docdir}/kdm/README
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -1566,13 +1573,20 @@ fi
 %attr(755,root,root) %{_libexecdir}/kwin3_web.so
 %{_datadir}/apps/kwin/web.desktop
 
+%if %{with kdm}
 %files -n kde-kgreet-classic
 %defattr(644,root,root,755)
-#%attr(755,root,root) %{_libexecdir}/kgreet_classic.so
+%attr(755,root,root) %{_libexecdir}/kgreet_classic.so
 
+# TODO: new package
+%attr(755,root,root) %{_libexecdir}/kgreet_pam.so
+%endif
+
+%if %{with kdm}
 %files -n kde-kgreet-winbind
 %defattr(644,root,root,755)
-#%attr(755,root,root) %{_libexecdir}/kgreet_winbind.so
+%attr(755,root,root) %{_libexecdir}/kgreet_winbind.so
+%endif
 
 %if %{with ldap}
 %files -n kde-kio-ldap
@@ -1827,7 +1841,6 @@ fi
 %attr(755,root,root) %{_bindir}/kreadconfig
 %attr(755,root,root) %{_bindir}/kwriteconfig
 %attr(755,root,root) %{_bindir}/krandrtray
-#%attr(755,root,root) %{_bindir}/ksmserver
 %attr(755,root,root) %{_bindir}/ksplash
 %attr(755,root,root) %{_bindir}/ksplashsimple
 %attr(755,root,root) %{_bindir}/kstart
@@ -1850,7 +1863,6 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit_kaccess.so
 %attr(755,root,root) %{_libdir}/libkdeinit_kdesktop.so
 %attr(755,root,root) %{_libdir}/libkdeinit_khotkeys.so
-#%attr(755,root,root) %{_libdir}/libkdeinit_ksmserver.so
 %attr(755,root,root) %{_libdir}/libkdeinit_kwin.so
 %attr(755,root,root) %{_libdir}/libkdeinit_kwin_rules_dialog.so
 %attr(755,root,root) %{_libdir}/libkdeinit_kxkb.so
@@ -1887,7 +1899,6 @@ fi
 %attr(755,root,root) %{_libexecdir}/kded_kdeintegration.so
 %attr(755,root,root) %{_libexecdir}/kdesktop.so
 %attr(755,root,root) %{_libexecdir}/khotkeys.so
-#%attr(755,root,root) %{_libexecdir}/ksmserver.so
 %attr(755,root,root) %{_libexecdir}/ksplashdefault.so
 %attr(755,root,root) %{_libexecdir}/kwin.so
 %attr(755,root,root) %{_libexecdir}/kwin_default_config.so
@@ -1924,8 +1935,6 @@ fi
 # Do not include this!
 #%{_datadir}/apps/kdisplay/app-defaults
 %{_datadir}/apps/khotkeys
-#%dir %{_datadir}/apps/ksmserver
-#%dir %{_datadir}/apps/ksmserver/pics
 %dir %{_datadir}/apps/ksplash
 %dir %{_datadir}/apps/ksplash/Themes
 %dir %{_datadir}/apps/ksplash/pics
@@ -2472,7 +2481,6 @@ fi
 %if %{with kdm}
 %files -n kdm -f kdm.lang
 %defattr(644,root,root,755)
-%{_datadir}/apps/kdm/pics/pldlogo.png
 %doc README.pam kdm/{ChangeLog,README,TODO}
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm-np
@@ -2499,10 +2507,19 @@ fi
 %attr(755,root,root) %{_bindir}/krootimage
 %attr(755,root,root) %{_bindir}/tsak
 %attr(755,root,root) %{_libexecdir}/kcm_kdm.so
-%{_datadir}/apps/kdm
+%{_datadir}/apps/kdm/pics/*logo*.png
+%{_datadir}/apps/kdm/pics/shutdown.jpg
+%{_datadir}/apps/kdm/themes
+%{_datadir}/apps/ksmserver/pics/shutdownkonq.png
 %{_datadir}/wallpapers/kdm_pld.png
 %{_desktopdir}/kde/kdm.desktop
 %{_iconsdir}/*/*/apps/kdmconfig.png
+
+%attr(755,root,root) %{_bindir}/ksmserver
+%attr(755,root,root) %{_libdir}/libkdeinit_ksmserver.so
+%attr(755,root,root) %{_libexecdir}/ksmserver.so
+%dir %{_datadir}/apps/ksmserver
+%dir %{_datadir}/apps/ksmserver/pics
 %endif
 
 %files -n konqueror -f konqueror.lang
