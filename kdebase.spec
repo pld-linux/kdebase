@@ -37,7 +37,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.13.2
-Release:	0.13
+Release:	0.14
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -1274,10 +1274,6 @@ if [ ! -f installed.stamp ]; then
 		$RPM_BUILD_ROOT/etc/X11/kdm/faces/.default.face.icon
 	cp -p $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
 		$RPM_BUILD_ROOT/etc/X11/kdm/faces/root.face.icon
-
-	# kdebase-session.patch patch removes these
-	%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/apps/kdm/sessions
-
 %endif
 
 	# konqueror/dirtree no longer supported
