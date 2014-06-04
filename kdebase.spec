@@ -16,6 +16,13 @@
 %bcond_without	hidden_visibility	# no gcc hidden visibility
 %bcond_with	groupwindows		# raise all windows belonging to program together
 %bcond_without	kdm				# build KDM
+%bcond_without	tsak			# TSAK
+%bcond_without	xrandr			# xrandr
+%bcond_without	openexr			# openexr
+%bcond_without	avahi			# Avahi
+%bcond_without	libart			# libart
+%bcond_without	xtest			# xtest
+%bcond_without	xscreensaver	# xscreensaver
 
 %define		_state		stable
 %define		_minlibsevr	9:%{version}
@@ -30,7 +37,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.13.2
-Release:	0.11
+Release:	0.13
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -72,12 +79,14 @@ Patch25:	%{name}-konsole-history_clear.patch
 Patch26:	%{name}-kdm-default_background.patch
 Patch28:	%{name}-no_mkfontdir.patch
 Patch30:	ac264.patch
-BuildRequires:	OpenEXR-devel >= 1.4.0.a
+%{?with_openexr:BuildRequires:	OpenEXR-devel >= 1.4.0.a}
 BuildRequires:	OpenGL-devel
+BuildRequires:	alsa-lib-devel
 %{?with_arts:BuildRequires:	artsc-devel >= %{artsver}}
 BuildRequires:	audiofile-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
+%{?with_avahi:BuildRequires:	avahi-devel}
 BuildRequires:	bzip2-devel
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cmake >= 2.8
@@ -89,31 +98,35 @@ BuildRequires:	dbus-devel
 #%{?with_kdm:BuildRequires:	    dbus-qt-devel}
 %{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	ed
-%{?with_hidden_visibility:BuildRequires:	gcc-c++ >= 5:4.1.0-0.20051206r108118.1}
 BuildRequires:	gettext-devel
+BuildRequires:	glib2-devel
 %{?with_apidocs:BuildRequires:	graphviz}
-#BuildRequires:	hal-devel
 %{?with_kerberos5:BuildRequires: heimdal-devel}
 BuildRequires:	jasper-devel
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	lame-libs-devel
+BuildRequires:	libconfig-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	libraw1394-devel >= 1.2.0
 BuildRequires:	libsmbclient-devel >= 1:3.0.23d-3
-BuildRequires:	libstdc++-devel
+BuildRequires:	libstdc++-devel >= 5:4.1.0-0.20051206r108118.1
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool
 BuildRequires:	libtqtinterface-devel >= %{version}
 BuildRequires:	libusb-compat-devel
+BuildRequires:	libusb-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	lm_sensors-devel
 BuildRequires:	motif-devel
+BuildRequires:	openldap-devel
 %{?with_ldap:BuildRequires:	openldap-devel >= 2.3.0}
 BuildRequires:	openssl-devel >= 0.9.7c
 BuildRequires:	pam-devel
+BuildRequires:	pcre-devel
+BuildRequires:	perl-Digest-MD5
 BuildRequires:	pkgconfig
 %{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
 %{?with_apidocs:BuildRequires:	qt-doc}
@@ -122,13 +135,15 @@ BuildRequires:	rpmbuild(find_lang) >= 1.32
 BuildRequires:	rpmbuild(macros) >= 1.426
 BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
-#BuildRequires:	unsermake >= 040511
+BuildRequires:	udev-devel
 BuildRequires:	xorg-app-bdftopcf
 BuildRequires:	xorg-cf-files
+BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXScrnSaver-devel
 BuildRequires:	xorg-lib-libXcomposite-devel
 BuildRequires:	xorg-lib-libXcursor-devel
 BuildRequires:	xorg-lib-libXdamage-devel
+BuildRequires:	xorg-lib-libXdmcp-devel
 BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXmu-devel
@@ -136,13 +151,12 @@ BuildRequires:	xorg-lib-libXtst-devel
 BuildRequires:	xorg-lib-libfontenc-devel
 BuildRequires:	xorg-lib-libxkbfile-devel
 BuildRequires:	xorg-proto-scrnsaverproto-devel
+BuildRequires:	xorg-proto-xproto-devel
 BuildRequires:	xorg-util-imake
 BuildRequires:	xz
+BuildRequires:	zlib-devel
 BuildConflicts:	kdebase-konqueror-libs
 Conflicts:	kdelibs < 9:3.1.94.040110-1
-# TODO: sensors
-#BuildRequires:	sensors-devel
-BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_xdgdatadir	%{_datadir}/desktop-directories
@@ -1149,7 +1163,6 @@ for f in `find . -name \*.desktop`; do
 done
 
 %build
-export QTDIR=%{_prefix}
 install -d build
 cd build
 
@@ -1166,7 +1179,7 @@ export CXXFLAGS="%{rpmcxxflags} $(pkg-config --cflags dbus-1 dbus-glib-1)"
 	-DWITH_SASL=ON \
 	-DWITH_LDAP=ON \
 	-DWITH_SAMBA=ON \
-	%{!?with_exr:-DWITH_OPENEXR=OFF} \
+	%{!?with_openexr:-DWITH_OPENEXR=OFF} \
 	-DWITH_XCOMPOSITE=ON \
 	-DWITH_XCURSOR=ON \
 	-DWITH_XFIXES=ON \
@@ -1235,9 +1248,9 @@ if [ ! -f installed.stamp ]; then
 	fi
 
 	# Install miscleanous PLD files
-	install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
-	install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
-	install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
+	cp -p %{SOURCE1} $RPM_BUILD_ROOT/etc/pam.d/kdesktop
+	cp -p %{SOURCE6} $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
+	cp -p %{SOURCE7} $RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
 
 	%{__tar} xfj %{SOURCE8} -C $RPM_BUILD_ROOT%{_datadir}/services/searchproviders/
 	%{__tar} xfj %{SOURCE10} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/
@@ -1335,8 +1348,6 @@ if [ ! -f installed.stamp ]; then
 	%{__rm} $RPM_BUILD_ROOT%{_libdir}/libkdeinit_*.la
 
 	touch installed.stamp
-
-	rm -rfv $RPM_BUILD_ROOT%{_docdir}/kdebase-desktop-3.5.13.2
 fi
 
 rm -f *.lang
