@@ -73,7 +73,6 @@ Patch14:	%{name}-session.patch
 Patch16:	%{name}-vmenus.patch
 Patch18:	%{name}-kio_settings.patch
 Patch19:	%{name}-konsole-default-keytab.patch
-Patch20:	%{name}-seesar.patch
 Patch21:	%{name}-konsole-wordseps.patch
 Patch25:	%{name}-konsole-history_clear.patch
 Patch26:	%{name}-kdm-default_background.patch
@@ -1107,7 +1106,6 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch18 -p1
 # FIXME (still needed?)
 #%patch19 -p1
-%patch20 -p1
 %patch21 -p1
 %patch25 -p1
 %patch26 -p1
