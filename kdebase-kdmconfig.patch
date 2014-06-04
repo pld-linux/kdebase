@@ -73,10 +73,21 @@
  
  install-data-local: genkdmconf
 -	./genkdmconf --in $(DESTDIR)$(kde_confdir)/kdm --no-in-notice --face-src $(srcdir)/pics $(GENKDMCONF_FLAGS)
-+	./genkdmconf --no-old --in $(DESTDIR)/etc/X11/kdm --no-in-notice --face-src $(srcdir)/pics $(GENKDMCONF_FLAGS)
++	./genkdmconf --in $(DESTDIR)/etc/X11/kdm --no-in-notice --face-src $(srcdir)/pics $(GENKDMCONF_FLAGS)
  
  messages:
  	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
+--- kdebase-trinity-3.5.13.2/kdm/kfrontend/CMakeLists.txt~	2012-09-16 15:52:03.000000000 +0300
++++ kdebase-trinity-3.5.13.2/kdm/kfrontend/CMakeLists.txt	2014-06-04 11:10:30.672252448 +0300
+@@ -35,7 +35,7 @@
+   set( GENKDMCONF_FLAGS "--no-old" )
+ endif( )
+ 
+-install( CODE "execute_process( COMMAND ${CMAKE_CURRENT_BINARY_DIR}/genkdmconf --in \$ENV{DESTDIR}${CONFIG_INSTALL_DIR}/kdm --no-in-notice --face-src ${CMAKE_CURRENT_SOURCE_DIR}/pics ${GENKDMCONF_FLAGS} )" )
++install( CODE "execute_process( COMMAND ${CMAKE_CURRENT_BINARY_DIR}/genkdmconf --in \$ENV{DESTDIR}/etc/X11/kdm --no-in-notice --face-src ${CMAKE_CURRENT_SOURCE_DIR}/pics ${GENKDMCONF_FLAGS} )" )
+ 
+ 
+ ##### config.ci (generated) #####################
 --- kdebase-trinity-3.5.13.2/kdm/config.def~	2014-05-27 13:55:54.000000000 +0300
 +++ kdebase-trinity-3.5.13.2/kdm/config.def	2014-05-27 14:35:25.710243084 +0300
 @@ -29,7 +29,7 @@

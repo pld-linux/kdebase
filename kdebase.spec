@@ -1429,9 +1429,7 @@ touch kappfinder.lang
 %{__sed} -i -e '/apidocs/d' *.lang
 
 %if %{with kdm}
-mv $RPM_BUILD_ROOT{%{_datadir}/config/kdm/*,/etc/X11/kdm}
 %{__rm} $RPM_BUILD_ROOT/etc/X11/kdm/README
-#%{__rm} $RPM_BUILD_ROOT%{_docdir}/kdm/README
 %endif
 
 %clean
