@@ -111,17 +111,6 @@
  	char *ptr;
  	int fd;
  
---- kdebase-030930/kdm/kfrontend/Makefile.am~	2003-09-30 00:47:50.000000000 +0200
-+++ kdebase-030930/kdm/kfrontend/Makefile.am	2003-09-30 10:06:29.000000000 +0200
-@@ -38,7 +38,7 @@
- genkdmconf_LDADD = $(LIB_X11)
- 
- install-data-local: genkdmconf
--	./genkdmconf --in $(DESTDIR)$(kde_confdir)/kdm --no-in-notice --face-src $(srcdir)/pics $(GENKDMCONF_FLAGS)
-+	./genkdmconf --in $(DESTDIR)/etc/X11/kdm --no-in-notice --face-src $(srcdir)/pics $(GENKDMCONF_FLAGS)
- 
- messages:
- 	$(XGETTEXT) $(kdm_greet_SOURCES) -o $(podir)/kdmgreet.pot
 --- kdebase-trinity-3.5.13.2/kdm/kfrontend/CMakeLists.txt~	2012-09-16 15:52:03.000000000 +0300
 +++ kdebase-trinity-3.5.13.2/kdm/kfrontend/CMakeLists.txt	2014-06-04 11:10:30.672252448 +0300
 @@ -35,7 +35,7 @@

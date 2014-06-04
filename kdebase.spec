@@ -37,7 +37,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.13.2
-Release:	0.14
+Release:	0.15
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -57,7 +57,6 @@ Source10:	%{name}-servicemenus.tar.bz2
 Source13:	%{name}-konqsidebartng-PLD-entries-0.2.tar.bz2
 # Source13-md5:	aa373b561e1cedb78b652f43e19fc122
 #Patch100:	%{name}-branch.diff
-Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-fontdir.patch
 # http://www.icefox.net/articles/kdeosx/grouplayer.diff
 Patch2:		%{name}-grouplayer.patch
@@ -76,8 +75,6 @@ Patch19:	%{name}-konsole-default-keytab.patch
 Patch21:	%{name}-konsole-wordseps.patch
 Patch25:	%{name}-konsole-history_clear.patch
 Patch26:	%{name}-kdm-default_background.patch
-Patch28:	%{name}-no_mkfontdir.patch
-Patch30:	ac264.patch
 %{?with_openexr:BuildRequires:	OpenEXR-devel >= 1.4.0.a}
 BuildRequires:	OpenGL-devel
 BuildRequires:	alsa-lib-devel
@@ -1088,7 +1085,6 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %prep
 %setup -q -n %{name}-trinity-%{version}
 #%patch100 -p0
-%patch0 -p1
 %patch1 -p1
 %{?with_groupwindows:%patch2 -p1}
 %patch3 -p1
@@ -1109,8 +1105,6 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch21 -p1
 %patch25 -p1
 %patch26 -p1
-%patch28 -p1
-%patch30 -p1
 
 cd kcontrol/ebrowsing/plugins/ikws/searchproviders
 for i in  google*.desktop

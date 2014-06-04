@@ -33,16 +33,6 @@
      readSettings( false );
  
      mSetupProc = new KProcess;
---- kdebase-3.1.1/kscreensaver/Makefile.am~	Sun Oct 27 00:07:04 2002
-+++ kdebase-3.1.1/kscreensaver/Makefile.am	Tue Apr  1 00:28:59 2003
-@@ -23,6 +23,6 @@
- ########## Meta objects ##########
- 
- desktop_DATA = KRandom.desktop KBlankscreen.desktop
--desktopdir = $(kde_appsdir)/System/ScreenSavers
-+desktopdir = $(kde_datadir)/kscreensaver
- 
- EXTRA_DIST = $(desktop_DATA)
 --- kdebase-trinity-3.5.13.2/kscreensaver/CMakeLists.txt~	2012-09-16 15:52:04.000000000 +0300
 +++ kdebase-trinity-3.5.13.2/kscreensaver/CMakeLists.txt	2014-06-04 11:07:10.329823207 +0300
 @@ -23,7 +23,7 @@
