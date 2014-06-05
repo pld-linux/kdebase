@@ -10,19 +10,39 @@
 #
 # Conditional build:
 %bcond_with	apidocs			# Do not prepare API documentation
-%bcond_with	arts			# build with aRts support
-%bcond_without	ldap			# build or not ldap ioslave
 %bcond_with	kerberos5		# kerberos 5 support
 %bcond_without	hidden_visibility	# no gcc hidden visibility
 %bcond_with	groupwindows		# raise all windows belonging to program together
 %bcond_without	kdm				# build KDM
 %bcond_without	tsak			# TSAK
-%bcond_without	xrandr			# xrandr
-%bcond_without	openexr			# openexr
 %bcond_without	avahi			# Avahi
-%bcond_without	libart			# libart
-%bcond_without	xtest			# xtest
-%bcond_without	xscreensaver	# xscreensaver
+# Features
+%bcond_with	arts	# Enable aRts support
+%bcond_with	hal	# Enable HAL support
+%bcond_without	i8k	# Enable Dell laptop support (ksysguard)
+%bcond_with	kdesktop_lock_backtrace	# Enable backtrace in kdesktop_lock exception handler
+%bcond_without	ldap	# Enable LDAP support (ioslave)
+%bcond_without	libart	# Enable libart support (for SVG icons and wallpapers)
+%bcond_without	libraw1394	# Enable visualization of ieee1394 devices through libraw1394
+%bcond_without	libusb	# Enable control of some mouse models through libusb
+%bcond_without	openexr	# Enable openexr support
+%bcond_without	pam	# kdm should use PAM
+%bcond_without	samba	# Enable SAMBA support
+%bcond_without	sasl	# Enable SASL support
+%bcond_without	shadow	# kdm should use shadow passwords
+%bcond_without	sudo	# Use sudo as backend for kdesu (default is su)
+%bcond_without	xcomposite	# Enable xcomposite support
+%bcond_without	xcursor	# Enable xcursor support
+%bcond_without	xdamage	# Enable xdamage support
+%bcond_without	xdmcp	# xdmcp support for kdm
+%bcond_without	xext	# Enable xext support
+%bcond_without	xfixes	# Enable xfixes support
+%bcond_without	xinerama	# Enable xinerama extension support
+%bcond_without	xrandr	# Enable xrandr support
+%bcond_without	xrender	# Enable xrender support
+%bcond_without	xscreensaver	# Enable xscreensaver support
+%bcond_without	xtest	# Enable xext support
+
 
 %define		_state		stable
 %define		_minlibsevr	9:%{version}
@@ -37,7 +57,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.13.2
-Release:	0.15
+Release:	0.16
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -79,44 +99,28 @@ Patch26:	%{name}-kdm-default_background.patch
 BuildRequires:	OpenGL-devel
 BuildRequires:	alsa-lib-devel
 %{?with_arts:BuildRequires:	artsc-devel >= %{artsver}}
-BuildRequires:	audiofile-devel
-BuildRequires:	autoconf
-BuildRequires:	automake
-%{?with_avahi:BuildRequires:	avahi-devel}
+BuildRequires:	boost-devel
 BuildRequires:	bzip2-devel
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cmake >= 2.8
-BuildRequires:	cups-devel
 BuildRequires:	cyrus-sasl-devel
-BuildRequires:	db-devel
 BuildRequires:	dbus-devel
-#BuildRequires:	dbus-qt-devel >= 0.70
-#%{?with_kdm:BuildRequires:	    dbus-qt-devel}
+BuildRequires:	dbus-tqt-devel
 %{?with_apidocs:BuildRequires:	doxygen}
-BuildRequires:	ed
-BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel
 %{?with_apidocs:BuildRequires:	graphviz}
 %{?with_kerberos5:BuildRequires: heimdal-devel}
-BuildRequires:	jasper-devel
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
-BuildRequires:	lame-libs-devel
-BuildRequires:	libconfig-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	libraw1394-devel >= 1.2.0
 BuildRequires:	libsmbclient-devel >= 1:3.0.23d-3
 BuildRequires:	libstdc++-devel >= 5:4.1.0-0.20051206r108118.1
-BuildRequires:	libtiff-devel
-BuildRequires:	libtool
 BuildRequires:	libtqtinterface-devel >= %{version}
 BuildRequires:	libusb-compat-devel
 BuildRequires:	libusb-devel
-BuildRequires:	libvorbis-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
-BuildRequires:	lm_sensors-devel
-BuildRequires:	motif-devel
 BuildRequires:	openldap-devel
 %{?with_ldap:BuildRequires:	openldap-devel >= 2.3.0}
 BuildRequires:	openssl-devel >= 0.9.7c
@@ -133,7 +137,6 @@ BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	udev-devel
 BuildRequires:	xorg-app-bdftopcf
-BuildRequires:	xorg-cf-files
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXScrnSaver-devel
 BuildRequires:	xorg-lib-libXcomposite-devel
@@ -148,7 +151,6 @@ BuildRequires:	xorg-lib-libfontenc-devel
 BuildRequires:	xorg-lib-libxkbfile-devel
 BuildRequires:	xorg-proto-scrnsaverproto-devel
 BuildRequires:	xorg-proto-xproto-devel
-BuildRequires:	xorg-util-imake
 BuildRequires:	xz
 BuildRequires:	zlib-devel
 BuildConflicts:	kdebase-konqueror-libs
@@ -158,6 +160,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_xdgdatadir	%{_datadir}/desktop-directories
 %define		_libexecdir	%{_libdir}/kde3
 %define		_applnkdir	%{_datadir}/applnk
+
+# Usage: onoff BCOND_NAME
+%define		onoff() %{expand:%%{?with_%{1}:ON}%%{!?with_%{1}:OFF}}
 
 %description
 This package contains KDE base system which includes:
@@ -1159,56 +1164,51 @@ install -d build
 cd build
 
 # HACK:
-CPPFLAGS="%{rpmcflags} $(pkg-config --cflags dbus-1 dbus-glib-1)"
-export CXXFLAGS="%{rpmcxxflags} $(pkg-config --cflags dbus-1 dbus-glib-1)"
+export CXXFLAGS="%{rpmcxxflags} $(pkg-config --cflags dbus-tqt)"
 
 %cmake \
 	-Wno-dev \
 	-DPLUGIN_INSTALL_DIR=%{_libexecdir} \
 	-DHTML_INSTALL_DIR=%{_kdedocdir} \
 	-DAPPS_INSTALL_DIR=%{_applnkdir} \
+\
 	-DWITH_ALL_OPTIONS=ON \
-	-DWITH_SASL=ON \
-	-DWITH_LDAP=ON \
-	-DWITH_SAMBA=ON \
-	%{!?with_openexr:-DWITH_OPENEXR=OFF} \
-	-DWITH_XCOMPOSITE=ON \
-	-DWITH_XCURSOR=ON \
-	-DWITH_XFIXES=ON \
-	%{!?with_xrandr:-DWITH_XRANDR=OFF} \
-	-DWITH_XRENDER=ON \
-	-DWITH_XDAMAGE=ON \
-	-DWITH_XEXT=ON \
-	%{!?with_xtest:-DWITH_XTEST=OFF} \
-	-DWITH_OPENGL=ON \
-	%{!?with_xscreensaver:-DWITH_XSCREENSAVER=OFF} \
-	%{!?with_libart:-DWITH_LIBART=OFF} \
-	-DWITH_LIBUSB=ON \
-	-DWITH_LIBRAW1394=ON \
-	-DWITH_SUDO_TDESU_BACKEND=OFF \
-	-DWITH_PAM=ON \
-	-DWITH_SHADOW=ON \
-	-DWITH_XDMCP=ON \
-	-DWITH_XINERAMA=ON \
-	-DWITH_ARTS=OFF \
-	-DWITH_I8K=ON \
-	-DWITH_SENSORS=ON \
-	-DWITH_HAL=OFF \
-	-DWITH_TDEHWLIB=ON \
-	-DWITH_ELFICON=OFF \
-	-DWITH_UPOWER=ON \
-	\
+\
+	-DWITH_SASL=%{onoff sasl} \
+	-DWITH_LDAP=%{onoff ldap} \
+	-DWITH_SAMBA=%{onoff samba} \
+	-DWITH_OPENEXR=%{onoff openexr} \
+	-DWITH_XCOMPOSITE=%{onoff xcomposite} \
+	-DWITH_XCURSOR=%{onoff xcursor} \
+	-DWITH_XFIXES=%{onoff xfixes} \
+	-DWITH_XRANDR=%{onoff xrandr} \
+	-DWITH_XRENDER=%{onoff xrender} \
+	-DWITH_XDAMAGE=%{onoff xdamage} \
+	-DWITH_XEXT=%{onoff xext} \
+	-DWITH_XTEST=%{onoff xtest} \
+	-DWITH_XSCREENSAVER=%{onoff xscreensaver} \
+	-DWITH_LIBART=%{onoff libart} \
+	-DWITH_LIBUSB=%{onoff libusb} \
+	-DWITH_LIBRAW1394=%{onoff libraw1394} \
+	-DWITH_SUDO_KDESU_BACKEND=%{onoff sudo} \
+	-DWITH_PAM=%{onoff pam} \
+	-DWITH_SHADOW=%{onoff shadow} \
+	-DWITH_XDMCP=%{onoff xdmcp} \
+	-DWITH_XINERAMA=%{onoff xinerama} \
+	-DWITH_ARTS=%{onoff arts} \
+	-DWITH_I8K=%{onoff i8k} \
+	-DWITH_HAL=%{onoff hal} \
+	-DWITH_KDESKTOP_LOCK_BACKTRACE=%{onoff kdesktop_lock_backtrace} \
+\
 	-DBUILD_ALL=ON \
+	-DBUILD_TSAK=%{onoff tsak} \
 %if %{without kdm}
 	-DBUILD_KDM=OFF \
 	-DBUILD_KSMSERVER=OFF \
-	-DWITH_HAL=OFF \
 %endif
-	-DWITH_KDESKTOP_LOCK_BACKTRACE=OFF \
 	-DKCHECKPASS_PAM_SERVICE="xdm" \
-	-DTDM_PAM_SERVICE="xdm" \
-	-DTDESCREENSAVER_PAM_SERVICE="xdm" \
-	%{!?with_tsak:-DBUILD_TSAK=OFF} \
+	-DKDM_PAM_SERVICE="xdm" \
+	-DKSCREENSAVER_PAM_SERVICE="xdm" \
 	..
 
 %{__make}
