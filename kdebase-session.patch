@@ -20,4 +20,4 @@
 -    xfce4.desktop
 -  DESTINATION ${DATA_INSTALL_DIR}/kdm/sessions )
 +  ${CMAKE_CURRENT_BINARY_DIR}/tde.desktop RENAME kde.desktop
-+  DESTINATION ${DATA_INSTALL_DIR}/xsessions )
++  DESTINATION ${SHARE_INSTALL_PREFIX}/xsessions )

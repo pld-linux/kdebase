@@ -57,7 +57,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.13.2
-Release:	0.16
+Release:	0.17
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -1670,7 +1670,7 @@ fi
 
 %files common-konsole
 %defattr(644,root,root,755)
-#%{_fontsdir}/misc/console*.gz
+%{_fontsdir}/misc/console*.gz
 %{_datadir}/apps/konsole
 %{_datadir}/mimelnk/application/x-konsole.desktop
 %{_iconsdir}/crystalsvg/*/apps/bell.png
@@ -2001,7 +2001,7 @@ fi
 %{_datadir}/wallpapers/world-desktop.jpg
 %{_datadir}/wallpapers/*.svgz
 %{_datadir}/wallpapers/*.desktop
-#%{_datadir}/xsessions/kde.desktop
+%{_datadir}/xsessions/kde.desktop
 %{_applnkdir}/.hidden/.directory
 %{_applnkdir}/.hidden/battery.desktop
 %{_applnkdir}/.hidden/bwarning.desktop
@@ -2457,7 +2457,9 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*.kss
 %attr(755,root,root) %{_libexecdir}/kcm_screensaver.so
-#%{_datadir}/apps/kscreensaver
+%dir %{_datadir}/apps/kscreensaver
+%{_datadir}/apps/kscreensaver/KBlankscreen.desktop
+%{_datadir}/apps/kscreensaver/KRandom.desktop
 %{_desktopdir}/kde/screensaver.desktop
 #%{_iconsdir}/*/*/apps/kscreensaver.png
 
