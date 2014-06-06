@@ -4,8 +4,6 @@
 #   * builting console (--with-kdm-xconsole)
 #   * afs support (--with afs)
 # - fix kerberos support (kdm segfaults)
-# - warning: Installed (but unpackaged) file(s) found:
-#   /etc/xdg/menus/kde-screensavers.menu
 # - intergrate && keep eye on new flash support: https://bugzilla.novell.com/show_bug.cgi?id=348088
 #
 # Conditional build:
@@ -57,7 +55,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.13.2
-Release:	0.23
+Release:	0.24
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -1686,8 +1684,8 @@ fi
 %lang(en) %{_kdedocdir}/en/kcontrol/helpindex.html
 %lang(en) %{_kdedocdir}/en/kcontrol/index.*
 %lang(en) %{_kdedocdir}/en/kcontrol/screenshot.png
-%{_sysconfdir}/xdg/menus/applications-merged/kde-essential.menu
-%{_sysconfdir}/xdg/menus/kde-settings.menu
+/etc/xdg/menus/applications-merged/kde-essential.menu
+/etc/xdg/menus/kde-settings.menu
 %attr(755,root,root) %{_bindir}/drkonqi
 %attr(755,root,root) %{_bindir}/kcminit
 %attr(755,root,root) %{_bindir}/kcminit_startup
@@ -2264,7 +2262,7 @@ fi
 
 %files infocenter -f kinfocenter.lang
 %defattr(644,root,root,755)
-%{_sysconfdir}/xdg/menus/kde-information.menu
+/etc/xdg/menus/kde-information.menu
 %attr(755,root,root) %{_bindir}/kinfocenter
 %attr(755,root,root) %{_libexecdir}/kcm_info.so
 %attr(755,root,root) %{_libexecdir}/kcm_ioslaveinfo.so
@@ -2456,6 +2454,7 @@ fi
 
 %files screensavers -f screensaver.lang
 %defattr(644,root,root,755)
+/etc/xdg/menus/kde-screensavers.menu
 %attr(755,root,root) %{_bindir}/*.kss
 %attr(755,root,root) %{_libexecdir}/kcm_screensaver.so
 %dir %{_datadir}/apps/kscreensaver
