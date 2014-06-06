@@ -214,7 +214,6 @@ Requires:	%{name}-kfontinst = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libksgrd = %{epoch}:%{version}-%{release}
 Requires:	kdelibs-devel >= %{_minlibsevr}
-Obsoletes:	kdebase-ksysguard-libs
 
 %description devel
 This package contains header files needed to develop KDE applications.
@@ -377,7 +376,6 @@ Summary:	KDE NNTP protocol service
 Summary(pl.UTF-8):	Obsługa protokołu NNTP
 Group:		X11/Libraries
 Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase-mailnews
 
 %description -n kde-kio-nntp
 KDE NNTP protocol service.
@@ -390,7 +388,6 @@ Summary:	KDE POP3 protocol service
 Summary(pl.UTF-8):	Obsługa protokołu POP3
 Group:		X11/Libraries
 Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase-mailnews
 
 %description -n kde-kio-pop3
 KDE POP3 protocol service.
@@ -403,7 +400,6 @@ Summary:	KDE SMTP protocol service
 Summary(pl.UTF-8):	Obsługa protokołu SMTP
 Group:		X11/Libraries
 Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase-mailnews
 
 %description -n kde-kio-smtp
 KDE SMTP protocol service.
@@ -417,7 +413,6 @@ Summary(pl.UTF-8):	Domyślny boczny pasek do menu KDE
 Group:		Themes
 Requires:	kdebase-desktop >= 9:3.2.90.040424-2
 Provides:	kde-kside
-Obsoletes:	kde-kside
 
 %description -n kde-kside-default
 Default kicker sidebar with a gear and the K Desktop Environment text.
@@ -432,7 +427,6 @@ Summary(pl.UTF-8):	Obrazek okna "Wyloguj" KDE
 Group:		X11/Amusements
 Requires:	%{name}-desktop
 Provides:	kde-logoutpic
-Obsoletes:	kde-logoutpic-PLD
 
 %description -n kde-logoutpic-default
 Default "Logout" picture with a KDE logo.
@@ -446,8 +440,6 @@ Summary(pl.UTF-8):	Domyślny klasyczny ekran startowy KDE
 Group:		X11/Amusements
 # DONT PUT STRICT R: HERE
 Requires:	%{name}-desktop >= %{epoch}:%{version}-%{release}
-# Because of incorrectly added strict deps there
-Obsoletes:	kde-splash-Default-KDE
 
 %description -n kde-splash-Default
 Default splashscreen that came with this version of KDE.
@@ -473,7 +465,6 @@ Summary:	ksplash plugin Redmond
 Summary(pl.UTF-8):	Wtyczka ksplash Redmond
 Group:		X11/Amusements
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
-Obsoletes:	kde-splashplugin-XpLike
 
 %description -n kde-splashplugin-Redmond
 A splash screen plugin that resembles the Windows XP post login
@@ -523,8 +514,6 @@ Summary(pl.UTF-8):	Pliki wspólne dla konsole i konsolepart
 Group:		X11/Applications
 Requires(post,postun):	fontpostinst
 Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase < 3.0.9-2.4
-Obsoletes:	kdebase-fonts
 
 %description common-konsole
 Color schemes, icons, fonts and shell profiles for konsole.
@@ -539,11 +528,6 @@ Group:		X11/Applications
 Requires:	kdelibs >= %{_minlibsevr}
 Requires:	xdg-menus
 Suggests:	sudo
-Obsoletes:	kdebase < 8:3.2-0.030428.1
-Obsoletes:	kdebase-helpcenter
-Obsoletes:	kdebase-kcontrol
-Obsoletes:	kdebase-khelpcenter
-Conflicts:	kttsd <= 040609
 
 %description core
 KDE Core apps. This package contains:
@@ -583,29 +567,6 @@ Requires:	xorg-app-xmessage
 Requires:	xorg-app-xprop
 Requires:	xorg-app-xset
 Requires:	xorg-app-xsetroot
-Provides:	kdebase-kicker
-Obsoletes:	kde-decoration-plastik
-Obsoletes:	kde-theme-keramik
-Obsoletes:	kdebase
-Obsoletes:	kdebase-fonts
-Obsoletes:	kdebase-kcheckpass
-Obsoletes:	kdebase-kdesktop
-Obsoletes:	kdebase-kdesktop_lock
-Obsoletes:	kdebase-khelpcenter
-Obsoletes:	kdebase-kicker
-Obsoletes:	kdebase-kioslave
-Obsoletes:	kdebase-kmenuedit
-Obsoletes:	kdebase-konqueror
-Obsoletes:	kdebase-ksystraycmd
-Obsoletes:	kdebase-kwin
-Obsoletes:	kdebase-kwin_plugin
-Obsoletes:	kdebase-kwmtheme
-Obsoletes:	kdebase-kxmlrpc
-Obsoletes:	kdebase-screensaver
-Obsoletes:	kdebase-static
-Obsoletes:	kdebase-wallpapers
-Obsoletes:	khotkeys
-Conflicts:	kdeedu-libkdeeduui < 8:3.4.0
 
 %description desktop
 KDesktop is the program that handles the desktop icons, the popup
@@ -621,8 +582,6 @@ Summary(pl.UTF-8):	Biblioteki KDesktop
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	konqueror-libs = %{epoch}:%{version}-%{release}
-Obsoletes:	kdebase-desktop < 9:3.1.92.031006
-Obsoletes:	kdebase-kicker-libs
 
 %description desktop-libs
 KDesktop libraries (taskbar, splash themes and window decorations).
@@ -649,7 +608,6 @@ Summary:	Menu Updating Tool
 Summary(pl.UTF-8):	Narzędzie do aktualizacji menu
 Group:		X11/Applications
 Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase =< 8:3.2-0.030418.2
 
 %description kappfinder
 The tool for finding installed application and adding them to your
@@ -665,8 +623,6 @@ Summary(pl.UTF-8):	Zaawansowany edytor tekstu dla KDE
 Group:		X11/Applications/Editors
 Requires:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
-Obsoletes:	kate
-Conflicts:	kttsd <= 040609
 
 %description kate
 KDE advanced text editor featuring among others:
@@ -725,7 +681,6 @@ Summary:	Graphic DCOP browser/client
 Summary(pl.UTF-8):	Graficzna przegladarka/klient DCOP
 Group:		X11/Applications
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
-Obsoletes:	kdebase-desktop < 9:3.1.91.030911
 
 %description kdcop
 Graphic DCOP browser/client. Actually useful only for developers and
@@ -740,7 +695,6 @@ Summary:	A KDE version of dialog
 Summary(pl.UTF-8):	Wersja KDE dialogu
 Group:		X11/Applications
 Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase < 8:3.2-0.030423.2
 
 %description kdialog
 Kdialog allows to display window dialogs with KDE widgets from shell
@@ -755,7 +709,6 @@ Summary:	KDE Find Tool
 Summary(pl.UTF-8):	Narzędzie do wyszukiwania plików dla KDE
 Group:		X11/Applications
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
-Obsoletes:	kfind
 
 %description kfind
 A tool for find files for KDE.
@@ -770,7 +723,6 @@ Group:		X11/Applications
 #Requires:	konqueror = %{epoch}:%{version}-%{release}
 # for /usr/share/doc/kde/HTML/en/kcontrol, probably stupid
 Requires:	kdebase-core = %{epoch}:%{version}-%{release}
-Obsoletes:	kdebase-desktop < 3.1.90.030720
 
 %description kfontinst
 KDE font installer.
@@ -810,7 +762,6 @@ Summary(pl.UTF-8):	Emulator terminala dla KDE
 Group:		X11/Applications
 Requires:	%{name}-common-konsole = %{epoch}:%{version}-%{release}
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
-Obsoletes:	konsole
 
 %description konsole
 KDE Terminal Emulator.
@@ -823,7 +774,6 @@ Summary:	Desktop Pager
 Summary(pl.UTF-8):	Przełącznik biurek
 Group:		X11/Applications
 Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase =< 8:3.2-0.030418.2
 
 %description kpager
 KDE Desktop Pager.
@@ -837,7 +787,6 @@ Summary(pl.UTF-8):	Kreator ustawień środowiska KDE
 Group:		X11/Applications
 Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 Requires:	%{name}-klipper = %{epoch}:%{version}-%{release}
-Obsoletes:	kdebase < 9:3.1.92.031021
 
 %description kpersonalizer
 KDE desktop settings wizard.
@@ -865,7 +814,6 @@ Summary(pl.UTF-8):	Edytor tekstu dla KDE
 Group:		X11/Applications/Editors
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
-Obsoletes:	kwrite
 
 %description kwrite
 KWrite is a simple texteditor, with syntaxhighlighting, codefolding,
@@ -883,7 +831,6 @@ Summary(pl.UTF-8):	Demon do KDE obsługujący wymianę wiadomości za pomocą wr
 Group:		X11/Applications
 # With functional reasons
 Requires:	kdebase-core = %{epoch}:%{version}-%{release}
-Obsoletes:	kdebase < 8:3.2-0.030423.1
 
 %description kwrited
 A kde daemon that watches for messages from local users sent with
@@ -899,8 +846,6 @@ Summary(pl.UTF-8):	Biblioteki dla edytorów tekstu KDE
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase-kate < 8:3.2-0.030423.1
-Obsoletes:	kdebase-libkmultitabbar
 
 %description libkate
 A libraries shared between KDE text editors. They provide an
@@ -916,8 +861,6 @@ Summary(pl.UTF-8):	Biblioteka ksgrd
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase-ksysguard-libs
-Obsoletes:	ksysguard < 9:3.1.92.031012
 
 %description libksgrd
 A library containing functions for the system monitor KSysGuard.
@@ -946,8 +889,6 @@ Wygaszacze ekranu desktopu KDE.
 Summary:	User Account
 Summary(pl.UTF-8):	Konto użytkownika
 Group:		X11/Applications
-Obsoletes:	kdeutils-kdepasswd
-Obsoletes:	kdeutils-userinfo
 
 %description useraccount
 useraccount changes user account information. This module contains
@@ -971,8 +912,6 @@ Requires:	xinitrc
 Requires:	/etc/X11/xinit/Xclients
 Requires:	xorg-app-sessreg
 Provides:	XDM
-Obsoletes:	kdebase-kdm
-Obsoletes:	kdebase-pam
 
 %description -n kdm
 A program used for managing X11 sessions on local or remote computers.
@@ -1006,8 +945,6 @@ Suggests:	kdetoys-kweather
 Suggests:	kdeutils-kfloppy
 Suggests:	kdeutils-kgpg
 Provides:	wwwbrowser
-Obsoletes:	kdebase-konqueror
-Obsoletes:	kdebase-libkmultitabbar
 
 %description -n konqueror
 Konqueror is the file manager for the K Desktop Environment. It
@@ -1049,16 +986,11 @@ osadzenie w niej komponentów do przeglądania aby oglądać dokumenty bez
 uruchamiania innej aplikacji.
 
 %package -n konqueror-libs
-Summary:	konqueror shared libraries
+Summary:	Konqueror shared libraries
 Summary(pl.UTF-8):	Biblioteki współdzielone konquerora
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
 Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase-konqueror-libs
-Obsoletes:	kdebase-libkickermain
-Obsoletes:	kdebase-libkonq
-Obsoletes:	kdebase-libkonqsidebarplugin
-Obsoletes:	konqueror < 9:3.1.92.031006
 
 %description -n konqueror-libs
 Konqueror shared libraries.
