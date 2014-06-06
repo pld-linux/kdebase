@@ -57,7 +57,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.13.2
-Release:	0.22
+Release:	0.23
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -1765,7 +1765,8 @@ fi
 # For apps they store files in servicemenus
 %dir %{_datadir}/apps/konqueror
 %dir %{_datadir}/apps/konqueror/servicemenus
-#
+
+%dir %{_datadir}/config.kcfg
 %{_datadir}/config.kcfg/khelpcenter.kcfg
 %{_localedir}/l10n
 %lang(en_US) %{_localedir}/en_US/entry.desktop
