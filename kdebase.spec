@@ -1174,15 +1174,13 @@ if [ ! -f installed.stamp ]; then
 	cp -p %{SOURCE6} $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
 	cp -p %{SOURCE7} $RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
 
-	%{__tar} xfj %{SOURCE8} -C $RPM_BUILD_ROOT%{_datadir}/services/searchproviders/
-	%{__tar} xfj %{SOURCE10} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/
+	%{__tar} xfj %{SOURCE8} -C $RPM_BUILD_ROOT%{_datadir}/services/searchproviders
+	%{__tar} xfj %{SOURCE10} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus
 	mv $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts/* $RPM_BUILD_ROOT%{_bindir}
-	rm -rf $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts
-	%{__tar} xfj %{SOURCE13} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/
+	rmdir $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/servicemenus/scripts
+	%{__tar} xfj %{SOURCE13} -C $RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders
 
 %if %{with kdm}
-	# Drop generated Xsession file (we have own one)
-#	%{__rm} $RPM_BUILD_ROOT/etc/X11/kdm/Xsession
 	install -p %{SOURCE5} $RPM_BUILD_ROOT/etc/X11/kdm/Xsession
 	cp -p %{SOURCE2} $RPM_BUILD_ROOT/etc/pam.d/kdm
 	cp -p %{SOURCE3} $RPM_BUILD_ROOT/etc/pam.d/kdm-np
@@ -1196,6 +1194,8 @@ if [ ! -f installed.stamp ]; then
 		$RPM_BUILD_ROOT/etc/X11/kdm/faces/.default.face.icon
 	cp -p $RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/users/root1.png \
 		$RPM_BUILD_ROOT/etc/X11/kdm/faces/root.face.icon
+
+	%{__rm} $RPM_BUILD_ROOT/etc/X11/kdm/README
 %endif
 
 	# konqueror/dirtree no longer supported
@@ -1213,7 +1213,6 @@ if [ ! -f installed.stamp ]; then
 	fi
 
 	%{__rm} $RPM_BUILD_ROOT%{_desktopdir}/kde/kcmkicker.desktop # see r1.328
-#	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/Internet/keditbookmarks.desktop
 	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/Settings/LookNFeel/Themes/iconthemes.desktop
 	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/Settings/LookNFeel/kcmtaskbar.desktop
 	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/Settings/LookNFeel/panel.desktop
@@ -1326,9 +1325,6 @@ rm -f *.lang
 %find_lang kcontrol/smb --with-kde -a konqueror.lang
 %find_lang kcontrol/useragent --with-kde -a konqueror.lang
 
-#%find_lang kappfinder --with-kde
-touch kappfinder.lang
-
 %find_lang kate --with-kde
 
 %find_lang kdm --with-kde
@@ -1349,10 +1345,6 @@ touch kappfinder.lang
 
 # Omit apidocs entries
 %{__sed} -i -e '/apidocs/d' *.lang
-
-%if %{with kdm}
-%{__rm} $RPM_BUILD_ROOT/etc/X11/kdm/README
-%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -2236,7 +2228,7 @@ fi
 # !!!
 %{_iconsdir}/*/*/apps/kthememgr.png
 
-%files kappfinder -f kappfinder.lang
+%files kappfinder
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kappfinder
 %{_datadir}/apps/kappfinder
@@ -2393,7 +2385,6 @@ fi
 %{_datadir}/apps/kscreensaver/KBlankscreen.desktop
 %{_datadir}/apps/kscreensaver/KRandom.desktop
 %{_desktopdir}/kde/screensaver.desktop
-#%{_iconsdir}/*/*/apps/kscreensaver.png
 
 %files useraccount
 %defattr(644,root,root,755)
