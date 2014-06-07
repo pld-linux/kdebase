@@ -55,7 +55,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.13.2
-Release:	0.25
+Release:	0.26
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -394,6 +394,15 @@ KDE POP3 protocol service.
 
 %description -n kde-kio-pop3 -l pl.UTF-8
 Obsługa protokołu POP3.
+
+%package -n kde-kio-smb
+Summary:	Windows Connection Module for TDE
+Group:		X11/Libraries
+Requires:	kdelibs >= %{_minlibsevr}
+
+%description -n kde-kio-smb
+This package provides the "smb://" protocol, to connect to and from
+Windows and Samba shares.
 
 %package -n kde-kio-smtp
 Summary:	KDE SMTP protocol service
@@ -1527,6 +1536,16 @@ fi
 %{_datadir}/services/pop3.protocol
 %{_datadir}/services/pop3s.protocol
 
+%files -n kde-kio-smb
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libexecdir}/kcm_samba.so
+%attr(755,root,root) %{_libexecdir}/kio_smb.so
+%{_datadir}/services/smb.protocol
+%dir %{_datadir}/apps/remoteview
+%{_datadir}/apps/remoteview/smb-network.desktop
+%{_datadir}/mimelnk/application/x-smb-server.desktop
+%{_datadir}/mimelnk/application/x-smb-workgroup.desktop
+
 %files -n kde-kio-smtp
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libexecdir}/kio_smtp.so
@@ -1675,7 +1694,6 @@ fi
 %{_datadir}/apps/kio_man
 %{_datadir}/apps/khelpcenter
 %{_datadir}/apps/khtml/kpartplugins/*
-%{_datadir}/apps/remoteview
 %{_datadir}/apps/systemview
 # For apps they store files in applets
 %dir %{_datadir}/apps/kicker
@@ -2191,7 +2209,6 @@ fi
 %attr(755,root,root) %{_libexecdir}/kcm_info.so
 %attr(755,root,root) %{_libexecdir}/kcm_ioslaveinfo.so
 %attr(755,root,root) %{_libexecdir}/kcm_nic.so
-%attr(755,root,root) %{_libexecdir}/kcm_samba.so
 %attr(755,root,root) %{_libexecdir}/kcm_usb.so
 %attr(755,root,root) %{_libexecdir}/kcm_view1394.so
 #%{_datadir}/apps/kcmusb
@@ -2501,7 +2518,6 @@ fi
 %attr(755,root,root) %{_libexecdir}/kio_print.so
 %attr(755,root,root) %{_libexecdir}/kio_remote.so
 %attr(755,root,root) %{_libexecdir}/kio_sftp.so
-%attr(755,root,root) %{_libexecdir}/kio_smb.so
 %attr(755,root,root) %{_libexecdir}/kio_system.so
 %attr(755,root,root) %{_libexecdir}/kio_tar.so
 %attr(755,root,root) %{_libexecdir}/kio_trash.so
@@ -2562,8 +2578,6 @@ fi
 %{_datadir}/config/konqsidebartng.rc
 %{_datadir}/config/kshorturifilterrc
 %{_datadir}/config.kcfg/konqueror.kcfg
-%{_datadir}/mimelnk/application/x-smb-server.desktop
-%{_datadir}/mimelnk/application/x-smb-workgroup.desktop
 %{_datadir}/mimelnk/media
 %{_datadir}/mimelnk/inode/system_directory.desktop
 %{_datadir}/services/searchproviders
@@ -2610,7 +2624,6 @@ fi
 %{_datadir}/services/printdb.protocol
 %{_datadir}/services/remote.protocol
 %{_datadir}/services/sftp.protocol
-%{_datadir}/services/smb.protocol
 %{_datadir}/services/tar.protocol
 %{_datadir}/services/trash.protocol
 %{_datadir}/services/zip.protocol
