@@ -55,7 +55,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.13.2
-Release:	0.24
+Release:	0.25
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -1150,7 +1150,7 @@ test -f makeinstall.stamp -a %{_specdir}/%{name}.spec -nt makeinstall.stamp && r
 if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
 	rm -rf makeinstall.stamp installed.stamp $RPM_BUILD_ROOT
 
-	%{__make} install -C build \
+	%{__make} install -C build -j1 \
 		DESTDIR=$RPM_BUILD_ROOT \
 		kde_htmldir=%{_kdedocdir}
 

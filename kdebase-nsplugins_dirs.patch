@@ -24,8 +24,8 @@
 -	paths.append("/usr/lib64/mozilla/plugins");
 -        paths.append("$MOZILLA_HOME/plugins");
 -
-+		paths.append("/usr/lib/kde3/plugins/konqueror");
-+		paths.append("/usr/lib64/kde3/plugins/konqueror");
++		paths.append("/usr/lib/trinity/plugins/konqueror");
++		paths.append("/usr/lib64/trinity/plugins/konqueror");
      }
  
      // fill list
@@ -54,8 +54,8 @@
 -        paths.append("/usr/lib64/netscape/plugins");
 -        paths.append("/usr/lib64/mozilla/plugins");
 -        paths.append("$MOZILLA_HOME/plugins");
-+		paths.append("/usr/lib/kde3/plugins/konqueror");
-+		paths.append("/usr/lib64/kde3/plugins/konqueror");
++		paths.append("/usr/lib/trinity/plugins/konqueror");
++		paths.append("/usr/lib64/trinity/plugins/konqueror");
          config->writeEntry( "scanPaths", paths );
      }
  
