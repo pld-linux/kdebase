@@ -111,12 +111,12 @@ BuildRequires:	glib2-devel
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
-BuildRequires:	libraw1394-devel >= 1.2.0
-BuildRequires:	libsmbclient-devel >= 1:3.0.23d-3
+%{?with_libraw1394:BuildRequires:	libraw1394-devel >= 1.2.0}
+%{?with_samba:BuildRequires:	libsmbclient-devel >= 1:3.0.23d-3}
 BuildRequires:	libstdc++-devel >= 5:4.1.0-0.20051206r108118.1
 BuildRequires:	libtqtinterface-devel >= %{version}
-BuildRequires:	libusb-compat-devel
-BuildRequires:	libusb-devel
+%{?with_libusb:BuildRequires:	libusb-compat-devel}
+%{?with_libusb:BuildRequires:	libusb-devel}
 BuildRequires:	libxml2-devel
 BuildRequires:	libxml2-progs
 BuildRequires:	openldap-devel
@@ -1208,7 +1208,7 @@ if [ ! -f installed.stamp ]; then
 %endif
 
 	# konqueror/dirtree no longer supported
-	rm $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop
+	%{?with_samba:rm $RPM_BUILD_ROOT%{_datadir}/apps/konqueror/dirtree/remote/smb-network.desktop}
 
 	# Workaround for gnome menu which maps all these to "Others" dir
 	cd $RPM_BUILD_ROOT%{_desktopdir}/kde
@@ -1536,6 +1536,7 @@ fi
 %{_datadir}/services/pop3.protocol
 %{_datadir}/services/pop3s.protocol
 
+%if %{with samba}
 %files -n kde-kio-smb
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libexecdir}/kcm_samba.so
@@ -1545,6 +1546,8 @@ fi
 %{_datadir}/apps/remoteview/smb-network.desktop
 %{_datadir}/mimelnk/application/x-smb-server.desktop
 %{_datadir}/mimelnk/application/x-smb-workgroup.desktop
+%{_desktopdir}/kde/smbstatus.desktop
+%endif
 
 %files -n kde-kio-smtp
 %defattr(644,root,root,755)
@@ -1591,7 +1594,7 @@ fi
 %files common-filemanagement
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libexecdir}/djvuthumbnail.so
-%attr(755,root,root) %{_libexecdir}/exrthumbnail.so
+%{?with_openexr:%attr(755,root,root) %{_libexecdir}/exrthumbnail.so}
 %attr(755,root,root) %{_libexecdir}/kio_thumbnail.so
 %attr(755,root,root) %{_libexecdir}/fontthumbnail.so
 %attr(755,root,root) %{_libexecdir}/htmlthumbnail.so
@@ -1599,7 +1602,7 @@ fi
 %attr(755,root,root) %{_libexecdir}/libkonsolepart.so
 %attr(755,root,root) %{_libexecdir}/textthumbnail.so
 %{_datadir}/services/djvuthumbnail.desktop
-%{_datadir}/services/exrthumbnail.desktop
+%{?with_openexr:%{_datadir}/services/exrthumbnail.desktop}
 %{_datadir}/services/fontthumbnail.desktop
 %{_datadir}/services/htmlthumbnail.desktop
 %{_datadir}/services/imagethumbnail.desktop
@@ -1685,7 +1688,7 @@ fi
 %attr(755,root,root) %{_libexecdir}/plugins/integration/libqtkde.so.0.0.0
 
 %{_datadir}/apps/drkonqi
-%{_datadir}/apps/kcmview1394
+%{?with_libraw1394:%{_datadir}/apps/kcmview1394}
 %{_datadir}/apps/kcontrol
 %{_datadir}/apps/kdeprint/*
 %{_datadir}/apps/kdeprint_part
@@ -2209,8 +2212,9 @@ fi
 %attr(755,root,root) %{_libexecdir}/kcm_info.so
 %attr(755,root,root) %{_libexecdir}/kcm_ioslaveinfo.so
 %attr(755,root,root) %{_libexecdir}/kcm_nic.so
+%{?with_samba:%attr(755,root,root) %{_libexecdir}/kcm_samba.so}
 %attr(755,root,root) %{_libexecdir}/kcm_usb.so
-%attr(755,root,root) %{_libexecdir}/kcm_view1394.so
+%{?with_libraw1394:%attr(755,root,root) %{_libexecdir}/kcm_view1394.so}
 #%{_datadir}/apps/kcmusb
 %{_datadir}/apps/kinfocenter
 %{_xdgdatadir}/kde-information.directory
@@ -2219,7 +2223,7 @@ fi
 %{_desktopdir}/kde/interrupts.desktop
 %{_desktopdir}/kde/ioports.desktop
 #%{_desktopdir}/kde/kcmusb.desktop
-%{_desktopdir}/kde/kcmview1394.desktop
+%{?with_libraw1394:%{_desktopdir}/kde/kcmview1394.desktop}
 %{_desktopdir}/kde/ioslaveinfo.desktop
 %{_desktopdir}/kde/memory.desktop
 %{_desktopdir}/kde/nic.desktop
@@ -2228,7 +2232,6 @@ fi
 %{_desktopdir}/kde/pci.desktop
 %{_desktopdir}/kde/processor.desktop
 %{_desktopdir}/kde/scsi.desktop
-%{_desktopdir}/kde/smbstatus.desktop
 %{_desktopdir}/kde/sound.desktop
 %{_desktopdir}/kde/xserver.desktop
 %{_desktopdir}/kde/kinfocenter.desktop
