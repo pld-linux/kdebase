@@ -136,7 +136,7 @@ BuildRequires:	tar >= 1:1.22
 BuildRequires:	udev-devel
 BuildRequires:	xorg-app-bdftopcf
 BuildRequires:	xorg-lib-libX11-devel
-BuildRequires:	xorg-lib-libXScrnSaver-devel
+%{?with_xscreensaver:BuildRequires:	xorg-lib-libXScrnSaver-devel}
 BuildRequires:	xorg-lib-libXcomposite-devel
 BuildRequires:	xorg-lib-libXcursor-devel
 BuildRequires:	xorg-lib-libXdamage-devel
@@ -147,7 +147,7 @@ BuildRequires:	xorg-lib-libXmu-devel
 BuildRequires:	xorg-lib-libXtst-devel
 BuildRequires:	xorg-lib-libfontenc-devel
 BuildRequires:	xorg-lib-libxkbfile-devel
-BuildRequires:	xorg-proto-scrnsaverproto-devel
+%{?with_xscreensaver:BuildRequires:	xorg-proto-scrnsaverproto-devel}
 BuildRequires:	xorg-proto-xproto-devel
 BuildRequires:	xz
 BuildRequires:	zlib-devel
@@ -1657,9 +1657,9 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit_khelpcenter.so
 %attr(755,root,root) %{_libdir}/libkdeinit_kprinter.so
 %attr(755,root,root) %{_libexecdir}/kcm_colors.so
-%attr(755,root,root) %{_libexecdir}/kcm_displayconfig.so
+%{?with_xrandr:%attr(755,root,root) %{_libexecdir}/kcm_displayconfig.so}
 %attr(755,root,root) %{_libexecdir}/kcm_fonts.so
-%attr(755,root,root) %{_libexecdir}/kcm_iccconfig.so
+%{?with_xrandr:%attr(755,root,root) %{_libexecdir}/kcm_iccconfig.so}
 %attr(755,root,root) %{_libexecdir}/kcm_kded.so
 %attr(755,root,root) %{_libexecdir}/kcm_locale.so
 %attr(755,root,root) %{_libexecdir}/kcm_printmgr.so
@@ -1722,8 +1722,8 @@ fi
 %{_datadir}/services/settings.protocol
 %{_datadir}/services/system.protocol
 %{_xdgdatadir}/kde-settings*.directory
-%{_desktopdir}/kde/displayconfig.desktop
-%{_desktopdir}/kde/iccconfig.desktop
+%{?with_xrandr:%{_desktopdir}/kde/displayconfig.desktop}
+%{?with_xrandr:%{_desktopdir}/kde/iccconfig.desktop}
 %{_desktopdir}/kde/language.desktop
 %{_desktopdir}/kde/kcmkded.desktop
 %{_desktopdir}/kde/colors.desktop
@@ -1781,7 +1781,7 @@ fi
 # 12.3(kdebase-desktop)+3.4(konqueror)+4(kdebase-core) ~ 20mb!!
 %attr(755,root,root) %{_bindir}/kreadconfig
 %attr(755,root,root) %{_bindir}/kwriteconfig
-%attr(755,root,root) %{_bindir}/krandrtray
+%{?with_xrandr:%attr(755,root,root) %{_bindir}/krandrtray}
 %attr(755,root,root) %{_bindir}/ksplash
 %attr(755,root,root) %{_bindir}/ksplashsimple
 %attr(755,root,root) %{_bindir}/kstart
@@ -1832,7 +1832,7 @@ fi
 %attr(755,root,root) %{_libexecdir}/kcm_launch.so
 %attr(755,root,root) %{_libexecdir}/kcm_nsplugins.so
 %attr(755,root,root) %{_libexecdir}/kcm_privacy.so
-%attr(755,root,root) %{_libexecdir}/kcm_randr.so
+%{?with_xrandr:%attr(755,root,root) %{_libexecdir}/kcm_randr.so}
 %attr(755,root,root) %{_libexecdir}/kcm_smserver.so
 %attr(755,root,root) %{_libexecdir}/kcm_spellchecking.so
 %attr(755,root,root) %{_libexecdir}/kcm_xinerama.so
@@ -1963,7 +1963,7 @@ fi
 %{_applnkdir}/.hidden/kwintranslucency.desktop
 %{_applnkdir}/.hidden/passwords.desktop
 %{_applnkdir}/.hidden/power.desktop
-%{_applnkdir}/.hidden/randr.desktop
+%{?with_xrandr:%{_applnkdir}/.hidden/randr.desktop}
 %{_applnkdir}/.hidden/socks.desktop
 %{_applnkdir}/.hidden/virtualdesktops.desktop
 %{_applnkdir}/.hidden/xinerama.desktop
@@ -1984,7 +1984,7 @@ fi
 %{_desktopdir}/kde/keyboard_layout.desktop
 %{_desktopdir}/kde/keys.desktop
 %{_desktopdir}/kde/khotkeys.desktop
-%{_desktopdir}/kde/krandrtray.desktop
+%{?with_xrandr:%{_desktopdir}/kde/krandrtray.desktop}
 %{_desktopdir}/kde/ksplashthememgr.desktop
 %{_desktopdir}/kde/ktip.desktop
 %{_desktopdir}/kde/kwindecoration.desktop
@@ -2155,7 +2155,7 @@ fi
 %{_datadir}/apps/kicker/wallpapers
 %{_datadir}/apps/naughtyapplet
 %{_datadir}/autostart/panel.desktop
-%{_datadir}/autostart/krandrtray-autostart.desktop
+%{?with_xrandr:%{_datadir}/autostart/krandrtray-autostart.desktop}
 %{_applnkdir}/.hidden/kicker_config.desktop
 %{_applnkdir}/.hidden/kicker_config_appearance.desktop
 %{_datadir}/config.kcfg/taskbar.kcfg
@@ -2434,8 +2434,8 @@ fi
 %attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xsession
 %attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xsetup
 %attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xstartup
-%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xwilling
-%config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xaccess
+%{?with_xdmcp:%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xwilling}
+%{?with_xdmcp:%config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xaccess}
 %dir /etc/X11/kdm/faces
 %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/faces/.default.face.icon
 %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/faces/root.face.icon
