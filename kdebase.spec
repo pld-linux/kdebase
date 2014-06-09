@@ -55,7 +55,7 @@ Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
 Version:	3.5.13.2
-Release:	0.26
+Release:	0.27
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
@@ -802,6 +802,14 @@ KDE desktop settings wizard.
 
 %description kpersonalizer -l pl.UTF-8
 Kreator ustawień środowiska KDE.
+
+%package krandr
+Summary:	krandr - Resize and rotate X screens.
+Group:		X11/Applications
+Requires:	%{name}-core = %{epoch}:%{version}-%{release}
+
+%description krandr
+krandr - Screen Resize & Rotate.
 
 %package ksysguard
 Summary:	System Guard
@@ -1657,9 +1665,7 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit_khelpcenter.so
 %attr(755,root,root) %{_libdir}/libkdeinit_kprinter.so
 %attr(755,root,root) %{_libexecdir}/kcm_colors.so
-%{?with_xrandr:%attr(755,root,root) %{_libexecdir}/kcm_displayconfig.so}
 %attr(755,root,root) %{_libexecdir}/kcm_fonts.so
-%{?with_xrandr:%attr(755,root,root) %{_libexecdir}/kcm_iccconfig.so}
 %attr(755,root,root) %{_libexecdir}/kcm_kded.so
 %attr(755,root,root) %{_libexecdir}/kcm_locale.so
 %attr(755,root,root) %{_libexecdir}/kcm_printmgr.so
@@ -1722,8 +1728,6 @@ fi
 %{_datadir}/services/settings.protocol
 %{_datadir}/services/system.protocol
 %{_xdgdatadir}/kde-settings*.directory
-%{?with_xrandr:%{_desktopdir}/kde/displayconfig.desktop}
-%{?with_xrandr:%{_desktopdir}/kde/iccconfig.desktop}
 %{_desktopdir}/kde/language.desktop
 %{_desktopdir}/kde/kcmkded.desktop
 %{_desktopdir}/kde/colors.desktop
@@ -1781,7 +1785,6 @@ fi
 # 12.3(kdebase-desktop)+3.4(konqueror)+4(kdebase-core) ~ 20mb!!
 %attr(755,root,root) %{_bindir}/kreadconfig
 %attr(755,root,root) %{_bindir}/kwriteconfig
-%{?with_xrandr:%attr(755,root,root) %{_bindir}/krandrtray}
 %attr(755,root,root) %{_bindir}/ksplash
 %attr(755,root,root) %{_bindir}/ksplashsimple
 %attr(755,root,root) %{_bindir}/kstart
@@ -1832,7 +1835,6 @@ fi
 %attr(755,root,root) %{_libexecdir}/kcm_launch.so
 %attr(755,root,root) %{_libexecdir}/kcm_nsplugins.so
 %attr(755,root,root) %{_libexecdir}/kcm_privacy.so
-%{?with_xrandr:%attr(755,root,root) %{_libexecdir}/kcm_randr.so}
 %attr(755,root,root) %{_libexecdir}/kcm_smserver.so
 %attr(755,root,root) %{_libexecdir}/kcm_spellchecking.so
 %attr(755,root,root) %{_libexecdir}/kcm_xinerama.so
@@ -1963,7 +1965,6 @@ fi
 %{_applnkdir}/.hidden/kwintranslucency.desktop
 %{_applnkdir}/.hidden/passwords.desktop
 %{_applnkdir}/.hidden/power.desktop
-%{?with_xrandr:%{_applnkdir}/.hidden/randr.desktop}
 %{_applnkdir}/.hidden/socks.desktop
 %{_applnkdir}/.hidden/virtualdesktops.desktop
 %{_applnkdir}/.hidden/xinerama.desktop
@@ -1984,7 +1985,6 @@ fi
 %{_desktopdir}/kde/keyboard_layout.desktop
 %{_desktopdir}/kde/keys.desktop
 %{_desktopdir}/kde/khotkeys.desktop
-%{?with_xrandr:%{_desktopdir}/kde/krandrtray.desktop}
 %{_desktopdir}/kde/ksplashthememgr.desktop
 %{_desktopdir}/kde/ktip.desktop
 %{_desktopdir}/kde/kwindecoration.desktop
@@ -2155,7 +2155,6 @@ fi
 %{_datadir}/apps/kicker/wallpapers
 %{_datadir}/apps/naughtyapplet
 %{_datadir}/autostart/panel.desktop
-%{?with_xrandr:%{_datadir}/autostart/krandrtray-autostart.desktop}
 %{_applnkdir}/.hidden/kicker_config.desktop
 %{_applnkdir}/.hidden/kicker_config_appearance.desktop
 %{_datadir}/config.kcfg/taskbar.kcfg
@@ -2355,6 +2354,19 @@ fi
 %{_datadir}/apps/kpersonalizer
 %{_desktopdir}/kde/kpersonalizer.desktop
 %{_iconsdir}/*/*/apps/kpersonalizer.png
+
+%if %{with xrandr}
+%files krandr
+%attr(755,root,root) %{_bindir}/krandrtray
+%attr(755,root,root) %{_libexecdir}/kcm_displayconfig.so
+%attr(755,root,root) %{_libexecdir}/kcm_iccconfig.so
+%attr(755,root,root) %{_libexecdir}/kcm_randr.so
+%{_applnkdir}/.hidden/randr.desktop
+%{_datadir}/autostart/krandrtray-autostart.desktop
+%{_desktopdir}/kde/displayconfig.desktop
+%{_desktopdir}/kde/iccconfig.desktop
+%{_desktopdir}/kde/krandrtray.desktop
+%endif
 
 %files ksysguard -f ksysguard.lang
 %defattr(644,root,root,755)
