@@ -1799,7 +1799,7 @@ fi
 %attr(755,root,root) %{_bindir}/khc_htdig.pl
 %attr(755,root,root) %{_bindir}/khc_htsearch.pl
 %attr(755,root,root) %{_bindir}/khc_mansearch.pl
-%attr(755,root,root) %{_bindir}/kompmgr
+%{?with_xcomposite:%attr(755,root,root) %{_bindir}/kompmgr}
 #
 %attr(755,root,root) %{_libdir}/libkdeinit_kaccess.so
 %attr(755,root,root) %{_libdir}/libkdeinit_kdesktop.so
@@ -1807,7 +1807,7 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit_kwin.so
 %attr(755,root,root) %{_libdir}/libkdeinit_kwin_rules_dialog.so
 %attr(755,root,root) %{_libdir}/libkdeinit_kxkb.so
-%attr(755,root,root) %{_libexecdir}/cursorthumbnail.so
+%{?with_xcursor:%attr(755,root,root) %{_libexecdir}/cursorthumbnail.so}
 %attr(755,root,root) %{_libexecdir}/kaccess.so
 %attr(755,root,root) %{_libexecdir}/kcm_access.so
 %attr(755,root,root) %{_libexecdir}/kcm_arts.so
@@ -1903,7 +1903,7 @@ fi
 %{_datadir}/config.kcfg/kwin.kcfg
 %{_datadir}/config.kcfg/mediamanagersettings.kcfg
 %{_datadir}/config.kcfg/pagersettings.kcfg
-%{_datadir}/services/cursorthumbnail.desktop
+%{?with_xcursor:%{_datadir}/services/cursorthumbnail.desktop}
 %{_datadir}/services/kaccess.desktop
 %{_datadir}/services/kded/khotkeys.desktop
 %{_datadir}/services/ksplash.desktop
@@ -2212,7 +2212,6 @@ fi
 %attr(755,root,root) %{_libexecdir}/kcm_info.so
 %attr(755,root,root) %{_libexecdir}/kcm_ioslaveinfo.so
 %attr(755,root,root) %{_libexecdir}/kcm_nic.so
-%{?with_samba:%attr(755,root,root) %{_libexecdir}/kcm_samba.so}
 %attr(755,root,root) %{_libexecdir}/kcm_usb.so
 %{?with_libraw1394:%attr(755,root,root) %{_libexecdir}/kcm_view1394.so}
 #%{_datadir}/apps/kcmusb
