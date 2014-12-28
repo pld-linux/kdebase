@@ -93,7 +93,7 @@ BuildRequires:	dbus-qt-devel >= 0.70
 %{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	ed
 %{?with_hidden_visibility:BuildRequires:	gcc-c++ >= 5:4.1.0-0.20051206r108118.1}
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 %{?with_apidocs:BuildRequires:	graphviz}
 BuildRequires:	hal-devel
 BuildRequires:	jasper-devel
