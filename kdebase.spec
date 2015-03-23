@@ -108,6 +108,7 @@ BuildRequires:	dbus-devel
 BuildRequires:	glib2-devel
 %{?with_apidocs:BuildRequires:	graphviz}
 %{?with_kerberos5:BuildRequires: heimdal-devel}
+BuildRequires:	htdig-devel
 BuildRequires:	kdelibs-devel >= %{minlibsevr}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
