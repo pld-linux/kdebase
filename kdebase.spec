@@ -16,6 +16,7 @@
 %bcond_without	avahi			# Avahi
 # Features
 %bcond_with	arts	# Enable aRts support
+%bcond_with	elficon		# ELF embedded metadata support (icons in executables)
 %bcond_with	hal	# Enable HAL support
 %bcond_without	i8k	# Enable Dell laptop support (ksysguard)
 %bcond_with	kdesktop_lock_backtrace	# Enable backtrace in kdesktop_lock exception handler
@@ -100,8 +101,9 @@ BuildRequires:	bzip2-devel
 BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cmake >= 2.8
 BuildRequires:	cyrus-sasl-devel
-BuildRequires:	dbus-devel
 BuildRequires:	dbus-1-tqt-devel >= 0.9
+%{?with_elficon:BuildRequires:	libr-devel >= 0.6.0}
+BuildRequires:	dbus-devel
 %{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	glib2-devel
 %{?with_apidocs:BuildRequires:	graphviz}
@@ -170,8 +172,7 @@ This package contains KDE base system which includes:
 - many more.
 
 %description -l ja.UTF-8
-KDEデスクトップ環境用の基本アプリケーション。
-以下のようなパッケージが入っています。
+KDEデスクトップ環境用の基本アプリケーション。 以下のようなパッケージが入っています。
 
 %description -l pl.UTF-8
 Ten pakiet zawiera podstawowe aplikacje KDE:
@@ -802,7 +803,7 @@ KDE desktop settings wizard.
 Kreator ustawień środowiska KDE.
 
 %package krandr
-Summary:	krandr - Resize and rotate X screens.
+Summary:	krandr - Resize and rotate X screens
 Group:		X11/Applications
 Requires:	%{name}-core = %{epoch}:%{version}-%{release}
 
@@ -1145,7 +1146,7 @@ export CXXFLAGS="%{rpmcxxflags} $(pkg-config --cflags dbus-tqt)"
 	-DWITH_I8K=%{onoff i8k} \
 	-DWITH_HAL=%{onoff hal} \
 	-DWITH_KDESKTOP_LOCK_BACKTRACE=%{onoff kdesktop_lock_backtrace} \
-\
+	-DWITH_ELFICON=O%{!?with_elficon:FF}%{?with_elficon:N} \
 	-DBUILD_ALL=ON \
 	-DBUILD_TSAK=%{onoff tsak} \
 %if %{without kdm}
@@ -2356,6 +2357,7 @@ fi
 
 %if %{with xrandr}
 %files krandr
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/krandrtray
 %attr(755,root,root) %{_libexecdir}/kcm_displayconfig.so
 %attr(755,root,root) %{_libexecdir}/kcm_iccconfig.so
