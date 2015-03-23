@@ -1,11 +1,11 @@
---- kdebase-trinity-3.5.13.2/konsole/konsole/konsole.cpp~	2014-05-27 14:51:11.000000000 +0300
-+++ kdebase-trinity-3.5.13.2/konsole/konsole/konsole.cpp	2014-05-27 14:53:50.441495466 +0300
-@@ -1084,7 +1084,7 @@
+--- kdebase-R14.0.0/konsole/konsole/konsole.cpp~	2015-03-23 07:14:35.000000000 +0200
++++ kdebase-R14.0.0/konsole/konsole/konsole.cpp	2015-03-23 07:23:34.904182231 +0200
+@@ -1127,7 +1127,7 @@
                                TQT_SLOT(slotSaveHistory()), m_shortcuts, "save_history");
    m_saveHistory->setEnabled(b_histEnabled );
  
--  m_clearHistory = new KAction(i18n("Clear &History"), "history_clear", 0, TQT_TQOBJECT(this),
-+  m_clearHistory = new KAction(i18n("Clear &History"), "history_clear", Qt::CTRL+Qt::ALT+Qt::Key_W, TQT_TQOBJECT(this),
+-  m_clearHistory = new TDEAction(i18n("Clear &History"), "history_clear", 0, TQT_TQOBJECT(this),
++  m_clearHistory = new TDEAction(i18n("Clear &History"), "history_clear", Qt::CTRL+Qt::ALT+Qt::Key_W, TQT_TQOBJECT(this),
                                 TQT_SLOT(slotClearHistory()), m_shortcuts, "clear_history");
    m_clearHistory->setEnabled(b_histEnabled);
  

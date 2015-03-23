@@ -23,14 +23,14 @@ glen, 2005-07-20
       b_framevis = config->readBoolEntry("has frame",true);
       QPtrList<TEWidget> tes = activeTEs();
       for (TEWidget *_te = tes.first(); _te; _te = tes.next()) {
---- kdebase-3.4.1/konsole/konsole/konsole_part.cpp~	2005-07-20 15:29:27.000000000 +0300
-+++ kdebase-3.4.1/konsole/konsole/konsole_part.cpp	2005-07-20 15:31:36.000000000 +0300
-@@ -557,7 +557,7 @@
+--- kdebase-R14.0.0/konsole/konsole/konsole_part.cpp~	2014-10-22 23:44:30.000000000 +0300
++++ kdebase-R14.0.0/konsole/konsole/konsole_part.cpp	2015-03-23 07:13:51.317261422 +0200
+@@ -576,7 +576,7 @@
    n_keytab=config->readNumEntry("keytab",0); // act. the keytab for this session
-   n_scroll = QMIN(config->readUnsignedNumEntry("scrollbar",TEWidget::SCRRIGHT),2);
+   n_scroll = TQMIN(config->readUnsignedNumEntry("scrollbar",TEWidget::SCRRIGHT),2);
    m_histSize = config->readNumEntry("history",DEFAULT_HISTORY_SIZE);
 -  s_word_seps= config->readEntry("wordseps",":@-./_~");
 +  s_word_seps= config->readEntry("wordseps",":@-./_~?=&%+#");
- 
    n_encoding = config->readNumEntry("encoding",0);
  
+   TQFont tmpFont = TDEGlobalSettings::fixedFont();

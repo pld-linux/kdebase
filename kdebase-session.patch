@@ -1,5 +1,5 @@
---- kdebase-trinity-3.5.13.2/kdm/kfrontend/sessions/CMakeLists.txt~	2012-09-16 15:52:03.000000000 +0300
-+++ kdebase-trinity-3.5.13.2/kdm/kfrontend/sessions/CMakeLists.txt	2014-06-04 11:22:28.208119436 +0300
+--- kdebase-R14.0.0/tdm/kfrontend/sessions/CMakeLists.txt~	2013-08-10 09:15:18.000000000 +0300
++++ kdebase-R14.0.0/tdm/kfrontend/sessions/CMakeLists.txt	2015-03-23 06:53:43.207998906 +0200
 @@ -12,18 +12,5 @@
  configure_file( tde.desktop.cmake tde.desktop @ONLY )
  
@@ -17,7 +17,7 @@
 -    ratpoison.desktop sapphire.desktop sawfish.desktop
 -    twm.desktop ude.desktop vtwm.desktop w9wm.desktop
 -    waimea.desktop wm2.desktop wmaker.desktop xfce.desktop
--    xfce4.desktop
--  DESTINATION ${DATA_INSTALL_DIR}/kdm/sessions )
-+  ${CMAKE_CURRENT_BINARY_DIR}/tde.desktop RENAME kde.desktop
+-    xfce4.desktop kde-plasma-safe.desktop kde-plasma.desktop
+-  DESTINATION ${DATA_INSTALL_DIR}/tdm/sessions )
++  ${CMAKE_CURRENT_BINARY_DIR}/tde.desktop
 +  DESTINATION ${SHARE_INSTALL_PREFIX}/xsessions )

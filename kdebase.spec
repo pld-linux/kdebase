@@ -41,9 +41,7 @@
 %bcond_without	xscreensaver	# Enable xscreensaver support
 %bcond_without	xtest	# Enable xext support
 
-
-%define		_state		stable
-%define		_minlibsevr	9:%{version}
+%define		minlibsevr	9:%{version}
 Summary:	K Desktop Environment - core files
 Summary(es.UTF-8):	K Desktop Environment - archivos básicos
 Summary(ja.UTF-8):	KDEデスクトップ環境 - 基本ファイル
@@ -54,13 +52,13 @@ Summary(ru.UTF-8):	K Desktop Environment - базовые файлы
 Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kdebase
-Version:	3.5.13.2
+Version:	R14.0.0
 Release:	0.27
 Epoch:		9
 License:	GPL
 Group:		X11/Applications
-Source0:	http://ftp.fau.de/trinity/releases/%{version}/%{name}-trinity-%{version}.tar.xz
-# Source0-md5:	5687691f62ea0018047872d7b822fa1e
+Source0:	http://tde-mirror.yosemite.net/trinity/releases/%{version}/tdebase-%{version}.tar.bz2
+# Source0-md5:	6dd72f44985342de33c2b1b5d6257c15
 Source1:	%{name}-kdesktop.pam
 Source2:	%{name}-kdm.pam
 Source3:	%{name}-kdm-np.pam
@@ -103,18 +101,18 @@ BuildRequires:	cdparanoia-III-devel
 BuildRequires:	cmake >= 2.8
 BuildRequires:	cyrus-sasl-devel
 BuildRequires:	dbus-devel
-BuildRequires:	dbus-tqt-devel
+BuildRequires:	dbus-1-tqt-devel >= 0.9
 %{?with_apidocs:BuildRequires:	doxygen}
 BuildRequires:	glib2-devel
 %{?with_apidocs:BuildRequires:	graphviz}
 %{?with_kerberos5:BuildRequires: heimdal-devel}
-BuildRequires:	kdelibs-devel >= %{_minlibsevr}
+BuildRequires:	kdelibs-devel >= %{minlibsevr}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.0.8
 %{?with_libraw1394:BuildRequires:	libraw1394-devel >= 1.2.0}
 %{?with_samba:BuildRequires:	libsmbclient-devel >= 1:3.0.23d-3}
 BuildRequires:	libstdc++-devel >= 5:4.1.0-0.20051206r108118.1
-BuildRequires:	libtqtinterface-devel >= %{version}
+BuildRequires:	libtqtinterface-devel >= 4.2.0
 %{?with_libusb:BuildRequires:	libusb-compat-devel}
 %{?with_libusb:BuildRequires:	libusb-devel}
 BuildRequires:	libxml2-devel
@@ -126,7 +124,7 @@ BuildRequires:	pam-devel
 BuildRequires:	pcre-devel
 BuildRequires:	perl-Digest-MD5
 BuildRequires:	pkgconfig
-%{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
+#%{?with_hidden_visibility:BuildRequires:	qt-devel >= 6:3.3.5.051113-1}
 %{?with_apidocs:BuildRequires:	qt-doc}
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(find_lang) >= 1.32
@@ -213,7 +211,7 @@ Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kfontinst = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libksgrd = %{epoch}:%{version}-%{release}
-Requires:	kdelibs-devel >= %{_minlibsevr}
+Requires:	kdelibs-devel >= %{minlibsevr}
 
 %description devel
 This package contains header files needed to develop KDE applications.
@@ -333,7 +331,7 @@ widocznymi, cienkimi krawędziami.
 Summary:	KDE greeter libraries
 Summary(pl.UTF-8):	Biblioteki służące do zapytań o hasło
 Group:		X11/Libraries
-Requires:	kdelibs >= %{_minlibsevr}
+Requires:	kdelibs >= %{minlibsevr}
 Provides:	kde-kgreet
 Conflicts:	kdm <= 3.2.90.040503-1
 
@@ -348,7 +346,7 @@ wyglądu.
 Summary:	KDE greeter libraries
 Summary(pl.UTF-8):	Biblioteki służące do zapytań o hasło
 Group:		X11/Libraries
-Requires:	kdelibs >= %{_minlibsevr}
+Requires:	kdelibs >= %{minlibsevr}
 Provides:	kde-kgreet
 Conflicts:	kdm <= 3.2.90.040503-1
 
@@ -362,7 +360,7 @@ Narzędzia służące do zapytań o hasło - winbind.
 Summary:	KDE LDAP protocol service
 Summary(pl.UTF-8):	Obsługa protokołu LDAP
 Group:		X11/Libraries
-Requires:	kdelibs >= %{_minlibsevr}
+Requires:	kdelibs >= %{minlibsevr}
 Conflicts:	konqueror < 9:3.2.90.040210
 
 %description -n kde-kio-ldap
@@ -375,7 +373,7 @@ Obsługa protokołu LDAP.
 Summary:	KDE NNTP protocol service
 Summary(pl.UTF-8):	Obsługa protokołu NNTP
 Group:		X11/Libraries
-Requires:	kdelibs >= %{_minlibsevr}
+Requires:	kdelibs >= %{minlibsevr}
 
 %description -n kde-kio-nntp
 KDE NNTP protocol service.
@@ -387,7 +385,7 @@ Obsługa protokołu NNTP.
 Summary:	KDE POP3 protocol service
 Summary(pl.UTF-8):	Obsługa protokołu POP3
 Group:		X11/Libraries
-Requires:	kdelibs >= %{_minlibsevr}
+Requires:	kdelibs >= %{minlibsevr}
 
 %description -n kde-kio-pop3
 KDE POP3 protocol service.
@@ -398,7 +396,7 @@ Obsługa protokołu POP3.
 %package -n kde-kio-smb
 Summary:	Windows Connection Module for TDE
 Group:		X11/Libraries
-Requires:	kdelibs >= %{_minlibsevr}
+Requires:	kdelibs >= %{minlibsevr}
 
 %description -n kde-kio-smb
 This package provides the "smb://" protocol, to connect to and from
@@ -408,7 +406,7 @@ Windows and Samba shares.
 Summary:	KDE SMTP protocol service
 Summary(pl.UTF-8):	Obsługa protokołu SMTP
 Group:		X11/Libraries
-Requires:	kdelibs >= %{_minlibsevr}
+Requires:	kdelibs >= %{minlibsevr}
 
 %description -n kde-kio-smtp
 KDE SMTP protocol service.
@@ -522,7 +520,7 @@ Summary:	Common files for konsole and konsolepart
 Summary(pl.UTF-8):	Pliki wspólne dla konsole i konsolepart
 Group:		X11/Applications
 Requires(post,postun):	fontpostinst
-Requires:	kdelibs >= %{_minlibsevr}
+Requires:	kdelibs >= %{minlibsevr}
 
 %description common-konsole
 Color schemes, icons, fonts and shell profiles for konsole.
@@ -534,7 +532,7 @@ Schematy kolorów, ikony, czcionki oraz profile sesji dla konsole.
 Summary:	KDE Core Apps
 Summary(pl.UTF-8):	Podstawowe aplikacje KDE
 Group:		X11/Applications
-Requires:	kdelibs >= %{_minlibsevr}
+Requires:	kdelibs >= %{minlibsevr}
 Requires:	xdg-menus
 Suggests:	sudo
 
@@ -568,7 +566,7 @@ Requires:	kde-kgreet
 Requires:	kde-kside
 Requires:	kde-logoutpic
 Requires:	kde-splash-Default
-Requires:	kdelibs >= %{_minlibsevr}
+Requires:	kdelibs >= %{minlibsevr}
 Requires:	konqueror = %{epoch}:%{version}-%{release}
 Requires:	pam >= 0.99.7.1
 Requires:	xorg-app-setxkbmap
@@ -616,7 +614,7 @@ Centrum informacji o systemie dla KDE.
 Summary:	Menu Updating Tool
 Summary(pl.UTF-8):	Narzędzie do aktualizacji menu
 Group:		X11/Applications
-Requires:	kdelibs >= %{_minlibsevr}
+Requires:	kdelibs >= %{minlibsevr}
 
 %description kappfinder
 The tool for finding installed application and adding them to your
@@ -703,7 +701,7 @@ bardzo zaawansowanym użytkownikom.
 Summary:	A KDE version of dialog
 Summary(pl.UTF-8):	Wersja KDE dialogu
 Group:		X11/Applications
-Requires:	kdelibs >= %{_minlibsevr}
+Requires:	kdelibs >= %{minlibsevr}
 
 %description kdialog
 Kdialog allows to display window dialogs with KDE widgets from shell
@@ -782,7 +780,7 @@ Emulator terminala dla KDE.
 Summary:	Desktop Pager
 Summary(pl.UTF-8):	Przełącznik biurek
 Group:		X11/Applications
-Requires:	kdelibs >= %{_minlibsevr}
+Requires:	kdelibs >= %{minlibsevr}
 
 %description kpager
 KDE Desktop Pager.
@@ -862,7 +860,7 @@ Summary:	A libraries for KDE text editors
 Summary(pl.UTF-8):	Biblioteki dla edytorów tekstu KDE
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= %{_minlibsevr}
+Requires:	kdelibs >= %{minlibsevr}
 
 %description libkate
 A libraries shared between KDE text editors. They provide an
@@ -877,7 +875,7 @@ Summary:	ksgrd library
 Summary(pl.UTF-8):	Biblioteka ksgrd
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= %{_minlibsevr}
+Requires:	kdelibs >= %{minlibsevr}
 
 %description libksgrd
 A library containing functions for the system monitor KSysGuard.
@@ -1007,7 +1005,7 @@ Summary:	Konqueror shared libraries
 Summary(pl.UTF-8):	Biblioteki współdzielone konquerora
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= %{_minlibsevr}
+Requires:	kdelibs >= %{minlibsevr}
 
 %description -n konqueror-libs
 Konqueror shared libraries.
@@ -1035,7 +1033,8 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 - listę przestrzeni nazw (namespace)
 
 %prep
-%setup -q -n %{name}-trinity-%{version}
+%setup -qc
+mv tdebase/* .
 #%patch100 -p0
 %patch1 -p1
 %{?with_groupwindows:%patch2 -p1}
@@ -1087,7 +1086,7 @@ cd -
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;X-KDE-settings-desktop;/' \
 	kcontrol/konq/desktoppath.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Utility;TrayIcon;/' \
-	kcontrol/randr/krandrtray.desktop
+	kcontrol/randr/tderandrtray.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;X-Help;/' \
 	-e 's/Name=/Name=KDE/g' -e s'/Name[pl]=Pomoc/Name[pl]=Pomoc KDE/g' \
 	-e 's/OnlyShowIn=KDE;//g' khelpcenter/Help.desktop
@@ -1099,7 +1098,7 @@ cd -
 	konsole/konsolesu.desktop
 %{__sed} -i -e 's/Categories=.*/Categories=Qt;KDE;Network;WebBrowser;/' \
 	konqueror/konqbrowser.desktop
-%{__sed} -i -e 's/\(^Categories=.*$\)/\1;/' kioslave/media/kcmodule/media.desktop
+%{__sed} -i -e 's/\(^Categories=.*$\)/\1;/' tdeioslave/media/tdecmodule/media.desktop
 for f in `find . -name \*.desktop`; do
 	if grep -q '\[ven\]' $f; then
 		sed -i -e 's/\[ven\]/[ve]/' $f

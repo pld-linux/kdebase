@@ -1,21 +1,21 @@
---- kdebase-trinity-3.5.13.2/kcontrol/screensaver/scrnsave.cpp~	2014-05-27 14:43:26.000000000 +0300
-+++ kdebase-trinity-3.5.13.2/kcontrol/screensaver/scrnsave.cpp	2014-05-27 14:44:03.279359098 +0300
-@@ -84,10 +84,9 @@
-     mMonitor = 0;
-     mTesting = false;
+--- kdebase-R14.0.0/kcontrol/screensaver/scrnsave.cpp~	2015-03-23 06:44:16.000000000 +0200
++++ kdebase-R14.0.0/kcontrol/screensaver/scrnsave.cpp	2015-03-23 06:46:05.480967022 +0200
+@@ -96,10 +96,9 @@
+     struct stat st;
+     OPEN_TDMCONFIG_AND_SET_GROUP
  
--    // Add non-KDE path
-     KGlobal::dirs()->addResourceType("scrsav",
--                                     KGlobal::dirs()->kde_default("apps") +
+-    // Add non-TDE path
+     TDEGlobal::dirs()->addResourceType("scrsav",
+-                                     TDEGlobal::dirs()->kde_default("apps") +
 -                                     "apps/ScreenSavers/");
-+                                     KGlobal::dirs()->kde_default("data") +
++                                     TDEKGlobal::dirs()->kde_default("data") +
 +                                     "kscreensaver/");
  
      setQuickHelp( i18n("<h1>Screen Saver</h1> This module allows you to enable and"
         " configure a screen saver. Note that you can enable a screen saver"
-@@ -111,19 +111,6 @@
+@@ -113,19 +112,6 @@
  
-     setButtons( KCModule::Help | KCModule::Default | KCModule::Apply );
+     setButtons( TDECModule::Help | TDECModule::Default | TDECModule::Apply );
  
 -    // Add KDE specific screensaver path
 -    TQString relPath="System/ScreenSavers/";
@@ -26,15 +26,15 @@
 -      kdDebug() << "relPath=" << relPath << endl;
 -    }
 -
--    KGlobal::dirs()->addResourceType("scrsav",
--                                     KGlobal::dirs()->kde_default("apps") +
+-    TDEGlobal::dirs()->addResourceType("scrsav",
+-                                     TDEGlobal::dirs()->kde_default("apps") +
 -                                     relPath);
 -
      readSettings( false );
  
-     mSetupProc = new KProcess;
---- kdebase-trinity-3.5.13.2/kscreensaver/CMakeLists.txt~	2012-09-16 15:52:04.000000000 +0300
-+++ kdebase-trinity-3.5.13.2/kscreensaver/CMakeLists.txt	2014-06-04 11:07:10.329823207 +0300
+     mSetupProc = new TDEProcess;
+--- kdebase-trinity-3.5.13.2/tdescreensaver/CMakeLists.txt~	2012-09-16 15:52:04.000000000 +0300
++++ kdebase-trinity-3.5.13.2/tdescreensaver/CMakeLists.txt	2014-06-04 11:07:10.329823207 +0300
 @@ -23,7 +23,7 @@
  
  ##### other data ################################
@@ -44,15 +44,15 @@
  
  
  ##### krandom (executable) ######################
---- kdebase-trinity-3.5.13.2/kdesktop/lock/lockprocess.cc~	2013-05-14 22:43:53.000000000 +0300
-+++ kdebase-trinity-3.5.13.2/kdesktop/lock/lockprocess.cc	2014-05-27 14:45:38.113472747 +0300
-@@ -276,22 +276,9 @@
+--- kdebase-R14.0.0/kdesktop/lock/lockprocess.cc~	2014-11-29 01:19:50.000000000 +0200
++++ kdebase-R14.0.0/kdesktop/lock/lockprocess.cc	2015-03-23 06:47:24.508389362 +0200
+@@ -261,22 +261,9 @@
      }
-     XSelectInput( qt_xdisplay(), qt_xrootwin(), SubstructureNotifyMask | rootAttr.your_event_mask );
+     XSelectInput( tqt_xdisplay(), tqt_xrootwin(), SubstructureNotifyMask | rootAttr.your_event_mask );
  
--    // Add non-KDE path
-     KGlobal::dirs()->addResourceType("scrsav",
--                                    KGlobal::dirs()->kde_default("apps") +
+-    // Add non-TDE path
+     TDEGlobal::dirs()->addResourceType("scrsav",
+-                                    TDEGlobal::dirs()->kde_default("apps") +
 -                                    "System/ScreenSavers/");
 -
 -    // Add KDE specific screensaver path
@@ -63,11 +63,11 @@
 -      relPath=servGroup->relPath();
 -      kdDebug(1204) << "relPath=" << relPath << endl;
 -    }
--    KGlobal::dirs()->addResourceType("scrsav",
--                                     KGlobal::dirs()->kde_default("apps") +
+-    TDEGlobal::dirs()->addResourceType("scrsav",
+-                                     TDEGlobal::dirs()->kde_default("apps") +
 -                                     relPath);
-+                                     KGlobal::dirs()->kde_default("data") +
++                                     TDEGlobal::dirs()->kde_default("data") +
 +                                     "kscreensaver/");
  
      // virtual root property
-     gXA_VROOT = XInternAtom (qt_xdisplay(), "__SWM_VROOT", False);
+     gXA_VROOT = XInternAtom (tqt_xdisplay(), "__SWM_VROOT", False);

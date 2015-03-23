@@ -81,8 +81,8 @@
  
      QString quickHelp() const;
      const KAboutData* aboutData() const;
---- kdebase-3.5.4/kdm/kfrontend/genkdmconf.c.orig	2006-09-30 23:32:51.000000000 +0200
-+++ kdebase-3.5.4/kdm/kfrontend/genkdmconf.c	2006-10-01 14:42:31.000000000 +0200
+--- kdebase-3.5.4/tdm/kfrontend/gentdmconf.c	2006-09-30 23:32:51.000000000 +0200
++++ kdebase-3.5.4/tdm/kfrontend/gentdmconf.c	2006-10-01 14:42:31.000000000 +0200
 @@ -711,8 +711,8 @@
  "BlendBalance=100\n"
  "BlendMode=NoBlending\n"

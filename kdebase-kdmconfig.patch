@@ -1,22 +1,22 @@
---- kdebase-030317/kcontrol/kdm/background.cpp~	Sun Mar 16 00:35:44 2003
-+++ kdebase-030317/kcontrol/kdm/background.cpp	Tue Mar 18 19:31:12 2003
-@@ -53,7 +53,7 @@
+--- kdebase-R14.0.0/kcontrol/tdm/background.cpp~	2013-02-16 06:27:24.000000000 +0200
++++ kdebase-R14.0.0/kcontrol/tdm/background.cpp	2015-03-22 22:58:05.883155469 +0200
+@@ -51,7 +51,7 @@
  		" This is done by running some program (possibly xsetroot) in the script"
- 		" specified in the Setup= option in kdmrc (usually Xsetup).") );
+ 		" specified in the Setup= option in tdmrc (usually Xsetup).") );
      config->setGroup( "X-*-Greeter" );
--    m_simpleConf=new KSimpleConfig(config->readEntry( "BackgroundCfg",KDE_CONFDIR "/kdm/backgroundrc" ) );
+-    m_simpleConf=new KSimpleConfig(config->readEntry( "BackgroundCfg",KDE_CONFDIR "/tdm/backgroundrc" ) );
 +    m_simpleConf=new KSimpleConfig(config->readEntry( "BackgroundCfg","/etc/X11/kdm/backgroundrc" ) );
      m_background = new BGDialog( this, m_simpleConf, false );
  
-     connect(m_background, SIGNAL(changed(bool)), SIGNAL(changed(bool)));
---- kdebase-trinity-3.5.13.2/kcontrol/kdm/kdm-appear.cpp~	2012-09-16 15:52:02.000000000 +0300
-+++ kdebase-trinity-3.5.13.2/kcontrol/kdm/kdm-appear.cpp	2014-05-27 13:58:32.057608488 +0300
+     connect(m_background, TQT_SIGNAL(changed(bool)), TQT_SIGNAL(changed(bool)));
+--- kdebase-R14.0.0/kcontrol/tdm/tdm-appear.cpp~	2015-03-22 22:59:16.000000000 +0200
++++ kdebase-R14.0.0/kcontrol/tdm/tdm-appear.cpp	2015-03-22 23:00:16.913255807 +0200
 @@ -355,7 +355,7 @@
- bool KDMAppearanceWidget::setLogo(TQString logo)
+ bool TDMAppearanceWidget::setLogo(TQString logo)
  {
      TQString flogo = logo.isEmpty() ?
--                    locate("data", TQString::fromLatin1("kdm/pics/kdelogo.png") ) :
-+                    locate("data", TQString::fromLatin1("kdm/pics/pldlogo.png") ) :
+-                    locate("data", TQString::fromLatin1("tdm/pics/kdelogo.png") ) :
++                    locate("data", TQString::fromLatin1("tdm/pics/pldlogo.png") ) :
                      logo;
      TQImage p(flogo);
      if (p.isNull())
@@ -38,147 +38,147 @@
    logoRadio->setChecked( true );
    slotAreaRadioClicked( KdmLogo );
    setLogo( "" );
---- kdebase-030924/kcontrol/kdm/kdm-users.cpp~	2003-09-23 21:46:11.000000000 +0200
-+++ kdebase-030924/kcontrol/kdm/kdm-users.cpp	2003-09-24 16:39:25.000000000 +0200
-@@ -65,7 +65,7 @@
-     // We assume that $kde_datadir/kdm exists, but better check for pics/ and pics/users,
+--- kdebase-R14.0.0/kcontrol/tdm/tdm-users.cpp~	2014-11-13 03:00:24.000000000 +0200
++++ kdebase-R14.0.0/kcontrol/tdm/tdm-users.cpp	2015-03-22 23:01:49.701383180 +0200
+@@ -74,7 +74,7 @@
+     // We assume that $kde_datadir/tdm exists, but better check for pics/ and pics/users,
      // and create them if necessary.
      config->setGroup( "X-*-Greeter" );
--    m_userPixDir = config->readEntry( "FaceDir", KGlobal::dirs()->resourceDirs("data").last() + "kdm/faces" ) + '/';
+-    m_userPixDir = config->readEntry( "FaceDir", TDEGlobal::dirs()->resourceDirs("data").last() + "tdm/faces" ) + '/';
 +    m_userPixDir = config->readEntry( "FaceDir", "/etc/X11/kdm/faces" ) + '/';
      m_notFirst = false;
-     QDir testDir( m_userPixDir );
-     if ( !testDir.exists() && !testDir.mkdir( testDir.absPath() ))
---- kdebase-trinity-3.5.13.2/kcontrol/kdm/main.cpp~	2012-09-16 15:52:02.000000000 +0300
-+++ kdebase-trinity-3.5.13.2/kcontrol/kdm/main.cpp	2014-05-27 14:03:23.136893424 +0300
+     TQDir testDir( m_userPixDir );
+     if ( !testDir.exists() && !testDir.mkdir( testDir.absPath() ) && !geteuid() )
+--- kdebase-R14.0.0/kcontrol/tdm/main.cpp~	2014-11-24 15:00:51.000000000 +0200
++++ kdebase-R14.0.0/kcontrol/tdm/main.cpp	2015-03-22 22:50:45.317002792 +0200
 @@ -174,11 +174,11 @@
  	<< "' have unknown GID " << tgmapci.key() << endl;
  
    struct stat st;
--  if( stat( KDE_CONFDIR "/kdm/kdmdistrc" ,&st ) == 0) {
--    config = new KSimpleConfig( TQString::fromLatin1( KDE_CONFDIR "/kdm/kdmdistrc" ));
+-  if( stat( KDE_CONFDIR "/tdm/tdmdistrc" ,&st ) == 0) {
+-    config = new KSimpleConfig( TQString::fromLatin1( KDE_CONFDIR "/tdm/tdmdistrc" ));
 +  if( stat( "/etc/X11/kdm/kdmdistrc" ,&st ) == 0) {
 +    config = new KSimpleConfig( TQString::fromLatin1( "/etc/X11/kdm/kdmdistrc" ));
    }
    else {
--    config = new KSimpleConfig( TQString::fromLatin1( KDE_CONFDIR "/kdm/kdmrc" ));
+-    config = new KSimpleConfig( TQString::fromLatin1( KDE_CONFDIR "/tdm/tdmrc" ));
 +    config = new KSimpleConfig( TQString::fromLatin1( "/etc/X11/kdm/kdmrc" ));
    }
  
    TQVBoxLayout *top = new TQVBoxLayout(this);
---- kdebase-trinity-3.5.13.2/kcontrol/screensaver/scrnsave.cpp~	2014-06-03 23:19:33.000000000 +0300
-+++ kdebase-trinity-3.5.13.2/kcontrol/screensaver/scrnsave.cpp	2014-06-04 11:12:35.914596433 +0300
-@@ -51,11 +51,11 @@
+--- kdebase-R14.0.0/kcontrol/screensaver/scrnsave.cpp~	2014-05-05 15:20:20.000000000 +0300
++++ kdebase-R14.0.0/kcontrol/screensaver/scrnsave.cpp	2015-03-22 22:51:52.440535817 +0200
+@@ -52,11 +52,11 @@
  #include <fixx11h.h>
  
  #define OPEN_TDMCONFIG_AND_SET_GROUP									\
--if( stat( KDE_CONFDIR "/kdm/kdmdistrc" , &st ) == 0) {							\
--	mTDMConfig = new KSimpleConfig( TQString::fromLatin1( KDE_CONFDIR "/kdm/kdmdistrc" ));		\
+-if( stat( KDE_CONFDIR "/tdm/tdmdistrc" , &st ) == 0) {							\
+-	mTDMConfig = new KSimpleConfig( TQString::fromLatin1( KDE_CONFDIR "/tdm/tdmdistrc" ));		\
 +if( stat( "/etc/X11/kdm/kdmdistrc" , &st ) == 0) {							\
 +	mTDMConfig = new KSimpleConfig( TQString::fromLatin1( "/etc/X11/kdm/kdmdistrc" ));		\
  }													\
  else {													\
--	mTDMConfig = new KSimpleConfig( TQString::fromLatin1( KDE_CONFDIR "/kdm/kdmrc" ));		\
+-	mTDMConfig = new KSimpleConfig( TQString::fromLatin1( KDE_CONFDIR "/tdm/tdmrc" ));		\
 +	mTDMConfig = new KSimpleConfig( TQString::fromLatin1( "/etc/X11/kdm/kdmrc" ));		\
  }													\
- mTDMConfig->setGroup("X-*-Greeter");
+ mTDMConfig->setGroup("X-:*-Greeter");
  
---- kdebase-trinity-3.5.13.2/kdesktop/lock/main.cc~	2013-05-06 11:08:22.000000000 +0300
-+++ kdebase-trinity-3.5.13.2/kdesktop/lock/main.cc	2014-06-04 11:13:06.705992318 +0300
-@@ -52,11 +52,11 @@
+--- kdebase-R14.0.0/kdesktop/lock/main.cc~	2014-12-03 09:00:49.000000000 +0200
++++ kdebase-R14.0.0/kdesktop/lock/main.cc	2015-03-22 22:52:54.543743116 +0200
+@@ -55,11 +55,11 @@
  #endif
  
  #define OPEN_TDMCONFIG_AND_SET_GROUP									\
--if( stat( KDE_CONFDIR "/kdm/kdmdistrc" , &st ) == 0) {							\
--	tdmconfig = new KSimpleConfig( TQString::fromLatin1( KDE_CONFDIR "/kdm/kdmdistrc" ));		\
+-if( stat( KDE_CONFDIR "/tdm/tdmdistrc" , &st ) == 0) {							\
+-	tdmconfig = new KSimpleConfig( TQString::fromLatin1( KDE_CONFDIR "/tdm/tdmdistrc" ));		\
 +if( stat( "/etc/X11/kdm/kdmdistrc" , &st ) == 0) {							\
 +	tdmconfig = new KSimpleConfig( TQString::fromLatin1( "/etc/X11/kdm/kdmdistrc" ));		\
  }													\
  else {													\
--	tdmconfig = new KSimpleConfig( TQString::fromLatin1( KDE_CONFDIR "/kdm/kdmrc" ));		\
+-	tdmconfig = new KSimpleConfig( TQString::fromLatin1( KDE_CONFDIR "/tdm/tdmrc" ));		\
 +	tdmconfig = new KSimpleConfig( TQString::fromLatin1( "/etc/X11/kdm/kdmrc" ));		\
  }													\
- tdmconfig->setGroup("X-*-Greeter");
+ tdmconfig->setGroup("X-:*-Greeter");
  
---- kdebase-trinity-3.5.13.2/kdm/kfrontend/kdmctl.c~	2013-03-04 19:36:45.000000000 +0200
-+++ kdebase-trinity-3.5.13.2/kdm/kfrontend/kdmctl.c	2014-06-04 11:13:21.883347041 +0300
+--- kdebase-R14.0.0/tdm/kfrontend/tdmctl.c~	2012-03-08 06:01:31.000000000 +0200
++++ kdebase-R14.0.0/tdm/kfrontend/tdmctl.c	2015-03-22 22:54:40.705892492 +0200
 @@ -146,7 +146,7 @@
  {
  	char *dpy = getenv( "DISPLAY" );
  	const char *ctl = getenv( "DM_CONTROL" );
--	const char *cfg = KDE_CONFDIR "/kdm/kdmrc";
+-	const char *cfg = KDE_CONFDIR "/tdm/tdmrc";
 +	const char *cfg = "/etc/X11/kdm/kdmrc";
  	char *ptr;
  	int fd;
  
---- kdebase-trinity-3.5.13.2/kdm/kfrontend/CMakeLists.txt~	2012-09-16 15:52:03.000000000 +0300
-+++ kdebase-trinity-3.5.13.2/kdm/kfrontend/CMakeLists.txt	2014-06-04 11:10:30.672252448 +0300
-@@ -35,7 +35,7 @@
-   set( GENKDMCONF_FLAGS "--no-old" )
+--- kdebase-R14.0.0/tdm/kfrontend/CMakeLists.txt~	2013-08-06 07:00:09.000000000 +0300
++++ kdebase-R14.0.0/tdm/kfrontend/CMakeLists.txt	2015-03-22 22:57:16.357264389 +0200
+@@ -36,7 +36,7 @@
+   set( GENTDMCONF_FLAGS "--no-old" )
  endif( )
  
--install( CODE "execute_process( COMMAND ${CMAKE_CURRENT_BINARY_DIR}/genkdmconf --in \$ENV{DESTDIR}${CONFIG_INSTALL_DIR}/kdm --no-in-notice --face-src ${CMAKE_CURRENT_SOURCE_DIR}/pics ${GENKDMCONF_FLAGS} )" )
-+install( CODE "execute_process( COMMAND ${CMAKE_CURRENT_BINARY_DIR}/genkdmconf --in \$ENV{DESTDIR}/etc/X11/kdm --no-in-notice --face-src ${CMAKE_CURRENT_SOURCE_DIR}/pics ${GENKDMCONF_FLAGS} )" )
+-install( CODE "execute_process( COMMAND ${CMAKE_CURRENT_BINARY_DIR}/gentdmconf --in \$ENV{DESTDIR}${CONFIG_INSTALL_DIR}/tdm --no-in-notice --face-src ${CMAKE_CURRENT_SOURCE_DIR}/pics ${GENTDMCONF_FLAGS} )" )
++install( CODE "execute_process( COMMAND ${CMAKE_CURRENT_BINARY_DIR}/gentdmconf --in \$ENV{DESTDIR}/etc/X11/kdm --no-in-notice --face-src ${CMAKE_CURRENT_SOURCE_DIR}/pics ${GENKDMCONF_FLAGS} )" )
  
  
  ##### config.ci (generated) #####################
---- kdebase-trinity-3.5.13.2/kdm/config.def~	2014-05-27 13:55:54.000000000 +0300
-+++ kdebase-trinity-3.5.13.2/kdm/config.def	2014-05-27 14:35:25.710243084 +0300
-@@ -29,7 +29,7 @@
+--- kdebase-R14.0.0/tdm/config.def	2014-12-09 09:10:58.000000000 +0200
++++ kdebase-R14.0.0/tdm/config.def	2015-03-23 06:34:45.452474544 +0200
+@@ -30,7 +30,7 @@
  #define RCVERMAJOR 2
  #define RCVERMINOR 3
  
--#define KDMCONF KDE_CONFDIR "/kdm"
-+#define KDMCONF "/etc/X11/kdm"
- #define KDMDATA KDE_DATADIR "/kdm"
+-#define TDMCONF KDE_CONFDIR "/tdm"
++#define TDMCONF "/etc/X11/kdm"
+ #define TDMDATA KDE_DATADIR "/tdm"
  
  #ifdef _AIX
-@@ -1164,7 +1164,7 @@
+@@ -1173,7 +1173,7 @@
  
  Key: Willing
  Type: string
 -Default: ""
-+Default: KDMCONF "/Xwilling"
++Default: TDMCONF "/Xwilling"
  User: core
  # will be overwritten
  Instance: #
-@@ -1581,7 +1581,7 @@
+@@ -1590,7 +1590,7 @@
  
  Key: Setup
  Type: string
 -Default: ""
-+Default: KDMCONF "/Xsetup"
++Default: TDMCONF "/Xsetup"
  User: core
  # will be overwritten
  Instance: #*/""
-@@ -1602,7 +1602,7 @@
+@@ -1611,7 +1611,7 @@
  
  Key: Startup
  Type: string
 -Default: ""
-+Default: KDMCONF "/Xstartup"
++Default: TDMCONF "/Xstartup"
  User: core
  # will be overwritten
  Instance: #*/""
-@@ -1620,7 +1620,7 @@
+@@ -1629,7 +1629,7 @@
  
  Key: Reset
  Type: string
 -Default: ""
-+Default: KDMCONF "/Xreset"
++Default: TDMCONF "/Xreset"
  User: core
  # will be overwritten
  Instance: #*/""
-@@ -1638,7 +1638,7 @@
+@@ -1647,7 +1647,7 @@
  
  Key: Session
  Type: string
 -Default: XBINDIR "/xterm -ls -T"
-+Default: KDMCONF "/Xsession"
++Default: TDMCONF "/Xsession"
  #Merge: xdm - incompatible!
  User: core
  # will be overwritten
-@@ -1746,10 +1746,10 @@
+@@ -1755,10 +1755,10 @@
  
  Key: AllowRootLogin
  Type: bool
@@ -191,7 +191,7 @@
  Merge: xdm
  Comment:
   Allow root logins?
-@@ -1759,11 +1759,11 @@
+@@ -1768,11 +1768,11 @@
  
  Key: AllowNullPasswd
  Type: bool
@@ -206,16 +206,16 @@
  Merge: xdm
  Comment:
   Allow to log in, when user has set an empty password?
-@@ -1931,7 +1931,7 @@
- Default: "/usr/share/xsessions,/var/lib/menu-xdg/xsessions," KDMDATA "/sessions"
+@@ -1933,7 +1933,7 @@
+ Default: "/usr/share/xsessions,/var/lib/menu-xdg/xsessions," TDMDATA "/sessions"
  User: core
  User: greeter-c
--Instance: */"/usr/share/xsessions,/var/lib/menu-xdg/xsessions," KDMDATA "/sessions"
-+Instance: */"/etc/X11/sessions,/usr/share/xsessions,/var/lib/menu-xdg/xsessions," KDMDATA "/sessions"
+-Instance: */"/usr/share/xsessions,/var/lib/menu-xdg/xsessions," TDMDATA "/sessions"
++Instance: */"/etc/X11/sessions,/usr/share/xsessions,/var/lib/menu-xdg/xsessions," TDMDATA "/sessions"
  Comment:
   The directories containing session type definitions in .desktop format.
  Description:
-@@ -1933,10 +1933,10 @@
+@@ -1942,10 +1942,10 @@
  
  Key: ClientLogFile
  Type: string
@@ -229,31 +229,28 @@
  Comment:
   The file (relative to $HOME) to redirect the session output to. This is
   a printf format string; one %s will be replaced with the display name.
-@@ -1997,9 +1997,9 @@
+@@ -2047,7 +2047,7 @@
   None/LOGO_NONE: nothing
   Logo/LOGO_LOGO: the image specified by <option>LogoPixmap</option>
   Clock/LOGO_CLOCK: a neat analog clock
--Default: Clock
+-Default: None
 +Default: Logo
  User: greeter
--Instance: */Logo
-+Instance: #*/Clock
+ Instance: */None
  Comment:
-  What should be shown in the greeter's logo are:
- Description:
-@@ -2009,9 +2009,9 @@
+@@ -2059,9 +2059,9 @@
  
  Key: LogoPixmap
  Type: string
 -Default: ""
-+Default: KDMDATA "/pics/pldlogo.png"
++Default: TDMDATA "/pics/pldlogo.png"
  User: greeter(logo)
--Instance: */KDMDATA "/pics/kdelogo.png"
-+Instance: #*/KDMDATA "/pics/kdelogo.png"
+-Instance: */TDMDATA "/pics/kdelogo.png"
++Instance: */None
  Comment:
   The image to show when LogoArea=Logo.
  Description:
-@@ -2092,9 +2092,9 @@
+@@ -2094,9 +2094,9 @@
  
  Key: GreetString
  Type: string
@@ -265,7 +262,7 @@
  Comment:
   The headline in the greeter. The following character pairs are replaced:
   - %d -> current display
-@@ -2227,7 +2227,7 @@
+@@ -2277,7 +2277,7 @@
  
  Key: MinShowUID
  Type: int
@@ -274,12 +271,12 @@
  User: greeter(lowUserId)
  # will be overwritten
  Instance: #*/
-@@ -2288,7 +2288,7 @@
+@@ -2338,7 +2338,7 @@
  
  Key: FaceDir
  Type: string
--Default: *KDMDATA "/faces"
-+Default: *KDMCONF "/faces"
+-Default: *TDMDATA "/faces"
++Default: *TDMCONF "/faces"
  User: greeter
  Instance: #*/"/usr/share/faces"
  Update: upd_facedir

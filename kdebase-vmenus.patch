@@ -1,13 +1,13 @@
---- kdebase-031204/applnk/kde-essential.menu.orig	2003-11-23 16:35:20.000000000 +0100
-+++ kdebase-031204/applnk/kde-essential.menu	2003-12-04 17:08:45.000000000 +0100
+--- kdebase-R14.0.0/applnk/tde-essential.menu~	2012-03-23 11:06:16.000000000 +0200
++++ kdebase-R14.0.0/applnk/tde-essential.menu	2015-03-23 07:11:17.792635136 +0200
 @@ -4,7 +4,7 @@
  <Menu>
          <!-- The following menus are hidden by default -->
  	<Menu>
 -		<Name>Settings</Name>
 +		<Name>KDE-Settings</Name>
- 		<Directory>kde-settings.directory</Directory>
-                 <MergeFile>../kde-settings.menu</MergeFile>
+ 		<Directory>tde-settings.directory</Directory>
+                 <MergeFile>../tde-settings.menu</MergeFile>
  	</Menu>
 @@ -16,12 +16,4 @@
          <Move>
@@ -17,13 +17,13 @@
 -		<Name>System</Name>
 -		<Menu>
 -			<Name>ScreenSavers</Name>
--			<Directory>kde-system-screensavers.directory</Directory>
--	                <MergeFile>../kde-screensavers.menu</MergeFile>
+-			<Directory>tde-system-screensavers.directory</Directory>
+-	                <MergeFile>../tde-screensavers.menu</MergeFile>
 -		</Menu>
 -	</Menu>
  </Menu>
---- kdebase-031030/applnk/kde-settings.menu.orig	2003-04-02 22:47:54.000000000 +0200
-+++ kdebase-031030/applnk/kde-settings.menu	2003-10-30 11:21:33.000000000 +0100
+--- kdebase-031030/applnk/tde-settings.menu.orig	2003-04-02 22:47:54.000000000 +0200
++++ kdebase-031030/applnk/tde-settings.menu	2003-10-30 11:21:33.000000000 +0100
 @@ -2,7 +2,7 @@
    "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
  

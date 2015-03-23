@@ -1,5 +1,5 @@
---- kdebase-trinity-3.5.13.2/kioslave/settings/kio_settings.cc~	2014-05-27 14:47:44.000000000 +0300
-+++ kdebase-trinity-3.5.13.2/kioslave/settings/kio_settings.cc	2014-05-27 14:48:11.446790682 +0300
+--- kdebase-trinity-3.5.13.2/tdeioslave/settings/tdeio_settings.cc~	2014-05-27 14:47:44.000000000 +0300
++++ kdebase-trinity-3.5.13.2/tdeioslave/settings/tdeio_settings.cc	2014-05-27 14:48:11.446790682 +0300
 @@ -122,7 +122,7 @@
  KServiceGroup::Ptr SettingsProtocol::findGroup(const TQString &relPath)
  {

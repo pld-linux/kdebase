@@ -1,11 +1,9 @@
---- kdebase-trinity-3.5.13.2/kcontrol/konqhtml/pluginopts.cpp~	2012-09-16 15:52:02.000000000 +0300
-+++ kdebase-trinity-3.5.13.2/kcontrol/konqhtml/pluginopts.cpp	2014-05-27 14:37:56.150101063 +0300
-@@ -374,26 +374,8 @@
-     if ( config->hasKey( "scanPaths" ) && !useDefault )
-         paths = config->readListEntry( "scanPaths" );
-     else {//keep sync with kdebase/nsplugins
--        paths.append("$HOME/.mozilla/plugins");
--        paths.append("$HOME/.netscape/plugins");
+--- kdebase-R14.0.0/kcontrol/konqhtml/pluginopts.cpp~	2013-02-16 06:27:24.000000000 +0200
++++ kdebase-R14.0.0/kcontrol/konqhtml/pluginopts.cpp	2015-03-23 06:42:24.092854046 +0200
+@@ -376,24 +376,10 @@
+     else {//keep sync with tdebase/nsplugins
+         paths.append("$HOME/.mozilla/plugins");
+         paths.append("$HOME/.netscape/plugins");
 -	paths.append("/usr/lib/iceweasel/plugins");
 -        paths.append("/usr/lib/iceape/plugins");
 -        paths.append("/usr/lib/firefox/plugins");
@@ -22,21 +20,20 @@
 -        paths.append("/usr/lib/mozilla/plugins");
 -	paths.append("/usr/lib64/netscape/plugins");
 -	paths.append("/usr/lib64/mozilla/plugins");
--        paths.append("$MOZILLA_HOME/plugins");
+         paths.append("$MOZILLA_HOME/plugins");
 -
 +		paths.append("/usr/lib/trinity/plugins/konqueror");
 +		paths.append("/usr/lib64/trinity/plugins/konqueror");
++		paths.append("/usr/libx32/trinity/plugins/konqueror");
      }
  
      // fill list
---- kdebase-trinity-3.5.13.2/nsplugins/plugin_paths.cpp~	2012-09-16 15:52:05.000000000 +0300
-+++ kdebase-trinity-3.5.13.2/nsplugins/plugin_paths.cpp	2014-05-27 14:40:07.442462633 +0300
-@@ -39,25 +39,8 @@
-     if ( !config->hasKey("scanPaths") ) {
-         TQStringList paths;
-         // keep sync with kdebase/kcontrol/konqhtml
--        paths.append("$HOME/.mozilla/plugins");
--        paths.append("$HOME/.netscape/plugins");
+--- kdebase-R14.0.0/nsplugins/plugin_paths.cpp~	2013-01-27 10:32:05.000000000 +0200
++++ kdebase-R14.0.0/nsplugins/plugin_paths.cpp	2015-03-23 06:43:18.448997726 +0200
+@@ -41,23 +41,10 @@
+         // keep sync with tdebase/kcontrol/konqhtml
+         paths.append("$HOME/.mozilla/plugins");
+         paths.append("$HOME/.netscape/plugins");
 -	paths.append("/usr/lib/iceweasel/plugins");
 -	paths.append("/usr/lib/iceape/plugins");
 -        paths.append("/usr/lib/firefox/plugins");
@@ -53,9 +50,10 @@
 -        paths.append("/usr/lib/mozilla/plugins");
 -        paths.append("/usr/lib64/netscape/plugins");
 -        paths.append("/usr/lib64/mozilla/plugins");
--        paths.append("$MOZILLA_HOME/plugins");
+         paths.append("$MOZILLA_HOME/plugins");
 +		paths.append("/usr/lib/trinity/plugins/konqueror");
 +		paths.append("/usr/lib64/trinity/plugins/konqueror");
++		paths.append("/usr/libx32/trinity/plugins/konqueror");
          config->writeEntry( "scanPaths", paths );
      }
  
