@@ -1147,7 +1147,7 @@ export CXXFLAGS="%{rpmcxxflags} $(pkg-config --cflags dbus-tqt)"
 	-DWITH_I8K=%{onoff i8k} \
 	-DWITH_HAL=%{onoff hal} \
 	-DWITH_KDESKTOP_LOCK_BACKTRACE=%{onoff kdesktop_lock_backtrace} \
-	-DWITH_ELFICON=O%{!?with_elficon:FF}%{?with_elficon:N} \
+	-DWITH_ELFICON=%{onoff elficon} \
 	-DBUILD_ALL=ON \
 	-DBUILD_TSAK=%{onoff tsak} \
 %if %{without kdm}
