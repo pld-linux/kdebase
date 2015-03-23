@@ -1133,7 +1133,7 @@ export CXXFLAGS="%{rpmcxxflags} $(pkg-config --cflags dbus-tqt)"
 	-DWITH_XDAMAGE=%{onoff xdamage} \
 	-DWITH_XEXT=%{onoff xext} \
 	-DWITH_XTEST=%{onoff xtest} \
-	-DWITH_XSCREENSAVER=%{onoff xscreensaver} \
+	-DWITH_XSCREENSAVER=%{onoff xscreensaver} -DXSCREENSAVER_DIR=/usr/share/xscreensaver \
 	-DWITH_LIBART=%{onoff libart} \
 	-DWITH_LIBUSB=%{onoff libusb} \
 	-DWITH_LIBRAW1394=%{onoff libraw1394} \
