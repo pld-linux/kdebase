@@ -22,7 +22,7 @@
 +   if (r->isActive())
 +      r->stop();
 +
-+   if (QPixmap::defaultDepth() > 8)
++   if (TQPixmap::defaultDepth() > 8)
 +   {
 +      r->setBackgroundMode(_defBackgroundMode);
 +   }
