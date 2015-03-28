@@ -1244,40 +1244,60 @@ if [ ! -f installed.stamp ]; then
 	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/System/kpersonalizer.desktop
 	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/Toys/ktip.desktop
 	%{__rm} $RPM_BUILD_ROOT%{_applnkdir}/Utilities/kpager.desktop
+	%{__rm} $RPM_BUILD_ROOT/usr/share/applnk/Internet/keditbookmarks.desktop/uninstall.desktop
 	%{__rm} $RPM_BUILD_ROOT%{_datadir}/apps/tdedisplay/app-defaults/*.ad # dunno. not packaged
 	# apparently in applnk package
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-development-translation.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-development-webdevelopment.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-development.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-editors.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-edutainment.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-games-arcade.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-games-board.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-games-card.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-games-kids.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-games-roguelikes.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-games-strategy.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-games.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-graphics.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-internet-terminal.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-internet.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-main.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-more.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-multimedia.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-office.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-science.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-system-screensavers.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-system-terminal.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-system.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-toys.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-unknown.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-utilities-accessibility.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-utilities-desktop.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-utilities-file.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-utilities-peripherals.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-utilities-pim.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-utilities-xutils.directory
-	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-utilities.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-development-translation.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-development-webdevelopment.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-development.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-editors.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-edutainment.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-games-arcade.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-games-board.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-games-card.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-games-kids.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-games-roguelikes.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-games-strategy.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-games.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-graphics.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-internet-terminal.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-internet.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-main.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-more.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-multimedia.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-office.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-science.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-system-screensavers.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-system-terminal.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-system.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-toys.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-unknown.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-utilities-accessibility.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-utilities-desktop.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-utilities-file.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-utilities-peripherals.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-utilities-pim.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-utilities-xutils.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/[kt]de-utilities.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-edu-languages.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-edu-mathematics.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-edu-miscellaneous.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/kde-edu-science.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-office-pim.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-settings-accessibility.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-settings-components.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-settings-desktop.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-settings-hardware.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-settings-looknfeel.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-settings-network.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-settings-peripherals.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-settings-power.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-settings-security.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-settings-sound.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-settings-system.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-settings-webbrowsing.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-settings.directory
+	%{__rm} $RPM_BUILD_ROOT%{_datadir}/desktop-directories/tde-settingsmenu.directory
 
 	# cleanup *.la
 	%{__rm} $RPM_BUILD_ROOT%{_libexecdir}/*.la
@@ -1676,6 +1696,8 @@ fi
 %attr(755,root,root) %{_bindir}/krootbacking
 %attr(755,root,root) %{_bindir}/kxdglauncher
 %attr(755,root,root) %{_bindir}/migratekde3
+%attr(755,root,root) %{_bindir}/tdeinit_displayconfig
+%attr(755,root,root) %{_bindir}/tdeinit_phase1
 %attr(755,root,root) %{_libdir}/libtdeinit_kcminit.so
 %attr(755,root,root) %{_libdir}/libtdeinit_kcminit_startup.so
 %attr(755,root,root) %{_libdir}/libtdeinit_kcontrol.so
@@ -1812,6 +1834,11 @@ fi
 %attr(755,root,root) %{_bindir}/twin_rules_dialog
 %attr(755,root,root) %{_bindir}/kxkb
 %attr(755,root,root) %{_bindir}/starttde
+%attr(755,root,root) %{_bindir}/compton-tde
+%attr(755,root,root) %{_bindir}/r14-xdg-update
+%attr(755,root,root) %{_bindir}/release_notes
+%attr(755,root,root) %{_bindir}/tdekbdledsync
+%attr(755,root,root) %{_bindir}/twin_resumer_helper
 # New
 %attr(755,root,root) %{_bindir}/kbookmarkmerger
 %attr(755,root,root) %{_bindir}/kcheckrunning
@@ -2134,6 +2161,7 @@ fi
 %attr(755,root,root) %{_libexecdir}/kcm_clock.so
 %attr(755,root,root) %{_libexecdir}/kcm_kicker.so
 %attr(755,root,root) %{_libexecdir}/kcm_taskbar.so
+%attr(755,root,root) %{_libexecdir}/kcm_hwmanager.so
 %attr(755,root,root) %{_libexecdir}/kicker.so*
 %attr(755,root,root) %{_libexecdir}/kickermenu_find.so
 %attr(755,root,root) %{_libexecdir}/kickermenu_kate.so
@@ -2187,6 +2215,8 @@ fi
 %{_desktopdir}/tde/panel_appearance.desktop
 %{_desktopdir}/tde/clock.desktop
 %{_desktopdir}/tde/knetattach.desktop
+%{_desktopdir}/tde/hwmanager.desktop
+%{_desktopdir}/tde/tde-kcontrol.desktop
 %{_iconsdir}/*/*/apps/clock.png
 %{_iconsdir}/*/*/apps/date.png
 %{_iconsdir}/*/*/apps/kcmkicker.png
@@ -2694,6 +2724,7 @@ fi
 %{_desktopdir}/tde/tdehtml_java_js.desktop
 %{_desktopdir}/tde/tdehtml_plugins.desktop
 %{_desktopdir}/tde/tdehtml_filter.desktop
+%{_desktopdir}/tde/tdehtml_userinterface.desktop
 %{_desktopdir}/tde/useragent.desktop
 %{_desktopdir}/tde/lanbrowser.desktop
 %{_desktopdir}/tde/netpref.desktop
@@ -2720,6 +2751,8 @@ fi
 %{_iconsdir}/*/*/apps/mac.png
 %{_iconsdir}/*/*/apps/proxy.png
 %{_iconsdir}/*/*/apps/stylesheet.png
+%{_iconsdir}/*/*/categories/applications-*.png
+%{_iconsdir}/*/*/categories/preferences-*.png
 
 %files -n konqueror-libs
 %defattr(644,root,root,755)
