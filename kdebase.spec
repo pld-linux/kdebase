@@ -1089,7 +1089,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch -P8 -p1
 # Outdated but some things
 # must be revised (AA default settings)
-#%patch9 -p1
+#%%patch9 -p1
 %patch -P10 -p1
 %patch -P12 -p1
 %patch -P13 -p1
@@ -1097,7 +1097,7 @@ kcontrol i innych z kdebase z przypisami. Zawiera:
 %patch -P16 -p1
 %patch -P18 -p1
 # FIXME (still needed?)
-#%patch19 -p1
+#%%patch19 -p1
 %patch -P20 -p1
 %patch -P21 -p1
 %patch -P22 -p0
